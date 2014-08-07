@@ -11,7 +11,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Filter, RequestHeader, SimpleResult}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import scala.concurrent.Future
-import  AccessLoggingFilter.AccessLoggerName
+import AccessLoggingFilter.AccessLoggerName
 
 class AccessLoggingFilter @Inject()(clfEntryBuilder: ClfEntryBuilder,
                                     @Named(AccessLoggerName) accessLogger: LoggerLike) extends Filter {

@@ -13,7 +13,7 @@ import viewmodels.AllCacheKeys
 
 final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page during opening times" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
 
       page.title should equal(BeforeYouStartPage.title)
