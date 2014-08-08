@@ -2,7 +2,9 @@ package filters
 
 import com.google.inject.Guice
 import com.tzavellas.sse.guice.ScalaModule
+import composition.Composition
 import org.mockito.Matchers.any
+import org.mockito.Mock
 import org.mockito.Mockito.{never, verify, when}
 import play.api.http.HeaderNames
 import play.api.mvc.{Cookie, Cookies, RequestHeader, Results, SimpleResult}
@@ -18,10 +20,6 @@ import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
 import play.api.mvc.SimpleResult
 
 class EnsureServiceOpenFilterSpec extends UnitSpec {
-
-  val v = new Config()
-
-  println (">>>>>> Opening " + v.opening)
 
   "Create a session if there is not one" in setUp {
 
@@ -52,8 +50,15 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
 
   private def setUp(test: SetUp => Any) {
     val sessionFactory = mock[ClientSideSessionFactory]
+
     val injector = Guice.createInjector(new ScalaModule {
-      override def configure(): Unit = bind[ClientSideSessionFactory].toInstance(sessionFactory)
+      override def configure(): Unit = {
+        bind[ClientSideSessionFactory].toInstance(sessionFactory)
+        val mockConfig = mock[Config]
+        when(mockConfig.opening).thenReturn(9)
+        when(mockConfig.closing).thenReturn(19)
+        bind[Config].toInstance(mockConfig)
+      }
     })
 
     test(SetUp(
@@ -63,4 +68,5 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
       nextFilter = new MockFilter()
     ))
   }
+
 }
