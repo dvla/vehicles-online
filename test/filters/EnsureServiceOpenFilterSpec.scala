@@ -14,11 +14,14 @@ import scala.language.existentials
 import uk.gov.dvla.vehicles.presentation.common.filters.EnsureSessionCreatedFilter
 import helpers.UnitSpec
 import utils.helpers.Config
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
+import play.api.mvc.SimpleResult
 
 class EnsureServiceOpenFilterSpec extends UnitSpec {
 
-  val v = new Config
-  println (">>>>>> Opening" + v.opening)
+  val v = new Config()
+
+  println (">>>>>> Opening " + v.opening)
 
   "Create a session if there is not one" in setUp {
 
