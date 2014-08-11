@@ -18,7 +18,6 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
 
   override def apply(nextFilter: (RequestHeader) => Future[SimpleResult])(requestHeader: RequestHeader): Future[SimpleResult] = {
 
-    //ToDo - Is there a neater way of achieving the first if condition (filtering based on target)
     if (whitelist.exists(requestHeader.path.contains)) nextFilter(requestHeader)
     else if (!serviceOpen) Future(Results.ServiceUnavailable(views.html.disposal_of_vehicle.closed()))
          else nextFilter(requestHeader)
@@ -33,7 +32,8 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
   def isNotSunday(day: DateTime): Boolean = day.getDayOfWeek != 7
 
   def isDuringOpeningHours(timeInMillis: Int): Boolean = {
-    (timeInMillis >= opening) && (timeInMillis < closing)
+    if (closing >= opening) (timeInMillis >= opening) && (timeInMillis < closing)
+    else (timeInMillis < closing) || (timeInMillis >= opening)
   }
 
   val dstOffsetMillis = TimeZone.getTimeZone("Europe/London").getDSTSavings
