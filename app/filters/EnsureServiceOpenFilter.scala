@@ -8,6 +8,7 @@ import play.api.mvc.SimpleResult
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.helpers.Config
 import com.google.inject.Inject
+import ServiceOpen.whitelist
 
 class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter {
 
@@ -18,7 +19,7 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
   override def apply(nextFilter: (RequestHeader) => Future[SimpleResult])(requestHeader: RequestHeader): Future[SimpleResult] = {
 
     //ToDo - Is there a neater way of achieving the first if condition (filtering based on target)
-    if (requestHeader.path.contains("/assets/")) nextFilter(requestHeader)
+    if (whitelist.exists(requestHeader.path.contains)) nextFilter(requestHeader)
     else if (!serviceOpen) Future(Results.ServiceUnavailable(views.html.disposal_of_vehicle.closed()))
          else nextFilter(requestHeader)
   }
