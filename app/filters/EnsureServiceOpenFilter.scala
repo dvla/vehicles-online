@@ -33,7 +33,7 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
 
   def isDuringOpeningHours(timeInMillis: Int): Boolean = {
     if (closing >= opening) (timeInMillis >= opening) && (timeInMillis < closing)
-    else (timeInMillis < closing) || (timeInMillis >= opening)
+    else (timeInMillis >= opening) || (timeInMillis < closing)
   }
 
   val dstOffsetMillis = TimeZone.getTimeZone("Europe/London").getDSTSavings
