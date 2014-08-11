@@ -1,14 +1,13 @@
-package webserviceclients.fakes
+package uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes
 
 import play.api.http.Status.{OK, SERVICE_UNAVAILABLE}
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleDetailsDto, VehicleDetailsRequestDto, VehicleDetailsResponseDto, VehicleLookupWebService}
-
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleDetailsResponseDto, VehicleDetailsRequestDto, VehicleDetailsDto}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 final class FakeVehicleLookupWebService extends VehicleLookupWebService {
-  import webserviceclients.fakes.FakeVehicleLookupWebService._
+  import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.FakeVehicleLookupWebService._
 
   override def callVehicleLookupService(request: VehicleDetailsRequestDto, trackingId: String) = Future {
     val (responseStatus, response) = {

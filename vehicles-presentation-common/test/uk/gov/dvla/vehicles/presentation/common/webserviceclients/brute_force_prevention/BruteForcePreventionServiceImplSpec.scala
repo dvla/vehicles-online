@@ -1,18 +1,18 @@
-package webserviceclients.brute_force_prevention
+package uk.gov.dvla.vehicles.presentation.common.webserviceclients.brute_force_prevention
 
 import org.mockito.Mockito.when
 import play.api.libs.ws.Response
-import helpers.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.UnitSpec
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.Try
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseFirstAttempt
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseSecondAttempt
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmThrows
-import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
-import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseFirstAttempt
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseSecondAttempt
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmThrows
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
 
 final class BruteForcePreventionServiceImplSpec extends UnitSpec {
   "isVrmLookupPermitted" should {

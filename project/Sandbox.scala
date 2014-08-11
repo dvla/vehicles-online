@@ -18,8 +18,6 @@ object CommonResolvers {
 }
 
 object Sandbox extends Plugin {
-  final val HttpsPort = 19443
-
   final val VersionOsAddressLookup = "0.1-SNAPSHOT"
   final val VersionVehiclesLookup = "0.1-SNAPSHOT"
   final val VersionVehiclesDisposeFulfil = "0.1-SNAPSHOT"
@@ -30,7 +28,12 @@ object Sandbox extends Plugin {
   final val VersionGatling = "1.0-SNAPSHOT"
   final val VersionGatlingApp = "2.0.0-M4-NAP"
 
-  val legacyServicesStubsPort = 18086
+  final val HttpsPort = 17443
+  final val OsAddressLookupPort = 17801
+  final val VehicleLookupPort = 17802
+  final val VehicleDisposePort = 17803
+
+  final val LegacyServicesStubsPort = 17086
   val secretProperty = "DECRYPT_PASSWORD"
   val secretProperty2 = "GIT_SECRET_PASSPHRASE"
   val gitHost = "gitlab.preview-dvla.co.uk"
@@ -85,45 +88,51 @@ object Sandbox extends Plugin {
     val targetFolder = (target in ThisProject).value
     val secretRepoFolder = new File(targetFolder, "secretRepo")
     updateSecretVehiclesOnline(secretRepoFolder)
-
     runProject(
       fullClasspath.all(scopeOsAddressLookup).value.flatten,
       Some(ConfigDetails(
         secretRepoFolder,
-        classDirectory.all(scopeOsAddressLookup).value.head,
         "ms/dev/os-address-lookup.conf.enc",
-        osAddressLookup.id
+        Some(ConfigOutput(
+          new File(classDirectory.all(scopeOsAddressLookup).value.head, s"${osAddressLookup.id}.conf"),
+          setServicePort(OsAddressLookupPort)
+        ))
       ))
     )
     runProject(
       fullClasspath.all(scopeVehiclesLookup).value.flatten,
       Some(ConfigDetails(
         secretRepoFolder,
-        classDirectory.all(scopeVehiclesLookup).value.head,
         "ms/dev/vehicles-lookup.conf.enc",
-        vehiclesLookup.id,
-        updatePropertyPort("getVehicleDetails.baseurl", legacyServicesStubsPort)
+        Some(ConfigOutput(
+          new File(classDirectory.all(scopeVehiclesLookup).value.head, s"${vehiclesLookup.id}.conf"),
+          setServicePortAndLegacyServicesPort(VehicleLookupPort, "getVehicleDetails.baseurl", LegacyServicesStubsPort)
+        ))
       ))
     )
     runProject(
       fullClasspath.all(scopeVehiclesDisposeFulfil).value.flatten,
-        Some(ConfigDetails(
-          secretRepoFolder,
-          classDirectory.all(scopeVehiclesDisposeFulfil).value.head,
-          "ms/dev/vehicles-dispose-fulfil.conf.enc",
-          vehiclesDisposeFulfil.id,
-          updatePropertyPort("vss.baseurl", legacyServicesStubsPort)
+      Some(ConfigDetails(
+        secretRepoFolder,
+        "ms/dev/vehicles-dispose-fulfil.conf.enc",
+        Some(ConfigOutput(
+          new File(classDirectory.all(scopeVehiclesDisposeFulfil).value.head, s"${vehiclesDisposeFulfil.id}.conf"),
+          setServicePortAndLegacyServicesPort(VehicleDisposePort, "vss.baseurl", LegacyServicesStubsPort)
         ))
+      ))
     )
     runProject(
       fullClasspath.all(scopeLegacyStubs).value.flatten,
       None,
-      runJavaMain("service.LegacyServicesRunner", Array(legacyServicesStubsPort.toString))
+      runJavaMain("service.LegacyServicesRunner", Array(LegacyServicesStubsPort.toString))
     )
   }
 
   lazy val sandbox = taskKey[Unit]("Runs the whole sandbox for manual testing including microservices, webapp and legacy stubs'")
   lazy val sandboxTask = sandbox <<= (runMicroServices, (run in Runtime).toTask("")) { (body, stop) =>
+    System.setProperty("ordnancesurvey.baseUrl", s"http://localhost:$OsAddressLookupPort")
+    System.setProperty("vehicleLookup.baseUrl", s"http://localhost:$VehicleLookupPort")
+    System.setProperty("disposeVehicle.baseUrl", s"http://localhost:$VehicleDisposePort")
     body.flatMap(t => stop)
   }
 
@@ -246,18 +255,20 @@ object Sandbox extends Plugin {
   }
 
   case class ConfigDetails(secretRepo: File,
-                          classDirectory: File,
-                          encryptedConfig: String,
-                          decryptedConfig: String,
-                          decryptedTransform: String => String = a => a)
+                           encryptedConfig: String,
+                           output: Option[ConfigOutput],
+                           systemPropertySetter: String => Unit = a => ())
+
+  case class ConfigOutput(decryptedOutput: File, transform: String => String = a => a)
 
   def runProject(prjClassPath: Seq[Attributed[File]],
-                 configPair: Option[ConfigDetails],
+                 configDetails: Option[ConfigDetails],
                  runMainMethod: (ClassLoader) => Any = runScalaMain("dvla.microservice.Boot")): Any = {
-    configPair.map { case ConfigDetails(secretRepo, classDir, encryptedConfig, decryptedConfig, decryptedTransform) =>
+    configDetails.map { case ConfigDetails(secretRepo, encryptedConfig, output, systemPropertySetter) =>
       val encryptedConfigFile = new File(secretRepo, encryptedConfig)
-      val decryptedConfigFile = new java.io.File(classDir, s"$decryptedConfig.conf")
-      decryptFile(secretRepo.getAbsolutePath, encryptedConfigFile, decryptedConfigFile, decryptedTransform)
+      output.map { case ConfigOutput(decryptedOutput, transform)=>
+        decryptFile(secretRepo.getAbsolutePath, encryptedConfigFile, decryptedOutput, transform)
+      }
     }
 
     val prjClassloader = new URLClassLoader(
@@ -289,6 +300,17 @@ object Sandbox extends Plugin {
     FileUtils.writeStringToFile(dest, transformedFile)
   }
 
+  def setServicePortAndLegacyServicesPort(servicePort: Int, urlProperty: String, newPort: Int)
+                                       (properties: String): String =
+    setServicePort(servicePort)(updatePropertyPort(urlProperty, newPort)(properties))
+
+  def setServicePort(servicePort: Int)(properties: String): String = {
+    s"""
+    |$properties
+    |port=$servicePort
+    """.stripMargin
+  }
+
   def updatePropertyPort(urlProperty: String, newPort: Int)(properties: String): String = {
     val config = ConfigFactory.parseReader(new StringReader(properties))
     val url = new URL(config.getString(urlProperty))
@@ -297,4 +319,5 @@ object Sandbox extends Plugin {
 
     properties.replace(url.toString, newUrl.toString)
   }
+
 }

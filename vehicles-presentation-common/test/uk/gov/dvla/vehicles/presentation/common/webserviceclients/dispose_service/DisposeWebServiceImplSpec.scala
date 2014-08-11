@@ -1,16 +1,18 @@
-package webserviceclients.dispose_service
+package uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose_service
 
-import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
-import helpers.{UnitSpec, WireMockFixture}
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClearTextClientSideSessionFactory, NoCookieFlags}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.WireMockFixture
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.DisposeConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose.{DisposeWebServiceImpl, DisposeRequestDto, DisposalAddressDto}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeWebServiceImpl}
+import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
 
 class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
 
-  implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
+  implicit val noCookieFlags = new NoCookieFlags
+  implicit val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
   val disposeService = new DisposeWebServiceImpl(new DisposeConfig() {
     override val baseUrl = s"http://localhost:$wireMockPort"
   })

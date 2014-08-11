@@ -1,11 +1,11 @@
-package webserviceclients.fakes
+package uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes
 
 import org.joda.time.{DateTime, Instant}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 
 final class FakeDateServiceImpl extends DateService {
-  import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+  import FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 
   override def today = DayMonthYear(
     DateOfDisposalDayValid.toInt,

@@ -1,9 +1,9 @@
-package webserviceclients.address_lookup.gds
+package uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds
 
-import helpers.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.UnitSpec
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.WebServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.GDSAddressLookupConfig
-import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeValidWithSpace}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeValidWithSpace}
 
 final class WebServiceImplSpec extends UnitSpec {
   "postcodeWithNoSpaces" should {

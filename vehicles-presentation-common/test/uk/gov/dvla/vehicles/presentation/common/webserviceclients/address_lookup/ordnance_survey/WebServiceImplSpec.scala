@@ -1,14 +1,15 @@
-package webserviceclients.address_lookup.ordnance_survey
+package uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey
 
-import helpers.{UnitSpec, WireMockFixture}
 import org.scalatest.concurrent.PatienceConfiguration.Interval
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{NoCookieFlags, ClientSideSessionFactory}
+import uk.gov.dvla.vehicles.presentation.common.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClearTextClientSideSessionFactory, NoCookieFlags, ClientSideSessionFactory}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.WireMockFixture
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.WebServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.OrdnanceSurveyConfig
 import scala.concurrent.duration.DurationInt
 import play.api.i18n.Lang
-import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeValidWithSpace}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeValidWithSpace}
 import com.github.tomakehurst.wiremock.client.WireMock.{getRequestedFor, urlEqualTo, equalTo}
 
 final class WebServiceImplSpec extends UnitSpec  with WireMockFixture {
@@ -17,8 +18,7 @@ final class WebServiceImplSpec extends UnitSpec  with WireMockFixture {
   val interval = Interval(50.millis)
 
   implicit val noCookieFlags = new NoCookieFlags
-
-  implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
+  implicit val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
   val addressLookupService = new WebServiceImpl(new OrdnanceSurveyConfig() {
     override val baseUrl = s"http://localhost:$wireMockPort"
   })

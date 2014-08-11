@@ -1,6 +1,6 @@
-package webserviceclients.address_lookup.gds
+package uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds
 
-import helpers.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.UnitSpec
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
 import ClearTextClientSideSessionFactory.DefaultTrackingId
 import org.mockito.Mockito.when
@@ -13,10 +13,10 @@ import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.Address
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.JsonFormats.addressFormat
-import webserviceclients.address_lookup.gds
-import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.{gdsAddress, traderUprnValid}
-import webserviceclients.fakes.{FakeAddressLookupWebServiceImpl, FakeResponse}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.FakeAddressLookupWebServiceImpl.{gdsAddress, traderUprnValid}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.fakes.{FakeAddressLookupWebServiceImpl, FakeResponse}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
