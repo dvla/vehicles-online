@@ -329,6 +329,13 @@ select {
     }
     .copyright {
         margin-bottom:5px;
+        text-align:right;
+        a {
+            text-decoration:none;
+        }
+        img {
+            max-width:100px !important;
+        }
     }
 }
 
@@ -342,7 +349,6 @@ select {
 .print-message,
 .vehicles-online .prototype,
 .footer .footer-meta-inner,
-.footer .copyright a,
 body .actions,
 .visuallyhidden,
 #local-locator-form,

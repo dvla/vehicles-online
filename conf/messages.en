@@ -181,7 +181,7 @@ disposal_beforeyoustart.listitem4 = Once you have completed this service, DVLA w
 disposal_beforeyoustart.button = Start now
 
 #page 2 - set-up trade details
-disposal_setuptradedetails.title = Provide your trader details
+disposal_setuptradedetails.title = Provide trader details
 disposal_setuptradedetails.name = Sell a vehicle into the motor trade
 disposal_setuptradedetails.p1 = Set-up trade details
 disposal_setuptradedetails.tradernamelabel = Trader name
@@ -193,7 +193,7 @@ traderName = Trader name
 traderPostcode = Postcode
 
 #page 3
-disposal_businessChooseYourAddress_title = Select your trader address
+disposal_businessChooseYourAddress_title = Select trader address
 disposal_businessChooseYourAddress_legend = Set up trade details
 disposal_businessChooseYourAddress_businessName_label = Trader name
 disposal_businessChooseYourAddress_businessName = {0}
