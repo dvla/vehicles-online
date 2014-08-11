@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver
 import pages.disposal_of_vehicle.BeforeYouStartPage.startNow
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage}
 import viewmodels.AllCacheKeys
+import utils.helpers.Config
 
 final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

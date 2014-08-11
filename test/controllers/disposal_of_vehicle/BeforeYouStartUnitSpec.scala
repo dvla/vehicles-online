@@ -9,6 +9,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
+import filters.EnsureServiceOpenFilter
 
 final class BeforeYouStartUnitSpec extends UnitSpec {
   "present" should {

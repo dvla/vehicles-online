@@ -46,8 +46,11 @@ class Config {
 
   // Progress step indicator
   val isProgressBarEnabled: Boolean = getProperty("progressBar.enabled", default = true)
-
   val isHtml5ValidationEnabled: Boolean = getProperty("html5Validation.enabled", default = false)
 
   val startUrl: String = getProperty("start.page", default = "NOT FOUND")
+
+  // opening and closing times
+  val opening: Int = getProperty("openingTime", default = 8)
+  val closing: Int = getProperty("closingTime", default = 18)
 }
