@@ -1,8 +1,0 @@
-@(form: play.api.data.Form[_])(implicit lang: Lang)
-
-@import uk.gov.dvla.vehicles.presentation.common.views
-@import views.helpers.FormExtensions._
-
-@if(form.anyMandatoryFields) {
-    <p class="mandatory">@Messages("mandatory")</p>
-}
