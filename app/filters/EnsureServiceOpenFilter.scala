@@ -19,7 +19,7 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
   override def apply(nextFilter: (RequestHeader) => Future[SimpleResult])(requestHeader: RequestHeader): Future[SimpleResult] = {
 
     if (whitelist.exists(requestHeader.path.contains)) nextFilter(requestHeader)
-    else if (!serviceOpen) Future(Results.ServiceUnavailable(views.html.disposal_of_vehicle.closed()))
+    else if (!serviceOpen) Future(Results.Ok(views.html.disposal_of_vehicle.closed()))
          else nextFilter(requestHeader)
   }
 

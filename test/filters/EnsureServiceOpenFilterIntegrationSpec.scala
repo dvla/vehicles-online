@@ -24,7 +24,7 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
       case SetUp(filter, request, sessionFactory, nextFilter) =>
         val filterResult: Future[SimpleResult] = filter.apply(nextFilter)(request)
         whenReady(filterResult) { result =>
-          result.header.status should be(503)
+          result.header.status should be(200)
         }
     }
   }
