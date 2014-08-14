@@ -102,6 +102,12 @@ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
 credentials += Credentials(Path.userHome / ".sbt/.credentials")
 
+ScoverageSbtPlugin.instrumentSettings
+
+ScoverageSbtPlugin.ScoverageKeys.excludedPackages in ScoverageSbtPlugin.scoverage := "<empty>;Reverse.*"
+
+CoverallsPlugin.coverallsSettings
+
 resolvers ++= projectResolvers
 
 runMicroServicesTask
