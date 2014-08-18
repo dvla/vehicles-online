@@ -32,6 +32,7 @@ import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import org.joda.time.{Instant, DateTime}
 
 final class DisposeUnitSpec extends UnitSpec {
   "present" should {
@@ -563,6 +564,12 @@ final class DisposeUnitSpec extends UnitSpec {
     when(dateService.today).thenReturn(new DayMonthYear(day = day,
       month = month,
       year = year))
+
+    val instant = new DayMonthYear(day = day,
+      month = month,
+      year = year).toDateTime.get.getMillis
+
+    when(dateService.now).thenReturn(new Instant(instant))
     dateService
   }
 
