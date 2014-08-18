@@ -142,7 +142,7 @@ widget.optional = (optional)
 #customer validation messages
 error.restricted.validNumberOnly = This field only accepts numbers
 error.restricted.validVrnOnly = Must be as shown on the latest V5C
-error.restricted.validPostcode = Must be between 5 and 8 characters and in a valid format, eg. PR2 8AE or PR28AE
+error.restricted.validPostcode = Must be between five and eight characters and in a valid format, eg. AB1 2BA or AB12BA
 
 datePlaceholder.day=Day
 datePlaceholder.month=Month
@@ -187,7 +187,7 @@ disposal_setuptradedetails.p1 = Set-up trade details
 disposal_setuptradedetails.tradernamelabel = Trader name
 disposal_setuptradedetails.traderpostcodelabel = Postcode
 disposal_setuptradedetails.traderpostcodelabel.validation = Must be between 5 and 8 characters and in a valid format, eg. PR2 8AE or PR28AE
-disposal_setuptradedetails.traderpostcode.hint = e.g. PR2 8AE or PR28AE
+disposal_setuptradedetails.traderpostcode.hint = eg. AB1 2BA or AB12BA
 disposal_setuptradedetails.button = Find address
 traderName = Trader name
 traderPostcode = Postcode
@@ -348,7 +348,7 @@ addressAndPostcode.postcode = Postcode
 error.validTraderBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, +, -, ‘, &, @, () and ,)
 error.address.buildingNameOrNumber.invalid = Building/number and street must contain between 4 and 30 characters
 error.address.postTown = Town or city must contain a minimum of 3 characters
-error.address.postcode.invalid = Must be between five 5 and eight 8 characters and in a valid format, eg. PR2 8AE or PR28AE
+error.address.postcode.invalid = Must be between five and eight characters and in a valid format, eg. AB1 2Ba or AB12BA
 
 # progress messages
 disposal_progress_1 = Step 1 of 6
