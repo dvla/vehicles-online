@@ -142,7 +142,7 @@ $is-print: false !default;
     }
 }
 
-@mixin core-27($line-height: (30 / 27), $line-height-640: (20 / 18), $tabular-numbers: false) {
+@mixin core-27($tabular-numbers: false) {
     @if $tabular-numbers == true {
         font-family: $NTA-Light-Tabular;
     } @else {
@@ -153,12 +153,11 @@ $is-print: false !default;
     } @else {
         font-size: 16pt;
     }
-    line-height: $line-height;
+    line-height:1.22222;
     font-weight: 400;
     text-transform: none;
     @media (max-width: 640px) {
         font-size: 18px;
-        line-height: $line-height-640;
     }
 }
 
@@ -258,7 +257,7 @@ $is-print: false !default;
 }
 
 @mixin bold-27($line-height: (30 / 27), $line-height-640: (20 / 18), $tabular-numbers: false) {
-    @include core-27($line-height, $line-height-640, $tabular-numbers: $tabular-numbers);
+    @include core-27($tabular-numbers: $tabular-numbers);
     font-weight: 700;
 }
 
