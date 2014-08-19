@@ -4,9 +4,9 @@ import com.google.inject.Inject
 import org.joda.time.format.ISODateTimeFormat
 import play.api.Logger
 import play.api.data.{Form, FormError}
-import play.api.mvc.{Action, AnyContent, Call, Controller, Request, SimpleResult}
+import play.api.mvc.{Action, AnyContent, Call, Controller, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichSimpleResult}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
@@ -103,7 +103,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
       dealerAddress = traderDetails.traderAddress.address)
 
   private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormViewModel, trackingId: String)
-                           (implicit request: Request[AnyContent]): Future[SimpleResult] = {
+                           (implicit request: Request[AnyContent]): Future[Result] = {
 
     def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto]) =
     // This makes the choice of which page to go to based on the first one it finds that is not None.
@@ -129,7 +129,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
       }
     }
 
-    def storeResponseInCache(response: Option[DisposeResponseDto], nextPage: SimpleResult): SimpleResult =
+    def storeResponseInCache(response: Option[DisposeResponseDto], nextPage: Result): Result =
       response match {
         case Some(o) =>
           val nextPageWithTransactionId =
@@ -142,7 +142,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
         case None => nextPage
       }
 
-    def transactionTimestamp(nextPage: SimpleResult) = {
+    def transactionTimestamp(nextPage: Result) = {
       val transactionTimestamp = dateService.today.toDateTime.get
       val formatter = ISODateTimeFormat.dateTime()
       val isoDateTimeString = formatter.print(transactionTimestamp)

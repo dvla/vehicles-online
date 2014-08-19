@@ -6,7 +6,7 @@ import helpers.UiSpec
 import helpers.webbrowser.TestHarness
 import org.mockito.Mockito.{never, verify, when, mock}
 import org.scalatest.concurrent.{ScalaFutures, Futures}
-import play.api.mvc.{Results, SimpleResult, RequestHeader}
+import play.api.mvc.{Results, Result, RequestHeader}
 import play.api.test.FakeRequest
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
@@ -22,7 +22,7 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
   "Return a service unavailable status if trying to access the service out of hours" in new WebBrowser {
     setUpOutOfHours {
       case SetUp(filter, request, sessionFactory, nextFilter) =>
-        val filterResult: Future[SimpleResult] = filter.apply(nextFilter)(request)
+        val filterResult: Future[Result] = filter.apply(nextFilter)(request)
         whenReady(filterResult) { result =>
           result.header.status should be(200)
         }
@@ -30,20 +30,20 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
   }
 
   // Returning a 200 is a proxy measure for continuing to the requested page
-    "Return an OK if trying to access the service within acceptable hours" in new WebBrowser{
-      setUpInHours {
-        case SetUp(filter, request, sessionFactory, nextFilter) =>
-          val filterResult: Future[SimpleResult] = filter.apply(nextFilter)(request)
-          whenReady(filterResult) { result =>
-            result.header.status should be(200)
-          }
-      }
+  "Return an OK if trying to access the service within acceptable hours" in new WebBrowser{
+    setUpInHours {
+      case SetUp(filter, request, sessionFactory, nextFilter) =>
+        val filterResult: Future[Result] = filter.apply(nextFilter)(request)
+        whenReady(filterResult) { result =>
+          result.header.status should be(200)
+        }
     }
+  }
 
-  private class MockFilter extends ((RequestHeader) => Future[SimpleResult]) {
+  private class MockFilter extends ((RequestHeader) => Future[Result]) {
     var passedRequest: RequestHeader = _
 
-    override def apply(rh: RequestHeader): Future[SimpleResult] = {
+    override def apply(rh: RequestHeader): Future[Result] = {
       passedRequest = rh
       Future(Results.Ok)
     }
@@ -95,6 +95,5 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
       nextFilter = new MockFilter()
     ))
   }
-
 
 }

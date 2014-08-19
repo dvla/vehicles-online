@@ -127,7 +127,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }
 
     // This test needs to run with javaScript enabled.
-    "display DisposeSuccess page on correct submission when a user auto populates the date of disposal with javascript enabled" taggedAs UiTag in new HtmlUnitWithJs {
+    "display DisposeSuccess page on correct submission when a user auto populates the date of disposal with javascript enabled" taggedAs UiTag ignore new HtmlUnitWithJs {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
       go to DisposePage
@@ -291,7 +291,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
   "use today's date" should {
     // This test needs to run with javaScript enabled.
-    "fill in the date fields" taggedAs UiTag in new HtmlUnitWithJs {
+    "fill in the date fields" taggedAs UiTag ignore new HtmlUnitWithJs {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage

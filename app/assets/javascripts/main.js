@@ -2,12 +2,12 @@ require.config({
     paths: {
         'jquery': 'lib/jquery/jquery-1.9.1.min',
         'jquery-migrate': 'lib/jquery/jquery-migrate-1.2.1.min',
-        'header-footer-only': 'header-footer-only'
-    },
-    optimize: "none"
+        'header-footer-only': 'header-footer-only',
+        'autofill': 'autofill-todays-date'
+    }
 });
 
-require(["jquery", "jquery-migrate", "header-footer-only"],function($) {
+require(["jquery", "jquery-migrate", "header-footer-only", "autofill"],function($) {
 
     var IE10 = (navigator.userAgent.match(/(MSIE 10.0)/g) ? true : false);
     if (IE10) {

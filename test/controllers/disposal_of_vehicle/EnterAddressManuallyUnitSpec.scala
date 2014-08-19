@@ -8,7 +8,7 @@ import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{SetupTradeDetailsPage, VehicleLookupPage}
-import play.api.mvc.SimpleResult
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -272,7 +272,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
 
   private val traderDetailsCookieName = "traderDetails"
 
-  private def validateAddressCookieValues(result: Future[SimpleResult], buildingName: String, line2: String,
+  private def validateAddressCookieValues(result: Future[Result], buildingName: String, line2: String,
                                           line3: String, postTown: String, postCode: String = PostcodeValid) = {
 
     whenReady(result) { r =>

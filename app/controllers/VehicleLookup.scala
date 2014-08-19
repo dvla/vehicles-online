@@ -3,10 +3,10 @@ package controllers
 import com.google.inject.Inject
 import play.api.Logger
 import play.api.data.{Form, FormError}
-import play.api.mvc.{Action, AnyContent, Controller, Request, SimpleResult}
+import play.api.mvc.{Action, AnyContent, Controller, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common.LogFormats
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichSimpleResult}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel, BruteForcePreventionModel}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
@@ -112,7 +112,7 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
   }
 
   private def bruteForceAndLookup(formModel: VehicleLookupFormViewModel)
-                                 (implicit request: Request[_]): Future[SimpleResult] =
+                                 (implicit request: Request[_]): Future[Result] =
 
     bruteForceService.isVrmLookupPermitted(formModel.registrationNumber).flatMap { bruteForcePreventionViewModel =>
       // TODO US270 @Lawrence please code review the way we are using map, the lambda (I think we could use _ but it looks strange to read) and flatmap
@@ -135,7 +135,7 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
 
   private def lookupVehicleResult(model: VehicleLookupFormViewModel,
                                   bruteForcePreventionViewModel: BruteForcePreventionModel)
-                                 (implicit request: Request[_]): Future[SimpleResult] = {
+                                 (implicit request: Request[_]): Future[Result] = {
     def vehicleFoundResult(vehicleDetailsDto: VehicleDetailsDto) =
       Redirect(routes.Dispose.present()).
         withCookie(VehicleDetailsModel.fromDto(vehicleDetailsDto)).

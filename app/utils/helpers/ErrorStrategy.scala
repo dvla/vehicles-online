@@ -10,7 +10,7 @@ import uk.gov.dvla.vehicles.presentation.common.filters.{AccessLoggingFilter, Cl
 import AccessLoggingFilter.AccessLoggerName
 import play.api.libs.Codecs
 import play.api.mvc.Results.Redirect
-import play.api.mvc.{RequestHeader, SimpleResult}
+import play.api.mvc.{RequestHeader, Result}
 import play.api.{Logger, LoggerLike}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.InvalidSessionException
 import uk.gov.dvla.vehicles.presentation.common.filters.ClfEntryBuilder
@@ -21,7 +21,7 @@ class ErrorStrategy @Inject()(clfEntryBuilder: ClfEntryBuilder,
                               @Named(AccessLoggerName) accessLogger: LoggerLike) {
 
   def apply(request: RequestHeader, ex: Throwable)
-           (implicit executionContext: ExecutionContext): Future[SimpleResult] = {
+           (implicit executionContext: ExecutionContext): Future[Result] = {
     val result = ex.getCause match {
       case _: BadPaddingException => CookieHelper.discardAllCookies(request)
       case _: InvalidSessionException => CookieHelper.discardAllCookies(request)

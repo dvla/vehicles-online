@@ -52,7 +52,7 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupFailurePage
 import pages.disposal_of_vehicle.VrmLockedPage
 import play.api.libs.json.{JsValue, Json}
-import play.api.libs.ws.Response
+import play.api.libs.ws.WSResponse
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
 import scala.concurrent.duration.DurationInt
@@ -551,7 +551,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
 
   private val ExitAnchorHtml = """a id="exit""""
 
-  private def responseThrows: Future[Response] = Future {
+  private def responseThrows: Future[WSResponse] = Future {
     throw new RuntimeException("This error is generated deliberately by a test")
   }
 

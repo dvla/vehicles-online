@@ -6,7 +6,7 @@ import com.typesafe.config.ConfigFactory
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.mvc.Results.NotFound
-import play.api.mvc.{RequestHeader, SimpleResult}
+import play.api.mvc.{RequestHeader, Result}
 import play.api.{Application, Configuration, GlobalSettings, Logger, Mode, Play}
 import utils.helpers.Config
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -55,7 +55,7 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = {
+  override def onHandlerNotFound(request: RequestHeader): Future[Result] = {
     Future {
       val playLangCookie = request.cookies.get(Play.langCookieName)
       val value: String = playLangCookie match {
@@ -69,6 +69,6 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
     }
   }
 
-  override def onError(request: RequestHeader, ex: Throwable): Future[SimpleResult] =
+  override def onError(request: RequestHeader, ex: Throwable): Future[Result] =
     errorStrategy(request, ex)
 }

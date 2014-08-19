@@ -3,7 +3,7 @@ package webserviceclients.fakes
 import play.api.Logger
 import play.api.http.Status.OK
 import play.api.libs.json.Json
-import play.api.libs.ws.Response
+import play.api.libs.ws.WSResponse
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose.{DisposeRequestDto, DisposeResponseDto, DisposeWebService}
 import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
 
@@ -13,7 +13,7 @@ import scala.concurrent.Future
 final class FakeDisposeWebServiceImpl extends DisposeWebService {
   import webserviceclients.fakes.FakeDisposeWebServiceImpl._
 
-  override def callDisposeService(request: DisposeRequestDto, trackingId: String): Future[Response] = Future {
+  override def callDisposeService(request: DisposeRequestDto, trackingId: String): Future[WSResponse] = Future {
     val disposeResponse: DisposeResponseDto = {
       request.referenceNumber match {
         case SimulateMicroServiceUnavailable => throw new RuntimeException("simulateMicroServiceUnavailable")

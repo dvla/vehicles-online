@@ -4,7 +4,7 @@ import play.api.mvc._
 import scala.concurrent.Future
 import org.joda.time.{DateTimeZone, DateTime}
 import java.util.TimeZone
-import play.api.mvc.SimpleResult
+import play.api.mvc.Result
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.helpers.Config
 import com.google.inject.Inject
@@ -16,8 +16,7 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
   private lazy val opening = config.opening * millisPerHour
   private lazy val closing = config.closing * millisPerHour
 
-  override def apply(nextFilter: (RequestHeader) => Future[SimpleResult])(requestHeader: RequestHeader): Future[SimpleResult] = {
-
+  override def apply(nextFilter: (RequestHeader) => Future[Result])(requestHeader: RequestHeader): Future[Result] = {
     if (whitelist.exists(requestHeader.path.contains)) nextFilter(requestHeader)
     else if (!serviceOpen) Future(Results.Ok(views.html.disposal_of_vehicle.closed()))
          else nextFilter(requestHeader)

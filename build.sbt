@@ -3,7 +3,6 @@ import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import templemore.sbt.cucumber.CucumberPlugin
 import Sandbox._
-import play.Project.playScalaSettings
 import CommonResolvers._
 
 publishTo <<= version { v: String =>
@@ -25,37 +24,31 @@ scalaVersion := "2.10.3"
 
 scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls", "-Xmax-classfile-name", "128")
 
-lazy val root = (project in file("."))
-
-playScalaSettings
+lazy val root = (project in file(".")).enablePlugins(PlayScala, SassPlugin, SbtWeb)
 
 libraryDependencies ++= Seq(
   cache,
   filters,
+  "net.sourceforge.htmlunit" % "htmlunit" % "2.15",
   "org.seleniumhq.selenium" % "selenium-java" % "2.42.2" % "test" withSources() withJavadoc(),
   "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
-  "info.cukes" % "cucumber-scala_2.10" % "1.1.7" % "test" withSources() withJavadoc(),
+  "info.cukes" %% "cucumber-scala" % "1.1.7" % "test" withSources() withJavadoc(),
   "info.cukes" % "cucumber-java" % "1.1.7" % "test" withSources() withJavadoc(),
   "info.cukes" % "cucumber-picocontainer" % "1.1.7" % "test" withSources() withJavadoc(),
-  "org.specs2" %% "specs2" % "2.3.10" % "test" withSources() withJavadoc(),
+  "org.specs2" %% "specs2" % "2.4" % "test" withSources() withJavadoc(),
   "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
   "com.github.tomakehurst" % "wiremock" % "1.46" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.7" % "test" withSources() withJavadoc(),
-  "org.scalatest" % "scalatest_2.10" % "2.2.0" % "test" withSources() withJavadoc(),
+  "org.scalatest" %% "scalatest" % "2.2.1" % "test" withSources() withJavadoc(),
   "com.google.inject" % "guice" % "4.0-beta4" withSources() withJavadoc(),
   "com.google.guava" % "guava" % "15.0" withSources() withJavadoc(), // See: http://stackoverflow.com/questions/16614794/illegalstateexception-impossible-to-get-artifacts-when-data-has-not-been-loaded
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "1.0-SNAPSHOT" withSources() withJavadoc())
+  "dvla" %% "vehicles-presentation-common" % "2.1-SNAPSHOT" classifier "asset" withSources() withJavadoc(),
+  "org.webjars" % "requirejs" % "2.1.14-1")
 
-val jsModulesToOptimise = Seq("custom.js")
-
-val jsConfig = "custom.js"
-
-requireJs := jsModulesToOptimise
-
-requireJsShim := jsConfig
+pipelineStages := Seq(rjs, digest, gzip)
 
 CucumberPlugin.cucumberSettings ++
   Seq (
@@ -91,12 +84,13 @@ jacoco.settings
 
 parallelExecution in jacoco.Config := false
 
+// Using node to do the javascript optimisation cuts the time down dramatically
+JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
 // Disable documentation generation to save time for the CI build process
 sources in doc in Compile := List()
 
 ScalastylePlugin.Settings
-
-SassPlugin.sassSettings
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
 
@@ -127,8 +121,8 @@ gatlingTask
 
 resolvers ++= projectResolvers
 
-lazy val p1 = osAddressLookup
-lazy val p2 = vehiclesLookup
-lazy val p3 = vehiclesDisposeFulfil
-lazy val p4 = legacyStubs
-lazy val p5 = gatlingTests
+lazy val p1 = osAddressLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p2 = vehiclesLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p3 = vehiclesDisposeFulfil.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p4 = legacyStubs.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p5 = gatlingTests.disablePlugins(PlayScala, SassPlugin, SbtWeb)

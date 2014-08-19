@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import controllers.routes.VehicleLookup
 import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichSimpleResult}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import utils.helpers.Config
 import viewmodels.DisposeFormViewModel.PreventGoingToDisposePageCacheKey
 
