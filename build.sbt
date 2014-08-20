@@ -35,7 +35,6 @@ libraryDependencies ++= Seq(
   "info.cukes" %% "cucumber-scala" % "1.1.7" % "test" withSources() withJavadoc(),
   "info.cukes" % "cucumber-java" % "1.1.7" % "test" withSources() withJavadoc(),
   "info.cukes" % "cucumber-picocontainer" % "1.1.7" % "test" withSources() withJavadoc(),
-  "org.specs2" %% "specs2" % "2.4" % "test" withSources() withJavadoc(),
   "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
   "com.github.tomakehurst" % "wiremock" % "1.46" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.7" % "test" withSources() withJavadoc(),
