@@ -35,7 +35,6 @@ libraryDependencies ++= Seq(
   "info.cukes" %% "cucumber-scala" % "1.1.7" % "test" withSources() withJavadoc(),
   "info.cukes" % "cucumber-java" % "1.1.7" % "test" withSources() withJavadoc(),
   "info.cukes" % "cucumber-picocontainer" % "1.1.7" % "test" withSources() withJavadoc(),
-  "org.specs2" %% "specs2" % "2.4" % "test" withSources() withJavadoc(),
   "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
   "com.github.tomakehurst" % "wiremock" % "1.46" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.7" % "test" withSources() withJavadoc(),
@@ -45,7 +44,7 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.1-SNAPSHOT" classifier "asset" withSources() withJavadoc(),
+  "dvla" %% "vehicles-presentation-common" % "2.0-SNAPSHOT" withSources() withJavadoc(),
   "org.webjars" % "requirejs" % "2.1.14-1")
 
 pipelineStages := Seq(rjs, digest, gzip)
