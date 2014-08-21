@@ -11,7 +11,7 @@ import scala.concurrent.Future
 final class FakeBruteForcePreventionWebServiceImpl() extends BruteForcePreventionWebService {
   import FakeBruteForcePreventionWebServiceImpl._
 
-  override def callBruteForce(vrm: String): Future[WSResponse] = Future {
+  override def callBruteForce(vrm: String): Future[WSResponse] = Future.successful {
     vrm match {
       case VrmLocked => new FakeResponse(status = FORBIDDEN)
       case _ => new FakeResponse(status = OK, fakeJson = responseFirstAttempt)

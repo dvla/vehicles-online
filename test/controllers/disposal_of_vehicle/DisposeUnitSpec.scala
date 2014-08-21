@@ -587,19 +587,20 @@ final class DisposeUnitSpec extends UnitSpec {
 
   private def disposeServiceMock(): DisposeService = {
     val disposeServiceMock = mock[DisposeService]
-    when(disposeServiceMock.invoke(any[DisposeRequestDto], any[String])).thenReturn(Future {
-      (0, None)
-    })
+    when(disposeServiceMock.invoke(any[DisposeRequestDto], any[String])).
+      thenReturn(Future.successful((0, None)))
+
     disposeServiceMock
   }
 
   private def disposeWebService(disposeServiceStatus: Int = OK,
                                 disposeServiceResponse: Option[DisposeResponseDto] = Some(disposeResponseSuccess)): DisposeWebService = {
     val disposeWebService = mock[DisposeWebService]
-    when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[String])).thenReturn(Future {
-      val fakeJson = disposeServiceResponse map (Json.toJson(_))
-      new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson) // Any call to a webservice will always return this successful response.
-    })
+    when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[String])).
+      thenReturn(Future.successful {
+        val fakeJson = disposeServiceResponse map (Json.toJson(_))
+        new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson) // Any call to a webservice will always return this successful response.
+      })
 
     disposeWebService
   }
