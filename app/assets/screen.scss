@@ -4,8 +4,11 @@
 @import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/base/_colours";
 @import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/base/_css3";
 @import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/base/_typography";
+@import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/base/_template";
 @import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/base/_utilities";
+
 @import "scss/base/_config";
+@import "scss/base/_prototype-banner";
 @import "scss/base/_template";
 
 @import "scss/base/header-footer/_header";
@@ -15,6 +18,7 @@
 @import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/components/_form";
 @import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/components/_alerts";
 @import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/components/_button";
+@import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/components/_prototype-banner";
 
 @import "scss/custom/_app";
 @import "scss/custom/_page-specific";
