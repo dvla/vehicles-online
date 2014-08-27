@@ -4,6 +4,8 @@
 #
 #
 
+set -o errexit
+
 test -z $WORKSPACE && echo "WORKSPACE is not set so defaulting it to current directory" && export WORKSPACE=$PWD
 echo "WORKSPACE = $WORKSPACE"
 
