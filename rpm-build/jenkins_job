@@ -1,8 +1,10 @@
 #!/bin/bash
 
-export JAVA_OPTS="-Dspecs2.color=false -Dsbt.log.format=true -Dsbt.log.noformat=true -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 $JAVA_OPTS" &&
+set -o errexit
 
-sbt -Dsbt.log.noformat=true clean test dist publish &&
+export JAVA_OPTS="-Dspecs2.color=false -Dsbt.log.format=true -Dsbt.log.noformat=true -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 $JAVA_OPTS"
 
-rm -rf target/*.rpm &&
+sbt -Dsbt.log.noformat=true clean test dist publish
+
+rm -rf target/*.rpm
 ./rpm-build/jenkins_job_make_rpm
