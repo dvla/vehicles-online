@@ -15,9 +15,10 @@ import scala.concurrent.Future
 
 final class FakeAddressLookupWebServiceImpl(responseOfPostcodeWebService: Future[WSResponse],
                                             responseOfUprnWebService: Future[WSResponse]) extends AddressLookupWebService {
+
   override def callPostcodeWebService(postcode: String, trackingId: String)
                                      (implicit lang: Lang): Future[WSResponse] =
-    if (postcode == PostcodeWithoutAddresses.toUpperCase) Future {
+    if (postcode == PostcodeWithoutAddresses.toUpperCase) Future.successful {
       FakeResponse(status = OK, fakeJson = None)
     }
     else responseOfPostcodeWebService
@@ -50,7 +51,7 @@ object FakeAddressLookupWebServiceImpl {
   def responseValidForPostcodeToAddress: Future[WSResponse] = {
     val inputAsJson = Json.toJson(postcodeToAddressResponseValid)
 
-    Future {
+    Future.successful {
       FakeResponse(status = OK, fakeJson = Some(inputAsJson))
     }
   }
@@ -58,7 +59,7 @@ object FakeAddressLookupWebServiceImpl {
   def responseValidForPostcodeToAddressNotFound: Future[WSResponse] = {
     val inputAsJson = Json.toJson(PostcodeToAddressResponseDto(addresses = Seq.empty))
 
-    Future {
+    Future.successful {
       FakeResponse(status = OK, fakeJson = Some(inputAsJson))
     }
   }
@@ -71,7 +72,7 @@ object FakeAddressLookupWebServiceImpl {
   def responseValidForUprnToAddress: Future[WSResponse] = {
     val inputAsJson = Json.toJson(uprnToAddressResponseValid)
 
-    Future {
+    Future.successful {
       FakeResponse(status = OK, fakeJson = Some(inputAsJson))
     }
   }
@@ -79,7 +80,7 @@ object FakeAddressLookupWebServiceImpl {
   def responseValidForUprnToAddressNotFound: Future[WSResponse] = {
     val inputAsJson = Json.toJson(UprnToAddressResponseDto(addressViewModel = None))
 
-    Future {
+    Future.successful {
       FakeResponse(status = OK, fakeJson = Some(inputAsJson))
     }
   }
@@ -115,7 +116,7 @@ object FakeAddressLookupWebServiceImpl {
     import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.JsonFormats._
     val inputAsJson = Json.toJson(Seq(gdsAddress(), gdsAddress(presentationStreet = "456")))
 
-    Future {
+    Future.successful {
       FakeResponse(status = OK, fakeJson = Some(inputAsJson))
     }
   }

@@ -13,7 +13,7 @@ import scala.concurrent.Future
 final class FakeDisposeWebServiceImpl extends DisposeWebService {
   import webserviceclients.fakes.FakeDisposeWebServiceImpl._
 
-  override def callDisposeService(request: DisposeRequestDto, trackingId: String): Future[WSResponse] = Future {
+  override def callDisposeService(request: DisposeRequestDto, trackingId: String): Future[WSResponse] = Future.successful {
     val disposeResponse: DisposeResponseDto = {
       request.referenceNumber match {
         case SimulateMicroServiceUnavailable => throw new RuntimeException("simulateMicroServiceUnavailable")

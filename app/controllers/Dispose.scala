@@ -48,20 +48,19 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
 
   def submit = Action.async { implicit request =>
     form.bindFromRequest.fold(
-      invalidForm =>
-        Future {
-          (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleDetailsModel]) match {
-            case (Some(traderDetails), Some(vehicleDetails)) =>
-              val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-              BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService))
-            case _ =>
-              Logger.debug("Could not find expected data in cache on dispose submit - now redirecting...")
-              Redirect(routes.SetUpTradeDetails.present())
-          }
-        },
+      invalidForm => Future.successful {
+        (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleDetailsModel]) match {
+          case (Some(traderDetails), Some(vehicleDetails)) =>
+            val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
+            BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService))
+          case _ =>
+            Logger.debug("Could not find expected data in cache on dispose submit - now redirecting...")
+            Redirect(routes.SetUpTradeDetails.present())
+        }
+      },
       validForm => {
         request.cookies.getString(PreventGoingToDisposePageCacheKey) match {
-          case Some(_) => Future {
+          case Some(_) => Future.successful {
             Redirect(routes.VehicleLookup.present())
           } // US320 prevent user using the browser back button and resubmitting.
           case None =>

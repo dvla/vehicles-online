@@ -34,7 +34,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
             setupTradeDetailsModel.traderPostcode,
             addresses))
         }
-      case None => Future {
+      case None => Future.successful {
         Redirect(routes.SetUpTradeDetails.present())
       }
     }
@@ -52,7 +52,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
                 setupTradeDetails.traderPostcode,
                 addresses))
             }
-          case None => Future {
+          case None => Future.successful {
             Logger.error("Failed to find dealer details, redirecting")
             Redirect(routes.SetUpTradeDetails.present())
           }

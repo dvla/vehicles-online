@@ -2,16 +2,8 @@
 
 //html class needs to match
 $htmlNamespace: ".vehicles-online";
-
-//device widths
-$device-x-small: 350px;
-$device-small: 640px;
-$device-medium: 767px;
-$device-large: 980px;
+$prototype-banner: $htmlNamespace + ' .prototype';
 
 //set to "alpha" or "beta" to change colours globally
 //html class needs to match
 $phase: "";
-
-//filepaths
-$image-path: "lib/vehicles-presentation-common/images/";

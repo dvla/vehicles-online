@@ -13,7 +13,7 @@ object CookieHelper {
   def discardAllCookies(implicit request: RequestHeader): Future[Result] = {
     Logger.warn("Removing all cookies except seen cookie.")
 
-    Future {
+    Future.successful {
       val discardingCookiesKeys = request.cookies.map(_.name).filter(_ != SeenCookieMessageCacheKey)
       val discardingCookies = discardingCookiesKeys.map(DiscardingCookie(_)).toSeq
       Redirect(routes.BeforeYouStart.present())

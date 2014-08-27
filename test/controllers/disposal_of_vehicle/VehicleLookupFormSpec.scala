@@ -107,10 +107,8 @@ final class VehicleLookupFormSpec extends UnitSpec {
 
   private val bruteForceServiceImpl: BruteForcePreventionService = {
     val bruteForcePreventionWebService: BruteForcePreventionWebService = mock[BruteForcePreventionWebService]
-    when(bruteForcePreventionWebService.callBruteForce(anyString())).thenReturn( Future {
-      new FakeResponse(status = OK)
-    }
-    )
+    when(bruteForcePreventionWebService.callBruteForce(anyString())).
+      thenReturn( Future.successful( new FakeResponse(status = OK) ))
 
     new BruteForcePreventionServiceImpl(
       config = new BruteForcePreventionConfig,
@@ -120,14 +118,17 @@ final class VehicleLookupFormSpec extends UnitSpec {
   }
 
   private def vehicleLookupResponseGenerator(fullResponse:(Int, Option[VehicleDetailsResponseDto])) = {
-    val vehicleLookupWebService: VehicleLookupWebService = mock[VehicleLookupWebService]
-    when(vehicleLookupWebService.callVehicleLookupService(any[VehicleDetailsRequestDto], any[String])).thenReturn(Future {
-      val responseAsJson : Option[JsValue] = fullResponse._2 match {
-        case Some(e) => Some(Json.toJson(e))
-        case _ => None
-      }
-      new FakeResponse(status = fullResponse._1, fakeJson = responseAsJson)// Any call to a webservice will always return this successful response.
-    })
+    val vehicleLookupWebService = mock[VehicleLookupWebService]
+
+    when(vehicleLookupWebService.callVehicleLookupService(any[VehicleDetailsRequestDto], any[String])).
+      thenReturn(Future.successful {
+        val responseAsJson : Option[JsValue] = fullResponse._2 match {
+          case Some(e) => Some(Json.toJson(e))
+          case _ => None
+        }
+        new FakeResponse(status = fullResponse._1, fakeJson = responseAsJson)// Any call to a webservice will always return this successful response.
+      })
+
     val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(vehicleLookupWebService)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]

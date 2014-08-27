@@ -10,7 +10,7 @@ import scala.concurrent.Future
 final class FakeVehicleLookupWebService extends VehicleLookupWebService {
   import webserviceclients.fakes.FakeVehicleLookupWebService._
 
-  override def callVehicleLookupService(request: VehicleDetailsRequestDto, trackingId: String) = Future {
+  override def callVehicleLookupService(request: VehicleDetailsRequestDto, trackingId: String) = Future.successful {
     val (responseStatus, response) = {
       request.referenceNumber match {
         case "99999999991" => vehicleDetailsResponseVRMNotFound
