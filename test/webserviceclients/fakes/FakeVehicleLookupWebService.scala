@@ -38,7 +38,7 @@ object FakeVehicleLookupWebService {
   private val vehicleDetails = VehicleDetailsDto(registrationNumber = RegistrationNumberValid,
     vehicleMake = VehicleMakeValid,
     vehicleModel = VehicleModelValid,
-    None)
+    true)
 
   val vehicleDetailsResponseSuccess: (Int, Option[VehicleDetailsResponseDto]) = {
     (OK, Some(VehicleDetailsResponseDto(responseCode = None, vehicleDetailsDto = Some(vehicleDetails))))
