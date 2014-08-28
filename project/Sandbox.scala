@@ -166,6 +166,8 @@ object Sandbox extends Plugin {
     System.setProperty("https.port", HttpsPort.toString)
     System.setProperty("http.port", "disabled")
     System.setProperty("baseUrl", s"https://localhost:$HttpsPort")
+    System.setProperty("test.url", s"https://localhost:$HttpsPort")
+    System.setProperty("test.remote","true")
     runProject(
       fullClasspath.in(Test).value,
       None,

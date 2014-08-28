@@ -7,8 +7,9 @@ import org.openqa.selenium.WebDriver
 
 object VehicleLookupFailurePage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/vehicle-lookup-failure"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
   final override val title: String = "Look-up was unsuccessful"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def beforeYouStart(implicit driver: WebDriver): Element = find(id(BeforeYouStartId)).get
 

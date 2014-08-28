@@ -12,8 +12,9 @@ import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWe
 
 object VehicleLookupPage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/vehicle-lookup"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
   final override val title: String = "Enter vehicle details"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def vehicleRegistrationNumber(implicit driver: WebDriver): TextField = textField(id(VehicleRegistrationNumberId))
 

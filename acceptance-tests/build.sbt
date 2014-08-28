@@ -17,7 +17,7 @@ publishTo.<<=(publishResolver)
 credentials += sbtCredentials
 
 libraryDependencies ++= Seq(
-  "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
-  "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "org.webjars" % "requirejs" % "2.1.14-1"
+  "info.cukes" %% "cucumber-scala" % "1.1.7" % "test" withSources() withJavadoc(),
+  "info.cukes" % "cucumber-java" % "1.1.7" % "test" withSources() withJavadoc(),
+  "info.cukes" % "cucumber-picocontainer" % "1.1.7" % "test" withSources() withJavadoc()
 )

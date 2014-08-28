@@ -10,8 +10,9 @@ import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
 object DisposePage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/complete-and-confirm"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
   final override val title: String = "Complete & confirm"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def mileage(implicit driver: WebDriver): TelField = telField(id(MileageId))
 

@@ -28,7 +28,7 @@ final class DemoSpec extends FeatureSpec with GivenWhenThen with Matchers with B
 
       new WebBrowserDSL {
 
-        Given("I am on the vehicles online prototype site")
+        Given("I am on the vehicles online prototype site url:" + BeforeYouStartPage.url)
         go to BeforeYouStartPage
 
         And("I click the Start now button to begin the transaction")
