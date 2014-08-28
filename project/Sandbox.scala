@@ -7,17 +7,6 @@ import sbt._
 import scala.sys.process.Process
 import spray.revolver.RevolverPlugin._
 
-object CommonResolvers {
-  val nexus = "http://rep002-01.skyscape.preview-dvla.co.uk:8081/nexus/content/repositories"
-
-  val projectResolvers = Seq(
-    "typesafe repo" at "http://repo.typesafe.com/typesafe/releases",
-    "spray repo" at "http://repo.spray.io/",
-    "local nexus snapshots" at s"$nexus/snapshots",
-    "local nexus releases" at s"$nexus/releases"
-  )
-}
-
 object Sandbox extends Plugin {
   final val VersionOsAddressLookup = "0.1-SNAPSHOT"
   final val VersionVehiclesLookup = "0.1-SNAPSHOT"
@@ -53,7 +42,7 @@ object Sandbox extends Plugin {
                   deps: ModuleID*): (Project, ScopeFilter) = (
     Project(name, file(s"target/sandbox/$name"))
       .settings(libraryDependencies ++= deps)
-      .settings(resolvers ++= (CommonResolvers.projectResolvers ++ res))
+      .settings(resolvers ++= (Common.projectResolvers ++ res))
       .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*),
     ScopeFilter(inProjects(LocalProject(name)), inConfigurations(Runtime))
   )

@@ -3,28 +3,30 @@ import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import templemore.sbt.cucumber.CucumberPlugin
 import Sandbox._
-import CommonResolvers._
-
-publishTo <<= version { v: String =>
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at s"$nexus/snapshots")
-  else
-    Some("releases" at s"$nexus/releases")
-}
+import Common._
 
 name := "vehicles-online"
 
-version := "1.0-SNAPSHOT"
+version := versionString
 
-organization := "dvla"
+organization := organisationString
 
-organizationName := "Driver & Vehicle Licensing Agency"
+organizationName := organisationNameString
 
-scalaVersion := "2.10.3"
+scalaVersion := scalaVersionString
 
-scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls", "-Xmax-classfile-name", "128")
+scalacOptions := scalaOptionsSeq
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala, SassPlugin, SbtWeb)
+publishTo <<= publishResolver
+
+credentials += sbtCredentials
+
+lazy val root = (project in file("."))
+  .enablePlugins(PlayScala, SassPlugin, SbtWeb)
+
+lazy val acceptanceTests = project.in(file("acceptance-tests"))
+  .dependsOn(root % "test->test")
+  .disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
 libraryDependencies ++= Seq(
   cache,
@@ -45,7 +47,8 @@ libraryDependencies ++= Seq(
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
   "dvla" %% "vehicles-presentation-common" % "2.1-SNAPSHOT" withSources() withJavadoc(),
-  "org.webjars" % "requirejs" % "2.1.14-1")
+  "org.webjars" % "requirejs" % "2.1.14-1"
+)
 
 pipelineStages := Seq(rjs, digest, gzip)
 
@@ -92,8 +95,6 @@ sources in doc in Compile := List()
 ScalastylePlugin.Settings
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
-
-credentials += Credentials(Path.userHome / ".sbt/.credentials")
 
 ScoverageSbtPlugin.instrumentSettings
 
