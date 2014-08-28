@@ -28,7 +28,7 @@ final class FakeAddressLookupWebServiceImpl(responseOfPostcodeWebService: Future
 }
 
 object FakeAddressLookupWebServiceImpl {
-  final val traderUprnValid = 12345L
+  final val traderUprnValid = 999999999999L
   final val traderUprnValid2 = 4567L
 
   private def addressSeq(houseName: String, houseNumber: String): Seq[String] = {

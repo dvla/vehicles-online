@@ -16,6 +16,8 @@ publishTo.<<=(publishResolver)
 
 credentials += sbtCredentials
 
+resolvers ++= projectResolvers
+
 libraryDependencies ++= Seq(
   "info.cukes" %% "cucumber-scala" % "1.1.7" % "test" withSources() withJavadoc(),
   "info.cukes" % "cucumber-java" % "1.1.7" % "test" withSources() withJavadoc(),

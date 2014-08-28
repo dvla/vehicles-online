@@ -165,14 +165,15 @@ object Sandbox extends Plugin {
   lazy val runAsyncTask = runAsync := {
     System.setProperty("https.port", HttpsPort.toString)
     System.setProperty("http.port", "disabled")
+    System.setProperty("jsse.enableSNIExtension", "false") // Disable the SNI for testing
     System.setProperty("baseUrl", s"https://localhost:$HttpsPort")
-    System.setProperty("test.url", s"https://localhost:$HttpsPort")
-    System.setProperty("test.remote","true")
+
     runProject(
-      fullClasspath.in(Test).value,
-      None,
-      runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
+        fullClasspath.in(Test).value,
+        None,
+        runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
     )
+    System.setProperty("acceptance.test.url", s"https://localhost:$HttpsPort/")
   }
 
   lazy val sandboxAsync = taskKey[Unit]("Runs the whole sandbox asynchronously for manual testing including microservices, webapp and legacy stubs")

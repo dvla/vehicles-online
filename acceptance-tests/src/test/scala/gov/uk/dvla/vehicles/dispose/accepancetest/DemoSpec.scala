@@ -1,5 +1,6 @@
 package gov.uk.dvla.vehicles.dispose.accepancetest
 
+import java.util.{GregorianCalendar, Calendar, Date}
 import org.scalatest.{BeforeAndAfterAll, FeatureSpec, GivenWhenThen, Matchers}
 import helpers.webbrowser.{WebDriverFactory, WebBrowserDSL, TestHarness}
 import pages.disposal_of_vehicle.DisposePage
@@ -68,7 +69,7 @@ final class DemoSpec extends FeatureSpec with GivenWhenThen with Matchers with B
         DisposePage.dateOfDisposalMonth select DateOfDisposalMonthValid
 
         And("I enter \"2014\" in the date of disposal year field")
-        DisposePage.dateOfDisposalYear select DateOfDisposalYearValid
+        DisposePage.dateOfDisposalYear.select((Calendar.getInstance().get(Calendar.YEAR) -1).toString)
 
         And("I select \"I have the consent of the current keeper to dispose of this vehicle\"")
         click on DisposePage.consent
