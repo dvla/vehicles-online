@@ -24,7 +24,7 @@ credentials += sbtCredentials
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SassPlugin, SbtWeb)
 
-lazy val acceptanceTests = project.in(file("acceptance-tests"))
+lazy val acceptanceTests = acceptanceTestsProject
   .dependsOn(root % "test->test")
   .disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
@@ -118,6 +118,10 @@ testGatlingTask
 sandboxAsyncTask
 
 gatlingTask
+
+allAcceptanceTestsTask
+
+acceptTask
 
 resolvers ++= projectResolvers
 

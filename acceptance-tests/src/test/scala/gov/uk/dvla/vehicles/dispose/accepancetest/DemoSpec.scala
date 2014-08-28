@@ -1,6 +1,6 @@
 package gov.uk.dvla.vehicles.dispose.accepancetest
 
-import java.util.{GregorianCalendar, Calendar, Date}
+import java.util.Calendar
 import org.scalatest.{BeforeAndAfterAll, FeatureSpec, GivenWhenThen, Matchers}
 import helpers.webbrowser.{WebDriverFactory, WebBrowserDSL, TestHarness}
 import pages.disposal_of_vehicle.DisposePage
@@ -12,7 +12,6 @@ import webserviceclients.fakes.FakeAddressLookupService.{TraderBusinessNameValid
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
-import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 

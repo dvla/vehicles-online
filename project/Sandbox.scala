@@ -47,6 +47,9 @@ object Sandbox extends Plugin {
     ScopeFilter(inProjects(LocalProject(name)), inConfigurations(Runtime))
   )
 
+  lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-tests"))
+  lazy val scopeAcceptanceTests = ScopeFilter(inProjects(LocalProject("")), inConfigurations(Test))
+
   lazy val (osAddressLookup, scopeOsAddressLookup) =
     sandProject("os-address-lookup","dvla" %% "os-address-lookup" % VersionOsAddressLookup)
   lazy val (vehiclesLookup, scopeVehiclesLookup) =
@@ -183,6 +186,17 @@ object Sandbox extends Plugin {
 
   lazy val gatling = taskKey[Unit]("Runs the gatling tests against the sandbox")
   lazy val gatlingTask = gatling <<= (sandboxAsync, (testGatling in Runtime).toTask) { (body, stop) =>
+    body.flatMap(t => stop)
+  }
+
+  lazy val allAcceptanceTests = taskKey[Unit]("Runs all the acceptance tests including gatling tests and cucumber tests against a running sandbox")
+  lazy val allAcceptanceTestsTask = allAcceptanceTests := {
+    (test in Test in acceptanceTestsProject).value
+    (testGatling in Runtime).value
+  }
+
+  lazy val accept = taskKey[Unit]("Runs all the acceptance tests against the sandbox.")
+  lazy val acceptTask = accept <<= (sandboxAsync, (allAcceptanceTests in Runtime).toTask) { (body, stop) =>
     body.flatMap(t => stop)
   }
 
