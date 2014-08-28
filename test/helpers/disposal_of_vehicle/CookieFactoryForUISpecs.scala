@@ -115,7 +115,8 @@ object CookieFactoryForUISpecs {
     val key = VehicleLookupDetailsCacheKey
     val value = VehicleDetailsModel(registrationNumber = registrationNumber,
       vehicleMake = vehicleMake,
-      vehicleModel = vehicleModel)
+      vehicleModel = vehicleModel,
+      disposeFlag = true)
     addCookie(key, value)
     this
   }

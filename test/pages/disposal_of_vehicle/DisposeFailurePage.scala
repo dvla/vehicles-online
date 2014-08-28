@@ -7,8 +7,9 @@ import org.openqa.selenium.WebDriver
 
 object DisposeFailurePage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/sell-to-the-trade-failure"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
   final override val title: String = "Sell a vehicle into the motor trade: failure"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def setuptradedetails(implicit driver: WebDriver): Element = find(id(SetupTradeDetailsId)).get
 

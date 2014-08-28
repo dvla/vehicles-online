@@ -179,7 +179,8 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
     val value = VehicleDetailsModel(
       registrationNumber = registrationNumber,
       vehicleMake = vehicleMake,
-      vehicleModel = vehicleModel
+      vehicleModel = vehicleModel,
+      disposeFlag = true
     )
     createCookie(key, value)
   }

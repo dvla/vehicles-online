@@ -7,17 +7,6 @@ import sbt._
 import scala.sys.process.Process
 import spray.revolver.RevolverPlugin._
 
-object CommonResolvers {
-  val nexus = "http://rep002-01.skyscape.preview-dvla.co.uk:8081/nexus/content/repositories"
-
-  val projectResolvers = Seq(
-    "typesafe repo" at "http://repo.typesafe.com/typesafe/releases",
-    "spray repo" at "http://repo.spray.io/",
-    "local nexus snapshots" at s"$nexus/snapshots",
-    "local nexus releases" at s"$nexus/releases"
-  )
-}
-
 object Sandbox extends Plugin {
   final val VersionOsAddressLookup = "0.1-SNAPSHOT"
   final val VersionVehiclesLookup = "0.1-SNAPSHOT"
@@ -53,10 +42,13 @@ object Sandbox extends Plugin {
                   deps: ModuleID*): (Project, ScopeFilter) = (
     Project(name, file(s"target/sandbox/$name"))
       .settings(libraryDependencies ++= deps)
-      .settings(resolvers ++= (CommonResolvers.projectResolvers ++ res))
+      .settings(resolvers ++= (Common.projectResolvers ++ res))
       .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*),
     ScopeFilter(inProjects(LocalProject(name)), inConfigurations(Runtime))
   )
+
+  lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-tests"))
+  lazy val scopeAcceptanceTests = ScopeFilter(inProjects(LocalProject("")), inConfigurations(Test))
 
   lazy val (osAddressLookup, scopeOsAddressLookup) =
     sandProject("os-address-lookup","dvla" %% "os-address-lookup" % VersionOsAddressLookup)
@@ -176,12 +168,15 @@ object Sandbox extends Plugin {
   lazy val runAsyncTask = runAsync := {
     System.setProperty("https.port", HttpsPort.toString)
     System.setProperty("http.port", "disabled")
+    System.setProperty("jsse.enableSNIExtension", "false") // Disable the SNI for testing
     System.setProperty("baseUrl", s"https://localhost:$HttpsPort")
+
     runProject(
-      fullClasspath.in(Test).value,
-      None,
-      runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
+        fullClasspath.in(Test).value,
+        None,
+        runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
     )
+    System.setProperty("acceptance.test.url", s"https://localhost:$HttpsPort/")
   }
 
   lazy val sandboxAsync = taskKey[Unit]("Runs the whole sandbox asynchronously for manual testing including microservices, webapp and legacy stubs")
@@ -191,6 +186,17 @@ object Sandbox extends Plugin {
 
   lazy val gatling = taskKey[Unit]("Runs the gatling tests against the sandbox")
   lazy val gatlingTask = gatling <<= (sandboxAsync, (testGatling in Runtime).toTask) { (body, stop) =>
+    body.flatMap(t => stop)
+  }
+
+  lazy val allAcceptanceTests = taskKey[Unit]("Runs all the acceptance tests including gatling tests and cucumber tests against a running sandbox")
+  lazy val allAcceptanceTestsTask = allAcceptanceTests := {
+    (test in Test in acceptanceTestsProject).value
+    (testGatling in Runtime).value
+  }
+
+  lazy val accept = taskKey[Unit]("Runs all the acceptance tests against the sandbox.")
+  lazy val acceptTask = accept <<= (sandboxAsync, (allAcceptanceTests in Runtime).toTask) { (body, stop) =>
     body.flatMap(t => stop)
   }
 

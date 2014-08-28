@@ -1,19 +1,22 @@
-package functional
+package gov.uk.dvla.vehicles.dispose.accepancetest
 
-import helpers.webbrowser.TestHarness
-import org.scalatest.{BeforeAndAfterAll, Matchers, GivenWhenThen, FeatureSpec}
-import pages.disposal_of_vehicle.BeforeYouStartPage
-import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import java.util.Calendar
+import org.scalatest.{BeforeAndAfterAll, FeatureSpec, GivenWhenThen, Matchers}
+import helpers.webbrowser.{WebDriverFactory, WebBrowserDSL, TestHarness}
 import pages.disposal_of_vehicle.DisposePage
-import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
+import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import pages.disposal_of_vehicle.BeforeYouStartPage
 import webserviceclients.fakes.FakeAddressLookupService.{TraderBusinessNameValid, PostcodeValidWithSpace}
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
-import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 
 final class DemoSpec extends FeatureSpec with GivenWhenThen with Matchers with BeforeAndAfterAll with TestHarness {
+  implicit val webDriver = WebDriverFactory.webDriver
 
   feature("Dispose of a vehicle to trade") {
     info("As a vehicle trader")
@@ -23,9 +26,9 @@ final class DemoSpec extends FeatureSpec with GivenWhenThen with Matchers with B
 
     scenario("Sell a vehicle to the trade: happy path") {
 
-      new WebBrowser {
+      new WebBrowserDSL {
 
-        Given("I am on the vehicles online prototype site")
+        Given("I am on the vehicles online prototype site url:" + BeforeYouStartPage.url)
         go to BeforeYouStartPage
 
         And("I click the Start now button to begin the transaction")
@@ -65,7 +68,7 @@ final class DemoSpec extends FeatureSpec with GivenWhenThen with Matchers with B
         DisposePage.dateOfDisposalMonth select DateOfDisposalMonthValid
 
         And("I enter \"2014\" in the date of disposal year field")
-        DisposePage.dateOfDisposalYear select DateOfDisposalYearValid
+        DisposePage.dateOfDisposalYear.select((Calendar.getInstance().get(Calendar.YEAR) -1).toString)
 
         And("I select \"I have the consent of the current keeper to dispose of this vehicle\"")
         click on DisposePage.consent
