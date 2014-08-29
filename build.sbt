@@ -3,6 +3,8 @@ import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import templemore.sbt.cucumber.CucumberPlugin
 import Sandbox._
+import ProjectsDefinitions._
+
 import Common._
 
 name := "vehicles-online"
