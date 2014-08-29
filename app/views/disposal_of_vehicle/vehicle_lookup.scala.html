@@ -23,7 +23,22 @@
     <script src="@routes.Assets.at("lib/vehicles-presentation-common/javascripts/numeric-input-only.js")" type="text/javascript"></script>
 
     <div class="two-col clearfix vehicle-lookup">
-        <div class="first-col uppercase-input">
+        <div class="first-col trader-details">
+
+            <h2>@Messages("disposal_vehiclelookup.p2")</h2>
+
+            <dl class="summary-detail-list">
+                <dt>@Messages("disposal_vehiclelookup.tradernamelabel")</dt>
+                <dd>@viewModel.traderName</dd>
+                <dt>@Messages("disposal_vehiclelookup.traderaddresslabel")</dt>
+                <dd>@for(addr <- viewModel.address) {@addr<br/>}</dd>
+            </dl>
+            <div class="img-wrap img-wrap-desktop">
+                <h2>@Messages("disposal_vehiclelookup.img.h2")</h2>
+                <img src="@routes.Assets.at("images/document-reference-number.png")" alt="@Messages("disposal_vehiclelookup.img.alt")" />
+            </div>
+        </div>
+        <div id="trader-details" class="second-col uppercase-input">
             <div class="form-steps">
                 <div class="step uppercase-input">
                     @form(action = controllers.routes.VehicleLookup.submit()) {
@@ -76,20 +91,6 @@
                         </div>
                     }
                 </div>
-            </div>
-        </div>
-        <div id="trader-details" class="second-col trader-details">
-            <h2>@Messages("disposal_vehiclelookup.p2")</h2>
-
-            <dl class="summary-detail-list">
-                <dt>@Messages("disposal_vehiclelookup.tradernamelabel")</dt>
-                <dd>@viewModel.traderName</dd>
-                <dt>@Messages("disposal_vehiclelookup.traderaddresslabel")</dt>
-                <dd>@for(addr <- viewModel.address) {@addr<br/>}</dd>
-            </dl>
-            <div class="img-wrap img-wrap-desktop">
-                <h2>@Messages("disposal_vehiclelookup.img.h2")</h2>
-                <img src="@routes.Assets.at("images/document-reference-number.png")" alt="@Messages("disposal_vehiclelookup.img.alt")" />
             </div>
         </div>
     </div>
