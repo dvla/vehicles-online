@@ -35,7 +35,24 @@
 
         <div class="two-col clearfix">
 
-            <div class="disposal-form first-col uppercase-input">
+            <div class="disposal-info first-col">
+                <h2>@Messages("disposal_dispose.vehicledetails")</h2>
+                <dl class="summary-detail-list">
+                    <dt>@Messages("disposal_dispose.vehiclereg")</dt>
+                    <dd>@data.registrationNumber</dd>
+                    <dt>@Messages("disposal_dispose.vehiclemake")</dt>
+                    <dd>@data.vehicleMake</dd>
+                    <dt>@Messages("disposal_dispose.vehiclemodel")</dt>
+                    <dd>@data.vehicleModel</dd>
+                </dl>
+
+                <div class="alert-warning">
+                    <p>@Messages("disposal_dispose.warning")</p>
+                </div>
+            </div>
+
+
+            <div class="disposal-form second-col uppercase-input">
                 <h2>@Messages("disposal_dispose.disposevehicleto")</h2>
 
                 <div class="summary-detail-list">
@@ -91,22 +108,6 @@
 
                     <div class="two-col-spacer">
                     </div>
-                </div>
-            </div>
-
-            <div class="disposal-info second-col">
-                <h2>@Messages("disposal_dispose.vehicledetails")</h2>
-                <dl class="summary-detail-list">
-                    <dt>@Messages("disposal_dispose.vehiclereg")</dt>
-                    <dd>@data.registrationNumber</dd>
-                    <dt>@Messages("disposal_dispose.vehiclemake")</dt>
-                    <dd>@data.vehicleMake</dd>
-                    <dt>@Messages("disposal_dispose.vehiclemodel")</dt>
-                    <dd>@data.vehicleModel</dd>
-                </dl>
-
-                <div class="alert-warning">
-                    <p>@Messages("disposal_dispose.warning")</p>
                 </div>
             </div>
         </div>
