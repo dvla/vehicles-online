@@ -109,7 +109,13 @@
 
 //disposal success
 .disposal-sucesss {
-  .ie8 & .button-new-disposal {
-      min-width:180px;
-  }
+    .first-col {
+        margin-top:1em;
+    }
+    .summary-detail-list dt {
+        min-width:155px;
+    }
+    .ie8 & .button-new-disposal {
+        min-width:180px;
+    }
 }
