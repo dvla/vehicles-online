@@ -104,34 +104,15 @@ CoverallsPlugin.coverallsSettings
 
 resolvers ++= projectResolvers
 
+
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
-prerequisitesCheckTask
-
-runLegacyStubsTask
-
-runOsAddressLookupTask
-
-runVehiclesLookupTask
-
-runVehiclesDisposeFulfilTask
-
-runAllMicroservicesTask
-
-runMicroServicesTask
-
 sandboxTask
-
-runAsyncTask
-
-testGatlingTask
 
 sandboxAsyncTask
 
 gatlingTask
-
-allAcceptanceTestsTask
 
 acceptTask
 

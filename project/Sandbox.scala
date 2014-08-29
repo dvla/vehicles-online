@@ -3,6 +3,7 @@ import java.net.URLClassLoader
 import com.typesafe.config.ConfigFactory
 import org.apache.commons.io.FileUtils
 import sbt.Keys._
+import sbt.Scoped.{Apply3, Apply2}
 import sbt._
 import scala.sys.process.Process
 
@@ -11,21 +12,20 @@ object Sandbox extends Plugin {
   import Engine._
 
   object Keys {
-    lazy val runMicroServices = taskKey[Unit]("Runs all the required by the sandbox micro services'")
     lazy val sandbox = taskKey[Unit]("Runs the whole sandbox for manual testing including microservices, webapp and legacy stubs'")
-    lazy val testGatling = taskKey[Unit]("Runs the gatling test")
-    lazy val runAsync = taskKey[Unit]("Runs the play application")
+//    lazy val testGatling = taskKey[Unit]("Runs the gatling test")
+//    lazy val runAsync = taskKey[Unit]("Runs the play application")
     lazy val sandboxAsync = taskKey[Unit]("Runs the whole sandbox asynchronously for manual testing including microservices, webapp and legacy stubs")
     lazy val gatling = taskKey[Unit]("Runs the gatling tests against the sandbox")
-    lazy val allAcceptanceTests = taskKey[Unit]("Runs all the acceptance tests including gatling tests and cucumber tests against a running sandbox")
+//    lazy val allAcceptanceTests = taskKey[Unit]("Runs all the acceptance tests including gatling tests and cucumber tests against a running sandbox")
     lazy val accept = taskKey[Unit]("Runs all the acceptance tests against the sandbox.")
 
-    lazy val prerequisitesCheck = taskKey[Unit]("Checks the prerequisites and gets the secret repo")
-    lazy val runLegacyStubs = taskKey[Unit]("Runs the Legacy stubs services")
-    lazy val runOsAddressLookup = taskKey[Unit]("Runs the Os address lookup service")
-    lazy val runVehiclesLookup = taskKey[Unit]("Runs the Vehicles lookup service")
-    lazy val runVehiclesDisposeFulfil = taskKey[Unit]("Runs the Vehicles dispose fulfil service")
-    lazy val runAllMicroservices = taskKey[Unit]("Runs all the microservices in parallel")
+//    lazy val prerequisitesCheck = taskKey[Unit]("Checks the prerequisites and gets the secret repo")
+//    lazy val runLegacyStubs = taskKey[Unit]("Runs the Legacy stubs services")
+//    lazy val runOsAddressLookup = taskKey[Unit]("Runs the Os address lookup service")
+//    lazy val runVehiclesLookup = taskKey[Unit]("Runs the Vehicles lookup service")
+//    lazy val runVehiclesDisposeFulfil = taskKey[Unit]("Runs the Vehicles dispose fulfil service")
+//    lazy val runAllMicroservices = taskKey[Unit]("Runs all the microservices in parallel")
   }
 
   final val VersionOsAddressLookup = "0.1-SNAPSHOT"
@@ -95,19 +95,20 @@ object Sandbox extends Plugin {
 
 
   // Task implementations
-  lazy val prerequisitesCheckTask = prerequisitesCheck := {
+  lazy val prerequisitesCheck = Def.task {
     validatePrerequisites()
     updateSecretVehiclesOnline(secretRepoLocation((target in ThisProject).value))
   }
 
-  lazy val runLegacyStubsTask = runLegacyStubs :=
+  lazy val runLegacyStubs = Def.task {
     runProject(
       fullClasspath.all(scopeLegacyStubs).value.flatten,
       None,
       runJavaMain("service.LegacyServicesRunner", Array(LegacyServicesStubsPort.toString))
     )
+  }
 
-  lazy val runOsAddressLookupTask = runOsAddressLookup :=
+  lazy val runOsAddressLookup = Def.task {
     runProject(
       fullClasspath.all(scopeOsAddressLookup).value.flatten,
       Some(ConfigDetails(
@@ -119,8 +120,9 @@ object Sandbox extends Plugin {
         ))
       ))
     )
+  }
 
-  lazy val runVehiclesLookupTask = runVehiclesLookup :=
+  lazy val runVehiclesLookup = Def.task {
     runProject(
       fullClasspath.all(scopeVehiclesLookup).value.flatten,
       Some(ConfigDetails(
@@ -132,8 +134,9 @@ object Sandbox extends Plugin {
         ))
       ))
     )
+  }
 
-  lazy val runVehiclesDisposeFulfilTask = runVehiclesDisposeFulfil :=
+  lazy val runVehiclesDisposeFulfil = Def.task {
     runProject(
       fullClasspath.all(scopeVehiclesDisposeFulfil).value.flatten,
       Some(ConfigDetails(
@@ -145,8 +148,9 @@ object Sandbox extends Plugin {
         ))
       ))
     )
+  }
 
-  lazy val runAllMicroservicesTask = runAllMicroservices := {
+  lazy val runAllMicroservices = Def.task {
     runLegacyStubs.value
     runOsAddressLookup.value
     runVehiclesLookup.value
@@ -158,18 +162,7 @@ object Sandbox extends Plugin {
     run.in(Compile).toTask("").value
   }
 
-  lazy val runMicroServicesTask = runMicroServices <<= (prerequisitesCheck, runAppAndMicroservices) { (body, stop) =>
-    System.setProperty("ordnancesurvey.baseUrl", s"http://localhost:$OsAddressLookupPort")
-    System.setProperty("vehicleLookup.baseUrl", s"http://localhost:$VehicleLookupPort")
-    System.setProperty("disposeVehicle.baseUrl", s"http://localhost:$VehicleDisposePort")
-    body.flatMap(t => stop)
-  }
-
-  lazy val sandboxTask = sandbox := {
-    runMicroServices.value
-  }
-
-  lazy val testGatlingTask = testGatling := {
+  lazy val testGatling = Def.task {
     val classPath = fullClasspath.all(scopeGatlingTests).value.flatten
 
     def extractVehiclesGatlingJar(toFolder: File) =
@@ -203,41 +196,56 @@ object Sandbox extends Plugin {
     }
   }
 
-  lazy val runAsyncTask = runAsync := {
+  lazy val runAsyncHttpsEnvVars = Def.task {
     System.setProperty("https.port", HttpsPort.toString)
     System.setProperty("http.port", "disabled")
     System.setProperty("jsse.enableSNIExtension", "false") // Disable the SNI for testing
     System.setProperty("baseUrl", s"https://localhost:$HttpsPort")
+  }
 
+  lazy val runAsync = Def.task {
+    runAsyncHttpsEnvVars.value
     runProject(
-        fullClasspath.in(Test).value,
-        None,
-        runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
+      fullClasspath.in(Test).value,
+      None,
+      runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
     )
     System.setProperty("acceptance.test.url", s"https://localhost:$HttpsPort/")
   }
 
-  lazy val runAppAndMicroservicesAsync = Def.task {
+  lazy val runAppAndMicroservicesAsync = Def.task[Unit] {
     runAllMicroservices.value
     runAsync.value
   }
 
-  lazy val sandboxAsyncTask = sandboxAsync <<= (prerequisitesCheck, runAppAndMicroservicesAsync) { (body, stop) =>
-    body.flatMap(t => stop)
-  }
-
-  lazy val gatlingTask = gatling <<= (sandboxAsync, (testGatling in Runtime).toTask) { (body, stop) =>
-    body.flatMap(t => stop)
-  }
-
-  lazy val allAcceptanceTestsTask = allAcceptanceTests := {
+  lazy val allAcceptanceTests = Def.task {
     (test in Test in acceptanceTestsProject).value
-    (testGatling in Runtime).value
+    testGatling.value
   }
 
-  lazy val acceptTask = accept <<= (sandboxAsync, (allAcceptanceTests in Runtime).toTask) { (body, stop) =>
-    body.flatMap(t => stop)
+  type ITask[T]  = Def.Initialize[Task[T]]
+
+  def runSequentially[A, B](a: ITask[A], b: ITask[B]) =
+    new Apply2((a, b)).apply((a, b) => a.flatMap(x => b))
+
+  def runSequentially[A, B, C](a: ITask[A], b: ITask[B], c: ITask[C]) =
+    new Apply3((a, b, c)).apply((a, b, c) => a.flatMap(x => b.flatMap(x => c)))
+
+  val setMicroservicesPortsEnvVars = Def.task {
+    System.setProperty("ordnancesurvey.baseUrl", s"http://localhost:$OsAddressLookupPort")
+    System.setProperty("vehicleLookup.baseUrl", s"http://localhost:$VehicleLookupPort")
+    System.setProperty("disposeVehicle.baseUrl", s"http://localhost:$VehicleDisposePort")
   }
+
+  lazy val sandboxTask = sandbox :=
+    runSequentially(prerequisitesCheck, setMicroservicesPortsEnvVars, runAppAndMicroservices).value
+
+  lazy val sandboxAsyncTask = sandboxAsync :=
+    runSequentially(prerequisitesCheck, setMicroservicesPortsEnvVars, runAppAndMicroservicesAsync).value
+
+  lazy val gatlingTask = gatling := runSequentially(sandboxAsync, testGatling).value
+
+  lazy val acceptTask = accept := runSequentially(sandboxAsync, allAcceptanceTests).value
 
   object Engine {
     def validatePrerequisites() {
