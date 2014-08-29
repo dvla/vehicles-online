@@ -30,6 +30,39 @@ title = Messages("disposal_disposeconfirmation.title")
 <div class="two-col disposal-sucesss">
 
     <div class="first-col">
+        <h2>@Messages("disposal_disposeconfirmation.disposaldetails")</h2>
+
+        <dl class="summary-detail-list">
+            <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
+            <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.vehiclemake")</dt>
+            <dd>@data.vehicleMake</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.vehiclemodel")</dt>
+            <dd>@data.vehicleModel</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.mileage")</dt>
+            @if(formModel.mileage == None) {
+            <dd>@Messages("disposal_disposeconfirmation.mileageNotEntered")</dd>
+            } else {
+            <dd>@{java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get)}</dd>
+            }
+
+            <dt>@Messages("disposal_disposeconfirmation.disposedto")</dt>
+            <dd>
+                @data.dealerName<br />
+                @for(addr <- data.dealerAddress) {@addr<br/>}
+            </dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
+            <dd>
+                @{formModel.dateOfDisposal.`dd/MM/yyyy`}
+            </dd>
+        </dl>
+    </div>
+
+    <div class="second-col">
         <p>@Messages("disposal_disposeconfirmation.exkeeper")</p>
         <div class="alert-warning print-message">
           <p><strong>@Messages("disposal_disposeconfirmation.exkeeper-p2")</strong></p>
@@ -71,39 +104,6 @@ title = Messages("disposal_disposeconfirmation.title")
             </div>
 
         </div>
-    </div>
-
-    <div class="second-col">
-        <h2>@Messages("disposal_disposeconfirmation.disposaldetails")</h2>
-
-        <dl class="summary-detail-list">
-            <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
-            <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.vehiclemake")</dt>
-            <dd>@data.vehicleMake</dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.vehiclemodel")</dt>
-            <dd>@data.vehicleModel</dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.mileage")</dt>
-            @if(formModel.mileage == None) {
-            <dd>@Messages("disposal_disposeconfirmation.mileageNotEntered")</dd>
-            } else {
-            <dd>@{java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get)}</dd>
-            }
-
-            <dt>@Messages("disposal_disposeconfirmation.disposedto")</dt>
-            <dd>
-                @data.dealerName<br />
-                @for(addr <- data.dealerAddress) {@addr<br/>}
-            </dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
-            <dd>
-                @{formModel.dateOfDisposal.`dd/MM/yyyy`}
-            </dd>
-        </dl>
     </div>
 
 </div>
