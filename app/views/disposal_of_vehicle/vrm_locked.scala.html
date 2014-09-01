@@ -34,6 +34,8 @@
 <script type="text/javascript">
     function localize(dateTimeISOChronology)
     {
+        // Todo: Date ctor for string dates not support in IE8. Standard method is to use:
+        // new Date(year, month, day [, hour, minute, second, millisecond ])
         var localTime =new Date(dateTimeISOChronology).toLocaleTimeString();
         document.getElementById('localTimeOfVrmLock').innerHTML = localTime;
     }

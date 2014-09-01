@@ -3,6 +3,8 @@ import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import templemore.sbt.cucumber.CucumberPlugin
 import Sandbox._
+import ProjectsDefinitions._
+
 import Common._
 
 name := "vehicles-online"
@@ -24,7 +26,7 @@ credentials += sbtCredentials
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SassPlugin, SbtWeb)
 
-lazy val acceptanceTests = acceptanceTestsProject
+lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-tests"))
   .dependsOn(root % "test->test")
   .disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
@@ -49,6 +51,19 @@ libraryDependencies ++= Seq(
   "dvla" %% "vehicles-presentation-common" % "2.1-SNAPSHOT" withSources() withJavadoc(),
   "org.webjars" % "requirejs" % "2.1.14-1"
 )
+
+SandboxKeys.portOffset := 17000
+
+SandboxKeys.runAllMicroservices := {
+    Tasks.runLegacyStubs.value
+    Tasks.runOsAddressLookup.value
+    Tasks.runVehiclesLookup.value
+    Tasks.runVehiclesDisposeFulfil.value
+}
+
+SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+
+SandboxKeys.acceptanceTests := (test in Test in acceptanceTestsProject).value
 
 pipelineStages := Seq(rjs, digest, gzip)
 
@@ -104,22 +119,15 @@ CoverallsPlugin.coverallsSettings
 
 resolvers ++= projectResolvers
 
+
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
-runMicroServicesTask
-
 sandboxTask
-
-runAsyncTask
-
-testGatlingTask
 
 sandboxAsyncTask
 
 gatlingTask
-
-allAcceptanceTestsTask
 
 acceptTask
 
