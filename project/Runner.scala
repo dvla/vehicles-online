@@ -22,7 +22,6 @@ object Runner {
   def runSequentially[A, B, C](a: ITask[A], b: ITask[B], c: ITask[C]) =
     new Apply3((a, b, c)).apply((a, b, c) => a.flatMap(x => b.flatMap(x => c)))
 
-
   def secretRepoLocation(targetFolder: File): File =
     new File(targetFolder, "secretRepo")
 
@@ -63,7 +62,7 @@ object Runner {
 
   def runProject(prjClassPath: Seq[Attributed[File]],
                  configDetails: Option[ConfigDetails],
-                 runMainMethod: (ClassLoader) => Any = runScalaMain("dvla.microservice.Boot")): Any = {
+                 runMainMethod: (ClassLoader) => Any = runJavaMain("dvla.microservice.Boot")): Any = {
     configDetails.map { case ConfigDetails(secretRepo, encryptedConfig, output, systemPropertySetter) =>
       val encryptedConfigFile = new File(secretRepo, encryptedConfig)
       output.map { case ConfigOutput(decryptedOutput, transform)=>
