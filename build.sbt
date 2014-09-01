@@ -25,6 +25,8 @@ credentials += sbtCredentials
 
 SandboxKeys.portOffset := 17000
 
+SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SassPlugin, SbtWeb)
 

@@ -100,7 +100,7 @@ object Tasks {
       runJavaMain(
         mainClassName = "io.gatling.app.Gatling",
         args = Array(
-          "--simulation", "uk.gov.dvla.SmokeTestSimulation",
+          "--simulation", gatlingSimulation.value,
           "--data-folder", s"${vehiclesGatlingExtractDir.getAbsolutePath}/data",
           "--results-folder", s"$targetFolder/gatling",
           "--request-bodies-folder", s"$targetFolder/request-bodies"
