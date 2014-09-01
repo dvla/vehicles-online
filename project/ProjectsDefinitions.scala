@@ -26,9 +26,6 @@ object ProjectsDefinitions {
     )
 
   // Declaring the sandbox projects
-  lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-tests"))
-  lazy val scopeAcceptanceTests = ScopeFilter(inProjects(LocalProject("")), inConfigurations(Test))
-
   lazy val (osAddressLookup, scopeOsAddressLookup) =
     sandProject("os-address-lookup", "dvla" %% "os-address-lookup" % VersionOsAddressLookup)
   lazy val (vehiclesLookup, scopeVehiclesLookup) =

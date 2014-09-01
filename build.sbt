@@ -23,14 +23,10 @@ publishTo <<= publishResolver
 
 credentials += sbtCredentials
 
-SandboxKeys.portOffset := 17000
-
-SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
-
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SassPlugin, SbtWeb)
 
-lazy val acceptanceTests = acceptanceTestsProject
+lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-tests"))
   .dependsOn(root % "test->test")
   .disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
@@ -55,6 +51,19 @@ libraryDependencies ++= Seq(
   "dvla" %% "vehicles-presentation-common" % "2.1-SNAPSHOT" withSources() withJavadoc(),
   "org.webjars" % "requirejs" % "2.1.14-1"
 )
+
+SandboxKeys.portOffset := 17000
+
+SandboxKeys.runAllMicroservices := {
+    Tasks.runLegacyStubs.value
+    Tasks.runOsAddressLookup.value
+    Tasks.runVehiclesLookup.value
+    Tasks.runVehiclesDisposeFulfil.value
+}
+
+SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+
+SandboxKeys.acceptanceTests := (test in Test in acceptanceTestsProject).value
 
 pipelineStages := Seq(rjs, digest, gzip)
 

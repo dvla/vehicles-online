@@ -69,13 +69,6 @@ object Tasks {
     )
   }
 
-  lazy val runAllMicroservices = Def.task {
-    runLegacyStubs.value
-    runOsAddressLookup.value
-    runVehiclesLookup.value
-    runVehiclesDisposeFulfil.value
-  }
-
   lazy val runAppAndMicroservices = Def.task {
     runAllMicroservices.value
     run.in(Compile).toTask("").value
@@ -131,7 +124,7 @@ object Tasks {
   }
 
   lazy val allAcceptanceTests = Def.task {
-    (test in Test in acceptanceTestsProject).value
+    acceptanceTests.value
     testGatling.value
   }
 
