@@ -3,3 +3,5 @@
 #main {
     border-bottom: 10px solid phase-colour($phase);
 }
+
+@include summary-detail-list($bg:$light-blue-25);
