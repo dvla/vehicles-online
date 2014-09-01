@@ -2,7 +2,7 @@ import java.io.StringReader
 import java.net.{URL, URLClassLoader}
 import com.typesafe.config.ConfigFactory
 import org.apache.commons.io.FileUtils
-import sbt.Scoped.{Apply2, Apply3}
+import sbt.Scoped.{Apply4, Apply2, Apply3}
 import sbt.{Attributed, Def, File, Task}
 import scala.sys.process.Process
 
@@ -21,6 +21,12 @@ object Runner {
 
   def runSequentially[A, B, C](a: ITask[A], b: ITask[B], c: ITask[C]) =
     new Apply3((a, b, c)).apply((a, b, c) => a.flatMap(x => b.flatMap(x => c)))
+
+//  def runInParallel[A, B](a: ITask[A], b: ITask[B]) =
+//    new Apply2((a, b)).apply {(a, b) => a && b}
+//
+//  def runInParallel[A, B, C, D](a: ITask[A], b: ITask[B], c: ITask[C], d: ITask[D]) =
+//    new Apply4((a, b, c, d)).apply {(a, b, c, d) => a.flatMap(x => b.flatMap(x => c.flatMap(x => d)))}
 
   def secretRepoLocation(targetFolder: File): File =
     new File(targetFolder, "secretRepo")

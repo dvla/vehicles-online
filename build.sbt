@@ -23,6 +23,8 @@ publishTo <<= publishResolver
 
 credentials += sbtCredentials
 
+SandboxKeys.portOffset := 17000
+
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SassPlugin, SbtWeb)
 

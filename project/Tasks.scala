@@ -1,20 +1,21 @@
 import sbt._
 import sbt.Keys._
 import Runner._
+import SandboxKeys._
 import ProjectsDefinitions._
 
 object Tasks {
-  final val HttpsPort = 17443
-  final val OsAddressLookupPort = 17801
-  final val VehicleLookupPort = 17802
-  final val VehicleDisposePort = 17803
-  final val LegacyServicesStubsPort = 17086
+  private val httpsPort = Def.task(portOffset.value + 443)
+  private val osAddressLookupPort = Def.task(portOffset.value + 801)
+  private val vehicleLookupPort = Def.task(portOffset.value + 802)
+  private val vehicleDisposePort = Def.task(portOffset.value + 803)
+  private val legacyServicesStubsPort = Def.task(portOffset.value + 806)
 
   lazy val runLegacyStubs = Def.task {
     runProject(
       fullClasspath.all(scopeLegacyStubs).value.flatten,
       None,
-      runJavaMain("service.LegacyServicesRunner", Array(LegacyServicesStubsPort.toString))
+      runJavaMain("service.LegacyServicesRunner", Array(legacyServicesStubsPort.value.toString))
     )
   }
 
@@ -26,7 +27,7 @@ object Tasks {
         "ms/dev/os-address-lookup.conf.enc",
         Some(ConfigOutput(
           new File(classDirectory.all(scopeOsAddressLookup).value.head, s"${osAddressLookup.id}.conf"),
-          setServicePort(OsAddressLookupPort)
+          setServicePort(osAddressLookupPort.value)
         ))
       ))
     )
@@ -40,7 +41,11 @@ object Tasks {
         "ms/dev/vehicles-lookup.conf.enc",
         Some(ConfigOutput(
           new File(classDirectory.all(scopeVehiclesLookup).value.head, s"${vehiclesLookup.id}.conf"),
-          setServicePortAndLegacyServicesPort(VehicleLookupPort, "getVehicleDetails.baseurl", LegacyServicesStubsPort)
+          setServicePortAndLegacyServicesPort(
+            vehicleLookupPort.value,
+            "getVehicleDetails.baseurl",
+            legacyServicesStubsPort.value
+          )
         ))
       ))
     )
@@ -54,7 +59,11 @@ object Tasks {
         "ms/dev/vehicles-dispose-fulfil.conf.enc",
         Some(ConfigOutput(
           new File(classDirectory.all(scopeVehiclesDisposeFulfil).value.head, s"${vehiclesDisposeFulfil.id}.conf"),
-          setServicePortAndLegacyServicesPort(VehicleDisposePort, "vss.baseurl", LegacyServicesStubsPort)
+          setServicePortAndLegacyServicesPort(
+            vehicleDisposePort.value,
+            "vss.baseurl",
+            legacyServicesStubsPort.value
+          )
         ))
       ))
     )
@@ -113,7 +122,7 @@ object Tasks {
       None,
       runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
     )
-    System.setProperty("acceptance.test.url", s"https://localhost:$HttpsPort/")
+    System.setProperty("acceptance.test.url", s"https://localhost:${httpsPort.value}/")
   }
 
   lazy val runAppAndMicroservicesAsync = Def.task[Unit] {
@@ -127,15 +136,15 @@ object Tasks {
   }
 
   lazy val runAsyncHttpsEnvVars = Def.task {
-    System.setProperty("https.port", HttpsPort.toString)
+    System.setProperty("https.port", httpsPort.value.toString)
     System.setProperty("http.port", "disabled")
     System.setProperty("jsse.enableSNIExtension", "false") // Disable the SNI for testing
-    System.setProperty("baseUrl", s"https://localhost:$HttpsPort")
+    System.setProperty("baseUrl", s"https://localhost:${httpsPort.value}")
   }
 
   val setMicroservicesPortsEnvVars = Def.task {
-    System.setProperty("ordnancesurvey.baseUrl", s"http://localhost:$OsAddressLookupPort")
-    System.setProperty("vehicleLookup.baseUrl", s"http://localhost:$VehicleLookupPort")
-    System.setProperty("disposeVehicle.baseUrl", s"http://localhost:$VehicleDisposePort")
+    System.setProperty("ordnancesurvey.baseUrl", s"http://localhost:${osAddressLookupPort.value}")
+    System.setProperty("vehicleLookup.baseUrl", s"http://localhost:${vehicleLookupPort.value}")
+    System.setProperty("disposeVehicle.baseUrl", s"http://localhost:${vehicleDisposePort.value}")
   }
 }
