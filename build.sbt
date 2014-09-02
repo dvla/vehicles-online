@@ -54,6 +54,8 @@ libraryDependencies ++= Seq(
 
 SandboxKeys.portOffset := 17000
 
+SandboxKeys.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
+
 SandboxKeys.runAllMicroservices := {
     Tasks.runLegacyStubs.value
     Tasks.runOsAddressLookup.value

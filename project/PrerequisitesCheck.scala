@@ -1,6 +1,7 @@
-import Runner.{decryptPassword, secretProperty, secretRepoLocation}
-import org.apache.commons.io.FileUtils
-import sbt.Keys.target
+import Runner.{decryptFile, decryptPassword, secretProperty, secretRepoLocation}
+import SandboxKeys.webAppSecrets
+import org.apache.commons.io.{FilenameUtils, FileUtils}
+import sbt.Keys.{baseDirectory, target}
 import sbt.{Def, File, IO, ThisProject}
 import scala.sys.process.Process
 
@@ -16,6 +17,11 @@ object PrerequisitesCheck {
   lazy val prerequisitesCheck = Def.task {
     validatePrerequisites()
     updateSecretVehiclesOnline(secretRepoLocation((target in ThisProject).value))
+    decryptWebAppSecrets(
+      webAppSecrets.value,
+      baseDirectory.in(ThisProject).value,
+      secretRepoLocation(target.in(ThisProject).value)
+    )
   }
 
   private def updateSecretVehiclesOnline(secretRepo: File) {
@@ -78,6 +84,16 @@ object PrerequisitesCheck {
         s""" "-D$secretProperty='secret'"""" +
         s" or export it in the environment with export $secretProperty='some secret prop' ${scala.Console.RESET}")
       throw new Exception(s""" There is no "$secretProperty" set neither as env variable nor as JVM property """)
+    }
+  }
+
+  def decryptWebAppSecrets(encryptedFileName: String, projectBaseDir: File, secretRepo: File): Unit = {
+    val nonEncryptedFileName = encryptedFileName.substring(0, encryptedFileName.length - ".enc".length)
+    val targetFile = new File(projectBaseDir, "conf/" + FilenameUtils.getName(nonEncryptedFileName))
+
+    if (!targetFile.getCanonicalFile.exists()) {
+      println(s"${scala.Console.YELLOW}Decrypting the secrets to $targetFile${scala.Console.RESET}")
+      decryptFile(secretRepo.getAbsolutePath, new File(secretRepo, encryptedFileName), targetFile, a => a)
     }
   }
 }
