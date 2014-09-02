@@ -23,7 +23,7 @@ object ProjectsDefinitions {
       .settings(resolvers ++= (Common.projectResolvers ++ res))
       .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*),
     ScopeFilter(inProjects(LocalProject(name)), inConfigurations(Runtime))
-    )
+  )
 
   // Declaring the sandbox projects
   lazy val (osAddressLookup, scopeOsAddressLookup) =

@@ -68,10 +68,10 @@ object Runner {
 
   def runProject(prjClassPath: Seq[Attributed[File]],
                  configDetails: Option[ConfigDetails],
-                 runMainMethod: (ClassLoader) => Any = runJavaMain("dvla.microservice.Boot")): Any = {
+                 runMainMethod: (ClassLoader) => Any = runJavaMain("dvla.microservice.Boot")): Any = try {
     configDetails.map { case ConfigDetails(secretRepo, encryptedConfig, output, systemPropertySetter) =>
       val encryptedConfigFile = new File(secretRepo, encryptedConfig)
-      output.map { case ConfigOutput(decryptedOutput, transform)=>
+      output.map { case ConfigOutput(decryptedOutput, transform) =>
         decryptFile(secretRepo.getAbsolutePath, encryptedConfigFile, decryptedOutput, transform)
       }
     }
@@ -82,12 +82,19 @@ object Runner {
     )
 
     runMainMethod(prjClassloader)
+  } catch {
+    case t: Throwable =>
+      t.printStackTrace()
+      throw t
   }
 
   def decryptFile(secretRepo: String, encrypted: File, dest: File, decryptedTransform: String => String) {
     val decryptFile = s"$secretRepo/decrypt-file"
+    Process(s"chmod +x $decryptFile").!!<
     dest.getParentFile.mkdirs()
+    if (!encrypted.exists()) throw new Exception(s"File to be decrypted ${encrypted.getAbsolutePath} doesn't exist!")
     val decryptCommand = s"$decryptFile ${encrypted.getAbsolutePath} ${dest.getAbsolutePath} ${decryptPassword.get}"
+
     Process(decryptCommand).!!<
 
     val transformedFile = decryptedTransform(FileUtils.readFileToString(dest))
