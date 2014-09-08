@@ -40,7 +40,7 @@ object DisposeFormViewModel {
 
     def mapping(dateService: DateService): Mapping[DisposeFormViewModel] =
       play.api.data.Forms.mapping(
-        MileageId -> mileage(),
+        MileageId -> mileage,
         DateOfDisposalId -> dayMonthYear.verifying(validDate(),
           after(earliest = (dateService.today - DateOfDisposalYearsIntoThePast).years),
           notInFuture(dateService)),

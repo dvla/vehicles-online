@@ -81,7 +81,7 @@
                     Map('_label -> Messages("disposal_dispose.mileage.label"),
                         '_showConstraints -> false,
                         'typeTel -> true,
-                        'maxLength -> Mileage.maxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
+                        'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
                         //'title -> Messages("disposal_dispose.mileage.validation")
                         ) ++
                         (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
