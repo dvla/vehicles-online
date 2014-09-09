@@ -1,4 +1,4 @@
-@(timeString: String)(implicit lang: Lang,
+@(data: viewmodels.VrmLockedViewModel)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -12,7 +12,7 @@
     title = Messages("vrm_locked.title")
 ) {
     <p>@Messages("vrm_locked.text1")</p>
-    <p>@Messages("vrm_locked.text2")&nbsp;<span id='localTimeOfVrmLock' >@timeString</span></p>
+    <p>@Messages("vrm_locked.text2")&nbsp;<span id='localTimeOfVrmLock' >@data.timeString</span></p>
     <p>@Messages("vrm_locked.text3.1")&nbsp;<strong>@Messages("vrm_locked.text3.2")</strong></p>
     <div class="form-steps">
         <div class="step">
@@ -32,13 +32,13 @@
 
 @* TODO instead of inserting into html the html needs the default value (for browsers without javascript) and this script should totally replace the span. *@
 <script type="text/javascript">
-    function localize(dateTimeISOChronology)
+    function localize(milliseconds)
     {
-        // Todo: Date ctor for string dates not support in IE8. Standard method is to use:
-        // new Date(year, month, day [, hour, minute, second, millisecond ])
-        var localTime =new Date(dateTimeISOChronology).toLocaleTimeString();
+        var date = new Date();
+        date.setTime(milliseconds);
+        var localTime = date.toLocaleTimeString();
         document.getElementById('localTimeOfVrmLock').innerHTML = localTime;
     }
 
-    localize("@timeString");
+    localize(@data.javascriptTimestamp);
 </script>

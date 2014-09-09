@@ -1,13 +1,14 @@
 package controllers
 
 import com.google.inject.Inject
+import org.joda.time.DateTime
 import play.api.Logger
 import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, BruteForcePreventionModel}
 import utils.helpers.Config
-import viewmodels.{AllCacheKeys, DisposeCacheKeys}
+import viewmodels.{VrmLockedViewModel, AllCacheKeys, DisposeCacheKeys}
 
 final class VrmLocked @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                   config: Config) extends Controller {
@@ -16,7 +17,7 @@ final class VrmLocked @Inject()()(implicit clientSideSessionFactory: ClientSideS
       request.cookies.getModel[BruteForcePreventionModel] match {
         case Some(viewModel) =>
           Logger.debug(s"VrmLocked - Displaying the vrm locked error page")
-          Ok(views.html.disposal_of_vehicle.vrm_locked(viewModel.dateTimeISOChronology))
+          Ok(views.html.disposal_of_vehicle.vrm_locked(VrmLockedViewModel(viewModel.dateTimeISOChronology, DateTime.parse(viewModel.dateTimeISOChronology).getMillis)))
         case None =>
           Logger.debug("VrmLocked - Can't find cookie for BruteForcePreventionViewModel")
           Redirect(routes.VehicleLookup.present())
