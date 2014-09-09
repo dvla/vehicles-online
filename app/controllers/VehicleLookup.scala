@@ -78,7 +78,7 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
         }
       },
       validForm => {
-        bruteForceAndLookup(convertToUpperCaseAndRemoveSpaces(validForm))
+        bruteForceAndLookup(validForm)
       }
     )
   }
@@ -96,10 +96,6 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
       .discardingCookies(AllCacheKeys)
       .withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)
   }
-
-  private def convertToUpperCaseAndRemoveSpaces(model: VehicleLookupFormViewModel): VehicleLookupFormViewModel =
-    model.copy(registrationNumber = model.registrationNumber.replace(" ", "")
-      .toUpperCase)
 
   def back = Action { implicit request =>
     request.cookies.getModel[TraderDetailsModel] match {
