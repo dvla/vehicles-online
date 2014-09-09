@@ -1,14 +1,13 @@
 package viewmodels
 
-import constraints.TraderBusinessName
-import uk.gov.dvla.vehicles.presentation.common.mappings.Postcode
-import Postcode.postcode
-import play.api.data.Forms._
+import play.api.data.Forms.mapping
 import play.api.data.Mapping
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CacheKey
-import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
-import FormExtensions._
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.CacheKey
+import common.mappings.Postcode.postcode
+import common.views.constraints.BusinessName
+import common.views.helpers.FormExtensions.nonEmptyTextWithTransform
 
 // TODO the names of the params repeat names from the model so refactor
 final case class SetupTradeDetailsViewModel(traderBusinessName: String, traderPostcode: String)
@@ -26,7 +25,7 @@ object SetupTradeDetailsViewModel {
 
     private final val TraderNameMapping: Mapping[String] =
       nonEmptyTextWithTransform(_.toUpperCase.trim)(TraderNameMinLength, TraderNameMaxLength)
-        .verifying(TraderBusinessName.validTraderBusinessName)
+        .verifying(BusinessName.validBusinessName)
 
     final val Mapping = mapping(
       TraderNameId -> TraderNameMapping,

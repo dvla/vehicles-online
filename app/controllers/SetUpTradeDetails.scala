@@ -26,7 +26,7 @@ final class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: Cli
       invalidForm => {
         val formWithReplacedErrors = invalidForm.replaceError(
           TraderNameId,
-          FormError(key = TraderNameId, message = "error.validTraderBusinessName", args = Seq.empty)
+          FormError(key = TraderNameId, message = "error.validBusinessName", args = Seq.empty)
         ).replaceError(
           TraderPostcodeId,
           FormError(key = TraderPostcodeId, message = "error.restricted.validPostcode", args = Seq.empty)

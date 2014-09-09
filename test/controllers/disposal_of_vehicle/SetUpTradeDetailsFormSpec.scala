@@ -24,7 +24,7 @@ final class SetUpTradeDetailsFormSpec extends UnitSpec {
       errors(1).key should equal(TraderNameId)
       errors(1).message should equal("error.required")
       errors(2).key should equal(TraderNameId)
-      errors(2).message should equal("error.validTraderBusinessName")
+      errors(2).message should equal("error.validBusinessName")
     }
 
     "reject if trader business name is less than minimum length" in {
