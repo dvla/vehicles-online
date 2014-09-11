@@ -48,12 +48,11 @@ cache/
 /bin
 test.sc
 *.worksheet
-/conf/vehiclesOnline.conf
+vehiclesOnline.conf
 /conf/vehiclesOnline.confworkdir/
 vagrant_ansible_inventory_default
 .vagrant
 workdir/
-/conf/vehiclesOnline.conf
 conf/generated.keystore
 
 .*.swp
