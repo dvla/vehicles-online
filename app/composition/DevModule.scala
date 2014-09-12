@@ -26,7 +26,7 @@ import common.webserviceclients.vehiclelookup.VehicleLookupService
 import common.webserviceclients.vehiclelookup.VehicleLookupServiceImpl
 import common.webserviceclients.vehiclelookup.VehicleLookupWebService
 import common.webserviceclients.vehiclelookup.VehicleLookupWebServiceImpl
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
+import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
 /**
  * Provides real implementations of traits

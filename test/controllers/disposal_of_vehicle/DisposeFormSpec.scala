@@ -5,8 +5,7 @@ import helpers.UnitSpec
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.DisposeConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeRequestDto}
+import webserviceclients.dispose.{DisposeConfig, DisposeWebService, DisposeServiceImpl, DisposeRequestDto}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}

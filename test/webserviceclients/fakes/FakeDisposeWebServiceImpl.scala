@@ -4,14 +4,13 @@ import play.api.Logger
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose.{DisposeRequestDto, DisposeResponseDto, DisposeWebService}
+import webserviceclients.dispose.{DisposeWebService, DisposeResponseDto, DisposeRequestDto}
 import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 final class FakeDisposeWebServiceImpl extends DisposeWebService {
-  import webserviceclients.fakes.FakeDisposeWebServiceImpl._
+  import FakeDisposeWebServiceImpl._
 
   override def callDisposeService(request: DisposeRequestDto, trackingId: String): Future[WSResponse] = Future.successful {
     val disposeResponse: DisposeResponseDto = {

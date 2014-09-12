@@ -2,8 +2,7 @@ package webserviceclients.fakes
 
 import play.api.http.Status.{OK, SERVICE_UNAVAILABLE}
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleDetailsDto, VehicleDetailsRequestDto, VehicleDetailsResponseDto, VehicleLookupWebService}
-
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleDetailsResponseDto, VehicleDetailsRequestDto, VehicleDetailsDto}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -28,17 +27,18 @@ final class FakeVehicleLookupWebService extends VehicleLookupWebService {
 object FakeVehicleLookupWebService {
   final val RegistrationNumberValid = "AB12AWR"
   final val RegistrationNumberWithSpaceValid = "AB12 AWR"
-  final val ReferenceNumberValid = "11111111111"
+  final val ReferenceNumberValid = "12345678910"
   final val VehicleMakeValid = "Alfa Romeo"
   final val VehicleModelValid = "Alfasud ti"
   final val KeeperNameValid = "Keeper Name"
   final val KeeperUprnValid = 10123456789L
   final val ConsentValid = "true"
+  final val DisposeFlag = true
 
   private val vehicleDetails = VehicleDetailsDto(registrationNumber = RegistrationNumberValid,
     vehicleMake = VehicleMakeValid,
     vehicleModel = VehicleModelValid,
-    true)
+    disposeFlag = DisposeFlag)
 
   val vehicleDetailsResponseSuccess: (Int, Option[VehicleDetailsResponseDto]) = {
     (OK, Some(VehicleDetailsResponseDto(responseCode = None, vehicleDetailsDto = Some(vehicleDetails))))

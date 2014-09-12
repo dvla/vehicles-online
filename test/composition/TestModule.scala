@@ -11,7 +11,7 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeService}
+import webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeService}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleLookupServiceImpl, VehicleLookupService}
 import webserviceclients.fakes.FakeVehicleLookupWebService
 import webserviceclients.fakes.FakeDisposeWebServiceImpl
