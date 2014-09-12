@@ -12,6 +12,6 @@
     <div class="form-steps">
         @{ /* Note the reverse routing syntax for the hyperlink */ }
         <a class="button" id="tryagain" href="@controllers.routes.VehicleLookup.present()">@Messages("duplicate_disposal_error.back.button")</a>
-        <a class="button" id="exit" href="@controllers.routes.BeforeYouStart.present()">@Messages("duplicate_disposal_error.exit.button")</a>
+        <a class="button-secondary" id="exit" href="@controllers.routes.BeforeYouStart.present()">@Messages("duplicate_disposal_error.exit.button")</a>
     </div>
 }
