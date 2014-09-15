@@ -1,17 +1,17 @@
 @(data: viewmodels.DisposeViewModel,
-        disposeForm: Form[viewmodels.DisposeFormViewModel],
+        disposeForm: Form[viewmodels.DisposeFormModel],
         dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import viewmodels.DisposeFormViewModel.Form.BackId
-@import viewmodels.DisposeFormViewModel.Form.ConsentId
-@import viewmodels.DisposeFormViewModel.Form.DateOfDisposalId
-@import viewmodels.DisposeFormViewModel.Form.DateOfDisposalYearsIntoThePast
-@import viewmodels.DisposeFormViewModel.Form.LossOfRegistrationConsentId
-@import viewmodels.DisposeFormViewModel.Form.MileageId
-@import viewmodels.DisposeFormViewModel.Form.SubmitId
-@import viewmodels.DisposeFormViewModel.Form.TodaysDateOfDisposal
+@import viewmodels.DisposeFormModel.Form.BackId
+@import viewmodels.DisposeFormModel.Form.ConsentId
+@import viewmodels.DisposeFormModel.Form.DateOfDisposalId
+@import viewmodels.DisposeFormModel.Form.DateOfDisposalYearsIntoThePast
+@import viewmodels.DisposeFormModel.Form.LossOfRegistrationConsentId
+@import viewmodels.DisposeFormModel.Form.MileageId
+@import viewmodels.DisposeFormModel.Form.SubmitId
+@import viewmodels.DisposeFormModel.Form.TodaysDateOfDisposal
 @import views.html.disposal_of_vehicle.main
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.mappings.Mileage

@@ -12,15 +12,15 @@ import common.clientsidesession.CacheKey
 import common.services.DateService
 import common.views.models.DayMonthYear
 
-final case class DisposeFormViewModel(mileage: Option[Int],
+final case class DisposeFormModel(mileage: Option[Int],
                                   dateOfDisposal: DayMonthYear,
                                   consent: String,
                                   lossOfRegistrationConsent: String)
 
-object DisposeFormViewModel {
-  implicit val JsonFormat = Json.format[DisposeFormViewModel]
+object DisposeFormModel {
+  implicit val JsonFormat = Json.format[DisposeFormModel]
   final val DisposeFormModelCacheKey = "disposeForm"
-  implicit val Key = CacheKey[DisposeFormViewModel](value = DisposeFormModelCacheKey)
+  implicit val Key = CacheKey[DisposeFormModel](value = DisposeFormModelCacheKey)
   final val DisposeOccurredCacheKey = "disposeOccurredCacheKey"
   final val PreventGoingToDisposePageCacheKey = "preventGoingToDisposePage"
   final val DisposeFormTransactionIdCacheKey = "disposeFormTransactionId"
@@ -38,7 +38,7 @@ object DisposeFormViewModel {
     final val BackId = "back"
     final val SubmitId = "submit"
 
-    def mapping(dateService: DateService): Mapping[DisposeFormViewModel] =
+    def mapping(dateService: DateService): Mapping[DisposeFormModel] =
       play.api.data.Forms.mapping(
         MileageId -> mileage,
         DateOfDisposalId -> dayMonthYear.verifying(validDate(),
@@ -46,6 +46,6 @@ object DisposeFormViewModel {
           notInFuture(dateService)),
         ConsentId -> consent,
         LossOfRegistrationConsentId -> consent
-      )(DisposeFormViewModel.apply)(DisposeFormViewModel.unapply)
+      )(DisposeFormModel.apply)(DisposeFormModel.unapply)
   }
 }

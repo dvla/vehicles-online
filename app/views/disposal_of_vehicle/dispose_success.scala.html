@@ -1,11 +1,10 @@
 @(data: viewmodels.DisposeViewModel,
-formModel: viewmodels.DisposeFormViewModel,
-disposeDateTime: org.joda.time.DateTime,
-surveyUrl: Option[String]
-)(implicit lang: Lang,
-token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
-config: utils.helpers.Config
-)
+    formModel: viewmodels.DisposeFormModel,
+    disposeDateTime: org.joda.time.DateTime,
+    surveyUrl: Option[String]
+    )(implicit lang: Lang,
+    token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+    config: utils.helpers.Config)
 
 @import views.disposal_of_vehicle.DisposeSuccess.{ExitDisposalId, NewDisposalId}
 @import views.html.disposal_of_vehicle.main

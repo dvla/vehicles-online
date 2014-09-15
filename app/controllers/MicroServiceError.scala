@@ -6,7 +6,7 @@ import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import utils.helpers.Config
-import viewmodels.DisposeFormViewModel.PreventGoingToDisposePageCacheKey
+import viewmodels.DisposeFormModel.PreventGoingToDisposePageCacheKey
 
 final class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                         config: Config) extends Controller {
