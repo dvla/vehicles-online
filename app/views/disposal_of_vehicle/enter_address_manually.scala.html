@@ -16,7 +16,7 @@
     title = Messages("disposal_enteraddressmanually.title"),
     currentForm = Some(enterAddressManuallyForm)
 ) {
-    <div class="enter-address-manually uppercase-input">
+    <div class="enter-address-manually uppercase-input sr-only-labels">
         @form(action = controllers.routes.EnterAddressManually.submit()) {
             @csrfTokenHiddenField()
 

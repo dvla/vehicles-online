@@ -4,9 +4,6 @@
 
     //enter address manually
     .enter-address-manually {
-        label {
-            @include sr-only;
-        }
         .post-town label {
             position:relative;
             top:0;
