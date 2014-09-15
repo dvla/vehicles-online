@@ -3,7 +3,7 @@ package pages.disposal_of_vehicle
 import helpers.webbrowser._
 import views.disposal_of_vehicle.VehicleLookup
 import VehicleLookup.BackId
-import viewmodels.VehicleLookupFormViewModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+import viewmodels.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
 import VehicleLookup.ExitId
 import VehicleLookup.SubmitId
 import org.openqa.selenium.WebDriver

@@ -13,7 +13,7 @@ import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import viewmodels.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
-import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import viewmodels.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 
 package object viewmodels {
   final val HelpCacheKey = "help"

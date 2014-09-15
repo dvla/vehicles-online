@@ -7,8 +7,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, BruteForcePreventionModel}
 import utils.helpers.Config
-import viewmodels.VehicleLookupFormViewModel.VehicleLookupResponseCodeCacheKey
-import viewmodels.VehicleLookupFormViewModel
+import viewmodels.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import viewmodels.VehicleLookupFormModel
 
 final class VehicleLookupFailure @Inject()()
                                  (implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -17,7 +17,7 @@ final class VehicleLookupFailure @Inject()()
   def present = Action { implicit request =>
     (request.cookies.getModel[TraderDetailsModel],
       request.cookies.getModel[BruteForcePreventionModel],
-      request.cookies.getModel[VehicleLookupFormViewModel],
+      request.cookies.getModel[VehicleLookupFormModel],
       request.cookies.getString(VehicleLookupResponseCodeCacheKey)) match {
       case (Some(dealerDetails),
             Some(bruteForcePreventionResponse),
@@ -33,7 +33,7 @@ final class VehicleLookupFailure @Inject()()
   }
 
   def submit = Action { implicit request =>
-    (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleLookupFormViewModel]) match {
+    (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleLookupFormModel]) match {
       case (Some(dealerDetails), Some(vehicleLookUpFormModelDetails)) =>
         Logger.debug("Found dealer and vehicle details")
         Redirect(routes.VehicleLookup.present())
@@ -41,7 +41,7 @@ final class VehicleLookupFailure @Inject()()
     }
   }
 
-  private def displayVehicleLookupFailure(vehicleLookUpFormModelDetails: VehicleLookupFormViewModel,
+  private def displayVehicleLookupFailure(vehicleLookUpFormModelDetails: VehicleLookupFormModel,
                                           bruteForcePreventionViewModel: BruteForcePreventionModel,
                                           vehicleLookupResponseCode: String)(implicit request: Request[AnyContent]) = {
     Ok(views.html.disposal_of_vehicle.vehicle_lookup_failure(

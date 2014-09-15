@@ -16,7 +16,7 @@ import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import viewmodels.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
-import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import viewmodels.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import viewmodels._
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, TraderBusinessNameValid, addressWithoutUprn}
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
@@ -101,7 +101,7 @@ object CookieFactoryForUISpecs {
                              registrationNumber: String = RegistrationNumberValid)
                             (implicit webDriver: WebDriver) = {
     val key = VehicleLookupFormModelCacheKey
-    val value = VehicleLookupFormViewModel(referenceNumber = referenceNumber,
+    val value = VehicleLookupFormModel(referenceNumber = referenceNumber,
       registrationNumber = registrationNumber)
     addCookie(key, value)
     this

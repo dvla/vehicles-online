@@ -8,7 +8,7 @@ import helpers.disposal_of_vehicle.ValidVRMFormat.allValidVrmFormats
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleLookupServiceImpl, VehicleDetailsResponseDto, VehicleDetailsRequestDto}
-import viewmodels.VehicleLookupFormViewModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+import viewmodels.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
 import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.when
 import play.api.http.Status.OK

@@ -14,7 +14,7 @@ import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, Dispose
 import utils.helpers.Config
 import viewmodels.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId}
 import viewmodels.DisposeFormModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, PreventGoingToDisposePageCacheKey}
-import viewmodels.{DisposeFormModel, DisposeViewModel, VehicleLookupFormViewModel}
+import viewmodels.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel}
 import views.html.disposal_of_vehicle.dispose
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -111,7 +111,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
         case _ => handleHttpStatusCode(httpResponseCode)
       }
 
-    def callMicroService(vehicleLookup: VehicleLookupFormViewModel, disposeForm: DisposeFormModel, traderDetails: TraderDetailsModel) = {
+    def callMicroService(vehicleLookup: VehicleLookupFormModel, disposeForm: DisposeFormModel, traderDetails: TraderDetailsModel) = {
       val disposeRequest = buildDisposeMicroServiceRequest(vehicleLookup, disposeForm, traderDetails)
       webService.invoke(disposeRequest, trackingId).map {
         case (httpResponseCode, response) =>
@@ -148,7 +148,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
       nextPage.withCookie(DisposeFormTimestampIdCacheKey, isoDateTimeString)
     }
 
-    def buildDisposeMicroServiceRequest(vehicleLookup: VehicleLookupFormViewModel,
+    def buildDisposeMicroServiceRequest(vehicleLookup: VehicleLookupFormModel,
                                         disposeForm: DisposeFormModel,
                                         traderDetails: TraderDetailsModel): DisposeRequestDto = {
       val dateTime = disposeFormModel.dateOfDisposal.toDateTime.get
@@ -187,7 +187,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
         case _ => routes.MicroServiceError.present()
       }
 
-    (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleLookupFormViewModel]) match {
+    (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleLookupFormModel]) match {
       case (Some(traderDetails), Some(vehicleLookup)) =>
         callMicroService(vehicleLookup, disposeFormModel, traderDetails)
       case _ => Future {
