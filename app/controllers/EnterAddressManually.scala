@@ -9,7 +9,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, AddressModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
-import viewmodels.{EnterAddressManuallyViewModel, SetupTradeDetailsViewModel}
+import viewmodels.{EnterAddressManuallyFormModel, SetupTradeDetailsViewModel}
 import views.html.disposal_of_vehicle.enter_address_manually
 
 final class EnterAddressManually @Inject()()
@@ -17,7 +17,7 @@ final class EnterAddressManually @Inject()()
                                   config: Config) extends Controller {
 
   private[controllers] val form = Form(
-    EnterAddressManuallyViewModel.Form.Mapping
+    EnterAddressManuallyFormModel.Form.Mapping
   )
 
   def present = Action { implicit request =>
@@ -60,7 +60,7 @@ final class EnterAddressManually @Inject()()
     )
   }
 
-  private def formWithReplacedErrors(form: Form[EnterAddressManuallyViewModel])(implicit request: Request[_]) =
+  private def formWithReplacedErrors(form: Form[EnterAddressManuallyFormModel])(implicit request: Request[_]) =
     form.replaceError(
       "addressAndPostcode.addressLines.buildingNameOrNumber",
       FormError("addressAndPostcode.addressLines", "error.address.buildingNameOrNumber.invalid")

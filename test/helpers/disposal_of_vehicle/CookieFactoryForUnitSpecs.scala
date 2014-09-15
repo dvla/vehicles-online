@@ -18,14 +18,14 @@ import viewmodels.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import viewmodels.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import viewmodels.DisposeFormModel.DisposeOccurredCacheKey
 import viewmodels.DisposeFormModel.PreventGoingToDisposePageCacheKey
-import viewmodels.EnterAddressManuallyViewModel.EnterAddressManuallyCacheKey
+import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import viewmodels.HelpCacheKey
 import viewmodels.SetupTradeDetailsViewModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
 import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import viewmodels.{BusinessChooseYourAddressFormModel, DisposeFormModel}
-import viewmodels.{EnterAddressManuallyViewModel, SeenCookieMessageCacheKey, SetupTradeDetailsViewModel, VehicleLookupFormViewModel}
+import viewmodels.{EnterAddressManuallyFormModel, SeenCookieMessageCacheKey, SetupTradeDetailsViewModel, VehicleLookupFormViewModel}
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid}
 import webserviceclients.fakes.FakeAddressLookupService.{PostTownValid, PostcodeValid, TraderBusinessNameValid}
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
@@ -74,7 +74,7 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
 
   def enterAddressManually(): Cookie = {
     val key = EnterAddressManuallyCacheKey
-    val value = EnterAddressManuallyViewModel(
+    val value = EnterAddressManuallyFormModel(
       addressAndPostcodeModel = AddressAndPostcodeViewModel(
         addressLinesModel = AddressLinesViewModel(
           buildingNameOrNumber = BuildingNameOrNumberValid,

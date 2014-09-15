@@ -12,7 +12,7 @@ import uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.{
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
 import viewmodels.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import viewmodels.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
-import viewmodels.EnterAddressManuallyViewModel.EnterAddressManuallyCacheKey
+import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import viewmodels.SetupTradeDetailsViewModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
@@ -65,7 +65,7 @@ object CookieFactoryForUISpecs {
 
   def enterAddressManually()(implicit webDriver: WebDriver) = {
     val key = EnterAddressManuallyCacheKey
-    val value = EnterAddressManuallyViewModel(addressAndPostcodeModel = AddressAndPostcodeViewModel(
+    val value = EnterAddressManuallyFormModel(addressAndPostcodeModel = AddressAndPostcodeViewModel(
       addressLinesModel = AddressLinesViewModel(buildingNameOrNumber = BuildingNameOrNumberValid,
       line2 = Some(Line2Valid),
       line3 = Some(Line3Valid),

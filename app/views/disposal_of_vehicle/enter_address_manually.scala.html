@@ -1,4 +1,4 @@
-@(enterAddressManuallyForm: Form[viewmodels.EnterAddressManuallyViewModel],
+@(enterAddressManuallyForm: Form[viewmodels.EnterAddressManuallyFormModel],
         traderPostcode: String)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
@@ -6,7 +6,7 @@
 @import views.disposal_of_vehicle.EnterAddressManually.{BackId, NextId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
-@import viewmodels.EnterAddressManuallyViewModel.Form.AddressAndPostcodeId
+@import viewmodels.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.views.html.widgets.addressAndPostcode
 @import common.views.html.widgets.base.csrfTokenHiddenField

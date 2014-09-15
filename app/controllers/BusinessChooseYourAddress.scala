@@ -11,7 +11,7 @@ import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupService
 import utils.helpers.Config
 import viewmodels.BusinessChooseYourAddressFormModel.Form.AddressSelectId
-import viewmodels.EnterAddressManuallyViewModel.EnterAddressManuallyCacheKey
+import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import viewmodels.{BusinessChooseYourAddressFormModel, SetupTradeDetailsViewModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import views.html.disposal_of_vehicle.business_choose_your_address

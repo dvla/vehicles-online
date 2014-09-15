@@ -4,8 +4,8 @@ import controllers.EnterAddressManually
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
 import AddressLinesViewModel.Form.LineMaxLength
 import helpers.UnitSpec
-import viewmodels.EnterAddressManuallyViewModel
-import EnterAddressManuallyViewModel.Form.AddressAndPostcodeId
+import viewmodels.EnterAddressManuallyFormModel
+import EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
 

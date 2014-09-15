@@ -17,9 +17,9 @@ import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import utils.helpers.Config
 import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
-import viewmodels.EnterAddressManuallyViewModel.Form.AddressAndPostcodeId
+import viewmodels.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import TraderDetailsModel.TraderDetailsCacheKey
-import viewmodels.EnterAddressManuallyViewModel
+import viewmodels.EnterAddressManuallyFormModel
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
 
 import scala.concurrent.Future
@@ -107,7 +107,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
         cookies.find(_.name == enterAddressManuallyCookieName) match {
           case Some(cookie) =>
             val json = cookie.value
-            val model = deserializeJsonToModel[EnterAddressManuallyViewModel](json)
+            val model = deserializeJsonToModel[EnterAddressManuallyFormModel](json)
 
             model.addressAndPostcodeModel.addressLinesModel.buildingNameOrNumber should equal(
               BuildingNameOrNumberValid.toUpperCase)
