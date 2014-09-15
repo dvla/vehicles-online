@@ -5,12 +5,12 @@ import play.api.data.Forms._
 import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CacheKey
 
-final case class BusinessChooseYourAddressViewModel(uprnSelected: String)
+final case class BusinessChooseYourAddressFormModel(uprnSelected: String)
 
-object BusinessChooseYourAddressViewModel {
-  implicit val JsonFormat = Json.format[BusinessChooseYourAddressViewModel]
+object BusinessChooseYourAddressFormModel {
+  implicit val JsonFormat = Json.format[BusinessChooseYourAddressFormModel]
   final val BusinessChooseYourAddressCacheKey = "businessChooseYourAddress"
-  implicit val Key = CacheKey[BusinessChooseYourAddressViewModel](value = BusinessChooseYourAddressCacheKey)
+  implicit val Key = CacheKey[BusinessChooseYourAddressFormModel](value = BusinessChooseYourAddressCacheKey)
 
   object Form {
     final val AddressSelectId = "disposal_businessChooseYourAddress_addressSelect"
@@ -20,6 +20,6 @@ object BusinessChooseYourAddressViewModel {
       Validation is done when we make a second web call with the UPRN,
       so if a bad guy is injecting a non-existent UPRN then it will fail at that step instead */
       AddressSelectId -> DropDown.addressDropDown
-    )(BusinessChooseYourAddressViewModel.apply)(BusinessChooseYourAddressViewModel.unapply)
+    )(BusinessChooseYourAddressFormModel.apply)(BusinessChooseYourAddressFormModel.unapply)
   }
 }

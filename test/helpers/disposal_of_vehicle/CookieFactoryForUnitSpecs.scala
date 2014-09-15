@@ -10,7 +10,7 @@ import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
-import viewmodels.BusinessChooseYourAddressViewModel.BusinessChooseYourAddressCacheKey
+import viewmodels.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import viewmodels.DisposeFormViewModel.SurveyRequestTriggerDateCacheKey
 import viewmodels.DisposeFormViewModel.DisposeFormModelCacheKey
 import viewmodels.DisposeFormViewModel.DisposeFormRegistrationNumberCacheKey
@@ -24,7 +24,7 @@ import viewmodels.SetupTradeDetailsViewModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
 import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import viewmodels.{BusinessChooseYourAddressViewModel, DisposeFormViewModel}
+import viewmodels.{BusinessChooseYourAddressFormModel, DisposeFormViewModel}
 import viewmodels.{EnterAddressManuallyViewModel, SeenCookieMessageCacheKey, SetupTradeDetailsViewModel, VehicleLookupFormViewModel}
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid}
 import webserviceclients.fakes.FakeAddressLookupService.{PostTownValid, PostcodeValid, TraderBusinessNameValid}
@@ -68,7 +68,7 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
 
   def businessChooseYourAddress(): Cookie = {
     val key = BusinessChooseYourAddressCacheKey
-    val value = BusinessChooseYourAddressViewModel(uprnSelected = traderUprnValid.toString)
+    val value = BusinessChooseYourAddressFormModel(uprnSelected = traderUprnValid.toString)
     createCookie(key, value)
   }
 

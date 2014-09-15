@@ -10,9 +10,9 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSes
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupService
 import utils.helpers.Config
-import viewmodels.BusinessChooseYourAddressViewModel.Form.AddressSelectId
+import viewmodels.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import viewmodels.EnterAddressManuallyViewModel.EnterAddressManuallyCacheKey
-import viewmodels.{BusinessChooseYourAddressViewModel, SetupTradeDetailsViewModel}
+import viewmodels.{BusinessChooseYourAddressFormModel, SetupTradeDetailsViewModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import views.html.disposal_of_vehicle.business_choose_your_address
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -22,7 +22,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
                                                (implicit clientSideSessionFactory: ClientSideSessionFactory,
                                                 config: Config) extends Controller {
 
-  private[controllers] val form = Form(BusinessChooseYourAddressViewModel.Form.Mapping)
+  private[controllers] val form = Form(BusinessChooseYourAddressFormModel.Form.Mapping)
 
   def present = Action.async { implicit request =>
     request.cookies.getModel[SetupTradeDetailsViewModel] match {
@@ -70,7 +70,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
     )
   }
 
-  private def formWithReplacedErrors(form: Form[BusinessChooseYourAddressViewModel])(implicit request: Request[_]) =
+  private def formWithReplacedErrors(form: Form[BusinessChooseYourAddressFormModel])(implicit request: Request[_]) =
     form.replaceError(AddressSelectId, "error.required",
       FormError(key = AddressSelectId, message = "disposal_businessChooseYourAddress.address.required", args = Seq.empty)).
       distinctErrors
@@ -78,7 +78,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
   private def fetchAddresses(model: SetupTradeDetailsViewModel)(implicit session: ClientSideSession, lang: Lang) =
     addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId)
 
-  private def lookupUprn(model: BusinessChooseYourAddressViewModel, traderName: String)
+  private def lookupUprn(model: BusinessChooseYourAddressFormModel, traderName: String)
                         (implicit request: Request[_], session: ClientSideSession) = {
     val lookedUpAddress = addressLookupService.fetchAddressForUprn(model.uprnSelected.toString, session.trackingId)
     lookedUpAddress.map {
