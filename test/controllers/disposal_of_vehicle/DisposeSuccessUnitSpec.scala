@@ -14,7 +14,7 @@ import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout
 import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
-import viewmodels.DisposeFormViewModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import viewmodels.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 
 import scala.concurrent.duration.DurationInt
 

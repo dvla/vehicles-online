@@ -11,20 +11,20 @@ import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
 import viewmodels.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
-import viewmodels.DisposeFormViewModel.SurveyRequestTriggerDateCacheKey
-import viewmodels.DisposeFormViewModel.DisposeFormModelCacheKey
-import viewmodels.DisposeFormViewModel.DisposeFormRegistrationNumberCacheKey
-import viewmodels.DisposeFormViewModel.DisposeFormTimestampIdCacheKey
-import viewmodels.DisposeFormViewModel.DisposeFormTransactionIdCacheKey
-import viewmodels.DisposeFormViewModel.DisposeOccurredCacheKey
-import viewmodels.DisposeFormViewModel.PreventGoingToDisposePageCacheKey
+import viewmodels.DisposeFormModel.SurveyRequestTriggerDateCacheKey
+import viewmodels.DisposeFormModel.DisposeFormModelCacheKey
+import viewmodels.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
+import viewmodels.DisposeFormModel.DisposeFormTimestampIdCacheKey
+import viewmodels.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import viewmodels.DisposeFormModel.DisposeOccurredCacheKey
+import viewmodels.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import viewmodels.EnterAddressManuallyViewModel.EnterAddressManuallyCacheKey
 import viewmodels.HelpCacheKey
 import viewmodels.SetupTradeDetailsViewModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
 import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import viewmodels.{BusinessChooseYourAddressFormModel, DisposeFormViewModel}
+import viewmodels.{BusinessChooseYourAddressFormModel, DisposeFormModel}
 import viewmodels.{EnterAddressManuallyViewModel, SeenCookieMessageCacheKey, SetupTradeDetailsViewModel, VehicleLookupFormViewModel}
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid}
 import webserviceclients.fakes.FakeAddressLookupService.{PostTownValid, PostcodeValid, TraderBusinessNameValid}
@@ -190,7 +190,7 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
 
   def disposeFormModel(mileage: Option[Int] = None): Cookie = {
     val key = DisposeFormModelCacheKey
-    val value = DisposeFormViewModel(
+    val value = DisposeFormModel(
       mileage = mileage,
       dateOfDisposal = DayMonthYear(
         FakeDateServiceImpl.DateOfDisposalDayValid.toInt,

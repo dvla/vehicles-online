@@ -13,7 +13,7 @@ import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.for
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupService, VehicleDetailsResponseDto, VehicleDetailsRequestDto, VehicleDetailsDto}
 import utils.helpers.Config
-import viewmodels.DisposeFormViewModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import viewmodels.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import viewmodels.{VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormViewModel}
 import viewmodels.VehicleLookupFormViewModel.VehicleLookupResponseCodeCacheKey
 

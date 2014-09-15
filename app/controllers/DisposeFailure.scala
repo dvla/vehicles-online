@@ -7,15 +7,15 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
 import uk.gov.dvla.vehicles.presentation.common.model.{DisposeModel, TraderDetailsModel, VehicleDetailsModel}
 import utils.helpers.Config
-import viewmodels.DisposeFormViewModel.DisposeFormTransactionIdCacheKey
-import viewmodels.DisposeFormViewModel
+import viewmodels.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import viewmodels.DisposeFormModel
 
 final class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                        config: Config) extends Controller {
 
   def present = Action { implicit request =>
     (request.cookies.getModel[TraderDetailsModel],
-     request.cookies.getModel[DisposeFormViewModel],
+     request.cookies.getModel[DisposeFormModel],
      request.cookies.getModel[VehicleDetailsModel],
      request.cookies.getString(DisposeFormTransactionIdCacheKey)) match {
       case (Some(dealerDetails), Some(disposeFormModel), Some(vehicleDetails), Some(transactionId)) =>

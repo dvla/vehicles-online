@@ -12,9 +12,9 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 import utils.helpers.Config
-import viewmodels.DisposeFormViewModel.Form.{ConsentId, LossOfRegistrationConsentId}
-import viewmodels.DisposeFormViewModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, PreventGoingToDisposePageCacheKey}
-import viewmodels.{DisposeFormViewModel, DisposeViewModel, VehicleLookupFormViewModel}
+import viewmodels.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId}
+import viewmodels.DisposeFormModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, PreventGoingToDisposePageCacheKey}
+import viewmodels.{DisposeFormModel, DisposeViewModel, VehicleLookupFormViewModel}
 import views.html.disposal_of_vehicle.dispose
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -25,7 +25,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
                               config: Config) extends Controller {
 
   private[controllers] val form = Form(
-    DisposeFormViewModel.Form.mapping(dateService)
+    DisposeFormModel.Form.mapping(dateService)
   )
 
   def present = Action { implicit request =>
@@ -71,7 +71,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
     )
   }
 
-  private def formWithReplacedErrors(form: Form[DisposeFormViewModel])(implicit request: Request[_]) = {
+  private def formWithReplacedErrors(form: Form[DisposeFormModel])(implicit request: Request[_]) = {
     // When the user doesn't select a value from the drop-down then the mapping will fail to match on an Int before
     // it gets to the constraints, so we need to replace the error type with one that will give a relevant message.
     val dateOfDisposalError = FormError("dateOfDisposal", "error.dateOfDisposal")
@@ -101,7 +101,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
       dealerName = traderDetails.traderName,
       dealerAddress = traderDetails.traderAddress.address)
 
-  private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormViewModel, trackingId: String)
+  private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormModel, trackingId: String)
                            (implicit request: Request[AnyContent]): Future[Result] = {
 
     def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto]) =
@@ -111,7 +111,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
         case _ => handleHttpStatusCode(httpResponseCode)
       }
 
-    def callMicroService(vehicleLookup: VehicleLookupFormViewModel, disposeForm: DisposeFormViewModel, traderDetails: TraderDetailsModel) = {
+    def callMicroService(vehicleLookup: VehicleLookupFormViewModel, disposeForm: DisposeFormModel, traderDetails: TraderDetailsModel) = {
       val disposeRequest = buildDisposeMicroServiceRequest(vehicleLookup, disposeForm, traderDetails)
       webService.invoke(disposeRequest, trackingId).map {
         case (httpResponseCode, response) =>
@@ -149,7 +149,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
     }
 
     def buildDisposeMicroServiceRequest(vehicleLookup: VehicleLookupFormViewModel,
-                                        disposeForm: DisposeFormViewModel,
+                                        disposeForm: DisposeFormModel,
                                         traderDetails: TraderDetailsModel): DisposeRequestDto = {
       val dateTime = disposeFormModel.dateOfDisposal.toDateTime.get
       val formatter = ISODateTimeFormat.dateTime()

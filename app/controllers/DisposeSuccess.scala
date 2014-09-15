@@ -8,8 +8,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import utils.helpers.Config
-import viewmodels.DisposeFormViewModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
-import viewmodels.{AllCacheKeys, DisposeCacheKeys, DisposeFormViewModel, DisposeOnlyCacheKeys, DisposeViewModel}
+import viewmodels.DisposeFormModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import viewmodels.{AllCacheKeys, DisposeCacheKeys, DisposeFormModel, DisposeOnlyCacheKeys, DisposeViewModel}
 
 final class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                      config: Config,
@@ -18,7 +18,7 @@ final class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSi
 
   def present = Action { implicit request =>
     (request.cookies.getModel[TraderDetailsModel],
-     request.cookies.getModel[DisposeFormViewModel],
+     request.cookies.getModel[DisposeFormModel],
      request.cookies.getModel[VehicleDetailsModel],
      request.cookies.getString(DisposeFormTransactionIdCacheKey),
      request.cookies.getString(DisposeFormRegistrationNumberCacheKey),
@@ -63,7 +63,7 @@ final class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSi
   }
 
   private def createViewModel(traderDetails: TraderDetailsModel,
-                              disposeFormModel: DisposeFormViewModel,
+                              disposeFormModel: DisposeFormModel,
                               vehicleDetails: VehicleDetailsModel,
                               transactionId: Option[String],
                               registrationNumber: String): DisposeViewModel =

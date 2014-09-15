@@ -18,7 +18,7 @@ import common.mappings.DayMonthYear.{DayId, MonthId, YearId}
 import common.mappings.Mileage
 import common.services.DateService
 import common.views.models.DayMonthYear
-import viewmodels.DisposeFormViewModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
+import viewmodels.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
 
 final class DisposeFormSpec extends UnitSpec {
   "form" should {
