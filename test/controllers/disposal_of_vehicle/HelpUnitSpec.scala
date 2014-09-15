@@ -12,7 +12,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, REFERER, contentAsString, defaultAwaitTimeout, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
-import viewmodels.HelpCacheKey
+import models.HelpCacheKey
 
 final class HelpUnitSpec extends UnitSpec {
   "present" should {

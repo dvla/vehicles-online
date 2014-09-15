@@ -1,7 +1,7 @@
 package pages.disposal_of_vehicle
 
 import helpers.webbrowser.{Element, Page, SingleSel, WebBrowserDSL, WebDriverFactory}
-import viewmodels.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import views.disposal_of_vehicle.BusinessChooseYourAddress
 import BusinessChooseYourAddress.BackId
 import BusinessChooseYourAddress.EnterAddressManuallyButtonId

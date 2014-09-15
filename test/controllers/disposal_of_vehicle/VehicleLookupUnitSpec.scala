@@ -32,13 +32,13 @@ import CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.{UnitSpec, WithApplication}
-import viewmodels.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
 import services.DateServiceImpl
 import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
-import viewmodels.DisposeFormModel.SurveyRequestTriggerDateCacheKey
-import viewmodels.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
-import viewmodels.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
-import viewmodels.VehicleLookupFormModel
+import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
+import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import models.VehicleLookupFormModel
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any

@@ -7,7 +7,7 @@ import helpers.{UnitSpec, WithApplication}
 import CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import viewmodels.DisposeFormModel.PreventGoingToDisposePageCacheKey
+import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import MicroServiceError.MicroServiceErrorRefererCacheKey
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{DisposePage, VehicleLookupPage}

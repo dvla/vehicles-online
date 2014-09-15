@@ -17,9 +17,9 @@ import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import utils.helpers.Config
 import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
-import viewmodels.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
+import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import TraderDetailsModel.TraderDetailsCacheKey
-import viewmodels.EnterAddressManuallyFormModel
+import models.EnterAddressManuallyFormModel
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
 
 import scala.concurrent.Future

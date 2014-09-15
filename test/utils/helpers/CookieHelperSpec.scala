@@ -8,7 +8,7 @@ import pages.disposal_of_vehicle.BeforeYouStartPage
 import play.api.test.Helpers.LOCATION
 import play.api.test.{FakeApplication, FakeRequest}
 import helpers.UnitSpec
-import viewmodels.AllCacheKeys
+import models.AllCacheKeys
 
 final class CookieHelperSpec extends UnitSpec {
   "handleApplicationSecretChange" should {

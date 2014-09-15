@@ -1,4 +1,4 @@
-@(viewModel: viewmodels.VehicleLookupViewModel
+@(viewModel: models.VehicleLookupViewModel
 )(implicit lang: Lang,
   token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
   config: utils.helpers.Config
@@ -7,7 +7,7 @@
 @import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, SubmitId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
-@import viewmodels.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+@import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.mappings.{DocumentReferenceNumber, VehicleRegistrationNumber}
 @import common.views.helpers.BaseTemplate.fieldConstructor

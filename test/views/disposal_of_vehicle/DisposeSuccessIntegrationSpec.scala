@@ -9,8 +9,8 @@ import org.openqa.selenium.{By, WebDriver, WebElement}
 import pages.disposal_of_vehicle.DisposeSuccessPage.{exitDisposal, newDisposal}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposeSuccessPage, SetupTradeDetailsPage, VehicleLookupPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import viewmodels.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
-import viewmodels.{AllCacheKeys, DisposeCacheKeys, TradeDetailsCacheKeys}
+import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
+import models.{AllCacheKeys, DisposeCacheKeys, TradeDetailsCacheKeys}
 
 final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

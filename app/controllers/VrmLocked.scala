@@ -8,7 +8,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, BruteForcePreventionModel}
 import utils.helpers.Config
-import viewmodels.{VrmLockedViewModel, AllCacheKeys, DisposeCacheKeys}
+import models.{VrmLockedViewModel, AllCacheKeys, DisposeCacheKeys}
 
 final class VrmLocked @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                   config: Config) extends Controller {

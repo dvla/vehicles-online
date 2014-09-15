@@ -7,8 +7,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
 import uk.gov.dvla.vehicles.presentation.common.model.{DisposeModel, TraderDetailsModel, VehicleDetailsModel}
 import utils.helpers.Config
-import viewmodels.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import viewmodels.DisposeFormModel
+import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import models.DisposeFormModel
 
 final class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                        config: Config) extends Controller {

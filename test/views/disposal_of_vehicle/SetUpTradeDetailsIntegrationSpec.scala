@@ -9,7 +9,7 @@ import pages.common.{Accessibility, ErrorPanel}
 import pages.disposal_of_vehicle.SetupTradeDetailsPage.happyPath
 import pages.disposal_of_vehicle.{BusinessChooseYourAddressPage, SetupTradeDetailsPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import viewmodels.SetupTradeDetailsFormModel
+import models.SetupTradeDetailsFormModel
 
 final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
   "got to page" should {

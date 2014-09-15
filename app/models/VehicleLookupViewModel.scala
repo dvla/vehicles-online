@@ -1,8 +1,8 @@
-package viewmodels
+package models
 
 import play.api.data.Form
 
-case class VehicleLookupViewModel(form: Form[viewmodels.VehicleLookupFormModel],
+case class VehicleLookupViewModel(form: Form[models.VehicleLookupFormModel],
                                   displayExitButton: Boolean, 
                                   surveyUrl: Option[String], 
                                   traderName: String, 

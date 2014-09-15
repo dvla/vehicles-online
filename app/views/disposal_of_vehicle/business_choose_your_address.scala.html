@@ -1,4 +1,4 @@
-@(businessChooseYourAddressForm: Form[viewmodels.BusinessChooseYourAddressFormModel],
+@(businessChooseYourAddressForm: Form[models.BusinessChooseYourAddressFormModel],
         traderBusinessName: String,
         traderPostcode: String,
         dropDownOptions: Seq[(String, String)])(implicit lang: Lang,
@@ -13,7 +13,7 @@
 @import views.disposal_of_vehicle.BusinessChooseYourAddress.{BackId, EnterAddressManuallyButtonId, SelectId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
-@import viewmodels.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+@import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 
 @main(
     progress = Some(Messages("disposal_progress_3")),

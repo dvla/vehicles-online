@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.Logger
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{DiscardingCookie, RequestHeader, Result}
-import viewmodels.SeenCookieMessageCacheKey
+import models.SeenCookieMessageCacheKey
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

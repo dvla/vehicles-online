@@ -13,9 +13,9 @@ import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.for
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupService, VehicleDetailsResponseDto, VehicleDetailsRequestDto, VehicleDetailsDto}
 import utils.helpers.Config
-import viewmodels.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
-import viewmodels.{VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
-import viewmodels.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import models.{VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

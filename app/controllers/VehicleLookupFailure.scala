@@ -7,8 +7,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, BruteForcePreventionModel}
 import utils.helpers.Config
-import viewmodels.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
-import viewmodels.VehicleLookupFormModel
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import models.VehicleLookupFormModel
 
 final class VehicleLookupFailure @Inject()()
                                  (implicit clientSideSessionFactory: ClientSideSessionFactory,

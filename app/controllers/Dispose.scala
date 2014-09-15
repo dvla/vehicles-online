@@ -12,9 +12,9 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 import utils.helpers.Config
-import viewmodels.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId}
-import viewmodels.DisposeFormModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, PreventGoingToDisposePageCacheKey}
-import viewmodels.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel}
+import models.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId}
+import models.DisposeFormModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, PreventGoingToDisposePageCacheKey}
+import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel}
 import views.html.disposal_of_vehicle.dispose
 
 import scala.concurrent.ExecutionContext.Implicits.global

@@ -4,7 +4,7 @@ import helpers.webbrowser.{Checkbox, Element, Page, SingleSel, TelField, WebBrow
 import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear
 import DayMonthYear.{DayId, MonthId, YearId}
 import org.openqa.selenium.WebDriver
-import viewmodels.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
+import models.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
