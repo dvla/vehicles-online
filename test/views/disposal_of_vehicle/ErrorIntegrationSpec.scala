@@ -9,7 +9,7 @@ import org.openqa.selenium.{By, WebDriver, WebElement}
 import pages.disposal_of_vehicle.ErrorPage.startAgain
 import pages.disposal_of_vehicle.{BeforeYouStartPage, ErrorPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import viewmodels.AllCacheKeys
+import models.AllCacheKeys
 
 final class ErrorIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

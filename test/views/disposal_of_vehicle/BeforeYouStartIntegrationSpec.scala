@@ -9,7 +9,7 @@ import helpers.webbrowser.TestHarness
 import org.openqa.selenium.WebDriver
 import pages.disposal_of_vehicle.BeforeYouStartPage.startNow
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage}
-import viewmodels.AllCacheKeys
+import models.AllCacheKeys
 import utils.helpers.Config
 
 final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {

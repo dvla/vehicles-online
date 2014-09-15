@@ -10,9 +10,9 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSes
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupService
 import utils.helpers.Config
-import viewmodels.BusinessChooseYourAddressFormModel.Form.AddressSelectId
-import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import viewmodels.{BusinessChooseYourAddressFormModel, SetupTradeDetailsFormModel}
+import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
+import models.{BusinessChooseYourAddressFormModel, SetupTradeDetailsFormModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import views.html.disposal_of_vehicle.business_choose_your_address
 import scala.concurrent.ExecutionContext.Implicits.global

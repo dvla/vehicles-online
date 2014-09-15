@@ -1,4 +1,4 @@
-package viewmodels
+package models
 
 import mappings.Consent
 import Consent.consent

@@ -6,8 +6,8 @@ import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichForm, RichResult}
 import utils.helpers.Config
-import viewmodels.SetupTradeDetailsFormModel
-import viewmodels.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
+import models.SetupTradeDetailsFormModel
+import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 
 final class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,

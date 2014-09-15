@@ -1,4 +1,4 @@
-package viewmodels
+package models
 
 final case class DisposeViewModel(vehicleMake: String,
                                   vehicleModel: String,

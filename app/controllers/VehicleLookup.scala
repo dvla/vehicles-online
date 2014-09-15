@@ -13,9 +13,9 @@ import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.for
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupService, VehicleDetailsResponseDto, VehicleDetailsRequestDto, VehicleDetailsDto}
 import utils.helpers.Config
-import viewmodels.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
-import viewmodels.{VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormViewModel}
-import viewmodels.VehicleLookupFormViewModel.VehicleLookupResponseCodeCacheKey
+import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import models.{VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -28,7 +28,7 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
                                     config: Config) extends Controller {
 
   private[controllers] val form = Form(
-    VehicleLookupFormViewModel.Form.Mapping
+    VehicleLookupFormModel.Form.Mapping
   )
 
   def present = Action { implicit request =>
@@ -52,16 +52,16 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
         request.cookies.getModel[TraderDetailsModel] match {
           case Some(traderDetails) =>
             val formWithReplacedErrors = invalidForm.replaceError(
-              VehicleLookupFormViewModel.Form.VehicleRegistrationNumberId,
+              VehicleLookupFormModel.Form.VehicleRegistrationNumberId,
               FormError(
-                key = VehicleLookupFormViewModel.Form.VehicleRegistrationNumberId,
+                key = VehicleLookupFormModel.Form.VehicleRegistrationNumberId,
                 message = "error.restricted.validVrnOnly",
                 args = Seq.empty
               )
             ).replaceError(
-                VehicleLookupFormViewModel.Form.DocumentReferenceNumberId,
+                VehicleLookupFormModel.Form.DocumentReferenceNumberId,
                 FormError(
-                  key = VehicleLookupFormViewModel.Form.DocumentReferenceNumberId,
+                  key = VehicleLookupFormModel.Form.DocumentReferenceNumberId,
                   message = "error.validDocumentReferenceNumber",
                   args = Seq.empty)
               ).distinctErrors
@@ -106,7 +106,7 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
     }
   }
 
-  private def bruteForceAndLookup(formModel: VehicleLookupFormViewModel)
+  private def bruteForceAndLookup(formModel: VehicleLookupFormModel)
                                  (implicit request: Request[_]): Future[Result] =
 
     bruteForceService.isVrmLookupPermitted(formModel.registrationNumber).flatMap { bruteForcePreventionViewModel =>
@@ -128,7 +128,7 @@ final class VehicleLookup @Inject()(bruteForceService: BruteForcePreventionServi
         Redirect(routes.MicroServiceError.present())
     }
 
-  private def lookupVehicleResult(model: VehicleLookupFormViewModel,
+  private def lookupVehicleResult(model: VehicleLookupFormModel,
                                   bruteForcePreventionViewModel: BruteForcePreventionModel)
                                  (implicit request: Request[_]): Future[Result] = {
     def vehicleFoundResult(vehicleDetailsDto: VehicleDetailsDto) =

@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver
 import pages.disposal_of_vehicle.HelpPage.{back, exit}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, HelpPage, VehicleLookupPage}
 import pages.common.HelpPanel.help
-import viewmodels.HelpCacheKey
+import models.HelpCacheKey
 
 final class HelpIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

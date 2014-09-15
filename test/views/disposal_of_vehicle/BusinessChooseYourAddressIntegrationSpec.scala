@@ -5,7 +5,7 @@ import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import viewmodels.EnterAddressManuallyFormModel
+import models.EnterAddressManuallyFormModel
 import EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import helpers.webbrowser.TestHarness
 import ProgressBar.progressStep

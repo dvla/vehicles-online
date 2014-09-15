@@ -1,4 +1,4 @@
-package viewmodels
+package models
 
 import play.api.data.Forms.mapping
 import play.api.data.Mapping

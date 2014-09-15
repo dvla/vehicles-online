@@ -32,13 +32,13 @@ import CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.{UnitSpec, WithApplication}
-import viewmodels.VehicleLookupFormViewModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
 import services.DateServiceImpl
 import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
-import viewmodels.DisposeFormModel.SurveyRequestTriggerDateCacheKey
-import viewmodels.VehicleLookupFormViewModel.VehicleLookupFormModelCacheKey
-import viewmodels.VehicleLookupFormViewModel.VehicleLookupResponseCodeCacheKey
-import viewmodels.VehicleLookupFormViewModel
+import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
+import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import models.VehicleLookupFormModel
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
@@ -227,7 +227,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
         cookies.find(_.name == cookieName) match {
           case Some(cookie) =>
             val json = cookie.value
-            val model = deserializeJsonToModel[VehicleLookupFormViewModel](json)
+            val model = deserializeJsonToModel[VehicleLookupFormModel](json)
             model.registrationNumber should equal(RegistrationNumberValid.toUpperCase)
           case None => fail(s"$cookieName cookie not found")
         }

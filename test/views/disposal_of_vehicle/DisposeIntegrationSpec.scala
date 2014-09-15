@@ -7,7 +7,7 @@ import helpers.tags.UiTag
 import helpers.UiSpec
 import helpers.webbrowser.{TestGlobal, TestHarness}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import viewmodels.DisposeFormModel.Form.TodaysDateOfDisposal
+import models.DisposeFormModel.Form.TodaysDateOfDisposal
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.concurrent.Eventually.{eventually, PatienceConfig, scaled}
 import org.scalatest.time.{Seconds, Span}

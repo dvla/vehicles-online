@@ -5,7 +5,7 @@ import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.webbrowser.TestHarness
-import viewmodels.VehicleLookupFormViewModel.VehicleLookupResponseCodeCacheKey
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import org.openqa.selenium.WebDriver
 import pages.disposal_of_vehicle.VehicleLookupFailurePage.{beforeYouStart, vehicleLookup}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage, VehicleLookupFailurePage}

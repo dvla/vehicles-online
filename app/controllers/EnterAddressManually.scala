@@ -9,7 +9,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, AddressModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
-import viewmodels.{EnterAddressManuallyFormModel, SetupTradeDetailsFormModel}
+import models.{EnterAddressManuallyFormModel, SetupTradeDetailsFormModel}
 import views.html.disposal_of_vehicle.enter_address_manually
 
 final class EnterAddressManually @Inject()()

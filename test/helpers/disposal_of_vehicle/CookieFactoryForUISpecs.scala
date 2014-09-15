@@ -10,14 +10,14 @@ import play.api.Play.current
 import play.api.libs.json.{Json, Writes}
 import uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.{CyId, EnId}
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
-import viewmodels.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
-import viewmodels.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
-import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import viewmodels.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
+import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
+import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
-import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import viewmodels._
+import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import models._
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, TraderBusinessNameValid, addressWithoutUprn}
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
@@ -101,7 +101,7 @@ object CookieFactoryForUISpecs {
                              registrationNumber: String = RegistrationNumberValid)
                             (implicit webDriver: WebDriver) = {
     val key = VehicleLookupFormModelCacheKey
-    val value = VehicleLookupFormViewModel(referenceNumber = referenceNumber,
+    val value = VehicleLookupFormModel(referenceNumber = referenceNumber,
       registrationNumber = registrationNumber)
     addCookie(key, value)
     this

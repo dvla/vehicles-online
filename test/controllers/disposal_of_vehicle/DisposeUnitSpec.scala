@@ -20,8 +20,8 @@ import play.api.test.Helpers.{BAD_REQUEST, INTERNAL_SERVER_ERROR, LOCATION, OK, 
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeService, DisposeResponseDto, DisposeRequestDto, DisposalAddressDto}
 import utils.helpers.Config
-import viewmodels.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
-import viewmodels.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey}
+import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
+import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey}
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import DisposalAddressDto.BuildingNameOrNumberHolder
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, PostcodeValidWithSpace, TraderBusinessNameValid}

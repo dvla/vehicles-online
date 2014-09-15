@@ -9,7 +9,7 @@ import org.openqa.selenium.{By, WebDriver, WebElement}
 import pages.disposal_of_vehicle.VrmLockedPage.{exit, newDisposal}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage, VrmLockedPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import viewmodels.{DisposeCacheKeys, AllCacheKeys}
+import models.{DisposeCacheKeys, AllCacheKeys}
 
 final class VrmLockedUiSpec extends UiSpec with TestHarness {
   "go to page" should {
