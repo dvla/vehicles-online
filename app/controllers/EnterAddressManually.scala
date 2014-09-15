@@ -9,7 +9,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, AddressModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
-import viewmodels.{EnterAddressManuallyFormModel, SetupTradeDetailsViewModel}
+import viewmodels.{EnterAddressManuallyFormModel, SetupTradeDetailsFormModel}
 import views.html.disposal_of_vehicle.enter_address_manually
 
 final class EnterAddressManually @Inject()()
@@ -21,7 +21,7 @@ final class EnterAddressManually @Inject()()
   )
 
   def present = Action { implicit request =>
-    request.cookies.getModel[SetupTradeDetailsViewModel] match {
+    request.cookies.getModel[SetupTradeDetailsFormModel] match {
       case Some(setupTradeDetails) =>
         Ok(enter_address_manually(form.fill(), traderPostcode = setupTradeDetails.traderPostcode))
       case None => Redirect(routes.SetUpTradeDetails.present())
@@ -31,7 +31,7 @@ final class EnterAddressManually @Inject()()
   def submit = Action { implicit request =>
     form.bindFromRequest.fold(
       invalidForm =>
-        request.cookies.getModel[SetupTradeDetailsViewModel] match {
+        request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
             BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm), setupTradeDetails.traderPostcode))
           case None =>
@@ -39,7 +39,7 @@ final class EnterAddressManually @Inject()()
             Redirect(routes.SetUpTradeDetails.present())
         },
       validForm =>
-        request.cookies.getModel[SetupTradeDetailsViewModel] match {
+        request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
             val traderAddress = AddressModel.from(
               validForm.addressAndPostcodeModel,

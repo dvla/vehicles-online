@@ -13,9 +13,9 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
-import viewmodels.SetupTradeDetailsViewModel
-import viewmodels.SetupTradeDetailsViewModel.Form.{TraderNameId, TraderNameMaxLength, TraderPostcodeId}
-import viewmodels.SetupTradeDetailsViewModel.SetupTradeDetailsCacheKey
+import viewmodels.SetupTradeDetailsFormModel
+import viewmodels.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderNameMaxLength, TraderPostcodeId}
+import viewmodels.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 
 final class SetUpTradeDetailsUnitSpec extends UnitSpec {
@@ -70,7 +70,7 @@ final class SetUpTradeDetailsUnitSpec extends UnitSpec {
           cookies.find(_.name == cookieName) match {
             case Some(cookie) =>
               val json = cookie.value
-              val model = deserializeJsonToModel[SetupTradeDetailsViewModel](json)
+              val model = deserializeJsonToModel[SetupTradeDetailsFormModel](json)
               model.traderBusinessName should equal(TraderBusinessNameValid.toUpperCase)
               model.traderPostcode should equal(PostcodeValid.toUpperCase)
             case None => fail(s"$cookieName cookie not found")

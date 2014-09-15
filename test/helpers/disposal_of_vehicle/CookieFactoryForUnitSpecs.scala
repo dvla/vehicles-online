@@ -20,12 +20,12 @@ import viewmodels.DisposeFormModel.DisposeOccurredCacheKey
 import viewmodels.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import viewmodels.HelpCacheKey
-import viewmodels.SetupTradeDetailsViewModel.SetupTradeDetailsCacheKey
+import viewmodels.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
 import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import viewmodels.{BusinessChooseYourAddressFormModel, DisposeFormModel}
-import viewmodels.{EnterAddressManuallyFormModel, SeenCookieMessageCacheKey, SetupTradeDetailsViewModel, VehicleLookupFormViewModel}
+import viewmodels.{EnterAddressManuallyFormModel, SeenCookieMessageCacheKey, SetupTradeDetailsFormModel, VehicleLookupFormViewModel}
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid}
 import webserviceclients.fakes.FakeAddressLookupService.{PostTownValid, PostcodeValid, TraderBusinessNameValid}
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
@@ -61,7 +61,7 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
 
   def setupTradeDetails(traderPostcode: String = PostcodeValid): Cookie = {
     val key = SetupTradeDetailsCacheKey
-    val value = SetupTradeDetailsViewModel(traderBusinessName = TraderBusinessNameValid,
+    val value = SetupTradeDetailsFormModel(traderBusinessName = TraderBusinessNameValid,
       traderPostcode = traderPostcode)
     createCookie(key, value)
   }

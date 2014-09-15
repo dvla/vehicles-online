@@ -12,7 +12,7 @@ import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.
 import utils.helpers.Config
 import viewmodels.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import viewmodels.{BusinessChooseYourAddressFormModel, SetupTradeDetailsViewModel}
+import viewmodels.{BusinessChooseYourAddressFormModel, SetupTradeDetailsFormModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import views.html.disposal_of_vehicle.business_choose_your_address
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -25,7 +25,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
   private[controllers] val form = Form(BusinessChooseYourAddressFormModel.Form.Mapping)
 
   def present = Action.async { implicit request =>
-    request.cookies.getModel[SetupTradeDetailsViewModel] match {
+    request.cookies.getModel[SetupTradeDetailsFormModel] match {
       case Some(setupTradeDetailsModel) =>
         val session = clientSideSessionFactory.getSession(request.cookies)
         fetchAddresses(setupTradeDetailsModel)(session, request2lang).map { addresses =>
@@ -43,7 +43,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
   def submit = Action.async { implicit request =>
     form.bindFromRequest.fold(
       invalidForm =>
-        request.cookies.getModel[SetupTradeDetailsViewModel] match {
+        request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
             fetchAddresses(setupTradeDetails).map { addresses =>
@@ -58,7 +58,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
           }
         },
       validForm =>
-        request.cookies.getModel[SetupTradeDetailsViewModel] match {
+        request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetailsModel) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
             lookupUprn(validForm, setupTradeDetailsModel.traderBusinessName)
@@ -75,7 +75,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
       FormError(key = AddressSelectId, message = "disposal_businessChooseYourAddress.address.required", args = Seq.empty)).
       distinctErrors
 
-  private def fetchAddresses(model: SetupTradeDetailsViewModel)(implicit session: ClientSideSession, lang: Lang) =
+  private def fetchAddresses(model: SetupTradeDetailsFormModel)(implicit session: ClientSideSession, lang: Lang) =
     addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId)
 
   private def lookupUprn(model: BusinessChooseYourAddressFormModel, traderName: String)

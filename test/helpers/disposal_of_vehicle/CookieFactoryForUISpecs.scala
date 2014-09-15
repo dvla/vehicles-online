@@ -13,7 +13,7 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcode
 import viewmodels.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import viewmodels.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
 import viewmodels.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import viewmodels.SetupTradeDetailsViewModel.SetupTradeDetailsCacheKey
+import viewmodels.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleDetailsModel.VehicleLookupDetailsCacheKey
 import viewmodels.VehicleLookupFormViewModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
@@ -50,7 +50,7 @@ object CookieFactoryForUISpecs {
 
   def setupTradeDetails(traderPostcode: String = PostcodeValid)(implicit webDriver: WebDriver) = {
     val key = SetupTradeDetailsCacheKey
-    val value = SetupTradeDetailsViewModel(traderBusinessName = TraderBusinessNameValid,
+    val value = SetupTradeDetailsFormModel(traderBusinessName = TraderBusinessNameValid,
       traderPostcode = traderPostcode)
     addCookie(key, value)
     this

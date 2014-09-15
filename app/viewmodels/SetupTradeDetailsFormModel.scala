@@ -10,12 +10,12 @@ import common.views.constraints.BusinessName
 import common.views.helpers.FormExtensions.nonEmptyTextWithTransform
 
 // TODO the names of the params repeat names from the model so refactor
-final case class SetupTradeDetailsViewModel(traderBusinessName: String, traderPostcode: String)
+final case class SetupTradeDetailsFormModel(traderBusinessName: String, traderPostcode: String)
 
-object SetupTradeDetailsViewModel {
-  implicit val JsonFormat = Json.format[SetupTradeDetailsViewModel]
+object SetupTradeDetailsFormModel {
+  implicit val JsonFormat = Json.format[SetupTradeDetailsFormModel]
   final val SetupTradeDetailsCacheKey = "setupTraderDetails"
-  implicit val Key = CacheKey[SetupTradeDetailsViewModel](SetupTradeDetailsCacheKey)
+  implicit val Key = CacheKey[SetupTradeDetailsFormModel](SetupTradeDetailsCacheKey)
 
   object Form {
     final val TraderNameId = "traderName"
@@ -30,6 +30,6 @@ object SetupTradeDetailsViewModel {
     final val Mapping = mapping(
       TraderNameId -> TraderNameMapping,
       TraderPostcodeId -> postcode
-    )(SetupTradeDetailsViewModel.apply)(SetupTradeDetailsViewModel.unapply)
+    )(SetupTradeDetailsFormModel.apply)(SetupTradeDetailsFormModel.unapply)
   }
 }

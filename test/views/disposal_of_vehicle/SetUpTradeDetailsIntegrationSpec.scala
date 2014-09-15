@@ -9,7 +9,7 @@ import pages.common.{Accessibility, ErrorPanel}
 import pages.disposal_of_vehicle.SetupTradeDetailsPage.happyPath
 import pages.disposal_of_vehicle.{BusinessChooseYourAddressPage, SetupTradeDetailsPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import viewmodels.SetupTradeDetailsViewModel
+import viewmodels.SetupTradeDetailsFormModel
 
 final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
   "got to page" should {
@@ -52,22 +52,22 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
 
     "add aria required attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessName = "")
-      Accessibility.ariaRequiredPresent(SetupTradeDetailsViewModel.Form.TraderNameId) should equal(true)
+      Accessibility.ariaRequiredPresent(SetupTradeDetailsFormModel.Form.TraderNameId) should equal(true)
     }
 
     "add aria invalid attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessName = "")
-      Accessibility.ariaInvalidPresent(SetupTradeDetailsViewModel.Form.TraderNameId) should equal(true)
+      Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderNameId) should equal(true)
     }
 
     "add aria required attribute to trader postcode field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessPostcode = "")
-      Accessibility.ariaRequiredPresent(SetupTradeDetailsViewModel.Form.TraderPostcodeId) should equal(true)
+      Accessibility.ariaRequiredPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }
 
     "add aria invalid attribute to trader postcode field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessPostcode = "")
-      Accessibility.ariaInvalidPresent(SetupTradeDetailsViewModel.Form.TraderPostcodeId) should equal(true)
+      Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }
   }
 }
