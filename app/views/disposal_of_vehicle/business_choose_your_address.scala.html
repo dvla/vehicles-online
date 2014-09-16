@@ -1,17 +1,19 @@
-@(businessChooseYourAddressForm: Form[models.domain.disposal_of_vehicle.BusinessChooseYourAddressModel],
+@(businessChooseYourAddressForm: Form[models.BusinessChooseYourAddressFormModel],
         traderBusinessName: String,
         traderPostcode: String,
         dropDownOptions: Seq[(String, String)])(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import controllers.disposal_of_vehicle.routes.BusinessChooseYourAddress
-@import mappings.disposal_of_vehicle.BusinessChooseYourAddress.{AddressSelectId, BackId, EnterAddressManuallyButtonId, SelectId}
-@import utils.helpers.BaseTemplate.fieldConstructor
-@import utils.helpers.CsrfHelper
+@import controllers.routes.BusinessChooseYourAddress
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.helpers.BaseTemplate.fieldConstructor
+@import common.views.html.widgets.base.valtechSelect
+@import common.views.html.widgets.base.csrfTokenHiddenField
+@import views.disposal_of_vehicle.BusinessChooseYourAddress.{BackId, EnterAddressManuallyButtonId, SelectId}
 @import views.html.disposal_of_vehicle.main
-@import views.html.helper.base.valtechSelect
 @import views.html.helper.form
+@import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 
 @main(
     progress = Some(Messages("disposal_progress_3")),
@@ -19,7 +21,7 @@
     currentForm = Some(businessChooseYourAddressForm)
 ) {
     @form(action = BusinessChooseYourAddress.submit()) {
-        @CsrfHelper.hiddenFormField
+        @csrfTokenHiddenField()
 
         <dl class="summary-detail-list">
             <dt>@Messages("disposal_businessChooseYourAddress_businessName_label")</dt>
@@ -36,21 +38,24 @@
         } else {
             @valtechSelect(businessChooseYourAddressForm(AddressSelectId),
                 options = dropDownOptions.toSeq,
-                args = Map('_label -> Messages("disposal_businessChooseYourAddress_addressSelect_label"))
+                args = Map(
+                    '_label -> Messages("disposal_businessChooseYourAddress_addressSelect_label"),
+                    'autofocus -> true
+                )
             )
         }
 
         @if(dropDownOptions.nonEmpty) {
-            <a id="@EnterAddressManuallyButtonId" href="@controllers.disposal_of_vehicle.routes.EnterAddressManually.present()">@Messages("disposal_businessChooseYourAddress.manualAddressEntry")</a>
+            <a id="@EnterAddressManuallyButtonId" href="@controllers.routes.EnterAddressManually.present()">@Messages("disposal_businessChooseYourAddress.manualAddressEntry")</a>
         }
         <div class="form-steps">
             @if(dropDownOptions.isEmpty) {
-                <a id="@EnterAddressManuallyButtonId" class="button" href="@controllers.disposal_of_vehicle.routes.EnterAddressManually.present()">@Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")</a>
+                <a id="@EnterAddressManuallyButtonId" class="button" href="@controllers.routes.EnterAddressManually.present()">@Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")</a>
             }
             @if(dropDownOptions.nonEmpty) {
                 <button id="@SelectId" type="submit" name="action" class="button">@Messages("disposal_businessChooseYourAddress.submitbutton")</button>
             }
-            <a id="@BackId" href="@controllers.disposal_of_vehicle.routes.SetUpTradeDetails.present()" class="button-secondary">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
+            <a id="@BackId" href="@controllers.routes.SetUpTradeDetails.present()" class="button-secondary">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
         </div>
     }
 }

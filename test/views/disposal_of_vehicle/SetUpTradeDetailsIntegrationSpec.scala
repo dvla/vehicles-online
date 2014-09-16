@@ -1,15 +1,15 @@
 package views.disposal_of_vehicle
 
 import helpers.UiSpec
-import helpers.common.ProgressBar
-import ProgressBar.progressStep
+import helpers.common.ProgressBar.progressStep
 import helpers.tags.UiTag
 import helpers.webbrowser.TestHarness
-import mappings.disposal_of_vehicle.SetupTradeDetails
 import org.openqa.selenium.{By, WebElement}
 import pages.common.{Accessibility, ErrorPanel}
 import pages.disposal_of_vehicle.SetupTradeDetailsPage.happyPath
 import pages.disposal_of_vehicle.{BusinessChooseYourAddressPage, SetupTradeDetailsPage}
+import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
+import models.SetupTradeDetailsFormModel
 
 final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
   "got to page" should {
@@ -32,9 +32,9 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
 
     "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
       go to SetupTradeDetailsPage
-      val csrf: WebElement = webDriver.findElement(By.name(filters.csrf_prevention.CsrfPreventionAction.TokenName))
+      val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(filters.csrf_prevention.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
       csrf.getAttribute("value").size > 0 should equal(true)
     }
   }
@@ -52,22 +52,22 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
 
     "add aria required attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessName = "")
-      Accessibility.ariaRequiredPresent(SetupTradeDetails.TraderNameId) should equal(true)
+      Accessibility.ariaRequiredPresent(SetupTradeDetailsFormModel.Form.TraderNameId) should equal(true)
     }
 
     "add aria invalid attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessName = "")
-      Accessibility.ariaInvalidPresent(SetupTradeDetails.TraderNameId) should equal(true)
+      Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderNameId) should equal(true)
     }
 
     "add aria required attribute to trader postcode field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessPostcode = "")
-      Accessibility.ariaRequiredPresent(SetupTradeDetails.TraderPostcodeId) should equal(true)
+      Accessibility.ariaRequiredPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }
 
     "add aria invalid attribute to trader postcode field when required field not input" taggedAs UiTag in new WebBrowser {
       happyPath(traderBusinessPostcode = "")
-      Accessibility.ariaInvalidPresent(SetupTradeDetails.TraderPostcodeId) should equal(true)
+      Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }
   }
 }

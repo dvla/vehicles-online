@@ -1,16 +1,25 @@
-@(data: models.domain.disposal_of_vehicle.DisposeViewModel,
-        disposeForm: Form[models.domain.disposal_of_vehicle.DisposeFormModel],
-        dateService: services.DateService)(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+@(data: models.DisposeViewModel,
+        disposeForm: Form[models.DisposeFormModel],
+        dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService)(implicit lang: Lang,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import mappings.common.Mileage
-@import mappings.disposal_of_vehicle.Dispose.{BackId, ConsentId, DateOfDisposalId, DateOfDisposalYearsIntoThePast, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
-@import utils.helpers.BaseTemplate.fieldConstructor
-@import utils.helpers.CsrfHelper
+@import models.DisposeFormModel.Form.BackId
+@import models.DisposeFormModel.Form.ConsentId
+@import models.DisposeFormModel.Form.DateOfDisposalId
+@import models.DisposeFormModel.Form.DateOfDisposalYearsIntoThePast
+@import models.DisposeFormModel.Form.LossOfRegistrationConsentId
+@import models.DisposeFormModel.Form.MileageId
+@import models.DisposeFormModel.Form.SubmitId
+@import models.DisposeFormModel.Form.TodaysDateOfDisposal
 @import views.html.disposal_of_vehicle.main
-@import views.html.helper.base.{valtechDeclareCheck, valtechInputText}
-@import views.html.helper.dates.inputDayMonthYear
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.mappings.Mileage
+@import common.views.helpers.BaseTemplate.fieldConstructor
+@import common.views.html.widgets.base.valtechDeclareCheck
+@import common.views.html.widgets.base.valtechInputText
+@import common.views.html.widgets.dates.inputDayMonthYear
+@import common.views.html.widgets.base.csrfTokenHiddenField
 @import views.html.helper.form
 
 @main(
@@ -18,23 +27,44 @@
     title = Messages("disposal_dispose.title"),
     currentForm = Some(disposeForm)
 ) {
-    @form(action = controllers.disposal_of_vehicle.routes.Dispose.submit()) {
-        @CsrfHelper.hiddenFormField
+    @form(action = controllers.routes.Dispose.submit()) {
+        @csrfTokenHiddenField()
+
+        <script src="@routes.Assets.at("lib/vehicles-presentation-common/javascripts/numeric-input-only.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("lib/vehicles-presentation-common/javascripts/autofill-todays-date.js")" type="text/javascript"></script>
 
         <div class="two-col clearfix">
 
-            <div class="disposal-form first-col uppercase-input">
+            <div class="disposal-info first-col">
+                <h2>@Messages("disposal_dispose.vehicledetails")</h2>
+                <dl class="summary-detail-list">
+                    <dt>@Messages("disposal_dispose.vehiclereg")</dt>
+                    <dd>@data.registrationNumber</dd>
+                    <dt>@Messages("disposal_dispose.vehiclemake")</dt>
+                    <dd>@data.vehicleMake</dd>
+                    <dt>@Messages("disposal_dispose.vehiclemodel")</dt>
+                    <dd>@data.vehicleModel</dd>
+                </dl>
+
+                <div class="alert-warning">
+                    <p>@Messages("disposal_dispose.warning")</p>
+                </div>
+            </div>
+
+
+            <div class="disposal-form second-col uppercase-input">
                 <h2>@Messages("disposal_dispose.disposevehicleto")</h2>
 
                 <div class="summary-detail-list">
                     <p>@data.dealerName <br />
-                        @for(addr <- data.dealerAddress.address) {@addr<br/>}</p>
+                        @for(addr <- data.dealerAddress) {@addr<br/>}</p>
                 </div>
 
                 <div class="form-declaration">
                 @valtechDeclareCheck(disposeForm(ConsentId),
                     args = Map(
                         '_showConstraints -> false,
+                        'autofocus -> true,
                         '_label -> Messages("disposal_dispose.consent")
                     )
                 )
@@ -50,12 +80,13 @@
                 @valtechInputText(disposeForm(MileageId), args =
                     Map('_label -> Messages("disposal_dispose.mileage.label"),
                         '_showConstraints -> false,
-                        'maxLength -> Mileage.maxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
+                        'typeTel -> true,
+                        'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
                         //'title -> Messages("disposal_dispose.mileage.validation")
                         ) ++
                         (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
-                <div id=@mappings.disposal_of_vehicle.Dispose.DateOfDisposalId class="disposal-date">
+                <div id=@DateOfDisposalId class="disposal-date">
                 @inputDayMonthYear(
                     field = disposeForm(DateOfDisposalId),
                     years = dateService.today.yearRangeToDropdown(yearsIntoThePast = DateOfDisposalYearsIntoThePast),
@@ -63,37 +94,20 @@
                         '_label -> Messages("disposal_dispose.dateofdisposal.label")
                     ),
                     dateService = dateService,
-                    showTodaysDateButton = true
+                    showTodaysDateButton = true,
+                    showTodaysDateButtonId = Some(TodaysDateOfDisposal)
                 )
                 </div>
-
-
 
                 @{
                     /* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */
                 }
                 <div class="form-steps">
                     <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_dispose.submitbutton")</button>
-                    <a id="@BackId" href="@controllers.disposal_of_vehicle.routes.VehicleLookup.present()" class="button-secondary">@Messages("disposal_dispose.backbutton")</a>
+                    <a id="@BackId" href="@controllers.routes.VehicleLookup.present()" class="button-secondary">@Messages("disposal_dispose.backbutton")</a>
 
                     <div class="two-col-spacer">
                     </div>
-                </div>
-            </div>
-
-            <div class="disposal-info second-col">
-                <h2>@Messages("disposal_dispose.vehicledetails")</h2>
-                <dl class="summary-detail-list">
-                    <dt>@Messages("disposal_dispose.vehiclereg")</dt>
-                    <dd>@data.registrationNumber</dd>
-                    <dt>@Messages("disposal_dispose.vehiclemake")</dt>
-                    <dd>@data.vehicleMake</dd>
-                    <dt>@Messages("disposal_dispose.vehiclemodel")</dt>
-                    <dd>@data.vehicleModel</dd>
-                </dl>
-
-                <div class="alert-warning">
-                    <p>@Messages("disposal_dispose.warning")</p>
                 </div>
             </div>
         </div>

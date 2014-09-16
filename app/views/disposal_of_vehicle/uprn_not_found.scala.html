@@ -1,8 +1,8 @@
 @()(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import mappings.disposal_of_vehicle.UprnNotFound.{ManualaddressbuttonId, SetuptradedetailsbuttonId}
+@import views.disposal_of_vehicle.UprnNotFound.{ManualaddressbuttonId, SetuptradedetailsbuttonId}
 @import views.html.disposal_of_vehicle.main
 
 @main(
@@ -12,7 +12,7 @@
 
     <div class="form-steps">
         @* Note the reverse routing syntax for the hyperlink *@
-        <a class="button" id="@ManualaddressbuttonId" href="@controllers.disposal_of_vehicle.routes.EnterAddressManually.present()">@Messages("disposal_uprnnotfound.setuptradedetailsbutton")</a>
-        <a class="button-secondary" id="@SetuptradedetailsbuttonId" href="@controllers.disposal_of_vehicle.routes.SetUpTradeDetails.present()">@Messages("disposal_uprnnotfound.manualaddressbutton")</a>
+        <a class="button" id="@ManualaddressbuttonId" href="@controllers.routes.EnterAddressManually.present()">@Messages("disposal_uprnnotfound.setuptradedetailsbutton")</a>
+        <a class="button-secondary" id="@SetuptradedetailsbuttonId" href="@controllers.routes.SetUpTradeDetails.present()">@Messages("disposal_uprnnotfound.manualaddressbutton")</a>
     </div>
 }

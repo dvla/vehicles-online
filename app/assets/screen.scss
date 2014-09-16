@@ -1,18 +1,12 @@
 //Main scss file, no scss/css should be written here
-//If new styles need to be added, consider an existing component,
-//or if one doesn't exist, create one and import it.
 
-@import "scss/base/_colours";
-@import "scss/base/_css3";
-@import "scss/base/_typography";
-@import "scss/base/_utilities";
+//web layer specific config
 @import "scss/base/_config";
+
+//presentation-common (shared between web layers)
+@import "../../target/web/web-modules/main/webjars/lib/vehicles-presentation-common/scss/_screen.scss";
+
+//web layer specific styles
+@import "scss/base/_prototype-banner";
 @import "scss/base/_template";
-@import "scss/base/header-footer/_header-footer";
-
-@import "scss/components/_form";
-@import "scss/components/_alerts";
-@import "scss/components/_button";
-
-@import "scss/custom/_app";
 @import "scss/custom/_page-specific";

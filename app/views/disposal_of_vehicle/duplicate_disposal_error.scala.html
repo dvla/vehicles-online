@@ -1,5 +1,5 @@
 @()(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
 @import views.html.disposal_of_vehicle.main
@@ -11,7 +11,7 @@
 
     <div class="form-steps">
         @{ /* Note the reverse routing syntax for the hyperlink */ }
-        <a class="button" id="tryagain" href="@controllers.disposal_of_vehicle.routes.VehicleLookup.present()">@Messages("duplicate_disposal_error.back.button")</a>
-        <a class="button" id="exit" href="@controllers.disposal_of_vehicle.routes.BeforeYouStart.present()">@Messages("duplicate_disposal_error.exit.button")</a>
+        <a class="button" id="tryagain" href="@controllers.routes.VehicleLookup.present()">@Messages("duplicate_disposal_error.back.button")</a>
+        <a class="button-secondary" id="exit" href="@controllers.routes.BeforeYouStart.present()">@Messages("duplicate_disposal_error.exit.button")</a>
     </div>
 }

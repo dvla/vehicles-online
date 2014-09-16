@@ -1,14 +1,15 @@
 package pages.disposal_of_vehicle
 
 import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
-import mappings.disposal_of_vehicle.MicroserviceError.{ExitId, TryAgainId}
+import views.disposal_of_vehicle.MicroserviceError
+import MicroserviceError.{ExitId, TryAgainId}
 import org.openqa.selenium.WebDriver
 
 object MicroServiceErrorPage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/service-error"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
-
   final override val title = "We are sorry"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def tryAgain(implicit driver: WebDriver): Element = find(id(TryAgainId)).get
 

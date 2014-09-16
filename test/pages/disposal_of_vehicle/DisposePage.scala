@@ -1,24 +1,20 @@
 package pages.disposal_of_vehicle
 
-import helpers.webbrowser.{Checkbox, Element, Page, SingleSel, TextField, WebBrowserDSL, WebDriverFactory}
-import mappings.common.DayMonthYear.{DayId, MonthId, YearId}
-import mappings.disposal_of_vehicle.Dispose.BackId
-import mappings.disposal_of_vehicle.Dispose.ConsentId
-import mappings.disposal_of_vehicle.Dispose.DateOfDisposalId
-import mappings.disposal_of_vehicle.Dispose.LossOfRegistrationConsentId
-import mappings.disposal_of_vehicle.Dispose.MileageId
-import mappings.disposal_of_vehicle.Dispose.SubmitId
-import mappings.disposal_of_vehicle.Dispose.TodaysDateOfDisposal
+import helpers.webbrowser.{Checkbox, Element, Page, SingleSel, TelField, WebBrowserDSL, WebDriverFactory}
+import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear
+import DayMonthYear.{DayId, MonthId, YearId}
 import org.openqa.selenium.WebDriver
-import services.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
-import services.fakes.FakeDisposeWebServiceImpl.MileageValid
+import models.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
+import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
 object DisposePage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/complete-and-confirm"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
   final override val title: String = "Complete & confirm"
 
-  def mileage(implicit driver: WebDriver): TextField = textField(id(MileageId))
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
+
+  def mileage(implicit driver: WebDriver): TelField = telField(id(MileageId))
 
   def dateOfDisposalDay(implicit driver: WebDriver): SingleSel = singleSel(id(s"${DateOfDisposalId}_$DayId"))
 

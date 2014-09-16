@@ -1,29 +1,30 @@
-@(timeString: String)(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+@(data: models.VrmLockedViewModel)(implicit lang: Lang,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import mappings.disposal_of_vehicle.VrmLocked.{ExitAction, ExitDisposalId, NewDisposalAction, NewDisposalId}
-@import utils.helpers.CsrfHelper
+@import views.disposal_of_vehicle.VrmLocked.{ExitDisposalId, NewDisposalId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.base.csrfTokenHiddenField
 
 @main(
     title = Messages("vrm_locked.title")
 ) {
     <p>@Messages("vrm_locked.text1")</p>
-    <p>@Messages("vrm_locked.text2")&nbsp;<span id='localTimeOfVrmLock' >@timeString</span></p>
+    <p>@Messages("vrm_locked.text2")&nbsp;<span id='localTimeOfVrmLock' >@data.timeString</span></p>
     <p>@Messages("vrm_locked.text3.1")&nbsp;<strong>@Messages("vrm_locked.text3.2")</strong></p>
     <div class="form-steps">
         <div class="step">
-            @form(action = controllers.disposal_of_vehicle.routes.VrmLocked.newDisposal()) {
-            @CsrfHelper.hiddenFormField
-                <button id="@NewDisposalId" type="submit" name="action" value="@NewDisposalAction" class="button">@Messages("vrm_locked.newdisposalbutton")</button>
+            @form(action = controllers.routes.VrmLocked.newDisposal()) {
+            @csrfTokenHiddenField()
+                <button id="@NewDisposalId" type="submit" name="action" value="newDisposal" class="button">@Messages("vrm_locked.newdisposalbutton")</button>
             }
         </div>
         <div class="step">
-            @form(action = controllers.disposal_of_vehicle.routes.VrmLocked.exit()) {
-            @CsrfHelper.hiddenFormField
-                <button id="@ExitDisposalId" type="submit" name="action" value="@ExitAction" class="button-secondary">@Messages("vrm_locked.exit.button")</button>
+            @form(action = controllers.routes.VrmLocked.exit()) {
+            @csrfTokenHiddenField()
+                <button id="@ExitDisposalId" type="submit" name="action" value="exit" class="button-secondary">@Messages("vrm_locked.exit.button")</button>
             }
         </div>
     </div>
@@ -31,11 +32,13 @@
 
 @* TODO instead of inserting into html the html needs the default value (for browsers without javascript) and this script should totally replace the span. *@
 <script type="text/javascript">
-    function localize(dateTimeISOChronology)
+    function localize(milliseconds)
     {
-        var localTime =new Date(dateTimeISOChronology).toLocaleTimeString();
+        var date = new Date();
+        date.setTime(milliseconds);
+        var localTime = date.toLocaleTimeString();
         document.getElementById('localTimeOfVrmLock').innerHTML = localTime;
     }
 
-    localize("@timeString");
+    localize(@data.javascriptTimestamp);
 </script>

@@ -1,9 +1,10 @@
 @()(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import controllers.disposal_of_vehicle.routes.MicroServiceError
-@import controllers.disposal_of_vehicle.routes.BeforeYouStart
+@import controllers.routes.BeforeYouStart
+@import controllers.routes.MicroServiceError
+@import views.disposal_of_vehicle.MicroserviceError.{ExitId, TryAgainId}
 @import views.html.disposal_of_vehicle.main
 
 @main(
@@ -13,7 +14,7 @@
 
     <div class="form-steps">
         @* Note the reverse routing syntax for the hyperlink *@
-        <a class="button" id="tryagain" href="@MicroServiceError.back()">@Messages("micro_service_error.back.button")</a>
-        <a class="button-secondary" id="exit" href="@BeforeYouStart.present()">@Messages("micro_service_error.exit.button")</a>
+        <a class="button" id="@TryAgainId" href="@MicroServiceError.back()">@Messages("micro_service_error.back.button")</a>
+        <a class="button-secondary" id="@ExitId" href="@BeforeYouStart.present()">@Messages("micro_service_error.exit.button")</a>
     </div>
 }

@@ -1,9 +1,13 @@
 package controllers.disposal_of_vehicle
 
+import controllers.EnterAddressManually
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
+import AddressLinesViewModel.Form.LineMaxLength
 import helpers.UnitSpec
-import mappings.common.AddressAndPostcode.AddressAndPostcodeId
-import mappings.common.AddressLines.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, LineMaxLength, PostTownId}
-import services.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
+import models.EnterAddressManuallyFormModel
+import EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
+import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
+import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
 
 final class EnterAddressManuallyFormSpec extends UnitSpec {
   "form" should {

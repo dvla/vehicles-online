@@ -1,13 +1,15 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
+import controllers.BeforeYouStart
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout, status}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
+import filters.EnsureServiceOpenFilter
 
 final class BeforeYouStartUnitSpec extends UnitSpec {
   "present" should {

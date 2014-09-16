@@ -9,7 +9,7 @@ import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import services.fakes.FakeAddressLookupService
+import webserviceclients.fakes.FakeAddressLookupService
 
 class EndToEndHappyPathIntegrationSpec extends UiSpec with TestHarness {
   "The happy end to end case" should {

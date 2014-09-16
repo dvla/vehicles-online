@@ -1,7 +1,5 @@
 package helpers.steps.disposal_of_vehicle
 
-import app.ConfigProperties.getProperty
-import common.{ClearTextClientSideSessionFactory, NoCookieFlags, EncryptedClientSideSessionFactory}
 import cucumber.api.java.en.{Given, When, Then}
 import helpers.common.RandomVrmGenerator
 import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
@@ -15,7 +13,15 @@ import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.EnterAddressManuallyPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import utils.helpers.{CookieNameHashGenerator, Sha1HashGenerator, AesEncryption, CookieEncryption}
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.EncryptedClientSideSessionFactory
+import common.clientsidesession.AesEncryption
+import common.clientsidesession.Sha1HashGenerator
+import common.clientsidesession.CookieNameHashGenerator
+import common.clientsidesession.CookieEncryption
+import common.clientsidesession.NoCookieFlags
+import common.clientsidesession.ClearTextClientSideSessionFactory
 
 // TODO - Store input as variables
 

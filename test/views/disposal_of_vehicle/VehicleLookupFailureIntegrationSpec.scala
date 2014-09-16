@@ -5,11 +5,11 @@ import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.webbrowser.TestHarness
-import mappings.disposal_of_vehicle.VehicleLookup.VehicleLookupResponseCodeCacheKey
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import org.openqa.selenium.WebDriver
 import pages.disposal_of_vehicle.VehicleLookupFailurePage.{beforeYouStart, vehicleLookup}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage, VehicleLookupFailurePage}
-import services.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
+import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
 
 final class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
@@ -76,7 +76,7 @@ final class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness 
 
       go to VehicleLookupFailurePage
 
-      page.source should include("Only 3 attempts will be allowed to retrieve vehicle details.")
+      page.source should include("For each vehicle registration number, only 3 attempts can be made to retrieve the vehicle details.")
     }
 
     "display messages that show that the number of brute force attempts does not impact which messages are displayed when 2 attempts have been made" taggedAs UiTag in new WebBrowser {
@@ -90,7 +90,7 @@ final class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness 
 
       go to VehicleLookupFailurePage
 
-      page.source should include("Only 3 attempts will be allowed to retrieve vehicle details.")
+      page.source should include("For each vehicle registration number, only 3 attempts can be made to retrieve the vehicle details.")
     }
 
     "display appropriate messages for document reference mismatch" taggedAs UiTag in new WebBrowser {

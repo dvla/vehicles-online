@@ -1,9 +1,0 @@
-@(field:Field, args: Map[Symbol, Any])(implicit lang: Lang)
-
-@import utils.helpers.Space
-@import views.html.helper.base.valtechLabelText
-
-<label for="@field.id">
-    @{Space.*}
-    @valtechLabelText(field,args)
-</label>

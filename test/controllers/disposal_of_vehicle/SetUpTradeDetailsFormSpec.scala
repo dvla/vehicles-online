@@ -1,8 +1,9 @@
 package controllers.disposal_of_vehicle
 
+import controllers.SetUpTradeDetails
+import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
+import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 import helpers.UnitSpec
-import mappings.disposal_of_vehicle.SetupTradeDetails.{TraderNameId, TraderPostcodeId}
-import services.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 
 final class SetUpTradeDetailsFormSpec extends UnitSpec {
   "form" should {
@@ -23,7 +24,7 @@ final class SetUpTradeDetailsFormSpec extends UnitSpec {
       errors(1).key should equal(TraderNameId)
       errors(1).message should equal("error.required")
       errors(2).key should equal(TraderNameId)
-      errors(2).message should equal("error.validTraderBusinessName")
+      errors(2).message should equal("error.validBusinessName")
     }
 
     "reject if trader business name is less than minimum length" in {

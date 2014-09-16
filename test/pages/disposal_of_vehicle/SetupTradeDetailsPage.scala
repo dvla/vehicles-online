@@ -1,14 +1,17 @@
 package pages.disposal_of_vehicle
 
 import helpers.webbrowser.{Element, Page, TextField, WebBrowserDSL, WebDriverFactory}
-import mappings.disposal_of_vehicle.SetupTradeDetails.{SubmitId, TraderNameId, TraderPostcodeId}
+import views.disposal_of_vehicle.SetupTradeDetails
+import SetupTradeDetails.SubmitId
+import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import org.openqa.selenium.WebDriver
-import services.fakes.FakeAddressLookupService.{PostcodeWithoutAddresses, PostcodeValid, TraderBusinessNameValid}
+import webserviceclients.fakes.FakeAddressLookupService.{PostcodeWithoutAddresses, PostcodeValid, TraderBusinessNameValid}
 
 object SetupTradeDetailsPage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/setup-trade-details"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
-  final override val title: String = "Provide your trader details"
+  final override val title: String = "Provide trader details"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def traderName(implicit driver: WebDriver): TextField = textField(id(TraderNameId))
 

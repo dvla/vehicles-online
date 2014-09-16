@@ -1,11 +1,10 @@
 @()(implicit lang: Lang,
-token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
 config: utils.helpers.Config)
 
-@import controllers.common.routes.Help
-@import controllers.disposal_of_vehicle.routes.BeforeYouStart
-@import mappings.disposal_of_vehicle.Help.BackId
-@import mappings.disposal_of_vehicle.Help.ExitId
+@import controllers.routes.Help
+@import controllers.routes.BeforeYouStart
+@import views.common.Help.{BackId, ExitId}
 @import views.html.disposal_of_vehicle.main
 
 @main(

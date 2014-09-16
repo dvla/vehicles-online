@@ -2,7 +2,7 @@
         config: utils.helpers.Config)
 
 @import views.html.common.{alternateLanguages, feedback}
-@import mappings.common.Help.HelpId
+@import views.common.Help.HelpLinkId
 @import play.api.Play
 @import play.api.Play.current
 
@@ -18,54 +18,61 @@
 
         <title>@title</title>
 
-        <link rel="stylesheet" href="@routes.Assets.at("screen.min.css")" media="screen" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.versioned("screen.min.css")" media="screen" type="text/css">
 
         @if(!Play.isTest) {
             @* Do not fetch external assets when testing. Ideally we should have asset local and in version control *@
             <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts-607c54f71c7c1f98257595cedaa13a34.css" media="all" type="text/css">
         }
-        <link rel="stylesheet" href="@routes.Assets.at("print.min.css")" media="print" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.versioned("print.min.css")" media="print" type="text/css">
 
-        <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")" type="image/x-icon">
-        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("images/apple-touch-icon-57x57.png")">
-        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("images/apple-touch-icon-72x72.png")" sizes="72x72">
-        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("images/apple-touch-icon-76x76.png")" sizes="76x76">
-        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("images/apple-touch-icon-114x114.png")" sizes="114x114">
-        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("images/apple-touch-icon-120x120.png")" sizes="120x120">
-        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("images/apple-touch-icon-144x144.png")" sizes="144x144">
-        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("images/apple-touch-icon-152x152.png")" sizes="152X152">
+        <link rel="shortcut icon" href="@routes.Assets.versioned("images/favicon.ico")" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/apple-touch-icon-57x57.png")">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/apple-touch-icon-72x72.png")" sizes="72x72">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/apple-touch-icon-76x76.png")" sizes="76x76">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/apple-touch-icon-114x114.png")" sizes="114x114">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/apple-touch-icon-120x120.png")" sizes="120x120">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/apple-touch-icon-144x144.png")" sizes="144x144">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/apple-touch-icon-152x152.png")" sizes="152x152">
     </head>
 
     <body>
 
         <a href="#main" class="visuallyhidden">Skip to main content</a>
 
-        <div role="banner" class="global-header" id="global-header">
-            <div class="header-wrapper">
-                <div class="header-global">
-                    <div class="header-logo">
-                        <a href="https://www.gov.uk" title="Go to the gov.uk homepage" id="logo" class="content">
-                            <img src="@routes.Assets.at("images/gov.uk_logotype-2x.png")" alt="GOV.UK">
-                        </a>
-                    </div>
-                    <div class="header-phase">
-                        <h1 class="page-title beta"><strong>@{Messages("main.banner")}</strong> <span aria-hidden="true">beta</span></h1>
-                        <h2>
-                            <a id="@HelpId" href="@controllers.common.routes.Help.present()">@{Messages("main.banner.help")}</a>
-                            @feedback()
-                            @alternateLanguages()
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end header-->
-
         <div id="global-cookie-message">
             <div class="cookie-message-wrapper">
                 <p>@{Messages("global.cookiemessage")}&nbsp;<a href="http://www.gov.uk/support/cookies">@{Messages("global.cookiefindoutmore")}</a></p>
             </div>
         </div>
+
+        <div role="banner" class="global-header" id="global-header">
+            <div class="header-wrapper">
+                <div class="content">
+                    <div class="header-global">
+                        <div class="header-logo">
+                            <a href="https://www.gov.uk/" title="Go to the GOV.UK homepage" class="logo">
+                              <img src="https://assets.digital.cabinet-office.gov.uk/static/gov.uk_logotype_crown-c09acb07e4d1d5d558f5a0bc53e9e36d.png" width="35" height="31" alt=""> GOV.UK
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="header-proposition">
+                        <div class="content">
+                            <div class="proposition-menu">
+                                <h1 class="page-title"><strong>@{Messages("main.banner")}</strong></h1>
+                                <ul class="proposition-links">
+                                    <li><a id="@HelpLinkId" href="@controllers.routes.Help.present()">@{Messages("main.banner.help")}</a></li>
+                                    <li>@feedback()</li>
+                                    @*<li>@alternateLanguages()</li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end header-->
 
         <div role="main" id="main">
             @content
@@ -74,17 +81,24 @@
         <div class="footer" id="footer" role="contentinfo">
             <div class="footer-wrapper vehicles-online-footer">
                 <div class="footer-meta">
-                    <div class="nav-wrapper">
+                    <div class="footer-meta-inner">
                         <ul>
-                            <li><a href="https://www.gov.uk/help" target="_blank">@{Messages("footer.helpdesk")}</a></li>
-                            <li><a href="https://www.gov.uk/help/cookies" target="_blank">@{Messages("footer.privacypolicy")}</a></li>
-                            <li><a href="https://www.gov.uk/contact" target="_blank">@{Messages("footer.contact")}</a></li>
-                            <li><a href="https://www.gov.uk/cymraeg" target="_blank">@{Messages("footer.welsh")}</a></li>
                             <li>@{Messages("footer.builtbyintro")}&nbsp;<a href="https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency" target="_blank">@{Messages("footer.builtby")}</a></li>
                         </ul>
+                        <div class="open-government-licence">
+                            <h2>
+                                <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2">
+                                    <img src="@routes.Assets.versioned("lib/vehicles-presentation-common/images/open-government-licence_2x.png")" alt="OGL">
+                                </a>
+                            </h2>
+                            <p>All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2">Open Government Licence v2.0</a>, except where otherwise stated</p>
+                        </div>
                     </div>
                     @if(!Play.isTest) {
                         @* Do not fetch external assets when testing. Ideally we should have asset local and in version control *@
+                        <div class="copyright print-only">
+                            <img src="@routes.Assets.versioned("lib/vehicles-presentation-common/images/govuk-crest.png")" alt="Crown Copyright">
+                        </div>
                         <div class="copyright">
                             <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="_blank">&copy;
                                 Crown Copyright</a>
@@ -97,17 +111,11 @@
 
         <div id="global-app-error" class="app-error hidden"></div>
 
-        @* The OnHandlerNotFoundIntegrationSpec "javascript enabled" tests generate warnings when require.js was included *@
-        @if(!Play.isTest) {
-            @helper.requireJs(core = routes.Assets.at("javascripts/require.js").url, module = routes.Assets.at("javascripts/custom").url)
-        }
+        <script data-main="@routes.Assets.at("javascripts/main.js")" src="@routes.Assets.at("lib/requirejs/require.js")"></script>
 
-        @* The OnHandlerNotFoundIntegrationSpec "javascript enabled" tests generate warnings when respond.min.js was included *@
-        @if(!Play.isTest) {
-            <!--[if (lt IE 9) & (!IEMobile)]>
-            <script src="@routes.Assets.at("javascripts/lib/respond.min.js")"></script>
-            <![endif]-->
-        }
+        <!--[if (lt IE 9) & (!IEMobile)]>
+        <script src="@routes.Assets.versioned("javascripts/lib/respond.min.js")"></script>
+        <![endif]-->
 
         <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 

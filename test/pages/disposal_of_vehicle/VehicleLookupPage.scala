@@ -1,23 +1,24 @@
 package pages.disposal_of_vehicle
 
-import helpers.webbrowser.{Element, Page, TextField, WebBrowserDSL, WebDriverFactory}
-import mappings.disposal_of_vehicle.VehicleLookup.BackId
-import mappings.disposal_of_vehicle.VehicleLookup.DocumentReferenceNumberId
-import mappings.disposal_of_vehicle.VehicleLookup.ExitId
-import mappings.disposal_of_vehicle.VehicleLookup.SubmitId
-import mappings.disposal_of_vehicle.VehicleLookup.VehicleRegistrationNumberId
+import helpers.webbrowser._
+import views.disposal_of_vehicle.VehicleLookup
+import VehicleLookup.BackId
+import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+import VehicleLookup.ExitId
+import VehicleLookup.SubmitId
 import org.openqa.selenium.WebDriver
-import services.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
-import services.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
+import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
+import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
 
 object VehicleLookupPage extends Page with WebBrowserDSL {
   final val address = "/sell-to-the-trade/vehicle-lookup"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
   final override val title: String = "Enter vehicle details"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def vehicleRegistrationNumber(implicit driver: WebDriver): TextField = textField(id(VehicleRegistrationNumberId))
 
-  def documentReferenceNumber(implicit driver: WebDriver): TextField = textField(id(DocumentReferenceNumberId))
+  def documentReferenceNumber(implicit driver: WebDriver): TelField = telField(id(DocumentReferenceNumberId))
 
   def back(implicit driver: WebDriver): Element = find(id(BackId)).get
 

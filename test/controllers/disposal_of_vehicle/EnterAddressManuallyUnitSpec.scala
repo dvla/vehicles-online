@@ -1,30 +1,28 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
-import Common.PrototypeHtml
-import helpers.common.CookieHelper
-import CookieHelper.fetchCookiesFromHeaders
-import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
+import controllers.EnterAddressManually
+import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
-import helpers.UnitSpec
-import helpers.WithApplication
-import mappings.common.AddressAndPostcode.AddressAndPostcodeId
-import mappings.common.AddressLines.{AddressLinesId, BuildingNameOrNumberId, PostTownId, Line2Id, Line3Id}
-import mappings.common.Postcode.PostcodeId
-import mappings.disposal_of_vehicle.TraderDetails.TraderDetailsCacheKey
-import models.domain.disposal_of_vehicle.{EnterAddressManuallyModel, TraderDetailsModel}
+import helpers.common.CookieHelper.fetchCookiesFromHeaders
+import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
+import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{SetupTradeDetailsPage, VehicleLookupPage}
-import play.api.mvc.SimpleResult
+import play.api.mvc.Result
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{OK, LOCATION, BAD_REQUEST, contentAsString, defaultAwaitTimeout}
-import scala.concurrent.Future
-import services.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
-import services.fakes.FakeAddressLookupService.Line2Valid
-import services.fakes.FakeAddressLookupService.Line3Valid
-import services.fakes.FakeAddressLookupService.PostcodeValid
-import services.fakes.FakeAddressLookupService.PostTownValid
+import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
+import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import utils.helpers.Config
+import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
+import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
+import TraderDetailsModel.TraderDetailsCacheKey
+import models.EnterAddressManuallyFormModel
+import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
+
+import scala.concurrent.Future
 
 final class EnterAddressManuallyUnitSpec extends UnitSpec {
   "present" should {
@@ -109,7 +107,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
         cookies.find(_.name == enterAddressManuallyCookieName) match {
           case Some(cookie) =>
             val json = cookie.value
-            val model = deserializeJsonToModel[EnterAddressManuallyModel](json)
+            val model = deserializeJsonToModel[EnterAddressManuallyFormModel](json)
 
             model.addressAndPostcodeModel.addressLinesModel.buildingNameOrNumber should equal(
               BuildingNameOrNumberValid.toUpperCase)
@@ -196,7 +194,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
     }
 
     "submit removes commas, but still applies the min length rule" in new WithApplication {
-      utils.helpers.FormExtensions.trimNonWhiteListedChars("""[A-Za-z0-9\-]""")(",, m...,,,,   ") should equal("m")
+      FormExtensions.trimNonWhiteListedChars("""[A-Za-z0-9\-]""")(",, m...,,,,   ") should equal("m")
       val result = enterAddressManually.submit(requestWithValidDefaults(
         buildingName = "m...,,,,   "  // This should be a min length of 4 chars
       ))
@@ -274,7 +272,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
 
   private val traderDetailsCookieName = "traderDetails"
 
-  private def validateAddressCookieValues(result: Future[SimpleResult], buildingName: String, line2: String,
+  private def validateAddressCookieValues(result: Future[Result], buildingName: String, line2: String,
                                           line3: String, postTown: String, postCode: String = PostcodeValid) = {
 
     whenReady(result) { r =>

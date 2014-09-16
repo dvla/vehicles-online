@@ -6,7 +6,6 @@ import ProgressBar.progressStep
 import helpers.tags.UiTag
 import helpers.UiSpec
 import helpers.webbrowser.{TestGlobal, TestHarness}
-import mappings.disposal_of_vehicle.RelatedCacheKeys
 import org.openqa.selenium.{By, WebElement, WebDriver}
 import pages.common.ErrorPanel
 import pages.disposal_of_vehicle.BeforeYouStartPage
@@ -18,7 +17,9 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 import pages.disposal_of_vehicle.VehicleLookupPage.{happyPath, tryLockedVrm, back, exit}
 import pages.disposal_of_vehicle.VrmLockedPage
 import play.api.test.FakeApplication
-import services.fakes.FakeAddressLookupService.addressWithUprn
+import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
+import models.AllCacheKeys
+import webserviceclients.fakes.FakeAddressLookupService.addressWithUprn
 
 final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
 
@@ -64,9 +65,9 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
 
     "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
       go to VehicleLookupPage
-      val csrf: WebElement = webDriver.findElement(By.name(filters.csrf_prevention.CsrfPreventionAction.TokenName))
+      val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(filters.csrf_prevention.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
       csrf.getAttribute("value").size > 0 should equal(true)
     }
   }
@@ -138,10 +139,9 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
     /* TODO Had to comment out because of this error on the build server. Investigate then restore.
 
       org.openqa.selenium.WebDriverException: Cannot find firefox binary in PATH. Make sure firefox is installed. OS appears to be: LINUX
-      [info] Build info: version: '2.42.2', revision: '6a6995d31c7c56c340d6f45a76976d43506cd6cc', time: '2014-06-03 10:52:47'
-    [info] System info: host: '***REMOVED***', ip: '***REMOVED***', os.name: 'Linux', os.arch: 'amd64', os.version: '2.6.32-431.el6.x86_64', java.version: '1.7.0_55'
+    [info] Build info: version: '2.42.2', revision: '6a6995d31c7c56c340d6f45a76976d43506cd6cc', time: '2014-06-03 10:52:47'
     [info] Driver info: driver.version: FirefoxDriver
-      [info]     at org.openqa.selenium.firefox.internal.Executable.<init>(Executable.java:72)
+    [info]     at org.openqa.selenium.firefox.internal.Executable.<init>(Executable.java:72)
     [info]     at org.openqa.selenium.firefox.FirefoxBinary.<init>(FirefoxBinary.java:59)
     [info]     at org.openqa.selenium.firefox.FirefoxBinary.<init>(FirefoxBinary.java:55)
     [info]     at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:99)
@@ -226,7 +226,7 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       click on exit
 
       // Verify the cookies identified by the full set of cache keys have been removed
-      RelatedCacheKeys.FullSet.foreach(cacheKey => {
+      AllCacheKeys.foreach(cacheKey => {
         webDriver.manage().getCookieNamed(cacheKey) should equal(null)
       })
     }

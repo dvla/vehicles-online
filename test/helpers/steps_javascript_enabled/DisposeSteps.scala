@@ -15,7 +15,7 @@ import pages.disposal_of_vehicle.DisposePage.dispose
 import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.DisposePage.useTodaysDate
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposePage, DisposeSuccessPage}
-import services.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 
 final class DisposeSteps(webBrowserDriver:WebBrowserDriverWIthJavaScript) extends WebBrowserDSL with Matchers {
 

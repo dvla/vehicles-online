@@ -1,11 +1,12 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
+import controllers.UprnNotFound
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{OK, contentAsString, defaultAwaitTimeout}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
 final class UprnNotFoundUnitSpec extends UnitSpec {

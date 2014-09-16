@@ -1,17 +1,18 @@
 @(exceptionDigest: String)(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import mappings.disposal_of_vehicle.Error.SubmitId
-@import utils.helpers.CsrfHelper
+@import views.disposal_of_vehicle.Error.SubmitId
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.base.csrfTokenHiddenField
 
 @main(
     title = Messages("error.title")
 ){
-    @form(action = controllers.disposal_of_vehicle.routes.Error.submit(exceptionDigest)) {
-        @CsrfHelper.hiddenFormField
+    @form(action = controllers.routes.Error.submit(exceptionDigest)) {
+        @csrfTokenHiddenField()
 
         <div class="form-steps">
             <button id="@SubmitId" type="submit" name="action" class="button">@Messages("error.button")</button>

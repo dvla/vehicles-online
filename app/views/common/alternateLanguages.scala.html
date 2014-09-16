@@ -1,7 +1,7 @@
 @()(implicit lang: Lang)
 
-@import controllers.common.routes.AlternateLanguages.withLanguage
-@import mappings.common.AlternateLanguages.{CyId, EnId}
+@import uk.gov.dvla.vehicles.presentation.common.controllers
+@import controllers.AlternateLanguages.{withLanguage, CyId, EnId}
 
 @****** This has been commented out until the Welsh translations have been finalised
 @if(lang.code != CyId) {

@@ -1,24 +1,29 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
 import Common.PrototypeHtml
-import services.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddress
-import services.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddressNotFound
-import services.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddress
-import services.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddressNotFound
-import services.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
+import controllers.BusinessChooseYourAddress
+import helpers.common.CookieHelper
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddress
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddressNotFound
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddress
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddressNotFound
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
+import CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
-import mappings.disposal_of_vehicle.BusinessChooseYourAddress.{BusinessChooseYourAddressCacheKey, AddressSelectId}
-import mappings.disposal_of_vehicle.TraderDetails.TraderDetailsCacheKey
+import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import TraderDetailsModel.TraderDetailsCacheKey
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{SetupTradeDetailsPage, VehicleLookupPage, UprnNotFoundPage}
 import play.api.mvc.Cookies
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{OK, LOCATION, BAD_REQUEST, SET_COOKIE, contentAsString, defaultAwaitTimeout}
-import services.fakes.FakeAddressLookupService.TraderBusinessNameValid
-import services.fakes.FakeAddressLookupWebServiceImpl
+import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
 import utils.helpers.Config
 
 final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
@@ -135,7 +140,7 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
     val responsePostcode = if (uprnFound) responseValidForPostcodeToAddress else responseValidForPostcodeToAddressNotFound
     val responseUprn = if (uprnFound) responseValidForUprnToAddress else responseValidForUprnToAddressNotFound
     val fakeWebService = new FakeAddressLookupWebServiceImpl(responsePostcode, responseUprn)
-    val addressLookupService = new services.address_lookup.ordnance_survey.AddressLookupServiceImpl(fakeWebService)
+    val addressLookupService = new AddressLookupServiceImpl(fakeWebService)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     when(config.isPrototypeBannerVisible).thenReturn(isPrototypeBannerVisible) // Stub this config value.

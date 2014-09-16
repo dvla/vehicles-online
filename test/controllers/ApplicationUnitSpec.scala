@@ -1,10 +1,10 @@
 package controllers
 
-import helpers.UnitSpec
 import org.mockito.Mockito.when
 import org.specs2.execute.{Result, AsResult}
 import play.api.test.{Helpers, WithApplication, FakeApplication, FakeRequest}
 import play.api.test.Helpers.{redirectLocation, defaultAwaitTimeout}
+import helpers.UnitSpec
 import utils.helpers.Config
 
 final class ApplicationUnitSpec extends UnitSpec {

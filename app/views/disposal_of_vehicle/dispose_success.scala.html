@@ -1,15 +1,16 @@
-@(data: models.domain.disposal_of_vehicle.DisposeViewModel,
-formModel: models.domain.disposal_of_vehicle.DisposeFormModel,
-surveyUrl: Option[String]
-)(implicit lang: Lang,
-token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
-config: utils.helpers.Config
-)
+@(data: models.DisposeViewModel,
+    formModel: models.DisposeFormModel,
+    disposeDateTime: org.joda.time.DateTime,
+    surveyUrl: Option[String]
+    )(implicit lang: Lang,
+    token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+    config: utils.helpers.Config)
 
-@import mappings.disposal_of_vehicle.DisposeSuccess.{ExitDisposalId, NewDisposalId, DisposalSurveyId}
-@import utils.helpers.CsrfHelper
+@import views.disposal_of_vehicle.DisposeSuccess.{ExitDisposalId, NewDisposalId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.base.csrfTokenHiddenField
 
 @main(
 progress = Some(Messages("disposal_progress_6")),
@@ -20,36 +21,69 @@ title = Messages("disposal_disposeconfirmation.title")
     <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
     <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</p>
     <p class="transaction-id">@Messages("disposal_disposeconfirmation.yourTransactionId") <br />
-        <span class="emphasized">@Messages("disposal_disposeconfirmation.transactionid", data.transactionId.getOrElse(""))</span></p>
+        <span class="emphasized">@Messages("disposal_disposeconfirmation.transactionid", data.transactionId.getOrElse(""))</span>
+    </p>
+    <p>@Messages("disposal_disposeconfirmation.transactionDate", disposeDateTime.toString("dd/MM/yyy"))</p>
 </div>
 
 <div class="two-col disposal-sucesss">
 
     <div class="first-col">
+        <h2>@Messages("disposal_disposeconfirmation.disposaldetails")</h2>
+
+        <dl class="summary-detail-list">
+            <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
+            <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.vehiclemake")</dt>
+            <dd>@data.vehicleMake</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.vehiclemodel")</dt>
+            <dd>@data.vehicleModel</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.mileage")</dt>
+            @if(formModel.mileage == None) {
+            <dd>@Messages("disposal_disposeconfirmation.mileageNotEntered")</dd>
+            } else {
+            <dd>@{java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get)}</dd>
+            }
+
+            <dt>@Messages("disposal_disposeconfirmation.disposedto")</dt>
+            <dd>
+                @data.dealerName<br />
+                @for(addr <- data.dealerAddress) {@addr<br/>}
+            </dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
+            <dd>
+                @{formModel.dateOfDisposal.`dd/MM/yyyy`}
+            </dd>
+        </dl>
+    </div>
+
+    <div class="second-col">
         <p>@Messages("disposal_disposeconfirmation.exkeeper")</p>
-        <p><strong>@Messages("disposal_disposeconfirmation.exkeeper-p2")</strong></p>
+        <div class="alert-warning print-message">
+          <p><strong>@Messages("disposal_disposeconfirmation.exkeeper-p2")</strong></p>
+        </div>
 
         <div class="form-steps">
 
             <div class="step">
-                @{/* TODO implemented JS and SCSS only. May need Scala work for unique ID? */
-                    /* TODO do we need 'value'? */
-                }
-                <button id="printDisposalSuccess" type="button" name="action" value="printDisposalSuccess" class="button js-only print-button">@Messages("global.buttonnavprint")</button>
+                <button id="printDisposalSuccess" type="button" name="action" value="printDisposalSuccess" class="button js-only print-button" autofocus="true">@Messages("global.buttonnavprint")</button>
             </div>
 
             @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
             <div class="step">
-                @form(action = controllers.disposal_of_vehicle.routes.DisposeSuccess.newDisposal()) {
-                @CsrfHelper.hiddenFormField
-                @* TODO UI please check the classes being used for this button, it was changed to grey by adding the button-secondary but I've kept the old class on there. *@
+                @form(action = controllers.routes.DisposeSuccess.newDisposal()) {
+                @csrfTokenHiddenField()
                 <button id="@NewDisposalId" type="submit" name="action" class="button button-new-disposal button-secondary">@Messages("disposal_disposeconfirmation.newdisposalbutton")</button>
                 }
             </div>
 
             <div class="step">
-                @form(action = controllers.disposal_of_vehicle.routes.DisposeSuccess.exit()) {
-                    @CsrfHelper.hiddenFormField
+                @form(action = controllers.routes.DisposeSuccess.exit()) {
+                    @csrfTokenHiddenField()
                     @surveyUrl match {
                       case Some(url) => {
                             <button id="@ExitDisposalId"
@@ -69,32 +103,6 @@ title = Messages("disposal_disposeconfirmation.title")
             </div>
 
         </div>
-    </div>
-
-    <div class="second-col">
-        <h2>@Messages("disposal_disposeconfirmation.disposaldetails")</h2>
-
-        <dl class="summary-detail-list">
-            <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
-            <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.vehiclemake")</dt>
-            <dd>@data.vehicleMake</dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.vehiclemodel")</dt>
-            <dd>@data.vehicleModel</dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.disposedto")</dt>
-            <dd>
-                @data.dealerName<br />
-                @for(addr <- data.dealerAddress.address) {@addr<br/>}
-            </dd>
-
-            <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
-            <dd>
-                @{formModel.dateOfDisposal.`dd/MM/yyyy`}
-            </dd>
-        </dl>
     </div>
 
 </div>

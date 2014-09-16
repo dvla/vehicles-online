@@ -1,22 +1,24 @@
-@(enterAddressManuallyForm: Form[models.domain.disposal_of_vehicle.EnterAddressManuallyModel],
+@(enterAddressManuallyForm: Form[models.EnterAddressManuallyFormModel],
         traderPostcode: String)(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import mappings.common.AddressAndPostcode.AddressAndPostcodeId
-@import mappings.disposal_of_vehicle.EnterAddressManually.{BackId, NextId}
-@import utils.helpers.CsrfHelper
+@import views.disposal_of_vehicle.EnterAddressManually.{BackId, NextId}
 @import views.html.disposal_of_vehicle.main
-@import views.html.helper.{addressAndPostcode, form}
+@import views.html.helper.form
+@import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.addressAndPostcode
+@import common.views.html.widgets.base.csrfTokenHiddenField
 
 @main(
     progress = Some(Messages("disposal_progress_3")),
     title = Messages("disposal_enteraddressmanually.title"),
     currentForm = Some(enterAddressManuallyForm)
 ) {
-    <div class="enter-address-manually uppercase-input">
-        @form(action = controllers.disposal_of_vehicle.routes.EnterAddressManually.submit()) {
-            @CsrfHelper.hiddenFormField
+    <div class="enter-address-manually uppercase-input sr-only-labels">
+        @form(action = controllers.routes.EnterAddressManually.submit()) {
+            @csrfTokenHiddenField()
 
             @addressAndPostcode(enterAddressManuallyForm(AddressAndPostcodeId))
 
@@ -27,7 +29,7 @@
             <div class="read-only-input">@traderPostcode</div>
             <div class="form-steps">
                 <button id="@NextId" type="submit" name="action" class="button">@Messages("disposal_enteraddressmanually.submitbutton")</button>
-                <a id="@BackId" class="button-secondary" href="@controllers.disposal_of_vehicle.routes.BusinessChooseYourAddress.submit()">@Messages("disposal_enteraddressmanually.backbutton")</a>
+                <a id="@BackId" class="button-secondary" href="@controllers.routes.BusinessChooseYourAddress.submit()">@Messages("disposal_enteraddressmanually.backbutton")</a>
             </div>
         }
     </div>

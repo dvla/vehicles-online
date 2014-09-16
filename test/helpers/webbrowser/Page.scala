@@ -21,6 +21,7 @@
 package helpers.webbrowser
 
 trait Page {
-  val url: String
   val title: String
+
+  def url: String
 }

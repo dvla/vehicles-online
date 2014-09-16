@@ -1,6 +1,7 @@
 package utils.helpers
 
 import helpers.{UnitSpec, WithApplication}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.Sha1HashGenerator
 
 final class Sha1HashSpec extends UnitSpec {
 
@@ -21,5 +22,5 @@ final class Sha1HashSpec extends UnitSpec {
   }
 
   private val sha1Hash = new Sha1HashGenerator // Sharing immutable fixture objects via instance variables
-  private final val ClearText = "qwerty"
+  private val ClearText = "qwerty"
 }

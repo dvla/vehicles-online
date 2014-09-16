@@ -639,6 +639,7 @@ trait WebBrowserDSL {
     def enter(value: String) = {
       element match {
         case tf: TextField => tf.value = value
+        case nf: NumberField => nf.value = value
         case ta: TextArea => ta.value = value
         case pf: PasswordField => pf.value = value
         case pf: EmailField => pf.value = value

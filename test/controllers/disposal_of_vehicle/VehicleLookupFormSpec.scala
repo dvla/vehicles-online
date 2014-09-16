@@ -1,29 +1,26 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
-import controllers.disposal_of_vehicle
+import controllers.{SurveyUrl, VehicleLookup}
+import helpers.UnitSpec
 import helpers.common.RandomVrmGenerator
 import helpers.disposal_of_vehicle.InvalidVRMFormat.allInvalidVrmFormats
 import helpers.disposal_of_vehicle.ValidVRMFormat.allValidVrmFormats
-import helpers.UnitSpec
-import mappings.disposal_of_vehicle.VehicleLookup.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
-import models.domain.disposal_of_vehicle.{VehicleDetailsRequest, VehicleDetailsResponse}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleLookupServiceImpl, VehicleDetailsResponseDto, VehicleDetailsRequestDto}
+import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
 import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.when
 import play.api.http.Status.OK
 import play.api.libs.json.{JsValue, Json}
+import services.DateServiceImpl
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import services.brute_force_prevention.BruteForcePreventionService
-import services.brute_force_prevention.BruteForcePreventionServiceImpl
-import services.brute_force_prevention.BruteForcePreventionWebService
-import services.DateServiceImpl
-import services.fakes.FakeVehicleLookupWebService.ConsentValid
-import services.fakes.FakeVehicleLookupWebService.ReferenceNumberValid
-import services.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
-import services.fakes.FakeVehicleLookupWebService.vehicleDetailsResponseSuccess
-import services.fakes.{FakeDateServiceImpl, FakeResponse}
-import services.vehicle_lookup.{VehicleLookupServiceImpl, VehicleLookupWebService}
+import webserviceclients.fakes.FakeVehicleLookupWebService.ConsentValid
+import webserviceclients.fakes.FakeVehicleLookupWebService.ReferenceNumberValid
+import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
+import webserviceclients.fakes.FakeVehicleLookupWebService.vehicleDetailsResponseSuccess
+import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
 import utils.helpers.Config
 
 final class VehicleLookupFormSpec extends UnitSpec {
@@ -110,32 +107,33 @@ final class VehicleLookupFormSpec extends UnitSpec {
 
   private val bruteForceServiceImpl: BruteForcePreventionService = {
     val bruteForcePreventionWebService: BruteForcePreventionWebService = mock[BruteForcePreventionWebService]
-    when(bruteForcePreventionWebService.callBruteForce(anyString())).thenReturn( Future {
-      new FakeResponse(status = OK)
-    }
-    )
+    when(bruteForcePreventionWebService.callBruteForce(anyString())).
+      thenReturn( Future.successful( new FakeResponse(status = OK) ))
 
     new BruteForcePreventionServiceImpl(
-      config = new Config(),
+      config = new BruteForcePreventionConfig,
       ws = bruteForcePreventionWebService,
       dateService = new FakeDateServiceImpl
     )
   }
 
-  private def vehicleLookupResponseGenerator(fullResponse:(Int, Option[VehicleDetailsResponse])) = {
-    val vehicleLookupWebService: VehicleLookupWebService = mock[VehicleLookupWebService]
-    when(vehicleLookupWebService.callVehicleLookupService(any[VehicleDetailsRequest], any[String])).thenReturn(Future {
-      val responseAsJson : Option[JsValue] = fullResponse._2 match {
-        case Some(e) => Some(Json.toJson(e))
-        case _ => None
-      }
-      new FakeResponse(status = fullResponse._1, fakeJson = responseAsJson)// Any call to a webservice will always return this successful response.
-    })
+  private def vehicleLookupResponseGenerator(fullResponse:(Int, Option[VehicleDetailsResponseDto])) = {
+    val vehicleLookupWebService = mock[VehicleLookupWebService]
+
+    when(vehicleLookupWebService.callVehicleLookupService(any[VehicleDetailsRequestDto], any[String])).
+      thenReturn(Future.successful {
+        val responseAsJson : Option[JsValue] = fullResponse._2 match {
+          case Some(e) => Some(Json.toJson(e))
+          case _ => None
+        }
+        new FakeResponse(status = fullResponse._1, fakeJson = responseAsJson)// Any call to a webservice will always return this successful response.
+      })
+
     val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(vehicleLookupWebService)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
-    new disposal_of_vehicle.VehicleLookup(bruteForceService = bruteForceServiceImpl,
+    new VehicleLookup(bruteForceService = bruteForceServiceImpl,
       vehicleLookupService = vehicleLookupServiceImpl, surveyUrl, dateService)
   }
 

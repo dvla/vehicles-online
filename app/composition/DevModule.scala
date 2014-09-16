@@ -1,26 +1,32 @@
 package composition
 
-import app.ConfigProperties.getProperty
 import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
-import common.ClearTextClientSideSessionFactory
-import common.ClientSideSessionFactory
-import common.CookieFlags
-import common.CookieFlagsFromConfig
-import common.EncryptedClientSideSessionFactory
-import filters.AccessLoggingFilter.AccessLoggerName
-import play.api.{LoggerLike, Logger}
-import services.address_lookup.{AddressLookupWebService, AddressLookupService, ordnance_survey, gds}
-import services.brute_force_prevention.BruteForcePreventionService
-import services.brute_force_prevention.BruteForcePreventionServiceImpl
-import services.brute_force_prevention.BruteForcePreventionWebService
-import services.dispose_service.{DisposeService, DisposeServiceImpl, DisposeWebService, DisposeWebServiceImpl}
-import services.vehicle_lookup.VehicleLookupService
-import services.vehicle_lookup.VehicleLookupServiceImpl
-import services.vehicle_lookup.VehicleLookupWebService
-import services.vehicle_lookup.VehicleLookupWebServiceImpl
-import services.{DateService, DateServiceImpl, brute_force_prevention}
-import utils.helpers.{CookieEncryption, AesEncryption, CookieNameHashGenerator, Sha1HashGenerator}
+import play.api.{Logger, LoggerLike}
+import services.DateServiceImpl
+import uk.gov.dvla.vehicles.presentation.common
+import common.ConfigProperties.getProperty
+import common.clientsidesession.AesEncryption
+import common.clientsidesession.ClearTextClientSideSessionFactory
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieEncryption
+import common.clientsidesession.CookieFlags
+import common.clientsidesession.CookieFlagsFromConfig
+import common.clientsidesession.CookieNameHashGenerator
+import common.clientsidesession.EncryptedClientSideSessionFactory
+import common.clientsidesession.Sha1HashGenerator
+import common.filters.AccessLoggingFilter.AccessLoggerName
+import common.services.DateService
+import common.webserviceclients.addresslookup.gds.{AddressLookupServiceImpl, WebServiceImpl}
+import common.webserviceclients.addresslookup.{AddressLookupService, AddressLookupWebService}
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
+import common.webserviceclients.vehiclelookup.VehicleLookupService
+import common.webserviceclients.vehiclelookup.VehicleLookupServiceImpl
+import common.webserviceclients.vehiclelookup.VehicleLookupWebService
+import common.webserviceclients.vehiclelookup.VehicleLookupWebServiceImpl
+import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
 /**
  * Provides real implementations of traits
@@ -36,11 +42,11 @@ object DevModule extends ScalaModule {
   def configure() {
     getProperty("addressLookupService.type", "ordnanceSurvey") match {
       case "ordnanceSurvey" =>
-        bind[AddressLookupService].to[ordnance_survey.AddressLookupServiceImpl].asEagerSingleton()
-        bind[AddressLookupWebService].to[ordnance_survey.WebServiceImpl].asEagerSingleton()
+        bind[AddressLookupService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl].asEagerSingleton()
+        bind[AddressLookupWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.WebServiceImpl].asEagerSingleton()
       case _ =>
-        bind[AddressLookupService].to[gds.AddressLookupServiceImpl].asEagerSingleton()
-        bind[AddressLookupWebService].to[gds.WebServiceImpl].asEagerSingleton()
+        bind[AddressLookupService].to[AddressLookupServiceImpl].asEagerSingleton()
+        bind[AddressLookupWebService].to[WebServiceImpl].asEagerSingleton()
     }
     bind[VehicleLookupWebService].to[VehicleLookupWebServiceImpl].asEagerSingleton()
     bind[VehicleLookupService].to[VehicleLookupServiceImpl].asEagerSingleton()
@@ -56,7 +62,7 @@ object DevModule extends ScalaModule {
     } else
       bind[ClientSideSessionFactory].to[ClearTextClientSideSessionFactory].asEagerSingleton()
 
-    bind[BruteForcePreventionWebService].to[brute_force_prevention.WebServiceImpl].asEagerSingleton()
+    bind[BruteForcePreventionWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.WebServiceImpl].asEagerSingleton()
     bind[BruteForcePreventionService].to[BruteForcePreventionServiceImpl].asEagerSingleton()
     bind[LoggerLike].annotatedWith(Names.named(AccessLoggerName)).toInstance(Logger("dvla.common.AccessLogger"))
   }

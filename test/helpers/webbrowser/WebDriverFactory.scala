@@ -1,6 +1,5 @@
 package helpers.webbrowser
 
-import app.ConfigProperties._
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
@@ -9,10 +8,12 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import org.openqa.selenium.firefox.{FirefoxDriver, FirefoxProfile}
 import org.openqa.selenium.phantomjs.{PhantomJSDriver, PhantomJSDriverService}
 import org.openqa.selenium.remote.DesiredCapabilities
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
 
 import java.util.concurrent.TimeUnit
 
 object WebDriverFactory {
+  private final val AcceptaceTestUrl = "acceptance.test.url"
   private val systemProperties = System.getProperties
 
   def webDriver: WebDriver = {
@@ -42,19 +43,13 @@ object WebDriverFactory {
     selectedDriver
   }
 
-  def testRemote: Boolean = {
-    getProperty("test.remote", default = false)
-  }
-
-  def testUrl: String = {
-    if (testRemote) {
-      getProperty("test.url", "http://localhost:9000/")
-    }
-    else {
-      // Default if testing locally
-      new String("http://localhost:9001/")
-    }
-  }
+  def testUrl: String =
+      getProperty(
+        AcceptaceTestUrl,
+        sys.props.get(AcceptaceTestUrl)
+          .orElse(sys.env.get(AcceptaceTestUrl))
+          .getOrElse("http://localhost:9001/")
+      )
 
   private def chromeDriver = {
     systemProperties.setProperty(

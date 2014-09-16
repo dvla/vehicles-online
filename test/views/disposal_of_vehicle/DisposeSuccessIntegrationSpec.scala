@@ -1,16 +1,16 @@
 package views.disposal_of_vehicle
 
 import helpers.UiSpec
-import helpers.common.ProgressBar
+import helpers.common.ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import ProgressBar.progressStep
 import helpers.tags.UiTag
 import helpers.webbrowser.TestHarness
-import mappings.common.PreventGoingToDisposePage.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
-import mappings.disposal_of_vehicle.RelatedCacheKeys
 import org.openqa.selenium.{By, WebDriver, WebElement}
 import pages.disposal_of_vehicle.DisposeSuccessPage.{exitDisposal, newDisposal}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposeSuccessPage, SetupTradeDetailsPage, VehicleLookupPage}
+import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
+import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
+import models.{AllCacheKeys, DisposeCacheKeys, TradeDetailsCacheKeys}
 
 final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
@@ -112,9 +112,9 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       cacheSetup()
 
       go to DisposeSuccessPage
-      val csrf: WebElement = webDriver.findElement(By.name(filters.csrf_prevention.CsrfPreventionAction.TokenName))
+      val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(filters.csrf_prevention.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
       csrf.getAttribute("value").size > 0 should equal(true)
     }
   }
@@ -136,12 +136,12 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       click on newDisposal
 
       // Verify the cookies identified by the dispose set of cache keys have been removed
-      RelatedCacheKeys.DisposeSet.foreach(cacheKey => {
+      DisposeCacheKeys.foreach(cacheKey => {
         webDriver.manage().getCookieNamed(cacheKey) should equal(null)
       })
 
       // Verify the cookies identified by the trade details set of cache keys are present.
-      RelatedCacheKeys.TradeDetailsSet.foreach(cacheKey => {
+      TradeDetailsCacheKeys.foreach(cacheKey => {
         webDriver.manage().getCookieNamed(cacheKey) should not equal null
       })
 
@@ -172,7 +172,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       click on exitDisposal
 
       // Verify the cookies identified by the full set of cache keys have been removed
-      RelatedCacheKeys.FullSet.foreach(cacheKey => {
+      AllCacheKeys.foreach(cacheKey => {
         webDriver.manage().getCookieNamed(cacheKey) should equal(null)
       })
     }
@@ -220,5 +220,6 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       vehicleDetailsModel().
       disposeFormModel().
       disposeTransactionId().
-      vehicleRegistrationNumber()
+      vehicleRegistrationNumber().
+      disposeFormTimestamp()
 }

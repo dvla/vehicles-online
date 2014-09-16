@@ -1,20 +1,21 @@
 package controllers.disposal_of_vehicle
 
 import com.tzavellas.sse.guice.ScalaModule
-import common.ClientSideSessionFactory
+import controllers.{SurveyUrl, DisposeSuccess}
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
-import mappings.common.PreventGoingToDisposePage.PreventGoingToDisposePageCacheKey
-import mappings.disposal_of_vehicle.Dispose.SurveyRequestTriggerDateCacheKey
 import org.joda.time.Instant
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout}
 import services.DateServiceImpl
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
+import models.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+
 import scala.concurrent.duration.DurationInt
 
 final class DisposeSuccessUnitSpec extends UnitSpec {
@@ -58,8 +59,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
 
     "redirect to SetUpTradeDetails on present when only DisposeDetails are cached" in new WithApplication {
       val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-        withCookies(CookieFactoryForUnitSpecs.disposeModel())
+        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = disposeSuccess.present(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
@@ -87,12 +87,35 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
 
     "redirect to SetUpTradeDetails on present when only DisposeDetails and DealerDetails are cached" in new WithApplication {
       val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.disposeModel())
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = disposeSuccess.present(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
       }
+    }
+
+    "display the page with correctly formatted mileage on present" in new WithApplication {
+      val request = FakeRequest().
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.disposeFormModel(mileage = Some(123456))).
+        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.disposeTransactionId()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber()).
+        withCookies(CookieFactoryForUnitSpecs.disposeFormTimestamp())
+      val result = disposeSuccess.present(request)
+      contentAsString(result) should include("123,456")
+    }
+
+    "display the page with mileage not entered message on present" in new WithApplication {
+      val request = FakeRequest().
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.disposeFormModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.disposeTransactionId()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber()).
+        withCookies(CookieFactoryForUnitSpecs.disposeFormTimestamp())
+      val result = disposeSuccess.present(request)
+      contentAsString(result) should include("NOT ENTERED")
     }
 
     "display prototype message when config set to true" in new WithApplication {
@@ -195,8 +218,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "redirect to SetUpTradeDetails on submit when only DisposeDetails are cached" in new WithApplication {
-      val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.disposeModel())
+      val request = FakeRequest()
       val result = disposeSuccess.newDisposal(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
@@ -225,8 +247,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
     "redirect to SetUpTradeDetails on submit when only DisposeDetails and DealerDetails are cached" in new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.disposeModel())
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = disposeSuccess.newDisposal(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
@@ -277,7 +298,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
     withCookies(CookieFactoryForUnitSpecs.disposeFormModel()).
     withCookies(CookieFactoryForUnitSpecs.disposeTransactionId()).
     withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber()).
-    withCookies(CookieFactoryForUnitSpecs.disposeModel())
+    withCookies(CookieFactoryForUnitSpecs.disposeFormTimestamp())
   private lazy val present = disposeSuccess.present(requestFullyPopulated)
 
   def disposeWithMockConfig(config: Config): DisposeSuccess =

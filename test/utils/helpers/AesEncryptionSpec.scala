@@ -3,6 +3,7 @@ package utils.helpers
 import helpers.webbrowser.TestGlobal
 import helpers.{UnitSpec, WithApplication}
 import play.api.test.FakeApplication
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.AesEncryption
 
 final class AesEncryptionSpec extends UnitSpec {
   "encryptCookie" should {
@@ -37,7 +38,7 @@ final class AesEncryptionSpec extends UnitSpec {
     }
   }
 
-  private final val ClearText = "qwerty"
+  private val ClearText = "qwerty"
   private val fakeAppWithCryptoConfig = FakeApplication(
     withGlobal = Some(TestGlobal),
     additionalConfiguration = Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo=")

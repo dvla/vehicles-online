@@ -1,6 +1,5 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
@@ -8,6 +7,7 @@ import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.ErrorPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{OK, contentAsString, defaultAwaitTimeout}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
 final class ErrorUnitSpec extends UnitSpec {
@@ -32,7 +32,7 @@ final class ErrorUnitSpec extends UnitSpec {
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
-      val errorPrototypeNotVisible = new Error()
+      val errorPrototypeNotVisible = new controllers.Error()
 
       val result = errorPrototypeNotVisible.present(ErrorPage.exceptionDigest)(request)
       contentAsString(result) should not include PrototypeHtml
@@ -41,7 +41,7 @@ final class ErrorUnitSpec extends UnitSpec {
 
   // TODO please add test for 'submit'.
 
-  private val errorController = injector.getInstance(classOf[Error])
+  private val errorController = injector.getInstance(classOf[controllers.Error])
 
   private lazy val present = {
     val request = FakeRequest().

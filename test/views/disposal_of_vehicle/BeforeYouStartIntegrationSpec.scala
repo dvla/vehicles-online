@@ -6,10 +6,11 @@ import ProgressBar.progressStep
 import helpers.tags.UiTag
 import helpers.UiSpec
 import helpers.webbrowser.TestHarness
-import mappings.disposal_of_vehicle.RelatedCacheKeys
 import org.openqa.selenium.WebDriver
 import pages.disposal_of_vehicle.BeforeYouStartPage.startNow
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage}
+import models.AllCacheKeys
+import utils.helpers.Config
 
 final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
@@ -49,7 +50,7 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
 
       // Verify the cookies identified by the full set of cache keys have been removed
-      RelatedCacheKeys.FullSet.foreach(cacheKey => webDriver.manage().getCookieNamed(cacheKey) should equal(null))
+      AllCacheKeys.foreach(cacheKey => webDriver.manage().getCookieNamed(cacheKey) should equal(null))
     }
   }
 

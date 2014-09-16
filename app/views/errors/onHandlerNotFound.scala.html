@@ -1,7 +1,6 @@
 @(request: RequestHeader)(implicit lang: Lang, config: utils.helpers.Config)
 
 @import views.html.common.{govMainDefault, protoType}
-@import mappings.disposal_of_vehicle.OnHandlerNotFound.{TryAgainId, ExitId}
 
 @govMainDefault(Messages("onHandlerNotFound.title")) {
     <div class="vehicles-online">
@@ -11,7 +10,7 @@
             <h1>@Messages("onHandlerNotFound.header")</h1>
             <p>@Messages("onHandlerNotFound.body")</p>
             <div class="step">
-                <a id="@ExitId" href="@controllers.disposal_of_vehicle.routes.BeforeYouStart.present()" class="button">@Messages("onHandlerNotFound.start.button")</a>
+                <a id="exit" href="@controllers.routes.BeforeYouStart.present()" class="button">@Messages("onHandlerNotFound.start.button")</a>
             </div>
         </div>
     </div>

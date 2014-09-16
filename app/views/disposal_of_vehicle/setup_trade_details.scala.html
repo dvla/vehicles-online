@@ -1,15 +1,17 @@
-@(traderLookupForm: Form[models.domain.disposal_of_vehicle.SetupTradeDetailsModel])(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+@(traderLookupForm: Form[models.SetupTradeDetailsFormModel])(implicit lang: Lang,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import controllers.disposal_of_vehicle.routes.SetUpTradeDetails
-@import mappings.common.Postcode
-@import mappings.disposal_of_vehicle.SetupTradeDetails.{SubmitId, TraderNameId, TraderNameMaxLength, TraderPostcodeId}
-@import utils.helpers.BaseTemplate.fieldConstructor
-@import utils.helpers.CsrfHelper
+@import controllers.routes.SetUpTradeDetails;
+@import views.disposal_of_vehicle.SetupTradeDetails.SubmitId
 @import views.html.disposal_of_vehicle.main
-@import views.html.helper.base.valtechInputText
 @import views.html.helper.form
+@import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId, TraderNameMaxLength}
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.mappings.Postcode
+@import common.views.helpers.BaseTemplate.fieldConstructor
+@import common.views.html.widgets.base.valtechInputText
+@import common.views.html.widgets.base.csrfTokenHiddenField
 
 @main(
     progress = Some(Messages("disposal_progress_2")),
@@ -17,15 +19,16 @@
     currentForm = Some(traderLookupForm)
 ) {
     @form(action = SetUpTradeDetails.submit) {
-        @CsrfHelper.hiddenFormField
+        @csrfTokenHiddenField()
 
         <div class="uppercase-input">
             @valtechInputText(traderLookupForm(TraderNameId), args =
                     Map('_label -> Messages("disposal_setuptradedetails.tradernamelabel"),
                         '_showConstraints -> false,
+                        'autofocus -> true,
                         'maxLength -> TraderNameMaxLength))
 
-            @valtechInputText(traderLookupForm(TraderPostcodeId), args =
+            @valtechInputText(traderLookupForm(TraderPostcodeId), hintText = Some(Messages("disposal_setuptradedetails.traderpostcode.hint")), args =
                     Map('_label -> Messages("disposal_setuptradedetails.traderpostcodelabel"),
                         '_showConstraints -> false,
                         'maxLength -> Postcode.MaxLength))

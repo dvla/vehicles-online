@@ -3,10 +3,13 @@
 # ~~~~
 
 # IoC
-# For those controllers whose dependencie are being injected, we use the @controllers syntax here so that
+# For those controllers whose dependencies are being injected, we use the @controllers syntax here so that
 # the router knows we are referring to a class (not an object). In turn it will call on the
 # GlobalSettings.getControllerInstance method to resolve the actual controller instance. This method hooks into
 # Guice to provide the actual instance complete with its injected dependencies
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/versioned/*file                                     controllers.Assets.versioned(path="/public", file: Asset)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                               controllers.Assets.at(path="/public", file)
@@ -17,55 +20,55 @@ GET         /assets/*file                                               controll
 
 #page 1 - Before You Start (GET request not POST on submission because we are not posting any data)
 GET         /                                                           @controllers.ApplicationRoot.index
-GET         /sell-to-the-trade/before-you-start                         @controllers.disposal_of_vehicle.BeforeYouStart.present
-POST        /sell-to-the-trade/before-you-start                         @controllers.disposal_of_vehicle.BeforeYouStart.submit
+GET         /sell-to-the-trade/before-you-start                         @controllers.BeforeYouStart.present
+POST        /sell-to-the-trade/before-you-start                         @controllers.BeforeYouStart.submit
 
 #page 2 - setup-trade-details
-GET         /sell-to-the-trade/setup-trade-details                      @controllers.disposal_of_vehicle.SetUpTradeDetails.present
-POST        /sell-to-the-trade/setup-trade-details                      @controllers.disposal_of_vehicle.SetUpTradeDetails.submit
+GET         /sell-to-the-trade/setup-trade-details                      @controllers.SetUpTradeDetails.present
+POST        /sell-to-the-trade/setup-trade-details                      @controllers.SetUpTradeDetails.submit
 
 #page 3 - business choose your address
-GET         /sell-to-the-trade/business-choose-your-address             @controllers.disposal_of_vehicle.BusinessChooseYourAddress.present
-POST        /sell-to-the-trade/business-choose-your-address             @controllers.disposal_of_vehicle.BusinessChooseYourAddress.submit
+GET         /sell-to-the-trade/business-choose-your-address             @controllers.BusinessChooseYourAddress.present
+POST        /sell-to-the-trade/business-choose-your-address             @controllers.BusinessChooseYourAddress.submit
 
 #page 4 [optional] - enter address manually
-GET         /sell-to-the-trade/enter-address-manually                   @controllers.disposal_of_vehicle.EnterAddressManually.present
-POST        /sell-to-the-trade/enter-address-manually                   @controllers.disposal_of_vehicle.EnterAddressManually.submit
+GET         /sell-to-the-trade/enter-address-manually                   @controllers.EnterAddressManually.present
+POST        /sell-to-the-trade/enter-address-manually                   @controllers.EnterAddressManually.submit
 
-GET         /sell-to-the-trade/vehicle-lookup                           @controllers.disposal_of_vehicle.VehicleLookup.present
-POST        /sell-to-the-trade/vehicle-lookup                           @controllers.disposal_of_vehicle.VehicleLookup.submit
-GET         /sell-to-the-trade/vehicle-lookup/exit                      @controllers.disposal_of_vehicle.VehicleLookup.exit
-GET         /sell-to-the-trade/vehicle-lookup-back                      @controllers.disposal_of_vehicle.VehicleLookup.back
+GET         /sell-to-the-trade/vehicle-lookup                           @controllers.VehicleLookup.present
+POST        /sell-to-the-trade/vehicle-lookup                           @controllers.VehicleLookup.submit
+GET         /sell-to-the-trade/vehicle-lookup/exit                      @controllers.VehicleLookup.exit
+GET         /sell-to-the-trade/vehicle-lookup-back                      @controllers.VehicleLookup.back
 
-GET         /sell-to-the-trade/complete-and-confirm                     @controllers.disposal_of_vehicle.Dispose.present
-POST        /sell-to-the-trade/complete-and-confirm                     @controllers.disposal_of_vehicle.Dispose.submit
+GET         /sell-to-the-trade/complete-and-confirm                     @controllers.Dispose.present
+POST        /sell-to-the-trade/complete-and-confirm                     @controllers.Dispose.submit
 
-GET         /sell-to-the-trade/sell-to-the-trade-success                @controllers.disposal_of_vehicle.DisposeSuccess.present
-POST        /sell-to-the-trade/sell-to-the-trade-success/new-disposal   @controllers.disposal_of_vehicle.DisposeSuccess.newDisposal
-POST        /sell-to-the-trade/sell-to-the-trade-success/exit           @controllers.disposal_of_vehicle.DisposeSuccess.exit
+GET         /sell-to-the-trade/sell-to-the-trade-success                @controllers.DisposeSuccess.present
+POST        /sell-to-the-trade/sell-to-the-trade-success/new-disposal   @controllers.DisposeSuccess.newDisposal
+POST        /sell-to-the-trade/sell-to-the-trade-success/exit           @controllers.DisposeSuccess.exit
 
-GET         /sell-to-the-trade/sell-to-the-trade-failure                @controllers.disposal_of_vehicle.DisposeFailure.present
+GET         /sell-to-the-trade/sell-to-the-trade-failure                @controllers.DisposeFailure.present
 
-GET         /sell-to-the-trade/vehicle-lookup-failure                   @controllers.disposal_of_vehicle.VehicleLookupFailure.present
-POST        /sell-to-the-trade/vehicle-lookup-failure                   @controllers.disposal_of_vehicle.VehicleLookupFailure.submit
+GET         /sell-to-the-trade/vehicle-lookup-failure                   @controllers.VehicleLookupFailure.present
+POST        /sell-to-the-trade/vehicle-lookup-failure                   @controllers.VehicleLookupFailure.submit
 
-GET         /sell-to-the-trade/uprn-not-found                           @controllers.disposal_of_vehicle.UprnNotFound.present
+GET         /sell-to-the-trade/uprn-not-found                           @controllers.UprnNotFound.present
 
-GET         /sell-to-the-trade/duplicate-sell-to-the-trade-error        @controllers.disposal_of_vehicle.DuplicateDisposalError.present
+GET         /sell-to-the-trade/duplicate-sell-to-the-trade-error        @controllers.DuplicateDisposalError.present
 
-GET         /sell-to-the-trade/service-error                            @controllers.disposal_of_vehicle.MicroServiceError.present
-GET         /sell-to-the-trade/service-error/try-again                  @controllers.disposal_of_vehicle.MicroServiceError.back
+GET         /sell-to-the-trade/service-error                            @controllers.MicroServiceError.present
+GET         /sell-to-the-trade/service-error/try-again                  @controllers.MicroServiceError.back
 
-GET         /sell-to-the-trade/vrm-locked                               @controllers.disposal_of_vehicle.VrmLocked.present
-POST        /sell-to-the-trade/vrm-locked/new-disposal                  @controllers.disposal_of_vehicle.VrmLocked.newDisposal
-POST        /sell-to-the-trade/vrm-locked/exit                          @controllers.disposal_of_vehicle.VrmLocked.exit
+GET         /sell-to-the-trade/vrm-locked                               @controllers.VrmLocked.present
+POST        /sell-to-the-trade/vrm-locked/new-disposal                  @controllers.VrmLocked.newDisposal
+POST        /sell-to-the-trade/vrm-locked/exit                          @controllers.VrmLocked.exit
 
-GET         /sell-to-the-trade/error/:exceptionDigest                   @controllers.disposal_of_vehicle.Error.present(exceptionDigest)
-POST        /sell-to-the-trade/error/:exceptionDigest                   @controllers.disposal_of_vehicle.Error.submit(exceptionDigest)
+GET         /sell-to-the-trade/error/:exceptionDigest                   @controllers.Error.present(exceptionDigest)
+POST        /sell-to-the-trade/error/:exceptionDigest                   @controllers.Error.submit(exceptionDigest)
 
-GET         /sell-to-the-trade/help                                     @controllers.common.Help.present
-GET         /sell-to-the-trade/help/back                                @controllers.common.Help.back
+GET         /sell-to-the-trade/help                                     @controllers.Help.present
+GET         /sell-to-the-trade/help/back                                @controllers.Help.back
 
-GET         /with-language/:chosenLanguage                              controllers.common.AlternateLanguages.withLanguage(chosenLanguage: String)
+GET         /with-language/:chosenLanguage                              uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
 
-GET         /healthcheck                                                @controllers.common.HealthCheck.respond
+GET         /healthcheck                                                @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond

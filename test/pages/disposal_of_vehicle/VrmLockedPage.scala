@@ -1,7 +1,8 @@
 package pages.disposal_of_vehicle
 
 import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
-import mappings.disposal_of_vehicle.VrmLocked.{ExitDisposalId, NewDisposalId}
+import views.disposal_of_vehicle.VrmLocked
+import VrmLocked.{ExitDisposalId, NewDisposalId}
 import org.openqa.selenium.WebDriver
 
 object VrmLockedPage extends Page with WebBrowserDSL {

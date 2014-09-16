@@ -1,9 +1,9 @@
 @()(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import controllers.disposal_of_vehicle.routes.BeforeYouStart
-@import controllers.disposal_of_vehicle.routes.Dispose
+@import controllers.routes.BeforeYouStart
+@import controllers.routes.Dispose
 @import views.html.disposal_of_vehicle.main
 
 @main(

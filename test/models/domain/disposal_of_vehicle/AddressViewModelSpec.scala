@@ -1,27 +1,25 @@
 package models.domain.disposal_of_vehicle
 
-import AddressViewModel.JsonFormat
 import helpers.UnitSpec
-import models.domain.common.{AddressLinesModel, AddressAndPostcodeModel}
+import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
+import AddressModel.JsonFormat
 import play.api.libs.json.Json
-import services.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
-import services.fakes.FakeAddressLookupService.Line2Valid
-import services.fakes.FakeAddressLookupService.Line3Valid
-import services.fakes.FakeAddressLookupService.PostcodeValid
-import services.fakes.FakeAddressLookupService.PostTownValid
-import services.fakes.FakeVehicleLookupWebService.KeeperUprnValid
+import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
+import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
+import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
+import webserviceclients.fakes.FakeVehicleLookupWebService.KeeperUprnValid
 
 
 final class AddressViewModelSpec extends UnitSpec {
   "from" should {
     "translate correctly" in {
-      val addressAndPostcodeModel = AddressAndPostcodeModel(addressLinesModel = AddressLinesModel(
+      val addressAndPostcodeModel = AddressAndPostcodeViewModel(addressLinesModel = AddressLinesViewModel(
         buildingNameOrNumber = BuildingNameOrNumberValid,
         line2 = Some(Line2Valid),
         line3 = Some(Line3Valid),
         postTown = PostTownValid))
 
-      val result = AddressViewModel.from(addressAndPostcodeModel, PostcodeValid)
+      val result = AddressModel.from(addressAndPostcodeModel, PostcodeValid)
 
       result.uprn should equal(None)
       result.address should equal(Seq(
@@ -35,14 +33,14 @@ final class AddressViewModelSpec extends UnitSpec {
 
   "format" should {
     "serialize to json" in {
-      val address = AddressViewModel(
+      val address = AddressModel(
         uprn = Some(KeeperUprnValid),
         address = Seq(BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid))
     }
 
     "deserialize from json" in {
-      val fromJson =  Json.fromJson[AddressViewModel](asJson)
-      val expected = AddressViewModel(
+      val fromJson =  Json.fromJson[AddressModel](asJson)
+      val expected = AddressModel(
         uprn = Some(KeeperUprnValid),
         address = Seq(BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid))
 

@@ -1,9 +1,9 @@
-@(data: models.domain.disposal_of_vehicle.VehicleLookupFormModel,
+@(data: models.VehicleLookupFormModel,
         responseCodeVehicleLookupMSErrorMessage: String)(implicit lang: Lang,
-        token: filters.csrf_prevention.CsrfPreventionAction.CsrfPreventionToken,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import mappings.disposal_of_vehicle.VehicleLookupFailure.{BeforeYouStartId, VehicleLookupId}
+@import views.disposal_of_vehicle.VehicleLookupFailure.{BeforeYouStartId, VehicleLookupId}
 @import views.html.disposal_of_vehicle.main
 
 @main(
@@ -17,7 +17,7 @@
     @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
     <div class="form-steps">
         @{ /* Note the reverse routing syntax for the hyperlink */ }
-        <a class="button" id="@VehicleLookupId" href="@controllers.disposal_of_vehicle.routes.VehicleLookup.present()">@Messages("disposal_vehiclelookupfailure.button")</a>
-        <a class="button-secondary" id="@BeforeYouStartId" href="@controllers.disposal_of_vehicle.routes.BeforeYouStart.present()">@Messages("disposal_vehiclelookupfailure.button2")</a>
+        <a class="button" id="@VehicleLookupId" href="@controllers.routes.VehicleLookup.present()">@Messages("disposal_vehiclelookupfailure.button")</a>
+        <a class="button-secondary" id="@BeforeYouStartId" href="@controllers.routes.BeforeYouStart.present()">@Messages("disposal_vehiclelookupfailure.button2")</a>
     </div>
 }

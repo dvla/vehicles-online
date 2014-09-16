@@ -1,3 +1,3 @@
-import common.GlobalLike
+import composition.GlobalLike
 
 object Global extends GlobalLike

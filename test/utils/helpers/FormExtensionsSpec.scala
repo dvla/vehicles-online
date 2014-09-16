@@ -1,9 +1,10 @@
 package utils.helpers
 
-import helpers.UnitSpec
 import play.api.data.Forms.{mapping, nonEmptyText, text}
 import play.api.data.{Form, FormError, Mapping}
-import utils.helpers.FormExtensions.{formBinding, textWithTransform}
+import helpers.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
+import FormExtensions.{formBinding, textWithTransform}
 
 final class FormExtensionsSpec extends UnitSpec {
   "anyMandatoryFields" should {
@@ -62,7 +63,7 @@ final class FormExtensionsSpec extends UnitSpec {
   }
 
   "trimmed text mapping" should {
-    import utils.helpers.FormExtensions.trimmedText
+    import FormExtensions.trimmedText
 
     "remove leading and trailing spaces, carriage returns and line feeds by default" in {
       val form = Form(

@@ -1,18 +1,20 @@
 package pages.disposal_of_vehicle
 
 import helpers.webbrowser.{Element, Page, SingleSel, WebBrowserDSL, WebDriverFactory}
-import mappings.disposal_of_vehicle.BusinessChooseYourAddress.AddressSelectId
-import mappings.disposal_of_vehicle.BusinessChooseYourAddress.BackId
-import mappings.disposal_of_vehicle.BusinessChooseYourAddress.EnterAddressManuallyButtonId
-import mappings.disposal_of_vehicle.BusinessChooseYourAddress.SelectId
+import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+import views.disposal_of_vehicle.BusinessChooseYourAddress
+import BusinessChooseYourAddress.BackId
+import BusinessChooseYourAddress.EnterAddressManuallyButtonId
+import BusinessChooseYourAddress.SelectId
 import org.openqa.selenium.WebDriver
-import services.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 object BusinessChooseYourAddressPage extends Page with WebBrowserDSL {
   final val address: String = "/sell-to-the-trade/business-choose-your-address"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
-  final override val title = "Select your trader address"
+  final override val title = "Select trader address"
   final val titleCy = "Dewiswch eich cyfeiriad masnach"
+
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def chooseAddress(implicit driver: WebDriver): SingleSel = singleSel(id(AddressSelectId))
 

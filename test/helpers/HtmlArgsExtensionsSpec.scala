@@ -1,6 +1,7 @@
 package helpers
 
-import utils.helpers.HtmlArgsExtensions.RichHtmlArgs
+import uk.gov.dvla.vehicles.presentation.common.views.helpers.HtmlArgsExtensions
+import HtmlArgsExtensions.RichHtmlArgs
 
 final class HtmlArgsExtensionsSpec extends UnitSpec {
   "HtmlArgsExtensions maxlength rules" should {

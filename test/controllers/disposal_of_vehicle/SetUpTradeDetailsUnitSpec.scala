@@ -1,21 +1,22 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
-import Common.PrototypeHtml
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
-import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
+import controllers.SetUpTradeDetails
+import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
-import helpers.UnitSpec
-import helpers.WithApplication
-import mappings.disposal_of_vehicle.SetupTradeDetails
-import models.domain.disposal_of_vehicle.SetupTradeDetailsModel
+import helpers.common.CookieHelper
+import helpers.{WithApplication, UnitSpec}
+import CookieHelper.fetchCookiesFromHeaders
+import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{OK, LOCATION, BAD_REQUEST, contentAsString, defaultAwaitTimeout}
-import services.fakes.FakeAddressLookupService.{TraderBusinessNameValid, PostcodeValid}
-import SetupTradeDetails.{TraderNameMaxLength, SetupTradeDetailsCacheKey, TraderNameId, TraderPostcodeId}
+import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
+import models.SetupTradeDetailsFormModel
+import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderNameMaxLength, TraderPostcodeId}
+import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
+import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 
 final class SetUpTradeDetailsUnitSpec extends UnitSpec {
 
@@ -69,7 +70,7 @@ final class SetUpTradeDetailsUnitSpec extends UnitSpec {
           cookies.find(_.name == cookieName) match {
             case Some(cookie) =>
               val json = cookie.value
-              val model = deserializeJsonToModel[SetupTradeDetailsModel](json)
+              val model = deserializeJsonToModel[SetupTradeDetailsFormModel](json)
               model.traderBusinessName should equal(TraderBusinessNameValid.toUpperCase)
               model.traderPostcode should equal(PostcodeValid.toUpperCase)
             case None => fail(s"$cookieName cookie not found")

@@ -1,7 +1,0 @@
-@(form: play.api.data.Form[_])(implicit lang: Lang)
-
-@import utils.helpers.FormExtensions._
-
-@if(form.anyMandatoryFields) {
-    <p class="mandatory">@Messages("mandatory")</p>
-}

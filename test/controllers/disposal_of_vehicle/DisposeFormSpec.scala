@@ -1,25 +1,25 @@
 package controllers.disposal_of_vehicle
 
-import common.ClientSideSessionFactory
-import controllers.disposal_of_vehicle
+import controllers.Dispose
 import helpers.UnitSpec
-import mappings.common.DayMonthYear.{DayId, MonthId, YearId}
-import mappings.common.Mileage
-import mappings.disposal_of_vehicle.Dispose.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
-import models.DayMonthYear
-import models.domain.disposal_of_vehicle.DisposeRequest
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import play.api.libs.json.Json
-import services.DateService
-import services.dispose_service.{DisposeServiceImpl, DisposeWebService}
-import services.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
-import services.fakes.FakeDisposeWebServiceImpl.{ConsentValid, MileageValid, disposeResponseSuccess}
-import services.fakes.FakeResponse
-import utils.helpers.Config
+import webserviceclients.dispose.{DisposeConfig, DisposeWebService, DisposeServiceImpl, DisposeRequestDto}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
- 
+import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.{ConsentValid, MileageValid, disposeResponseSuccess}
+import webserviceclients.fakes.FakeResponse
+import utils.helpers.Config
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.mappings.DayMonthYear.{DayId, MonthId, YearId}
+import common.mappings.Mileage
+import common.services.DateService
+import common.views.models.DayMonthYear
+import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
+
 final class DisposeFormSpec extends UnitSpec {
   "form" should {
     "accept when all fields contain valid responses" in {
@@ -143,7 +143,7 @@ final class DisposeFormSpec extends UnitSpec {
   private def dateServiceStub(dayToday: Int = DateOfDisposalDayValid.toInt,
                               monthToday: Int = DateOfDisposalMonthValid.toInt,
                               yearToday: Int = DateOfDisposalYearValid.toInt) = {
-    val dayMonthYearStub = new models.DayMonthYear(day = dayToday,
+    val dayMonthYearStub = new DayMonthYear(day = dayToday,
       month = monthToday,
       year = yearToday)
     val dateService = mock[DateService]
@@ -153,15 +153,15 @@ final class DisposeFormSpec extends UnitSpec {
 
   private def dispose(dateService: DateService = dateServiceStub()) = {
     val ws = mock[DisposeWebService]
-    when(ws.callDisposeService(any[DisposeRequest], any[String])).thenReturn(Future {
+    when(ws.callDisposeService(any[DisposeRequestDto], any[String])).thenReturn(Future.successful {
       val responseAsJson = Json.toJson(disposeResponseSuccess)
       import play.api.http.Status.OK
       new FakeResponse(status = OK, fakeJson = Some(responseAsJson)) // Any call to a webservice will always return this successful response.
     })
-    val disposeServiceImpl = new DisposeServiceImpl(new Config(), ws)
+    val disposeServiceImpl = new DisposeServiceImpl(new DisposeConfig(), ws)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
-    new disposal_of_vehicle.Dispose(disposeServiceImpl, dateService)
+    new Dispose(disposeServiceImpl, dateService)
   }
 
   private def formWithValidDefaults(mileage: String = MileageValid,

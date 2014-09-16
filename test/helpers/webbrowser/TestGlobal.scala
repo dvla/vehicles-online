@@ -1,6 +1,5 @@
 package helpers.webbrowser
 
-import common.GlobalLike
-import composition.TestComposition
+import composition.{GlobalLike, TestComposition}
 
 object TestGlobal extends GlobalLike with TestComposition

@@ -21,10 +21,6 @@ global.buttonnavcancel = Cancel
 global.buttonnavupdate = Update
 global.buttonnavprint = Print
 
-footer.helpdesk = Help
-footer.privacypolicy = Cookies
-footer.contact = Contact
-footer.welsh = Cymraeg
 footer.builtbyintro = Built by
 footer.builtby = Driver & Vehicle Licensing Agency
 
@@ -146,7 +142,7 @@ widget.optional = (optional)
 #customer validation messages
 error.restricted.validNumberOnly = This field only accepts numbers
 error.restricted.validVrnOnly = Must be as shown on the latest V5C
-error.restricted.validPostcode = Must be between 5 and 8 characters and in a valid format, eg. PR2 8AE or PR28AE
+error.restricted.validPostcode = Must be between five and eight characters and in a valid format, eg. AB1 2BA or AB12BA
 
 datePlaceholder.day=Day
 datePlaceholder.month=Month
@@ -185,18 +181,19 @@ disposal_beforeyoustart.listitem4 = Once you have completed this service, DVLA w
 disposal_beforeyoustart.button = Start now
 
 #page 2 - set-up trade details
-disposal_setuptradedetails.title = Provide your trader details
+disposal_setuptradedetails.title = Provide trader details
 disposal_setuptradedetails.name = Sell a vehicle into the motor trade
 disposal_setuptradedetails.p1 = Set-up trade details
 disposal_setuptradedetails.tradernamelabel = Trader name
 disposal_setuptradedetails.traderpostcodelabel = Postcode
 disposal_setuptradedetails.traderpostcodelabel.validation = Must be between 5 and 8 characters and in a valid format, eg. PR2 8AE or PR28AE
+disposal_setuptradedetails.traderpostcode.hint = eg. AB1 2BA or AB12BA
 disposal_setuptradedetails.button = Find address
 traderName = Trader name
 traderPostcode = Postcode
 
 #page 3
-disposal_businessChooseYourAddress_title = Select your trader address
+disposal_businessChooseYourAddress_title = Select trader address
 disposal_businessChooseYourAddress_legend = Set up trade details
 disposal_businessChooseYourAddress_businessName_label = Trader name
 disposal_businessChooseYourAddress_businessName = {0}
@@ -219,6 +216,7 @@ disposal_enteraddressmanually.backbutton = Back
 addressAndPostcode_addressLines = Address
 address.lines.label = Building/number and street
 address.buildingNameOrNumber.label =
+address.buildingNameOrNumber.hint = e.g. 1 HIGH STREET
 address.line2.label=
 address.line3.label=
 address.postTown.label= Town or city
@@ -228,6 +226,7 @@ address.postcode.validation = Enter a valid postcode
 addressAndPostcode.addressLines.line2 = Street name
 addressAndPostcode.addressLines.line3 = Area
 addressAndPostcode.addressLines.postTown = Town or city
+addressAndPostcode.addressLines.postTown.hint = e.g. SWANSEA
 error.address.characterInvalid = Must only contain valid characters A-Z, 0-9, etc
 error.postTown.characterInvalid = Town or city contains invalid characters
 
@@ -248,7 +247,7 @@ disposal_vehiclelookup.warning.p1 = Do not dispose of a vehicle with a personal 
 disposal_vehiclelookup.warning.p2 = Retain or transfer personal registrations before disposing to the trade.
 disposal_vehiclelookup.img.h2 = Help finding your V5C document reference number?
 disposal_vehiclelookup.img.alt = V5C document reference number
-disposal_vehiclelookup.refnumlabel = Latest V5C Document Reference Number
+disposal_vehiclelookup.refnumlabel = Latest V5C document reference number
 disposal_vehiclelookup.vrninputlabel = Vehicle registration number
 disposal_vehiclelookup.backbutton = Back
 disposal_vehiclelookup.button = Next
@@ -307,12 +306,14 @@ disposal_disposeconfirmation.sendbutton = Send
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = Transaction id
 disposal_disposeconfirmation.transactionid_message = Transaction message goes here
+disposal_disposeconfirmation.transactionDate = Date of transaction: {0}
 disposal_disposeconfirmation.registrationNumber = {0}
-disposal_disposeconfirmation.registrationNumber_label = Registration
+disposal_disposeconfirmation.registrationNumber_label = Registration number
 disposal_disposeconfirmation.backbutton = Back
 disposal_disposeconfirmation.newdisposalbutton = Sell another vehicle
 disposal_disposeconfirmation.disposaldate = Date of sale
 disposal_disposeconfirmation.mileage = Mileage
+disposal_disposeconfirmation.mileageNotEntered = NOT ENTERED
 disposal_disposeconfirmation.noMileageEntered = No mileage entered
 disposal_disposeconfirmation.exitbutton = Finish
 disposal_disposeconfirmation.survey = Take a survey
@@ -322,7 +323,7 @@ disposal_disposefailure.title = Sell a vehicle into the motor trade: failure
 disposal_disposefailure.name = Failure
 disposal_disposefailure.p1 = It has not been possible to complete your transaction. Please call 0300 790 6802
 disposal_disposefailure.button = Sell another vehicle
-disposal_disposefailure.button2 = Exit
+disposal_disposefailure.button2 = Finish
 disposal_disposefailure.button3 = Print
 disposal_disposefailure.transactiontext = Your transaction ID is:
 disposal_disposefailure.transactionid = {0}
@@ -333,9 +334,9 @@ disposal_vehiclelookupfailure.name = Failure
 disposal_vehiclelookupfailure.p1 = The service is temporarily unavailable. Please try again later or send a completed V5C/3 to DVLA, Swansea, SA99 1BD
 disposal_vehiclelookupfailure.button = Try again
 disposal_vehiclelookupfailure.button2 = Exit
-vehicle_lookup_vrm_not_found.p1 = The vehicle registration number and/or V5C document reference number entered does not match the most recent V5C issued for this vehicle. The V5C document reference number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
+vehicle_lookup_vrm_not_found.p1 = The V5C document reference number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
 vehicle_lookup_vrm_not_found.p2 = Please make sure you have the most recent V5C and try again.
-vehicle_lookup_vrm_not_found.p3 = Only 3 attempts will be allowed to retrieve vehicle details. After the third attempt the system will prevent further access to the vehicles record for 10 minutes. Other vehicles can be processed during this period.
+vehicle_lookup_vrm_not_found.p3 = For each vehicle registration number, only 3 attempts can be made to retrieve the vehicle details.
 vehicle_lookup_document_reference_mismatch.p1 = The V5C document reference number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
 vehicle_lookup_document_reference_mismatch.p2 = Please make sure you have the most recent V5C and try again.
 vehicle_lookup_document_reference_mismatch.p3 = For each vehicle registration number, only 3 attempts can be made to retrieve the vehicle details.
@@ -344,10 +345,10 @@ addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters
 addressAndPostcode.addressLines = Address
 addressAndPostcode.postcode = Postcode
-error.validTraderBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, +, -, ‘, &, @, () and ,)
+error.validBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, +, -, ‘, &, @, () and ,)
 error.address.buildingNameOrNumber.invalid = Building/number and street must contain between 4 and 30 characters
 error.address.postTown = Town or city must contain a minimum of 3 characters
-error.address.postcode.invalid = Must be between five 5 and eight 8 characters and in a valid format, eg. PR2 8AE or PR28AE
+error.address.postcode.invalid = Must be between five and eight characters and in a valid format, eg. AB1 2Ba or AB12BA
 
 # progress messages
 disposal_progress_1 = Step 1 of 6
@@ -366,9 +367,15 @@ disposal.help.email =  mailto:julie.riseley@dvla.gsi.gov.uk?Subject=Sell%20to%20
 disposal.help.exit_button = Exit
 disposal.help.back_button = Back
 
+# closed
+disposal.closed.title = Service Closed
+disposal.closed.p1 = The supporting systems for this service are currently unavailable.
+disposal.closed.p2 = The normal hours of operation are Monday to Saturday - 08:00 to 18:00. Please complete your transaction during these hours.
+disposal.closed.exit_button = Exit
+
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = The application is being processed.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Please do not send the original V5C/3 (disposal slip) to DVLA, Swansea, SA99 1BD
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Please do not send the original V5C/3 (disposal slip) to DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Transaction Unsuccessful
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;
