@@ -37,7 +37,7 @@
 
             <div class="disposal-info first-col">
                 <h2>@Messages("disposal_dispose.vehicledetails")</h2>
-                <dl class="summary-detail-list">
+                <dl class="playback">
                     <dt>@Messages("disposal_dispose.vehiclereg")</dt>
                     <dd>@data.registrationNumber</dd>
                     <dt>@Messages("disposal_dispose.vehiclemake")</dt>
@@ -55,7 +55,7 @@
             <div class="disposal-form second-col uppercase-input">
                 <h2>@Messages("disposal_dispose.disposevehicleto")</h2>
 
-                <div class="summary-detail-list">
+                <div class="playback">
                     <p>@data.dealerName <br />
                         @for(addr <- data.dealerAddress) {@addr<br/>}</p>
                 </div>

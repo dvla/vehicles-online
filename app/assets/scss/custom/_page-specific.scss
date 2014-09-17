@@ -25,7 +25,7 @@
         }
 
         .trader-details {
-            .summary-detail-list {
+            .playback {
                 margin-bottom:38px;
                 margin-bottom:3.75rem;
                 @media screen and (max-width:$device-medium) {
@@ -111,7 +111,7 @@
         .first-col {
             margin-top:1em;
         }
-        .summary-detail-list dt {
+        .playback dt {
             min-width:155px;
         }
         .ie8 & .button-new-disposal {
