@@ -64,7 +64,6 @@
                                 <ul class="proposition-links">
                                     <li><a id="@HelpLinkId" href="@controllers.routes.Help.present()">@{Messages("main.banner.help")}</a></li>
                                     <li>@feedback()</li>
-                                    <li>@alternateLanguages(showLanguageSwitch)</li>
                                 </ul>
                             </div>
                         </div>
@@ -83,6 +82,7 @@
                 <div class="footer-meta">
                     <div class="footer-meta-inner">
                         <ul>
+                            <li>@alternateLanguages(showLanguageSwitch)</li>
                             <li>@{Messages("footer.builtbyintro")}&nbsp;<a href="https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency" target="_blank">@{Messages("footer.builtby")}</a></li>
                         </ul>
                         <div class="open-government-licence">
