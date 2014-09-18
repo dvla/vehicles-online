@@ -2,12 +2,14 @@ package views.disposal_of_vehicle
 
 import helpers.UiSpec
 import helpers.common.ProgressBar.progressStep
+import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.webbrowser.TestHarness
 import org.openqa.selenium.{By, WebElement}
 import pages.common.{Accessibility, ErrorPanel}
+import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.SetupTradeDetailsPage.happyPath
-import pages.disposal_of_vehicle.{BusinessChooseYourAddressPage, SetupTradeDetailsPage}
+import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage, SetupTradeDetailsPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import models.SetupTradeDetailsFormModel
 
@@ -36,6 +38,24 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
       csrf.getAttribute("type") should equal("hidden")
       csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
       csrf.getAttribute("value").size > 0 should equal(true)
+    }
+
+    "display the 'Cymraeg' language button and not the 'English' language button when the language cookie is set to 'en'" taggedAs UiTag in new WebBrowser {
+      go to BeforeYouStartPage // By default will load in English.
+      CookieFactoryForUISpecs.withLanguageEn()
+      go to SetupTradeDetailsPage
+
+      isCymraegDisplayed should equal(true)
+      isEnglishDisplayed should equal(false)
+    }
+
+    "display the 'English' language button and not the 'Cymraeg' language button when the language cookie is set to 'cy'" taggedAs UiTag in new WebBrowser {
+      go to BeforeYouStartPage // By default will load in English.
+      CookieFactoryForUISpecs.withLanguageCy()
+      go to SetupTradeDetailsPage
+
+      isCymraegDisplayed should equal(false)
+      isEnglishDisplayed should equal(true)
     }
   }
 

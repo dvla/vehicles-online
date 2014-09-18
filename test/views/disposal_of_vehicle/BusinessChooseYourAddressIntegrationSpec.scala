@@ -11,6 +11,7 @@ import helpers.webbrowser.TestHarness
 import ProgressBar.progressStep
 import org.openqa.selenium.{By, WebElement, WebDriver}
 import pages.common.ErrorPanel
+import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage.{back, happyPath, manualAddress, sadPath}
@@ -90,6 +91,24 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       csrf.getAttribute("type") should equal("hidden")
       csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
       csrf.getAttribute("value").size > 0 should equal(true)
+    }
+
+    "display the 'Cymraeg' language button and not the 'English' language button when the language cookie is set to 'en'" taggedAs UiTag in new WebBrowser {
+      go to BeforeYouStartPage // By default will load in English.
+      CookieFactoryForUISpecs.withLanguageEn()
+      go to BusinessChooseYourAddressPage
+
+      isCymraegDisplayed should equal(true)
+      isEnglishDisplayed should equal(false)
+    }
+
+    "display the 'English' language button and not the 'Cymraeg' language button when the language cookie is set to 'cy'" taggedAs UiTag in new WebBrowser {
+      go to BeforeYouStartPage // By default will load in English.
+      CookieFactoryForUISpecs.withLanguageCy()
+      go to BusinessChooseYourAddressPage
+
+      isCymraegDisplayed should equal(false)
+      isEnglishDisplayed should equal(true)
     }
   }
 

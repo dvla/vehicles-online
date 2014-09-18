@@ -64,7 +64,7 @@
                                 <ul class="proposition-links">
                                     <li><a id="@HelpLinkId" href="@controllers.routes.Help.present()">@{Messages("main.banner.help")}</a></li>
                                     <li>@feedback()</li>
-                                    @*<li>@alternateLanguages()</li>*@
+                                    <li>@alternateLanguages()</li>
                                 </ul>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                     <img src="@routes.Assets.versioned("lib/vehicles-presentation-common/images/open-government-licence_2x.png")" alt="OGL">
                                 </a>
                             </h2>
-                            <p>All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2">Open Government Licence v2.0</a>, except where otherwise stated</p>
+                            <p>@{Messages("footer.text1")}&nbsp;<a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2">@{Messages("footer.link")}</a>@{Messages("footer.text2")}</p>
                         </div>
                     </div>
                     @if(!Play.isTest) {

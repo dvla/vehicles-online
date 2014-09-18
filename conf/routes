@@ -69,6 +69,6 @@ POST        /sell-to-the-trade/error/:exceptionDigest                   @control
 GET         /sell-to-the-trade/help                                     @controllers.Help.present
 GET         /sell-to-the-trade/help/back                                @controllers.Help.back
 
-GET         /with-language/:chosenLanguage                              uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
+GET         /with-language/:chosenLanguage                              controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
 
 GET         /healthcheck                                                @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond

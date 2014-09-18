@@ -1,411 +1,315 @@
 #main
-main.banner = Cael gwared cerbyd i mewn i''r fasnach foduron
-main.banner.help = Cymorth
+main.banner = Gwerthu cerbyd i''r fasnach foduron
+main.banner.help = Help
+main.banner.feedback = Adborth
+main.banner.feedback.link = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell%20to%20the%20Trade%20feedback
 
-global.cookiemessage = GOV.UK yn defnyddio cwcis i wneud y safle yn symlach.
-global.cookiefindoutmore = Cael gwybod mwy am gwcis
+global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml.
+global.cookiefindoutmore = Dysgwch fwy am gwcis
 
-global.browserprompt = Am yn, yn gyflymach, yn fwy diogel profiad gwell ar-lein, dylech uwchraddio eich porwr.
-global.browserfindoutmore = Cael gwybod mwy am borwyr
-global.browserclosetitle = Gwrthod neges hon
-global.browserclosemessage = Cau
+global.browserprompt = Am brofiad mwy diogel, cyflymach a gwell ar-lein dylech uwchraddio eich porwr.
+global.browserfindoutmore = Dysgwch fwy am borwyr
+global.browserclosetitle = Diystyrwch y neges hwn
+global.browserclosemessage = Caewch
 
-global.buttonnavback = Yn ôl
-global.buttonnavcancel = Ganslo
-global.buttonnavupdate = Diweddariad
-global.buttonnavprint = Print
+global.buttonnavback = Yn Ùl
+global.buttonnavcancel = Canslwch
+global.buttonnavupdate = Diweddarwch
+global.buttonnavprint = Argraffwch
 
-footer.helpdesk = Gymorth
-footer.privacypolicy = Cwcis
-footer.contact = Cyswllt
-footer.welsh = Cymraeg
 footer.builtbyintro = Adeiladwyd gan
 footer.builtby = Asiantaeth Trwyddedu Gyrwyr a Cherbydau
+#TODO: these need to be translated
+footer.text1 = All content is available under the
+footer.link = Open Government Licence v2.0
+footer.text2 = , except where otherwise stated
 
 #prototype
-prototype.banner = Mae'r gwasanaeth hwn yn cael ei ddatblygu - 
-prototype.link = cael gwybod mwy
+prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
+prototype.link =  dysgwch fwy
 prototype.link.source = https://www.gov.uk/help/beta
 
-#page 2
-keeperstatus.title = Newid cyfeiriad ceidwad
-keeperstatus.name = 1. Eich statws
-keeperstatus.p1 = Beth yw eich statws, fel ceidwad y cerbyd o dan sylw?
-keeperstatus.button = Rwyf yn unigolyn preifat
-keeperstatus.button2 = Rwy''n cynrychioli busnes
-keeperstatus.button3 = Ddim yn breifat nac busnes
-
-#page 3
-verifyidentity.title = Newid cyfeiriad ceidwad
-verifyidentity.alert = Enghraifft neges rhybudd
-verifyidentity.name = 2. Gwirio eich hunaniaeth
-verifyidentity.infomessage = Mae''n drosedd i gael gwybodaeth bersonol rhywun arall heb eu caniatad.
-verifyidentity.p1 = Cyn i chi ddechrau defnyddio''r Newid'' ceidwad gyfeiriad'' gwasanaeth, mae angen i chi ddewis y darparwr dilysu yr hoffech eu defnyddio:
-verifyidentity.p2 = GOV.UK yw''r ffordd newydd i ddefnyddio gwasanaethau llywodraeth ar-lein. Bydd angen i chi proffil hunaniaeth i wneud pethau fel adnewyddu eich trwydded yrru, yn talu treth neu wneud cais am basport.
-verifyidentity.button = Defnyddio proffil hunaniaeth presennol
-verifyidentity.button1text = Oes gennych proffil hunaniaeth?
-verifyidentity.button2 = Creu proffil hunaniaeth
-verifyidentity.button2text = Rhaid i ddefnyddwyr giat mewngofnodi trwy ddefnyddio ei proffil hunaniaeth  
-verifyidentity.button2text2 = Llywodraeth gofrestru i fanteisio ar y gwasanaeth
-
-#page 4
-areyouregistered.title = Newid cyfeiriad ceidwad
-areyouregistered.name = 3. Mewngofnodi i GOV.UK
-areyouregistered.p1 = GOV.UK yw''r ffordd newydd i ddefnyddio gwasanaethau llywodraeth ar-lein. Nawr bydd angen i chi proffil hunaniaeth i wneud pethau fel adnewyddu eich trwydded yrru, yn talu treth neu wneud cais am basport.
-areyouregistered.infomessage = Rydych yn ceisio cael mynediad ''Newid cyfeiriad ceidwad''
-areyouregistered.button = Mewngofnodi
-areyouregistered.buttontext = Mae gen i broffil hunaniaeth
-areyouregistered.button2 = Cofrestru Nawr
-areyouregistered.button2text = Angen i mi gofrestru ar gyfer proffil hunaniaeth
-
-#page 5
-signinprovider.title = Newid cyfeiriad ceidwad
-signinprovider.name = 3. Mewngofnodi i GOV.UK
-signinprovider.infomessage = Rydych yn ceisio cael mynediad Newid ceidwad
-signinprovider.p1 = GOV.UK yw''r ffordd newydd i ddefnyddio gwasanaethau llywodraeth ar-lein. Nawr bydd angen i chi proffil hunaniaeth i wneud pethau fel adnewyddu eich trwydded yrru, yn talu treth neu wneud cais am basport.
-signinprovider.buttontext = Mae gen i broffil hunaniaeth
-signinprovider.button = Swyddfa''r Post
-signinprovider.button2 = Experian
-signinprovider.button3text = Angen i mi gofrestru ar gyfer proffil hunaniaeth
-signinprovider.button3 = Cofrestru Nawr
-
-#page 6
-loginpage.title = Gwirio id mewngofnodi
-loginpage.instructions = Cofrestrwch i gael gafael ar GOV.UK
-loginpage.username = Enw Defnyddiwr / Cyfeiriad e-bost
-loginpage.password = Cyfrinair
-loginpage.button.login = Mewngofnodi
-loginpage.button.login.arialabel = Mewngofnodi botwm
-loginpage.forgottenPassword = Wedi anghofio eich cyfrinair?
-loginpage.cancel = Diddymu a dychwelyd i''r trafodiad
-loginpage.disclaimer = Nid yw hyn yn dudalen o wefan go iawn, mae wedi ei greu fel y gallwn ddangos y daith y defnyddiwr. Mae''n galw gwasanaeth micro, rydym wedi creu sy''n dychwelyd manylion sy''n cael eu defnyddio ar y tudalennau canlynol.
-
-#page 7
-loginconfirmation.title = Mewngofnodi cadarnhad
-loginconfirmation.message = Rydych '' wedi dilysu yn llwyddiannus gyda''r postoffice
-loginconfirmation.personaldetails = Manylion personol
-loginconfirmation.personaldetails.firstname = Enw cyntaf :
-loginconfirmation.personaldetails.surname = Cyfenw :
-loginconfirmation.personaldetails.dob = Dyddiad Geni :
-loginconfirmation.personaldetails.address = Cyfeiriad :
-loginconfirmation.consent = Caniatad
-loginconfirmation.consent.message = Ydych chi''n cytuno i ganiatau i''r Swyddfa''r Post i anfon eich manylion personol i''r parti dibynnu o ble rydych yn dilysu ?
-loginconfirmation.button.refuse = wyf yn gwrthod
-loginconfirmation.button.refuse.arialabel = wyf yn gwrthod botwm
-loginconfirmation.button.agree = wyf yn cytuno
-loginconfirmation.button.agree.arialabel = wyf yn cytuno botwm
-loginconfirmation.disclaimer = Nid yw hyn yn dudalen o wefan go iawn, mae wedi ei greu fel y gallwn ddangos y daith y defnyddiwr. Mae wedi derbyn data o wasanaeth micro rydym wedi creu.
-
-#page 8
-authentication.title = Newid cyfeiriad ceidwad
-authentication.name = Dilysu eich arwydd yn
-authentication.p1 = Os gwelwch yn dda dilyswch eich arwydd i mewn i GOV.UK drwy fynd i mewn i''r pin 6 digid a anfonwyd at eich dyfais symudol cofrestredig.
-authentication.resend = Ail-anfon cod unigryw
-authentication.inputlabel = PIN
-authentication.button = Cyflwyno
-authentication.button2 = Diddymu
-authentication.pin.incorrect = Rhaid i chi roi nifer sydd a hyd o 6 digid
-authentication.disclaimer = Nid yw hyn yn dudalen o wefan go iawn, mae wedi ei greu fel y gallwn ddangos y daith y defnyddiwr. 
-
-#page 9
-v5csearch.title = Newid cyfeiriad ceidwad
-v5csearch.name = 4. Adfer cofnod gerbyd
-v5csearch.p1 = {0} wedi''i lofnodi i mewn i''r Newid'' ceidwad gyfeiriad'' gwasanaeth
-v5csearch.button = Look-up
-v5csearch.button2 = Diddymu
-v5csearch.v5cinputlabel = Rhif Cyfeirnod y ddogfen V5C
-v5csearch.vrninputlabel = Rhif cofrestru''r cerbyd
-v5csearch.v5cinputlabel.refNumIncorrect = Mae''n rhaid i chi fynd i mewn i nifer sydd â hyd o 11 digid
-v5csearch.postcode.label = Cod post
-v5csearch.postcode.validation = Mae''n rhaid i chi fynd i mewn i god post dilys
-
-#page 10
-confirm_vehicle_details.title = Newid cyfeiriad ceidwad
-confirm_vehicle_details.name = 5. Cadarnhau gwybodaeth cerbyd 
-confirm_vehicle_details.p1 = A wnewch chi gadarnhau mai chi yw''r ceidwad y cerbyd hwn a bod hyn yn y cerbyd sy''n destun y ''Newid ceidwad cyfeiriad'' gwasanaeth.
-confirm_vehicle_details.vrn = Cofrestru:
-confirm_vehicle_details.make = Gwneud:
-confirm_vehicle_details.model = Modell
-confirm_vehicle_details.firstregistered = Cofrestru cyntaf:
-confirm_vehicle_details.acquired = Caffaeledig:
-confirm_vehicle_details.button = Cadarnhau
-confirm_vehicle_details.button2 = Diddymu
-
-##disposal prototype##
-
-#page 1 - Before You Start
-disposal_beforeyoustart.title = Cael gwared cerbyd i mewn i''r fasnach foduron
-disposal_beforeyoustart.p1 = Cyn i chi ddechrau:
-disposal_beforeyoustart.listitem1 = Bydd angen y dystysgrif cofrestru cerbyd mwyaf diweddar (V5C) chi. Gallwch wirio hyn drwy ddefnyddio
-disposal_beforeyoustart.listitem1linktext = Gwasanaeth Ymholiadau Cerbydau (GYC)
-
-disposal_beforeyoustart.listitem2 = Os oes gan y cerbyd yn cael ei werthu rhif cofrestru personol, mae'n rhaid i'r ceidwad yn deall y bydd y rhif cofrestru yn cael ei werthu gyda'r cerbyd. Os yw'r ceidwad yn awyddus i gadw rhif cofrestru personol, rhaid iddynt
-disposal_beforeyoustart.listitem2.link = wneud cais i gadw neu ei drosglwyddo i gerbyd arall ar V317
-
-disposal_beforeyoustart.listitem3 = Os oes gan y cerbyd yn cael ei werthu rhif cofrestru personol, Mae''n rhaid i''r ceidwad yn deall y bydd y rhif cofrestru yn cael ei werthu gyda''r cerbyd. Os yw''r ceidwad yn awyddus i gadw rhif cofrestru personol, rhaid iddynt gadw yn gyntaf neu ei drosglwyddo i gerbyd arall.
-disposal_beforeyoustart.listitem4 = Os yw''r cerbyd wedi''i drethu ar hyn o bryd ac mae mwy nag un mis llawn ar ôl, rhaid i'r ceidwad
-disposal_beforeyoustart.listitem4.link = wneud cais am ad-daliad ar V14
-disposal_beforeyoustart.button = Ddechrau nawr
-
-#page 3
-disposal_businessChooseYourAddress_title = Dewiswch eich cyfeiriad masnach
-disposal_businessChooseYourAddress_legend = Manylion sefydlu masnach
-disposal_businessChooseYourAddress_businessName_label = Enw masnachwr
-disposal_businessChooseYourAddress_businessName = {0}
-disposal_businessChooseYourAddress_postcode_label = Cod post
-disposal_businessChooseYourAddress_businessAddress_label = Gyfeiriad masnachwr
-disposal_businessChooseYourAddress_addressSelect = Dewiswch eich cyfeiriad
-disposal_businessChooseYourAddress_addressSelect_label = Dewiswch eich cyfeiriad
-disposal_businessChooseYourAddress.backbutton = Holau
-disposal_businessChooseYourAddress.submitbutton = Dewis
-disposal_businessChooseYourAddress.manualAddressEntry = Nid yw fy cyfeiriad yn y rhestr
-error.dropDownInvalid = Dewiswch werth o''r rhestr a ollyngir i lawr
-disposal_businessChooseYourAddress_noaddressesfound = Dim canlyniadau ar gyfer y cod post cyfeiriadau. Cliciwch ar y botwm yn ôl i fynd i mewn i god post gwahanol neu cliciwch ar y ddolen isod i fynd i mewn cyfeiriad llaw
-
-#page 3 - manual address entry
-disposal_enteraddressmanually.title = Rhowch gyfeiriad llaw
-disposal_enteraddressmanually.submitbutton = Nesaf
-disposal_enteraddressmanually.backbutton = Yn ôl
-addressAndPostcode_addressLines = Cyfeiriad
-address.lines.label = Adeiladu a strydoedd
-address.buildingNameOrNumber.label =
-address.buildingNameOrNumber.hint = e.g. 1 HIGH STREET
-address.line2.label=
-address.line3.label=
-address.postTown.label= e.g. SWANSEA
-address.postcode.label = Cod post
-address.postcode.label.prompt = e.g. SA99 1BD
-address.postcode.validation = Rhowch god post dilys
-addressAndPostcode.addressLines.line2 = Enwau strydoedd
-addressAndPostcode.addressLines.line3 = Ardal
-addressAndPostcode.addressLines.postTown = Tref neu ddinas
-addressAndPostcode.addressLines.postTown.hint = e.g. SWANSEA
-error.address.characterInvalid = Cyfeiriad yn cynnwys nodau annilys
-error.postTown.characterInvalid = Tref bost yn cynnwys nodau annilys
-
-#page 3 - uprn not found
-disposal_uprnnotfound.title = Gwall cod post yn cadarnhau
-disposal_uprnnotfound.p1 = Mae gwall wedi digwydd dilysu eich cod post. Os gwelwch yn dda ail-fynd i mewn neu rhowch eich manylion â llaw
-disposal_uprnnotfound.manualaddressbutton = Manylion masnach sefydlu
-disposal_uprnnotfound.setuptradedetailsbutton = Hun roi cyfeiriad
-
-#page not known - Vehicle Lookup
-disposal_setuptradedetails.title = Rhoi eich manylion masnachwr
-disposal_setuptradedetails.name = Gwaredu cerbyd i mewn i''r fasnach foduron
-disposal_setuptradedetails.p1 = Cerbyd yn cael ei werthu
-disposal_setuptradedetails.tradernamelabel = Enw masnachwr
-disposal_setuptradedetails.traderpostcodelabel = Cod post
-disposal_setuptradedetails.traderpostcodelabel.validation = Rhaid bod rhwng 5 ac 8 cymeriadau ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
-disposal_setuptradedetails.traderpostcode.hint = e.g. PR2 8AE neu PR28AE
-disposal_setuptradedetails.button = Nesaf
-traderName = Enw masnachwr
-traderPostcode = Cod post
-
-disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu roi ei llaw
-
-#page 4 - vehicle Lookup
-disposal_vehiclelookup.title = Dod o hyd i fanylion y cerbyd
-disposal_vehiclelookup.name = Gwaredu cerbyd i mewn i''r fasnach foduron
-disposal_vehiclelookup.p1 = Dod o hyd i gerbyd
-disposal_vehiclelookup.p2 = Bydd cerbyd yn cael ei werthu i
-disposal_vehiclelookup.warning.p1 = Peidiwch â gwaredu cerbyd gyda chofrestru personol oni bai bod y ceidwad ar hyn o bryd yn deall y bydd y cofrestriad yn cael eu gwaredu ynghyd â''r cerbyd.
-disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo cofrestriadau personol cyn cael gwared i''r fasnach.
-disposal_vehiclelookup.img.h2 = Help ddod o hyd i eich rhif cyfeirnod y ddogfen V5C?
-disposal_vehiclelookup.img.alt = V5C document reference number
-disposal_vehiclelookup.refnumlabel = V5C Rhif cyfeirnod y ddogfen
-disposal_vehiclelookup.vrninputlabel = Rhif cofrestru cerbyd
-disposal_vehiclelookup.backbutton = Holau
-disposal_vehiclelookup.button = Dod o hyd i
-disposal_vehiclelookup.button2 = Golygu
-disposal_vehiclelookup.exitbutton = Gorffen
-disposal_vehiclelookup.tradernamelabel = Enw masnachwr
-disposal_vehiclelookup.traderaddresslabel = Gyfeiriad masnachwr
-error.validDocumentReferenceNumber = Rhaid rhif cyfeirnod y ddogfen fod yn rhif 11-digid
-
-#page 5 - confirm disposal
-disposal_dispose.title = Cwblhau & gadarnhau
-disposal_dispose.warning = Os yw''r manylion uchod yn cyd-fynd â''r cerbyd i gael ei werthu, os gwelwch yn dda cysylltu â''r DVLA.
-disposal_dispose.vehicledetails = Cerbyd yn cael ei werthu
-disposal_dispose.vehiclereg = Rhif cofrestru
-disposal_dispose.vehiclemake = Gwneud
-disposal_dispose.vehiclemodel = Model
-disposal_dispose.vehiclekeeper = Ceidwad
-disposal_dispose.disposevehicleto = Am y gwerthiant
-disposal_dispose.mileage.label = Milltiroedd cerbydau
-disposal_dispose.mileage.validation = Mae''n rhaid i chi fynd i mewn milltiroedd dilys rhwng 0 a 999,999
-dateOfDisposal = Dyddiad gwaredu
-disposal_dispose.dateofdisposal.label = Dyddiad y gwaredu
-disposal_dispose.backbutton = Holau
-disposal_dispose.submitbutton = Cadarnhau gwerthu
-disposal_dispose.consent = gennyf ganiatâd y ceidwad presennol i gael gwared ar y cerbyd hwn
-disposal_dispose.consent.notgiven = Rhaid i chi gael cydsyniad y ceidwad cofrestredig i hysbysu gwerthu cerbyd hwn
-dateOfDisposal_day = Diwrnod gwaredu
-dateOfDisposal_month = Mis gwaredu
-dateOfDisposal_year = Flwyddyn waredu
-dateOfDisposal.day = Diwrnod gwaredu
-dateOfDisposal.month = Mis gwaredu
-dateOfDisposal.year = Flwyddyn waredu
-disposal_dispose.todays_date_of_disposal = Defnyddiwch dyddiad heddiw
-error.dateOfDisposal = Rhaid i ddyddiad gwared fod o fewn dwy flynedd
-disposal_dispose.consent.mandatory = Rhaid i chi gael cydsyniad y ceidwad cofrestredig i hysbysu gwerthu cerbyd hwn
-consent = Caniatâd
-disposal_dispose.loss_of_registration.consent = Os gwelwch yn dda cadarnhau bod y ceidwad presennol yn ymwybodol y bydd y cofrestriad yn cael ei waredu gyda''r cerbyd
-disposal_dispose.loss_of_registration.consent.notgiven = Mae''n rhaid i chi gadarnhau eich bod wedi gwneud y ceidwad yn ymwybodol y byddant yn colli y marc cofrestru sy''n gysylltiedig â''r cerbyd hwn
-lossOfRegistrationConsent = Colli caniatâd gofrestru
-
-
-#page 6 - summary
-disposal_disposeconfirmation.title = Gwaredu cerbyd i mewn i''r fasnach foduron manylion
-disposal_disposeconfirmation.disposalComplete = Cyflawn Gwaredu
-disposal_disposeconfirmation.yourTransactionId = Mae eich ID trafodiad yn
-disposal_disposeconfirmation.disposaldetails = Gwaredu
-disposal_disposeconfirmation.vehiclemake = Gwneud
-disposal_disposeconfirmation.vehiclemodel = Model
-disposal_disposeconfirmation.vehiclekeeper = Ceidwad
-disposal_disposeconfirmation.disposedto = Werthwyd i
-disposal_disposeconfirmation.exkeeper = Bydd llythyr yn cadarnhau''r gwaredu yn cael ei anfon at y ceidwad blaenorol o fewn 4 wythnos. Os nad yw ef / hi yn derbyn llythyr yn yr amser hwn rhaid iddynt gysylltu Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802 gan y gallai''r ceidwad blaenorol yn dal i fod yn atebol am y cerbyd hwn.
-disposal_disposeconfirmation.sendbutton = Anfon
-disposal_disposeconfirmation.transactionid = {0}
-disposal_disposeconfirmation.transactionid_label = Trafodiad yn
-disposal_disposeconfirmation.transactionid_message = Neges trafodiad yn mynd yma
-disposal_disposeconfirmation.transactionDate = Dyddiad y trafodiad: {0}
-disposal_disposeconfirmation.registrationNumber = {0}
-disposal_disposeconfirmation.registrationNumber_label = Cofrestru
-disposal_disposeconfirmation.backbutton = Holau
-disposal_disposeconfirmation.newdisposalbutton = Gwaredu Newydd
-disposal_disposeconfirmation.disposaldate = Dyddiad gwaredu
-disposal_disposeconfirmation.mileage = Milltiroedd
-disposal_disposeconfirmation.mileageNotEntered = HEB EU COFRESTRU
-disposal_disposeconfirmation.noMileageEntered = Naddo milltiroedd gofnodi
-disposal_disposeconfirmation.exitbutton = Gadael
-disposal_disposeconfirmation.survey = Arolwg
-
-disposal_vehiclelookupfailure.title = Edrych i fyny yn aflwyddiannus
-disposal_vehiclelookupfailure.name = Methiant
-disposal_vehiclelookupfailure.p1 = Mae''r gwasanaeth ar gael dros dro. Os gwelwch yn dda ceisiwch eto yn hwyrach neu anfonwch V5C gwblhau / 3 i DVLA
-disposal_vehiclelookupfailure.button = Am-edrych gerbyd
-disposal_disposefailure.button2 = Setup Newydd Manylion Masnachwr
-disposal_disposefailure.transactiontext = Mae eich ID trafodiad yn:
-disposal_disposefailure.transactionid = {0}
-disposal_vehiclelookupfailure.warnAboutLockout = Ar ôl trydydd ymgais aflwyddiannus y system yn atal ymdrechion pellach i gael mynediad at y cofnodion cerbydau am 10 munud. Mae hyn er mwyn diogelu cofnodion cerbydau. Gall cerbydau eraill yn cael ei brosesu gan ddefnyddio''r gwasanaeth hwn yn ystod y cyfnod hwn.
-
 #widget messages
-errorsummary.title = Gwiriwch y ffurflen os gwelwch yn dda
-errorsummary.p1 = Trwsiwch y canlynol:
-widget.optional = (dewisol)
+errorsummary.title = Cywirwch y manylion isod
+errorsummary.p1 = Cywirwch y canlynol:
+widget.optional = (opsiynol)
 
 #customer validation messages
-error.restricted.validNumberOnly = Mae''r maes hwn yn derbyn rhifau yn unig
-error.restricted.validVrnOnly = Rhaid bod fformat dilys
-error.restricted.validPostcode = Rhaid bod rhwng pump ac wyth cymeriadau ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
+error.restricted.validNumberOnly = Dim ond rhifau a dderbynnir gan y maes hwn
+error.restricted.validVrnOnly = Rhaid bod yn union fel a ddangosir ar y V5CW diweddaraf
+error.restricted.validPostcode = Rhaid bod rhwng pump ac wyth nod o hyd ac mewn fformat dilys ee. AB1 2BA neu AB12BA
 
-datePlaceholder.day = Dydd
-datePlaceholder.month = Mis
+datePlaceholder.day=Dydd
+datePlaceholder.month=Mis
 datePlaceholder.year=Blwyddyn
-datePlaceholder.January = Ionawr
-datePlaceholder.February = Chwefror
-datePlaceholder.March = Mawrth
-datePlaceholder.April = Ebrill
-datePlaceholder.May = Mai
-datePlaceholder.June = Mehefin
-datePlaceholder.July = Gorffennaf
-datePlaceholder.August = Awst
-datePlaceholder.September = Medi
-datePlaceholder.October = Hydref
-datePlaceholder.November = Tachwedd
-datePlaceholder.December = Rhagfyr
+datePlaceholder.January=Ionawr
+datePlaceholder.February=Chwefror
+datePlaceholder.March=Mawrth
+datePlaceholder.April=Ebrill
+datePlaceholder.May=Mai
+datePlaceholder.June=Mehefin
+datePlaceholder.July=Gorffennaf
+datePlaceholder.August=Awst
+datePlaceholder.September=Medi
+datePlaceholder.October=Hydref
+datePlaceholder.November=Tachwedd
+datePlaceholder.December=Rhagfyr
 
 select_default = Dewiswch
+error.invalid = Gwerth annilys
 
-addressAndPostcode.addressLines.buildingNameOrNumber = Enw''r adeilad neu rif
-error.address.maxLengthOfLinesConcatenated = Gall gyfeiriad gael mwy na 120 o gymeriadau
+#page 1 - Before You Start
+disposal_beforeyoustart.title = Gwerthu cerbyd i''r fasnach foduron
+disposal_beforeyoustart.p1 = Cyn i chi gychwyn:
+disposal_beforeyoustart.listitem1 = Bydd angen y dystysgrif gofrestru cerbyd (V5CW) ddiweddaraf arnoch. Rhaid nad oes angen newidiadau i''r V5CW a rhaid bod enw a chyfeiriad y ceidwad cofrestredig yn gyfredol a chywir.
+disposal_beforeyoustart.listitem1linktext = Vehicle Enquiry Service (VES)
+
+disposal_beforeyoustart.listitem2 = Os oes gan y cerbyd a werthir rif cofrestru personol, rhaid i''r ceidwad ddeall y bydd y rhif cofrestru''n cael ei werthu gyda''r cerbyd. Os yw''r ceidwad am gadw''r rhif cofrestru personol, rhaid iddo yn gyntaf ei gadw neu ei drosglwyddo i gerbyd arall.
+disposal_beforeyoustart.listitem2.link = Gwneud cais i gadw rhif cofrestru cerbyd (V317W).
+
+disposal_beforeyoustart.listitem3 = Dim ond i hysbysu gwerthiant cerbyd i''r fasnach foduron y gellir defnyddio''r gwasanaeth hwn. Nid yw gwasanaethau eraill fel newid cyfeiriad neu werthu i unigolyn preifat ar gael ar-lein ar hyn o bryd. Rhaid gwneud cais am y rhain drwy anfon y V5CW at DVLA, Abertawe, SA99 1BA.
+disposal_beforeyoustart.listitem4 = Unwaith y byddwch wedi cwblhau''r gwasanaeth hwn, bydd DVLA yn anfon ad-daliad awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd i''r cyfeiriad ar y V5CW, a bydd unrhyw ddebyd uniongyrchol yn cael ei ganslo.
+disposal_beforeyoustart.button = Dechreuwch nawr
+
+#page 2 - set-up trade details
+disposal_setuptradedetails.title = Rhowch fanylion y masnachwr
+disposal_setuptradedetails.name = Gwerthu cerbyd i''r fasnach foduron
+disposal_setuptradedetails.p1 = Gosod y manylion masnach
+disposal_setuptradedetails.tradernamelabel = Enw''r masnachwr
+disposal_setuptradedetails.traderpostcodelabel = Co^d Post
+disposal_setuptradedetails.traderpostcodelabel.validation = Rhaid ei fod rhwng 5 ac 8 nod ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
+disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA
+disposal_setuptradedetails.button = Chwiliwch am y cyfeiriad
+traderName = Enw''r masnachwr
+traderPostcode = Co^d Post
+
+#page 3
+disposal_businessChooseYourAddress_title = Dewiswch gyfeiriad y masnachwr
+disposal_businessChooseYourAddress_legend = Gosodwch y manylion masnach
+disposal_businessChooseYourAddress_businessName_label = Enw''r masnachwr
+disposal_businessChooseYourAddress_businessName = {0}
+disposal_businessChooseYourAddress_postcode_label = Co^d Post
+disposal_businessChooseYourAddress_businessAddress_label = Cyfeiriad y masnachwr
+disposal_businessChooseYourAddress_addressSelect = Dewiswch eich cyfeiriad
+disposal_businessChooseYourAddress_addressSelect_label = Dewiswch eich cyfeiriad
+disposal_businessChooseYourAddress.backbutton = Yn o^l
+disposal_businessChooseYourAddress.submitbutton = Nesaf
+disposal_businessChooseYourAddress.manualAddressEntry = Nid yw fy nghyfeiriad i ar y rhestr
+disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Rhowch eich cyfeiriad
+error.dropDownInvalid = Dewiswch werth o''r gwymplen
+disposal_businessChooseYourAddress_noaddressesfound.h2.1 = Dim cyfeiriadau ar gael gyda''r co^d post yna.
+disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Naill ai "Rhowch y cyfeiriad" neu cliciwch "Yn o^l" i roi cynnig arni eto.
+
+#page 3 - manual address entry
+disposal_enteraddressmanually.title = Rhowch y cyfeiriad
+disposal_enteraddressmanually.submitbutton = Nesaf
+disposal_enteraddressmanually.backbutton = Yn o^l
+addressAndPostcode_addressLines = Cyfeiriad
+address.lines.label = Adeilad/rhif a stryd
+address.buildingNameOrNumber.label =
+address.buildingNameOrNumber.hint = e.e. 1 STRYD FAWR
+address.line2.label=
+address.line3.label=
+address.postTown.label= Tref neu ddinas
+address.postcode.label = CÙd Post
+address.postcode.label.prompt = e.e. SA99 1BD
+address.postcode.validation = Rhowch gÙd post dilys
+addressAndPostcode.addressLines.line2 = Enw stryd
+addressAndPostcode.addressLines.line3 = Ardal
+addressAndPostcode.addressLines.postTown = Tref neu ddinas
+addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
+error.address.characterInvalid = Rhaid cynnwys nodau dilys A-Z, 0-9, ac ati yn unig
+error.postTown.characterInvalid = Y dref neu ddinas yn cynnwys nodau annilys
+
+#page 3 - uprn not found
+disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau cÙd post
+disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich co^d post. Rhowch i mewn eto neu rhowch eich manylion ‚ llaw
+disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
+disposal_uprnnotfound.setuptradedetailsbutton = Rhowch eich cyfeiriad ‚ llaw
+disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn ‚ llaw
+
+#page 4 - vehicle Lookup
+disposal_vehiclelookup.title = Rhowch fanylion y cerbyd
+disposal_vehiclelookup.name = Gwerthu cerbyd i''r fasnach foduron
+disposal_vehiclelookup.p1 = Y cerbyd a werthir
+disposal_vehiclelookup.p2 = Gwerthir y cerbyd i
+disposal_vehiclelookup.warning.p1 = Peidiwch ‚ chael gwared o gerbyd sydd ‚ rhif cofrestru personol oni bai bod y ceidwad presennol yn deall y ceir gwared ‚''r rhif cofrestru hefyd ynghyd ‚''r cerbyd.
+disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo rhifau cofrestru personol cyn gwaredu''r cerbyd trwy ei fasnachu.
+disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen V5CW?
+disposal_vehiclelookup.img.alt = Rhif cyfeirnod y ddogfen V5CW
+disposal_vehiclelookup.refnumlabel = Rhif cyfeirnod y ddogfen V5CW ddiweddaraf
+disposal_vehiclelookup.vrninputlabel = Rhif cofrestru''r cerbyd
+disposal_vehiclelookup.backbutton = Yn Ùl
+disposal_vehiclelookup.button = Nesaf
+disposal_vehiclelookup.button2 = Golygu
+disposal_vehiclelookup.exitbutton = Gorffen
+disposal_vehiclelookup.tradernamelabel = Enw''r masnachwr
+disposal_vehiclelookup.traderaddresslabel = Cyfeiriad y masnachwr
+vehicleRegistrationNumber = Rhif cofrestru''r cerbyd
+documentReferenceNumber = Rhif cyfeirnod y ddogfen
+error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 11 digid
+
+#page 5 - confirm disposal
+disposal_dispose.title = Cwblhewch a chadarnhau
+disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu ‚''r cerbyd a werthir, cysylltwch ‚''r DVLA.
+disposal_dispose.vehicledetails = Y cerbyd a werthir
+disposal_dispose.vehiclereg = Rhif cofrestru
+disposal_dispose.vehiclemake = Gwneuthuriad
+disposal_dispose.vehiclemodel = Model
+disposal_dispose.vehiclekeeper = Ceidwad
+disposal_dispose.disposevehicleto = Manylion y masnachwr
+disposal_dispose.mileage.label = Milltiredd y cerbyd
+disposal_dispose.mileage.validation = Rhaid i chi roi milltiredd dilys rhwng 0 a 999999
+dateOfDisposal = Dyddiad y gwerthiant
+disposal_dispose.dateofdisposal.label = Dyddiad y gwerthiant
+disposal_dispose.backbutton = Yn Ùl
+disposal_dispose.submitbutton = Cadarnhau''r gwerthiant
+disposal_dispose.consent = Mae gennyf ganiata^d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+disposal_dispose.consent.notgiven = Rhaid i chi gael caniata^d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+dateOfDisposal_day = Dyddiad y gwerthiant
+dateOfDisposal_month = Mis y gwerthiant
+dateOfDisposal_year = Blwyddyn y gwerthiant
+dateOfDisposal.day = Dyddiad y gwerthiant
+dateOfDisposal.month = Mis y gwerthiant
+dateOfDisposal.year = Blwyddyn y gwerthiant
+disposal_dispose.todays_date_of_disposal = Defnyddiwch ddyddiad heddiw
+error.dateOfDisposal = Rhaid iddo fod yn ddyddiad dilys, ddim yn y dyfodol nac yn bellach yn o^l na dwy flynedd
+disposal_dispose.consent.mandatory = Rhaid i chi gael caniata^d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+consent = Caniata^d
+disposal_dispose.loss_of_registration.consent = Rwy''n cadarnhau bod y ceidwad presennol yn deall y bydd y rhif cofrestru''n cael ei golli pan werthir y cerbyd hwn
+disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig a^''r cerbyd hwn
+lossOfRegistrationConsent = Caniata^d
+mileage = Milltiredd
+
+#page 6 - summary
+disposal_disposeconfirmation.title = Crynodeb
+disposal_disposeconfirmation.disposalComplete = Diolch
+disposal_disposeconfirmation.yourTransactionId = ID y trafodyn yw
+disposal_disposeconfirmation.disposaldetails = Manylion gwerthiant
+disposal_disposeconfirmation.vehiclemake = Gwneuthuriad
+disposal_disposeconfirmation.vehiclemodel = Model
+disposal_disposeconfirmation.vehiclekeeper = Ceidwad
+disposal_disposeconfirmation.disposedto = Gwerthwyd i
+disposal_disposeconfirmation.exkeeper = Anfonir llythyr at yr enw a''r cyfeiriad ar y V5CW cyn pen 4 wythnos. Os na dderbynnir llythyr o fewn yr amser hwn rhaid cysylltu ag Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802 gan y gallai barhau i fod yn atebol am y cerbyd hwn. Bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
+disposal_disposeconfirmation.exkeeper-p2 = Argraffwch y dudalen hon a rhowch hi i''r cwsmer.
+disposal_disposeconfirmation.sendbutton = Anfonwch
+disposal_disposeconfirmation.transactionid = {0}
+disposal_disposeconfirmation.transactionid_label = ID y trafodyn
+disposal_disposeconfirmation.transactionid_message = Transaction message goes here
+disposal_disposeconfirmation.transactionDate = Dyddiad y trafodyn {0}
+disposal_disposeconfirmation.registrationNumber = {0}
+disposal_disposeconfirmation.registrationNumber_label = Rhif cofrestru
+disposal_disposeconfirmation.backbutton = Yn o^l
+disposal_disposeconfirmation.newdisposalbutton = Gwerthu cerbyd arall
+disposal_disposeconfirmation.disposaldate = Dyddiad y gwerthiant
+disposal_disposeconfirmation.mileage = Milltiredd
+disposal_disposeconfirmation.mileageNotEntered = HEB EI ROI
+disposal_disposeconfirmation.noMileageEntered = Dim milltiredd wedi ei roi
+disposal_disposeconfirmation.exitbutton = Gorffen
+disposal_disposeconfirmation.survey = Cymrwch arolwg
+
+#page 7 - dispose failure
+disposal_disposefailure.title = Gwerthu cerbyd i''r fasnach moduron: wedi methu
+disposal_disposefailure.name = Wedi methu
+disposal_disposefailure.p1 = Ni fu''n bosibl cwblhau eich trafodyn. Galwch 0300 790 6802
+disposal_disposefailure.button = Gwerthu cerbyd arall
+disposal_disposefailure.button2 = Allan
+disposal_disposefailure.button3 = Argraffwch
+disposal_disposefailure.transactiontext = ID eich trafodyn yw:
+disposal_disposefailure.transactionid = {0}
+
+#page 8 - vehicle lookup failure
+disposal_vehiclelookupfailure.title = Chwiliad yn aflwyddiannus
+disposal_vehiclelookupfailure.name = Wedi methu
+disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe SA99 1BD
+disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
+disposal_vehiclelookupfailure.button2 = Allan
+vehicle_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_lookup_vrm_not_found.p2 = Gwnewch yn siw^r bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
+vehicle_lookup_vrm_not_found.p3 = Am bob rhif cofrestru cerbyd, dim ond 3 chynnig ellir eu gwneud i adalw manylion y cerbyd.
+vehicle_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_lookup_document_reference_mismatch.p2 = Gwnewch yn siw^r bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
+vehicle_lookup_document_reference_mismatch.p3 = Am bob rhif cofrestru cerbyd, dim ond 3 chynnig ellir eu gwneud i adalw manylion y cerbyd.
+
+addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
+error.address.maxLengthOfLinesConcatenated = Ni all cyfeiriad gynnwys mwy na 120 o nodau
 addressAndPostcode.addressLines = Cyfeiriad
-addressAndPostcode.postcode = Cod post
-error.validTraderBusinessName = Rhaid iddo fod rhwng dwy a 58 cymeriadau a ydynt yn cynnwys nodau annilys
-error.address.buildingNameOrNumber.invalid = Enw''r adeilad neu rif - Rhaid iddo gynnwys o leiaf bedwar cymeriad
-error.address.postTown = Postiwch y dref - Angen hyd lleiaf o tri chymeriad
-error.address.postcode.invalid = Rhaid bod rhwng 5 ac 8 cymeriadau ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
+addressAndPostcode.postcode = Co^d Post
+error.validBusinessName = Rhaid bod rhwng 2 a 58 o nodau o hyd a dim ond nodau dilys (a-z, A-Z, 0-9, +, -, ', &, @, () a ,)
+error.address.buildingNameOrNumber.invalid = Rhaid i adeilad/ rhif a stryd gynnwys rhwng 4 a 30 o nodau
+error.address.postTown = Rhaid i dref neu ddinas gynnwys lleiafswm o 3 nod
+error.address.postcode.invalid = Rhaid bod rhwng 5 ac 8 nod o hyd ac mewn fformat dilys,  ee. AB1 2BA neu AB12BA
 
 # progress messages
-disposal_progress_1 = Cam 1 o 6
-disposal_progress_2 = Cam 2 o 6
-disposal_progress_3 = Cam 3 o 6
-disposal_progress_4 = Cam 3 o 6
-disposal_progress_5 = Cam 3 o 6
-disposal_progress_6 = Cam 3 o 6
+disposal_progress_1 = Step 1 of 6
+disposal_progress_2 = Step 2 of 6
+disposal_progress_3 = Step 3 of 6
+disposal_progress_4 = Step 4 of 6
+disposal_progress_5 = Step 5 of 6
+disposal_progress_6 = Step 6 of 6
 
 # help
 disposal.help.title = Help
-disposal.help.p1 = Mae'r gwasanaeth hwn yng Ngham Beta Preifat
-disposal.help.p2.1 = Os oes angen unrhyw help ei ddefnyddio, yna, cysylltwch â Julie Riseley ar 01792 788410 neu
-disposal.help.p2.2 = anfon e-bost
+disposal.help.p1 = Mae''r gwasanaeth hwn yng nghyfnod Beta Preifat
+disposal.help.p2.1 = Os angen unrhyw gymorth i''w ddefnyddio cysylltwch ‚ Julie Riseley ar 01792 788410 neu
+disposal.help.p2.2 = anfonwch ebost
 disposal.help.email =  mailto:julie.riseley@dvla.gsi.gov.uk?Subject=Sell%20to%20the%20Trade%20Help
-disposal.help.exit_button = Allanfa
-disposal.help.back_button = Yn ôl
+disposal.help.exit_button = Allan
+disposal.help.back_button = Yn o^l
+
+# closed
+disposal.closed.title = Y Gwasanaeth Ar Gau
+disposal.closed.p1 = Nid yw''r systemau cefnogol i''r gwasanaeth hwn ar gael yn gyfredol.
+disposal.closed.p2 = Oriau arferol gweithredu yw Llun i Sadwrn - 08.00.i 18.00. Cwblhewch eich trafodyn yn ystod yr oriau hyn.
+disposal.closed.exit_button = Allan
 
 # micro-service response codes
-ms.vehiclesService.response.applicationBeingProcessed = Mae eich cais yn cael ei brosesu a dylech dderbyn llythyr cadarnhad o fewn pedair wythnos.
-ms.vehiclesService.response.unableToProcessApplication = Nid ydym yn gallu prosesu eich cais ar hyn o bryd. Os gwelwch yn dda anfon y V5C / 3 i'r cyfeiriad canlynol; DVLA, Longview Road, Morriston, Swansea, SA6 7JL
+ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Peidiwch ag anfon y V5CW/3 (slip gwaredu) gwreiddiol at DVLA.
+
+ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
+ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
+ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Treforys, Abertawe, SA6 7JL
 
 #micro-service error page
 micro_service_error.title=Mae''n ddrwg gennym
-micro_service_error.text=Mae''r gwasanaeth ar gael dros dro.
-micro_service_error.back.button=Ceisiwch eto
-micro_service_error.exit.button=Gadael
+micro_service_error.text=Nid yw''r gwasanaeth ar gael dros dro
+micro_service_error.back.button=Rhowch gynnig arni eto
+micro_service_error.exit.button=Allan
 
 #duplicate-disposal error page
 duplicate_disposal_error.title=Mae''n ddrwg gennym
-duplicate_disposal_error.text=Mae''r cerbyd wedi cael ei ddwyn yn ei werthu. Os credwch fod hyn yn gamgymeriad, yna ffoniwch Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802
-duplicate_disposal_error.back.button=Ceisiwch eto
-duplicate_disposal_error.exit.button=Gadael
+duplicate_disposal_error.text=Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802
+duplicate_disposal_error.back.button=Rhowch gynnig arni eto
+duplicate_disposal_error.exit.button=Allan
 
 #soap endpoint error page
 soap_endpoint_error.title=Mae''n ddrwg gennym
-soap_endpoint_error.text=Mae''r gwasanaeth ar gael dros dro. Os gwelwch yn dda ceisiwch eto yn hwyrach neu anfonwch V5C gwblhau / 3 i DVLA
-soap_endpoint_error.back.button=Yn ôl
-soap_endpoint_error.exit.button=Gadael
+soap_endpoint_error.text=Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni eto yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe, SA99 1BD
+soap_endpoint_error.back.button=Yn o^l
+soap_endpoint_error.exit.button=Allan
 
 #vrm locked
-vrm_locked.title = Marc cofrestru yn gloi
-vrm_locked.text1 = Cafwyd tri chynnig i gael mynediad i''r manylion y cerbyd heb lwyddiant. Y marc cofrestru cerbyd bellach yn cael ei gloi am 10 munud fel dull diogelu. Yn ystod y cyfnod hwn y gellir ei brosesu gerbydau eraill.
-vrm_locked.text2 = Glo yn
-vrm_locked.text3.1 = Os ydych angen cymorth i brosesu cerbyd hwn, ffoniwch ein Canolfan Gyswllt ar
-vrm_locked.text3.2 = 0300 790 6801
+vrm_locked.title=Rhif cofrestru wedi''i gloi
+vrm_locked.text1= Bu 3 chais aflwyddiannus i gael mynediad at fanylion y cerbyd. Am resymau diogeledd mae rhif cofrestru''r cerbyd wedi ei gloi am 10 munud. Yn ystod y cyfnod hwn gellir prosesu cerbydau eraill drwy ddewis ''Gwerthu cerbyd arall'' isod.
+vrm_locked.text2=Wedi''i gloi ar
+vrm_locked.text3.1= Os oes angen help arnoch galwch ein canolfan gyswllt ar
+vrm_locked.text3.2=0300 790 6801
+
+vrm_locked.newdisposalbutton=Gwerthu cerbyd arall
+vrm_locked.exit.button=Allan
 
 # 404 onHandlerNotFound
-onHandlerNotFound.title=Ni all y dudalen ar gael
-onHandlerNotFound.header=Ni all y dudalen ar gael
-onHandlerNotFound.body=Gwnewch yn siŵr eich bod wedi mynd i mewn i''r cyfeiriad gwe cywir, neu archwilio GOV.UK i ddod o hyd i''r wybodaeth rydych ei hangen.
-onHandlerNotFound.noJavascript=Os ydych yn dymuno ceisio eto dewiswch y botwm ôl ar eich porwr, os nad dewiswch "Gadael" i adael y gwasanaeth.
-onHandlerNotFound.start.button=Dechrau
+onHandlerNotFound.title=Ni ellir dod o hyd i''r dudalen hon
+onHandlerNotFound.header=Ni ellir dod o hyd i''r dudalen hon
+onHandlerNotFound.body=Ni allwn ddod o hyd i''r dudalen y gwnaethoch gais amdani, mae''r digwyddiad hwn wedi ei logio ar gyfer archwiliad.
+onHandlerNotFound.noJavascript=Os ydych am wneud cais eto dewiswch y botwm mynd yn o^l ar eich porwr, os na dewiswch ''Allan'' i adael y gwasanaeth.
+onHandlerNotFound.start.button=Dechreuwch
 
-error.title = Mae gwall wedi digwydd na ellir ei adennill
-error.button = Dechrau eto
-vehicleRegistrationNumber=Rhif cofrestru cerbyd
-documentReferenceNumber=Rhif cyfeirnod y ddogfen
-disposal_disposefailure.title=Cael gwared cerbyd i mewn i''r fasnach foduron\: methiant
-disposal_disposefailure.p1=Nid yw wedi bod yn bosibl i gwblhau eich trafodiad. Ffoniwch 0300 790 6802
-disposal_disposefailure.button=Am-edrych gerbyd
-disposal_vehiclelookupfailure.button2=Gadael
-vrm_locked.newdisposalbutton=Gwaredu newydd
-vrm_locked.exit.button=Gadael
-
-error.invalid = Gwerth annilys
-vehicle_lookup_vrm_not_found.p1=Rhif Cyfeirnod y Ddogfen gofnodi naill ai ddilys neu os nad yw''n dod o V5C mwyaf diweddar a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_vrm_not_found.p2=Gwnewch yn siŵr eich bod yn cael y V5C mwyaf diweddar a cheisiwch eto.
-vehicle_lookup_vrm_not_found.p3=Ar gyfer pob rhif cofrestru cerbyd, bydd tair ymgais i adfer y manylion y cerbyd.
-vehicle_lookup_document_reference_mismatch.p1=Rhif Cyfeirnod y Ddogfen gofnodi naill ai ddilys neu os nad yw''n dod o V5C mwyaf diweddar a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_document_reference_mismatch.p2=Gwnewch yn siŵr eich bod yn cael y V5C mwyaf diweddar a cheisiwch eto.
-vehicle_lookup_document_reference_mismatch.p3=Ar gyfer pob rhif cofrestru cerbyd, bydd tair ymgais i adfer y manylion y cerbyd.
+error.title=Mae camgymeriad na ellir ei adfer wedi digwydd
+error.button=Dechreuwch eto
 
 language.cy.button = YAGNI
 language.en.button = English
 
-main.banner.feedback =Adborth
-main.banner.feedback.link=mailto:vm.feedback@digital.dvla.gov.uk?Subject=Adborth%20ar%20gwerthu%20i%27r%20masnach
-prototype.banner-part2=yn ein helpu i wella
-disposal_disposefailure.name=Methiant
-disposal_disposefailure.button3=Print
-ms.vehiclesService.response.unableToProcessApplication-address=DVLA, Longview Road, Morriston, Abertawe, SA6 7JL
-
-mandatory = Meysydd nad ydynt wedi''u labelu (dewisol) yn orfodol
+mandatory = Fields not labelled (optional) are mandatory
