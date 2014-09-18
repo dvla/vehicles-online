@@ -4,9 +4,10 @@ import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.BeforeYouStart
 import BeforeYouStart.NextId
 import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
 
 object  BeforeYouStartPage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/before-you-start"
+  final val address = s"$applicationContext/before-you-start"
   final override val title: String = "Sell a vehicle into the motor trade"
   final val titleCy: String = "Cael gwared cerbyd i mewn i'r fasnach foduron"
 

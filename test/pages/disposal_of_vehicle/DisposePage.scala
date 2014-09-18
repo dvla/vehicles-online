@@ -7,9 +7,10 @@ import org.openqa.selenium.WebDriver
 import models.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
+import pages.ApplicationContext.applicationContext
 
 object DisposePage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/complete-and-confirm"
+  final val address = s"$applicationContext/complete-and-confirm"
   final override val title: String = "Complete & confirm"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)

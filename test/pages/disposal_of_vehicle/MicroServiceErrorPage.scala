@@ -4,9 +4,10 @@ import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.MicroserviceError
 import MicroserviceError.{ExitId, TryAgainId}
 import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
 
 object MicroServiceErrorPage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/service-error"
+  final val address = s"$applicationContext/service-error"
   final override val title = "We are sorry"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)
