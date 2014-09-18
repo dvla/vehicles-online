@@ -16,7 +16,8 @@
 @main(
     progress = Some(Messages("disposal_progress_2")),
     title = Messages("disposal_setuptradedetails.title"),
-    currentForm = Some(traderLookupForm)
+    currentForm = Some(traderLookupForm),
+    showLanguageSwitch = true
 ) {
     @form(action = SetUpTradeDetails.submit) {
         @csrfTokenHiddenField()

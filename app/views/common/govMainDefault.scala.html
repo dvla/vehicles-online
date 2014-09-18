@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit lang: Lang,
+@(title: String, showLanguageSwitch: Boolean)(content: Html)(implicit lang: Lang,
         config: utils.helpers.Config)
 
 @import views.html.common.{alternateLanguages, feedback}
@@ -64,7 +64,7 @@
                                 <ul class="proposition-links">
                                     <li><a id="@HelpLinkId" href="@controllers.routes.Help.present()">@{Messages("main.banner.help")}</a></li>
                                     <li>@feedback()</li>
-                                    <li>@alternateLanguages()</li>
+                                    <li>@alternateLanguages(showLanguageSwitch)</li>
                                 </ul>
                             </div>
                         </div>
