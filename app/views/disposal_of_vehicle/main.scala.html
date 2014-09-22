@@ -1,6 +1,7 @@
 @(progress: Option[String] = None,
     title: String,
-    currentForm: Option[Form[_]] = None)(content: Html)(implicit lang: Lang,
+    currentForm: Option[Form[_]] = None,
+    showLanguageSwitch: Boolean = false)(content: Html)(implicit lang: Lang,
     config: utils.helpers.Config)
 
 @import views.html.common.{progressBar, protoType}
@@ -8,7 +9,7 @@
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.views.html.widgets.errorsSummary
 
-@govMainDefault(title) {
+@govMainDefault(title, showLanguageSwitch) {
     <div class="app vehicles-online">
         @protoType()
 
