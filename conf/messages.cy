@@ -176,7 +176,7 @@ error.dateOfDisposal = Rhaid iddo fod yn ddyddiad dilys, ddim yn y dyfodol nac y
 disposal_dispose.consent.mandatory = Rhaid i chi gael caniat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
 consent = Caniat‚d
 disposal_dispose.loss_of_registration.consent = Rwy''n cadarnhau bod y ceidwad presennol yn deall y bydd y rhif cofrestru''n cael ei golli pan werthir y cerbyd hwn
-disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig a^''r cerbyd hwn
+disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig â''r cerbyd hwn
 lossOfRegistrationConsent = Caniat‚d
 mileage = Milltiredd
 
