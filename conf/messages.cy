@@ -19,10 +19,9 @@ global.buttonnavprint = Argraffwch
 
 footer.builtbyintro = Adeiladwyd gan
 footer.builtby = Asiantaeth Trwyddedu Gyrwyr a Cherbydau
-#TODO: these need to be translated
-footer.text1 = All content is available under the
-footer.link = Open Government Licence v2.0
-footer.text2 = , except where otherwise stated
+footer.text1 = Mae''r holl gynnwys ar gael ar delerau''r
+footer.link = Drwydded Llywodraeth Agored v2.0
+footer.text2 = , ac eithrio lle nodir yn wahanol
 
 #prototype
 prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
