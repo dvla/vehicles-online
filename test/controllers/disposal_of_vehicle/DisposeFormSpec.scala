@@ -6,7 +6,6 @@ import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import play.api.libs.json.Json
 import webserviceclients.dispose.{DisposeConfig, DisposeWebService, DisposeServiceImpl, DisposeRequestDto}
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.{ConsentValid, MileageValid, disposeResponseSuccess}
@@ -53,6 +52,9 @@ final class DisposeFormSpec extends UnitSpec {
   "mileage" should {
     "reject if mileage is more than maximum" in {
       formWithValidDefaults(mileage = (Mileage.Max + 1).toString).errors should have length 1
+    }
+    "reject if mileage is not numeric" in {
+      formWithValidDefaults(mileage = "Boom").errors should have length 1
     }
   }
 
