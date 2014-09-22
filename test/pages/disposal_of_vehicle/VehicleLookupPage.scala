@@ -9,9 +9,10 @@ import VehicleLookup.SubmitId
 import org.openqa.selenium.WebDriver
 import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
+import pages.ApplicationContext.applicationContext
 
 object VehicleLookupPage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/vehicle-lookup"
+  final val address = s"$applicationContext/vehicle-lookup"
   final override val title: String = "Enter vehicle details"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)

@@ -4,9 +4,10 @@ import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.UprnNotFound
 import UprnNotFound.{ManualaddressbuttonId, SetuptradedetailsbuttonId}
 import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
 
 object UprnNotFoundPage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/uprn-not-found"
+  final val address = s"$applicationContext/uprn-not-found"
   final override val title: String = "Error confirming post code"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)

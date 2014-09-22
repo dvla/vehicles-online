@@ -1,5 +1,6 @@
 @(showLanguageSwitch: Boolean)(implicit lang: Lang)
 
+@import uk.gov.dvla.vehicles.presentation.common.controllers
 @import controllers.AlternateLanguages.{withLanguage, CyId, EnId}
 
 @if(lang.code != CyId && showLanguageSwitch) {
