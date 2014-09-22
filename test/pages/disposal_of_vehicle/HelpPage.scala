@@ -3,9 +3,10 @@ package pages.disposal_of_vehicle
 import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import views.common.Help.{BackId, ExitId}
 import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
 
 object HelpPage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/help"
+  final val address = s"$applicationContext/help"
   final override val title: String = "Help"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)

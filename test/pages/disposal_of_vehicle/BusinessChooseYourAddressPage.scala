@@ -7,10 +7,11 @@ import BusinessChooseYourAddress.BackId
 import BusinessChooseYourAddress.EnterAddressManuallyButtonId
 import BusinessChooseYourAddress.SelectId
 import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 object BusinessChooseYourAddressPage extends Page with WebBrowserDSL {
-  final val address: String = "/sell-to-the-trade/business-choose-your-address"
+  final val address: String = s"$applicationContext/business-choose-your-address"
   final override val title = "Select trader address"
   final val titleCy = "Dewiswch eich cyfeiriad masnach"
 
