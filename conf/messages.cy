@@ -122,17 +122,17 @@ error.postTown.characterInvalid = Y dref neu ddinas yn cynnwys nodau annilys
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
-disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion ‚ llaw
+disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion â llaw
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
-disposal_uprnnotfound.setuptradedetailsbutton = Rhowch eich cyfeiriad ‚ llaw
-disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn ‚ llaw
+disposal_uprnnotfound.setuptradedetailsbutton = Rhowch eich cyfeiriad â llaw
+disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn â llaw
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Rhowch fanylion y cerbyd
 disposal_vehiclelookup.name = Gwerthu cerbyd i''r fasnach foduron
 disposal_vehiclelookup.p1 = Y cerbyd a werthir
 disposal_vehiclelookup.p2 = Gwerthir y cerbyd i
-disposal_vehiclelookup.warning.p1 = Peidiwch ‚ chael gwared o gerbyd sydd ‚ rhif cofrestru personol oni bai bod y ceidwad presennol yn deall y ceir gwared ‚''r rhif cofrestru hefyd ynghyd ‚''r cerbyd.
+disposal_vehiclelookup.warning.p1 = Peidiwch â chael gwared o gerbyd sydd â rhif cofrestru personol oni bai bod y ceidwad presennol yn deall y ceir gwared â''r rhif cofrestru hefyd ynghyd â''r cerbyd.
 disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo rhifau cofrestru personol cyn gwaredu''r cerbyd trwy ei fasnachu.
 disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen V5CW?
 disposal_vehiclelookup.img.alt = Rhif cyfeirnod y ddogfen V5CW
@@ -150,7 +150,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu ‚''r cerbyd a werthir, cysylltwch ‚''r DVLA.
+disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu â''r cerbyd a werthir, cysylltwch â''r DVLA.
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
@@ -163,8 +163,8 @@ dateOfDisposal = Dyddiad y gwerthiant
 disposal_dispose.dateofdisposal.label = Dyddiad y gwerthiant
 disposal_dispose.backbutton = Yn ôl
 disposal_dispose.submitbutton = Cadarnhau''r gwerthiant
-disposal_dispose.consent = Mae gennyf ganiat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
-disposal_dispose.consent.notgiven = Rhaid i chi gael caniat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+disposal_dispose.consent = Mae gennyf ganiatâd y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+disposal_dispose.consent.notgiven = Rhaid i chi gael caniatâd y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
 dateOfDisposal_day = Dyddiad y gwerthiant
 dateOfDisposal_month = Mis y gwerthiant
 dateOfDisposal_year = Blwyddyn y gwerthiant
@@ -174,10 +174,10 @@ dateOfDisposal.year = Blwyddyn y gwerthiant
 disposal_dispose.todays_date_of_disposal = Defnyddiwch ddyddiad heddiw
 error.dateOfDisposal = Rhaid iddo fod yn ddyddiad dilys, ddim yn y dyfodol nac yn bellach yn ôl na dwy flynedd
 disposal_dispose.consent.mandatory = Rhaid i chi gael caniat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
-consent = Caniat‚d
+consent = Caniatâd
 disposal_dispose.loss_of_registration.consent = Rwy''n cadarnhau bod y ceidwad presennol yn deall y bydd y rhif cofrestru''n cael ei golli pan werthir y cerbyd hwn
 disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig â''r cerbyd hwn
-lossOfRegistrationConsent = Caniat‚d
+lossOfRegistrationConsent = Caniatâd
 mileage = Milltiredd
 
 #page 6 - summary
@@ -250,7 +250,7 @@ disposal_progress_6 = Step 6 of 6
 # help
 disposal.help.title = Help
 disposal.help.p1 = Mae''r gwasanaeth hwn yng nghyfnod Beta Preifat
-disposal.help.p2.1 = Os angen unrhyw gymorth i''w ddefnyddio cysylltwch ‚ Julie Riseley ar 01792 788410 neu
+disposal.help.p2.1 = Os angen unrhyw gymorth i''w ddefnyddio cysylltwch â Julie Riseley ar 01792 788410 neu
 disposal.help.p2.2 = anfonwch ebost
 disposal.help.email =  mailto:julie.riseley@dvla.gsi.gov.uk?Subject=Sell%20to%20the%20Trade%20Help
 disposal.help.exit_button = Allan
