@@ -76,34 +76,34 @@ disposal_setuptradedetails.title = Rhowch fanylion y masnachwr
 disposal_setuptradedetails.name = Gwerthu cerbyd i''r fasnach foduron
 disposal_setuptradedetails.p1 = Gosod y manylion masnach
 disposal_setuptradedetails.tradernamelabel = Enw''r masnachwr
-disposal_setuptradedetails.traderpostcodelabel = Co^d Post
+disposal_setuptradedetails.traderpostcodelabel = CÙd Post
 disposal_setuptradedetails.traderpostcodelabel.validation = Rhaid ei fod rhwng 5 ac 8 nod ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
 disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA
 disposal_setuptradedetails.button = Chwiliwch am y cyfeiriad
 traderName = Enw''r masnachwr
-traderPostcode = Co^d Post
+traderPostcode = CÙd Post
 
 #page 3
 disposal_businessChooseYourAddress_title = Dewiswch gyfeiriad y masnachwr
 disposal_businessChooseYourAddress_legend = Gosodwch y manylion masnach
 disposal_businessChooseYourAddress_businessName_label = Enw''r masnachwr
 disposal_businessChooseYourAddress_businessName = {0}
-disposal_businessChooseYourAddress_postcode_label = Co^d Post
+disposal_businessChooseYourAddress_postcode_label = CÙd Post
 disposal_businessChooseYourAddress_businessAddress_label = Cyfeiriad y masnachwr
 disposal_businessChooseYourAddress_addressSelect = Dewiswch eich cyfeiriad
 disposal_businessChooseYourAddress_addressSelect_label = Dewiswch eich cyfeiriad
-disposal_businessChooseYourAddress.backbutton = Yn o^l
+disposal_businessChooseYourAddress.backbutton = Yn Ùl
 disposal_businessChooseYourAddress.submitbutton = Nesaf
 disposal_businessChooseYourAddress.manualAddressEntry = Nid yw fy nghyfeiriad i ar y rhestr
 disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Rhowch eich cyfeiriad
 error.dropDownInvalid = Dewiswch werth o''r gwymplen
-disposal_businessChooseYourAddress_noaddressesfound.h2.1 = Dim cyfeiriadau ar gael gyda''r co^d post yna.
-disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Naill ai "Rhowch y cyfeiriad" neu cliciwch "Yn o^l" i roi cynnig arni eto.
+disposal_businessChooseYourAddress_noaddressesfound.h2.1 = Dim cyfeiriadau ar gael gyda''r cÙd post yna.
+disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Naill ai "Rhowch y cyfeiriad" neu cliciwch "Yn Ùl" i roi cynnig arni eto.
 
 #page 3 - manual address entry
 disposal_enteraddressmanually.title = Rhowch y cyfeiriad
 disposal_enteraddressmanually.submitbutton = Nesaf
-disposal_enteraddressmanually.backbutton = Yn o^l
+disposal_enteraddressmanually.backbutton = Yn Ùl
 addressAndPostcode_addressLines = Cyfeiriad
 address.lines.label = Adeilad/rhif a stryd
 address.buildingNameOrNumber.label =
@@ -123,7 +123,7 @@ error.postTown.characterInvalid = Y dref neu ddinas yn cynnwys nodau annilys
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau cÙd post
-disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich co^d post. Rhowch i mewn eto neu rhowch eich manylion ‚ llaw
+disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich cÙd post. Rhowch i mewn eto neu rhowch eich manylion ‚ llaw
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
 disposal_uprnnotfound.setuptradedetailsbutton = Rhowch eich cyfeiriad ‚ llaw
 disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn ‚ llaw
@@ -164,8 +164,8 @@ dateOfDisposal = Dyddiad y gwerthiant
 disposal_dispose.dateofdisposal.label = Dyddiad y gwerthiant
 disposal_dispose.backbutton = Yn Ùl
 disposal_dispose.submitbutton = Cadarnhau''r gwerthiant
-disposal_dispose.consent = Mae gennyf ganiata^d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
-disposal_dispose.consent.notgiven = Rhaid i chi gael caniata^d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+disposal_dispose.consent = Mae gennyf ganiat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+disposal_dispose.consent.notgiven = Rhaid i chi gael caniat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
 dateOfDisposal_day = Dyddiad y gwerthiant
 dateOfDisposal_month = Mis y gwerthiant
 dateOfDisposal_year = Blwyddyn y gwerthiant
@@ -173,12 +173,12 @@ dateOfDisposal.day = Dyddiad y gwerthiant
 dateOfDisposal.month = Mis y gwerthiant
 dateOfDisposal.year = Blwyddyn y gwerthiant
 disposal_dispose.todays_date_of_disposal = Defnyddiwch ddyddiad heddiw
-error.dateOfDisposal = Rhaid iddo fod yn ddyddiad dilys, ddim yn y dyfodol nac yn bellach yn o^l na dwy flynedd
-disposal_dispose.consent.mandatory = Rhaid i chi gael caniata^d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
-consent = Caniata^d
+error.dateOfDisposal = Rhaid iddo fod yn ddyddiad dilys, ddim yn y dyfodol nac yn bellach yn Ùl na dwy flynedd
+disposal_dispose.consent.mandatory = Rhaid i chi gael caniat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+consent = Caniat‚d
 disposal_dispose.loss_of_registration.consent = Rwy''n cadarnhau bod y ceidwad presennol yn deall y bydd y rhif cofrestru''n cael ei golli pan werthir y cerbyd hwn
 disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig a^''r cerbyd hwn
-lossOfRegistrationConsent = Caniata^d
+lossOfRegistrationConsent = Caniat‚d
 mileage = Milltiredd
 
 #page 6 - summary
@@ -199,7 +199,7 @@ disposal_disposeconfirmation.transactionid_message = Transaction message goes he
 disposal_disposeconfirmation.transactionDate = Dyddiad y trafodyn {0}
 disposal_disposeconfirmation.registrationNumber = {0}
 disposal_disposeconfirmation.registrationNumber_label = Rhif cofrestru
-disposal_disposeconfirmation.backbutton = Yn o^l
+disposal_disposeconfirmation.backbutton = Yn Ùl
 disposal_disposeconfirmation.newdisposalbutton = Gwerthu cerbyd arall
 disposal_disposeconfirmation.disposaldate = Dyddiad y gwerthiant
 disposal_disposeconfirmation.mileage = Milltiredd
@@ -225,16 +225,16 @@ disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch
 disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
 disposal_vehiclelookupfailure.button2 = Allan
 vehicle_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_vrm_not_found.p2 = Gwnewch yn siw^r bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
+vehicle_lookup_vrm_not_found.p2 = Gwnewch yn siwr bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
 vehicle_lookup_vrm_not_found.p3 = Am bob rhif cofrestru cerbyd, dim ond 3 chynnig ellir eu gwneud i adalw manylion y cerbyd.
 vehicle_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_document_reference_mismatch.p2 = Gwnewch yn siw^r bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
+vehicle_lookup_document_reference_mismatch.p2 = Gwnewch yn siwr bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
 vehicle_lookup_document_reference_mismatch.p3 = Am bob rhif cofrestru cerbyd, dim ond 3 chynnig ellir eu gwneud i adalw manylion y cerbyd.
 
 addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
 error.address.maxLengthOfLinesConcatenated = Ni all cyfeiriad gynnwys mwy na 120 o nodau
 addressAndPostcode.addressLines = Cyfeiriad
-addressAndPostcode.postcode = Co^d Post
+addressAndPostcode.postcode = CÙd Post
 error.validBusinessName = Rhaid bod rhwng 2 a 58 o nodau o hyd a dim ond nodau dilys (a-z, A-Z, 0-9, +, -, ', &, @, () a ,)
 error.address.buildingNameOrNumber.invalid = Rhaid i adeilad/ rhif a stryd gynnwys rhwng 4 a 30 o nodau
 error.address.postTown = Rhaid i dref neu ddinas gynnwys lleiafswm o 3 nod
@@ -255,7 +255,7 @@ disposal.help.p2.1 = Os angen unrhyw gymorth i''w ddefnyddio cysylltwch ‚ Juli
 disposal.help.p2.2 = anfonwch ebost
 disposal.help.email =  mailto:julie.riseley@dvla.gsi.gov.uk?Subject=Sell%20to%20the%20Trade%20Help
 disposal.help.exit_button = Allan
-disposal.help.back_button = Yn o^l
+disposal.help.back_button = Yn Ùl
 
 # closed
 disposal.closed.title = Y Gwasanaeth Ar Gau
@@ -286,7 +286,7 @@ duplicate_disposal_error.exit.button=Allan
 #soap endpoint error page
 soap_endpoint_error.title=Mae''n ddrwg gennym
 soap_endpoint_error.text=Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni eto yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe, SA99 1BD
-soap_endpoint_error.back.button=Yn o^l
+soap_endpoint_error.back.button=Yn Ùl
 soap_endpoint_error.exit.button=Allan
 
 #vrm locked
@@ -303,7 +303,7 @@ vrm_locked.exit.button=Allan
 onHandlerNotFound.title=Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.header=Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.body=Ni allwn ddod o hyd i''r dudalen y gwnaethoch gais amdani, mae''r digwyddiad hwn wedi ei logio ar gyfer archwiliad.
-onHandlerNotFound.noJavascript=Os ydych am wneud cais eto dewiswch y botwm mynd yn o^l ar eich porwr, os na dewiswch ''Allan'' i adael y gwasanaeth.
+onHandlerNotFound.noJavascript=Os ydych am wneud cais eto dewiswch y botwm mynd yn Ùl ar eich porwr, os na dewiswch ''Allan'' i adael y gwasanaeth.
 onHandlerNotFound.start.button=Dechreuwch
 
 error.title=Mae camgymeriad na ellir ei adfer wedi digwydd
