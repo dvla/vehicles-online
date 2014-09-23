@@ -6,9 +6,10 @@ import SetupTradeDetails.SubmitId
 import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import org.openqa.selenium.WebDriver
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeWithoutAddresses, PostcodeValid, TraderBusinessNameValid}
+import pages.ApplicationContext.applicationContext
 
 object SetupTradeDetailsPage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/setup-trade-details"
+  final val address = s"$applicationContext/setup-trade-details"
   final override val title: String = "Provide trader details"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)

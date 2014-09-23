@@ -12,7 +12,7 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 import utils.helpers.Config
-import models.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId}
+import models.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId, MileageId}
 import models.DisposeFormModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, PreventGoingToDisposePageCacheKey}
 import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel}
 import views.html.disposal_of_vehicle.dispose
@@ -80,6 +80,10 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
       .replaceError("dateOfDisposal.year", dateOfDisposalError)
       .replaceError("dateOfDisposal", dateOfDisposalError)
       .replaceError(
+        MileageId,
+        "error.number",
+        FormError(key = MileageId, message = "disposal_dispose.mileage.validation", args = Seq.empty)
+      ).replaceError(
         ConsentId,
         "error.required",
         FormError(key = ConsentId, message = "disposal_dispose.consent.notgiven", args = Seq.empty)

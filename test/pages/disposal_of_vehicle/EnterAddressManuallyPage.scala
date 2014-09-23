@@ -8,9 +8,10 @@ import org.openqa.selenium.WebDriver
 import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
+import pages.ApplicationContext.applicationContext
 
 object EnterAddressManuallyPage extends Page with WebBrowserDSL {
-  final val address = "/sell-to-the-trade/enter-address-manually"
+  final val address = s"$applicationContext/enter-address-manually"
   final override val title: String = "Enter address"
   
   override def url: String = WebDriverFactory.testUrl + address.substring(1)

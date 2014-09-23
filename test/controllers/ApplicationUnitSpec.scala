@@ -5,9 +5,12 @@ import org.specs2.execute.{Result, AsResult}
 import play.api.test.{Helpers, WithApplication, FakeApplication, FakeRequest}
 import play.api.test.Helpers.{redirectLocation, defaultAwaitTimeout}
 import helpers.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
 import utils.helpers.Config
 
 final class ApplicationUnitSpec extends UnitSpec {
+  val applicationContext = getProperty("application.context", default = "")
+
   "index" should {
 
     "redirect the user to the start url" in new WithApplication {
@@ -19,11 +22,11 @@ final class ApplicationUnitSpec extends UnitSpec {
     "redirect the user to the start url when the start url does not have a starting slash" in new WithApplication {
       implicit val config = configWithStartUrl("testStart")
       val result = new ApplicationRoot().index(FakeRequest())
-      redirectLocation(result) should equal(Some("/testStart"))
+      redirectLocation(result) should equal(Some("testStart"))
     }
 
-    "redirect the user to the start url when there is an application context set " in new WithApplicationContext("/testContext/") {
-        implicit val config = configWithStartUrl("/testStart")
+    "redirect the user to the start url when the start url has application context" in new WithApplication {
+        implicit val config = configWithStartUrl("/testContext/testStart")
         val result = new ApplicationRoot().index(FakeRequest())
         redirectLocation(result) should equal(Some("/testContext/testStart"))
     }
