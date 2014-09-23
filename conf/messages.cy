@@ -97,7 +97,7 @@ disposal_businessChooseYourAddress.manualAddressEntry = Nid yw fy nghyfeiriad i 
 disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Rhowch eich cyfeiriad
 error.dropDownInvalid = Dewiswch werth o''r gwymplen
 disposal_businessChooseYourAddress_noaddressesfound.h2.1 = Dim cyfeiriadau ar gael gyda''r côd post yna.
-disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Naill ai "Rhowch y cyfeiriad" neu cliciwch "Yn ôl" i roi cynnig arni eto.
+disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Naill ai ''Rhowch y cyfeiriad'' neu cliciwch ''Yn ôl'' i roi cynnig arni eto.
 
 #page 3 - manual address entry
 disposal_enteraddressmanually.title = Rhowch y cyfeiriad
