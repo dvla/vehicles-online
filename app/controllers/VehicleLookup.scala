@@ -2,7 +2,6 @@ package controllers
 
 import _root_.play.api.mvc.Call
 import com.google.inject.Inject
-import controllers.routes
 import play.api.Logger
 import play.api.data.{Form => PlayForm, FormError}
 import play.api.mvc.{Action, AnyContent, Controller, Request, Result}
@@ -11,7 +10,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupBase
 import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupBase.LookupResult
-import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupBase.{DtoMissing, VehicleFound, LookupResult, VehicleNotFound}
+import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupBase.{VehicleFound, LookupResult, VehicleNotFound}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel, BruteForcePreventionModel}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
@@ -142,10 +141,10 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
                         VehicleFound(Redirect(routes.Dispose.present()).
                           withCookie(VehicleDetailsModel.fromDto(dto)).
                           discardingCookie(PreventGoingToDisposePageCacheKey))
-                      case None => DtoMissing()
+                      case None => throw new RuntimeException("No vehicleDetailsDto found")
                     }
                 }
-              case _ => DtoMissing()
+              case _ => throw new RuntimeException("No vehicleDetailsResponse found")
             }
           case faultCode => throw new RuntimeException(
             s"Vehicle lookup web service call http status not OK, it " +
