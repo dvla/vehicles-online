@@ -417,17 +417,6 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "does not write cookie when microservice throws" in new WithApplication {
-      val request = buildCorrectlyPopulatedRequest()
-      val result = vehicleLookupError.submit(request)
-
-      whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
-        val cookies = fetchCookiesFromHeaders(r)
-        cookies shouldBe empty
-      }
-    }
-
     "redirect to vrm locked when valid submit and brute force prevention returns not permitted" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = VrmLocked)
       val result = vehicleLookupResponseGenerator(
