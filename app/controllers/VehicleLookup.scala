@@ -92,7 +92,7 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
         bruteForceAndLookup(
           validForm.registrationNumber,
           validForm.referenceNumber,
-          validForm).map(_.withCookie(validForm))
+          validForm)
       }
     )
   }
