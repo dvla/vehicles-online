@@ -126,31 +126,21 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
       userName = request.cookies.getModel[TraderDetailsModel].fold("")(_.traderName)
     )
 
-    vehicleLookupService.invoke(vehicleDetailsRequest, trackingId) map { 
-      case (responseStatusVehicleLookupMS: Int, vehicleDetailsResponse: Option[VehicleDetailsResponseDto]) =>
-        responseStatusVehicleLookupMS match {
-          case OK =>
-            vehicleDetailsResponse match {
-              case Some(response) => 
-                response.responseCode match {
-                  case Some(responseCode) => VehicleNotFound(responseCode)
-                  case None =>
-                    response.vehicleDetailsDto match {
-                      case Some(dto) => 
-                        // US320: we have successfully called the lookup service so we cannot be coming back from a dispose success (as the doc id will have changed and the call sould fail).
-                        VehicleFound(Redirect(routes.Dispose.present()).
-                          withCookie(VehicleDetailsModel.fromDto(dto)).
-                          discardingCookie(PreventGoingToDisposePageCacheKey))
-                      case None => throw new RuntimeException("No vehicleDetailsDto found")
-                    }
-                }
-              case _ => throw new RuntimeException("No vehicleDetailsResponse found")
-            }
-          case faultCode => throw new RuntimeException(
-            s"Vehicle lookup web service call http status not OK, it " +
-            s"was: $faultCode. Problem may come from either vehicle lookup micro-service or the VSS"
-          )
-        }
+    vehicleLookupService.invoke(vehicleDetailsRequest, trackingId) map { response =>
+      response.responseCode match {
+        case Some(responseCode) =>
+          VehicleNotFound(responseCode)
+
+        case None =>
+          response.vehicleDetailsDto match {
+            case Some(dto) => 
+              // US320: we have successfully called the lookup service so we cannot be coming back from a dispose success (as the doc id will have changed and the call sould fail).
+              VehicleFound(Redirect(routes.Dispose.present()).
+                withCookie(VehicleDetailsModel.fromDto(dto)).
+                discardingCookie(PreventGoingToDisposePageCacheKey))
+            case None => throw new RuntimeException("No vehicleDetailsDto found")
+          }
+      }
     }
   }
 }
