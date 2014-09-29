@@ -86,7 +86,7 @@
                         ) ++
                         (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
-                <div id=@DateOfDisposalId class="disposal-date">
+                <div id=@DateOfDisposalId>
                 @inputDayMonthYear(
                     field = disposeForm(DateOfDisposalId),
                     years = dateService.today.yearRangeToDropdown(yearsIntoThePast = DateOfDisposalYearsIntoThePast),
