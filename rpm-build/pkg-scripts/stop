@@ -1,4 +1,4 @@
 #!/bin/bash
 
-initctl stop vehicles-online 
-exit
+initctl stop vehicles-online  2>/dev/null
+exit 0
