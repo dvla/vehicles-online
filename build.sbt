@@ -48,7 +48,7 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.2-SNAPSHOT" withSources() withJavadoc(),
+  "dvla" %% "vehicles-presentation-common" % "2.2" withSources() withJavadoc(),
   "org.webjars" % "requirejs" % "2.1.14-1"
 )
 
