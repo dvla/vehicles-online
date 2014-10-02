@@ -48,7 +48,7 @@ object WebDriverFactory {
         AcceptaceTestUrl,
         sys.props.get(AcceptaceTestUrl)
           .orElse(sys.env.get(AcceptaceTestUrl))
-          .getOrElse("http://localhost:9001/")
+          .getOrElse("http://localhost:9002/")
       )
 
   private def chromeDriver = {

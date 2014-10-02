@@ -115,7 +115,7 @@ object Tasks {
       None,
       runScalaMain("play.core.server.NettyServer", Array((baseDirectory in ThisProject).value.getAbsolutePath))
     )
-    System.setProperty("acceptance.test.url", s"https://localhost:${httpsPort.value}/")
+    System.setProperty("acceptance.test.url", s"https://localhost:${httpsPort.value}/sell-to-the-trade/")
   }
 
   lazy val runAppAndMicroservicesAsync = Def.task[Unit] {
@@ -132,7 +132,7 @@ object Tasks {
     System.setProperty("https.port", httpsPort.value.toString)
     System.setProperty("http.port", "disabled")
     System.setProperty("jsse.enableSNIExtension", "false") // Disable the SNI for testing
-    System.setProperty("baseUrl", s"https://localhost:${httpsPort.value}")
+    System.setProperty("baseUrl", s"https://localhost:${httpsPort.value}/sell-to-the-trade")
   }
 
   val setMicroservicesPortsEnvVars = Def.task {
