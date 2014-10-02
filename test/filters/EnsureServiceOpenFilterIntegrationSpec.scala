@@ -1,7 +1,9 @@
 package filters
 
 import com.google.inject.Guice
+import com.google.inject.util.Modules
 import com.tzavellas.sse.guice.ScalaModule
+import composition.TestModule
 import helpers.UiSpec
 import helpers.webbrowser.TestHarness
 import org.mockito.Mockito.{never, verify, when, mock}
@@ -64,15 +66,19 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
   private def setUpOpeningHours(test: SetUp => Any, opening: Int = 0, closing: Int = 24) {
     val sessionFactory = org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
 
-    val injector = Guice.createInjector(new ScalaModule {
-      override def configure(): Unit = {
-        bind[ClientSideSessionFactory].toInstance(sessionFactory)
-        val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
-        when(mockConfig.opening).thenReturn(opening)
-        when(mockConfig.closing).thenReturn(closing)
-        bind[Config].toInstance(mockConfig)
-      }
-    })
+    val injector = Guice.createInjector(
+      Modules.`override`(new TestModule()).`with`(
+        new ScalaModule {
+          override def configure(): Unit = {
+            bind[ClientSideSessionFactory].toInstance(sessionFactory)
+            val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
+            when(mockConfig.opening).thenReturn(opening)
+            when(mockConfig.closing).thenReturn(closing)
+            bind[Config].toInstance(mockConfig)
+          }
+        }
+      )
+    )
 
     test(SetUp(
       filter = injector.getInstance(classOf[EnsureServiceOpenFilter]),

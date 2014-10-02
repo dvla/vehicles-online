@@ -2,8 +2,8 @@ package utils.helpers
 
 import uk.gov.dvla.vehicles.presentation.common
 import common.ConfigProperties.{getProperty, getDurationProperty}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{ GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
+import common.webserviceclients.config.{ GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
 import webserviceclients.dispose.DisposeConfig
 import scala.concurrent.duration.DurationInt
 
@@ -12,7 +12,7 @@ class Config {
   val ordnanceSurvey = new OrdnanceSurveyConfig
   val gdsAddressLookup = new GDSAddressLookupConfig
   val dispose = new DisposeConfig
-  val brutForcePrevention = new BruteForcePreventionConfig
+  val bruteForcePrevention = new BruteForcePreventionConfig
 
   // Micro-service config
   val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
@@ -28,12 +28,12 @@ class Config {
   val disposeMsRequestTimeout = dispose.requestTimeout
 
   // Brute force prevention config
-  val bruteForcePreventionExpiryHeader = brutForcePrevention.expiryHeader
-  val bruteForcePreventionMicroServiceBaseUrl = brutForcePrevention.baseUrl
-  val bruteForcePreventionTimeout = brutForcePrevention.requestTimeout
-  val isBruteForcePreventionEnabled: Boolean = brutForcePrevention.isEnabled
-  val bruteForcePreventionServiceNameHeader: String = brutForcePrevention.nameHeader
-  val bruteForcePreventionMaxAttemptsHeader: Int = brutForcePrevention.maxAttemptsHeader
+  val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader
+  val bruteForcePreventionMicroServiceBaseUrl = bruteForcePrevention.baseUrl
+  val bruteForcePreventionTimeoutMillis = bruteForcePrevention.requestTimeoutMillis
+  val isBruteForcePreventionEnabled: Boolean = bruteForcePrevention.isEnabled
+  val bruteForcePreventionServiceNameHeader: String = bruteForcePrevention.nameHeader
+  val bruteForcePreventionMaxAttemptsHeader: Int = bruteForcePrevention.maxAttemptsHeader
 
   // Prototype message in html
   val isPrototypeBannerVisible: Boolean = getProperty("prototype.disclaimer", default = true)

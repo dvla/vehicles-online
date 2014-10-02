@@ -5,14 +5,11 @@ import com.tzavellas.sse.guice.ScalaModule
 import helpers.UnitSpec
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.{DateTime, DateTimeZone}
-import org.mockito.Matchers.any
-import org.mockito.Mockito.{never, verify, when}
-import play.api.http.HeaderNames
-import play.api.mvc.{Cookie, Cookies, RequestHeader, Result, Results}
+import org.mockito.Mockito.when
+import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSessionFactory, InvalidSessionException}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.language.existentials
@@ -21,32 +18,30 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
 
   "Return True for an acceptable time, with the current timezone as GMT" in {
     val dateTime = new DateTime()
-    setUpInHours ({
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
-        filter.serviceOpen(dateTime) should equal(true)
+    setUpInHours((setup: SetUp) => {
+      setup.filter.serviceOpen(dateTime) should equal(true)
     }, dateTime)
   }
 
   "Return False for an out of hours time, with the current timezone as GMT" in {
     val dateTime = new DateTime()
-    setUpOutOfHours({
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
-        filter.serviceOpen(dateTime) should equal(false)
+    setUpOutOfHours((setup: SetUp) => {
+      setup.filter.serviceOpen(dateTime) should equal(false)
     }, dateTime)
   }
 
   "Return True for a timezone time falling within opening hours, and False for a time in another timezone falling outside opening hours" in {
-    DateTimeZone.setDefault(DateTimeZone.forOffsetHours(inHoursOffset))
-    setUpInHours ({
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
-        filter.serviceOpen() should equal(true)
-    })
+    setUpInHours ((setup: SetUp) => {
+        setup.filter.serviceOpen() should equal(true)
+    }, new DateTimeZoneServiceImpl)
 
-    DateTimeZone.setDefault(DateTimeZone.forOffsetHours(outOfHoursOffset(inHoursOffset)))
-    setUpInHours ({
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
-        filter.serviceOpen() should equal(false)
-    })
+    val nonDefaultTimeZoneService = new DateTimeZoneService {
+      override def currentDateTimeZone: DateTimeZone = DateTimeZone.forOffsetHours(outOfHoursOffset(inHoursOffset))
+    }
+
+    setUpInHours ((setup: SetUp) => {
+        setup.filter.serviceOpen() should equal(false)
+    }, nonDefaultTimeZoneService)
   }
 
   private class MockFilter extends ((RequestHeader) => Future[Result]) {
@@ -85,8 +80,8 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     setUp(test, opening, closing)
   }
 
-  private def setUpInHours(test: SetUp => Any): Unit = {
-    setUp(test, 8, 18)
+  private def setUpInHours(test: SetUp => Any, dateTimeZoneService: DateTimeZoneService): Unit = {
+    setUp(test, 8, 18, dateTimeZoneService)
   }
 
   private def setUpOutOfHours(test: SetUp => Any, dateTime: DateTime): Unit = {
@@ -95,11 +90,14 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     setUp(test, opening, closing)
   }
 
-  private def setUpOutOfHours(test: SetUp => Any): Unit = {
-    setUp(test, 1, 1)
+  private def setUpOutOfHours(test: SetUp => Any, dateTimeZoneService: DateTimeZoneService): Unit = {
+    setUp(test, 1, 1, dateTimeZoneService)
   }
 
-  private def setUp(test: SetUp => Any, opening: Int = 0, closing: Int = 24) {
+  private def setUp(test: SetUp => Any,
+                    opening: Int = 0,
+                    closing: Int = 24,
+                    dateTimeZoneService: DateTimeZoneService = new DateTimeZoneServiceImpl) {
     val sessionFactory =  org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
 
     val injector = Guice.createInjector(new ScalaModule {
@@ -109,6 +107,7 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
         when(mockConfig.opening).thenReturn(opening)
         when(mockConfig.closing).thenReturn(closing)
         bind[Config].toInstance(mockConfig)
+        bind[DateTimeZoneService].toInstance(dateTimeZoneService)
       }
     })
 

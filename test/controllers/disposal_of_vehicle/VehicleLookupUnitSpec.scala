@@ -4,12 +4,12 @@ import com.tzavellas.sse.guice.ScalaModule
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import controllers.{SurveyUrl, VehicleLookup}
 import helpers.common.CookieHelper
-
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.{ClientSideSessionFactory, ClearTextClientSideSessionFactory}
 import common.mappings.DocumentReferenceNumber
 import common.model.BruteForcePreventionModel
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
+import common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService}
+import common.webserviceclients.bruteforceprevention.{BruteForcePreventionServiceImpl, BruteForcePreventionService}
 import common.webserviceclients.vehiclelookup.VehicleLookupWebService
 import common.webserviceclients.vehiclelookup.VehicleLookupServiceImpl
 import common.webserviceclients.vehiclelookup.VehicleDetailsResponseDto
@@ -51,13 +51,12 @@ import pages.disposal_of_vehicle.MicroServiceErrorPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupFailurePage
 import pages.disposal_of_vehicle.VrmLockedPage
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
@@ -502,39 +501,39 @@ final class VehicleLookupUnitSpec extends UnitSpec {
         trackingIdCaptor.getValue should be(ClearTextClientSideSessionFactory.DefaultTrackingId)
       }
     }
+  }
 
-    "exit" should {
-      "redirect to BeforeYouStartPage" in new WithApplication {
-        val request = buildCorrectlyPopulatedRequest().
-          withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-        val mockVehiclesLookupService = mock[VehicleLookupWebService]
-        val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(mockVehiclesLookupService)
-        implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
-        implicit val config: Config = mock[Config]
-        implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
-        val vehiclesLookup = new VehicleLookup(
-          bruteForceServiceImpl(permitted = true),
-          vehicleLookupServiceImpl,
-          surveyUrl = surveyUrl,
-          dateService = dateService
-        )
-        val result = vehiclesLookup.exit(request)
-        whenReady(result) { r =>
-          r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
-        }
+  "exit" should {
+    "redirect to BeforeYouStartPage" in new WithApplication {
+      val request = buildCorrectlyPopulatedRequest().
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      val mockVehiclesLookupService = mock[VehicleLookupWebService]
+      val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(mockVehiclesLookupService)
+      implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
+      implicit val config: Config = mock[Config]
+      implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
+      val vehiclesLookup = new VehicleLookup(
+        bruteForceServiceImpl(permitted = true),
+        vehicleLookupServiceImpl,
+        surveyUrl = surveyUrl,
+        dateService = dateService
+      )
+      val result = vehiclesLookup.exit(request)
+      whenReady(result) { r =>
+        r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
       }
+    }
 
-      "set the surveyRequestTriggerDate to the current date" in new WithApplication {
-        val request = buildCorrectlyPopulatedRequest()
-          .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-          .withCookies(CookieFactoryForUnitSpecs.preventGoingToDisposePage(""))
-        val result = lookupWithMockConfig(mockSurveyConfig("http://www.google.com")).exit(request)
-        whenReady(result) {r =>
-          val cookies = fetchCookiesFromHeaders(r)
-          val surveyTime = cookies.find(_.name == SurveyRequestTriggerDateCacheKey).get.value.toLong
-          surveyTime should be <= System.currentTimeMillis()
-          surveyTime should be > System.currentTimeMillis() - 1000
-        }
+    "set the surveyRequestTriggerDate to the current date" in new WithApplication {
+      val request = buildCorrectlyPopulatedRequest()
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+        .withCookies(CookieFactoryForUnitSpecs.preventGoingToDisposePage(""))
+      val result = lookupWithMockConfig(mockSurveyConfig("http://www.google.com")).exit(request)
+      whenReady(result) {r =>
+        val cookies = fetchCookiesFromHeaders(r)
+        val surveyTime = cookies.find(_.name == SurveyRequestTriggerDateCacheKey).get.value.toLong
+        surveyTime should be <= System.currentTimeMillis()
+        surveyTime should be > System.currentTimeMillis() - 1000
       }
     }
   }
@@ -559,6 +558,9 @@ final class VehicleLookupUnitSpec extends UnitSpec {
         thenReturn(Future.successful(new FakeResponse(status = status)))
 
       when(bruteForcePreventionWebService.callBruteForce(VrmThrows)).thenReturn(responseThrows)
+
+      when(bruteForcePreventionWebService.reset(any[String]))
+        .thenReturn(Future.successful(new FakeResponse(status = play.api.http.Status.OK)))
 
       bruteForcePreventionWebService
     }
