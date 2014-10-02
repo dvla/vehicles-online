@@ -18,24 +18,23 @@ import scala.language.existentials
 import scala.concurrent.Future
 
 final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures{
-  // Returning a 503 is a proxy measure for redirection to the closed page
-  "Return a service unavailable status if trying to access the service out of hours" in new WebBrowser {
+  // The filter chain will return null if we redirect to the closed page.
+  "Return a null next filter request if trying to access the service out of hours" in new WebBrowser {
     setUpOutOfHours {
       case SetUp(filter, request, sessionFactory, nextFilter) =>
         val filterResult: Future[Result] = filter.apply(nextFilter)(request)
         whenReady(filterResult) { result =>
-          result.header.status should be(200)
+          nextFilter.passedRequest should be(null)
         }
     }
   }
 
-  // Returning a 200 is a proxy measure for continuing to the requested page
-  "Return an OK if trying to access the service within acceptable hours" in new WebBrowser{
+  "Return a valid next filter request if trying to access the service within acceptable hours" in new WebBrowser{
     setUpInHours {
       case SetUp(filter, request, sessionFactory, nextFilter) =>
         val filterResult: Future[Result] = filter.apply(nextFilter)(request)
         whenReady(filterResult) { result =>
-          result.header.status should be(200)
+        nextFilter.passedRequest.toString() should equal("GET /")
         }
     }
   }
@@ -55,35 +54,22 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
                            nextFilter: MockFilter)
 
   private def setUpInHours(test: SetUp => Any) {
-    val sessionFactory =  org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
-
-    val injector = Guice.createInjector(new ScalaModule {
-      override def configure(): Unit = {
-        bind[ClientSideSessionFactory].toInstance(sessionFactory)
-        val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
-        when(mockConfig.opening).thenReturn(0)
-        when(mockConfig.closing).thenReturn(24)
-        bind[Config].toInstance(mockConfig)
-      }
-    })
-
-    test(SetUp(
-      filter = injector.getInstance(classOf[EnsureServiceOpenFilter]),
-      request = FakeRequest(),
-      sessionFactory = sessionFactory,
-      nextFilter = new MockFilter()
-    ))
+    setUpOpeningHours(test, 0, 24)
   }
 
-  private def setUpOutOfHours(test: SetUp => Any) {
-    val sessionFactory =  org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
+  private def setUpOutOfHours(test: SetUp => Any) = {
+    setUpOpeningHours(test, 1, 1)
+  }
+
+  private def setUpOpeningHours(test: SetUp => Any, opening: Int = 0, closing: Int = 24) {
+    val sessionFactory = org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
 
     val injector = Guice.createInjector(new ScalaModule {
       override def configure(): Unit = {
         bind[ClientSideSessionFactory].toInstance(sessionFactory)
         val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
-        when(mockConfig.opening).thenReturn(1)
-        when(mockConfig.closing).thenReturn(1)
+        when(mockConfig.opening).thenReturn(opening)
+        when(mockConfig.closing).thenReturn(closing)
         bind[Config].toInstance(mockConfig)
       }
     })
