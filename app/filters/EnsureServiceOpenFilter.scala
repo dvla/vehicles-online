@@ -2,8 +2,7 @@ package filters
 
 import play.api.mvc._
 import scala.concurrent.Future
-import org.joda.time.{DateTimeZone, DateTime}
-import java.util.TimeZone
+import org.joda.time.DateTime
 import play.api.mvc.Result
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.helpers.Config
@@ -18,14 +17,12 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
 
   override def apply(nextFilter: (RequestHeader) => Future[Result])(requestHeader: RequestHeader): Future[Result] = {
     if (whitelist.exists(requestHeader.path.contains)) nextFilter(requestHeader)
-    else if (!serviceOpen) Future(Results.Ok(views.html.disposal_of_vehicle.closed()))
+    else if (!serviceOpen()) Future(Results.Ok(views.html.disposal_of_vehicle.closed()))
          else nextFilter(requestHeader)
   }
 
-  def serviceOpen: Boolean = {
-    val agencyTime = new DateTime(DateTimeZone.UTC).plusMillis(dstOffsetMillis)
-    val agencyTimeInMillis = agencyTime.getMillisOfDay
-    isNotSunday(agencyTime) && isDuringOpeningHours(agencyTimeInMillis)
+  def serviceOpen(currentDateTime: DateTime = new DateTime()): Boolean = {
+    isNotSunday(currentDateTime) && isDuringOpeningHours(currentDateTime.getMillisOfDay)
   }
 
   def isNotSunday(day: DateTime): Boolean = day.getDayOfWeek != 7
@@ -35,5 +32,5 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config) extends Filter 
     else (timeInMillis >= opening) || (timeInMillis < closing)
   }
 
-  val dstOffsetMillis = TimeZone.getTimeZone("Europe/London").getDSTSavings
+
 }
