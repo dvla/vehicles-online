@@ -2,6 +2,9 @@ package composition
 
 import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
+import composition.DevModule.bind
+import filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
+import org.joda.time.DateTimeZone
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
 import AccessLoggingFilter.AccessLoggerName
 import org.scalatest.mock.MockitoSugar
@@ -42,6 +45,7 @@ class TestModule() extends ScalaModule with MockitoSugar {
     bind[BruteForcePreventionWebService].to[FakeBruteForcePreventionWebServiceImpl].asEagerSingleton()
     bind[BruteForcePreventionService].to[BruteForcePreventionServiceImpl].asEagerSingleton()
     bind[LoggerLike].annotatedWith(Names.named(AccessLoggerName)).toInstance(Logger("dvla.common.AccessLogger"))
+    bind[DateTimeZoneService].toInstance(new DateTimeZoneServiceImpl)
   }
 
   private def ordnanceSurveyAddressLookup() = {

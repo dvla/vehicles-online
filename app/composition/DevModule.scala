@@ -2,6 +2,8 @@ package composition
 
 import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
+import filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
+import org.joda.time.DateTimeZone
 import play.api.{Logger, LoggerLike}
 import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common
@@ -65,5 +67,6 @@ object DevModule extends ScalaModule {
     bind[BruteForcePreventionWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.WebServiceImpl].asEagerSingleton()
     bind[BruteForcePreventionService].to[BruteForcePreventionServiceImpl].asEagerSingleton()
     bind[LoggerLike].annotatedWith(Names.named(AccessLoggerName)).toInstance(Logger("dvla.common.AccessLogger"))
+    bind[DateTimeZoneService].toInstance(new DateTimeZoneServiceImpl)
   }
 }
