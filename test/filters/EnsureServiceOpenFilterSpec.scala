@@ -36,17 +36,22 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
   }
 
   "Return True for a timezone time falling within opening hours, and False for a time in another timezone falling outside opening hours" in {
+    val defaultTimeZone = DateTimeZone.getDefault
     DateTimeZone.setDefault(DateTimeZone.forOffsetHours(inHoursOffset))
-    setUpInHours ({
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
-        filter.serviceOpen() should equal(true)
-    })
+    try {
+      setUpInHours ({
+        case SetUp(filter, request, sessionFactory, nextFilter) =>
+          filter.serviceOpen() should equal(true)
+      })
 
-    DateTimeZone.setDefault(DateTimeZone.forOffsetHours(outOfHoursOffset(inHoursOffset)))
-    setUpInHours ({
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
-        filter.serviceOpen() should equal(false)
-    })
+      DateTimeZone.setDefault(DateTimeZone.forOffsetHours(outOfHoursOffset(inHoursOffset)))
+      setUpInHours ({
+        case SetUp(filter, request, sessionFactory, nextFilter) =>
+          filter.serviceOpen() should equal(false)
+      })
+    } finally {
+      DateTimeZone.setDefault(defaultTimeZone)
+    }
   }
 
   private class MockFilter extends ((RequestHeader) => Future[Result]) {
