@@ -38,5 +38,5 @@ trait DateTimeZoneService {
 }
 
 class DateTimeZoneServiceImpl extends DateTimeZoneService {
-  override def currentDateTimeZone = DateTimeZone.getDefault
+  override def currentDateTimeZone = DateTimeZone.forID("Europe/London")
 }
