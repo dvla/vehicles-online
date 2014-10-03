@@ -46,18 +46,18 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.enterAddressManually())
       val result = enterAddressManually.present(request)
       val content = contentAsString(result)
-      content should include(BuildingNameOrNumberValid)
-      content should include(Line2Valid)
-      content should include(Line3Valid)
-      content should include(PostTownValid)
+      content should include(filledValue(BuildingNameOrNumberValid))
+      content should include(filledValue(Line2Valid))
+      content should include(filledValue(Line3Valid))
+      content should include(filledValue(PostTownValid))
     }
 
     "display empty fields when cookie does not exist" in new WithApplication {
       val content = contentAsString(present)
-      content should not include BuildingNameOrNumberValid
-      content should not include Line2Valid
-      content should not include Line3Valid
-      content should not include PostTownValid
+      content should not include filledValue(BuildingNameOrNumberValid)
+      content should not include filledValue(Line2Valid)
+      content should not include filledValue(Line3Valid)
+      content should not include filledValue(PostTownValid)
     }
 
     "display prototype message when config set to true" in new WithApplication {
@@ -305,6 +305,9 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> postTown,
       s"$AddressAndPostcodeId.$PostcodeId" -> postCode).
       withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+
+  private def filledValue(value: String) =
+    s"""value="$value""""
 
   private lazy val present = {
     val request = FakeRequest().
