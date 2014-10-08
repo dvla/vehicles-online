@@ -306,6 +306,11 @@ onHandlerNotFound.body=We are unable to find the page you have requested, this e
 onHandlerNotFound.noJavascript=If you wish to try again select the back button on your browser, if not select "Exit" to leave the service.
 onHandlerNotFound.start.button=Start
 
+# 400 onHandlerBadRequest
+onHandlerBadRequest.title=Invalid HTTP request
+onHandlerBadRequest.header=Invalid HTTP request
+onHandlerBadRequest.start.button=Start
+
 error.title=An unrecoverable error has occurred
 error.button=Start again
 

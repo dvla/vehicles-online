@@ -5,7 +5,7 @@ import java.util.UUID
 import com.typesafe.config.ConfigFactory
 import play.api.Play.current
 import play.api.i18n.Lang
-import play.api.mvc.Results.NotFound
+import play.api.mvc.Results.{NotFound,BadRequest}
 import play.api.mvc.{RequestHeader, Result}
 import play.api.{Application, Configuration, GlobalSettings, Logger, Mode, Play}
 import utils.helpers.Config
@@ -69,4 +69,9 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
 
   override def onError(request: RequestHeader, ex: Throwable): Future[Result] =
     errorStrategy(request, ex)
+
+  override def onBadRequest(request: RequestHeader, error: String): Future[Result] = Future.successful {
+    implicit val config = injector.getInstance(classOf[Config])
+    BadRequest(views.html.errors.onHandlerBadRequest(request, error))
+  }
 }
