@@ -1,14 +1,18 @@
 package composition
 
 import java.io.File
-import java.util.UUID
+import java.util.{Date, UUID}
+import com.google.inject.Key
+import com.google.inject.name.Names
 import com.typesafe.config.ConfigFactory
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.mvc.Results.{NotFound,BadRequest}
 import play.api.mvc.{RequestHeader, Result}
-import play.api.{Application, Configuration, GlobalSettings, Logger, Mode, Play}
-import utils.helpers.Config
+import play.api.{LoggerLike, Application, Configuration, GlobalSettings, Logger, Mode, Play}
+import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter.AccessLoggerName
+import uk.gov.dvla.vehicles.presentation.common.filters.ClfEntryBuilder
+import utils.helpers.{ErrorStrategy, Config}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -72,6 +76,12 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
 
   override def onBadRequest(request: RequestHeader, error: String): Future[Result] = Future.successful {
     implicit val config = injector.getInstance(classOf[Config])
-    BadRequest(views.html.errors.onHandlerBadRequest(request, error))
+
+    val result = BadRequest(views.html.errors.onHandlerBadRequest(request, error))
+
+    val clfEntryBuilder = injector.getInstance(classOf[ClfEntryBuilder])
+    val accessLogger = injector.getInstance(Key.get(classOf[LoggerLike], Names.named(AccessLoggerName)))
+    accessLogger.info(clfEntryBuilder.clfEntry(new Date(), request, result))
+    result
   }
 }
