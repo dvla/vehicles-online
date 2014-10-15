@@ -9,6 +9,7 @@ import org.mockito.Mockito.when
 import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
 import utils.helpers.Config
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -69,7 +70,7 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     }
   }
 
-  private case class SetUp(filter: EnsureServiceOpenFilter,
+  private case class SetUp(filter: ServiceOpenFilter,
                            request: FakeRequest[_],
                            sessionFactory:ClientSideSessionFactory,
                            nextFilter: MockFilter)
@@ -112,7 +113,7 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     })
 
     test(SetUp(
-      filter = injector.getInstance(classOf[EnsureServiceOpenFilter]),
+      filter = injector.getInstance(classOf[ServiceOpenFilter]),
       request = FakeRequest(),
       sessionFactory = sessionFactory,
       nextFilter = new MockFilter()

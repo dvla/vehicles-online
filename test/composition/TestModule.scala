@@ -3,9 +3,7 @@ package composition
 import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
 import composition.DevModule.bind
-import filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
-import org.joda.time.DateTimeZone
-import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
+import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService, AccessLoggingFilter}
 import AccessLoggingFilter.AccessLoggerName
 import org.scalatest.mock.MockitoSugar
 import play.api.{LoggerLike, Logger}

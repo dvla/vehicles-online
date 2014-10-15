@@ -1,17 +1,14 @@
 @()(implicit lang: Lang,
 config: utils.helpers.Config)
 
-@import controllers.routes.Help
-@import controllers.routes.BeforeYouStart
-@import views.common.Help.{BackId, ExitId}
 @import views.html.disposal_of_vehicle.main
 
 @main(
-title = Messages("disposal.closed.title")
+    title = Messages("disposal.closed.title")
 ) {
     <p>@Messages("disposal.closed.p1")</p>
     <p>@Messages("disposal.closed.p2")</p>
     <div class="form-steps">
-        <a id="@ExitId" href="https://www.gov.uk/" class="button">@Messages("disposal.closed.exit_button")</a>
+        <a id="exit-button" href="https://www.gov.uk/" class="button">@Messages("disposal.closed.exit_button")</a>
     </div>
 }

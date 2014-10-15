@@ -2,8 +2,6 @@ package composition
 
 import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
-import filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
-import org.joda.time.DateTimeZone
 import play.api.{Logger, LoggerLike}
 import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common
@@ -28,6 +26,7 @@ import common.webserviceclients.vehiclelookup.VehicleLookupService
 import common.webserviceclients.vehiclelookup.VehicleLookupServiceImpl
 import common.webserviceclients.vehiclelookup.VehicleLookupWebService
 import common.webserviceclients.vehiclelookup.VehicleLookupWebServiceImpl
+import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
 /**

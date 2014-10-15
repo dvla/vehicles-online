@@ -6,18 +6,15 @@ import com.tzavellas.sse.guice.ScalaModule
 import composition.TestModule
 import helpers.UiSpec
 import helpers.webbrowser.TestHarness
-import org.mockito.Mockito.{never, verify, when, mock}
-import org.scalatest.concurrent.{ScalaFutures, Futures}
-import play.api.mvc.{Results, Result, RequestHeader}
+import org.mockito.Mockito.when
+import org.scalatest.concurrent.ScalaFutures
+import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.language.existentials
-
-
-
 import scala.concurrent.Future
+import scala.language.existentials
 
 final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures{
   // The filter chain will return null if we redirect to the closed page.
@@ -50,7 +47,7 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
     }
   }
 
-  private case class SetUp(filter: EnsureServiceOpenFilter,
+  private case class SetUp(filter: ServiceOpenFilter,
                            request: FakeRequest[_],
                            sessionFactory:ClientSideSessionFactory,
                            nextFilter: MockFilter)
@@ -81,7 +78,7 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
     )
 
     test(SetUp(
-      filter = injector.getInstance(classOf[EnsureServiceOpenFilter]),
+      filter = injector.getInstance(classOf[ServiceOpenFilter]),
       request = FakeRequest(),
       sessionFactory = sessionFactory,
       nextFilter = new MockFilter()
