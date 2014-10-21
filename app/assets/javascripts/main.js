@@ -2,11 +2,12 @@ require.config({
     paths: {
         'jquery': 'lib/jquery/jquery-1.9.1.min',
         'jquery-migrate': 'lib/jquery/jquery-migrate-1.2.1.min',
-        'header-footer-only': 'header-footer-only'
+        'header-footer-only': 'header-footer-only',
+        'form-checked-selection': 'form-checked-selection'
     }
 });
 
-require(["jquery", "jquery-migrate", "header-footer-only"],function($) {
+require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selection"],function($) {
 
     var IE10 = (navigator.userAgent.match(/(MSIE 10.0)/g) ? true : false);
     if (IE10) {
