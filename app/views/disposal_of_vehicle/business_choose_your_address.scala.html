@@ -55,7 +55,7 @@
             @if(dropDownOptions.nonEmpty) {
                 <button id="@SelectId" type="submit" name="action" class="button">@Messages("disposal_businessChooseYourAddress.submitbutton")</button>
             }
-            <a id="@BackId" href="@controllers.routes.SetUpTradeDetails.present()" class="button-secondary">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
+            <a class="back" id="@BackId" href="@controllers.routes.SetUpTradeDetails.present()">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
         </div>
     }
 }

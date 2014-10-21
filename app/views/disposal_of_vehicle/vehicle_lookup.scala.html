@@ -67,7 +67,7 @@
 
                         <div class="form-step">
                             <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_vehiclelookup.button")</button>
-                            <a id="@BackId" href="@controllers.routes.VehicleLookup.back()" class="button-secondary">@Messages("disposal_vehiclelookup.backbutton")</a>
+                            <a class="back" id="@BackId" href="@controllers.routes.VehicleLookup.back()">@Messages("disposal_vehiclelookup.backbutton")</a>
 
                             @if(viewModel.displayExitButton) {
                                 @viewModel.surveyUrl match {
@@ -75,13 +75,13 @@
                                         <a id="@ExitId"
                                            href="@controllers.routes.VehicleLookup.exit()"
                                            onclick="window.open('@url', '_blank');"
-                                           class="button-secondary">@Messages("disposal_vehiclelookup.exitbutton")
+                                           class="exit">@Messages("disposal_vehiclelookup.exitbutton")
                                         </a>
                                     }
                                     case None => {
                                         <a id="@ExitId"
                                            href="@controllers.routes.VehicleLookup.exit()"
-                                           class="button-secondary">@Messages("disposal_vehiclelookup.exitbutton")
+                                           class="exit">@Messages("disposal_vehiclelookup.exitbutton")
                                         </a>
                                     }
                                 }
