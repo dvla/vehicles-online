@@ -50,11 +50,14 @@
         }
         <div class="form-steps">
             @if(dropDownOptions.isEmpty) {
+                <br/>
                 <a id="@EnterAddressManuallyButtonId" class="button" href="@controllers.routes.EnterAddressManually.present()">@Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")</a>
             }
             @if(dropDownOptions.nonEmpty) {
+                <br/>
                 <button id="@SelectId" type="submit" name="action" class="button">@Messages("disposal_businessChooseYourAddress.submitbutton")</button>
             }
+            <br/>
             <a class="back" id="@BackId" href="@controllers.routes.SetUpTradeDetails.present()">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
         </div>
     }
