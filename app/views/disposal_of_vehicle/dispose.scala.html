@@ -59,7 +59,6 @@
                         @for(addr <- data.dealerAddress) {@addr<br/>}</p>
                 </div>
 
-                <div class="form-declaration">
                 @valtechDeclareCheck(disposeForm(ConsentId),
                     args = Map(
                         '_showConstraints -> false,
@@ -67,15 +66,14 @@
                         '_label -> Messages("disposal_dispose.consent")
                     )
                 )
-                </div>
-                <div class="form-declaration">
+
                 @valtechDeclareCheck(disposeForm(LossOfRegistrationConsentId),
                     args = Map(
                         '_showConstraints -> false,
                         '_label -> Messages("disposal_dispose.loss_of_registration.consent")
                     )
                 )
-                </div>
+
                 @valtechInputText(disposeForm(MileageId), args =
                     Map('_label -> Messages("disposal_dispose.mileage.label"),
                         '_showConstraints -> false,
