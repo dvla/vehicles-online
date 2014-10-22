@@ -19,6 +19,7 @@ class Config {
 
   val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
   val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
+  val ordnanceSurveyUseUprn: Boolean = getProperty("ordnancesurvey.useUprn", default = false)
 
   val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
   val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout

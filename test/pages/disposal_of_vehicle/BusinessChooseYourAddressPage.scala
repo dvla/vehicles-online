@@ -31,7 +31,9 @@ object BusinessChooseYourAddressPage extends Page with WebBrowserDSL {
 
   def happyPath(implicit driver: WebDriver) = {
     go to BusinessChooseYourAddressPage
-    chooseAddress.value = traderUprnValid.toString
+    // HACK for Northern Ireland
+//    chooseAddress.value = traderUprnValid.toString
+    chooseAddress.value = "0"
     click on select
   }
 
