@@ -2,7 +2,7 @@ import sbt.Keys.{libraryDependencies, resolvers}
 import sbt._
 
 object ProjectsDefinitions {
-  final val VersionOsAddressLookup = "0.3-SNAPSHOT"
+  final val VersionOsAddressLookup = "0.4-SNAPSHOT"
   final val VersionVehiclesLookup = "0.3-SNAPSHOT"
   final val VersionVehiclesDisposeFulfil = "0.3-SNAPSHOT"
   final val VersionLegacyStubs = "1.0-SNAPSHOT"

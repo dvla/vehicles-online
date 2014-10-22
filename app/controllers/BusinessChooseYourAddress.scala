@@ -1,19 +1,19 @@
 package controllers
 
 import javax.inject.Inject
-import play.api.Logger
-import play.api.data.{Form, FormError}
-import play.api.i18n.Lang
-import play.api.mvc.{Action, Controller, Request}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSession, ClientSideSessionFactory}
-import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupService
-import utils.helpers.Config
 import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.{BusinessChooseYourAddressFormModel, SetupTradeDetailsFormModel}
+import play.api.Logger
+import play.api.data.{Form, FormError}
+import play.api.i18n.Lang
+import play.api.mvc.{Action, Controller, Request, Result}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSession, ClientSideSessionFactory}
+import uk.gov.dvla.vehicles.presentation.common.model.{AddressModel, TraderDetailsModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupService
+import utils.helpers.Config
 import views.html.disposal_of_vehicle.business_choose_your_address
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -29,10 +29,14 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
       case Some(setupTradeDetailsModel) =>
         val session = clientSideSessionFactory.getSession(request.cookies)
         fetchAddresses(setupTradeDetailsModel)(session, request2lang).map { addresses =>
-          Ok(views.html.disposal_of_vehicle.business_choose_your_address(form.fill(),
+          if (config.ordnanceSurveyUseUprn) Ok(views.html.disposal_of_vehicle.business_choose_your_address(form.fill(),
             setupTradeDetailsModel.traderBusinessName,
             setupTradeDetailsModel.traderPostcode,
             addresses))
+          else Ok(views.html.disposal_of_vehicle.business_choose_your_address(form.fill(),
+            setupTradeDetailsModel.traderBusinessName,
+            setupTradeDetailsModel.traderPostcode,
+            index(addresses)))
         }
       case None => Future.successful {
         Redirect(routes.SetUpTradeDetails.present())
@@ -61,13 +65,24 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetailsModel) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
-            lookupUprn(validForm, setupTradeDetailsModel.traderBusinessName)
+            if (config.ordnanceSurveyUseUprn) {
+              lookupUprn(validForm, setupTradeDetailsModel.traderBusinessName)
+            }
+            else {
+              lookupAddressByPostcodeThenIndex(validForm, setupTradeDetailsModel)
+            }
           case None => Future {
             Logger.error("Failed to find dealer details, redirecting")
             Redirect(routes.SetUpTradeDetails.present())
           }
         }
     )
+  }
+
+  private def index(addresses: Seq[(String, String)]) = {
+    addresses.map { case (uprn, address) => address}. // Extract the address.
+      zipWithIndex. // Add an index for each address
+      map { case (address, index) => (index.toString, address)} // Flip them around so index comes first.
   }
 
   private def formWithReplacedErrors(form: Form[BusinessChooseYourAddressFormModel])(implicit request: Request[_]) =
@@ -82,16 +97,39 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
                         (implicit request: Request[_], session: ClientSideSession) = {
     val lookedUpAddress = addressLookupService.fetchAddressForUprn(model.uprnSelected.toString, session.trackingId)
     lookedUpAddress.map {
-      case Some(addressViewModel) =>
-        val traderDetailsModel = TraderDetailsModel(traderName = traderName, traderAddress = addressViewModel)
-        /* The redirect is done as the final step within the map so that:
-         1) we are not blocking threads
-         2) the browser does not change page before the future has completed and written to the cache. */
-        Redirect(routes.VehicleLookup.present()).
-          discardingCookie(EnterAddressManuallyCacheKey).
-          withCookie(model).
-          withCookie(traderDetailsModel)
+      case Some(addressModel) => nextPage(model, traderName, addressModel)
       case None => Redirect(routes.UprnNotFound.present())
     }
+  }
+
+  private def lookupAddressByPostcodeThenIndex(model: BusinessChooseYourAddressFormModel, setupBusinessDetailsForm: SetupTradeDetailsFormModel)
+                                              (implicit request: Request[_], session: ClientSideSession): Future[Result] = {
+    fetchAddresses(setupBusinessDetailsForm)(session, request2lang).map { addresses =>
+      val indexSelected = model.uprnSelected.toInt
+      if (indexSelected < addresses.length) {
+        val lookedUpAddresses = index(addresses)
+        val lookedUpAddress = lookedUpAddresses(indexSelected) match {
+          case (index, address) => address
+        }
+        val addressModel = AddressModel(uprn = None, address = lookedUpAddress.split(","))
+        nextPage(model, setupBusinessDetailsForm.traderBusinessName, addressModel)
+      }
+      else {
+        // Guard against IndexOutOfBoundsException
+        Redirect(routes.UprnNotFound.present())
+      }
+    }
+  }
+
+  private def nextPage(model: BusinessChooseYourAddressFormModel, traderName: String, addressModel: AddressModel)
+                      (implicit request: Request[_], session: ClientSideSession): Result = {
+    val traderDetailsModel = TraderDetailsModel(traderName = traderName, traderAddress = addressModel)
+    /* The redirect is done as the final step within the map so that:
+     1) we are not blocking threads
+     2) the browser does not change page before the future has completed and written to the cache. */
+    Redirect(routes.VehicleLookup.present()).
+      discardingCookie(EnterAddressManuallyCacheKey).
+      withCookie(model).
+      withCookie(traderDetailsModel)
   }
 }

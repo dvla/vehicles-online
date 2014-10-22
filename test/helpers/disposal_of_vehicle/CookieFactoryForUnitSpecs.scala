@@ -2,41 +2,33 @@ package helpers.disposal_of_vehicle
 
 import composition.TestComposition
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel, AddressModel, BruteForcePreventionModel}
-import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
+import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
+import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
+import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import models.{BusinessChooseYourAddressFormModel, DisposeFormModel, EnterAddressManuallyFormModel, HelpCacheKey, SeenCookieMessageCacheKey, SetupTradeDetailsFormModel, VehicleLookupFormModel}
 import org.joda.time.DateTime
 import pages.disposal_of_vehicle.{HelpPage, VehicleLookupPage}
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
+import uk.gov.dvla.vehicles.presentation.common.model.BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
+import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.TraderDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common.model.VehicleDetailsModel.VehicleLookupDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common.model.{AddressModel, BruteForcePreventionModel, TraderDetailsModel, VehicleDetailsModel}
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
-import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
-import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
-import models.DisposeFormModel.DisposeFormModelCacheKey
-import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
-import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
-import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel.DisposeOccurredCacheKey
-import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
-import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.HelpCacheKey
-import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
-import TraderDetailsModel.TraderDetailsCacheKey
-import VehicleDetailsModel.VehicleLookupDetailsCacheKey
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import models.{BusinessChooseYourAddressFormModel, DisposeFormModel}
-import models.{EnterAddressManuallyFormModel, SeenCookieMessageCacheKey, SetupTradeDetailsFormModel, VehicleLookupFormModel}
-import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid}
-import webserviceclients.fakes.FakeAddressLookupService.{PostTownValid, PostcodeValid, TraderBusinessNameValid}
+import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, TraderBusinessNameValid}
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.TransactionIdValid
-import webserviceclients.fakes.FakeVehicleLookupWebService.{KeeperNameValid, ReferenceNumberValid}
-import webserviceclients.fakes.FakeVehicleLookupWebService.{RegistrationNumberValid, VehicleModelValid}
+import webserviceclients.fakes.FakeVehicleLookupWebService.{KeeperNameValid, ReferenceNumberValid, RegistrationNumberValid, VehicleModelValid}
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
 import webserviceclients.fakes.{FakeDateServiceImpl, FakeDisposeWebServiceImpl, FakeVehicleLookupWebService}
 
-object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make this more fluent by returning "this" at the end of the defs
+object CookieFactoryForUnitSpecs extends TestComposition {
+
+  // TODO can we make this more fluent by returning "this" at the end of the defs
 
   implicit private val cookieFlags = injector.getInstance(classOf[CookieFlags])
   final val TrackingIdValue = "trackingId"
@@ -66,9 +58,15 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
     createCookie(key, value)
   }
 
-  def businessChooseYourAddress(): Cookie = {
+  def businessChooseYourAddressUseUprn(uprnSelected: String = traderUprnValid.toString): Cookie = {
     val key = BusinessChooseYourAddressCacheKey
-    val value = BusinessChooseYourAddressFormModel(uprnSelected = traderUprnValid.toString)
+    val value = BusinessChooseYourAddressFormModel(uprnSelected = uprnSelected)
+    createCookie(key, value)
+  }
+
+  def businessChooseYourAddress(uprnSelected: String = "0"): Cookie = {
+    val key = BusinessChooseYourAddressCacheKey
+    val value = BusinessChooseYourAddressFormModel(uprnSelected = uprnSelected)
     createCookie(key, value)
   }
 
@@ -78,9 +76,9 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
       addressAndPostcodeModel = AddressAndPostcodeViewModel(
         addressLinesModel = AddressLinesViewModel(
           buildingNameOrNumber = BuildingNameOrNumberValid,
-            line2 = Some(Line2Valid),
-            line3 = Some(Line3Valid),
-            postTown = PostTownValid
+          line2 = Some(Line2Valid),
+          line3 = Some(Line3Valid),
+          postTown = PostTownValid
         )
       )
     )
@@ -216,6 +214,7 @@ object CookieFactoryForUnitSpecs extends TestComposition { // TODO can we make t
       0,
       0
     ).toString()
+
   def disposeFormTimestamp(timestamp: String = defaultDisposeTimestamp): Cookie =
     createCookie(DisposeFormTimestampIdCacheKey, timestamp)
 
