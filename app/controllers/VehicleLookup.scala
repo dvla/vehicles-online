@@ -18,7 +18,7 @@ import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprev
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupService, VehicleDetailsResponseDto, VehicleDetailsRequestDto, VehicleDetailsDto}
 import utils.helpers.Config
 import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
-import models.{VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
+import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -111,11 +111,10 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
   }
 
   def back = Action { implicit request =>
-    request.cookies.getModel[TraderDetailsModel] match {
-      case Some(dealerDetails) =>
-        if (dealerDetails.traderAddress.uprn.isDefined) Redirect(routes.BusinessChooseYourAddress.present())
-        else Redirect(routes.EnterAddressManually.present())
-      case None => Redirect(routes.SetUpTradeDetails.present())
+    request.cookies.getModel[EnterAddressManuallyFormModel] match {
+      case Some(manualAddress) =>
+        Redirect(routes.EnterAddressManually.present())
+      case None => Redirect(routes.BusinessChooseYourAddress.present())
     }
   }
 

@@ -330,9 +330,9 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       count should equal(2) // The same message is displayed in 2 places - once in the validation-summary at the top of the page and once above the field.
     }
 
-    "redirect to EnterAddressManually when back button is pressed and there is no uprn" in new WithApplication {
-      val request = FakeRequest().withFormUrlEncodedBody().
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+    "redirect to EnterAddressManually when back button is pressed and the user has manually entered an address" in new WithApplication {
+      val request = FakeRequest().
+        withCookies(CookieFactoryForUnitSpecs.enterAddressManually())
       val result = vehicleLookupResponseGenerator().back(request)
 
       result.futureValue.header.headers.get(LOCATION) should equal(Some(EnterAddressManuallyPage.address))
@@ -346,27 +346,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(BusinessChooseYourAddressPage.address))
     }
 
-    "redirect to SetupTradeDetails page when back button is pressed and dealer details is not in cache" in new WithApplication {
-      val request = FakeRequest().withFormUrlEncodedBody()
-      val result = vehicleLookupResponseGenerator().back(request)
-
-      result.futureValue.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
-    }
-
-    "redirect to SetUpTradeDetails when back button and the user has completed the vehicle lookup form" in new WithApplication {
+    "redirect to BusinessChooseYourAddress when back is called and the user has completed the vehicle lookup form" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest().
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(uprn = Some(traderUprnValid)))
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(uprn = Some(traderUprnValid))).
+        withCookies(CookieFactoryForUnitSpecs.businessChooseYourAddressUseUprn())
       val result = vehicleLookupResponseGenerator().back(request)
 
       result.futureValue.header.headers.get(LOCATION) should equal(Some(BusinessChooseYourAddressPage.address))
-    }
-
-    "redirect to SetUpTradeDetails when back button clicked and there are no trader details stored in cache" in new WithApplication {
-      // No cache setup with dealer details
-      val request = buildCorrectlyPopulatedRequest()
-      val result = vehicleLookupResponseGenerator().back(request)
-
-      result.futureValue.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
     }
 
     "redirect to MicroserviceError when microservice throws" in new WithApplication {

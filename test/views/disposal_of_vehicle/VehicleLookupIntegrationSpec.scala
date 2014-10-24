@@ -184,7 +184,7 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "back" should {
-    "display previous page when back link is clicked with uprn present" taggedAs UiTag in new WebBrowser {
+    "display BusinessChooseYourAddress page when back link is clicked with uprn present" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         setupTradeDetails().
@@ -196,9 +196,12 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       page.title should equal(BusinessChooseYourAddressPage.title)
     }
 
-    "display previous page when back link is clicked with no uprn present" taggedAs UiTag in new WebBrowser {
+    "display EnterAddressManually page when back link is clicked after user has manually entered the address" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
-      cacheSetup()
+      CookieFactoryForUISpecs.
+        setupTradeDetails().
+        dealerDetails(addressWithUprn).
+        enterAddressManually()
       go to VehicleLookupPage
 
       click on back
