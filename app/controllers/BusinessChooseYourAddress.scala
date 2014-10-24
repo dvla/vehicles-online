@@ -51,10 +51,16 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
           case Some(setupTradeDetails) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
             fetchAddresses(setupTradeDetails).map { addresses =>
-              BadRequest(business_choose_your_address(formWithReplacedErrors(invalidForm),
-                setupTradeDetails.traderBusinessName,
-                setupTradeDetails.traderPostcode,
-                addresses))
+              if (config.ordnanceSurveyUseUprn)
+                BadRequest(business_choose_your_address(formWithReplacedErrors(invalidForm),
+                  setupTradeDetails.traderBusinessName,
+                  setupTradeDetails.traderPostcode,
+                  addresses))
+              else
+                BadRequest(business_choose_your_address(formWithReplacedErrors(invalidForm),
+                  setupTradeDetails.traderBusinessName,
+                  setupTradeDetails.traderPostcode,
+                  index(addresses)))
             }
           case None => Future.successful {
             Logger.error("Failed to find dealer details, redirecting")
@@ -65,12 +71,10 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetailsModel) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
-            if (config.ordnanceSurveyUseUprn) {
+            if (config.ordnanceSurveyUseUprn)
               lookupUprn(validForm, setupTradeDetailsModel.traderBusinessName)
-            }
-            else {
+            else
               lookupAddressByPostcodeThenIndex(validForm, setupTradeDetailsModel)
-            }
           case None => Future {
             Logger.error("Failed to find dealer details, redirecting")
             Redirect(routes.SetUpTradeDetails.present())
