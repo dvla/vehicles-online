@@ -118,9 +118,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
   def details_are_entered_that_correspond_to_a_vehicle_that_has_a_valid_clean_record_and_has_no_markers_or_error_codes() = {
     gotToDisposePage()
     DisposePage.mileage enter "10000"
-    DisposePage.dateOfDisposalDay select "1"
-    DisposePage.dateOfDisposalMonth select "5"
-    DisposePage.dateOfDisposalYear select "2014"
+    DisposePage.useTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
   }
@@ -133,11 +131,10 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
     click on VehicleLookupPage.findVehicleDetails
     page.title should equal(DisposePage.title)
     DisposePage.mileage enter "10000"
-    DisposePage.dateOfDisposalDay select "1"
-    DisposePage.dateOfDisposalMonth select "5"
-    DisposePage.dateOfDisposalYear select "2014"
+    DisposePage.useTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
+    //submit()
   }
 
   @When("""^this is submitted along with any other mandatory information$""")
