@@ -1,8 +1,10 @@
+package uk.gov.dvla.vehicles.sandbox
+
 import sbt._
 import sbt.Keys._
 import Runner._
-import SandboxKeys._
-import ProjectsDefinitions._
+import SandboxSettings._
+import ProjectDefinitions._
 
 object Tasks {
   private val httpsPort = Def.task(portOffset.value + 443)
@@ -11,36 +13,41 @@ object Tasks {
   private val vehicleDisposePort = Def.task(portOffset.value + 803)
   private val legacyServicesStubsPort = Def.task(portOffset.value + 806)
 
+  val legacyStubsClassPath = Def.taskDyn {fullClasspath.in(Runtime).in(legacyStubsProject.value)}
   lazy val runLegacyStubs = Def.task {
     runProject(
-      fullClasspath.all(scopeLegacyStubs).value.flatten,
+      legacyStubsClassPath.value,
       None,
       runJavaMain("service.LegacyServicesRunner", Array(legacyServicesStubsPort.value.toString))
     )
   }
 
+  val osAddressLookupClassPath = Def.taskDyn {fullClasspath.in(Runtime).in(osAddressLookupProject.value)}
+  val osAddressLookupClassDir = Def.settingDyn {classDirectory.in(Runtime).in(osAddressLookupProject.value)}
   lazy val runOsAddressLookup = Def.task {
     runProject(
-      fullClasspath.all(scopeOsAddressLookup).value.flatten,
+      osAddressLookupClassPath.value,
       Some(ConfigDetails(
         secretRepoLocation((target in ThisProject).value),
         "ms/dev/os-address-lookup.conf.enc",
         Some(ConfigOutput(
-          new File(classDirectory.all(scopeOsAddressLookup).value.head, s"${osAddressLookup.id}.conf"),
+          new File(osAddressLookupClassDir.value, "os-address-lookup.conf"),
           setServicePort(osAddressLookupPort.value)
         ))
       ))
     )
   }
 
+  val vehiclesLookupClassPath = Def.taskDyn {fullClasspath.in(Runtime).in(vehiclesLookupProject.value)}
+  val vehiclesLookupClassDir = Def.settingDyn {classDirectory.in(Runtime).in(vehiclesLookupProject.value)}
   lazy val runVehiclesLookup = Def.task {
     runProject(
-      fullClasspath.all(scopeVehiclesLookup).value.flatten,
+      vehiclesLookupClassPath.value,
       Some(ConfigDetails(
         secretRepoLocation((target in ThisProject).value),
         "ms/dev/vehicles-lookup.conf.enc",
         Some(ConfigOutput(
-          new File(classDirectory.all(scopeVehiclesLookup).value.head, s"${vehiclesLookup.id}.conf"),
+          new File(vehiclesLookupClassDir.value, "vehicles-lookup.conf"),
           setServicePortAndLegacyServicesPort(
             vehicleLookupPort.value,
             "getVehicleDetails.baseurl",
@@ -51,14 +58,16 @@ object Tasks {
     )
   }
 
+  val vehiclesDisposeFulfilClassPath = Def.taskDyn {fullClasspath.in(Runtime).in(vehiclesDisposeFulfilProject.value)}
+  val vehiclesDisposeFulfilDir = Def.settingDyn {classDirectory.in(Runtime).in(vehiclesDisposeFulfilProject.value)}
   lazy val runVehiclesDisposeFulfil = Def.task {
     runProject(
-      fullClasspath.all(scopeVehiclesDisposeFulfil).value.flatten,
+      vehiclesDisposeFulfilClassPath.value,
       Some(ConfigDetails(
         secretRepoLocation((target in ThisProject).value),
         "ms/dev/vehicles-dispose-fulfil.conf.enc",
         Some(ConfigOutput(
-          new File(classDirectory.all(scopeVehiclesDisposeFulfil).value.head, s"${vehiclesDisposeFulfil.id}.conf"),
+          new File(vehiclesDisposeFulfilDir.value, "vehicles-dispose-fulfil.conf"),
           setServicePortAndLegacyServicesPort(
             vehicleDisposePort.value,
             "vss.baseurl",
@@ -74,21 +83,23 @@ object Tasks {
     run.in(Compile).toTask("").value
   }
 
+  val gatlingTestsClassPath = Def.taskDyn {fullClasspath.in(Runtime).in(gatlingTestsProject.value)}
+  val gatlingTestsTargetDir = Def.settingDyn {target.in(gatlingTestsProject.value)}
   lazy val testGatling = Def.task {
-    val classPath = fullClasspath.all(scopeGatlingTests).value.flatten
 
     def extractVehiclesGatlingJar(toFolder: File) =
-      classPath.find(_.data.toURI.toURL.toString.endsWith(s"vehicles-gatling-$VersionVehiclesGatling.jar"))
-        .map { jar => IO.unzip(new File(jar.data.toURI.toURL.getFile), toFolder)}
+      gatlingTestsClassPath.value.find(
+        _.data.toURI.toURL.toString.endsWith(s"vehicles-gatling-$VersionVehiclesGatling.jar")
+      ).map { jar => IO.unzip(new File(jar.data.toURI.toURL.getFile), toFolder)}
 
-    val targetFolder = target.in(gatlingTests).value.getAbsolutePath
+    val targetFolder = gatlingTestsTargetDir.value.getAbsolutePath
     val vehiclesGatlingExtractDir = new File(s"$targetFolder/gatlingJarExtract")
     IO.delete(vehiclesGatlingExtractDir)
     vehiclesGatlingExtractDir.mkdirs()
     extractVehiclesGatlingJar(vehiclesGatlingExtractDir)
     System.setProperty("gatling.core.disableCompiler", "true")
     runProject(
-      classPath,
+      gatlingTestsClassPath.value,
       None,
       runJavaMain(
         mainClassName = "io.gatling.app.Gatling",

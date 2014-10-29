@@ -2,8 +2,11 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import templemore.sbt.cucumber.CucumberPlugin
-import Sandbox._
-import ProjectsDefinitions._
+import uk.gov.dvla.vehicles.sandbox
+import sandbox.ProjectDefinitions.{osAddressLookup, vehiclesLookup, vehiclesDisposeFulfil, legacyStubs, gatlingTests}
+import sandbox.Sandbox
+import sandbox.SandboxSettings
+import sandbox.Tasks
 
 import Common._
 
@@ -30,6 +33,9 @@ lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-t
   .dependsOn(root % "test->test")
   .disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
+lazy val sandboxPlugin = Project("sandbox-plugin", file("sandbox-plugin"))
+  .disablePlugins(PlayScala, SassPlugin, SbtWeb)
+
 libraryDependencies ++= Seq(
   cache,
   filters,
@@ -51,21 +57,6 @@ libraryDependencies ++= Seq(
   "dvla" %% "vehicles-presentation-common" % "2.4-SNAPSHOT" withSources() withJavadoc(),
   "org.webjars" % "requirejs" % "2.1.14-1"
 )
-
-SandboxKeys.portOffset := 17000
-
-SandboxKeys.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
-
-SandboxKeys.runAllMicroservices := {
-    Tasks.runLegacyStubs.value
-    Tasks.runOsAddressLookup.value
-    Tasks.runVehiclesLookup.value
-    Tasks.runVehiclesDisposeFulfil.value
-}
-
-SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
-
-SandboxKeys.acceptanceTests := (test in Test in acceptanceTestsProject).value
 
 pipelineStages := Seq(rjs, digest, gzip)
 
@@ -125,18 +116,42 @@ resolvers ++= projectResolvers
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
-sandboxTask
+// ====================== Sandbox Settings ==========================
+lazy val osAddressLookupProject = osAddressLookup("0.4-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val vehiclesLookupProject = vehiclesLookup("0.3-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.3-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val gatlingProject = gatlingTests().disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
-sandboxAsyncTask
+SandboxSettings.portOffset := 17000
 
-gatlingTask
+SandboxSettings.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
 
-acceptTask
+SandboxSettings.osAddressLookupProject := osAddressLookupProject
 
-resolvers ++= projectResolvers
+SandboxSettings.vehiclesLookupProject := vehiclesLookupProject
 
-lazy val p1 = osAddressLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p2 = vehiclesLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p3 = vehiclesDisposeFulfil.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p4 = legacyStubs.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p5 = gatlingTests.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+SandboxSettings.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
+
+SandboxSettings.legacyStubsProject := legacyStubsProject
+
+SandboxSettings.gatlingTestsProject := gatlingProject
+
+SandboxSettings.runAllMicroservices := {
+  Tasks.runLegacyStubs.value
+  Tasks.runOsAddressLookup.value
+  Tasks.runVehiclesLookup.value
+  Tasks.runVehiclesDisposeFulfil.value
+}
+
+SandboxSettings.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+
+SandboxSettings.acceptanceTests := (test in Test in acceptanceTestsProject).value
+
+Sandbox.sandboxTask
+
+Sandbox.sandboxAsyncTask
+
+Sandbox.gatlingTask
+
+Sandbox.acceptTask

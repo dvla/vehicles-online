@@ -1,3 +1,4 @@
+@US51
 Feature: US51: Disposal to Trade: Validate VRM format entry
   As a Motor Trader
   I want to enter a properly formatted VRM
@@ -46,7 +47,7 @@ Feature: US51: Disposal to Trade: Validate VRM format entry
   Scenario Outline:
     Given an incorrectly formatted vehicle reference mark "<vrm>" has been entered
     When this is submitted along with any other mandatory information
-    Then a single error message "Vehicle registration mark - Must be valid format" is displayed
+    Then a single error message "Vehicle registration number - Must be as shown on the latest V5C" is displayed
     And the dispose transaction does not proceed past the "Enter vehicle details" step
 
   Examples:
