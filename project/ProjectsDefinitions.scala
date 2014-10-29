@@ -2,8 +2,6 @@ import sbt.Keys.{libraryDependencies, resolvers}
 import sbt._
 
 object ProjectsDefinitions {
-  final val VersionJetty = "9.2.1.v20140609"
-  final val VersionSpringWeb = "3.0.7.RELEASE"
   final val VersionGatlingApp = "2.0.0-M4-NAP"
   final val VersionVehiclesGatling = "1.0-SNAPSHOT"
 
@@ -18,7 +16,6 @@ object ProjectsDefinitions {
       .settings(resolvers ++= (Common.projectResolvers ++ res))
       .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 
-  // Declaring the sandbox projects
   def osAddressLookup(version: String) =
     sandProject("os-address-lookup", "dvla" %% "os-address-lookup" % version)
 
@@ -30,10 +27,7 @@ object ProjectsDefinitions {
 
   def legacyStubs(version: String) = sandProject(
     name = "legacy-stubs",
-    "dvla-legacy-stub-services" % "legacy-stub-services-service" % version,
-    "org.eclipse.jetty" % "jetty-server" % VersionJetty,
-    "org.eclipse.jetty" % "jetty-servlet" % VersionJetty,
-    "org.springframework" % "spring-web" % VersionSpringWeb
+    "dvla-legacy-stub-services" % "legacy-stub-services-service" % version
   )
 
   def gatlingTests() = sandProject(
