@@ -117,35 +117,35 @@ lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.3-SNAPSHOT").di
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val gatlingProject = gatlingTests().disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
-SandboxKeys.portOffset := 17000
+SandboxSettings.portOffset := 17000
 
-SandboxKeys.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
+SandboxSettings.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
 
-SandboxKeys.osAddressLookupProject := osAddressLookupProject
+SandboxSettings.osAddressLookupProject := osAddressLookupProject
 
-SandboxKeys.vehiclesLookupProject := vehiclesLookupProject
+SandboxSettings.vehiclesLookupProject := vehiclesLookupProject
 
-SandboxKeys.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
+SandboxSettings.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
 
-SandboxKeys.legacyStubsProject := legacyStubsProject
+SandboxSettings.legacyStubsProject := legacyStubsProject
 
-SandboxKeys.gatlingTestsProject := gatlingProject
+SandboxSettings.gatlingTestsProject := gatlingProject
 
-SandboxKeys.runAllMicroservices := {
+SandboxSettings.runAllMicroservices := {
   Tasks.runLegacyStubs.value
   Tasks.runOsAddressLookup.value
   Tasks.runVehiclesLookup.value
   Tasks.runVehiclesDisposeFulfil.value
 }
 
-SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+SandboxSettings.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
 
-SandboxKeys.acceptanceTests := (test in Test in acceptanceTestsProject).value
+SandboxSettings.acceptanceTests := (test in Test in acceptanceTestsProject).value
 
-sandboxTask
+Sandbox.sandboxTask
 
-sandboxAsyncTask
+Sandbox.sandboxAsyncTask
 
-gatlingTask
+Sandbox.gatlingTask
 
-acceptTask
+Sandbox.acceptTask

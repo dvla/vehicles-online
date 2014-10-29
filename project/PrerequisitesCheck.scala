@@ -1,5 +1,5 @@
 import Runner.{decryptFile, decryptPassword, secretProperty, secretRepoLocation}
-import SandboxKeys.webAppSecrets
+import SandboxSettings.webAppSecrets
 import org.apache.commons.io.{FilenameUtils, FileUtils}
 import sbt.Keys.{baseDirectory, target}
 import sbt.{Def, File, IO, ThisProject}

@@ -1,4 +1,4 @@
-import SandboxKeys._
+import SandboxSettings._
 import Runner._
 import Tasks._
 import PrerequisitesCheck.prerequisitesCheck

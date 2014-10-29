@@ -1,7 +1,7 @@
 import sbt._
 import sbt.Keys._
 import Runner._
-import SandboxKeys._
+import SandboxSettings._
 import ProjectsDefinitions._
 
 object Tasks {
