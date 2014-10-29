@@ -13,7 +13,7 @@ object Tasks {
 
   lazy val runLegacyStubs = Def.task {
     runProject(
-      fullClasspath.all(scopeLegacyStubs).value.flatten,
+      fullClasspath.in(Runtime).in(legacyStubs).value,
       None,
       runJavaMain("service.LegacyServicesRunner", Array(legacyServicesStubsPort.value.toString))
     )
@@ -21,12 +21,12 @@ object Tasks {
 
   lazy val runOsAddressLookup = Def.task {
     runProject(
-      fullClasspath.all(scopeOsAddressLookup).value.flatten,
+      fullClasspath.in(Runtime).in(osAddressLookup).value,
       Some(ConfigDetails(
         secretRepoLocation((target in ThisProject).value),
         "ms/dev/os-address-lookup.conf.enc",
         Some(ConfigOutput(
-          new File(classDirectory.all(scopeOsAddressLookup).value.head, s"${osAddressLookup.id}.conf"),
+          new File(classDirectory.in(Runtime).in(osAddressLookup).value, s"${osAddressLookup.id}.conf"),
           setServicePort(osAddressLookupPort.value)
         ))
       ))
@@ -35,12 +35,12 @@ object Tasks {
 
   lazy val runVehiclesLookup = Def.task {
     runProject(
-      fullClasspath.all(scopeVehiclesLookup).value.flatten,
+      fullClasspath.in(Runtime).in(vehiclesLookup).value,
       Some(ConfigDetails(
         secretRepoLocation((target in ThisProject).value),
         "ms/dev/vehicles-lookup.conf.enc",
         Some(ConfigOutput(
-          new File(classDirectory.all(scopeVehiclesLookup).value.head, s"${vehiclesLookup.id}.conf"),
+          new File(classDirectory.in(Runtime).in(vehiclesLookup).value, s"${vehiclesLookup.id}.conf"),
           setServicePortAndLegacyServicesPort(
             vehicleLookupPort.value,
             "getVehicleDetails.baseurl",
@@ -53,12 +53,12 @@ object Tasks {
 
   lazy val runVehiclesDisposeFulfil = Def.task {
     runProject(
-      fullClasspath.all(scopeVehiclesDisposeFulfil).value.flatten,
+      fullClasspath.in(Runtime).in(vehiclesDisposeFulfil).value,
       Some(ConfigDetails(
         secretRepoLocation((target in ThisProject).value),
         "ms/dev/vehicles-dispose-fulfil.conf.enc",
         Some(ConfigOutput(
-          new File(classDirectory.all(scopeVehiclesDisposeFulfil).value.head, s"${vehiclesDisposeFulfil.id}.conf"),
+          new File(classDirectory.in(Runtime).in(vehiclesDisposeFulfil).value, s"${vehiclesDisposeFulfil.id}.conf"),
           setServicePortAndLegacyServicesPort(
             vehicleDisposePort.value,
             "vss.baseurl",
@@ -75,7 +75,7 @@ object Tasks {
   }
 
   lazy val testGatling = Def.task {
-    val classPath = fullClasspath.all(scopeGatlingTests).value.flatten
+    val classPath = fullClasspath.in(Runtime).in(gatlingTests).value
 
     def extractVehiclesGatlingJar(toFolder: File) =
       classPath.find(_.data.toURI.toURL.toString.endsWith(s"vehicles-gatling-$VersionVehiclesGatling.jar"))

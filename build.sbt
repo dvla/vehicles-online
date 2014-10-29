@@ -52,21 +52,6 @@ libraryDependencies ++= Seq(
   "org.webjars" % "requirejs" % "2.1.14-1"
 )
 
-SandboxKeys.portOffset := 17000
-
-SandboxKeys.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
-
-SandboxKeys.runAllMicroservices := {
-    Tasks.runLegacyStubs.value
-    Tasks.runOsAddressLookup.value
-    Tasks.runVehiclesLookup.value
-    Tasks.runVehiclesDisposeFulfil.value
-}
-
-SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
-
-SandboxKeys.acceptanceTests := (test in Test in acceptanceTestsProject).value
-
 pipelineStages := Seq(rjs, digest, gzip)
 
 CucumberPlugin.cucumberSettings ++
@@ -125,6 +110,28 @@ resolvers ++= projectResolvers
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
+// ====================== Sandbox Stuff ==========================
+lazy val p1 = osAddressLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p2 = vehiclesLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p3 = vehiclesDisposeFulfil.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p4 = legacyStubs.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val p5 = gatlingTests.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+
+SandboxKeys.portOffset := 17000
+
+SandboxKeys.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
+
+SandboxKeys.runAllMicroservices := {
+  Tasks.runLegacyStubs.value
+  Tasks.runOsAddressLookup.value
+  Tasks.runVehiclesLookup.value
+  Tasks.runVehiclesDisposeFulfil.value
+}
+
+SandboxKeys.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+
+SandboxKeys.acceptanceTests := (test in Test in acceptanceTestsProject).value
+
 sandboxTask
 
 sandboxAsyncTask
@@ -135,8 +142,4 @@ acceptTask
 
 resolvers ++= projectResolvers
 
-lazy val p1 = osAddressLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p2 = vehiclesLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p3 = vehiclesDisposeFulfil.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p4 = legacyStubs.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p5 = gatlingTests.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+
