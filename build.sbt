@@ -2,7 +2,6 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import templemore.sbt.cucumber.CucumberPlugin
-import Sandbox._
 import ProjectsDefinitions._
 
 import Common._
