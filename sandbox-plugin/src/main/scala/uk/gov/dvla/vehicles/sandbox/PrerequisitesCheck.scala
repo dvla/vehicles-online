@@ -1,3 +1,5 @@
+package uk.gov.dvla.vehicles.sandbox
+
 import Runner.{decryptFile, decryptPassword, secretProperty, secretRepoLocation}
 import SandboxSettings.webAppSecrets
 import org.apache.commons.io.{FilenameUtils, FileUtils}

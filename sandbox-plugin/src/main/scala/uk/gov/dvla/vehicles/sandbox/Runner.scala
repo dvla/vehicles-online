@@ -1,3 +1,5 @@
+package uk.gov.dvla.vehicles.sandbox
+
 import java.io.StringReader
 import java.net.{URL, URLClassLoader}
 import com.typesafe.config.ConfigFactory

@@ -1,3 +1,5 @@
+package uk.gov.dvla.vehicles.sandbox
+
 import sbt.{Project, settingKey, taskKey}
 
 object SandboxSettings {

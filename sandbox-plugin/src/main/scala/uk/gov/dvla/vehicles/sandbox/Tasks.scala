@@ -1,8 +1,10 @@
+package uk.gov.dvla.vehicles.sandbox
+
 import sbt._
 import sbt.Keys._
 import Runner._
 import SandboxSettings._
-import ProjectsDefinitions._
+import ProjectDefinitions._
 
 object Tasks {
   private val httpsPort = Def.task(portOffset.value + 443)

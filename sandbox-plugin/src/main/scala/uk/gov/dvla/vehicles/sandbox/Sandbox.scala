@@ -1,3 +1,5 @@
+package uk.gov.dvla.vehicles.sandbox
+
 import SandboxSettings._
 import Runner._
 import Tasks._

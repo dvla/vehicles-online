@@ -2,7 +2,11 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import templemore.sbt.cucumber.CucumberPlugin
-import ProjectsDefinitions._
+import uk.gov.dvla.vehicles.sandbox
+import sandbox.ProjectDefinitions.{osAddressLookup, vehiclesLookup, vehiclesDisposeFulfil, legacyStubs, gatlingTests}
+import sandbox.Sandbox
+import sandbox.SandboxSettings
+import sandbox.Tasks
 
 import Common._
 
@@ -109,7 +113,7 @@ resolvers ++= projectResolvers
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
-// ====================== Sandbox Stuff ==========================
+// ====================== Sandbox Settings ==========================
 lazy val osAddressLookupProject = osAddressLookup("0.4-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val vehiclesLookupProject = vehiclesLookup("0.3-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.3-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
