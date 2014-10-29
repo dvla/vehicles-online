@@ -36,6 +36,4 @@ object ProjectsDefinitions {
     "com.netaporter.gatling" % "gatling-app" % VersionGatlingApp,
     "uk.gov.dvla" % "vehicles-gatling" % VersionVehiclesGatling
   )
-
-  lazy val vehiclesOnline = ScopeFilter(inProjects(ThisProject), inConfigurations(Runtime))
 }
