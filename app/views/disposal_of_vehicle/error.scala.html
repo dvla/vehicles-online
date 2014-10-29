@@ -11,9 +11,9 @@
 @main(
     title = Messages("error.title")
 ){
+    <h1>@Messages("error.title")</h1>
     @form(action = controllers.routes.Error.submit(exceptionDigest)) {
         @csrfTokenHiddenField()
-
         <div class="form-steps">
             <button id="@SubmitId" type="submit" name="action" class="button">@Messages("error.button")</button>
         </div>
