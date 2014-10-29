@@ -111,15 +111,25 @@ resolvers ++= projectResolvers
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
 // ====================== Sandbox Stuff ==========================
-lazy val p1 = osAddressLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p2 = vehiclesLookup.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p3 = vehiclesDisposeFulfil.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p4 = legacyStubs.disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val p5 = gatlingTests.disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val osAddressLookupProject = osAddressLookup("0.4-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val vehiclesLookupProject = vehiclesLookup("0.3-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.3-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val gatlingProject = gatlingTests().disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
 SandboxKeys.portOffset := 17000
 
 SandboxKeys.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
+
+SandboxKeys.osAddressLookupProject := osAddressLookupProject
+
+SandboxKeys.vehiclesLookupProject := vehiclesLookupProject
+
+SandboxKeys.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
+
+SandboxKeys.legacyStubsProject := legacyStubsProject
+
+SandboxKeys.gatlingTestsProject := gatlingProject
 
 SandboxKeys.runAllMicroservices := {
   Tasks.runLegacyStubs.value
@@ -139,7 +149,3 @@ sandboxAsyncTask
 gatlingTask
 
 acceptTask
-
-resolvers ++= projectResolvers
-
-

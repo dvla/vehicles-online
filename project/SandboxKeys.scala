@@ -1,4 +1,4 @@
-import sbt.{settingKey, taskKey}
+import sbt.{Project, settingKey, taskKey}
 
 object SandboxKeys {
   lazy val portOffset = settingKey[Int]("The port offset for all the microservices.")
@@ -11,4 +11,10 @@ object SandboxKeys {
   lazy val sandboxAsync = taskKey[Unit]("Runs the whole sandbox asynchronously for manual testing including microservices, webapp and legacy stubs")
   lazy val gatling = taskKey[Unit]("Runs the gatling tests against the sandbox")
   lazy val accept = taskKey[Unit]("Runs all the acceptance tests against the sandbox.")
+
+  lazy val legacyStubsProject = settingKey[Project]("The project definition for the Legacy Stubs Services")
+  lazy val osAddressLookupProject = settingKey[Project]("The project definition for the os address lookup")
+  lazy val vehiclesLookupProject = settingKey[Project]("The project definition for the vehicles lookup project")
+  lazy val vehiclesDisposeFulfilProject = settingKey[Project]("The project definition for vehicles dispose fulfil")
+  lazy val gatlingTestsProject = settingKey[Project]("The project definition for the gatling tests")
 }

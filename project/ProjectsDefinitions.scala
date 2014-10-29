@@ -2,15 +2,10 @@ import sbt.Keys.{libraryDependencies, resolvers}
 import sbt._
 
 object ProjectsDefinitions {
-  final val VersionOsAddressLookup = "0.4-SNAPSHOT"
-  final val VersionVehiclesLookup = "0.3-SNAPSHOT"
-  final val VersionVehiclesDisposeFulfil = "0.3-SNAPSHOT"
-  final val VersionLegacyStubs = "1.0-SNAPSHOT"
   final val VersionJetty = "9.2.1.v20140609"
   final val VersionSpringWeb = "3.0.7.RELEASE"
-  final val VersionVehiclesGatling = "1.0-SNAPSHOT"
-  final val VersionGatling = "1.0-SNAPSHOT"
   final val VersionGatlingApp = "2.0.0-M4-NAP"
+  final val VersionVehiclesGatling = "1.0-SNAPSHOT"
 
   def sandProject(name: String, deps: ModuleID*): Project =
     sandProject(name, Seq[Resolver](), deps: _*)
@@ -24,23 +19,24 @@ object ProjectsDefinitions {
       .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 
   // Declaring the sandbox projects
-  lazy val osAddressLookup =
-    sandProject("os-address-lookup", "dvla" %% "os-address-lookup" % VersionOsAddressLookup)
+  def osAddressLookup(version: String) =
+    sandProject("os-address-lookup", "dvla" %% "os-address-lookup" % version)
 
-  lazy val vehiclesLookup =
-    sandProject("vehicles-lookup", "dvla" %% "vehicles-lookup" % VersionVehiclesLookup)
+  def vehiclesLookup(version: String) =
+    sandProject("vehicles-lookup", "dvla" %% "vehicles-lookup" % version)
 
-  lazy val vehiclesDisposeFulfil =
-    sandProject("vehicles-dispose-fulfil", "dvla" %% "vehicles-dispose-fulfil" % VersionVehiclesDisposeFulfil)
+  def vehiclesDisposeFulfil(version: String) =
+    sandProject("vehicles-dispose-fulfil", "dvla" %% "vehicles-dispose-fulfil" % version)
 
-  lazy val legacyStubs = sandProject(
+  def legacyStubs(version: String) = sandProject(
     name = "legacy-stubs",
-    "dvla-legacy-stub-services" % "legacy-stub-services-service" % VersionLegacyStubs,
+    "dvla-legacy-stub-services" % "legacy-stub-services-service" % version,
     "org.eclipse.jetty" % "jetty-server" % VersionJetty,
     "org.eclipse.jetty" % "jetty-servlet" % VersionJetty,
     "org.springframework" % "spring-web" % VersionSpringWeb
   )
-  lazy val gatlingTests = sandProject(
+
+  def gatlingTests() = sandProject(
     name = "gatling",
     Seq("Central Maven" at "http://central.maven.org/maven2"),
     "com.netaporter.gatling" % "gatling-app" % VersionGatlingApp,
