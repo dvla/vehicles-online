@@ -28,7 +28,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
     request.cookies.getModel[SetupTradeDetailsFormModel] match {
       case Some(setupTradeDetailsModel) =>
         val session = clientSideSessionFactory.getSession(request.cookies)
-        fetchAddresses(setupTradeDetailsModel)(session, request2lang).map { addresses =>
+        fetchAddresses(setupTradeDetailsModel, showBusinessName = Some(true))(session, request2lang).map { addresses =>
           if (config.ordnanceSurveyUseUprn) Ok(views.html.disposal_of_vehicle.business_choose_your_address(form.fill(),
             setupTradeDetailsModel.traderBusinessName,
             setupTradeDetailsModel.traderPostcode,
@@ -50,7 +50,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
-            fetchAddresses(setupTradeDetails).map { addresses =>
+            fetchAddresses(setupTradeDetails, showBusinessName = Some(true)).map { addresses =>
               if (config.ordnanceSurveyUseUprn)
                 BadRequest(business_choose_your_address(formWithReplacedErrors(invalidForm),
                   setupTradeDetails.traderBusinessName,
@@ -94,8 +94,8 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
       FormError(key = AddressSelectId, message = "disposal_businessChooseYourAddress.address.required", args = Seq.empty)).
       distinctErrors
 
-  private def fetchAddresses(model: SetupTradeDetailsFormModel)(implicit session: ClientSideSession, lang: Lang) =
-    addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId)
+  private def fetchAddresses(model: SetupTradeDetailsFormModel, showBusinessName: Option[Boolean])(implicit session: ClientSideSession, lang: Lang) =
+    addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId, showBusinessName = showBusinessName)
 
   private def lookupUprn(model: BusinessChooseYourAddressFormModel, traderName: String)
                         (implicit request: Request[_], session: ClientSideSession) = {
@@ -108,7 +108,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
 
   private def lookupAddressByPostcodeThenIndex(model: BusinessChooseYourAddressFormModel, setupBusinessDetailsForm: SetupTradeDetailsFormModel)
                                               (implicit request: Request[_], session: ClientSideSession): Future[Result] = {
-    fetchAddresses(setupBusinessDetailsForm)(session, request2lang).map { addresses =>
+    fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
       val indexSelected = model.uprnSelected.toInt
       if (indexSelected < addresses.length) {
         val lookedUpAddresses = index(addresses)
