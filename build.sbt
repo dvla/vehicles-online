@@ -55,6 +55,7 @@ libraryDependencies ++= Seq(
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
   "dvla" %% "vehicles-presentation-common" % "2.5-SNAPSHOT" withSources() withJavadoc(),
+  "dvla" %% "common-test" % "2.5-SNAPSHOT" % "test" withSources() withJavadoc(),
   "org.webjars" % "requirejs" % "2.1.14-1"
 )
 
