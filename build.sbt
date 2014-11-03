@@ -33,9 +33,6 @@ lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-t
   .dependsOn(root % "test->test")
   .disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
-lazy val sandboxPlugin = Project("sandbox-plugin", file("sandbox-plugin"))
-  .disablePlugins(PlayScala, SassPlugin, SbtWeb)
-
 libraryDependencies ++= Seq(
   cache,
   filters,

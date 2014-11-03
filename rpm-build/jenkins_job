@@ -4,7 +4,7 @@ set -o errexit
 
 export SBT_OPTS="-Dspecs2.color=false -Dsbt.log.format=true -XX:+UseConcMarkSweepGC -Dsbt.log.noformat=true -Xms1024M -Xmx3500M -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:PermSize=512M -XX:MaxPermSize=1024M"
 
-sbt -Dsbt.log.noformat=true clean test dist publish sandbox-plugin/publish
+sbt -Dsbt.log.noformat=true clean test dist publish
 
 rm -rf target/*.rpm
 ./rpm-build/jenkins_job_make_rpm
