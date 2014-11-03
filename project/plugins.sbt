@@ -1,5 +1,5 @@
 // Comment to get more information during initialization
-logLevel := Level.Info
+logLevel := Level.Debug
 
 // Our plugin resolvers
 resolvers += "Nexus snapshots" at "http://rep002-01.skyscape.preview-dvla.co.uk:8081/nexus/content/repositories/snapshots"
@@ -13,7 +13,7 @@ resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/reposi
 
 resolvers += "Maven 2" at "http://repo2.maven.org/maven2"
 
-addSbtPlugin("dvla" % "microservices-sandbox" % "1.0.0-SNAPSHOT")
+addSbtPlugin("dvla" % "microservices-sandbox" % "1.0.1-SNAPSHOT")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.3")
 
