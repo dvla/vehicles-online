@@ -30,6 +30,24 @@
         <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("lib/vehicles-presentation-common/images/apple-touch-icon-120x120.png")" sizes="120x120">
         <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("lib/vehicles-presentation-common/images/apple-touch-icon-144x144.png")" sizes="144x144">
         <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("lib/vehicles-presentation-common/images/apple-touch-icon-152x152.png")" sizes="152X152">
+
+        @if(config.googleAnalyticsTrackingId != "NOT FOUND") {
+            @*
+            https://support.google.com/analytics/answer/1008080?hl=en&utm_id=ad
+            Paste it immediately before the closing </head> tag.
+            *@
+            <!-- Google Analytics -->
+            <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', '@{config.googleAnalyticsTrackingId}', 'auto');
+            ga('send', 'pageview');
+            </script>
+            <!-- End Google Analytics -->
+        }
     </head>
 
     <body>
@@ -113,17 +131,5 @@
         <![endif]-->
 
         <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-
-        @if(config.isGoogleAnalyticsEnabled) {
-            <script>
-                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-                ga('create', '@play.Configuration.root().getString("googleAnalytics.id")', '@play.Configuration.root().getString("googleAnalytics.domain")', {'siteSpeedSampleRate': 25});
-                ga('send', 'pageview');
-            </script>
-        }
     </body>
 </html>
