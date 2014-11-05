@@ -44,7 +44,6 @@ class Config {
   val prototypeSurveyPrepositionInterval: Long = getDurationProperty("survey.interval", 7.days.toMillis)
 
   // Google analytics
-  val isGoogleAnalyticsEnabled: Boolean = getProperty("googleAnalytics.enabled", default = false)
   val googleAnalyticsTrackingId: String = getProperty("googleAnalytics.id.dispose", "NOT FOUND")
 
   // Progress step indicator
