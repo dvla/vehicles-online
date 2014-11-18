@@ -16,21 +16,18 @@
 progress = Some(Messages("disposal_progress_6")),
 title = Messages("disposal_disposeconfirmation.title")
 ){
-<div class="alert-complete">
-    <h2>@Messages("disposal_disposeconfirmation.disposalComplete")</h2>
-    <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
-    <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</p>
-    <p class="transaction-id">@Messages("disposal_disposeconfirmation.yourTransactionId") <br />
-        <span class="emphasized">@Messages("disposal_disposeconfirmation.transactionid", data.transactionId.getOrElse(""))</span>
-    </p>
-    <p>@Messages("disposal_disposeconfirmation.transactionDate", disposeDateTime.toString("dd/MM/yyy"))</p>
-</div>
 
 <div class="two-col disposal-sucesss">
 
     <div class="first-col">
-
         <dl class="playback">
+          <h2>@Messages("disposal_disposeconfirmation.transactionDetails")</h2>
+          <dt>@Messages("disposal_disposeconfirmation.transactionid_label")</dt>
+          <dd>@Messages("disposal_disposeconfirmation.transactionid", data.transactionId.getOrElse(""))</dd>
+          <dt>@Messages("disposal_disposeconfirmation.transactionDate")</dt>
+          <dd>@Messages( disposeDateTime.toString("dd/MM/yyy"))</dd>
+        </dl>
+        <dl class="playback bg-plain related">
             <dt><h2>@Messages("disposal_disposeconfirmation.disposaldetails")</h2></dt>
             <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
             <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>
@@ -62,9 +59,18 @@ title = Messages("disposal_disposeconfirmation.title")
     </div>
 
     <div class="second-col">
+
+<div class="alert-complete">
+    <h2>@Messages("disposal_disposeconfirmation.disposalComplete")</h2>
+    <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
+    <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</p>
+</div>
+        <h2>@Messages("disposal_disposeconfirmation.whatNext")</h2>
         <p>@Messages("disposal_disposeconfirmation.exkeeper")</p>
+<p>@Messages("disposal_disposeconfirmation.exkeeper-p2")</p>
+<p>@Messages("disposal_disposeconfirmation.exkeeper-p3")</p>
         <div class="alert-warning print-message">
-          <p><strong>@Messages("disposal_disposeconfirmation.exkeeper-p2")</strong></p>
+          <p><strong>@Messages("disposal_disposeconfirmation.exkeeper-p4")</strong></p>
         </div>
 
         <div class="form-steps">

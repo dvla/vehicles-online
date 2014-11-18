@@ -96,7 +96,7 @@ disposal_businessChooseYourAddress.submitbutton = Next
 disposal_businessChooseYourAddress.manualAddressEntry = My address is not in the list
 disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Enter address
 error.dropDownInvalid = Please select a value from the drop down list.
-disposal_businessChooseYourAddress_noaddressesfound.h2.1 = No addresses found for that postcode. 
+disposal_businessChooseYourAddress_noaddressesfound.h2.1 = No addresses found for that postcode.
 disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Please either ''Enter address'' or click ''Back'' to try again.
 
 #page 3 - manual address entry
@@ -190,13 +190,16 @@ disposal_disposeconfirmation.vehiclemake = Make
 disposal_disposeconfirmation.vehiclemodel = Model
 disposal_disposeconfirmation.vehiclekeeper = Keeper
 disposal_disposeconfirmation.disposedto = Sold to
-disposal_disposeconfirmation.exkeeper = A letter will be sent to the name and address on the V5C within 4 weeks. If they do not receive a letter in this time they must contact DVLA Customer Enquiries on 0300 790 6802 as they could still be liable for this vehicle. DVLA will automatically issue a refund for any full remaining months of vehicle tax and cancel any direct debits (DD). The refund will be sent to the address on the V5C.
-disposal_disposeconfirmation.exkeeper-p2 = Please print this page and pass to the customer.
+disposal_disposeconfirmation.exkeeper = A letter will be sent to the name and address on the V5C within 4 weeks. If they do not receive a letter in this time they must contact DVLA Customer Enquiries on 0300 790 6802 as they could still be liable for this vehicle.
+disposal_disposeconfirmation.exkeeper-p2 = DVLA will automatically issue a refund for any full remaining months of vehicle tax and cancel any direct debits (DD). The refund will be sent to the address on the V5C.
+disposal_disposeconfirmation.exkeeper-p3 = Please quote the Transaction ID above if you need to contact DVLA.
+disposal_disposeconfirmation.exkeeper-p4 = Please print this page and pass to the customer.
 disposal_disposeconfirmation.sendbutton = Send
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = Transaction id
 disposal_disposeconfirmation.transactionid_message = Transaction message goes here
-disposal_disposeconfirmation.transactionDate = Date of transaction: {0}
+disposal_disposeconfirmation.transactionDate = Date of transaction
+disposal_disposeconfirmation.whatNext = What Happens Next?
 disposal_disposeconfirmation.registrationNumber = {0}
 disposal_disposeconfirmation.registrationNumber_label = Registration number
 disposal_disposeconfirmation.backbutton = Back
@@ -207,6 +210,8 @@ disposal_disposeconfirmation.mileageNotEntered = NOT ENTERED
 disposal_disposeconfirmation.noMileageEntered = No mileage entered
 disposal_disposeconfirmation.exitbutton = Finish
 disposal_disposeconfirmation.survey = Take a survey
+disposal_disposeconfirmation.transactionDetails = Transaction Details
+
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Sell a vehicle into the motor trade: failure
