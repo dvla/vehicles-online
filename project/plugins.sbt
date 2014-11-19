@@ -13,6 +13,8 @@ resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/reposi
 
 resolvers += "Maven 2" at "http://repo2.maven.org/maven2"
 
+addSbtPlugin("dvla" % "build-details-generator" % "1.0.0-SNAPSHOT")
+
 addSbtPlugin("dvla" % "microservices-sandbox" % "1.0.1-SNAPSHOT")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.3")
