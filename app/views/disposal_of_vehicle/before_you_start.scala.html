@@ -13,17 +13,43 @@
     title = Messages("disposal_beforeyoustart.title"),
     showLanguageSwitch = true
 ) {
-    <p>@Messages("disposal_beforeyoustart.p1")</p>
-    <ol class="list-standard">
+<div class="two-col">
+  <div class="first-col">
+    <div class="related">
+      <h2>Test</h2>
+      <dl>
+        <dt><a href="#">Take a personalised registration off a vehicle</a></dt>
+        <dt><a href="#"></a></dt>
+      </dl>
+    </div>
+  </div>
+  <div class="second-col">
+    <p>If a vehicle has been sold to the motor trade, the motor trader buying the vehicle can now tell DVLA online on behalf of the seller.</p>
+    <div class="alert-warning"><h3>This service must only be used by a member of the motor trade acting on behalf of a seller.</h3></div>
+    <h2>@Messages("disposal_beforeyoustart.p1")</h2>
+    <ol>
         <li>@Messages("disposal_beforeyoustart.listitem1") </li>
         <li>@Messages("disposal_beforeyoustart.listitem2") <a href="https://www.gov.uk/government/publications/application-to-transfer-or-retain-a-vehicle-registration-number" target="_blank">@Messages("disposal_beforeyoustart.listitem2.link")</a></li>
         <li>@Messages("disposal_beforeyoustart.listitem3")</li>
         <li>@Messages("disposal_beforeyoustart.listitem4")</li>
     </ol>
-
+    <h2>To use this service you will need</h2>
+    <ul>
+      <li>The 11 digit document reference number from the latest registration certificate (V5C)</li>
+      <li>The consent of the seller of the vehicle to act on their behalf</li>
+    </ul>
+    <div class="alert-warning"><h3>Please note: this service updates our records immediately</h3></div>
+    <h2>Once you've finished</h2>
+    <ul>
+      <li>The registered keeper will be removed from our records and we will send them confirmation by post</li>
+      <li>We will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit</li>
+      <li>The original V5C/3 yellow disposal slip must not be sent to DVLA</li>
+    </ul>
     <div class="form-steps">
         @csrfTokenHiddenField()
         @* Note the reverse routing syntax for the hyperlink *@
         <a class="button" id="@NextId" href="@SetUpTradeDetails.submit()">@Messages("disposal_beforeyoustart.button")</a>
     </div>
+  </div>
+</div>
 }
