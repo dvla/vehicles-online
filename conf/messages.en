@@ -75,6 +75,7 @@ disposal_setuptradedetails.title = Provide trader details
 disposal_setuptradedetails.name = Sell a vehicle into the motor trade
 disposal_setuptradedetails.p1 = Set-up trade details
 disposal_setuptradedetails.tradernamelabel = Trader name
+disposal_setuptradedetails.tradername.hint = Name of the company that the vehicle is being sold to
 disposal_setuptradedetails.traderpostcodelabel = Postcode
 disposal_setuptradedetails.traderpostcodelabel.validation = Must be between 5 and 8 characters and in a valid format, eg. PR2 8AE or PR28AE
 disposal_setuptradedetails.traderpostcode.hint = eg. AB1 2BA or AB12BA

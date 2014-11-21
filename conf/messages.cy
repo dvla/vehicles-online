@@ -75,6 +75,7 @@ disposal_setuptradedetails.title = Rhowch fanylion y masnachwr
 disposal_setuptradedetails.name = Gwerthu cerbyd i''r fasnach foduron
 disposal_setuptradedetails.p1 = Gosod y manylion masnach
 disposal_setuptradedetails.tradernamelabel = Enw''r masnachwr
+disposal_setuptradedetails.tradername.hint = Enw''r cwmni y mae''r cerbyd yn cael ei werthu i
 disposal_setuptradedetails.traderpostcodelabel = Côd Post
 disposal_setuptradedetails.traderpostcodelabel.validation = Rhaid ei fod rhwng 5 ac 8 nod ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
 disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA

@@ -23,16 +23,20 @@
         @csrfTokenHiddenField()
 
         <div class="uppercase-input">
-            @valtechInputText(traderLookupForm(TraderNameId), args =
+            @valtechInputText(traderLookupForm(TraderNameId),
+                hintText = Some(Messages("disposal_setuptradedetails.tradername.hint")),
+                args =
                     Map('_label -> Messages("disposal_setuptradedetails.tradernamelabel"),
-                        '_showConstraints -> false,
-                        'autofocus -> true,
-                        'maxLength -> TraderNameMaxLength))
+                    '_showConstraints -> false,
+                    'autofocus -> true,
+                    'maxLength -> TraderNameMaxLength))
 
-            @valtechInputText(traderLookupForm(TraderPostcodeId), hintText = Some(Messages("disposal_setuptradedetails.traderpostcode.hint")), args =
+            @valtechInputText(traderLookupForm(TraderPostcodeId),
+                hintText = Some(Messages("disposal_setuptradedetails.traderpostcode.hint")),
+                args =
                     Map('_label -> Messages("disposal_setuptradedetails.traderpostcodelabel"),
-                        '_showConstraints -> false,
-                        'maxLength -> Postcode.MaxLength))
+                    '_showConstraints -> false,
+                    'maxLength -> Postcode.MaxLength))
 
             <div class="form-steps">
                 <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_setuptradedetails.button")</button>
