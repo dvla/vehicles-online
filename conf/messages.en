@@ -70,6 +70,13 @@ disposal_beforeyoustart.listitem3 = This service can only be used to notify the 
 disposal_beforeyoustart.listitem4 = Once you have completed this service, DVLA will issue an automatic refund for any full remaining months of vehicle tax to the address on the V5C, and any direct debit (DD) will also be cancelled.
 disposal_beforeyoustart.button = Start now
 
+disposal_beforeyoustart.usefulLinks = Useful links
+disposal_beforeyoustart.Link1name = Take a personalised registration off a vehicle
+disposal_beforeyoustart.description = If a vehicle has been sold to the motor trade, the motor trader buying the vehicle can now tell DVLA online on behalf of the seller.
+disposal_beforeyoustart.tradeWarn = This service must only be used by a member of the motor trade acting on behalf of a seller.
+
+disposal_beforeyoustart.youWillNeedTitle = To use this service you will need
+
 #page 2 - set-up trade details
 disposal_setuptradedetails.title = Provide trader details
 disposal_setuptradedetails.name = Sell a vehicle into the motor trade
@@ -96,7 +103,7 @@ disposal_businessChooseYourAddress.submitbutton = Next
 disposal_businessChooseYourAddress.manualAddressEntry = My address is not in the list
 disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Enter address
 error.dropDownInvalid = Please select a value from the drop down list.
-disposal_businessChooseYourAddress_noaddressesfound.h2.1 = No addresses found for that postcode. 
+disposal_businessChooseYourAddress_noaddressesfound.h2.1 = No addresses found for that postcode.
 disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Please either ''Enter address'' or click ''Back'' to try again.
 
 #page 3 - manual address entry
