@@ -72,3 +72,5 @@ GET         /help/back                                @controllers.Help.back
 GET         /with-language/:chosenLanguage            uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
 
 GET         /healthcheck                              @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond
+
+GET         /version                                  @controllers.Version.version
