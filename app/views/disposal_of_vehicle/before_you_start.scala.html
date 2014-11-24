@@ -13,23 +13,28 @@
     title = Messages("disposal_beforeyoustart.title"),
     showLanguageSwitch = true
 ) {
+  <style type="text/css">
+  .app ul.list-standard {
+    list-style: disc;
+  }
+  </style>
 <div class="two-col">
-  <div class="first-col">
+  <div class="first-col" style="width:30%;">
     <div class="related">
       <h2>@Messages("disposal_beforeyoustart.usefulLinks")</h2>
       <dl>
         <dt><a href="#">@Messages("disposal_beforeyoustart.Link1name")</a></dt>
-        <dt><a href="#"></a></dt>
+        <dt><a href="#">Vehicle tax refund</a></dt>
       </dl>
     </div>
   </div>
-  <div class="second-col">
+  <div class="second-col" style="width:67%">
     <p>@Messages("disposal_beforeyoustart.description")</p>
     <div class="alert-warning"><h3>@Messages("disposal_beforeyoustart.tradeWarn")</h3></div>
     <h2>@Messages("disposal_beforeyoustart.p1")</h2>
     <ol class="list-standard">
         <li>@Messages("disposal_beforeyoustart.listitem1") </li>
-        <li>@Messages("disposal_beforeyoustart.listitem2") <a href="https://www.gov.uk/government/publications/application-to-transfer-or-retain-a-vehicle-registration-number" target="_blank">@Messages("disposal_beforeyoustart.listitem2.link")</a></li>
+        <li>@Messages("disposal_beforeyoustart.listitem2")</li>
         <li>@Messages("disposal_beforeyoustart.listitem3")</li>
         <li>@Messages("disposal_beforeyoustart.listitem4")</li>
     </ol>
@@ -45,6 +50,8 @@
       <li>We will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit</li>
       <li>The original V5C/3 yellow disposal slip <strong>must not</strong> be sent to DVLA</li>
     </ul>
+    <h2>Other ways to apply</h2>
+    <p>If you do not use the online service, you or the seller must complete the V5C/3 and post it to DVLA, Swansea, SA99 1BD</p>
     <div class="form-steps">
         @csrfTokenHiddenField()
         @* Note the reverse routing syntax for the hyperlink *@
