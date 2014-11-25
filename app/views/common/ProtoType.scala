@@ -1,5 +1,5 @@
 package views.common
 
-object Feedback {
+object ProtoType {
   final val FeedbackId = "feedback"
 }

@@ -104,7 +104,7 @@ final class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness 
 
       go to VehicleLookupFailurePage
 
-      page.source should include("For each vehicle registration number, only 3 attempts can be made to retrieve the vehicle details.")
+      page.source should include("For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.")
     }
 
   }

@@ -1,8 +1,6 @@
 #main
 main.banner = Sell a vehicle into the motor trade
 main.banner.help = Help
-main.banner.feedback = Feedback
-main.banner.feedback.link = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell%20to%20the%20Trade%20feedback
 
 global.cookiemessage = GOV.UK uses cookies to make the site simpler.
 global.cookiefindoutmore = Find out more about cookies
@@ -24,9 +22,11 @@ footer.link = Open Government Licence v2.0
 footer.text2 = , except where otherwise stated
 
 #prototype
-prototype.banner = This service is under development -
-prototype.link =  find out more
-prototype.link.source = https://www.gov.uk/help/beta
+prototype.banner = This is a new service -
+prototype.link =  your feedback
+prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
+prototype.bannerPart2 = will help us to improve it
+
 
 #widget messages
 errorsummary.title = Please correct the details below
@@ -60,14 +60,14 @@ error.invalid = Invalid value
 #page 1 - Before You Start
 disposal_beforeyoustart.title = Sell a vehicle into the motor trade
 disposal_beforeyoustart.p1 = Before you start:
-disposal_beforeyoustart.listitem1 = You will need the most recent vehicle registration certificate (V5C). There must be no changes needed to the V5C and the name and address of the registered keeper must be up to date and correct.
+disposal_beforeyoustart.listitem1 = No changes can be made to the V5C and the name and address must be correct
 disposal_beforeyoustart.listitem1linktext = Vehicle Enquiry Service (VES)
 
-disposal_beforeyoustart.listitem2 = If the vehicle being sold has a personal registration number, the keeper must understand that the registration number will be sold with the vehicle. If the keeper wants to keep the personal registration number, they must firstly retain or transfer it to another vehicle.
+disposal_beforeyoustart.listitem2 = Any personalised registration numbers must be retained or transferred before using this service
 disposal_beforeyoustart.listitem2.link = Apply to retain a vehicle registration number (V317).
 
-disposal_beforeyoustart.listitem3 = This service can only be used to notify the sale of a vehicle into the motor trade. Any other services such as changing address or selling to a private individual cannot currently be made online. These requests must be made by sending the V5C to DVLA, Swansea, SA99 1BA.
-disposal_beforeyoustart.listitem4 = Once you have completed this service, DVLA will issue an automatic refund for any full remaining months of vehicle tax to the address on the V5C, and any direct debit (DD) will also be cancelled.
+disposal_beforeyoustart.listitem3 = Only the sale of a vehicle into the motor trade can be notified using this service
+disposal_beforeyoustart.listitem4 = This service is currently available Mon – Sat, 8am – 6pm
 disposal_beforeyoustart.button = Start now
 
 disposal_beforeyoustart.usefulLinks = Useful links
@@ -238,12 +238,11 @@ disposal_vehiclelookupfailure.p1 = The service is temporarily unavailable. Pleas
 disposal_vehiclelookupfailure.button = Try again
 disposal_vehiclelookupfailure.button2 = Exit
 vehicle_lookup_vrm_not_found.p1 = The V5C document reference number and/or the vehicle registration number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
-vehicle_lookup_vrm_not_found.p0 = Please make sure you have the most recent V5C and try again.
-vehicle_lookup_vrm_not_found.p2 = For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.
 vehicle_lookup_vrm_not_found.p3 =
-vehicle_lookup_document_reference_mismatch.p1 = The V5C document reference number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
-vehicle_lookup_document_reference_mismatch.p2 = Please make sure you have the most recent V5C and try again.
-vehicle_lookup_document_reference_mismatch.p3 = For each vehicle registration number, only 3 attempts can be made to retrieve the vehicle details.
+vehicle_lookup_vrm_not_found.p2 = For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.
+vehicle_lookup_document_reference_mismatch.p1 = The V5C document reference number and/or the vehicle registration number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
+vehicle_lookup_document_reference_mismatch.p3 =
+vehicle_lookup_document_reference_mismatch.p2 = For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.
 
 addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters

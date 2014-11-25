@@ -1,8 +1,6 @@
 #main
 main.banner = Gwerthu cerbyd i''r fasnach foduron
 main.banner.help = Help
-main.banner.feedback = Adborth
-main.banner.feedback.link = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell%20to%20the%20Trade%20feedback
 
 global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml.
 global.cookiefindoutmore = Dysgwch fwy am gwcis
