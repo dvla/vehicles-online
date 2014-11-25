@@ -24,7 +24,7 @@
       <h2>@Messages("disposal_beforeyoustart.usefulLinks")</h2>
       <dl>
         <dt><a href="#">@Messages("disposal_beforeyoustart.Link1name")</a></dt>
-        <dt><a href="#">Vehicle tax refund</a></dt>
+        <dt><a href="#">@Messages("disposal_beforeyoustart.Link2name")</a></dt>
       </dl>
     </div>
   </div>
@@ -42,19 +42,22 @@
         <li>@Messages("disposal_beforeyoustart.listitem4")</li>
     </ol>
     <h2>@Messages("disposal_beforeyoustart.youWillNeedTitle")</h2>
-    <ul>
-      <li>The 11 digit document reference number from the latest registration certificate (V5C)</li>
-      <li>The consent of the seller of the vehicle to act on their behalf</li>
+    <ul class="list-standard">
+      <li>@Messages("disposal_beforeyoustart.youWillNeedListItem1")</li>
+      <li>@Messages("disposal_beforeyoustart.youWillNeedListItem2")</li>
     </ul>
-    <div class="alert-warning"><h3>Please note: this service updates our records immediately</h3></div>
-    <h2>Once you've finished</h2>
-    <ul>
-      <li>The registered keeper will be removed from our records and we will send them confirmation by post</li>
-      <li>We will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit</li>
-      <li>The original V5C/3 yellow disposal slip <strong>must not</strong> be sent to DVLA</li>
+    <div class="alert-warning"><h3>@Messages("disposal_beforeyoustart.recordUpdateWarn")</h3></div>
+    <h2>@Messages("disposal_beforeyoustart.finishedTitle")</h2>
+    <ul class="list-standard">
+      <li>@Messages("disposal_beforeyoustart.finishedListItem1")</li>
+      <li>@Messages("disposal_beforeyoustart.finishedListItem2")</li>
+      <li>@Messages("disposal_beforeyoustart.finishedListItem3.1")&nbsp;
+          <strong>@Messages("disposal_beforeyoustart.finishedListItem3.2")</strong>&nbsp;
+          @Messages("disposal_beforeyoustart.finishedListItem3.3")
+      </li>
     </ul>
-    <h2>Other ways to apply</h2>
-    <p>If you do not use the online service, you or the seller must complete the V5C/3 and post it to DVLA, Swansea, SA99 1BD</p>
+    <h2>@Messages("disposal_beforeyoustart.otherWaysTitle")</h2>
+    <p>@Messages("disposal_beforeyoustart.otherWays.p1")</p>
     <div class="form-steps">
         @csrfTokenHiddenField()
         @* Note the reverse routing syntax for the hyperlink *@
