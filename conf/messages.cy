@@ -1,8 +1,6 @@
 #main
 main.banner = Gwerthu cerbyd i''r fasnach foduron
 main.banner.help = Help
-main.banner.feedback = Adborth
-main.banner.feedback.link = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell%20to%20the%20Trade%20feedback
 
 global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml.
 global.cookiefindoutmore = Dysgwch fwy am gwcis
@@ -75,6 +73,7 @@ disposal_setuptradedetails.title = Rhowch fanylion y masnachwr
 disposal_setuptradedetails.name = Gwerthu cerbyd i''r fasnach foduron
 disposal_setuptradedetails.p1 = Gosod y manylion masnach
 disposal_setuptradedetails.tradernamelabel = Enw''r masnachwr
+disposal_setuptradedetails.tradername.hint = Enw''r cwmni y mae''r cerbyd yn cael ei werthu i
 disposal_setuptradedetails.traderpostcodelabel = Côd Post
 disposal_setuptradedetails.traderpostcodelabel.validation = Rhaid ei fod rhwng 5 ac 8 nod ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
 disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA
