@@ -1,11 +1,11 @@
 package views.disposal_of_vehicle
 
-import helpers.UiSpec
+import helpers.{WireMockFixture, UiSpec}
 import helpers.webbrowser.{WebDriverFactory, TestHarness}
 import pages.ApplicationContext.applicationContext
 import scala.io.Source.fromInputStream
 
-class VersionIntegrationSpec extends UiSpec with TestHarness {
+class VersionIntegrationSpec extends UiSpec with TestHarness  with WireMockFixture {
   "Version endpoint" should {
     "be declared and should include the build-details.txt from classpath" in new WebBrowser {
       go.to(WebDriverFactory.testUrl + s"$applicationContext/version")
