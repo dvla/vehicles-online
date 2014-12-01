@@ -299,9 +299,9 @@ soap_endpoint_error.exit.button=Exit
 
 #vrm locked
 vrm_locked.title=Registration number is locked
-vrm_locked.text1= There have been 3 unsuccessful attempts to access the vehicle details. For security reasons the vehicle registration number is now locked for 10 minutes. During this period other vehicles can be processed by selecting ‘Sell another vehicle’ below.
+vrm_locked.text1= There have been repeated unsuccessful attempts to access the vehicle details. The system has now locked this vehicle registration number for 10 minutes. Other vehicles can be processed during this time by selecting 'Sell another vehicle' below.
 vrm_locked.text2=Locked at
-vrm_locked.text3.1= We are unable to process your application for this vehicle. Please send your completed V5C/3 to
+vrm_locked.text3.1= If you are sure that the details entered are correct then please send your completed V5C/3 to 
 vrm_locked.text3.2=DVLA, Swansea SA99 1BD
 
 vrm_locked.newdisposalbutton=Sell another vehicle
