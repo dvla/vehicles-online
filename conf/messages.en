@@ -174,7 +174,7 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 
 #page 5 - confirm disposal
 disposal_dispose.title = Complete & confirm
-disposal_dispose.warning=If the details above do not match the vehicle to be sold, please contact the DVLA.
+disposal_dispose.warning=If the details above do not match the vehicle to be sold, please contact the DVLA, Swansea, SA99 1DZ
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration
 disposal_dispose.vehiclemake = Make
