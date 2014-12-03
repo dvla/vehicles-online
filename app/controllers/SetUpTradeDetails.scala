@@ -6,7 +6,7 @@ import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichForm, RichResult}
 import utils.helpers.Config
-import models._
+import models.{SetupTradeDetailsFormModel, AllCacheKeys}
 import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 
