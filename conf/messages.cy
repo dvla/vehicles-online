@@ -286,7 +286,7 @@ disposal.closed.exit_button = Allan
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Peidiwch ag anfon y V5CW/3 (slip gwaredu) gwreiddiol at DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Os gwelwch yn dda dinistrio''r V5C / 3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;

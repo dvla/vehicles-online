@@ -293,7 +293,7 @@ disposal.closed.exit_button = Exit
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = The application is being processed.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Please do not send the original V5C/3 (disposal slip) to DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Please destroy the original V5C/3 (disposal slip). This must not be sent to DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Transaction Unsuccessful
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;
