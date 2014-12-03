@@ -105,7 +105,7 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
   }
 
   def exit = Action { implicit request =>
-    Redirect(routes.BeforeYouStart.present())
+    Redirect(config.endUrl)
       .discardingCookies(AllCacheKeys)
       .withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)
   }

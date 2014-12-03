@@ -1,6 +1,7 @@
 package composition
 
 import com.google.inject.name.Names
+import com.typesafe.config.ConfigFactory
 import com.tzavellas.sse.guice.ScalaModule
 import composition.DevModule.bind
 import filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
@@ -8,7 +9,7 @@ import org.joda.time.DateTimeZone
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
 import AccessLoggingFilter.AccessLoggerName
 import org.scalatest.mock.MockitoSugar
-import play.api.{LoggerLike, Logger}
+import play.api.{Configuration, LoggerLike, Logger}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{NoCookieFlags, CookieFlags, ClientSideSessionFactory, ClearTextClientSideSessionFactory}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
@@ -30,6 +31,9 @@ class TestModule() extends ScalaModule with MockitoSugar {
   def configure() {
     Logger.debug("Guice is loading TestModule")
 
+    val applicationConf = System.getProperty("config.file", s"application.dev.conf")
+    implicit val config = Configuration(ConfigFactory.load(applicationConf))
+
     getProperty("addressLookupService.type", "ordnanceSurvey") match {
       case "ordnanceSurvey" => ordnanceSurveyAddressLookup()
       case _ => gdsAddressLookup()
@@ -47,6 +51,7 @@ class TestModule() extends ScalaModule with MockitoSugar {
     bind[LoggerLike].annotatedWith(Names.named(AccessLoggerName)).toInstance(Logger("dvla.common.AccessLogger"))
     bind[DateTimeZoneService].toInstance(new DateTimeZoneServiceImpl)
   }
+
 
   private def ordnanceSurveyAddressLookup() = {
     bind[AddressLookupService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl]

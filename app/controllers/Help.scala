@@ -17,7 +17,7 @@ final class Help @Inject()()(implicit clientSideSessionFactory: ClientSideSessio
   }
 
   def back = Action { implicit request =>
-    val origin: String = request.cookies.getString(HelpCacheKey).getOrElse(routes.BeforeYouStart.present().url)
+    val origin: String = request.cookies.getString(HelpCacheKey).getOrElse(config.startUrl)
     Redirect(origin).
       discardingCookie(HelpCacheKey)
   }

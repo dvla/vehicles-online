@@ -56,7 +56,7 @@ final class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSi
   }
 
   def exit = Action { implicit request =>
-    Redirect(routes.BeforeYouStart.present()).
+    Redirect(config.endUrl).
       discardingCookies(AllCacheKeys).
       withCookie(PreventGoingToDisposePageCacheKey, "").
       withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)

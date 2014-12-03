@@ -6,7 +6,7 @@ import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichForm, RichResult}
 import utils.helpers.Config
-import models.SetupTradeDetailsFormModel
+import models._
 import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 
@@ -18,7 +18,9 @@ final class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: Cli
   )
 
   def present = Action { implicit request =>
-    Ok(views.html.disposal_of_vehicle.setup_trade_details(form.fill()))
+    Ok(views.html.disposal_of_vehicle.setup_trade_details(form.fill())).
+      withNewSession.
+      discardingCookies(AllCacheKeys)
   }
 
   def submit = Action { implicit request =>

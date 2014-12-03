@@ -1,11 +1,13 @@
 package controllers.disposal_of_vehicle
 
+import com.typesafe.config.ConfigFactory
 import controllers.VrmLocked
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
+import play.api.{Configuration, Play}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -67,12 +69,12 @@ final class VrmLockedUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vrmLocked.exit(request)
       whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
+        r.header.headers.get(LOCATION) should equal(Play.current.configuration.getString("end.page"))
       }
     }
   }
 
-  private val vrmLocked = injector.getInstance(classOf[VrmLocked])
+  private lazy val vrmLocked = injector.getInstance(classOf[VrmLocked])
 
   private lazy val present = {
     val dateService = new FakeDateServiceImpl

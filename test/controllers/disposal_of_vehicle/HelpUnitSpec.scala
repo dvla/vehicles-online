@@ -8,6 +8,7 @@ import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage}
+import play.api.Play
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, REFERER, contentAsString, defaultAwaitTimeout, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -60,7 +61,7 @@ final class HelpUnitSpec extends UnitSpec {
       // page presented or they are calling the route directly.
       val result = help.back(request)
       whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
+        r.header.headers.get(LOCATION) should equal(Play.current.configuration.getString("start.page"))
       }
     }
 
@@ -76,6 +77,6 @@ final class HelpUnitSpec extends UnitSpec {
     }
   }
 
-  private val help = injector.getInstance(classOf[Help])
+  private lazy val help = injector.getInstance(classOf[Help])
   private lazy val present = help.present(FakeRequest())
 }
