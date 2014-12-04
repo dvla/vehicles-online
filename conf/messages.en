@@ -72,10 +72,25 @@ disposal_beforeyoustart.button = Start now
 
 disposal_beforeyoustart.usefulLinks = Useful links
 disposal_beforeyoustart.Link1name = Take a personalised registration off a vehicle
+disposal_beforeyoustart.Link2name = Vehicle tax refund
 disposal_beforeyoustart.description = If a vehicle has been sold to the motor trade, the motor trader buying the vehicle can now tell DVLA online on behalf of the seller.
 disposal_beforeyoustart.tradeWarn = This service must only be used by a member of the motor trade acting on behalf of a seller.
 
 disposal_beforeyoustart.youWillNeedTitle = To use this service you will need
+disposal_beforeyoustart.youWillNeedListItem1 = The 11 digit document reference number from the latest registration certificate (V5C)
+disposal_beforeyoustart.youWillNeedListItem2 = The consent of the seller of the vehicle to act on their behalf
+
+disposal_beforeyoustart.recordUpdateWarn = Please note: this service updates our records immediately
+
+disposal_beforeyoustart.finishedTitle=Once you''ve finished
+disposal_beforeyoustart.finishedListItem1 = The registered keeper will be removed from our records and we will send them confirmation by post
+disposal_beforeyoustart.finishedListItem2 = We will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit
+disposal_beforeyoustart.finishedListItem3.1 = The original V5C/3 yellow disposal slip
+disposal_beforeyoustart.finishedListItem3.2 = must not
+disposal_beforeyoustart.finishedListItem3.3 = be sent to DVLA
+
+disposal_beforeyoustart.otherWaysTitle = Other ways to apply
+disposal_beforeyoustart.otherWays.p1 = If you do not use the online service, you or the seller must complete the V5C/3 and post it to DVLA, Swansea, SA99 1BD
 
 #page 2 - set-up trade details
 disposal_setuptradedetails.title = Provide trader details
@@ -159,7 +174,7 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 
 #page 5 - confirm disposal
 disposal_dispose.title = Complete & confirm
-disposal_dispose.warning=If the details above do not match the vehicle to be sold, please contact the DVLA.
+disposal_dispose.warning=If the details above do not match the vehicle to be sold, please contact the DVLA, Swansea, SA99 1DZ
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration
 disposal_dispose.vehiclemake = Make
@@ -273,7 +288,7 @@ disposal.closed.exit_button = Exit
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = The application is being processed.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Please do not send the original V5C/3 (disposal slip) to DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Please destroy the original V5C/3 (disposal slip). This must not be sent to DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Transaction Unsuccessful
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;

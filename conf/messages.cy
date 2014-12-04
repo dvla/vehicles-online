@@ -24,7 +24,8 @@ footer.text2 = , ac eithrio lle nodir yn wahanol
 #prototype
 prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
 prototype.link =  dysgwch fwy
-prototype.link.source = https://www.gov.uk/help/beta
+prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Gwerthu ar yr adborth Masnach
+prototype.bannerPart2 = bydd yn ein helpu i wella
 
 #widget messages
 errorsummary.title = Cywirwch y manylion isod
@@ -67,6 +68,28 @@ disposal_beforeyoustart.listitem2.link = Gwneud cais i gadw rhif cofrestru cerby
 disposal_beforeyoustart.listitem3 = Dim ond i hysbysu gwerthiant cerbyd i''r fasnach foduron y gellir defnyddio''r gwasanaeth hwn. Nid yw gwasanaethau eraill fel newid cyfeiriad neu werthu i unigolyn preifat ar gael ar-lein ar hyn o bryd. Rhaid gwneud cais am y rhain drwy anfon y V5CW at DVLA, Abertawe, SA99 1BA.
 disposal_beforeyoustart.listitem4 = Unwaith y byddwch wedi cwblhau''r gwasanaeth hwn, bydd DVLA yn anfon ad-daliad awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd i''r cyfeiriad ar y V5CW, a bydd unrhyw ddebyd uniongyrchol yn cael ei ganslo.
 disposal_beforeyoustart.button = Dechreuwch nawr
+
+disposal_beforeyoustart.usefulLinks = Dolenni defnyddiol
+disposal_beforeyoustart.Link1name = Cymerwch cofrestru personol oddi ar gerbyd
+disposal_beforeyoustart.Link2name = Ad-daliad treth cerbyd
+disposal_beforeyoustart.description = Os yw cerbyd wedi cael ei werthu i'r fasnach modur, y masnachwr modur prynu'r cerbyd yn awr ddweud wrth DVLA ar-lein ar ran y gwerthwr.
+disposal_beforeyoustart.tradeWarn = Rhaid gwasanaeth hwn yn cael ei ddefnyddio gan aelod o''r fasnach foduron sy'n gweithredu ar ran gwerthwr.
+
+disposal_beforeyoustart.youWillNeedTitle = I ddefnyddio''r gwasanaeth hwn, bydd angen i chi
+disposal_beforeyoustart.youWillNeedListItem1 = Mae''r 11 digid rhif cyfeirnod y ddogfen oddi wrth y dystysgrif gofrestru diweddaraf (V5C)
+disposal_beforeyoustart.youWillNeedListItem2 = Mae cydsyniad y gwerthwr y cerbyd i weithredu ar eu rhan
+
+disposal_beforeyoustart.recordUpdateWarn = Sylwer: gwasanaeth hwn yn diweddaru ein cofnodion ar unwaith
+
+disposal_beforeyoustart.finishedTitle = Unwaith y byddwch wedi gorffen
+disposal_beforeyoustart.finishedListItem1 = Bydd y ceidwad cofrestredig ei ddileu o''n cofnodion a byddwn yn anfon cadarnhad iddynt drwy''r post
+disposal_beforeyoustart.finishedListItem2 = Byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy'n ddyledus i''r cyfeiriad ar y V5CW a chanslo unrhyw debyd uniongyrchol
+disposal_beforeyoustart.finishedListItem3.1 = Y V5C gwreiddiol / 3 slip gwaredu melyn
+disposal_beforeyoustart.finishedListItem3.2 = ni ddylai
+disposal_beforeyoustart.finishedListItem3.3 = cael eu hanfon at DVLA
+
+disposal_beforeyoustart.otherWaysTitle = Ffyrdd eraill o wneud cais
+disposal_beforeyoustart.otherWays.p1 = Os nad ydych yn defnyddio''r gwasanaeth ar-lein, mae''n rhaid i chi neu''r gwerthwr gwblhau''r V5C / 3 a phostio i DVLA, Abertawe, SA99 1BD
 
 #page 2 - set-up trade details
 disposal_setuptradedetails.title = Rhowch fanylion y masnachwr
@@ -149,7 +172,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu â''r cerbyd a werthir, cysylltwch â''r DVLA.
+disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu â''r cerbyd a werthir, cysylltwch â''r DVLA, Abertawe, SA99 1DZ
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
@@ -263,7 +286,7 @@ disposal.closed.exit_button = Allan
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Peidiwch ag anfon y V5CW/3 (slip gwaredu) gwreiddiol at DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Os gwelwch yn dda dinistrio''r V5C / 3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
