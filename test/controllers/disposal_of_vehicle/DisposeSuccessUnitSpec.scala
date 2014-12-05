@@ -13,8 +13,10 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout}
 import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import utils.helpers.Config
 import models.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import webserviceclients.fakes.FakeDateServiceImpl
 
 import scala.concurrent.duration.DurationInt
 
@@ -176,10 +178,17 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "not offer the survey if the survey url is not set in the config" in new WithApplication {
-      implicit val config: Config = mock[Config]
+      implicit val config: Config = mockSurveyConfig("")
+      implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
+      implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
+      implicit val dateService = injector.getInstance(classOf[DateService])
+
+      val disposeSuccessFake = disposeWithMockConfig(config)
+      val presentFake = disposeSuccessFake.present(requestFullyPopulated)
+
       when(config.prototypeSurveyUrl).thenReturn("")
       when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
-      contentAsString(present) should not include "survey"
+      contentAsString(presentFake) should not include "survey"
     }
   }
 
@@ -290,7 +299,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
     }
   }
 
-  private val disposeSuccess = injector.getInstance(classOf[DisposeSuccess])
+  private lazy val disposeSuccess = injector.getInstance(classOf[DisposeSuccess])
   private val requestFullyPopulated = FakeRequest().
     withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
     withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).

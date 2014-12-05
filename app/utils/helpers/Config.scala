@@ -51,6 +51,8 @@ class Config {
   val isHtml5ValidationEnabled: Boolean = getProperty("html5Validation.enabled", default = false)
 
   val startUrl: String = getProperty("start.page", default = "NOT FOUND")
+  val endUrl: String = getProperty("end.page", default = startUrl)
+
 
   // opening and closing times
   val opening: Int = getProperty("openingTime", default = 1)

@@ -33,6 +33,6 @@ final class VrmLocked @Inject()()(implicit clientSideSessionFactory: ClientSideS
   }
 
   def exit = Action { implicit request =>
-    Redirect(routes.BeforeYouStart.present()).discardingCookies(AllCacheKeys)
+    Redirect(config.startUrl).discardingCookies(AllCacheKeys)
   }
 }
