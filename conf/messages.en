@@ -174,7 +174,7 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 
 #page 5 - confirm disposal
 disposal_dispose.title = Complete & confirm
-disposal_dispose.warning=If the details above do not match the vehicle to be sold, please contact the DVLA.
+disposal_dispose.warning=If the details above do not match the vehicle to be sold, please contact the DVLA, Swansea, SA99 1DZ
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration
 disposal_dispose.vehiclemake = Make
@@ -288,7 +288,7 @@ disposal.closed.exit_button = Exit
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = The application is being processed.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Please do not send the original V5C/3 (disposal slip) to DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Please destroy the original V5C/3 (disposal slip). This must not be sent to DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Transaction Unsuccessful
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;
@@ -314,9 +314,9 @@ soap_endpoint_error.exit.button=Exit
 
 #vrm locked
 vrm_locked.title=Registration number is locked
-vrm_locked.text1= There have been 3 unsuccessful attempts to access the vehicle details. For security reasons the vehicle registration number is now locked for 10 minutes. During this period other vehicles can be processed by selecting ‘Sell another vehicle’ below.
+vrm_locked.text1=There have been repeated unsuccessful attempts to access the vehicle details. The system has now locked this vehicle registration number for 10 minutes. Other vehicles can be processed during this time by selecting ''Sell another vehicle'' below.
 vrm_locked.text2=Locked at
-vrm_locked.text3.1= We are unable to process your application for this vehicle. Please send your completed V5C/3 to
+vrm_locked.text3.1=If you are sure that the details entered are correct then please send your completed V5C/3 to
 vrm_locked.text3.2=DVLA, Swansea SA99 1BD
 
 vrm_locked.newdisposalbutton=Sell another vehicle

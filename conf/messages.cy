@@ -172,7 +172,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu â''r cerbyd a werthir, cysylltwch â''r DVLA.
+disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu â''r cerbyd a werthir, cysylltwch â''r DVLA, Abertawe, SA99 1DZ
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
@@ -286,7 +286,7 @@ disposal.closed.exit_button = Allan
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Peidiwch ag anfon y V5CW/3 (slip gwaredu) gwreiddiol at DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Os gwelwch yn dda dinistrio''r V5C / 3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
@@ -312,10 +312,10 @@ soap_endpoint_error.exit.button=Allan
 
 #vrm locked
 vrm_locked.title=Rhif cofrestru wedi''i gloi
-vrm_locked.text1= Bu 3 chais aflwyddiannus i gael mynediad at fanylion y cerbyd. Am resymau diogeledd mae rhif cofrestru''r cerbyd wedi ei gloi am 10 munud. Yn ystod y cyfnod hwn gellir prosesu cerbydau eraill drwy ddewis ''Gwerthu cerbyd arall'' isod.
+vrm_locked.text1=Mae wedi cael eu hailadrodd ymdrechion aflwyddiannus i gael mynediad i''r manylion y cerbyd. Mae''r system bellach wedi cloi y rhif cofrestru cerbyd am 10 munud. Gellir prosesu cerbydau eraill yn ystod y cyfnod hwn trwy ddewis ''Gwerthu cerbyd arall'' isod.
 vrm_locked.text2=Wedi''i gloi ar
-vrm_locked.text3.1= Os oes angen help arnoch galwch ein canolfan gyswllt ar
-vrm_locked.text3.2=0300 790 6801
+vrm_locked.text3.1=Os ydych yn sicr bod y manylion a roddwch yn gywir, yna anfonwch eich V5C/3 cwblhau i
+vrm_locked.text3.2=DVLA, Abertawe SA99 1BD
 
 vrm_locked.newdisposalbutton=Gwerthu cerbyd arall
 vrm_locked.exit.button=Allan
