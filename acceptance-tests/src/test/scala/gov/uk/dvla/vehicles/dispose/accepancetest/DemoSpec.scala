@@ -1,6 +1,7 @@
 package gov.uk.dvla.vehicles.dispose.accepancetest
 
 import java.util.Calendar
+import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterAll, FeatureSpec, GivenWhenThen, Matchers}
 import helpers.webbrowser.{WebDriverFactory, WebBrowserDSL, TestHarness}
 import pages.disposal_of_vehicle.DisposePage
@@ -18,6 +19,7 @@ import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid
 final class DemoSpec extends FeatureSpec with GivenWhenThen with Matchers with BeforeAndAfterAll with TestHarness {
   implicit val webDriver = WebDriverFactory.webDriver
 
+  val conf = ConfigFactory.load()
   feature("Dispose of a vehicle to trade") {
     info("As a vehicle trader")
     info("I want to dispose of a vehicle for a customer")
@@ -28,7 +30,7 @@ final class DemoSpec extends FeatureSpec with GivenWhenThen with Matchers with B
 
       new WebBrowserDSL {
 
-        Given("I am on the vehicles online prototype site url:" + BeforeYouStartPage.url)
+        Given("I am on the vehicles online prototype site url:" + conf.getString("start.page"))
         go to BeforeYouStartPage
 
         And("I click the Start now button to begin the transaction")

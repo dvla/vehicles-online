@@ -13,7 +13,7 @@
 ) {
     <p>@Messages("vrm_locked.text1")</p>
     <p>@Messages("vrm_locked.text2")&nbsp;<span id='localTimeOfVrmLock' >@data.timeString</span></p>
-    <p>@Messages("vrm_locked.text3.1")&nbsp;<strong>@Messages("vrm_locked.text3.2")</strong></p>
+    <p>@Messages("vrm_locked.text3.1")<br/><strong>@Messages("vrm_locked.text3.2")</strong></p>
     <div class="form-steps">
         <div class="step">
             @form(action = controllers.routes.VrmLocked.newDisposal()) {

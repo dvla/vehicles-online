@@ -490,13 +490,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
   }
 
   "exit" should {
-    "redirect to BeforeYouStartPage" in new WithApplication {
+    "redirect to end page from configuration" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val mockVehiclesLookupService = mock[VehicleLookupWebService]
       val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(mockVehiclesLookupService)
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
-      implicit val config: Config = mock[Config]
+      implicit val config: Config = injector.getInstance(classOf[Config])
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
       val vehiclesLookup = new VehicleLookup(
         bruteForceServiceImpl(permitted = true),
@@ -506,7 +506,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       )
       val result = vehiclesLookup.exit(request)
       whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
+        r.header.headers.get(LOCATION) should equal(Some(config.endUrl))
       }
     }
 
