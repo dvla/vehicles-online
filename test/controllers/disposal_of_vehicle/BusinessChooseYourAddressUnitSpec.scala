@@ -248,6 +248,7 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
       val result = businessChooseYourAddress(uprnFound = true, ordnanceSurveyUseUprn = false).submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
+        cookies.filter( c => c.name == TraderDetailsCacheKey).head.toString should include (""""property stub"""")
         cookies.map(_.name) should contain allOf(BusinessChooseYourAddressCacheKey, TraderDetailsCacheKey)
       }
     }
