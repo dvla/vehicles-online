@@ -115,7 +115,7 @@ final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLoo
         val lookedUpAddress = lookedUpAddresses(indexSelected) match {
           case (index, address) => address
         }
-        val addressModel = AddressModel(uprn = None, address = lookedUpAddress.split(","))
+        val addressModel = AddressModel(uprn = None, address = lookedUpAddress.split(",") map (line => line.trim))
         nextPage(model, setupBusinessDetailsForm.traderBusinessName, addressModel)
       }
       else {
