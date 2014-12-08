@@ -2,13 +2,12 @@
 
 //disposal success
 .disposal-sucesss {
-    .first-col {
-        margin-top:1em;
-    }
-    .playback dt {
-        min-width:155px;
-    }
     .ie8 & .button-new-disposal {
         min-width:180px;
     }
+}
+
+#todaysDateOfDisposal {
+	font-weight: bold;
+	font-size: 18px;
 }
