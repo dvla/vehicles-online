@@ -79,7 +79,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
   def goToDisposeSuccessPage() = {
     goToDisposePage()
     DisposePage.mileage enter "10000"
-    selectTodaysDate
+    selectTodaysDate()
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
     click on DisposePage.dispose
@@ -116,12 +116,12 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
   def details_are_entered_that_correspond_to_a_vehicle_that_has_a_valid_clean_record_and_has_no_markers_or_error_codes() = {
     goToDisposePage()
     DisposePage.mileage enter "10000"
-    selectTodaysDate
+    selectTodaysDate()
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
   }
 
-  private def selectTodaysDate = {
+  private def selectTodaysDate() = {
     DisposePage.dateOfDisposalDay select "25"
     DisposePage.dateOfDisposalMonth select "11"
     DisposePage.dateOfDisposalYear select "1970"
@@ -135,7 +135,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
     click on VehicleLookupPage.findVehicleDetails
     page.title should equal(DisposePage.title)
     DisposePage.mileage enter "10000"
-    selectTodaysDate
+    selectTodaysDate()
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
     //submit()
