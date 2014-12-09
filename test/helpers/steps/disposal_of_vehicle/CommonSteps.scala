@@ -68,7 +68,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
     page.title should equal(VehicleLookupPage.title)
   }
 
-  def gotToDisposePage() = {
+  def goToDisposePage() = {
     goToVehicleLookupPage()
     VehicleLookupPage.vehicleRegistrationNumber enter RandomVrmGenerator.vrm
     VehicleLookupPage.documentReferenceNumber enter "11111111111"
@@ -77,9 +77,9 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
   }
 
   def goToDisposeSuccessPage() = {
-    gotToDisposePage()
+    goToDisposePage()
     DisposePage.mileage enter "10000"
-    DisposePage.useTodaysDate
+    selectTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
     click on DisposePage.dispose
@@ -114,11 +114,17 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
 
   @Given("""^details are entered that correspond to a vehicle that has a valid clean record and has no markers or error codes$""")
   def details_are_entered_that_correspond_to_a_vehicle_that_has_a_valid_clean_record_and_has_no_markers_or_error_codes() = {
-    gotToDisposePage()
+    goToDisposePage()
     DisposePage.mileage enter "10000"
-    DisposePage.useTodaysDate
+    selectTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
+  }
+
+  private def selectTodaysDate = {
+    DisposePage.dateOfDisposalDay select "25"
+    DisposePage.dateOfDisposalMonth select "11"
+    DisposePage.dateOfDisposalYear select "1970"
   }
 
   @Given("""^details are entered that correspond to a vehicle that has a valid record but does have markers or error codes$""")
@@ -129,9 +135,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
     click on VehicleLookupPage.findVehicleDetails
     page.title should equal(DisposePage.title)
     DisposePage.mileage enter "10000"
-    DisposePage.dateOfDisposalDay select "1"
-    DisposePage.dateOfDisposalMonth select "5"
-    DisposePage.dateOfDisposalYear select "2014"
+    selectTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
   }
@@ -177,7 +181,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
 
   @Then("""^a message is displayed "(.*?)"$""")
   def a_message_is_displayed(message: String) = {
-    page.text contains message
+    page.text should include(message)
   }
 
   @Then("""^the dispose transaction does not proceed past the "(.*)" step$""")
