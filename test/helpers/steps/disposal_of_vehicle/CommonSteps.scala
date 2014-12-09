@@ -79,9 +79,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
   def goToDisposeSuccessPage() = {
     gotToDisposePage()
     DisposePage.mileage enter "10000"
-    DisposePage.dateOfDisposalDay select "01"
-    DisposePage.dateOfDisposalMonth select "May"
-    DisposePage.dateOfDisposalYear select "2014"
+    DisposePage.useTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
     click on DisposePage.dispose
@@ -118,9 +116,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
   def details_are_entered_that_correspond_to_a_vehicle_that_has_a_valid_clean_record_and_has_no_markers_or_error_codes() = {
     gotToDisposePage()
     DisposePage.mileage enter "10000"
-    DisposePage.dateOfDisposalDay select "1"
-    DisposePage.dateOfDisposalMonth select "5"
-    DisposePage.dateOfDisposalYear select "2014"
+    DisposePage.useTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
   }
@@ -181,7 +177,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
 
   @Then("""^a message is displayed "(.*?)"$""")
   def a_message_is_displayed(message: String) = {
-    page.text should include(message)
+    page.text contains message
   }
 
   @Then("""^the dispose transaction does not proceed past the "(.*)" step$""")
