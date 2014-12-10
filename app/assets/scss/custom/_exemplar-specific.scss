@@ -8,6 +8,17 @@
 }
 
 #todaysDateOfDisposal {
-	font-weight: bold;
-	font-size: 18px;
+    color: #2E3191;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 18px;
+    &:hover {
+      color: #2E8ACA;
+    }
+}
+
+// Fixes button rendering in Firefox
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
 }
