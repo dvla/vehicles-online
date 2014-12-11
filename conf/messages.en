@@ -235,7 +235,6 @@ disposal_disposeconfirmation.exitbutton = Finish
 disposal_disposeconfirmation.survey = Take a survey
 disposal_disposeconfirmation.transactionDetails = Transaction Details
 
-
 #page 7 - dispose failure
 disposal_disposefailure.title = Sell a vehicle into the motor trade: failure
 disposal_disposefailure.name = Failure
@@ -323,7 +322,6 @@ vrm_locked.text1=There have been repeated unsuccessful attempts to access the ve
 vrm_locked.text2=Locked at
 vrm_locked.text3.1=If you are sure that the details entered are correct then please send your completed V5C/3 to
 vrm_locked.text3.2=DVLA, Swansea SA99 1BD
-
 vrm_locked.newdisposalbutton=Sell another vehicle
 vrm_locked.exit.button=Exit
 

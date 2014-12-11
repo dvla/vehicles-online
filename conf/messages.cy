@@ -2,7 +2,7 @@
 main.banner = Gwerthu cerbyd i''r fasnach foduron
 main.banner.help = Help
 
-global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml.
+global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml
 global.cookiefindoutmore = Dysgwch fwy am gwcis
 
 global.browserprompt = Am brofiad mwy diogel, cyflymach a gwell ar-lein dylech uwchraddio eich porwr.
@@ -26,6 +26,7 @@ prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
 prototype.link =  dysgwch fwy
 prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
 prototype.bannerPart2 = bydd yn ein helpu i wella
+
 
 #widget messages
 errorsummary.title = Cywirwch y manylion isod
@@ -147,6 +148,7 @@ disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
 disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion â llaw
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
 disposal_uprnnotfound.setuptradedetailsbutton = Rhowch gyfeiriad i mewn â llaw
+
 disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn â llaw
 
 #page 4 - vehicle Lookup
@@ -320,7 +322,6 @@ vrm_locked.text1= Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerby
 vrm_locked.text2= Wedi''i gloi ar
 vrm_locked.text3.1= Os ydych yn siŵr bod y manylion yn gywir yna anfonwch eich V5C/3 wedi''u cwblhau i
 vrm_locked.text3.2= DVLA, Abertawe, SA99 1BD
-
 vrm_locked.newdisposalbutton= Gwerthu cerbyd arall
 vrm_locked.exit.button= Allan
 
