@@ -2,7 +2,7 @@
 main.banner = Gwerthu cerbyd i''r fasnach foduron
 main.banner.help = Help
 
-global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml.
+global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml
 global.cookiefindoutmore = Dysgwch fwy am gwcis
 
 global.browserprompt = Am brofiad mwy diogel, cyflymach a gwell ar-lein dylech uwchraddio eich porwr.
@@ -24,8 +24,9 @@ footer.text2 = , ac eithrio lle nodir yn wahanol
 #prototype
 prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
 prototype.link =  dysgwch fwy
-prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Gwerthu ar yr adborth Masnach
+prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
 prototype.bannerPart2 = bydd yn ein helpu i wella
+
 
 #widget messages
 errorsummary.title = Cywirwch y manylion isod
@@ -59,37 +60,37 @@ error.invalid = Gwerth annilys
 #page 1 - Before You Start
 disposal_beforeyoustart.title = Gwerthu cerbyd i''r fasnach foduron
 disposal_beforeyoustart.p1 = Cyn i chi gychwyn:
-disposal_beforeyoustart.listitem1 = Bydd angen y dystysgrif gofrestru cerbyd (V5CW) ddiweddaraf arnoch. Rhaid nad oes angen newidiadau i''r V5CW a rhaid bod enw a chyfeiriad y ceidwad cofrestredig yn gyfredol a chywir.
-disposal_beforeyoustart.listitem1linktext = Vehicle Enquiry Service (VES)
+disposal_beforeyoustart.listitem1 = Ni ellir gwneud unrhyw newidiadau i''r V5CW a rhaid bod yr enw a''r cyfeiriad yn gywir.
+disposal_beforeyoustart.listitem1linktext = Gwasanaeth Ymholiadau Cerbydau (VES)
 
-disposal_beforeyoustart.listitem2 = Os oes gan y cerbyd a werthir rif cofrestru personol, rhaid i''r ceidwad ddeall y bydd y rhif cofrestru''n cael ei werthu gyda''r cerbyd. Os yw''r ceidwad am gadw''r rhif cofrestru personol, rhaid iddo yn gyntaf ei gadw neu ei drosglwyddo i gerbyd arall.
+disposal_beforeyoustart.listitem2 = Rhaid cadw neu drosglwyddo rhifau cofrestru personol cyn defnyddio''r gwasanaeth hwn
 disposal_beforeyoustart.listitem2.link = Gwneud cais i gadw rhif cofrestru cerbyd (V317W).
 
-disposal_beforeyoustart.listitem3 = Dim ond i hysbysu gwerthiant cerbyd i''r fasnach foduron y gellir defnyddio''r gwasanaeth hwn. Nid yw gwasanaethau eraill fel newid cyfeiriad neu werthu i unigolyn preifat ar gael ar-lein ar hyn o bryd. Rhaid gwneud cais am y rhain drwy anfon y V5CW at DVLA, Abertawe, SA99 1BA.
-disposal_beforeyoustart.listitem4 = Unwaith y byddwch wedi cwblhau''r gwasanaeth hwn, bydd DVLA yn anfon ad-daliad awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd i''r cyfeiriad ar y V5CW, a bydd unrhyw ddebyd uniongyrchol yn cael ei ganslo.
+disposal_beforeyoustart.listitem3 = Dim ond cerbydau a gwerthwyd i''r fasnach moduron gellir defnyddio''r gwasanaeth hwn i hysbysu
+disposal_beforeyoustart.listitem4 = Mae''r gwasanaeth hwn ar gael ar hyn o bryd o ddydd Llun - ddydd Gwener 8.00yb i 6 yh.
 disposal_beforeyoustart.button = Dechreuwch nawr
 
 disposal_beforeyoustart.usefulLinks = Dolenni defnyddiol
-disposal_beforeyoustart.Link1name = Cymerwch cofrestru personol oddi ar gerbyd
+disposal_beforeyoustart.Link1name = Cymryd cofrestriad personol oddi ar gerbyd
 disposal_beforeyoustart.Link2name = Ad-daliad treth cerbyd
-disposal_beforeyoustart.description = Os yw cerbyd wedi cael ei werthu i'r fasnach modur, y masnachwr modur prynu'r cerbyd yn awr ddweud wrth DVLA ar-lein ar ran y gwerthwr.
-disposal_beforeyoustart.tradeWarn = Rhaid gwasanaeth hwn yn cael ei ddefnyddio gan aelod o''r fasnach foduron sy'n gweithredu ar ran gwerthwr.
+disposal_beforeyoustart.description = Os yw cerbyd wedi cael ei werthu i''r fasnach modur, gall y masnachwr modur sy''n prynu''r cerbyd yn awr ddweud wrth DVLA ar-lein ar ran y gwerthwr.
+disposal_beforeyoustart.tradeWarn = Rhaid i''r gwasanaeth hwn ond gael ei ddefnyddio gan aelod o''r fasnach foduron sy''n gweithredu ar ran gwerthwr.
 
-disposal_beforeyoustart.youWillNeedTitle = I ddefnyddio''r gwasanaeth hwn, bydd angen i chi
-disposal_beforeyoustart.youWillNeedListItem1 = Mae''r 11 digid rhif cyfeirnod y ddogfen oddi wrth y dystysgrif gofrestru diweddaraf (V5C)
-disposal_beforeyoustart.youWillNeedListItem2 = Mae cydsyniad y gwerthwr y cerbyd i weithredu ar eu rhan
+disposal_beforeyoustart.youWillNeedTitle = I ddefnyddio''r gwasanaeth hwn, bydd angen arnoch
+disposal_beforeyoustart.youWillNeedListItem1 = Rhif cyfeirnod 11 digid y ddogfen tystysgrif cofrestru ddiweddaraf (V5CW)
+disposal_beforeyoustart.youWillNeedListItem2 = Cydsyniad gwerthwr y cerbyd i weithredu ar eu rhan
 
-disposal_beforeyoustart.recordUpdateWarn = Sylwer: gwasanaeth hwn yn diweddaru ein cofnodion ar unwaith
+disposal_beforeyoustart.recordUpdateWarn = Sylwer: mae''r gwasanaeth hwn yn diweddaru ein cofnodion ar unwaith
 
-disposal_beforeyoustart.finishedTitle = Unwaith y byddwch wedi gorffen
-disposal_beforeyoustart.finishedListItem1 = Bydd y ceidwad cofrestredig ei ddileu o''n cofnodion a byddwn yn anfon cadarnhad iddynt drwy''r post
-disposal_beforeyoustart.finishedListItem2 = Byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy'n ddyledus i''r cyfeiriad ar y V5CW a chanslo unrhyw debyd uniongyrchol
-disposal_beforeyoustart.finishedListItem3.1 = Y V5C gwreiddiol / 3 slip gwaredu melyn
+disposal_beforeyoustart.finishedTitle= Unwaith y byddwch wedi gorffen
+disposal_beforeyoustart.finishedListItem1 = Bydd y ceidwad cofrestredig yn cael ei ddileu o''n cofnodion a byddwn yn anfon cadarnhad iddo drwy''r post
+disposal_beforeyoustart.finishedListItem2 = Byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy''n ddyledus i''r cyfeiriad ar y V5CW a chanslo unrhyw ddebyd uniongyrchol
+disposal_beforeyoustart.finishedListItem3.1 = Y slip gwaredu melyn V5C/3W gwreiddiol
 disposal_beforeyoustart.finishedListItem3.2 = ni ddylai
 disposal_beforeyoustart.finishedListItem3.3 = cael eu hanfon at DVLA
 
 disposal_beforeyoustart.otherWaysTitle = Ffyrdd eraill o wneud cais
-disposal_beforeyoustart.otherWays.p1 = Os nad ydych yn defnyddio''r gwasanaeth ar-lein, mae''n rhaid i chi neu''r gwerthwr gwblhau''r V5C / 3 a phostio i DVLA, Abertawe, SA99 1BD
+disposal_beforeyoustart.otherWays.p1 = Os nad ydych yn defnyddio''r gwasanaeth ar-lein, mae''n rhaid i chi neu''r gwerthwr gwblhau''r V5C / 3 a''i phostio i DVLA, Abertawe, SA99 1BD
 
 #page 2 - set-up trade details
 disposal_setuptradedetails.title = Rhowch fanylion y masnachwr
@@ -140,13 +141,13 @@ addressAndPostcode.addressLines.line3 = Ardal
 addressAndPostcode.addressLines.postTown = Tref neu ddinas
 addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
 error.address.characterInvalid = Rhaid cynnwys nodau dilys A-Z, 0-9, ac ati yn unig
-error.postTown.characterInvalid = Y dref neu ddinas yn cynnwys nodau annilys
+error.postTown.characterInvalid = Mae''r dref neu ddinas yn cynnwys nodau annilys
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
 disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion â llaw
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
-disposal_uprnnotfound.setuptradedetailsbutton = Rhowch eich cyfeiriad â llaw
+disposal_uprnnotfound.setuptradedetailsbutton = Rhowch gyfeiriad i mewn â llaw
 disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn â llaw
 
 #page 4 - vehicle Lookup
@@ -195,7 +196,7 @@ dateOfDisposal.month = Mis y gwerthiant
 dateOfDisposal.year = Blwyddyn y gwerthiant
 disposal_dispose.todays_date_of_disposal = Defnyddiwch ddyddiad heddiw
 error.dateOfDisposal = Rhaid iddo fod yn ddyddiad dilys, ddim yn y dyfodol nac yn bellach yn ôl na dwy flynedd
-disposal_dispose.consent.mandatory = Rhaid i chi gael caniat‚d y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
+disposal_dispose.consent.mandatory = Rhaid i chi gael caniatâd y ceidwad cofrestredig i hysbysu gwerthiant y cerbyd hwn
 consent = Caniatâd
 disposal_dispose.loss_of_registration.consent = Rwy''n cadarnhau bod y ceidwad presennol yn deall y bydd y rhif cofrestru''n cael ei golli pan werthir y cerbyd hwn
 disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig â''r cerbyd hwn
@@ -216,8 +217,8 @@ disposal_disposeconfirmation.exkeeper-p2 = Argraffwch y dudalen hon a rhowch hi 
 disposal_disposeconfirmation.sendbutton = Anfonwch
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = ID y trafodyn
-disposal_disposeconfirmation.transactionid_message = Transaction message goes here
-disposal_disposeconfirmation.transactionDate = Dyddiad y trafodyn {0}
+disposal_disposeconfirmation.transactionid_message = Gosodwyd neges y trafodyn yma
+disposal_disposeconfirmation.transactionDate = Dyddiad y trafodyn: {0}
 disposal_disposeconfirmation.registrationNumber = {0}
 disposal_disposeconfirmation.registrationNumber_label = Rhif cofrestru
 disposal_disposeconfirmation.backbutton = Yn ôl
@@ -234,7 +235,7 @@ disposal_disposefailure.title = Gwerthu cerbyd i''r fasnach moduron: wedi methu
 disposal_disposefailure.name = Wedi methu
 disposal_disposefailure.p1 = Ni fu''n bosibl cwblhau eich trafodyn. Galwch 0300 790 6802
 disposal_disposefailure.button = Gwerthu cerbyd arall
-disposal_disposefailure.button2 = Allan
+disposal_disposefailure.button2 = Gorffen
 disposal_disposefailure.button3 = Argraffwch
 disposal_disposefailure.transactiontext = ID eich trafodyn yw:
 disposal_disposefailure.transactionid = {0}
@@ -245,22 +246,21 @@ disposal_vehiclelookupfailure.name = Wedi methu
 disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe SA99 1BD
 disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
 disposal_vehiclelookupfailure.button2 = Allan
-vehicle_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_vrm_not_found.p2 = Gwnewch yn siwr bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
-vehicle_lookup_vrm_not_found.p3 = Am bob rhif cofrestru cerbyd, dim ond 3 chynnig ellir eu gwneud i adalw manylion y cerbyd.
+vehicle_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_lookup_vrm_not_found.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
+vehicle_lookup_vrm_not_found.p3 =
 vehicle_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_document_reference_mismatch.p2 = Gwnewch yn siwr bod y V5CW ddiweddaraf gennych a rhowch gynnig arni eto.
-vehicle_lookup_document_reference_mismatch.p3 = Am bob rhif cofrestru cerbyd, dim ond 3 chynnig ellir eu gwneud i adalw manylion y cerbyd.
+vehicle_lookup_document_reference_mismatch.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
+vehicle_lookup_document_reference_mismatch.p3 =
 
 addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
 error.address.maxLengthOfLinesConcatenated = Ni all cyfeiriad gynnwys mwy na 120 o nodau
 addressAndPostcode.addressLines = Cyfeiriad
-addressAndPostcode.postcode = Côd Post
+addressAndPostcode.postcode = Côd post
 error.validBusinessName = Rhaid bod rhwng 2 a 56 o nodau o hyd a dim ond nodau dilys (a-z, A-Z, 0-9, -, '', a ,)
 error.address.buildingNameOrNumber.invalid = Rhaid i adeilad/ rhif a stryd gynnwys rhwng 4 a 30 o nodau
 error.address.postTown = Rhaid i dref neu ddinas gynnwys lleiafswm o 3 nod
 error.address.postcode.invalid = Rhaid bod rhwng 5 ac 8 nod o hyd ac mewn fformat dilys,  ee. AB1 2BA neu AB12BA
-
 # progress messages
 disposal_progress_1 = Step 1 of 6
 disposal_progress_2 = Step 2 of 6
@@ -286,7 +286,7 @@ disposal.closed.exit_button = Allan
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Os gwelwch yn dda dinistrio''r V5C / 3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Dinistriwch y V5C / 3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA
 
 ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
@@ -294,7 +294,7 @@ ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview 
 
 #micro-service error page
 micro_service_error.title=Mae''n ddrwg gennym
-micro_service_error.text=Nid yw''r gwasanaeth ar gael dros dro
+micro_service_error.text=Nid yw'r gwasanaeth ar gael dros dro
 micro_service_error.back.button=Rhowch gynnig arni eto
 micro_service_error.exit.button=Allan
 
@@ -312,11 +312,10 @@ soap_endpoint_error.exit.button=Allan
 
 #vrm locked
 vrm_locked.title=Rhif cofrestru wedi''i gloi
-vrm_locked.text1=Mae wedi cael eu hailadrodd ymdrechion aflwyddiannus i gael mynediad i''r manylion y cerbyd. Mae''r system bellach wedi cloi y rhif cofrestru cerbyd am 10 munud. Gellir prosesu cerbydau eraill yn ystod y cyfnod hwn trwy ddewis ''Gwerthu cerbyd arall'' isod.
+vrm_locked.text1=Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerbyd. Mae''r system bellach yn cloi''r Rhif cofrestru cerbyd hwn am 10 munud. Gellir prosesu cerbydau eraill yn ystod yr amser hwn drwy ddewis ''Gwerthu cerbyd arall'' isod
 vrm_locked.text2=Wedi''i gloi ar
-vrm_locked.text3.1=Os ydych yn sicr bod y manylion a roddwch yn gywir, yna anfonwch eich V5C/3 cwblhau i
-vrm_locked.text3.2=DVLA, Abertawe SA99 1BD
-
+vrm_locked.text3.1=Os ydych yn siŵr bod y manylion yn gywir yna anfonwch eich V5C/3 wedi''u cwblhau i
+vrm_locked.text3.2=DVLA, Abertawe, SA99 1BD
 vrm_locked.newdisposalbutton=Gwerthu cerbyd arall
 vrm_locked.exit.button=Allan
 
@@ -324,8 +323,13 @@ vrm_locked.exit.button=Allan
 onHandlerNotFound.title=Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.header=Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.body=Ni allwn ddod o hyd i''r dudalen y gwnaethoch gais amdani, mae''r digwyddiad hwn wedi ei logio ar gyfer archwiliad.
-onHandlerNotFound.noJavascript=Os ydych am wneud cais eto dewiswch y botwm mynd yn ôl ar eich porwr, os na dewiswch ''Allan'' i adael y gwasanaeth.
+onHandlerNotFound.noJavascript=Os ydych am wneud cais eto dewiswch y botwm mynd yn ôl ar eich porwr, fel arall dewiswch ''Allan'' i adael y gwasanaeth.
 onHandlerNotFound.start.button=Dechreuwch
+
+# 400 onHandlerBadRequest
+onHandlerBadRequest.title=Cais HTTP annilys
+onHandlerBadRequest.header=Cais HTTP annilys
+onHandlerBadRequest.start.button=Dechreuwch
 
 error.title=Mae camgymeriad na ellir ei adfer wedi digwydd
 error.button=Dechreuwch eto
@@ -333,4 +337,4 @@ error.button=Dechreuwch eto
 language.cy.button = YAGNI
 language.en.button = English
 
-mandatory = Fields not labelled (optional) are mandatory
+mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
