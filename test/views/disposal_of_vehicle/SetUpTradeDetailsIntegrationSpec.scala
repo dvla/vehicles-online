@@ -1,10 +1,10 @@
 package views.disposal_of_vehicle
 
+import composition.TestHarness
 import helpers.UiSpec
 import helpers.common.ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
-import helpers.webbrowser.TestHarness
 import org.openqa.selenium.{By, WebElement}
 import pages.common.{Accessibility, ErrorPanel}
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}

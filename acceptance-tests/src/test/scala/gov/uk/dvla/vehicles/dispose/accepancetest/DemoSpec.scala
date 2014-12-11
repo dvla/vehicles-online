@@ -1,14 +1,16 @@
 package gov.uk.dvla.vehicles.dispose.accepancetest
 
-import java.util.Calendar
+import composition.TestHarness
 import com.typesafe.config.ConfigFactory
+import java.util.Calendar
 import org.scalatest.{BeforeAndAfterAll, FeatureSpec, GivenWhenThen, Matchers}
-import helpers.webbrowser.{WebDriverFactory, WebBrowserDSL, TestHarness}
 import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.BeforeYouStartPage
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{WebDriverFactory, WebBrowserDSL}
 import webserviceclients.fakes.FakeAddressLookupService.{TraderBusinessNameValid, PostcodeValidWithSpace}
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid

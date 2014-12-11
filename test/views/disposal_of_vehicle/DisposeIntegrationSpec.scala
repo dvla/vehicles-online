@@ -1,12 +1,11 @@
 package views.disposal_of_vehicle
 
+import composition.{TestGlobal, TestHarness}
 import helpers.common.ProgressBar
-import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import ProgressBar.progressStep
+import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
-import helpers.webbrowser.{TestGlobal, TestHarness}
-import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import models.DisposeFormModel.Form.TodaysDateOfDisposal
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.concurrent.Eventually.{eventually, PatienceConfig, scaled}
@@ -22,6 +21,7 @@ import pages.disposal_of_vehicle.DisposePage.dateOfDisposalYear
 import pages.disposal_of_vehicle.DisposePage.dispose
 import pages.disposal_of_vehicle.DisposePage.happyPath
 import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
+import pages.disposal_of_vehicle.DisposePage.mileage
 import pages.disposal_of_vehicle.DisposePage.sadPath
 import pages.disposal_of_vehicle.DisposePage.title
 import pages.disposal_of_vehicle.DisposePage.useTodaysDate
@@ -29,11 +29,11 @@ import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.test.FakeApplication
+import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageInvalid
-import pages.disposal_of_vehicle.DisposePage.mileage
 
 final class DisposeIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
@@ -112,7 +112,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }
 
     // This test needs to run with javaScript enabled.
-    "display DisposeSuccess page on correct submission with javascript enabled" taggedAs UiTag in new HtmlUnitWithJs {
+    "display DisposeSuccess page on correct submission with javascript enabled" taggedAs UiTag in new WebBrowserWithJs {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
 
@@ -127,7 +127,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }
 
     // This test needs to run with javaScript enabled.
-    "display DisposeSuccess page on correct submission when a user auto populates the date of disposal with javascript enabled" taggedAs UiTag ignore new HtmlUnitWithJs {
+    "display DisposeSuccess page on correct submission when a user auto populates the date of disposal with javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
       go to DisposePage
@@ -291,7 +291,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
   "use today's date" should {
     // This test needs to run with javaScript enabled.
-    "fill in the date fields" taggedAs UiTag ignore new HtmlUnitWithJs {
+    "fill in the date fields" taggedAs UiTag ignore new WebBrowserWithJs {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage

@@ -1,10 +1,11 @@
 package pages.disposal_of_vehicle
 
+import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.Error
 import Error.SubmitId
-import org.openqa.selenium.WebDriver
-import pages.ApplicationContext.applicationContext
 
 object ErrorPage extends Page with WebBrowserDSL {
   final val exceptionDigest = "fake-exception-digest"

@@ -1,7 +1,8 @@
 package pages.common
 
-import helpers.webbrowser.WebBrowserDSL
 import org.openqa.selenium.{By, WebDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.WebBrowserDSL
 
 object ErrorPanel extends WebBrowserDSL {
   def numberOfErrors(implicit driver: WebDriver): Int =

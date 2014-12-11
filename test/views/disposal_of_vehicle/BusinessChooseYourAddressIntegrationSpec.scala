@@ -1,14 +1,13 @@
 package views.disposal_of_vehicle
 
+import composition.TestHarness
 import helpers.common.ProgressBar
+import ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
-import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import models.EnterAddressManuallyFormModel
 import EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import helpers.webbrowser.TestHarness
-import ProgressBar.progressStep
 import org.openqa.selenium.{By, WebElement, WebDriver}
 import pages.common.ErrorPanel
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
@@ -18,6 +17,7 @@ import pages.disposal_of_vehicle.BusinessChooseYourAddressPage.{back, happyPath,
 import pages.disposal_of_vehicle.EnterAddressManuallyPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
+import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import webserviceclients.fakes.FakeAddressLookupService
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 

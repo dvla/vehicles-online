@@ -1,15 +1,16 @@
 package pages.disposal_of_vehicle
 
-import helpers.webbrowser._
+import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{Element, Page, TelField, TextField, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.VehicleLookup
 import VehicleLookup.BackId
-import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
 import VehicleLookup.ExitId
 import VehicleLookup.SubmitId
-import org.openqa.selenium.WebDriver
 import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
-import pages.ApplicationContext.applicationContext
 
 object VehicleLookupPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/vehicle-lookup"

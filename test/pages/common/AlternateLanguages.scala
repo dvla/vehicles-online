@@ -1,7 +1,8 @@
 package pages.common
 
-import helpers.webbrowser.{Element, WebBrowserDSL}
 import uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.{CyId, EnId}
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{Element, WebBrowserDSL}
 import org.openqa.selenium.WebDriver
 
 object AlternateLanguages extends WebBrowserDSL {

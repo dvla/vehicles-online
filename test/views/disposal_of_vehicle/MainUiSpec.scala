@@ -1,9 +1,9 @@
 package views.disposal_of_vehicle
 
+import composition.{TestGlobal, TestHarness}
 import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
-import helpers.webbrowser.{TestGlobal, TestHarness}
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.common.Feedback.mailto
 import pages.disposal_of_vehicle.BeforeYouStartPage

@@ -2,7 +2,6 @@ package helpers.steps_javascript_enabled
 
 import cucumber.api.java.en.{Given, Then, When}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriverWIthJavaScript}
 import org.openqa.selenium.WebDriver
 import org.scalatest.concurrent.Eventually.{PatienceConfig, eventually, scaled}
 import org.scalatest.Matchers
@@ -15,9 +14,11 @@ import pages.disposal_of_vehicle.DisposePage.dispose
 import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.DisposePage.useTodaysDate
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposePage, DisposeSuccessPage}
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriverWithJavaScript}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 
-final class DisposeSteps(webBrowserDriver:WebBrowserDriverWIthJavaScript) extends WebBrowserDSL with Matchers {
+final class DisposeSteps(webBrowserDriver: WebBrowserDriverWithJavaScript) extends WebBrowserDSL with Matchers {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 

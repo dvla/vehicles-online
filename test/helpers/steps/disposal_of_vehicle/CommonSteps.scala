@@ -2,7 +2,6 @@ package helpers.steps.disposal_of_vehicle
 
 import cucumber.api.java.en.{Given, When, Then}
 import helpers.common.RandomVrmGenerator
-import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
 import pages.common.ErrorPanel
@@ -22,6 +21,8 @@ import common.clientsidesession.CookieNameHashGenerator
 import common.clientsidesession.CookieEncryption
 import common.clientsidesession.NoCookieFlags
 import common.clientsidesession.ClearTextClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 
 // TODO - Store input as variables
 

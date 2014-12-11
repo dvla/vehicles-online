@@ -1,9 +1,10 @@
 package pages.disposal_of_vehicle
 
-import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
-import views.common.Help.{BackId, ExitId}
 import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
+import views.common.Help.{BackId, ExitId}
 
 object HelpPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/help"

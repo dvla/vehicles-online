@@ -1,12 +1,13 @@
 package pages.disposal_of_vehicle
 
+import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
+import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Element, Page, TextField, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.SetupTradeDetails
 import SetupTradeDetails.SubmitId
-import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
-import org.openqa.selenium.WebDriver
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeWithoutAddresses, PostcodeValid, TraderBusinessNameValid}
-import pages.ApplicationContext.applicationContext
 
 object SetupTradeDetailsPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/setup-trade-details"

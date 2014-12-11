@@ -1,16 +1,16 @@
 package views.disposal_of_vehicle
 
+import composition.TestHarness
 import helpers.UiSpec
 import helpers.common.ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
-import helpers.webbrowser.TestHarness
+import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
+import models.{AllCacheKeys, DisposeCacheKeys, TradeDetailsCacheKeys}
 import org.openqa.selenium.{By, WebDriver, WebElement}
 import pages.disposal_of_vehicle.DisposeSuccessPage.{exitDisposal, newDisposal}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposeSuccessPage, SetupTradeDetailsPage, VehicleLookupPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
-import models.{AllCacheKeys, DisposeCacheKeys, TradeDetailsCacheKeys}
 
 final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

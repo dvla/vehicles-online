@@ -1,7 +1,7 @@
 package helpers
 
+import composition.TestGlobal
 import play.api.test.FakeApplication
-import helpers.webbrowser.TestGlobal
 import helpers.WithApplication.fakeAppWithTestGlobal
 
 abstract class WithApplication(app: FakeApplication = fakeAppWithTestGlobal)

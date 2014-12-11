@@ -1,8 +1,8 @@
 package utils.helpers
 
+import composition.TestGlobal
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.webbrowser.TestGlobal
 import helpers.WithApplication
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import play.api.test.Helpers.LOCATION

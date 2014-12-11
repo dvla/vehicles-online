@@ -1,13 +1,14 @@
 package pages.disposal_of_vehicle
 
+import models.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
+import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Checkbox, Element, Page, SingleSel, TelField, WebBrowserDSL, WebDriverFactory}
 import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear
 import DayMonthYear.{DayId, MonthId, YearId}
-import org.openqa.selenium.WebDriver
-import models.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
-import pages.ApplicationContext.applicationContext
 
 object DisposePage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/complete-and-confirm"

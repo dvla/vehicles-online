@@ -1,14 +1,15 @@
 package pages.disposal_of_vehicle
 
+import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
+import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Element, Page, TextField, WebBrowserDSL, WebDriverFactory}
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
+import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import views.disposal_of_vehicle.EnterAddressManually
 import EnterAddressManually.{BackId, NextId}
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
-import org.openqa.selenium.WebDriver
-import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
-import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
-import pages.ApplicationContext.applicationContext
 
 object EnterAddressManuallyPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/enter-address-manually"

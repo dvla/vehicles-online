@@ -1,14 +1,14 @@
 package pages.disposal_of_vehicle
 
-import helpers.webbrowser.{Element, Page, SingleSel, WebBrowserDSL, WebDriverFactory}
 import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{Element, Page, SingleSel, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.BusinessChooseYourAddress
 import BusinessChooseYourAddress.BackId
 import BusinessChooseYourAddress.EnterAddressManuallyButtonId
 import BusinessChooseYourAddress.SelectId
-import org.openqa.selenium.WebDriver
-import pages.ApplicationContext.applicationContext
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 object BusinessChooseYourAddressPage extends Page with WebBrowserDSL {
   final val address: String = s"$applicationContext/business-choose-your-address"

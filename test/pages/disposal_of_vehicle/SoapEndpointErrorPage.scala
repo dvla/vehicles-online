@@ -1,7 +1,8 @@
 package pages.disposal_of_vehicle
 
-import helpers.webbrowser.{Page, WebBrowserDSL, WebDriverFactory}
 import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{Page, WebBrowserDSL, WebDriverFactory}
 
 object SoapEndpointErrorPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/soap-endpoint-error"

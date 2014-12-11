@@ -1,7 +1,7 @@
 package helpers.steps.hooks
 
+import composition.TestGlobal
 import cucumber.api.java.{After, Before}
-import helpers.webbrowser.TestGlobal
 import play.api.test.{FakeApplication, TestServer}
 
 final class TestServerHooks {

@@ -1,11 +1,11 @@
 package views.disposal_of_vehicle
 
+import composition.TestHarness
 import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import ProgressBar.progressStep
 import helpers.tags.UiTag
 import helpers.UiSpec
-import helpers.webbrowser.TestHarness
 import org.openqa.selenium.WebDriver
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage.startNow
@@ -16,19 +16,16 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
     "display the page" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
-
       page.title should equal(BeforeYouStartPage.title)
     }
 
     "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
       go to BeforeYouStartPage
-
       page.source.contains(progressStep(1)) should equal(true)
     }
 
     "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
       go to BeforeYouStartPage
-
       page.source.contains(progressStep(1)) should equal(false)
     }
 
@@ -83,9 +80,7 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   "startNow button" should {
     "go to next page" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
-
       click on startNow
-
       page.title should equal(SetupTradeDetailsPage.title)
     }
   }

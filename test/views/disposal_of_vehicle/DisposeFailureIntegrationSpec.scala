@@ -1,10 +1,10 @@
 package views.disposal_of_vehicle
 
+import composition.TestHarness
 import helpers.UiSpec
 import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
-import helpers.webbrowser.TestHarness
 import org.openqa.selenium.WebDriver
 import pages.disposal_of_vehicle.DisposeFailurePage.{setuptradedetails, vehiclelookup}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposeFailurePage, SetupTradeDetailsPage, VehicleLookupPage}

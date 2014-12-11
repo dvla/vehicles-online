@@ -1,6 +1,6 @@
 package utils.helpers
 
-import helpers.webbrowser.TestGlobal
+import composition.TestGlobal
 import helpers.{UnitSpec, WithApplication}
 import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.AesEncryption

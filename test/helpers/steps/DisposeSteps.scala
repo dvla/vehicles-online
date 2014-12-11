@@ -1,11 +1,7 @@
 package helpers.steps
 
-import pages.disposal_of_vehicle.VehicleLookupPage
-import helpers.webbrowser.WebBrowserDriver
-import pages.common.ErrorPanel
 import cucumber.api.java.en.{Given, Then, When}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.webbrowser.WebBrowserDSL
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
 import pages.disposal_of_vehicle.DisposePage.consent
@@ -16,6 +12,10 @@ import pages.disposal_of_vehicle.DisposePage.dispose
 import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.DisposePage.useTodaysDate
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposePage, DisposeSuccessPage}
+import pages.disposal_of_vehicle.VehicleLookupPage
+import pages.common.ErrorPanel
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 
 final class DisposeSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserDSL with Matchers {

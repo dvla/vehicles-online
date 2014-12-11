@@ -1,10 +1,11 @@
 package pages.disposal_of_vehicle
 
+import org.openqa.selenium.WebDriver
+import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.MicroserviceError
 import MicroserviceError.{ExitId, TryAgainId}
-import org.openqa.selenium.WebDriver
-import pages.ApplicationContext.applicationContext
 
 object DuplicateDisposalErrorPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/duplicate-sell-to-the-trade-error"

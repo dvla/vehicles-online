@@ -1,8 +1,9 @@
 package pages.disposal_of_vehicle
 
-import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{Element, Page, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.BeforeYouStart.NextId
 
 object  BeforeYouStartPage extends Page with WebBrowserDSL {

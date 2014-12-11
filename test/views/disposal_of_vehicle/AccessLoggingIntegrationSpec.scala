@@ -3,18 +3,19 @@ package views.disposal_of_vehicle
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Injector}
 import com.tzavellas.sse.guice.ScalaModule
-import composition.{GlobalLike, TestComposition}
-import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
-import AccessLoggingFilter.AccessLoggerName
+import composition.{GlobalLike, TestComposition, TestHarness}
 import helpers.UiSpec
-import helpers.webbrowser.{TestHarness, WebBrowserDSL, WebDriverFactory}
 import org.apache.http.client.methods.{HttpGet, HttpPost}
 import org.apache.http.impl.client.HttpClients
 import org.scalatest.mock.MockitoSugar
 import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage}
+import pages.ApplicationContext.applicationContext
 import play.api.LoggerLike
 import play.api.test.FakeApplication
-import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
+import AccessLoggingFilter.AccessLoggerName
+import uk.gov.dvla.vehicles.presentation.common.helpers
+import helpers.webbrowser.{WebBrowserDSL, WebDriverFactory}
 
 class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoSugar with WebBrowserDSL {
 
