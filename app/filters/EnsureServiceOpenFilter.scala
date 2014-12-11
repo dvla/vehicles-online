@@ -1,6 +1,9 @@
 package filters
 
-import play.api.mvc._
+import java.util.Locale
+
+import org.joda.time.format.DateTimeFormat
+import play.api.mvc.{Filter, RequestHeader, Results}
 import scala.concurrent.Future
 import org.joda.time.{DateTimeZone, DateTime}
 import play.api.mvc.Result
@@ -17,8 +20,9 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config, dateTimeZone: D
 
   override def apply(nextFilter: (RequestHeader) => Future[Result])(requestHeader: RequestHeader): Future[Result] = {
     if (whitelist.exists(requestHeader.path.contains)) nextFilter(requestHeader)
-    else if (!serviceOpen()) Future(Results.Ok(views.html.disposal_of_vehicle.closed()))
-         else nextFilter(requestHeader)
+    else if (!serviceOpen())
+      Future(Results.Ok(views.html.disposal_of_vehicle.closed(hour(opening), hour(closing))))
+    else nextFilter(requestHeader)
   }
 
   def serviceOpen(currentDateTime: DateTime = new DateTime(dateTimeZone.currentDateTimeZone)): Boolean = {
@@ -27,10 +31,13 @@ class EnsureServiceOpenFilter @Inject()(implicit config: Config, dateTimeZone: D
 
   def isNotSunday(day: DateTime): Boolean = day.getDayOfWeek != 7
 
-  def isDuringOpeningHours(timeInMillis: Int): Boolean = {
+  def isDuringOpeningHours(timeInMillis: Int): Boolean =
     if (closing >= opening) (timeInMillis >= opening) && (timeInMillis < closing)
     else (timeInMillis >= opening) || (timeInMillis < closing)
-  }
+
+  private def hour(hour: Long) =
+    DateTimeFormat.forPattern("HH:mm").withLocale(Locale.UK)
+      .print(new DateTime(hour, DateTimeZone.forID("UTC"))).toLowerCase // Must use UTC as we only want to format the hour
 }
 
 trait DateTimeZoneService {

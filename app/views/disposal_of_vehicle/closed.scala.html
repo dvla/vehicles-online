@@ -1,4 +1,4 @@
-@()(implicit lang: Lang,
+@(opening: String, closing: String)(implicit lang: Lang,
 config: utils.helpers.Config)
 
 @import controllers.routes.Help
@@ -10,7 +10,7 @@ config: utils.helpers.Config)
 title = Messages("disposal.closed.title")
 ) {
     <p>@Messages("disposal.closed.p1")</p>
-    <p>@Messages("disposal.closed.p2")</p>
+    <p>@Messages("disposal.closed.p2", opening, closing)</p>
     <div class="form-steps">
         <a id="@ExitId" href="https://www.gov.uk/" class="button">@Messages("disposal.closed.exit_button")</a>
     </div>
