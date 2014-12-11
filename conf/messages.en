@@ -288,7 +288,7 @@ disposal.help.back_button = Back
 # closed
 disposal.closed.title = Service Closed
 disposal.closed.p1 = The supporting systems for this service are currently unavailable.
-disposal.closed.p2 = The normal hours of operation are Monday to Saturday - 08:00 to 18:00. Please complete your transaction during these hours.
+disposal.closed.p2 = The normal hours of operation are Monday to Saturday - {0} to {1}. Please complete your transaction during these hours.
 disposal.closed.exit_button = Exit
 
 # micro-service response codes

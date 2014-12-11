@@ -10,5 +10,5 @@ class ServiceOpenFilter @Inject()(implicit config: Config,
   protected lazy val opening = config.opening * millisPerHour
   protected lazy val closing = config.closing * millisPerHour
   protected lazy val dateTimeZone = timeZone
-  protected lazy val html = views.html.disposal_of_vehicle.closed()
+  protected lazy val html = views.html.disposal_of_vehicle.closed("", "")
 }
