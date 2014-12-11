@@ -1,13 +1,18 @@
 package filters
 
+import java.util.Locale
+
 import com.google.inject.Guice
 import com.tzavellas.sse.guice.ScalaModule
-import helpers.UnitSpec
+import helpers.{WithApplication, UnitSpec}
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.{DateTime, DateTimeZone}
 import org.mockito.Mockito.when
+import org.scalatest.mock.MockitoSugar
+import play.api.i18n.Messages
 import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
+import play.api.test.Helpers._
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
 import utils.helpers.Config
@@ -45,6 +50,30 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     }, nonDefaultTimeZoneService)
   }
 
+  "The out of hours message contains the hours from the config" ignore new WithApplication {
+    val requestHeader = mock[RequestHeader]
+    when(requestHeader.path).thenReturn("some-test-path")
+    val next = (request:RequestHeader) => Future.successful[Result](throw new Exception("Should not come here"))
+    val dateTime = new DateTime()
+    setUpOutOfHours((setup: SetUp) => {
+      val result = setup.filter.apply(next)(requestHeader)
+      val resultString = contentAsString(result)
+      resultString should include(Messages("disposal.closed.p2", h(setup.opening), h(setup.closing)))
+    }, dateTime)
+
+    setUpOutOfHours((setup: SetUp) => {
+      val result = setup.filter.apply(next)(requestHeader)
+      val resultString = contentAsString(result)
+      resultString should include(Messages("disposal.closed.p2", h(setup.opening), h(setup.closing)))
+    }, dateTime, new DateTimeZoneService {
+      override def currentDateTimeZone = DateTimeZone.forID("Europe/London")
+    })
+
+    def h(hour: Long) =
+      DateTimeFormat.forPattern("HH:mm").withLocale(Locale.UK)
+        .print(new DateTime(hour * 3600000, DateTimeZone.forID("UTC"))).toLowerCase
+  }
+
   private class MockFilter extends ((RequestHeader) => Future[Result]) {
     var passedRequest: RequestHeader = _
 
@@ -73,7 +102,9 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
   private case class SetUp(filter: ServiceOpenFilter,
                            request: FakeRequest[_],
                            sessionFactory:ClientSideSessionFactory,
-                           nextFilter: MockFilter)
+                           nextFilter: MockFilter,
+                           opening: Int,
+                           closing: Int)
 
   private def setUpInHours(test: SetUp => Any, dateTime: DateTime): Unit = {
     val opening = dateTime.getHourOfDay
@@ -91,8 +122,12 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     setUp(test, opening, closing)
   }
 
-  private def setUpOutOfHours(test: SetUp => Any, dateTimeZoneService: DateTimeZoneService): Unit = {
-    setUp(test, 1, 1, dateTimeZoneService)
+  private def setUpOutOfHours(test: SetUp => Any,
+                              dateTime: DateTime,
+                              dateTimeZoneService: DateTimeZoneService): Unit = {
+    val opening = dateTime.getHourOfDay - 2
+    val closing = dateTime.getHourOfDay - 1
+    setUp(test, opening, closing, dateTimeZoneService)
   }
 
   private def setUp(test: SetUp => Any,
@@ -116,7 +151,9 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
       filter = injector.getInstance(classOf[ServiceOpenFilter]),
       request = FakeRequest(),
       sessionFactory = sessionFactory,
-      nextFilter = new MockFilter()
+      nextFilter = new MockFilter(),
+      opening,
+      closing
     ))
   }
 

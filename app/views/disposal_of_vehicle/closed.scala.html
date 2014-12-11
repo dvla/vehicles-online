@@ -1,4 +1,4 @@
-@()(implicit lang: Lang,
+@(opening: String, closing: String)(implicit lang: Lang,
 config: utils.helpers.Config)
 
 @import views.html.disposal_of_vehicle.main
@@ -8,7 +8,7 @@ config: utils.helpers.Config)
 ) {
     <h1>@Messages("disposal.closed.title")</h1>
     <p>@Messages("disposal.closed.p1")</p>
-    <p>@Messages("disposal.closed.p2")</p>
+    <p>@Messages("disposal.closed.p2", opening, closing)</p>
     <div class="form-steps">
         <a id="exit-button" href="https://www.gov.uk/" class="button">@Messages("disposal.closed.exit_button")</a>
     </div>
