@@ -22,21 +22,21 @@ import scala.language.existentials
 
 class EnsureServiceOpenFilterSpec extends UnitSpec {
 
-  "Return True for an acceptable time, with the current timezone as GMT" ignore {
+  "Return True for an acceptable time, with the current timezone as GMT" in {
     val dateTime = new DateTime()
     setUpInHours((setup: SetUp) => {
       setup.filter.serviceOpen(dateTime) should equal(true)
     }, dateTime)
   }
 
-  "Return False for an out of hours time, with the current timezone as GMT" ignore {
+  "Return False for an out of hours time, with the current timezone as GMT" in {
     val dateTime = new DateTime()
     setUpOutOfHours((setup: SetUp) => {
       setup.filter.serviceOpen(dateTime) should equal(false)
     }, dateTime)
   }
 
-  "Return True for a timezone time falling within opening hours, and False for a time in another timezone falling outside opening hours" ignore {
+  "Return True for a timezone time falling within opening hours, and False for a time in another timezone falling outside opening hours" in {
     setUpInHours ((setup: SetUp) => {
         setup.filter.serviceOpen() should equal(true)
     }, new DateTimeZoneServiceImpl)
@@ -50,7 +50,7 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     }, nonDefaultTimeZoneService)
   }
 
-  "The out of hours message contains the hours from the config" ignore new WithApplication {
+  "The out of hours message contains the hours from the config" in new WithApplication {
     val requestHeader = mock[RequestHeader]
     when(requestHeader.path).thenReturn("some-test-path")
     val next = (request:RequestHeader) => Future.successful[Result](throw new Exception("Should not come here"))

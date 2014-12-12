@@ -11,12 +11,11 @@ import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
-import scala.concurrent.ExecutionContext.Implicits.global
+
 import scala.concurrent.Future
 import scala.language.existentials
 
 final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures {
-/* TODO: this needs to be put back
   // The filter chain will return null if we redirect to the closed page.
   "Return a null next filter request if trying to access the service out of hours" in new WebBrowser {
     setUpOutOfHours {
@@ -40,10 +39,9 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
 
   private class MockFilter extends ((RequestHeader) => Future[Result]) {
     var passedRequest: RequestHeader = _
-
     override def apply(rh: RequestHeader): Future[Result] = {
       passedRequest = rh
-      Future(Results.Ok)
+      Future.successful(Results.Ok)
     }
   }
 
@@ -84,5 +82,4 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
       nextFilter = new MockFilter()
     ))
   }
-*/
 }
