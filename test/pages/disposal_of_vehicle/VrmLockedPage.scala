@@ -9,7 +9,7 @@ import VrmLocked.{ExitDisposalId, NewDisposalId}
 
 object VrmLockedPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/vrm-locked"
-  override val url: String = WebDriverFactory.testUrl + address.substring(1)
+  override def url: String = WebDriverFactory.testUrl + address.substring(1)
 
   final override val title = "Registration number is locked"
 
