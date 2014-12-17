@@ -2,7 +2,10 @@
 
 set -o errexit
 
-export SBT_OPTS="-Dspecs2.color=false -Dsbt.log.format=true -XX:+UseConcMarkSweepGC -Dsbt.log.noformat=true -Xms1024M -Xmx3500M -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:PermSize=512M -XX:MaxPermSize=1024M"
+# Note that we are setting the opening hours so that the service is always open 24 hours so our tests can run at any time
+export SBT_OPTS="-Dspecs2.color=false -Dsbt.log.format=true -Dsbt.log.noformat=true -DopeningTime=0 -DclosingTime=24 \
+ -Xms1024M -Xmx3500M -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseParNewGC \
+ -XX:PermSize=512M -XX:MaxPermSize=1024M -Dtest.port=9002 $SBT_OPTS"
 
 sbt -Dsbt.log.noformat=true clean test gatling dist publish
 
