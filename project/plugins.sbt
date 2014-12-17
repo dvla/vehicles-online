@@ -46,3 +46,9 @@ addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.98.2")
 
 addSbtPlugin("com.sksamuel.scoverage" %% "sbt-coveralls" % "0.0.5")
 
+// Resolver required to pick up DVLA sbt plugins that are published to bintray using ivy format
+resolvers += Resolver.url(
+  "dvla-sbt-plugin-releases",
+   url("https://dl.bintray.com/dvla/sbt-plugin-releases"))(
+       Resolver.ivyStylePatterns)
+
