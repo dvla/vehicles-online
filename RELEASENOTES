@@ -1,0 +1,31 @@
+======== 1.4 ========
+Time of release binaries creation:
+Tue Dec 16 17:06:03 UTC 2014
+
+User stories:
+US1504 GDS styling update fonts across all applications
+US1824 GDS updates – 3/1 split
+US1506 GDS styling updates playback styling
+US1820 Amend summary screen styling to cater for single column
+US1507 GDS updates – rearrange form hint
+US1601 Date of Birth – use todays date example for clean up
+US1409 Widget code tidy up
+US1865 Add Sentence to Capture Trader Details Screen
+US1864 Create GOV.UK – Before you start page
+US1837 Split Summary Page Banner Information
+US1840 Remove Service Title from Black GOV.UK bar
+US2063 Strip out leading spaces in all fields of manual address input on submission
+US1747 Dispose revisit Welsh Translation
+US2007 Enhance ‘Use todays date’ link
+US1998 Hide before you start date for Dispose
+US1981 Amend Thank You page on Dispose
+US1874 Move Feedback Link from Black Banner and Change Wording
+US1869 Remove ‘Help’ link from Dispose Service
+US1863 Add Full DVLA Address to exclamation point on ‘If details don’t match’ message to Dispose & Acquire Services
+US1862 Replace V5C Doc Ref Image with V5C/3 Image
+Bugs:
+DE242 Disposal – we are sorry page has incorrect wording
+DE254 Disposal source record has spaces
+DE261 Message Title for Transactions Failure Page on Dispose is broken
+DE237 Add Google translate Welsh to new "Before You Start" page
+
