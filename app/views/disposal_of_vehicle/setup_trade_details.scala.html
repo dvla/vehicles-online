@@ -6,8 +6,9 @@
 @import views.disposal_of_vehicle.SetupTradeDetails.SubmitId
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
-@import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId, TraderNameMaxLength}
+@import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 @import uk.gov.dvla.vehicles.presentation.common
+@import common.mappings.BusinessName
 @import common.mappings.Postcode
 @import common.views.helpers.BaseTemplate.fieldConstructor
 @import common.views.html.widgets.base.valtechInputText
@@ -30,7 +31,7 @@
                     Map('_label -> Messages("disposal_setuptradedetails.tradernamelabel"),
                     '_showConstraints -> false,
                     'autofocus -> true,
-                    'maxLength -> TraderNameMaxLength))
+                    'maxLength -> BusinessName.MaxLength))
 
             @valtechInputText(traderLookupForm(TraderPostcodeId),
                 hintText = Some(Messages("disposal_setuptradedetails.traderpostcode.hint")),

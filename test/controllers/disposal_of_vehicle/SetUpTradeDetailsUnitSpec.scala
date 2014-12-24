@@ -12,9 +12,10 @@ import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.mappings.BusinessName
 import utils.helpers.Config
 import models.SetupTradeDetailsFormModel
-import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderNameMaxLength, TraderPostcodeId}
+import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 
@@ -87,7 +88,7 @@ final class SetUpTradeDetailsUnitSpec extends UnitSpec {
     }
 
     "replace max length error message for traderBusinessName with standard error message (US158)" in new WithApplication {
-      val request = buildCorrectlyPopulatedRequest(dealerName = "a" * (TraderNameMaxLength + 1))
+      val request = buildCorrectlyPopulatedRequest(dealerName = "a" * (BusinessName.MaxLength + 1))
       val result = setUpTradeDetails.submit(request)
       val count = "Must be between 2 and 58 characters and only contain valid characters".
         r.findAllIn(contentAsString(result)).length
