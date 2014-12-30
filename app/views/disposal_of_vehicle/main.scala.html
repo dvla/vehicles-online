@@ -1,7 +1,7 @@
 @(progress: Option[String] = None,
     title: String,
     currentForm: Option[Form[_]] = None,
-    showLanguageSwitch: Boolean = false)(content: Html)(implicit lang: Lang,
+    showLanguageSwitch: Boolean = false, showBanner: Boolean = true)(content: Html)(implicit lang: Lang,
     config: utils.helpers.Config)
 
 @import views.html.common.{progressBar, protoType}
@@ -11,7 +11,9 @@
 
 @govMainDefault(title, showLanguageSwitch) {
     <div class="app vehicles-online">
-        @protoType()
+        @if(showBanner) {
+            @protoType()
+        }
 
         <div class="section-content">
             @progressBar(progress)

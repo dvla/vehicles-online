@@ -5,6 +5,6 @@
 @if(config.isPrototypeBannerVisible) {
     <div class="prototype">
         <p><span class="phase-tag beta">BETA</span> @Messages("prototype.banner")
-        <a id="@FeedbackId" href="@Messages("prototype.link.source")" target="_blank">@Messages("prototype.link")</a> @Messages("prototype.bannerPart2") </p>
+        <a id="@FeedbackId" target="_blank" href="@controllers.routes.FeedbackController.present()">@Messages("prototype.link")</a>
     </div>
 }

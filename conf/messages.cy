@@ -345,3 +345,10 @@ language.cy.button = YAGNI
 language.en.button = English
 
 mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
+
+# feedback
+common_feedback.title = Give Feedback
+common_feedback.message = Please don't include any Personal of financial information - for example your National Insurance number.
+common_feedback.label = What went wrong, if anything? What went well? How could we improve this service?
+common_feedback.placeholder = (Limit is 1200 characters)
+common_feedback.submit_button = Submit feedback

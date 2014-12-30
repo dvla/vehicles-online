@@ -1,13 +1,16 @@
 package utils.helpers
 
 import uk.gov.dvla.vehicles.presentation.common
-import common.ConfigProperties.{getProperty, getDurationProperty}
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.{ GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
+import uk.gov.dvla.vehicles.presentation.common.services.SEND.{From, EmailConfiguration}
 import webserviceclients.dispose.DisposeConfig
 import scala.concurrent.duration.DurationInt
 
 class Config {
+  private val notFound = "NOT FOUND"
+
   val vehiclesLookup = new VehicleLookupConfig
   val ordnanceSurvey = new OrdnanceSurveyConfig
   val gdsAddressLookup = new GDSAddressLookupConfig
@@ -57,4 +60,14 @@ class Config {
   // opening and closing times
   val opening: Int = getProperty("openingTime", default = 1)
   val closing: Int = getProperty("closingTime", default = 23)
+
+  val emailConfiguration: EmailConfiguration = EmailConfiguration(
+    getProperty("smtp.host", notFound),
+    getProperty("smtp.port", 25),
+    getProperty("smtp.user", notFound),
+    getProperty("smtp.password", notFound),
+    From(getProperty("email.senderAddress", notFound), "DO-NOT-REPLY"),
+    From(getProperty("email.feedbackAddress", notFound), "Feedback"),
+    getStringListProperty("email.whitelist")
+  )
 }
