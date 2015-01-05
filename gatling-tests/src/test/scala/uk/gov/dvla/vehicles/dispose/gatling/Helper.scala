@@ -9,7 +9,7 @@ object Helper {
   private val config = ConfigFactory.load()
 
   def baseUrl: String =
-    if (config.hasPath("baseUrl")) config.getString("baseUrl")
+    if (config.hasPath("test.url")) config.getString("test.url")
     else "http://localhost:9000"
 
   val httpConf = http
