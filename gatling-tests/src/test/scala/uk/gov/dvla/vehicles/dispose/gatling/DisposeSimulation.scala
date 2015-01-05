@@ -1,10 +1,10 @@
-package uk.gov.dvla
+package uk.gov.dvla.vehicles.dispose.gatling
 
 import io.gatling.core.Predef._
-import uk.gov.dvla.Helper.httpConf
-import uk.gov.dvla.dispose.Scenarios.dispose_start_to_finish_exit_on_fail
+import Scenarios.dispose_start_to_finish_exit_on_fail
+import Helper.httpConf
 
-class SmokeTestSimulation extends Simulation {
+class DisposeSimulation extends Simulation {
 
   private def disposeToTradeTests = dispose_start_to_finish_exit_on_fail.inject(atOnceUsers(1))
 

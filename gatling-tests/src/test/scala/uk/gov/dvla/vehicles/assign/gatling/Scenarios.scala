@@ -1,4 +1,4 @@
-package uk.gov.dvla.assign
+package uk.gov.dvla.vehicles.assign.gatling
 
 import io.gatling.core.Predef._
 import io.gatling.core.feeder._

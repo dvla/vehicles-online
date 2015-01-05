@@ -1,8 +1,9 @@
-package uk.gov.dvla.dispose
+package uk.gov.dvla.vehicles.dispose.gatling
 
 import io.gatling.core.Predef._
-import uk.gov.dvla.dispose.Chains._
+
 import scala.concurrent.duration._
+import Chains._
 
 object Scenarios {
 

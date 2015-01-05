@@ -1,10 +1,10 @@
-package uk.gov.dvla.retention
+package uk.gov.dvla.vehicles.retain.gatling
 
 import io.gatling.core.Predef._
-import uk.gov.dvla.Helper.httpConf
-import uk.gov.dvla.retention.Scenarios._
+import Scenarios._
+import uk.gov.dvla.vehicles.dispose.gatling.Helper.httpConf
 
-class Simulate extends Simulation {
+class RetainSimulation extends Simulation {
 
   private val oneUser = atOnceUsers(1)
 

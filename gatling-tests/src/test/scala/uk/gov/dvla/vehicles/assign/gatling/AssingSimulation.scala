@@ -1,10 +1,10 @@
-package uk.gov.dvla.assign
+package uk.gov.dvla.vehicles.assign.gatling
 
 import io.gatling.core.Predef._
-import uk.gov.dvla.Helper.httpConf
-import uk.gov.dvla.retention.Scenarios._
+import uk.gov.dvla.vehicles.dispose.gatling.Helper.httpConf
+import Scenarios._
 
-class Simulate extends Simulation {
+class AssingSimulation extends Simulation {
 
   private val oneUser = atOnceUsers(1)
 

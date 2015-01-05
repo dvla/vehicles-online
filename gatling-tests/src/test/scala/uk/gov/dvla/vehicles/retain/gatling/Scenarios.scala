@@ -1,4 +1,4 @@
-package uk.gov.dvla.retention
+package uk.gov.dvla.vehicles.retain.gatling
 
 import io.gatling.core.Predef._
 import io.gatling.core.feeder.{Record, RecordSeqFeederBuilder}

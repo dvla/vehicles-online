@@ -1,4 +1,4 @@
-package uk.gov.dvla
+package uk.gov.dvla.vehicles.dispose.gatling
 
 import com.typesafe.config.ConfigFactory
 import io.gatling.core.Predef._

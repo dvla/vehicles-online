@@ -1,9 +1,8 @@
-package uk.gov.dvla.assign
+package uk.gov.dvla.vehicles.assign.gatling
 
 import io.gatling.core.Predef._
 import io.gatling.core.feeder.RecordSeqFeederBuilder
 import io.gatling.http.Predef._
-import uk.gov.dvla.Headers.{headers_accept_html, headers_x_www_form_urlencoded}
 
 class Chains(data: RecordSeqFeederBuilder[String]) {
 

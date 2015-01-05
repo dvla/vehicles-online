@@ -1,4 +1,4 @@
-package uk.gov.dvla.acquire
+package uk.gov.dvla.vehicles.acquire.gatling
 
 import io.gatling.core.Predef._
 
