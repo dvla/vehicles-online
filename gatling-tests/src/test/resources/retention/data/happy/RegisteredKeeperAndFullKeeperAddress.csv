@@ -1,0 +1,2 @@
+vehicleRegistrationNumber,documentReferenceNumber,postcode,keeperConsent,expected_vehicleRegistrationNumber,expected_addressLine1,expected_addressLine2,expected_addressLine3,expected_addressLine4,expected_postTown,expected_postcodeFormatted,expected_registrationNumber,expected_make,expected_model,expected_registrationNumberFormatted
+A1,11111111111,AA11AA,Keeper,A1,SWAN COTTAGE,5 HIGH STREET,GREEN CLOSE,LITTLE VILLAGE,ASCOT,AA1 1AA,CV06 AAA,Ford,Focus,A 1

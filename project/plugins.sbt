@@ -46,3 +46,5 @@ addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.98.2")
 
 addSbtPlugin("com.sksamuel.scoverage" %% "sbt-coveralls" % "0.0.5")
 
+addSbtPlugin("io.gatling" % "gatling-sbt" % "2.1.0")
+

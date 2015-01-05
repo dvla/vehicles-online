@@ -1,0 +1,2 @@
+vehicleRegistrationNumber,documentReferenceNumber,postcode,keeperConsent,expected_make,expected_model,expected_registrationNumberFormatted
+D1,11111111111,SA11AA,Keeper,Alfa Romeo,Spider,D 1

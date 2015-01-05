@@ -1,0 +1,2 @@
+vehicleRegistrationNumber,documentReferenceNumber,postcode,keeperConsent,expected_registrationNumberFormatted
+C1,11111111111,SA11AA,Keeper,C 1

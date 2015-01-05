@@ -7,8 +7,8 @@ import sandbox.ProjectDefinitions.{osAddressLookup, vehiclesLookup, vehiclesDisp
 import sandbox.Sandbox
 import sandbox.SandboxSettings
 import sandbox.Tasks
-
 import Common._
+import io.gatling.sbt.GatlingPlugin
 
 name := "vehicles-online"
 
@@ -32,6 +32,10 @@ lazy val root = (project in file("."))
 lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-tests"))
   .dependsOn(root % "test->test")
   .disablePlugins(PlayScala, SassPlugin, SbtWeb)
+
+lazy val gatlingTestsProject = Project("gatling-tests", file("gatling-tests"))
+  .disablePlugins(PlayScala, SassPlugin, SbtWeb)
+  .enablePlugins(GatlingPlugin)
 
 libraryDependencies ++= Seq(
   cache,
