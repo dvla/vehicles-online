@@ -9,7 +9,7 @@ object Helper {
   private val config = ConfigFactory.load()
 
   def baseUrl: String =
-    if (config.hasPath("test.url")) config.getString("test.url")
+    if (config.hasPath("test.url")) config.getString("test.url").reverse.dropWhile(_ == '/').reverse
     else "http://localhost:9000"
 
   val httpConf = http
@@ -20,4 +20,6 @@ object Helper {
     .connection("keep-alive")
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0")
   //  .proxy(Proxy("localhost", 8081).httpsPort(8081))
+
+  println("###############################" + baseUrl)
 }

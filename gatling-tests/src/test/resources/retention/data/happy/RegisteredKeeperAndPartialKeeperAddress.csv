@@ -1,2 +1,0 @@
-vehicleRegistrationNumber,documentReferenceNumber,postcode,keeperConsent,expected_vehicleRegistrationNumber,expected_addressLine1,expected_addressLine2,expected_addressLine3,expected_addressLine4,expected_postTown,expected_postcodeFormatted,expected_registrationNumber,expected_make,expected_model,expected_registrationNumberFormatted
-B1,11111111111,BB11BB,Keeper,B1,106 NEWBRIDGE AVENUE,,,GREAT HORTON,BRADFORD,BB1 1BB,CV06 AAA,Fiat,Punto,B 1

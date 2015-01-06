@@ -9,6 +9,7 @@ import sandbox.SandboxSettings
 import sandbox.Tasks
 import Common._
 import io.gatling.sbt.GatlingPlugin
+import GatlingPlugin.Gatling
 
 name := "vehicles-online"
 
@@ -148,7 +149,7 @@ SandboxSettings.runAllMicroservices := {
   Tasks.runVehiclesDisposeFulfil.value
 }
 
-SandboxSettings.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+SandboxSettings.loadTests := (test in Gatling in gatlingTestsProject).value
 
 SandboxSettings.acceptanceTests := (test in Test in acceptanceTestsProject).value
 
