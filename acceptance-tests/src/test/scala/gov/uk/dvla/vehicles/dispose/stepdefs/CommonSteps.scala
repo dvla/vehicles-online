@@ -1,19 +1,11 @@
-package helpers.steps.disposal_of_vehicle
+package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Given, When, Then}
-import helpers.common.RandomVrmGenerator
+import pages.common.ErrorPanel
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
-import pages.common.ErrorPanel
-import pages.disposal_of_vehicle.BeforeYouStartPage
-import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
-import pages.disposal_of_vehicle.DisposePage
-import pages.disposal_of_vehicle.DisposeSuccessPage
-import pages.disposal_of_vehicle.EnterAddressManuallyPage
-import pages.disposal_of_vehicle.SetupTradeDetailsPage
-import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
 import uk.gov.dvla.vehicles.presentation.common
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
 import common.clientsidesession.EncryptedClientSideSessionFactory
 import common.clientsidesession.AesEncryption
 import common.clientsidesession.Sha1HashGenerator
@@ -21,8 +13,9 @@ import common.clientsidesession.CookieNameHashGenerator
 import common.clientsidesession.CookieEncryption
 import common.clientsidesession.NoCookieFlags
 import common.clientsidesession.ClearTextClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.helpers
-import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import helpers.common.RandomVrmGenerator
+import pages.disposal_of_vehicle._
 
 // TODO - Store input as variables
 
@@ -123,9 +116,10 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
   }
 
   private def selectTodaysDate() = {
+    click on DisposePage.dateOfDisposalDay
     DisposePage.dateOfDisposalDay select "25"
     DisposePage.dateOfDisposalMonth select "11"
-    DisposePage.dateOfDisposalYear select "1970"
+    DisposePage.dateOfDisposalYear select "2014"
   }
 
   @Given("""^details are entered that correspond to a vehicle that has a valid record but does have markers or error codes$""")
@@ -139,7 +133,6 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
     selectTodaysDate()
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
-    //submit()
   }
 
   @When("""^this is submitted along with any other mandatory information$""")
@@ -167,7 +160,6 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
 
   @Then("""^the vehicle reference mark "(.*)" is retained$""")
   def the_vehicle_reference_mark_is_retained(refMark:String) = {
-    //
   }
 
   @Then("""^the next step in the dispose transaction "(.*)" is shown$""")

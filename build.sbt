@@ -39,9 +39,6 @@ libraryDependencies ++= Seq(
   "net.sourceforge.htmlunit" % "htmlunit" % "2.15",
   "org.seleniumhq.selenium" % "selenium-java" % "2.42.2" % "test" withSources() withJavadoc(),
   "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
-  "info.cukes" %% "cucumber-scala" % "1.1.7" % "test" withSources() withJavadoc(),
-  "info.cukes" % "cucumber-java" % "1.1.7" % "test" withSources() withJavadoc(),
-  "info.cukes" % "cucumber-picocontainer" % "1.1.7" % "test" withSources() withJavadoc(),
   "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
   "com.github.tomakehurst" % "wiremock" % "1.46" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.7" % "test" withSources() withJavadoc(),
@@ -51,9 +48,12 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.8" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.8" % "test" classifier "tests"  withSources() withJavadoc(),
-  "org.webjars" % "requirejs" % "2.1.14-1"
+  "dvla" %% "vehicles-presentation-common" % "2.8" withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.8" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "common-test" % "2.7-SNAPSHOT" % "test" classifier "tests" withSources() withJavadoc(),
+  "org.webjars" % "requirejs" % "2.1.14-1",
+  "junit" % "junit" % "4.11",
+  "junit" % "junit-dep" % "4.11"
 )
 
 pipelineStages := Seq(rjs, digest, gzip)

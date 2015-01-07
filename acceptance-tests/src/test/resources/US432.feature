@@ -1,4 +1,4 @@
-@US432
+@tag
 Feature: US432: Option to Auto Populate Date of Sale Field with Todays Date
 
   Scenario: On Dispose page use a manually entered date of disposal with javascript disabled
