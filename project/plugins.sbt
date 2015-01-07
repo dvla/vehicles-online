@@ -35,8 +35,6 @@ resolvers += "Nexus Repository" at "http://rep002-01.skyscape.preview-dvla.co.uk
 
 resolvers += "Templemore Repository" at "http://templemore.co.uk/repo/"
 
-addSbtPlugin("templemore" % "sbt-cucumber-plugin" % "0.8.0")
-
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")
 
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
