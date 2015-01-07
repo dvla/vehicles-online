@@ -7,8 +7,9 @@ import sandbox.ProjectDefinitions.{osAddressLookup, vehiclesLookup, vehiclesDisp
 import sandbox.Sandbox
 import sandbox.SandboxSettings
 import sandbox.Tasks
-
 import Common._
+import io.gatling.sbt.GatlingPlugin
+import GatlingPlugin.Gatling
 
 name := "vehicles-online"
 
@@ -33,6 +34,10 @@ lazy val acceptanceTestsProject = Project("acceptance-tests", file("acceptance-t
   .dependsOn(root % "test->test")
   .disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
+lazy val gatlingTestsProject = Project("gatling-tests", file("gatling-tests"))
+  .disablePlugins(PlayScala, SassPlugin, SbtWeb)
+  .enablePlugins(GatlingPlugin)
+
 libraryDependencies ++= Seq(
   cache,
   filters,
@@ -48,12 +53,18 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
+<<<<<<< HEAD
   "dvla" %% "vehicles-presentation-common" % "2.8" withSources() withJavadoc() exclude("junit", "junit-dep"),
   "dvla" %% "vehicles-presentation-common" % "2.8" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
   "dvla" %% "common-test" % "2.7-SNAPSHOT" % "test" classifier "tests" withSources() withJavadoc(),
   "org.webjars" % "requirejs" % "2.1.14-1",
   "junit" % "junit" % "4.11",
   "junit" % "junit-dep" % "4.11"
+=======
+  "dvla" %% "vehicles-presentation-common" % "2.10" withSources() withJavadoc(),
+  "dvla" %% "vehicles-presentation-common" % "2.10" % "test" classifier "tests"  withSources() withJavadoc(),
+  "org.webjars" % "requirejs" % "2.1.14-1"
+>>>>>>> eff45de03f48dc83f823cdb69ad34bea7b8a0bb6
 )
 
 pipelineStages := Seq(rjs, digest, gzip)
@@ -115,7 +126,7 @@ resolvers ++= projectResolvers
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
 // ====================== Sandbox Settings ==========================
-lazy val osAddressLookupProject = osAddressLookup("0.7").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val osAddressLookupProject = osAddressLookup("0.8").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val vehiclesLookupProject = vehiclesLookup("0.6").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.4").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
@@ -144,7 +155,7 @@ SandboxSettings.runAllMicroservices := {
   Tasks.runVehiclesDisposeFulfil.value
 }
 
-SandboxSettings.gatlingSimulation := "uk.gov.dvla.SmokeTestSimulation"
+SandboxSettings.loadTests := (test in Gatling in gatlingTestsProject).value
 
 SandboxSettings.acceptanceTests := (test in Test in acceptanceTestsProject).value
 

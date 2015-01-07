@@ -9,68 +9,72 @@
 # Guice to provide the actual instance complete with its injected dependencies
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/versioned/*file                   controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/versioned/*file                        controllers.Assets.versioned(path="/public", file: Asset)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                             controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                  controllers.Assets.at(path="/public", file)
 
 ######################
 ## DISPOSAL OF VEHICLE
 ######################
 
 #page 1 - Before You Start (GET request not POST on submission because we are not posting any data)
-GET         /                                         @controllers.ApplicationRoot.index
-GET         /before-you-start                         @controllers.BeforeYouStart.present
-POST        /before-you-start                         @controllers.BeforeYouStart.submit
+GET         /                                              @controllers.ApplicationRoot.index
+GET         /before-you-start                              @controllers.BeforeYouStart.present
+POST        /before-you-start                              @controllers.BeforeYouStart.submit
 
 #page 2 - setup-trade-details
-GET         /setup-trade-details                      @controllers.SetUpTradeDetails.present
-POST        /setup-trade-details                      @controllers.SetUpTradeDetails.submit
+GET         /setup-trade-details                           @controllers.SetUpTradeDetails.present
+POST        /setup-trade-details                           @controllers.SetUpTradeDetails.submit
 
 #page 3 - business choose your address
-GET         /business-choose-your-address             @controllers.BusinessChooseYourAddress.present
-POST        /business-choose-your-address             @controllers.BusinessChooseYourAddress.submit
+GET         /business-choose-your-address                  @controllers.BusinessChooseYourAddress.present
+POST        /business-choose-your-address                  @controllers.BusinessChooseYourAddress.submit
 
 #page 4 [optional] - enter address manually
-GET         /enter-address-manually                   @controllers.EnterAddressManually.present
-POST        /enter-address-manually                   @controllers.EnterAddressManually.submit
+GET         /enter-address-manually                        @controllers.EnterAddressManually.present
+POST        /enter-address-manually                        @controllers.EnterAddressManually.submit
 
-GET         /vehicle-lookup                           @controllers.VehicleLookup.present
-POST        /vehicle-lookup                           @controllers.VehicleLookup.submit
-GET         /vehicle-lookup/exit                      @controllers.VehicleLookup.exit
-GET         /vehicle-lookup-back                      @controllers.VehicleLookup.back
+GET         /vehicle-lookup                                @controllers.VehicleLookup.present
+POST        /vehicle-lookup                                @controllers.VehicleLookup.submit
+GET         /vehicle-lookup/exit                           @controllers.VehicleLookup.exit
+GET         /vehicle-lookup-back                           @controllers.VehicleLookup.back
 
-GET         /complete-and-confirm                     @controllers.Dispose.present
-POST        /complete-and-confirm                     @controllers.Dispose.submit
+GET         /complete-and-confirm                          @controllers.Dispose.present
+POST        /complete-and-confirm                          @controllers.Dispose.submit
 
-GET         /sell-to-the-trade-success                @controllers.DisposeSuccess.present
-POST        /sell-to-the-trade-success/new-disposal   @controllers.DisposeSuccess.newDisposal
-POST        /sell-to-the-trade-success/exit           @controllers.DisposeSuccess.exit
+GET         /sell-to-the-trade-success                     @controllers.DisposeSuccess.present
+POST        /sell-to-the-trade-success/new-disposal        @controllers.DisposeSuccess.newDisposal
+POST        /sell-to-the-trade-success/exit                @controllers.DisposeSuccess.exit
 
-GET         /sell-to-the-trade-failure                @controllers.DisposeFailure.present
+GET         /sell-to-the-trade-failure                     @controllers.DisposeFailure.present
 
-GET         /vehicle-lookup-failure                   @controllers.VehicleLookupFailure.present
-POST        /vehicle-lookup-failure                   @controllers.VehicleLookupFailure.submit
+GET         /vehicle-lookup-failure                        @controllers.VehicleLookupFailure.present
+POST        /vehicle-lookup-failure                        @controllers.VehicleLookupFailure.submit
 
-GET         /uprn-not-found                           @controllers.UprnNotFound.present
+GET         /uprn-not-found                                @controllers.UprnNotFound.present
 
-GET         /duplicate-sell-to-the-trade-error        @controllers.DuplicateDisposalError.present
+GET         /duplicate-sell-to-the-trade-error             @controllers.DuplicateDisposalError.present
 
-GET         /service-error                            @controllers.MicroServiceError.present
-GET         /service-error/try-again                  @controllers.MicroServiceError.back
+GET         /service-error                                 @controllers.MicroServiceError.present
+GET         /service-error/try-again                       @controllers.MicroServiceError.back
 
-GET         /vrm-locked                               @controllers.VrmLocked.present
-POST        /vrm-locked/new-disposal                  @controllers.VrmLocked.newDisposal
-POST        /vrm-locked/exit                          @controllers.VrmLocked.exit
+GET         /vrm-locked                                    @controllers.VrmLocked.present
+POST        /vrm-locked/new-disposal                       @controllers.VrmLocked.newDisposal
+POST        /vrm-locked/exit                               @controllers.VrmLocked.exit
 
-GET         /error/:exceptionDigest                   @controllers.Error.present(exceptionDigest)
-POST        /error/:exceptionDigest                   @controllers.Error.submit(exceptionDigest)
+GET         /error/:exceptionDigest                        @controllers.Error.present(exceptionDigest)
+POST        /error/:exceptionDigest                        @controllers.Error.submit(exceptionDigest)
 
-GET         /help                                     @controllers.Help.present
-GET         /help/back                                @controllers.Help.back
+# feedback
+GET         /feedback                                      @controllers.FeedbackController.present
+POST        /feedback                                      @controllers.FeedbackController.submit
 
-GET         /with-language/:chosenLanguage            uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
+GET         /help                                          @controllers.Help.present
+GET         /help/back                                     @controllers.Help.back
 
-GET         /healthcheck                              @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond
+GET         /with-language/:chosenLanguage                 uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
 
-GET         /version                                  @controllers.Version.version
+GET         /healthcheck                                   @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond
+
+GET         /version                                       @controllers.Version.version

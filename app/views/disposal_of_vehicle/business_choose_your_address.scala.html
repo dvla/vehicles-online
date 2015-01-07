@@ -20,7 +20,6 @@
     title = Messages("disposal_businessChooseYourAddress_title"),
     currentForm = Some(businessChooseYourAddressForm)
 ) {
-    <h1>@Messages("disposal_businessChooseYourAddress_title")</h1>
     @form(action = BusinessChooseYourAddress.submit()) {
         @csrfTokenHiddenField()
 

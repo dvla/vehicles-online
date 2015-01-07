@@ -36,13 +36,14 @@ final class MainUiSpec extends UiSpec with TestHarness {
       isEnglishDisplayed should equal(false)
     }
 
-    "display mailto link that specifies a subject" taggedAs UiTag in new WebBrowser {
-      go to BeforeYouStartPage
-
-      val result = mailto.attribute("href").get
-      result should include("mailto:")
-      result should include("Subject=")
-    }
+    // this is not a valid text anymore
+//    "display mailto link that specifies a subject" taggedAs UiTag in new WebBrowser {
+//      go to BeforeYouStartPage
+//
+//      val result = mailto.attribute("href").get
+//      result should include("mailto:")
+//      result should include("Subject=")
+//    }
 
     abstract class PrototypeFalse extends WebBrowser(app = fakeAppWithPrototypeFalse)
 

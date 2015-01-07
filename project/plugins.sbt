@@ -13,9 +13,9 @@ resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/reposi
 
 resolvers += "Maven 2" at "http://repo2.maven.org/maven2"
 
-addSbtPlugin("dvla" % "build-details-generator" % "1.1")
+addSbtPlugin("dvla" % "build-details-generator" % "1.2")
 
-addSbtPlugin("dvla" % "microservices-sandbox" % "1.1")
+addSbtPlugin("dvla" % "microservices-sandbox" % "1.2")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.3")
 
@@ -45,4 +45,6 @@ addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.98.2")
 
 addSbtPlugin("com.sksamuel.scoverage" %% "sbt-coveralls" % "0.0.5")
+
+addSbtPlugin("io.gatling" % "gatling-sbt" % "2.1.0")
 

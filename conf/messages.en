@@ -2,6 +2,7 @@
 main.banner = Sell a vehicle into the motor trade
 main.banner.help = Help
 
+#global
 global.cookiemessage = GOV.UK uses cookies to make the site simpler.
 global.cookiefindoutmore = Find out more about cookies
 
@@ -15,6 +16,7 @@ global.buttonnavcancel = Cancel
 global.buttonnavupdate = Update
 global.buttonnavprint = Print
 
+#footer
 footer.builtbyintro = Built by
 footer.builtby = Driver & Vehicle Licensing Agency
 footer.text1 = All content is available under the
@@ -26,7 +28,6 @@ prototype.banner = This is a new service -
 prototype.link =  your feedback
 prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
 prototype.bannerPart2 = will help us to improve it
-
 
 #widget messages
 errorsummary.title = Please correct the details below
@@ -262,7 +263,7 @@ addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters
 addressAndPostcode.addressLines = Address
 addressAndPostcode.postcode = Postcode
-error.validBusinessName = Must be between two and 56 characters and only contain valid characters (a-z, A-Z, 0-9, -, '', and ,)
+error.validBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .). The following characters cannot be used at the start of trader name  (&,-,(), /, ‘ and , or .)
 error.address.buildingNameOrNumber.invalid = Building/number and street must contain between 4 and 30 characters
 error.address.postTown = Town or city must contain a minimum of 3 characters
 error.address.postcode.invalid = Must be between five and eight characters and in a valid format, eg. AB1 2Ba or AB12BA
@@ -344,3 +345,10 @@ language.cy.button = Cymraeg
 language.en.button = YAGNI
 
 mandatory = Fields not labelled (optional) are mandatory
+
+# feedback
+common_feedback.title = Give Feedback
+common_feedback.message = Please don't include any Personal of financial information - for example your National Insurance number.
+common_feedback.label = What went wrong, if anything? What went well? How could we improve this service?
+common_feedback.placeholder = (Limit is 1200 characters)
+common_feedback.submit_button = Submit feedback

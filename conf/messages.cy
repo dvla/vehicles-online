@@ -2,6 +2,7 @@
 main.banner = Gwerthu cerbyd i''r fasnach foduron
 main.banner.help = Help
 
+#global
 global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml
 global.cookiefindoutmore = Dysgwch fwy am gwcis
 
@@ -15,6 +16,7 @@ global.buttonnavcancel = Canslwch
 global.buttonnavupdate = Diweddarwch
 global.buttonnavprint = Argraffwch
 
+#footer
 footer.builtbyintro = Adeiladwyd gan
 footer.builtby = Asiantaeth Trwyddedu Gyrwyr a Cherbydau
 footer.text1 = Mae''r holl gynnwys ar gael ar delerau''r
@@ -26,7 +28,6 @@ prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
 prototype.link =  dysgwch fwy
 prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
 prototype.bannerPart2 = bydd yn ein helpu i wella
-
 
 #widget messages
 errorsummary.title = Cywirwch y manylion isod
@@ -262,7 +263,7 @@ addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
 error.address.maxLengthOfLinesConcatenated = Ni all cyfeiriad gynnwys mwy na 120 o nodau
 addressAndPostcode.addressLines = Cyfeiriad
 addressAndPostcode.postcode = Côd post
-error.validBusinessName = Rhaid bod rhwng 2 a 56 o nodau o hyd a dim ond nodau dilys (a-z, A-Z, 0-9, -, '', a ,)
+error.validBusinessName = Rhaid bod rhwng 2 a 58 o nodau o hyd a dim ond nodau dilys (a-z, A-Z, 0-9, &, -,(), /, ‘ a , neu .)
 error.address.buildingNameOrNumber.invalid = Rhaid i adeilad/ rhif a stryd gynnwys rhwng 4 a 30 o nodau
 error.address.postTown = Rhaid i dref neu ddinas gynnwys lleiafswm o 3 nod
 error.address.postcode.invalid = Rhaid bod rhwng 5 ac 8 nod o hyd ac mewn fformat dilys,  ee. AB1 2BA neu AB12BA
@@ -344,3 +345,10 @@ language.cy.button = YAGNI
 language.en.button = English
 
 mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
+
+# feedback
+common_feedback.title = Give Feedback
+common_feedback.message = Please don't include any Personal of financial information - for example your National Insurance number.
+common_feedback.label = What went wrong, if anything? What went well? How could we improve this service?
+common_feedback.placeholder = (Limit is 1200 characters)
+common_feedback.submit_button = Submit feedback
