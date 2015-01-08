@@ -110,7 +110,6 @@ lazy val osAddressLookupProject = osAddressLookup("0.9-SNAPSHOT").disablePlugins
 lazy val vehiclesLookupProject = vehiclesLookup("0.7-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.5-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val gatlingProject = gatlingTests().disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
 SandboxSettings.portOffset := 17000
 
@@ -125,8 +124,6 @@ SandboxSettings.vehiclesLookupProject := vehiclesLookupProject
 SandboxSettings.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
 
 SandboxSettings.legacyStubsProject := legacyStubsProject
-
-SandboxSettings.gatlingTestsProject := gatlingProject
 
 SandboxSettings.runAllMicroservices := {
   Tasks.runLegacyStubs.value
@@ -146,3 +143,7 @@ Sandbox.sandboxAsyncTask
 Sandbox.gatlingTask
 
 Sandbox.acceptTask
+
+Sandbox.cucumberTask
+
+Sandbox.acceptRemoteTask
