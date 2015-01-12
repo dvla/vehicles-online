@@ -18,7 +18,7 @@ import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLoo
 package object models {
   final val CacheKeyPrefix = "dtt-"
   final val HelpCacheKey = s"${CacheKeyPrefix}help"
-  final val SeenCookieMessageCacheKey = s"${CacheKeyPrefix}seen_cookie_message"
+  final val SeenCookieMessageCacheKey = "seen_cookie_message" // Same value across all exemplars
 
   // TODO: what is this set of cookies for?
   final val DisposeOnlyCacheKeys = Set(
