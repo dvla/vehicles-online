@@ -15,7 +15,7 @@ final class MicroServiceError @Inject()(implicit clientSideSessionFactory: Clien
 
   def present = Action { implicit request =>
     val referer = request.headers.get(REFERER).getOrElse(DefaultRedirectUrl)
-    Ok(views.html.disposal_of_vehicle.micro_service_error()).
+    ServiceUnavailable(views.html.disposal_of_vehicle.micro_service_error()).
       // Save the previous page URL (from the referer header) into a cookie.
       withCookie(MicroServiceError.MicroServiceErrorRefererCacheKey, referer).
       // Remove the interstitial cookie so we do not get bounced back to vehicle lookup unless we were on that page

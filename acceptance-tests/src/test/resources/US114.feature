@@ -1,4 +1,4 @@
-@US114
+@tag
 Feature: US114: Disposal to Trade - transaction failure codes and messages
   As a
   motor trader

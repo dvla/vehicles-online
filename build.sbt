@@ -1,7 +1,6 @@
 import de.johoop.jacoco4sbt.JacocoPlugin._
 import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
-import templemore.sbt.cucumber.CucumberPlugin
 import uk.gov.dvla.vehicles.sandbox
 import sandbox.ProjectDefinitions.{osAddressLookup, vehiclesLookup, vehiclesDisposeFulfil, legacyStubs, gatlingTests}
 import sandbox.Sandbox
@@ -44,9 +43,6 @@ libraryDependencies ++= Seq(
   "net.sourceforge.htmlunit" % "htmlunit" % "2.15",
   "org.seleniumhq.selenium" % "selenium-java" % "2.42.2" % "test" withSources() withJavadoc(),
   "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
-  "info.cukes" %% "cucumber-scala" % "1.1.7" % "test" withSources() withJavadoc(),
-  "info.cukes" % "cucumber-java" % "1.1.7" % "test" withSources() withJavadoc(),
-  "info.cukes" % "cucumber-picocontainer" % "1.1.7" % "test" withSources() withJavadoc(),
   "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
   "com.github.tomakehurst" % "wiremock" % "1.46" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.7" % "test" withSources() withJavadoc(),
@@ -56,24 +52,14 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.11-SNAPSHOT" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.11-SNAPSHOT" % "test" classifier "tests"  withSources() withJavadoc(),
-  "org.webjars" % "requirejs" % "2.1.14-1"
+  "dvla" %% "vehicles-presentation-common" % "2.11-SNAPSHOT" withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.11-SNAPSHOT" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "org.webjars" % "requirejs" % "2.1.14-1",
+  "junit" % "junit" % "4.11",
+  "junit" % "junit-dep" % "4.11"
 )
 
 pipelineStages := Seq(rjs, digest, gzip)
-
-CucumberPlugin.cucumberSettings ++
-  Seq (
-    CucumberPlugin.cucumberFeaturesLocation := "./test/acceptance/disposal_of_vehicle/",
-    CucumberPlugin.cucumberStepsBasePackage := "helpers.steps",
-    CucumberPlugin.cucumberJunitReport := false,
-    CucumberPlugin.cucumberHtmlReport := false,
-    CucumberPlugin.cucumberPrettyReport := false,
-    CucumberPlugin.cucumberJsonReport := false,
-    CucumberPlugin.cucumberStrict := true,
-    CucumberPlugin.cucumberMonochrome := false
-  )
 
 val myTestOptions =
   if (System.getProperty("include") != null ) {
@@ -124,7 +110,6 @@ lazy val osAddressLookupProject = osAddressLookup("0.9-SNAPSHOT").disablePlugins
 lazy val vehiclesLookupProject = vehiclesLookup("0.7-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.5-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val gatlingProject = gatlingTests().disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
 SandboxSettings.portOffset := 17000
 
@@ -139,8 +124,6 @@ SandboxSettings.vehiclesLookupProject := vehiclesLookupProject
 SandboxSettings.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
 
 SandboxSettings.legacyStubsProject := legacyStubsProject
-
-SandboxSettings.gatlingTestsProject := gatlingProject
 
 SandboxSettings.runAllMicroservices := {
   Tasks.runLegacyStubs.value
@@ -160,3 +143,7 @@ Sandbox.sandboxAsyncTask
 Sandbox.gatlingTask
 
 Sandbox.acceptTask
+
+Sandbox.cucumberTask
+
+Sandbox.acceptRemoteTask
