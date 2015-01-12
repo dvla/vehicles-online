@@ -64,9 +64,9 @@ final class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
       val contentWithCarriageReturnsAndSpacesRemoved = content.replaceAll("[\n\r]", "").replaceAll(emptySpace, "")
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildCheckboxHtml("consent", checked = true))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildCheckboxHtml("consent", isChecked = true, isAutoFocus = true))
       contentWithCarriageReturnsAndSpacesRemoved should include(
-        buildCheckboxHtml("lossOfRegistrationConsent", checked = true))
+        buildCheckboxHtml("lossOfRegistrationConsent", isChecked = true, isAutoFocus = false))
 
       contentWithCarriageReturnsAndSpacesRemoved should include(buildSelectedOptionHtml("25", "25"))
       contentWithCarriageReturnsAndSpacesRemoved should include(buildSelectedOptionHtml("11", "November"))
@@ -81,9 +81,9 @@ final class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
       val contentWithCarriageReturnsAndSpacesRemoved = content.replaceAll("[\n\r]", "").replaceAll(emptySpace, "")
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildCheckboxHtml("consent", checked = false))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildCheckboxHtml("consent", isChecked = false, isAutoFocus = true))
       contentWithCarriageReturnsAndSpacesRemoved should include(
-        buildCheckboxHtml("lossOfRegistrationConsent", checked = false))
+        buildCheckboxHtml("lossOfRegistrationConsent", isChecked = false, isAutoFocus = false))
       content should not include "selected" // No drop downs should be selected
     }
 
@@ -624,11 +624,10 @@ final class DisposeUnitSpec extends UnitSpec {
   }
 
 
-  private def buildCheckboxHtml(widgetName: String, checked: Boolean): String = {
-    if (checked)
-      s"""<inputid="$widgetName"name="$widgetName"value="true"checkedautofocus="true"type="checkbox"aria-required="true">"""
-    else
-      s"""<inputid="$widgetName"name="$widgetName"value="true"autofocus="true"type="checkbox"aria-required="true">"""
+  private def buildCheckboxHtml(widgetName: String, isChecked: Boolean, isAutoFocus: Boolean): String = {
+    val checked = if(isChecked) "checked" else ""
+    val autoFocus = if(isAutoFocus) """autofocus="true"""" else ""
+    s"""<inputid="$widgetName"name="$widgetName"value="true"${checked}${autoFocus}type="checkbox"aria-required="true">"""
   }
 
   private def buildSelectedOptionHtml(optionValue: String, optionText: String): String = {
