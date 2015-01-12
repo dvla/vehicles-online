@@ -7,6 +7,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import utils.helpers.Config
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
+import models.CacheKeyPrefix
 
 final class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                         config: Config) extends Controller {
@@ -28,5 +29,5 @@ final class MicroServiceError @Inject()(implicit clientSideSessionFactory: Clien
 }
 
 object MicroServiceError {
-  final val MicroServiceErrorRefererCacheKey = "msError"
+  final val MicroServiceErrorRefererCacheKey = s"${CacheKeyPrefix}msError"
 }

@@ -12,7 +12,7 @@ final case class SetupTradeDetailsFormModel(traderBusinessName: String, traderPo
 
 object SetupTradeDetailsFormModel {
   implicit val JsonFormat = Json.format[SetupTradeDetailsFormModel]
-  final val SetupTradeDetailsCacheKey = "setupTraderDetails"
+  final val SetupTradeDetailsCacheKey = s"${CacheKeyPrefix}setupTraderDetails"
   implicit val Key = CacheKey[SetupTradeDetailsFormModel](SetupTradeDetailsCacheKey)
 
   object Form {
