@@ -626,9 +626,9 @@ final class DisposeUnitSpec extends UnitSpec {
 
   private def buildCheckboxHtml(widgetName: String, checked: Boolean): String = {
     if (checked)
-      s"""<inputtype="checkbox"id="$widgetName"name="$widgetName"value="true"checkedaria-required=true"""
+      s"""<inputid="$widgetName"name="$widgetName"value="true"checkedautofocus="true"type="checkbox"aria-required="true">"""
     else
-      s"""<inputtype="checkbox"id="$widgetName"name="$widgetName"value="true"aria-required=true"""
+      s"""<inputid="$widgetName"name="$widgetName"value="true"autofocus="true"type="checkbox"aria-required="true">"""
   }
 
   private def buildSelectedOptionHtml(optionValue: String, optionText: String): String = {
