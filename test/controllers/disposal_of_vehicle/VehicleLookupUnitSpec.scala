@@ -43,7 +43,6 @@ import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{when, verify}
-import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.EnterAddressManuallyPage
@@ -222,7 +221,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       whenReady(result, timeout) { r =>
         r.header.headers.get(LOCATION) should equal(Some(DisposePage.address))
         val cookies = fetchCookiesFromHeaders(r)
-        val cookieName = "vehicleLookupFormModel"
+        val cookieName = VehicleLookupFormModelCacheKey
         cookies.find(_.name == cookieName) match {
           case Some(cookie) =>
             val json = cookie.value

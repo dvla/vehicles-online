@@ -18,6 +18,7 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewMod
 import utils.helpers.Config
 import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
 import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
 import models.EnterAddressManuallyFormModel
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
@@ -103,7 +104,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
         val cookies = fetchCookiesFromHeaders(r)
-        val enterAddressManuallyCookieName = "enterAddressManually"
+        val enterAddressManuallyCookieName = EnterAddressManuallyCacheKey
         cookies.find(_.name == enterAddressManuallyCookieName) match {
           case Some(cookie) =>
             val json = cookie.value
