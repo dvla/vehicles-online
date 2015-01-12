@@ -9,65 +9,66 @@ import webserviceclients.dispose.DisposeConfig
 import scala.concurrent.duration.DurationInt
 
 class Config {
-  private val notFound = "NOT FOUND"
 
-  val vehiclesLookup = new VehicleLookupConfig
-  val ordnanceSurvey = new OrdnanceSurveyConfig
-  val gdsAddressLookup = new GDSAddressLookupConfig
-  val dispose = new DisposeConfig
-  val bruteForcePrevention = new BruteForcePreventionConfig
+  lazy val vehiclesLookup = new VehicleLookupConfig
+  lazy val ordnanceSurvey = new OrdnanceSurveyConfig
+  lazy val gdsAddressLookup = new GDSAddressLookupConfig
+  lazy val dispose = new DisposeConfig
+  lazy val bruteForcePrevention = new BruteForcePreventionConfig
 
   // Micro-service config
-  val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
+  lazy val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
 
-  val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
-  val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
-  val ordnanceSurveyUseUprn: Boolean = getProperty("ordnancesurvey.useUprn", default = false)
+  lazy val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
+  lazy val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
+  lazy val ordnanceSurveyUseUprn: Boolean = getProperty[Boolean]("ordnancesurvey.useUprn")
 
-  val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
-  val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
-  val gdsAddressLookupAuthorisation = gdsAddressLookup.authorisation
+  lazy val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
+  lazy val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
+  lazy val gdsAddressLookupAuthorisation = gdsAddressLookup.authorisation
 
-  val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
-  val disposeMsRequestTimeout = dispose.requestTimeout
+  lazy val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
+  lazy val disposeMsRequestTimeout = dispose.requestTimeout
 
   // Brute force prevention config
-  val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader
-  val bruteForcePreventionMicroServiceBaseUrl = bruteForcePrevention.baseUrl
-  val bruteForcePreventionTimeoutMillis = bruteForcePrevention.requestTimeoutMillis
-  val isBruteForcePreventionEnabled: Boolean = bruteForcePrevention.isEnabled
-  val bruteForcePreventionServiceNameHeader: String = bruteForcePrevention.nameHeader
-  val bruteForcePreventionMaxAttemptsHeader: Int = bruteForcePrevention.maxAttemptsHeader
+  lazy val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader
+  lazy val bruteForcePreventionMicroServiceBaseUrl = bruteForcePrevention.baseUrl
+  lazy val bruteForcePreventionTimeoutMillis = bruteForcePrevention.requestTimeoutMillis
+  lazy val isBruteForcePreventionEnabled: Boolean = bruteForcePrevention.isEnabled
+  lazy val bruteForcePreventionServiceNameHeader: String = bruteForcePrevention.nameHeader
+  lazy val bruteForcePreventionMaxAttemptsHeader: Int = bruteForcePrevention.maxAttemptsHeader
 
   // Prototype message in html
-  val isPrototypeBannerVisible: Boolean = getProperty("prototype.disclaimer", default = true)
+  lazy val isPrototypeBannerVisible: Boolean = getProperty[Boolean]("prototype.disclaimer")
 
   // Prototype survey URL
-  val prototypeSurveyUrl: String = getProperty("survey.url", "")
-  val prototypeSurveyPrepositionInterval: Long = getDurationProperty("survey.interval", 7.days.toMillis)
+  lazy val prototypeSurveyUrl: String = getProperty[String]("survey.url") // could be optional
+  lazy val prototypeSurveyPrepositionInterval: Long = getProperty[Long]("survey.interval")
 
   // Google analytics
-  val googleAnalyticsTrackingId: String = getProperty("googleAnalytics.id.dispose", "NOT FOUND")
+  lazy val googleAnalyticsTrackingId: Option[String] = getOptionalProperty[String]("googleAnalytics.id.dispose")
 
   // Progress step indicator
-  val isProgressBarEnabled: Boolean = getProperty("progressBar.enabled", default = true)
-  val isHtml5ValidationEnabled: Boolean = getProperty("html5Validation.enabled", default = false)
+  lazy val isProgressBarEnabled: Boolean = getProperty[Boolean]("progressBar.enabled")
+  lazy val isHtml5ValidationEnabled: Boolean = getProperty[Boolean]("html5Validation.enabled")
 
-  val startUrl: String = getProperty("start.page", default = "NOT FOUND")
-  val endUrl: String = getProperty("end.page", default = startUrl)
+  lazy val startUrl: String = getProperty[String]("start.page")
+  lazy val endUrl: String = getProperty[String]("end.page")
 
 
   // opening and closing times
-  val opening: Int = getProperty("openingTime", default = 1)
-  val closing: Int = getProperty("closingTime", default = 23)
+  lazy val opening: Int = getProperty[Int]("openingTime")
+  lazy val closing: Int = getProperty[Int]("closingTime")
 
-  val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    getProperty("smtp.host", notFound),
-    getProperty("smtp.port", 25),
-    getProperty("smtp.user", notFound),
-    getProperty("smtp.password", notFound),
-    From(getProperty("email.senderAddress", notFound), "DO-NOT-REPLY"),
-    From(getProperty("email.feedbackAddress", notFound), "Feedback"),
+  // Web headers
+
+  lazy val emailConfiguration: EmailConfiguration = EmailConfiguration(
+    getProperty[String]("smtp.host"),
+    getProperty[Int]("smtp.port"),
+    getProperty[String]("smtp.user"),
+    getProperty[String]("smtp.password"),
+    From(getProperty[String]("email.senderAddress"), "DO-NOT-REPLY"),
+    From(getProperty[String]("email.feedbackAddress"), "Feedback"),
     getStringListProperty("email.whitelist")
   )
 }

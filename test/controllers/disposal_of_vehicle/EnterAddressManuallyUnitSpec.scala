@@ -266,7 +266,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
     }
   }
 
-  private val enterAddressManually = {
+  private lazy val enterAddressManually = {
     injector.getInstance(classOf[EnterAddressManually])
   }
 

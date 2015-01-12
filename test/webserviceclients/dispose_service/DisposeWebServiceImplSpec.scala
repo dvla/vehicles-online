@@ -11,9 +11,9 @@ import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFo
 class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
 
   implicit val noCookieFlags = new NoCookieFlags
-  implicit val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
-  val disposeService = new DisposeWebServiceImpl(new DisposeConfig() {
-    override val baseUrl = s"http://localhost:$wireMockPort"
+  implicit lazy val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
+  lazy val disposeService = new DisposeWebServiceImpl(new DisposeConfig() {
+    override lazy val baseUrl = s"http://localhost:$wireMockPort"
   })
 
   private final val trackingId = "track-id-test"
@@ -49,3 +49,4 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
     }
   }
 }
+

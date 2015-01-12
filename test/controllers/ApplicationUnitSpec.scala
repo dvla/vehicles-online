@@ -9,7 +9,7 @@ import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
 import utils.helpers.Config
 
 final class ApplicationUnitSpec extends UnitSpec {
-  val applicationContext = getProperty("application.context", default = "")
+  lazy val applicationContext = getProperty[String]("application.context")
 
   "index" should {
 

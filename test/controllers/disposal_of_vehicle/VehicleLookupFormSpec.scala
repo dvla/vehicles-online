@@ -1,5 +1,6 @@
 package controllers.disposal_of_vehicle
 
+import composition.WithApplication
 import controllers.{SurveyUrl, VehicleLookup}
 import helpers.UnitSpec
 import helpers.common.RandomVrmGenerator
@@ -27,22 +28,22 @@ final class VehicleLookupFormSpec extends UnitSpec {
   implicit val dateService = new DateServiceImpl
 
   "form" should {
-    "accept when all fields contain valid responses" in {
+    "accept when all fields contain valid responses" in new WithApplication {
       formWithValidDefaults().get.referenceNumber should equal(ReferenceNumberValid)
       formWithValidDefaults().get.registrationNumber should equal(RegistrationNumberValid)
     }
   }
 
   "referenceNumber" should {
-    allInvalidVrmFormats.map(vrm => "reject invalid vehicle registration mark : " + vrm in {
+    allInvalidVrmFormats.map(vrm => "reject invalid vehicle registration mark : " + vrm in new WithApplication {
       formWithValidDefaults(registrationNumber = vrm).errors should have length 1
     })
 
-    allValidVrmFormats.map(vrm => "accept valid vehicle registration mark : " + vrm in {
+    allValidVrmFormats.map(vrm => "accept valid vehicle registration mark : " + vrm in new WithApplication {
       formWithValidDefaults(registrationNumber = vrm).get.registrationNumber should equal(vrm)
     })
 
-    "reject if blank" in {
+    "reject if blank" in new WithApplication {
       val vehicleLookupFormError = formWithValidDefaults(referenceNumber = "").errors
       val expectedKey = DocumentReferenceNumberId
       
@@ -55,49 +56,49 @@ final class VehicleLookupFormSpec extends UnitSpec {
       vehicleLookupFormError(2).message should equal("error.restricted.validNumberOnly")
     }
 
-    "reject if less than min length" in {
+    "reject if less than min length" in new WithApplication {
       formWithValidDefaults(referenceNumber = "1234567891").errors should have length 1
     }
 
-    "reject if greater than max length" in {
+    "reject if greater than max length" in new WithApplication {
       formWithValidDefaults(referenceNumber = "123456789101").errors should have length 1
     }
 
-    "reject if contains letters" in {
+    "reject if contains letters" in new WithApplication {
       formWithValidDefaults(referenceNumber = "qwertyuiopl").errors should have length 1
     }
 
-    "reject if contains special characters" in {
+    "reject if contains special characters" in new WithApplication {
       formWithValidDefaults(referenceNumber = "£££££££££££").errors should have length 1
     }
 
-    "accept if valid" in {
+    "accept if valid" in new WithApplication {
       formWithValidDefaults(registrationNumber = RegistrationNumberValid).get.referenceNumber should equal(ReferenceNumberValid)
     }
   }
 
   "registrationNumber" should {
-    "reject if empty" in {
+    "reject if empty" in new WithApplication {
       formWithValidDefaults(registrationNumber = "").errors should have length 3
     }
 
-    "reject if less than min length" in {
+    "reject if less than min length" in new WithApplication {
       formWithValidDefaults(registrationNumber = "a").errors should have length 2
     }
 
-    "reject if more than max length" in {
+    "reject if more than max length" in new WithApplication {
       formWithValidDefaults(registrationNumber = "AB53WERT").errors should have length 1
     }
 
-    "reject if more than max length 2" in {
+    "reject if more than max length 2" in new WithApplication {
       formWithValidDefaults(registrationNumber = "PJ056YYY").errors should have length 1
     }
 
-    "reject if contains special characters" in {
+    "reject if contains special characters" in new WithApplication {
       formWithValidDefaults(registrationNumber = "ab53ab%").errors should have length 1
     }
 
-    "accept a selection of randomly generated vrms that all satisfy vrm regex" in {
+    "accept a selection of randomly generated vrms that all satisfy vrm regex" in new WithApplication {
       for (i <- 1 to 100) {
         val randomVrm = RandomVrmGenerator.vrm
         formWithValidDefaults(registrationNumber = randomVrm).get.registrationNumber should equal(randomVrm)
@@ -105,7 +106,7 @@ final class VehicleLookupFormSpec extends UnitSpec {
     }
   }
 
-  private val bruteForceServiceImpl: BruteForcePreventionService = {
+  private lazy val bruteForceServiceImpl: BruteForcePreventionService = {
     val bruteForcePreventionWebService: BruteForcePreventionWebService = mock[BruteForcePreventionWebService]
     when(bruteForcePreventionWebService.callBruteForce(anyString())).
       thenReturn( Future.successful( new FakeResponse(status = OK) ))

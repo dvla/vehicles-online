@@ -41,7 +41,7 @@ final class ErrorUnitSpec extends UnitSpec {
 
   // TODO please add test for 'submit'.
 
-  private val errorController = injector.getInstance(classOf[controllers.Error])
+  private lazy val errorController = injector.getInstance(classOf[controllers.Error])
 
   private lazy val present = {
     val request = FakeRequest().

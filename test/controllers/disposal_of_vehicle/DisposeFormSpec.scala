@@ -1,5 +1,6 @@
 package controllers.disposal_of_vehicle
 
+import composition.WithApplication
 import controllers.Dispose
 import helpers.UnitSpec
 import org.mockito.Matchers.any
@@ -21,7 +22,7 @@ import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistra
 
 final class DisposeFormSpec extends UnitSpec {
   "form" should {
-    "accept when all fields contain valid responses" in {
+    "accept when all fields contain valid responses" in new WithApplication {
       val model = formWithValidDefaults().get
 
       model.mileage.get should equal(MileageValid.toInt)
@@ -34,7 +35,7 @@ final class DisposeFormSpec extends UnitSpec {
       model.lossOfRegistrationConsent should equal(ConsentValid)
     }
 
-    "accept when all mandatory fields contain valid responses" in {
+    "accept when all mandatory fields contain valid responses" in new WithApplication {
       val model = formWithValidDefaults(
         mileage = "",
         dayOfDispose = DateOfDisposalDayValid,
@@ -50,28 +51,28 @@ final class DisposeFormSpec extends UnitSpec {
   }
 
   "mileage" should {
-    "reject if mileage is more than maximum" in {
+    "reject if mileage is more than maximum" in new WithApplication {
       formWithValidDefaults(mileage = (Mileage.Max + 1).toString).errors should have length 1
     }
-    "reject if mileage is not numeric" in {
+    "reject if mileage is not numeric" in new WithApplication {
       formWithValidDefaults(mileage = "Boom").errors should have length 1
     }
   }
 
   "dateOfDisposal" should {
-    "reject if date day is not selected" in {
+    "reject if date day is not selected" in new WithApplication {
       formWithValidDefaults(dayOfDispose = "").errors should have length 1
     }
 
-    "reject if date month is not selected" in {
+    "reject if date month is not selected" in new WithApplication {
       formWithValidDefaults(monthOfDispose = "").errors should have length 1
     }
 
-    "reject if date year is not selected" in {
+    "reject if date year is not selected" in new WithApplication {
       formWithValidDefaults(yearOfDispose = "").errors should have length 1
     }
 
-    "reject if date is in the future" in {
+    "reject if date is in the future" in new WithApplication {
       val dayToday: Int = DateOfDisposalDayValid.toInt
       val dayOfDispose = (dayToday + 1).toString
 
@@ -84,7 +85,7 @@ final class DisposeFormSpec extends UnitSpec {
       result.errors(0).message should equal("error.notInFuture")
     }
 
-    "reject if date is more than 2 years in the past" in {
+    "reject if date is more than 2 years in the past" in new WithApplication {
       val dayToday: Int = DateOfDisposalDayValid.toInt
       val yearToday: Int = DateOfDisposalYearValid.toInt
       val dayOfDispose = (dayToday - 1).toString
@@ -100,7 +101,7 @@ final class DisposeFormSpec extends UnitSpec {
       result.errors(0).message should equal("error.withinTwoYears")
     }
 
-    "reject if date is too far in the past" in {
+    "reject if date is too far in the past" in new WithApplication {
       val yearOfDispose = "1"
       val dateServiceStubbed = dateServiceStub(yearToday = 1)
 
@@ -113,7 +114,7 @@ final class DisposeFormSpec extends UnitSpec {
       result.errors(0).message should equal("error.invalid")
     }
 
-    "reject if date entered is an invalid date" in {
+    "reject if date entered is an invalid date" in new WithApplication {
       val day = "31"
       val month = "2"
       val year = DateOfDisposalYearValid
@@ -131,13 +132,13 @@ final class DisposeFormSpec extends UnitSpec {
   }
 
   "consent" should {
-    "reject if consent is not ticked" in {
+    "reject if consent is not ticked" in new WithApplication {
       formWithValidDefaults(consent = "").errors should have length 1
     }
   }
 
   "lossOfRegistrationConsent" should {
-    "reject if loss of registration consent is not ticked" in {
+    "reject if loss of registration consent is not ticked" in new WithApplication {
       formWithValidDefaults(lossOfRegistrationConsent = "").errors should have length 1
     }
   }

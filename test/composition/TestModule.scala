@@ -32,7 +32,7 @@ class TestModule() extends ScalaModule with MockitoSugar {
     val applicationConf = System.getProperty("config.file", s"application.dev.conf")
     implicit val config = Configuration(ConfigFactory.load(applicationConf))
 
-    getProperty("addressLookupService.type", "ordnanceSurvey") match {
+    getProperty[String]("addressLookupService.type") match {
       case "ordnanceSurvey" => ordnanceSurveyAddressLookup()
       case _ => gdsAddressLookup()
     }

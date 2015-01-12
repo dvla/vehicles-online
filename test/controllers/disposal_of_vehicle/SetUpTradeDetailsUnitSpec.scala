@@ -121,7 +121,7 @@ final class SetUpTradeDetailsUnitSpec extends UnitSpec {
       TraderPostcodeId -> dealerPostcode)
   }
 
-  private val setUpTradeDetails = {
+  private lazy val setUpTradeDetails = {
     injector.getInstance(classOf[SetUpTradeDetails])
   }
 

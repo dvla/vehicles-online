@@ -37,6 +37,6 @@ final class SoapEndpointErrorUnitSpec extends UnitSpec {
     }
   }
 
-  private val soapEndpointError = injector.getInstance(classOf[SoapEndpointError])
+  private lazy val soapEndpointError = injector.getInstance(classOf[SoapEndpointError])
   private lazy val present = soapEndpointError.present(FakeRequest())
 }

@@ -1,5 +1,6 @@
 package controllers.disposal_of_vehicle
 
+import composition.WithApplication
 import controllers.EnterAddressManually
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
 import AddressLinesViewModel.Form.LineMaxLength
@@ -11,7 +12,7 @@ import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberVal
 
 final class EnterAddressManuallyFormSpec extends UnitSpec {
   "form" should {
-    "accept if form is valid with all fields filled in" in {
+    "accept if form is valid with all fields filled in" in new WithApplication {
       val model = formWithValidDefaults().get.addressAndPostcodeModel
 
       model.addressLinesModel.buildingNameOrNumber should equal(BuildingNameOrNumberValid.toUpperCase)
@@ -20,7 +21,7 @@ final class EnterAddressManuallyFormSpec extends UnitSpec {
       model.addressLinesModel.postTown should equal(PostTownValid.toUpperCase)
     }
 
-    "accept if form is valid with only mandatory filled in" in {
+    "accept if form is valid with only mandatory filled in" in new WithApplication {
       val model = formWithValidDefaults(line2 = "", line3 = "").get.addressAndPostcodeModel
 
       model.addressLinesModel.buildingNameOrNumber should equal(BuildingNameOrNumberValid.toUpperCase)
@@ -28,7 +29,7 @@ final class EnterAddressManuallyFormSpec extends UnitSpec {
   }
 
   "address lines" should {
-    "accept if form address lines contain hyphens" in {
+    "accept if form address lines contain hyphens" in new WithApplication {
       val model = formWithValidDefaults(buildingNameOrNumber = buildingNameOrNumberHypthens,
         line2 = line2Hypthens,line3 = line3Hypthens, postTown = postTownHypthens)
         .get.addressAndPostcodeModel
@@ -39,64 +40,64 @@ final class EnterAddressManuallyFormSpec extends UnitSpec {
       model.addressLinesModel.postTown should equal(postTownHypthens.toUpperCase)
     }
 
-    "reject when all fields are blank" in {
+    "reject when all fields are blank" in new WithApplication {
       formWithValidDefaults(buildingNameOrNumber = "", line2 = "", line3 = "", postTown = "").errors should have length 4
     }
 
-    "reject if post town is blank" in {
+    "reject if post town is blank" in new WithApplication {
       formWithValidDefaults(postTown = "").errors should have length 2
     }
 
-    "reject if post town contains numbers" in {
+    "reject if post town contains numbers" in new WithApplication {
       formWithValidDefaults(postTown = "123456").errors should have length 1
     }
 
-    "accept if post town starts with spaces" in {
+    "accept if post town starts with spaces" in new WithApplication {
       formWithValidDefaults(postTown = " Swansea").get.addressAndPostcodeModel.addressLinesModel.
         postTown should equal("SWANSEA")
     }
 
-    "reject if buildingNameOrNumber is blank" in {
+    "reject if buildingNameOrNumber is blank" in new WithApplication {
       formWithValidDefaults(buildingNameOrNumber = "").errors should have length 2
     }
 
-    "reject if buildingNameOrNumber is less than min length" in {
+    "reject if buildingNameOrNumber is less than min length" in new WithApplication {
       formWithValidDefaults(buildingNameOrNumber = "abc", line2 = "", line3 = "", postTown = PostTownValid).
         errors should have length 1
     }
 
-    "reject if buildingNameOrNumber is more than max length" in {
+    "reject if buildingNameOrNumber is more than max length" in new WithApplication {
       formWithValidDefaults(buildingNameOrNumber = "a" * (LineMaxLength + 1),
         line2 = "", line3 = "", postTown = PostTownValid).errors should have length 1
     }
 
-    "reject if buildingNameOrNumber is greater than max length" in {
+    "reject if buildingNameOrNumber is greater than max length" in new WithApplication {
       formWithValidDefaults(buildingNameOrNumber = "a" * (LineMaxLength + 1)).errors should have length 1
     }
 
-    "reject if buildingNameOrNumber contains special characters" in {
+    "reject if buildingNameOrNumber contains special characters" in new WithApplication {
       formWithValidDefaults(buildingNameOrNumber = "The*House").errors should have length 1
     }
 
-    "reject if line2 is more than max length" in {
+    "reject if line2 is more than max length" in new WithApplication {
       formWithValidDefaults(line2 = "a" * (LineMaxLength + 1),
         line3 = "", postTown = PostTownValid).errors should have length 1
     }
 
-    "reject if line3 is more than max length" in {
+    "reject if line3 is more than max length" in new WithApplication {
       formWithValidDefaults(line2 = "", line3 = "a" * (LineMaxLength + 1),
         postTown = PostTownValid).errors should have length 1
     }
 
-    "reject if postTown is more than max length" in {
+    "reject if postTown is more than max length" in new WithApplication {
       formWithValidDefaults(line2 = "", line3 = "", postTown = "a" * (LineMaxLength + 1)).errors should have length 1
     }
 
-    "reject if postTown is less than min length" in {
+    "reject if postTown is less than min length" in new WithApplication {
       formWithValidDefaults(line2 = "", line3 = "", postTown = "ab").errors should have length 1
     }
 
-    "reject if total length of all address lines is more than maxLengthOfLinesConcatenated" in {
+    "reject if total length of all address lines is more than maxLengthOfLinesConcatenated" in new WithApplication {
       formWithValidDefaults(
         buildingNameOrNumber = "a" * LineMaxLength + 1,
         line2 = "b" * LineMaxLength,
@@ -105,7 +106,7 @@ final class EnterAddressManuallyFormSpec extends UnitSpec {
       ).errors should have length 1
     }
 
-    "reject if any line contains html chevrons" in {
+    "reject if any line contains html chevrons" in new WithApplication {
       formWithValidDefaults(buildingNameOrNumber = "A<br>B").errors should have length 1
       formWithValidDefaults(line2 = "A<br>B").errors should have length 1
       formWithValidDefaults(line3 = "A<br>B").errors should have length 1

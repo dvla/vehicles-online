@@ -41,7 +41,7 @@ import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, Disp
  */
 object DevModule extends ScalaModule {
   def configure() {
-    getProperty("addressLookupService.type", "ordnanceSurvey") match {
+    getProperty[String]("addressLookupService.type") match {
       case "ordnanceSurvey" =>
         bind[AddressLookupService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl].asEagerSingleton()
         bind[AddressLookupWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.WebServiceImpl].asEagerSingleton()
@@ -56,7 +56,7 @@ object DevModule extends ScalaModule {
     bind[DateService].to[DateServiceImpl].asEagerSingleton()
     bind[CookieFlags].to[CookieFlagsFromConfig].asEagerSingleton()
 
-    if (getProperty("encryptCookies", default = true)) {
+    if (getProperty[Boolean]("encryptCookies")) {
       bind[CookieEncryption].toInstance(new AesEncryption with CookieEncryption)
       bind[CookieNameHashGenerator].toInstance(new Sha1HashGenerator with CookieNameHashGenerator)
       bind[ClientSideSessionFactory].to[EncryptedClientSideSessionFactory].asEagerSingleton()
