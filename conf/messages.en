@@ -356,7 +356,7 @@ common_feedback.thankyou = Thank you for your feedback
 
 
 # Cookie policy
-footer.cookies = cookies
+footer.cookies = Cookies
 cookie-policy-title = Cookies
 cookie-policy-p1 = Small files (known as ‘cookies’) are put onto your computer to collect information about how you browse the site.
 cookie-policy-p2 = Cookies are used to:
