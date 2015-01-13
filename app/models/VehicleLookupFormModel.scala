@@ -10,9 +10,9 @@ final case class VehicleLookupFormModel(referenceNumber: String,
 
 object VehicleLookupFormModel {
   implicit val JsonFormat = Json.format[VehicleLookupFormModel]
-  final val VehicleLookupFormModelCacheKey = "vehicleLookupFormModel"
+  final val VehicleLookupFormModelCacheKey = s"${CacheKeyPrefix}vehicleLookupFormModel"
   implicit val Key = CacheKey[VehicleLookupFormModel](VehicleLookupFormModelCacheKey)
-  final val VehicleLookupResponseCodeCacheKey = "vehicleLookupResponseCode"
+  final val VehicleLookupResponseCodeCacheKey = s"${CacheKeyPrefix}vehicleLookupResponseCode"
 
     object Form {
     final val DocumentReferenceNumberId = "documentReferenceNumber"

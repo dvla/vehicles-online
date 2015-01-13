@@ -10,7 +10,7 @@ final case class EnterAddressManuallyFormModel(addressAndPostcodeModel: AddressA
 object EnterAddressManuallyFormModel {
   implicit val JsonFormat = Json.format[EnterAddressManuallyFormModel]
 
-  final val EnterAddressManuallyCacheKey = "enterAddressManually"
+  final val EnterAddressManuallyCacheKey = s"${CacheKeyPrefix}enterAddressManually"
   implicit val Key = CacheKey[EnterAddressManuallyFormModel](EnterAddressManuallyCacheKey)
 
   object Form {

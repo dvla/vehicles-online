@@ -19,14 +19,14 @@ final case class DisposeFormModel(mileage: Option[Int],
 
 object DisposeFormModel {
   implicit val JsonFormat = Json.format[DisposeFormModel]
-  final val DisposeFormModelCacheKey = "disposeForm"
+  final val DisposeFormModelCacheKey = s"${CacheKeyPrefix}disposeForm"
   implicit val Key = CacheKey[DisposeFormModel](value = DisposeFormModelCacheKey)
-  final val DisposeOccurredCacheKey = "disposeOccurredCacheKey"
-  final val PreventGoingToDisposePageCacheKey = "preventGoingToDisposePage"
-  final val DisposeFormTransactionIdCacheKey = "disposeFormTransactionId"
-  final val DisposeFormTimestampIdCacheKey = "disposeFormTimestampId"
-  final val DisposeFormRegistrationNumberCacheKey = "disposeFormRegistrationNumber"
-  final val SurveyRequestTriggerDateCacheKey = "surveyRequestTriggerDate"
+  final val DisposeOccurredCacheKey = s"${CacheKeyPrefix}disposeOccurredCacheKey"
+  final val PreventGoingToDisposePageCacheKey = s"${CacheKeyPrefix}preventGoingToDisposePage"
+  final val DisposeFormTransactionIdCacheKey = s"${CacheKeyPrefix}disposeFormTransactionId"
+  final val DisposeFormTimestampIdCacheKey = s"${CacheKeyPrefix}disposeFormTimestampId"
+  final val DisposeFormRegistrationNumberCacheKey = s"${CacheKeyPrefix}disposeFormRegistrationNumber"
+  final val SurveyRequestTriggerDateCacheKey = s"${CacheKeyPrefix}surveyRequestTriggerDate"
 
   object Form {
     final val MileageId = "mileage"
