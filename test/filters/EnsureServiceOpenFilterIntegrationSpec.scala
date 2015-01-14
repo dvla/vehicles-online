@@ -69,6 +69,7 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
             val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
             when(mockConfig.opening).thenReturn(opening)
             when(mockConfig.closing).thenReturn(closing)
+            when(mockConfig.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
             bind[Config].toInstance(mockConfig)
           }
         }

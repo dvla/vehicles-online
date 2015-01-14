@@ -273,6 +273,7 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
     val addressLookupService = new AddressLookupServiceImpl(fakeWebService)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
+    when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
     when(config.isPrototypeBannerVisible).thenReturn(isPrototypeBannerVisible) // Stub this config value.
     when(config.ordnanceSurveyUseUprn).thenReturn(ordnanceSurveyUseUprn) // Stub this config value.
     new BusinessChooseYourAddress(addressLookupService)

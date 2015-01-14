@@ -142,6 +142,7 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
         val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
         when(mockConfig.opening).thenReturn(opening)
         when(mockConfig.closing).thenReturn(closing)
+        when(mockConfig.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
         bind[Config].toInstance(mockConfig)
         bind[DateTimeZoneService].toInstance(dateTimeZoneService)
       }

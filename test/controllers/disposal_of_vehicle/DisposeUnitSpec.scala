@@ -96,6 +96,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "not display prototype message when config set to false" in new WithApplication {
       implicit val config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false)
+      when(config.googleAnalyticsTrackingId).thenReturn(None)
       // Stub this config value.
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
@@ -186,6 +187,7 @@ final class DisposeUnitSpec extends UnitSpec {
       when(mockWebServiceThrows.invoke(any[DisposeRequestDto], any[String])).thenReturn(Future.failed(new RuntimeException))
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
+      when(config.googleAnalyticsTrackingId).thenReturn(None)
       val dispose = new Dispose(mockWebServiceThrows, dateServiceStubbed())
       val result = dispose.submit(request)
       whenReady(result) { r =>
@@ -310,6 +312,7 @@ final class DisposeUnitSpec extends UnitSpec {
       })
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
+      when(config.googleAnalyticsTrackingId).thenReturn(None)
       val dispose = new Dispose(mockDisposeService, dateServiceStubbed())
       val result = dispose.submit(request)
       whenReady(result) { r =>
@@ -606,6 +609,7 @@ final class DisposeUnitSpec extends UnitSpec {
   private val config: Config = {
     val config = mock[Config]
     when(config.isPrototypeBannerVisible).thenReturn(true)
+    when(config.googleAnalyticsTrackingId).thenReturn(None)
     config
   }
 

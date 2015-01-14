@@ -30,7 +30,7 @@
         <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("lib/vehicles-presentation-common/images/apple-touch-icon-144x144.png")" sizes="144x144">
         <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("lib/vehicles-presentation-common/images/apple-touch-icon-152x152.png")" sizes="152X152">
 
-        @if(config.googleAnalyticsTrackingId != "NOT FOUND") {
+        @if(config.googleAnalyticsTrackingId.isDefined) {
             @*
             https://support.google.com/analytics/answer/1008080?hl=en&utm_id=ad
             Paste it immediately before the closing </head> tag.

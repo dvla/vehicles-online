@@ -130,6 +130,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
       implicit val config: Config = mock[Config]
       implicit val surveyUrl = new SurveyUrl()
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
+      when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
       val disposeSuccessPrototypeNotVisible = new DisposeSuccess()
 
       val result = disposeSuccessPrototypeNotVisible.present(request)
@@ -188,6 +189,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
 
       when(config.prototypeSurveyUrl).thenReturn("")
       when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
+      when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
       contentAsString(presentFake) should not include "survey"
     }
   }
@@ -320,6 +322,7 @@ final class DisposeSuccessUnitSpec extends UnitSpec {
     val surveyUrl = url
     when(config.prototypeSurveyUrl).thenReturn(surveyUrl)
     when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
+    when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
     config
   }
 }

@@ -5,7 +5,7 @@ import com.tzavellas.sse.guice.ScalaModule
 import play.api.{Logger, LoggerLike}
 import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common
-import common.ConfigProperties.getProperty
+import common.ConfigProperties.{getProperty, getOptionalProperty}
 import common.clientsidesession.AesEncryption
 import common.clientsidesession.ClearTextClientSideSessionFactory
 import common.clientsidesession.ClientSideSessionFactory
@@ -56,7 +56,7 @@ object DevModule extends ScalaModule {
     bind[DateService].to[DateServiceImpl].asEagerSingleton()
     bind[CookieFlags].to[CookieFlagsFromConfig].asEagerSingleton()
 
-    if (getProperty[Boolean]("encryptCookies")) {
+    if (getOptionalProperty[Boolean]("encryptCookies").getOrElse(true)) {
       bind[CookieEncryption].toInstance(new AesEncryption with CookieEncryption)
       bind[CookieNameHashGenerator].toInstance(new Sha1HashGenerator with CookieNameHashGenerator)
       bind[ClientSideSessionFactory].to[EncryptedClientSideSessionFactory].asEagerSingleton()
