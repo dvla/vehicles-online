@@ -406,7 +406,7 @@ cookie-policy.expires.4months= 4 months
 cookie-policy.expires.6months = 6 months
 cookie-policy.expires.1year = 1 year
 cookie-policy.expires.2years = 2 years
-cookie-policy.expires.30min = 2 years
+cookie-policy.expires.30min = 30 minutes
 cookie-policy.expires.inactivity = After 15 minutes of inactivity or when you close your browser
 cookie-policy.expires.close = When you close your browser
 

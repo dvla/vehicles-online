@@ -405,6 +405,6 @@ cookie-policy.expires.4months= 4 mis
 cookie-policy.expires.6months = 6 mis
 cookie-policy.expires.1year = 1 flwyddyn
 cookie-policy.expires.2years = 2 flynedd
-cookie-policy.expires.30min = 30 mun
+cookie-policy.expires.30min = 30 munud
 cookie-policy.expires.inactivity = Ar ôl 15 munud o anweithgarwch neu pan fyddwch yn cau eich porwr
 cookie-policy.expires.close = Pan fyddwch yn cau eich porwr
