@@ -78,3 +78,5 @@ GET         /with-language/:chosenLanguage                 uk.gov.dvla.vehicles.
 GET         /healthcheck                                   @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond
 
 GET         /version                                       @controllers.Version.version
+
+GET         /cookie-policy                                 @controllers.CookiePolicyController.present

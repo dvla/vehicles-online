@@ -1,15 +1,14 @@
 package controllers.disposal_of_vehicle
 
-import uk.gov.dvla.vehicles.presentation.common.mappings
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
-import AddressLinesViewModel.Form.LineMaxLength
 import controllers.Dispose
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs.TrackingIdValue
 import helpers.{UnitSpec, WithApplication}
+import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
+import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey}
+import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{times, verify, when}
@@ -18,12 +17,12 @@ import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, INTERNAL_SERVER_ERROR, LOCATION, OK, SERVICE_UNAVAILABLE, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeService, DisposeResponseDto, DisposeRequestDto, DisposalAddressDto}
-import utils.helpers.Config
-import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
-import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey}
+import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
-import DisposalAddressDto.BuildingNameOrNumberHolder
+import utils.helpers.Config
+import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
+import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService, DisposeServiceImpl, DisposeWebService}
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, PostcodeValidWithSpace, TraderBusinessNameValid}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.{MileageValid, disposeResponseApplicationBeingProcessed, disposeResponseFailureWithDuplicateDisposal, disposeResponseSuccess, disposeResponseUnableToProcessApplication, disposeResponseUndefinedError}
@@ -32,9 +31,9 @@ import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import org.joda.time.{Instant, DateTime}
 
 final class DisposeUnitSpec extends UnitSpec {
+
   "present" should {
     "display the page" in new WithApplication {
       val request = FakeRequest().
@@ -64,9 +63,8 @@ final class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
       val contentWithCarriageReturnsAndSpacesRemoved = content.replaceAll("[\n\r]", "").replaceAll(emptySpace, "")
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildCheckboxHtml("consent", isChecked = true, isAutoFocus = true))
-      contentWithCarriageReturnsAndSpacesRemoved should include(
-        buildCheckboxHtml("lossOfRegistrationConsent", isChecked = true, isAutoFocus = false))
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = true, isAutoFocus = true)
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = true, isAutoFocus = false)
 
       contentWithCarriageReturnsAndSpacesRemoved should include(buildSelectedOptionHtml("25", "25"))
       contentWithCarriageReturnsAndSpacesRemoved should include(buildSelectedOptionHtml("11", "November"))
@@ -81,9 +79,8 @@ final class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
       val contentWithCarriageReturnsAndSpacesRemoved = content.replaceAll("[\n\r]", "").replaceAll(emptySpace, "")
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildCheckboxHtml("consent", isChecked = false, isAutoFocus = true))
-      contentWithCarriageReturnsAndSpacesRemoved should include(
-        buildCheckboxHtml("lossOfRegistrationConsent", isChecked = false, isAutoFocus = false))
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = false, isAutoFocus = true)
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = false, isAutoFocus = false)
       content should not include "selected" // No drop downs should be selected
     }
 
@@ -98,7 +95,8 @@ final class DisposeUnitSpec extends UnitSpec {
 
     "not display prototype message when config set to false" in new WithApplication {
       implicit val config = mock[Config]
-      when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
+      when(config.isPrototypeBannerVisible).thenReturn(false)
+      // Stub this config value.
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
@@ -329,11 +327,11 @@ final class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(
-          buildingNameOrNumber = "a" * (LineMaxLength + 1),
-          line2 = "b" * (LineMaxLength + 1),
-          line3 = "c" * (LineMaxLength + 1),
-          postTown = "d" * (LineMaxLength + 1)
-        )).
+        buildingNameOrNumber = "a" * (LineMaxLength + 1),
+        line2 = "b" * (LineMaxLength + 1),
+        line3 = "c" * (LineMaxLength + 1),
+        postTown = "d" * (LineMaxLength + 1)
+      )).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
       val result = controller.submit(request)
@@ -428,10 +426,10 @@ final class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(
-          buildingNameOrNumber = linePart1TooLong,
-          line2 = linePart2TooLong,
-          line3 = ""
-        )).
+        buildingNameOrNumber = linePart1TooLong,
+        line2 = linePart2TooLong,
+        line3 = ""
+      )).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
       val result = controller.submit(request)
@@ -468,7 +466,7 @@ final class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModelBuildingNameOrNumber(
-          buildingNameOrNumber = linePart1TooLong)).
+        buildingNameOrNumber = linePart1TooLong)).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
       val result = controller.submit(request)
@@ -505,7 +503,7 @@ final class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModelLine2(
-          buildingNameOrNumber = linePart1TooLong, line2 = linePart2TooLong)).
+        buildingNameOrNumber = linePart1TooLong, line2 = linePart2TooLong)).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
       val result = controller.submit(request)
@@ -574,7 +572,7 @@ final class DisposeUnitSpec extends UnitSpec {
   }
 
   private val buildCorrectlyPopulatedRequest = {
-    import mappings.DayMonthYear._
+    import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear._
     FakeRequest().withFormUrlEncodedBody(
       MileageId -> MileageValid,
       s"$DateOfDisposalId.$DayId" -> DateOfDisposalDayValid,
@@ -598,9 +596,9 @@ final class DisposeUnitSpec extends UnitSpec {
     val disposeWebService = mock[DisposeWebService]
     when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[String])).
       thenReturn(Future.successful {
-        val fakeJson = disposeServiceResponse map (Json.toJson(_))
-        new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson) // Any call to a webservice will always return this successful response.
-      })
+      val fakeJson = disposeServiceResponse map (Json.toJson(_))
+      new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson) // Any call to a webservice will always return this successful response.
+    })
 
     disposeWebService
   }
@@ -623,11 +621,17 @@ final class DisposeUnitSpec extends UnitSpec {
     new Dispose(disposeService, dateServiceStubbed())
   }
 
-
-  private def buildCheckboxHtml(widgetName: String, isChecked: Boolean, isAutoFocus: Boolean): String = {
-    val checked = if(isChecked) "checked" else ""
-    val autoFocus = if(isAutoFocus) """autofocus="true"""" else ""
-    s"""<inputid="$widgetName"name="$widgetName"value="true"${checked}${autoFocus}type="checkbox"aria-required="true">"""
+  private def checkboxHasAttributes(content: String, widgetName: String, isChecked: Boolean, isAutoFocus: Boolean) = {
+    val checkboxRegex = s"""<inputid="$widgetName"name="$widgetName"[^>]*>""".r
+    val checkboxHtml = checkboxRegex.findFirstIn(content)
+    checkboxHtml match {
+      case Some(checkbox) =>
+        if (isChecked) checkbox should include( """checked""")
+        else {}
+        if (isAutoFocus) checkbox should include( """autofocus="true"""")
+        else {}
+      case _ => fail("did not find the checkbox in ")
+    }
   }
 
   private def buildSelectedOptionHtml(optionValue: String, optionText: String): String = {
