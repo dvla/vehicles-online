@@ -1,3 +1,55 @@
+======= 1.4.2 ======
+Time of release binaries creation:
+Weds Jan 14 20:35:39 UTC 2015
+
+User stories:
+US2003 Create a new cookie policy component
+US2201 Prefixed the cache keys with exemplar abbreviation to make the keys unique across all exemplars which will now use a common domain name
+US1995 Remove test that should only exist in presentation-common % test
+US2092 Remove the remote gatling project
+US2011 Changing the way feedback form opens so we can close the tab
+US2091 Moved acceptance tests to acceptance project
+US2178 Added disposeFlag and keeperEndDate to VehicleAndKeeperDetailsDto.
+US2215 Margin consistency
+US1995 Clean up how we do hint text, hint text has an id and input text field uses aria-describedby to link to it
+Bugs: 
+DE280 Return 503 in the MicroserviceErrorPage
+
+======== 1.4.1 ======
+Time of release creation:
+Weds Jan 7 13:26:16 UTC 2015
+
+User stories:
+US2092 Run gatling tests from the local project instead of from the one in nexus
+US2011 Remove unnecessary parethenses
+US2092 Use test.url property instead of baseUrl
+US2092 Using appropriate packge structure for the gatling tests
+US2092 Adding gatling tests to the project
+US2098 Fixed the feedback link text after it got accidentally broken
+US2011 Create pages and navigation
+       Enable the brute force prevention in dev pointing to the dev environment brute force
+US1508 Changed the error message
+US1508 Changed the code to use the common BusinessName.businessNameMapping from the common lib. Also updated the tests to work against the updated business name regex
+       Common RELEASE 2.10
+DE276: Fixed num lock error when adding numbers
+US2099 Reapply changes for dateService refactoring.
+US2099 Added missing dateService implicit.
+       Removing redundant feedback form elements
+US2011 Feedback form updates - adding character countdown functionality
+US2011 Fixing title spelling
+US2011 Feedback page title
+US2011 Creating base feedback template in common
+       Improve the error handling when the brute force service return an unknow error code
+US2011 Styling the feedback page
+US2011 Create common components and services
+DE274  radio buttons should not repeat the parent component's error message
+       Pimped Cookie to add builder-pattern functions for withSecure, withMaxAge and withDomain
+US2007 Enhance 'Use today's date' link on all services.
+       Enable tests to be run with different browsers
+Bugs:
+DE201: Null checks in case javascript is not enabled
+DE201: Include tab in the list of allowed characters.
+
 ======== 1.4 ========
 Time of release binaries creation:
 Tue Dec 16 17:06:03 UTC 2014
