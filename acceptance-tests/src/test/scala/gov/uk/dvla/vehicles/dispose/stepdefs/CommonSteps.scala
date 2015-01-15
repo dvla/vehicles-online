@@ -21,9 +21,9 @@ import pages.disposal_of_vehicle._
 
 final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
 
-  implicit val clientSideSessionFactory = {
+  implicit lazy val clientSideSessionFactory = {
     implicit val cookieFlags = new NoCookieFlags()
-    val testRemote = getProperty("test.remote", default = false)
+    val testRemote = false //getProperty[Boolean]("test.remote")
     if (testRemote)  {
       implicit val cookieEncryption = new AesEncryption with CookieEncryption
       implicit val cookieNameHashing = new Sha1HashGenerator with CookieNameHashGenerator
@@ -34,7 +34,7 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
     }
   }
 
-  implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
+  implicit lazy val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
   def goToSetupTradeDetailsPage() = {
     go to BeforeYouStartPage
