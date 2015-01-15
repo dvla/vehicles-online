@@ -36,7 +36,7 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
     }, dateTime)
   }
 
-  "Return True for a timezone time falling within opening hours, and False for a time in another timezone falling outside opening hours" ignore {
+  "Return True for a timezone time falling within opening hours, and False for a time in another timezone falling outside opening hours" in {
     setUpInHours ((setup: SetUp) => {
         setup.filter.serviceOpen() should equal(true)
     }, new DateTimeZoneServiceImpl)
