@@ -6,7 +6,6 @@ import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.{ GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.{From, EmailConfiguration}
 import webserviceclients.dispose.DisposeConfig
-import scala.concurrent.duration.DurationInt
 
 class Config {
 
@@ -43,7 +42,7 @@ class Config {
 
   // Prototype survey URL
   lazy val prototypeSurveyUrl: String = getProperty[String]("survey.url") // could be optional
-  lazy val prototypeSurveyPrepositionInterval: Long = getProperty[Long]("survey.interval")
+  lazy val prototypeSurveyPrepositionInterval: Long = getDurationProperty("survey.interval")
 
   // Google analytics
   lazy val googleAnalyticsTrackingId: Option[String] = getOptionalProperty[String]("googleAnalytics.id.dispose")
