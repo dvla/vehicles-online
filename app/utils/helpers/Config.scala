@@ -62,12 +62,12 @@ class Config {
   // Web headers
 
   lazy val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    getProperty[String]("smtp.host"),
-    getProperty[Int]("smtp.port"),
-    getProperty[String]("smtp.user"),
-    getProperty[String]("smtp.password"),
-    From(getProperty[String]("email.senderAddress"), "DO-NOT-REPLY"),
-    From(getProperty[String]("email.feedbackAddress"), "Feedback"),
+    getOptionalProperty[String]("smtp.host").getOrElse(""),
+    getOptionalProperty[Int]("smtp.port").getOrElse(25),
+    getOptionalProperty[String]("smtp.user").getOrElse(""),
+    getOptionalProperty[String]("smtp.password").getOrElse(""),
+    From(getOptionalProperty[String]("email.senderAddress").getOrElse(""), "DO-NOT-REPLY"),
+    From(getOptionalProperty[String]("email.feedbackAddress").getOrElse(""), "Feedback"),
     getStringListProperty("email.whitelist")
   )
 }
