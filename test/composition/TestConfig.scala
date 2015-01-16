@@ -1,13 +1,8 @@
 package composition
 
-import uk.gov.dvla.vehicles.presentation.common
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.{EmailConfiguration, From}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.TestOrdnanceSurveyConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicle_lookup.TestVehicleLookupConfig
-import webserviceclients.dispose.DisposeConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.VehicleLookupConfig
 import utils.helpers.Config
 
 class TestConfig extends Config {
