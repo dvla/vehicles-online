@@ -20,7 +20,7 @@ import webserviceclients.fakes.FakeDisposeWebServiceImpl
 import webserviceclients.fakes.FakeDateServiceImpl
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getProperty, getOptionalProperty}
 
 class TestModule() extends ScalaModule with MockitoSugar {
   /**
@@ -32,7 +32,7 @@ class TestModule() extends ScalaModule with MockitoSugar {
     val applicationConf = System.getProperty("config.file", s"application.dev.conf")
     implicit val config = Configuration(ConfigFactory.load(applicationConf))
 
-    getProperty[String]("addressLookupService.type") match {
+    getOptionalProperty[String]("addressLookupService.type").getOrElse("ordnanceSurvey") match {
       case "ordnanceSurvey" => ordnanceSurveyAddressLookup()
       case _ => gdsAddressLookup()
     }
