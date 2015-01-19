@@ -7,67 +7,59 @@ import common.webserviceclients.config.{ GDSAddressLookupConfig, OrdnanceSurveyC
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.{From, EmailConfiguration}
 import webserviceclients.dispose.DisposeConfig
 
-class Config {
+trait Config {
 
-  lazy val vehiclesLookup = new VehicleLookupConfig
-  lazy val ordnanceSurvey = new OrdnanceSurveyConfig
-  lazy val gdsAddressLookup = new GDSAddressLookupConfig
-  lazy val dispose = new DisposeConfig
-  lazy val bruteForcePrevention = new BruteForcePreventionConfig
+   def vehiclesLookup: VehicleLookupConfig
+   def ordnanceSurvey: OrdnanceSurveyConfig
+   def gdsAddressLookup: GDSAddressLookupConfig
+   def dispose: DisposeConfig
+   def bruteForcePrevention: BruteForcePreventionConfig
 
   // Micro-service config
-  lazy val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
+   def vehicleLookupMicroServiceBaseUrl: String
 
-  lazy val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
-  lazy val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
-  lazy val ordnanceSurveyUseUprn: Boolean = getProperty[Boolean]("ordnancesurvey.useUprn")
+   def ordnanceSurveyMicroServiceUrl: String
+   def ordnanceSurveyRequestTimeout: Int
+   def ordnanceSurveyUseUprn: Boolean
 
-  lazy val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
-  lazy val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
-  lazy val gdsAddressLookupAuthorisation = gdsAddressLookup.authorisation
+   def gdsAddressLookupBaseUrl: String
+   def gdsAddressLookupRequestTimeout: Int
+   def gdsAddressLookupAuthorisation: String
 
-  lazy val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
-  lazy val disposeMsRequestTimeout = dispose.requestTimeout
+   def disposeVehicleMicroServiceBaseUrl: String
+   def disposeMsRequestTimeout: Int
 
   // Brute force prevention config
-  lazy val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader
-  lazy val bruteForcePreventionMicroServiceBaseUrl = bruteForcePrevention.baseUrl
-  lazy val bruteForcePreventionTimeoutMillis = bruteForcePrevention.requestTimeoutMillis
-  lazy val isBruteForcePreventionEnabled: Boolean = bruteForcePrevention.isEnabled
-  lazy val bruteForcePreventionServiceNameHeader: String = bruteForcePrevention.nameHeader
-  lazy val bruteForcePreventionMaxAttemptsHeader: Int = bruteForcePrevention.maxAttemptsHeader
+   def bruteForcePreventionExpiryHeader: String
+   def bruteForcePreventionMicroServiceBaseUrl: String
+   def bruteForcePreventionTimeoutMillis: Int
+   def isBruteForcePreventionEnabled: Boolean
+   def bruteForcePreventionServiceNameHeader: String
+   def bruteForcePreventionMaxAttemptsHeader: Int
 
   // Prototype message in html
-  lazy val isPrototypeBannerVisible: Boolean = getProperty[Boolean]("prototype.disclaimer")
+   def isPrototypeBannerVisible: Boolean
 
   // Prototype survey URL
-  lazy val prototypeSurveyUrl: String = getProperty[String]("survey.url") // could be optional
-  lazy val prototypeSurveyPrepositionInterval: Long = getDurationProperty("survey.interval")
+   def prototypeSurveyUrl: String
+   def prototypeSurveyPrepositionInterval: Long
 
   // Google analytics
-  lazy val googleAnalyticsTrackingId: Option[String] = getOptionalProperty[String]("googleAnalytics.id.dispose")
+   def googleAnalyticsTrackingId: Option[String]
 
   // Progress step indicator
-  lazy val isProgressBarEnabled: Boolean = getProperty[Boolean]("progressBar.enabled")
-  lazy val isHtml5ValidationEnabled: Boolean = getProperty[Boolean]("html5Validation.enabled")
+   def isProgressBarEnabled: Boolean
+   def isHtml5ValidationEnabled: Boolean
 
-  lazy val startUrl: String = getProperty[String]("start.page")
-  lazy val endUrl: String = getProperty[String]("end.page")
+   def startUrl: String
+   def endUrl: String
 
 
   // opening and closing times
-  lazy val opening: Int = getProperty[Int]("openingTime")
-  lazy val closing: Int = getProperty[Int]("closingTime")
+   def opening: Int
+   def closing: Int
 
   // Web headers
 
-  lazy val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    getOptionalProperty[String]("smtp.host").getOrElse(""),
-    getOptionalProperty[Int]("smtp.port").getOrElse(25),
-    getOptionalProperty[String]("smtp.user").getOrElse(""),
-    getOptionalProperty[String]("smtp.password").getOrElse(""),
-    From(getOptionalProperty[String]("email.senderAddress").getOrElse(""), "DO-NOT-REPLY"),
-    From(getOptionalProperty[String]("email.feedbackAddress").getOrElse(""), "Feedback"),
-    getStringListProperty("email.whitelist")
-  )
+   def emailConfiguration: EmailConfiguration
 }

@@ -3,6 +3,7 @@ package composition
 import com.google.inject.name.Names
 import com.typesafe.config.ConfigFactory
 import com.tzavellas.sse.guice.ScalaModule
+import com.tzavellas.sse.guice.binder.RichScopedBindingBuilder
 import composition.DevModule.bind
 import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService, AccessLoggingFilter}
 import AccessLoggingFilter.AccessLoggerName
@@ -28,6 +29,8 @@ class TestModule() extends ScalaModule with MockitoSugar {
    */
   def configure() {
     Logger.debug("Guice is loading TestModule")
+
+    bind[utils.helpers.Config].toInstance(new TestConfig)
 
     val applicationConf = System.getProperty("config.file", s"application.dev.conf")
     implicit val config = Configuration(ConfigFactory.load(applicationConf))

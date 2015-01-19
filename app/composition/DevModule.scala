@@ -27,6 +27,7 @@ import common.webserviceclients.vehiclelookup.VehicleLookupServiceImpl
 import common.webserviceclients.vehiclelookup.VehicleLookupWebService
 import common.webserviceclients.vehiclelookup.VehicleLookupWebServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
+import utils.helpers.Config
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
 /**
@@ -41,6 +42,9 @@ import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, Disp
  */
 object DevModule extends ScalaModule {
   def configure() {
+
+    bind[Config].to[utils.helpers.ConfigImpl].asEagerSingleton()
+
     getProperty[String]("addressLookupService.type") match {
       case "ordnanceSurvey" =>
         bind[AddressLookupService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl].asEagerSingleton()
