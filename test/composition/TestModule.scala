@@ -11,13 +11,17 @@ import org.scalatest.mock.MockitoSugar
 import play.api.{Configuration, LoggerLike, Logger}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{NoCookieFlags, CookieFlags, ClientSideSessionFactory, ClearTextClientSideSessionFactory}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.FakeOrdnanceSurveyConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.VehicleLookupConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.brute_force_prevention.FakeBruteForcePreventionConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicle_lookup.FakeVehicleLookupConfig
-import webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeService}
+import webserviceclients.dispose.{DisposeConfig, DisposeWebService, DisposeServiceImpl, DisposeService}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleLookupServiceImpl, VehicleLookupService}
+import webserviceclients.dispose_service.FakeDisposeConfig
 import webserviceclients.fakes.FakeVehicleLookupWebService
 import webserviceclients.fakes.FakeDisposeWebServiceImpl
 import webserviceclients.fakes.FakeDateServiceImpl
@@ -32,7 +36,12 @@ class TestModule() extends ScalaModule with MockitoSugar {
   def configure() {
     Logger.debug("Guice is loading TestModule")
 
-    bind[VehicleLookupConfig].to[FakeVehicleLookupConfig]
+    bind[VehicleLookupConfig].to[FakeVehicleLookupConfig].asEagerSingleton()
+    bind[OrdnanceSurveyConfig].to[FakeOrdnanceSurveyConfig].asEagerSingleton()
+    bind[GDSAddressLookupConfig].to[FakeGDSAddressLookupConfig].asEagerSingleton()
+    bind[DisposeConfig].to[FakeDisposeConfig].asEagerSingleton()
+    bind[BruteForcePreventionConfig].to[FakeBruteForcePreventionConfig].asEagerSingleton()
+
     bind[utils.helpers.Config].toInstance(new TestConfig)
 
     val applicationConf = System.getProperty("config.file", s"application.dev.conf")

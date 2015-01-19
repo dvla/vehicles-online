@@ -61,12 +61,12 @@ final class ConfigImpl extends Config{
   // Web headers
 
   override val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    getOptionalProperty[String]("smtp.host").getOrElse(""),
-    getOptionalProperty[Int]("smtp.port").getOrElse(25),
-    getOptionalProperty[String]("smtp.user").getOrElse(""),
-    getOptionalProperty[String]("smtp.password").getOrElse(""),
-    From(getOptionalProperty[String]("email.senderAddress").getOrElse(""), "DO-NOT-REPLY"),
-    From(getOptionalProperty[String]("email.feedbackAddress").getOrElse(""), "Feedback"),
+    getProperty[String]("smtp.host"),
+    getProperty[Int]("smtp.port"),
+    getProperty[String]("smtp.user"),
+    getProperty[String]("smtp.password"),
+    From(getProperty[String]("email.senderAddress"), "DO-NOT-REPLY"),
+    From(getProperty[String]("email.feedbackAddress"), "Feedback"),
     getStringListProperty("email.whitelist")
   )
 }

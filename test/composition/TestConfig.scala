@@ -2,11 +2,16 @@ package composition
 
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.{EmailConfiguration, From}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.brute_force_prevention.FakeBruteForcePreventionConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicle_lookup.FakeVehicleLookupConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.FakeOrdnanceSurveyConfig
+
 import utils.helpers.Config
 import webserviceclients.dispose.DisposeConfig
+import webserviceclients.dispose_service.FakeDisposeConfig
 import scala.concurrent.duration.DurationInt
 
 class TestConfig extends Config {
@@ -15,10 +20,10 @@ class TestConfig extends Config {
   override lazy val vehiclesLookup = new FakeVehicleLookupConfig {
     override lazy val baseUrl = "/"
   }
-  override lazy val ordnanceSurvey = new TestOrdnanceSurveyConfig
-  override lazy val gdsAddressLookup = new GDSAddressLookupConfig
-  override lazy val dispose = new DisposeConfig
-  override lazy val bruteForcePrevention = new BruteForcePreventionConfig
+  override lazy val ordnanceSurvey = new FakeOrdnanceSurveyConfig
+  override lazy val gdsAddressLookup = new FakeGDSAddressLookupConfig
+  override lazy val dispose = new FakeDisposeConfig
+  override lazy val bruteForcePrevention = new FakeBruteForcePreventionConfig
 
   // Micro-service config
   def vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
@@ -76,11 +81,5 @@ class TestConfig extends Config {
     From("", "Feedback"),
     None
   )
-
-}
-
-class TestOrdnanceSurveyConfig extends OrdnanceSurveyConfig {
-  override lazy val baseUrl = ""
-  override lazy val requestTimeout = 5.seconds.toMillis.toInt
 
 }
