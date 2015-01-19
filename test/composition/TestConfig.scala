@@ -3,7 +3,8 @@ package composition
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.{EmailConfiguration, From}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicle_lookup.FakeVehicleLookupConfig
 import utils.helpers.Config
 import webserviceclients.dispose.DisposeConfig
 import scala.concurrent.duration.DurationInt
@@ -11,7 +12,7 @@ import scala.concurrent.duration.DurationInt
 class TestConfig extends Config {
 //  private val notFound = "NOT FOUND"
 
-  override lazy val vehiclesLookup = new VehicleLookupConfig {
+  override lazy val vehiclesLookup = new FakeVehicleLookupConfig {
     override lazy val baseUrl = "/"
   }
   override lazy val ordnanceSurvey = new TestOrdnanceSurveyConfig

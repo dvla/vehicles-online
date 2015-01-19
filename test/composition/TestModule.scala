@@ -14,6 +14,8 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.VehicleLookupConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicle_lookup.FakeVehicleLookupConfig
 import webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeService}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleLookupServiceImpl, VehicleLookupService}
 import webserviceclients.fakes.FakeVehicleLookupWebService
@@ -30,6 +32,7 @@ class TestModule() extends ScalaModule with MockitoSugar {
   def configure() {
     Logger.debug("Guice is loading TestModule")
 
+    bind[VehicleLookupConfig].to[FakeVehicleLookupConfig]
     bind[utils.helpers.Config].toInstance(new TestConfig)
 
     val applicationConf = System.getProperty("config.file", s"application.dev.conf")
