@@ -2,6 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import play.api.data.Form
+import play.api.i18n.Messages
 import play.api.mvc._
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.controllers.FeedbackBase
@@ -29,7 +30,7 @@ class FeedbackController @Inject()()(implicit clientSideSessionFactory: ClientSi
     form.bindFromRequest.fold (
       invalidForm => BadRequest(views.html.disposal_of_vehicle.feedback(invalidForm)),
         validForm => {
-          sendFeedback(validForm.feedback)
+          sendFeedback(validForm.feedback, Messages("common_feedback.subject"))
           Ok(views.html.disposal_of_vehicle.feedbackSuccess())
         }
     )
