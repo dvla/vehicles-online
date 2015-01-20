@@ -347,11 +347,13 @@ language.en.button = English
 mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 
 # feedback
-common_feedback.title = Give Feedback
-common_feedback.message = Please don't include any Personal of financial information - for example your National Insurance number.
-common_feedback.label = What went wrong, if anything? What went well? How could we improve this service?
-common_feedback.placeholder = (Limit is 1200 characters)
-common_feedback.submit_button = Submit feedback
+common_feedback.title = Rhoi Adborth
+common_feedback.message = Peidiwch â chynnwys unrhyw wybodaeth bersonol neu ariannol - er enghraifft eich rhif Yswiriant Gwladol.
+common_feedback.label = Beth aeth o'i le, os unrhyw beth? Beth aeth yn dda? Sut y gallem wella'r gwasanaeth hwn?
+common_feedback.placeholder = (Terfyn yn 500 llythyren)
+common_feedback.submit_button = Cyflwyno adborth
+common_feedback.thankyou = Diolch i chi am eich adborth
+common_feedback.subject = Gwerthu i'r fasnach - Adborth
 
 
 # Cookie policy

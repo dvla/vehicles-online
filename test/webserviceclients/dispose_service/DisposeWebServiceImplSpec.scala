@@ -12,7 +12,7 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
 
   implicit val noCookieFlags = new NoCookieFlags
   implicit lazy val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
-  lazy val disposeService = new DisposeWebServiceImpl(new DisposeConfig() {
+  lazy val disposeService = new DisposeWebServiceImpl(new FakeDisposeConfig() {
     override lazy val baseUrl = s"http://localhost:$wireMockPort"
   })
 
