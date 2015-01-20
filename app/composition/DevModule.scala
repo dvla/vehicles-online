@@ -53,8 +53,6 @@ object DevModule extends ScalaModule {
         bind[AddressLookupService].to[AddressLookupServiceImpl].asEagerSingleton()
         bind[AddressLookupWebService].to[WebServiceImpl].asEagerSingleton()
     }
-//    bind[VehicleLookupWebService].to[VehicleLookupWebServiceImpl].asEagerSingleton() //TODO remove this
-//    bind[VehicleLookupService].to[VehicleLookupServiceImpl].asEagerSingleton() //TODO remove this
     bind[VehicleAndKeeperLookupWebService].to[VehicleAndKeeperLookupWebServiceImpl].asEagerSingleton()
     bind[VehicleAndKeeperLookupService].to[VehicleAndKeeperLookupServiceImpl].asEagerSingleton()
     bind[DisposeWebService].to[DisposeWebServiceImpl].asEagerSingleton()
