@@ -1,6 +1,6 @@
 import controllers.MicroServiceError
 import MicroServiceError.MicroServiceErrorRefererCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel, BruteForcePreventionModel}
+import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel, BruteForcePreventionModel}
 import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import models.DisposeFormModel.DisposeFormModelCacheKey
@@ -12,7 +12,7 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import TraderDetailsModel.TraderDetailsCacheKey
-import VehicleDetailsModel.VehicleLookupDetailsCacheKey
+import VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 
 package object models {
@@ -31,7 +31,7 @@ package object models {
   // Set of cookies related to a single vehicle disposal. Removed once the vehicle is successfully disposed
   final val DisposeCacheKeys = Set(
     BruteForcePreventionViewModelCacheKey,
-    VehicleLookupDetailsCacheKey,
+    VehicleAndKeeperLookupDetailsCacheKey,
     VehicleLookupResponseCodeCacheKey,
     VehicleLookupFormModelCacheKey,
     DisposeFormModelCacheKey,

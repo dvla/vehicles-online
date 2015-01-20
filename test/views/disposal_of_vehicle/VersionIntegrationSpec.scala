@@ -7,7 +7,7 @@ import scala.io.Source.fromInputStream
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.WebDriverFactory
 
-class VersionIntegrationSpec extends UiSpec with TestHarness  with WireMockFixture {
+class VersionIntegrationSpec extends UiSpec with TestHarness with WireMockFixture {
   "Version endpoint" should {
     "be declared and should include the build-details.txt from classpath" in new WebBrowser {
       go.to(WebDriverFactory.testUrl + s"$applicationContext/version")

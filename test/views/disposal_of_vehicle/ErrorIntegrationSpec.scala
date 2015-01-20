@@ -16,25 +16,20 @@ final class ErrorIntegrationSpec extends UiSpec with TestHarness {
     "display the page" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
-
       go to ErrorPage
-
       page.title should equal(ErrorPage.title)
     }
 
     "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue  {
       go to BeforeYouStartPage
       cacheSetup()
-
       go to ErrorPage
-
       page.source should not contain ProgressBar.div
     }
 
     "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
-
       go to ErrorPage
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
@@ -48,9 +43,7 @@ final class ErrorIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to ErrorPage
-
       click on startAgain
-
       // Verify the cookies identified by the full set of cache keys have been removed
       AllCacheKeys.foreach(cacheKey => {
         webDriver.manage().getCookieNamed(cacheKey) should equal(null)
@@ -63,7 +56,7 @@ final class ErrorIntegrationSpec extends UiSpec with TestHarness {
       setupTradeDetails().
       businessChooseYourAddress().
       dealerDetails().
-      vehicleDetailsModel().
+      vehicleAndKeeperDetailsModel().
       disposeFormModel().
       disposeTransactionId().
       vehicleRegistrationNumber()

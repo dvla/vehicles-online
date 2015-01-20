@@ -17,7 +17,7 @@ final class CookieHelperSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.seenCookieMessage()).
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.disposeFormModel()).
         withCookies(CookieFactoryForUnitSpecs.disposeTransactionId()).
         withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber())
@@ -41,7 +41,7 @@ final class CookieHelperSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.seenCookieMessage()).
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.disposeFormModel()).
         withCookies(CookieFactoryForUnitSpecs.disposeTransactionId()).
         withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber())

@@ -5,7 +5,7 @@ import play.api.Logger
 import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
-import uk.gov.dvla.vehicles.presentation.common.model.{DisposeModel, TraderDetailsModel, VehicleDetailsModel}
+import uk.gov.dvla.vehicles.presentation.common.model.{DisposeModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import utils.helpers.Config
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel
@@ -16,7 +16,7 @@ final class DisposeFailure @Inject()()(implicit clientSideSessionFactory: Client
   def present = Action { implicit request =>
     (request.cookies.getModel[TraderDetailsModel],
      request.cookies.getModel[DisposeFormModel],
-     request.cookies.getModel[VehicleDetailsModel],
+     request.cookies.getModel[VehicleAndKeeperDetailsModel],
      request.cookies.getString(DisposeFormTransactionIdCacheKey)) match {
       case (Some(dealerDetails), Some(disposeFormModel), Some(vehicleDetails), Some(transactionId)) =>
         val disposeViewModel = createViewModel(dealerDetails, vehicleDetails, Some(transactionId))
@@ -28,12 +28,12 @@ final class DisposeFailure @Inject()()(implicit clientSideSessionFactory: Client
   }
 
   private def createViewModel(traderDetails: TraderDetailsModel,
-                              vehicleDetails: VehicleDetailsModel,
+                              vehicleDetails: VehicleAndKeeperDetailsModel,
                               transactionId: Option[String]): DisposeModel =
     DisposeModel(
       registrationNumber = vehicleDetails.registrationNumber,
-      vehicleMake = vehicleDetails.vehicleMake,
-      vehicleModel = vehicleDetails.vehicleModel,
+      vehicleMake = vehicleDetails.make.getOrElse(""),
+      vehicleModel = vehicleDetails.model.getOrElse(""),
       dealerName = traderDetails.traderName,
       dealerAddress = traderDetails.traderAddress,
       transactionId = transactionId

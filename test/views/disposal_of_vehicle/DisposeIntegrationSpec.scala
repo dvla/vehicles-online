@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.{TestGlobal, TestHarness}
 import helpers.common.ProgressBar
-import ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -29,6 +28,7 @@ import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.test.FakeApplication
+import ProgressBar.progressStep
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
@@ -75,7 +75,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
     "redirect when no businessChooseYourAddress is cached" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
-      CookieFactoryForUISpecs.vehicleDetailsModel()
+      CookieFactoryForUISpecs.vehicleAndKeeperDetailsModel()
 
       go to DisposePage
 
@@ -307,7 +307,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
   private def cacheSetup()(implicit webDriver: WebDriver) =
     CookieFactoryForUISpecs.
       dealerDetails().
-      vehicleDetailsModel()
+      vehicleAndKeeperDetailsModel()
 
   private val fakeAppWithHtml5ValidationEnabledConfig = FakeApplication(
     withGlobal = Some(TestGlobal),

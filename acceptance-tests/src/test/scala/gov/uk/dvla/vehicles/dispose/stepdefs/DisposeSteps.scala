@@ -171,7 +171,7 @@ final class DisposeSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserDS
     click on SetupTradeDetailsPage.lookup
     CookieFactoryForUISpecs.setupTradeDetails().
       dealerDetails().
-      vehicleDetailsModel().
+      vehicleAndKeeperDetailsModel().
       vehicleLookupFormModel()
   }
 }

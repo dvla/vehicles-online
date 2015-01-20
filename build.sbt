@@ -2,7 +2,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 import net.litola.SassPlugin
 import org.scalastyle.sbt.ScalastylePlugin
 import uk.gov.dvla.vehicles.sandbox
-import sandbox.ProjectDefinitions.{osAddressLookup, vehiclesLookup, vehiclesDisposeFulfil, legacyStubs, gatlingTests}
+import sandbox.ProjectDefinitions.{osAddressLookup, vehicleAndKeeperLookup, vehiclesDisposeFulfil, legacyStubs, gatlingTests}
 import sandbox.Sandbox
 import sandbox.SandboxSettings
 import sandbox.Tasks
@@ -107,7 +107,7 @@ resolvers ++= projectResolvers
 
 // ====================== Sandbox Settings ==========================
 lazy val osAddressLookupProject = osAddressLookup("0.9-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
-lazy val vehiclesLookupProject = vehiclesLookup("0.7-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
+lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.5-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.5-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SassPlugin, SbtWeb)
 
@@ -119,7 +119,7 @@ SandboxSettings.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
 
 SandboxSettings.osAddressLookupProject := osAddressLookupProject
 
-SandboxSettings.vehiclesLookupProject := vehiclesLookupProject
+SandboxSettings.vehicleAndKeeperLookupProject := vehicleAndKeeperLookupProject
 
 SandboxSettings.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
 
@@ -128,7 +128,7 @@ SandboxSettings.legacyStubsProject := legacyStubsProject
 SandboxSettings.runAllMicroservices := {
   Tasks.runLegacyStubs.value
   Tasks.runOsAddressLookup.value
-  Tasks.runVehiclesLookup.value
+  Tasks.runVehicleAndKeeperLookup.value
   Tasks.runVehiclesDisposeFulfil.value
 }
 

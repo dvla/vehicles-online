@@ -9,14 +9,17 @@ import webserviceclients.dispose.DisposeConfig
 
 class Config {
 
-  lazy val vehiclesLookup = new VehicleLookupConfig
+  private final val NotFound = "NOT FOUND"
+  private final val NotFoundLong = 9
+
+//  lazy val vehiclesLookup = new VehicleLookupConfig
   lazy val ordnanceSurvey = new OrdnanceSurveyConfig
   lazy val gdsAddressLookup = new GDSAddressLookupConfig
   lazy val dispose = new DisposeConfig
   lazy val bruteForcePrevention = new BruteForcePreventionConfig
 
   // Micro-service config
-  lazy val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
+//  lazy val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
 
   lazy val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
   lazy val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
@@ -28,6 +31,12 @@ class Config {
 
   lazy val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
   lazy val disposeMsRequestTimeout = dispose.requestTimeout
+
+  // Web headers
+  lazy val applicationCode: String = getOptionalProperty[String]("webHeader.applicationCode").getOrElse(NotFound)
+  lazy val serviceTypeCode: String = getOptionalProperty[String]("webHeader.serviceTypeCode").getOrElse(NotFound)
+  lazy val channelCode: String = getOptionalProperty[String]("webHeader.channelCode").getOrElse(NotFound)
+  lazy val contactId: Long = getOptionalProperty[Long]("webHeader.contactId").getOrElse(NotFoundLong)
 
   // Brute force prevention config
   lazy val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader

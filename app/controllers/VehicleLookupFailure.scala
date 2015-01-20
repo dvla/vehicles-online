@@ -23,10 +23,11 @@ final class VehicleLookupFailure @Inject()()
             Some(bruteForcePreventionResponse),
             Some(vehicleLookUpFormModelDetails),
             Some(vehicleLookupResponseCode)) =>
+        val responseMessage = vehicleLookupResponseCode.split("-").map(_.trim)
         displayVehicleLookupFailure(
           vehicleLookUpFormModelDetails,
           bruteForcePreventionResponse,
-          vehicleLookupResponseCode
+          responseMessage.last
         )
       case _ => Redirect(routes.SetUpTradeDetails.present())
     }

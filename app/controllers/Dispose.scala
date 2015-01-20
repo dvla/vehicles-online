@@ -1,20 +1,23 @@
 package controllers
 
 import com.google.inject.Inject
+import models.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId, MileageId}
+import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
+import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
+import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
+import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel}
 import org.joda.time.format.ISODateTimeFormat
 import play.api.Logger
 import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, AnyContent, Call, Controller, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel}
+import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
-import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 import utils.helpers.Config
-import models.DisposeFormModel.Form.{ConsentId, LossOfRegistrationConsentId, MileageId}
-import models.DisposeFormModel.{DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, PreventGoingToDisposePageCacheKey}
-import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel}
+import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 import views.html.disposal_of_vehicle.dispose
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -31,7 +34,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
   def present = Action { implicit request =>
     (request.cookies.getModel[TraderDetailsModel], request.cookies.getString(PreventGoingToDisposePageCacheKey)) match {
       case (Some(traderDetails), None) =>
-        request.cookies.getModel[VehicleDetailsModel] match {
+        request.cookies.getModel[VehicleAndKeeperDetailsModel] match {
           case (Some(vehicleDetails)) =>
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
             Ok(dispose(disposeViewModel, form.fill(), dateService))
@@ -49,7 +52,7 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
   def submit = Action.async { implicit request =>
     form.bindFromRequest.fold(
       invalidForm => Future.successful {
-        (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleDetailsModel]) match {
+        (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleAndKeeperDetailsModel]) match {
           case (Some(traderDetails), Some(vehicleDetails)) =>
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
             BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService))
@@ -97,11 +100,11 @@ final class Dispose @Inject()(webService: DisposeService, dateService: DateServi
   }
 
   private def createViewModel(traderDetails: TraderDetailsModel,
-                              vehicleDetails: VehicleDetailsModel): DisposeViewModel =
+                              vehicleDetails: VehicleAndKeeperDetailsModel): DisposeViewModel =
     DisposeViewModel(
       registrationNumber = vehicleDetails.registrationNumber,
-      vehicleMake = vehicleDetails.vehicleMake,
-      vehicleModel = vehicleDetails.vehicleModel,
+      vehicleMake = vehicleDetails.make,
+      vehicleModel = vehicleDetails.model,
       dealerName = traderDetails.traderName,
       dealerAddress = traderDetails.traderAddress.address)
 

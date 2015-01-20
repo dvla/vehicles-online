@@ -7,12 +7,20 @@ import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs.TrackingIdValue
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
-import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey}
+import models.DisposeFormModel.DisposeFormModelCacheKey
+import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
+import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
+import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{times, verify, when}
-import pages.disposal_of_vehicle.{DisposeFailurePage, DisposeSuccessPage, DuplicateDisposalErrorPage, MicroServiceErrorPage, SetupTradeDetailsPage, VehicleLookupPage}
+import pages.disposal_of_vehicle.DisposeFailurePage
+import pages.disposal_of_vehicle.DisposeSuccessPage
+import pages.disposal_of_vehicle.DuplicateDisposalErrorPage
+import pages.disposal_of_vehicle.MicroServiceErrorPage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, INTERNAL_SERVER_ERROR, LOCATION, OK, SERVICE_UNAVAILABLE, contentAsString, defaultAwaitTimeout}
@@ -22,10 +30,26 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewMod
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import utils.helpers.Config
 import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
-import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService, DisposeServiceImpl, DisposeWebService}
-import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, PostcodeValidWithSpace, TraderBusinessNameValid}
+import webserviceclients.dispose.DisposalAddressDto
+import webserviceclients.dispose.DisposeRequestDto
+import webserviceclients.dispose.DisposeResponseDto
+import webserviceclients.dispose.DisposeService
+import webserviceclients.dispose.DisposeServiceImpl
+import webserviceclients.dispose.DisposeWebService
+import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
+import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
+import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
+import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValidWithSpace
+import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
-import webserviceclients.fakes.FakeDisposeWebServiceImpl.{MileageValid, disposeResponseApplicationBeingProcessed, disposeResponseFailureWithDuplicateDisposal, disposeResponseSuccess, disposeResponseUnableToProcessApplication, disposeResponseUndefinedError}
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseApplicationBeingProcessed
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseFailureWithDuplicateDisposal
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseSuccess
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUnableToProcessApplication
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUndefinedError
 import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
 
@@ -39,7 +63,7 @@ final class DisposeUnitSpec extends UnitSpec {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel())
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       whenReady(result) { r =>
         r.header.status should equal(OK)
@@ -58,7 +82,7 @@ final class DisposeUnitSpec extends UnitSpec {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.disposeFormModel())
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
@@ -75,7 +99,7 @@ final class DisposeUnitSpec extends UnitSpec {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel())
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
       val contentWithCarriageReturnsAndSpacesRemoved = content.replaceAll("[\n\r]", "").replaceAll(emptySpace, "")
@@ -88,7 +112,7 @@ final class DisposeUnitSpec extends UnitSpec {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel())
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       contentAsString(result) should include(PrototypeHtml)
     }
@@ -101,7 +125,7 @@ final class DisposeUnitSpec extends UnitSpec {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel())
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val webService: DisposeWebService = disposeWebService()
       val disposeService = new DisposeServiceImpl(config.dispose, webService)
       val result = disposeController(disposeWebService = webService, disposeService = disposeService).present(request)
@@ -113,7 +137,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "redirect to dispose success when a success message is returned by the fake microservice" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
 
       val result = disposeController(disposeWebService = disposeWebService()).submit(request)
@@ -162,7 +186,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "return a bad request when no details are entered" in new WithApplication {
       val request = FakeRequest().withFormUrlEncodedBody().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel())
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeController(disposeWebService = disposeWebService()).submit(request)
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
@@ -180,7 +204,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "redirect to micro-service error page when calling webservice throws exception" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeResponseThrows = mock[(Int, Option[DisposeResponseDto])]
       val mockWebServiceThrows = mock[DisposeService]
@@ -210,7 +234,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "redirect to dispose success when applicationBeingProcessed" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeSuccess = disposeController(disposeWebService =
         disposeWebService(disposeServiceResponse = Some(disposeResponseApplicationBeingProcessed)))
@@ -248,7 +272,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "write cookies when a success message is returned by the fake microservice" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = disposeController(disposeWebService = disposeWebService()).submit(request)
       whenReady(result) { r =>
@@ -266,7 +290,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "write cookies when applicationBeingProcessed" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeSuccess = disposeController(disposeWebService =
         disposeWebService(disposeServiceResponse = Some(disposeResponseApplicationBeingProcessed)))
@@ -288,7 +312,7 @@ final class DisposeUnitSpec extends UnitSpec {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -302,7 +326,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "send a request and a trackingId" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
       val mockDisposeService = mock[DisposeService]
@@ -328,7 +352,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(
         buildingNameOrNumber = "a" * (LineMaxLength + 1),
         line2 = "b" * (LineMaxLength + 1),
@@ -352,7 +376,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(postTown = postTownTooLong.get)).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -371,7 +395,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(traderPostcode = PostcodeValidWithSpace)). // postcode contains space
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -390,7 +414,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(buildingNameOrNumber = linePart1TooLong, line2 = "")).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -402,14 +426,13 @@ final class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-
     "truncate address line 2 and place remainder on line 3 when line 3 is empty" in new WithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(line2 = linePart2TooLong, line3 = "")).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -427,7 +450,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(
         buildingNameOrNumber = linePart1TooLong,
         line2 = linePart2TooLong,
@@ -449,7 +472,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(buildingNameOrNumber = linePart1TooLong, line3 = "")).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -467,7 +490,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModelBuildingNameOrNumber(
         buildingNameOrNumber = linePart1TooLong)).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
@@ -486,7 +509,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModelLine2(line2 = linePart2TooLong)).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -504,7 +527,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModelLine2(
         buildingNameOrNumber = linePart1TooLong, line2 = linePart2TooLong)).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
@@ -523,7 +546,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModelPostTown()).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
@@ -538,7 +561,7 @@ final class DisposeUnitSpec extends UnitSpec {
     "redirect to vehicle lookup when a dispose success cookie exists" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.preventGoingToDisposePage())
 

@@ -15,19 +15,16 @@ final class DisposeFailureIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeFailurePage
-
       page.title should equal(DisposeFailurePage.title)
     }
 
     "redirect to setuptrade details if cache is empty on page load" taggedAs UiTag in new WebBrowser {
       go to DisposeFailurePage
-
       page.title should equal(SetupTradeDetailsPage.title)
     }
 
     "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
       go to DisposeFailurePage
-
       page.source should not contain ProgressBar.div
     }
   }
@@ -37,9 +34,7 @@ final class DisposeFailureIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeFailurePage
-
       click on vehiclelookup
-
       page.title should equal(VehicleLookupPage.title)
     }
   }
@@ -49,9 +44,7 @@ final class DisposeFailureIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeFailurePage
-
       click on setuptradedetails
-
       page.title should equal(SetupTradeDetailsPage.title)
     }
   }
@@ -59,7 +52,7 @@ final class DisposeFailureIntegrationSpec extends UiSpec with TestHarness {
   private def cacheSetup()(implicit webDriver: WebDriver) =
     CookieFactoryForUISpecs.
       dealerDetails().
-      vehicleDetailsModel().
+      vehicleAndKeeperDetailsModel().
       disposeFormModel().
       disposeTransactionId().
       vehicleRegistrationNumber()

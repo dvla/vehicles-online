@@ -48,7 +48,7 @@ final class ErrorUnitSpec extends UnitSpec {
     val request = FakeRequest().
       withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
       withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel())
+      withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
     errorController.present(ErrorPage.exceptionDigest)(request)
   }
 }

@@ -4,37 +4,11 @@ import com.tzavellas.sse.guice.ScalaModule
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import controllers.{SurveyUrl, VehicleLookup}
 import helpers.common.CookieHelper
-import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.{ClientSideSessionFactory, ClearTextClientSideSessionFactory}
-import common.mappings.DocumentReferenceNumber
-import common.model.BruteForcePreventionModel
-import common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService}
-import common.webserviceclients.bruteforceprevention.{BruteForcePreventionServiceImpl, BruteForcePreventionService}
-import common.webserviceclients.vehiclelookup.VehicleLookupWebService
-import common.webserviceclients.vehiclelookup.VehicleLookupServiceImpl
-import common.webserviceclients.vehiclelookup.VehicleDetailsResponseDto
-import common.webserviceclients.vehiclelookup.VehicleDetailsRequestDto
-import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
-import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
-import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
-import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
-import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
-import webserviceclients.fakes.FakeVehicleLookupWebService.ReferenceNumberValid
-import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
-import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberWithSpaceValid
-import webserviceclients.fakes.FakeVehicleLookupWebService.vehicleDetailsNoResponse
-import webserviceclients.fakes.FakeVehicleLookupWebService.vehicleDetailsResponseDocRefNumberNotLatest
-import webserviceclients.fakes.FakeVehicleLookupWebService.vehicleDetailsResponseNotFoundResponseCode
-import webserviceclients.fakes.FakeVehicleLookupWebService.vehicleDetailsResponseSuccess
-import webserviceclients.fakes.FakeVehicleLookupWebService.vehicleDetailsResponseVRMNotFound
-import webserviceclients.fakes.FakeVehicleLookupWebService.vehicleDetailsServerDown
 import CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.{UnitSpec, WithApplication}
 import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
-import services.DateServiceImpl
-import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
@@ -56,15 +30,41 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.Future
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
-import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
+import services.DateServiceImpl
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.{ClientSideSessionFactory, ClearTextClientSideSessionFactory}
+import common.mappings.DocumentReferenceNumber
+import common.model.BruteForcePreventionModel
+import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
+import common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService}
+import common.webserviceclients.bruteforceprevention.{BruteForcePreventionServiceImpl, BruteForcePreventionService}
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsResponse
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsRequest
 import utils.helpers.Config
+import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmAttempt2
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseFirstAttempt
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseSecondAttempt
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmThrows
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
+import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
+import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
+import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
+import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
+import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
+import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.ReferenceNumberValid
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberWithSpaceValid
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsNoResponse
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseDocRefNumberNotLatest
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseNotFoundResponseCode
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseSuccess
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseVRMNotFound
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsServerDown
 
 final class VehicleLookupUnitSpec extends UnitSpec {
 
@@ -436,12 +436,12 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel(trackingId))
-      val mockVehiclesLookupService = mock[VehicleLookupWebService]
-      when(mockVehiclesLookupService.callVehicleLookupService(any[VehicleDetailsRequestDto], any[String])).
+      val mockVehiclesLookupService = mock[VehicleAndKeeperLookupWebService]
+      when(mockVehiclesLookupService.invoke(any[VehicleAndKeeperDetailsRequest], any[String])).
         thenReturn(Future.successful {
           new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get)))
         })
-      val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(mockVehiclesLookupService)
+      val vehicleLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(mockVehiclesLookupService)
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
@@ -456,7 +456,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
 
       whenReady(result) { r =>
         val trackingIdCaptor = ArgumentCaptor.forClass(classOf[String])
-        verify(mockVehiclesLookupService).callVehicleLookupService(any[VehicleDetailsRequestDto], trackingIdCaptor.capture())
+        verify(mockVehiclesLookupService).invoke(any[VehicleAndKeeperDetailsRequest], trackingIdCaptor.capture())
         trackingIdCaptor.getValue should be(trackingId)
       }
     }
@@ -464,12 +464,12 @@ final class VehicleLookupUnitSpec extends UnitSpec {
     "Send the request and no trackingId if session is not present" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-      val mockVehiclesLookupService = mock[VehicleLookupWebService]
-      when(mockVehiclesLookupService.callVehicleLookupService(any[VehicleDetailsRequestDto], any[String]))
+      val mockVehiclesLookupService = mock[VehicleAndKeeperLookupWebService]
+      when(mockVehiclesLookupService.invoke(any[VehicleAndKeeperDetailsRequest], any[String]))
         .thenReturn(Future.successful {
           new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get)))
         })
-      val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(mockVehiclesLookupService)
+      val vehicleLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(mockVehiclesLookupService)
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
@@ -483,7 +483,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
 
       whenReady(result) { r =>
         val trackingIdCaptor = ArgumentCaptor.forClass(classOf[String])
-        verify(mockVehiclesLookupService).callVehicleLookupService(any[VehicleDetailsRequestDto], trackingIdCaptor.capture())
+        verify(mockVehiclesLookupService).invoke(any[VehicleAndKeeperDetailsRequest], trackingIdCaptor.capture())
         trackingIdCaptor.getValue should be(ClearTextClientSideSessionFactory.DefaultTrackingId)
       }
     }
@@ -493,8 +493,8 @@ final class VehicleLookupUnitSpec extends UnitSpec {
     "redirect to end page from configuration" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-      val mockVehiclesLookupService = mock[VehicleLookupWebService]
-      val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(mockVehiclesLookupService)
+      val mockVehiclesLookupService = mock[VehicleAndKeeperLookupWebService]
+      val vehicleLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(mockVehiclesLookupService)
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = injector.getInstance(classOf[Config])
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
@@ -558,20 +558,20 @@ final class VehicleLookupUnitSpec extends UnitSpec {
     )
   }
 
-  private def vehicleLookupResponseGenerator(fullResponse: (Int, Option[VehicleDetailsResponseDto]) = vehicleDetailsResponseSuccess,
+  private def vehicleLookupResponseGenerator(fullResponse: (Int, Option[VehicleAndKeeperDetailsResponse]) = vehicleDetailsResponseSuccess,
                                              bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
                                              isPrototypeBannerVisible: Boolean = true) = {
 
     val (status, vehicleDetailsResponse) = fullResponse
     val responseAsJson = vehicleDetailsResponse.map(Json.toJson(_))
-    val ws = mock[VehicleLookupWebService]
+    val ws = mock[VehicleAndKeeperLookupWebService]
 
-    when(ws.callVehicleLookupService(any[VehicleDetailsRequestDto], any[String]))
+    when(ws.invoke(any[VehicleAndKeeperDetailsRequest], any[String]))
       .thenReturn(Future.successful {
         new FakeResponse(status = status, fakeJson = responseAsJson) // Any call to a webservice will always return this successful response.
       })
 
-    val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(ws)
+    val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(ws)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
@@ -582,7 +582,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
 
     new VehicleLookup(
       bruteForceService = bruteForceService,
-      vehicleLookupService = vehicleLookupServiceImpl,
+      vehicleAndKeeperLookupService = vehicleAndKeeperLookupServiceImpl,
       surveyUrl = surveyUrl,
       dateService = dateService
     )
@@ -590,19 +590,19 @@ final class VehicleLookupUnitSpec extends UnitSpec {
 
   private lazy val vehicleLookupError = {
     val permitted = true // The lookup is permitted as we want to test failure on the vehicle lookup micro-service step.
-    val vehicleLookupWebService = mock[VehicleLookupWebService]
+    val vehicleAndKeeperLookupWebService = mock[VehicleAndKeeperLookupWebService]
 
-    when(vehicleLookupWebService.callVehicleLookupService(any[VehicleDetailsRequestDto], any[String]))
+    when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperDetailsRequest], any[String]))
       .thenReturn(Future.failed(new IllegalArgumentException))
 
-    val vehicleLookupServiceImpl = new VehicleLookupServiceImpl(vehicleLookupWebService)
+    val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(vehicleAndKeeperLookupWebService)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
 
     new VehicleLookup(
       bruteForceService = bruteForceServiceImpl(permitted = permitted),
-      vehicleLookupService = vehicleLookupServiceImpl,
+      vehicleAndKeeperLookupService = vehicleAndKeeperLookupServiceImpl,
       surveyUrl = surveyUrl,
       dateService = dateService
     )

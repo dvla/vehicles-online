@@ -58,7 +58,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
 
     "redirect when only VehicleDetails are cached" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
-      CookieFactoryForUISpecs.vehicleDetailsModel()
+      CookieFactoryForUISpecs.vehicleAndKeeperDetailsModel()
 
       go to DisposeSuccessPage
 
@@ -78,7 +78,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         dealerDetails().
-        vehicleDetailsModel()
+        vehicleAndKeeperDetailsModel()
 
       go to DisposeSuccessPage
 
@@ -89,7 +89,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         disposeFormModel().
-        vehicleDetailsModel()
+        vehicleAndKeeperDetailsModel()
 
       go to DisposeSuccessPage
 
@@ -217,7 +217,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       businessChooseYourAddress().
       enterAddressManually().
       dealerDetails().
-      vehicleDetailsModel().
+      vehicleAndKeeperDetailsModel().
       disposeFormModel().
       disposeTransactionId().
       vehicleRegistrationNumber().

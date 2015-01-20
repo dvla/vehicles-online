@@ -1,30 +1,48 @@
 package helpers.disposal_of_vehicle
 
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel, AddressModel, BruteForcePreventionModel}
-import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
 import org.joda.time.DateTime
 import org.openqa.selenium.{Cookie, WebDriver}
+import models.BusinessChooseYourAddressFormModel
+import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import models.DisposeFormModel
+import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
+import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
+import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import models.DisposeFormModel.DisposeOccurredCacheKey
+import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
+import models.DisposeFormModel.DisposeFormModelCacheKey
+import models.EnterAddressManuallyFormModel
+import models.SetupTradeDetailsFormModel
+import models.VehicleLookupFormModel
+import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
+import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import play.api.Play
 import play.api.Play.current
 import play.api.libs.json.{Json, Writes}
+import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, AddressModel, BruteForcePreventionModel, VehicleAndKeeperDetailsModel}
+import TraderDetailsModel.TraderDetailsCacheKey
+import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
 import uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.{CyId, EnId}
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
-import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
-import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
-import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
-import TraderDetailsModel.TraderDetailsCacheKey
-import VehicleDetailsModel.VehicleLookupDetailsCacheKey
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import models._
-import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, TraderBusinessNameValid, addressWithoutUprn}
+import VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
+import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
+import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
+import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
+import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
+import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
+import webserviceclients.fakes.FakeAddressLookupService.addressWithoutUprn
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.TransactionIdValid
-import webserviceclients.fakes.FakeVehicleLookupWebService.{KeeperNameValid, ReferenceNumberValid, RegistrationNumberValid, VehicleModelValid}
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.ReferenceNumberValid
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleMakeValid
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleModelValid
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
-import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeVehicleLookupWebService}
+import webserviceclients.fakes.FakeDisposeWebServiceImpl
 
 object CookieFactoryForUISpecs {
   private def addCookie[A](key: String, value: A)(implicit tjs: Writes[A], webDriver: WebDriver): Unit = {
@@ -97,26 +115,33 @@ object CookieFactoryForUISpecs {
     this
   }
 
+  def vehicleAndKeeperDetailsModel(registrationNumber: String = RegistrationNumberValid,
+                              vehicleMake: Option[String] = Some(VehicleMakeValid),
+                              vehicleModel: Option[String] = Some(VehicleModelValid),
+                              title: Option[String] = None,
+                              firstName: Option[String] = None,
+                              lastName: Option[String] = None,
+                              address: Option[AddressModel] = None)(implicit webDriver: WebDriver) = {
+    val key = VehicleAndKeeperLookupDetailsCacheKey
+    val value = VehicleAndKeeperDetailsModel(
+      registrationNumber = registrationNumber,
+      make = vehicleMake,
+      model = vehicleModel,
+      title = title,
+      firstName = firstName,
+      lastName = lastName,
+      address = address
+    )
+    addCookie(key, value)
+    this
+  }
+
   def vehicleLookupFormModel(referenceNumber: String = ReferenceNumberValid,
                              registrationNumber: String = RegistrationNumberValid)
                             (implicit webDriver: WebDriver) = {
     val key = VehicleLookupFormModelCacheKey
     val value = VehicleLookupFormModel(referenceNumber = referenceNumber,
       registrationNumber = registrationNumber)
-    addCookie(key, value)
-    this
-  }
-
-  def vehicleDetailsModel(registrationNumber: String = RegistrationNumberValid,
-                          vehicleMake: String = FakeVehicleLookupWebService.VehicleMakeValid,
-                          vehicleModel: String = VehicleModelValid,
-                          keeperName: String = KeeperNameValid)
-                         (implicit webDriver: WebDriver) = {
-    val key = VehicleLookupDetailsCacheKey
-    val value = VehicleDetailsModel(registrationNumber = registrationNumber,
-      vehicleMake = vehicleMake,
-      vehicleModel = vehicleModel,
-      disposeFlag = true)
     addCookie(key, value)
     this
   }
@@ -153,7 +178,7 @@ object CookieFactoryForUISpecs {
       DateOfDisposalDayValid.toInt,
       0,
       0
-    ).toString()
+    ).toString
     addCookie(key, value)
     this
   }

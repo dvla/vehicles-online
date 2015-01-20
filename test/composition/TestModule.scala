@@ -3,24 +3,28 @@ package composition
 import com.google.inject.name.Names
 import com.typesafe.config.ConfigFactory
 import com.tzavellas.sse.guice.ScalaModule
-import composition.DevModule.bind
-import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService, AccessLoggingFilter}
-import AccessLoggingFilter.AccessLoggerName
 import org.scalatest.mock.MockitoSugar
 import play.api.{Configuration, LoggerLike, Logger}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{NoCookieFlags, CookieFlags, ClientSideSessionFactory, ClearTextClientSideSessionFactory}
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.{BruteForcePreventionWebService, BruteForcePreventionServiceImpl, BruteForcePreventionService}
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.{NoCookieFlags, CookieFlags, ClientSideSessionFactory, ClearTextClientSideSessionFactory}
+import common.ConfigProperties.getProperty
+import common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService, AccessLoggingFilter}
+import AccessLoggingFilter.AccessLoggerName
+import common.services.DateService
+import common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
+import common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupService
 import webserviceclients.dispose.{DisposeWebService, DisposeServiceImpl, DisposeService}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupWebService, VehicleLookupServiceImpl, VehicleLookupService}
-import webserviceclients.fakes.FakeVehicleLookupWebService
-import webserviceclients.fakes.FakeDisposeWebServiceImpl
-import webserviceclients.fakes.FakeDateServiceImpl
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
+import webserviceclients.fakes.FakeDateServiceImpl
+import webserviceclients.fakes.FakeDisposeWebServiceImpl
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService
 
 class TestModule() extends ScalaModule with MockitoSugar {
   /**
@@ -36,8 +40,11 @@ class TestModule() extends ScalaModule with MockitoSugar {
       case "ordnanceSurvey" => ordnanceSurveyAddressLookup()
       case _ => gdsAddressLookup()
     }
-    bind[VehicleLookupWebService].to[FakeVehicleLookupWebService].asEagerSingleton()
-    bind[VehicleLookupService].to[VehicleLookupServiceImpl].asEagerSingleton()
+//    bind[VehicleLookupWebService].to[FakeVehicleLookupWebService].asEagerSingleton() // TODO deleteme
+//    bind[VehicleLookupService].to[VehicleLookupServiceImpl].asEagerSingleton() // TODO deleteme
+    bind[VehicleAndKeeperLookupWebService].to[FakeVehicleAndKeeperLookupWebService].asEagerSingleton()
+    bind[VehicleAndKeeperLookupService].to[VehicleAndKeeperLookupServiceImpl].asEagerSingleton()
+
     bind[DisposeWebService].to[FakeDisposeWebServiceImpl].asEagerSingleton()
     bind[DisposeService].to[DisposeServiceImpl].asEagerSingleton()
     bind[DateService].to[FakeDateServiceImpl].asEagerSingleton()
