@@ -1,10 +1,9 @@
 package utils.helpers
 
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import common.webserviceclients.config.{ GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
-import uk.gov.dvla.vehicles.presentation.common.services.SEND.{From, EmailConfiguration}
+import common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
+import common.services.SEND.EmailConfiguration
 import webserviceclients.dispose.DisposeConfig
 
 trait Config {
@@ -12,15 +11,12 @@ trait Config {
   final val NotFound = "NOT FOUND"
   final val NotFoundLong = 9
 
-//   def vehiclesLookup: VehicleLookupConfig
   def ordnanceSurvey: OrdnanceSurveyConfig
   def gdsAddressLookup: GDSAddressLookupConfig
   def dispose: DisposeConfig
   def bruteForcePrevention: BruteForcePreventionConfig
 
   // Micro-service config
-//   def vehicleLookupMicroServiceBaseUrl: String
-
   def ordnanceSurveyMicroServiceUrl: String
   def ordnanceSurveyRequestTimeout: Int
   def ordnanceSurveyUseUprn: Boolean
