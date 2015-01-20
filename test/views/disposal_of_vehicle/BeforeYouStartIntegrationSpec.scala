@@ -35,7 +35,7 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
           businessChooseYourAddress().
           enterAddressManually().
           dealerDetails().
-          vehicleDetailsModel().
+          vehicleAndKeeperDetailsModel().
           disposeFormModel().
           disposeTransactionId().
           vehicleRegistrationNumber().

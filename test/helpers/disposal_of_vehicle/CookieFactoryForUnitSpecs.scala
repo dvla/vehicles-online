@@ -3,28 +3,49 @@ package helpers.disposal_of_vehicle
 import composition.TestComposition
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
-import models.DisposeFormModel.{DisposeFormModelCacheKey, DisposeFormRegistrationNumberCacheKey, DisposeFormTimestampIdCacheKey, DisposeFormTransactionIdCacheKey, DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
+import models.DisposeFormModel.DisposeFormModelCacheKey
+import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
+import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
+import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import models.DisposeFormModel.DisposeOccurredCacheKey
+import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
+import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import models.{BusinessChooseYourAddressFormModel, DisposeFormModel, EnterAddressManuallyFormModel, HelpCacheKey, SeenCookieMessageCacheKey, SetupTradeDetailsFormModel, VehicleLookupFormModel}
+import models.BusinessChooseYourAddressFormModel
+import models.DisposeFormModel
+import models.EnterAddressManuallyFormModel
+import models.HelpCacheKey
+import models.SeenCookieMessageCacheKey
+import models.SetupTradeDetailsFormModel
+import models.VehicleLookupFormModel
 import org.joda.time.DateTime
 import pages.disposal_of_vehicle.{HelpPage, VehicleLookupPage}
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
-import uk.gov.dvla.vehicles.presentation.common.model.BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.TraderDetailsCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.VehicleDetailsModel.VehicleLookupDetailsCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.{AddressModel, BruteForcePreventionModel, TraderDetailsModel, VehicleDetailsModel}
-import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
-import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid, TraderBusinessNameValid}
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.{ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
+import common.model.BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
+import common.model.TraderDetailsModel.TraderDetailsCacheKey
+import common.model.VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
+import common.model.{AddressModel, BruteForcePreventionModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
+import common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel, DayMonthYear}
+import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
+import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
+import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
+import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
+import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
+import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.TransactionIdValid
-import webserviceclients.fakes.FakeVehicleLookupWebService.{KeeperNameValid, ReferenceNumberValid, RegistrationNumberValid, VehicleModelValid}
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
-import webserviceclients.fakes.{FakeDateServiceImpl, FakeDisposeWebServiceImpl, FakeVehicleLookupWebService}
+import webserviceclients.fakes.FakeVehicleLookupWebService.ReferenceNumberValid
+import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
+import webserviceclients.fakes.FakeVehicleLookupWebService.VehicleModelValid
+import webserviceclients.fakes.FakeVehicleLookupWebService.VehicleMakeValid
+import webserviceclients.fakes.{FakeDateServiceImpl, FakeDisposeWebServiceImpl}
 
 object CookieFactoryForUnitSpecs extends TestComposition {
 
@@ -169,19 +190,26 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     createCookie(key, value)
   }
 
-  def vehicleDetailsModel(registrationNumber: String = RegistrationNumberValid,
-                          vehicleMake: String = FakeVehicleLookupWebService.VehicleMakeValid,
-                          vehicleModel: String = VehicleModelValid,
-                          keeperName: String = KeeperNameValid): Cookie = {
-    val key = VehicleLookupDetailsCacheKey
-    val value = VehicleDetailsModel(
+  def vehicleAndKeeperDetailsModel(registrationNumber: String = RegistrationNumberValid,
+                                   vehicleMake: Option[String] = Some(VehicleMakeValid),
+                                   vehicleModel: Option[String] = Some(VehicleModelValid),
+                                   title: Option[String] = None,
+                                   firstName: Option[String] = None,
+                                   lastName: Option[String] = None,
+                                   address: Option[AddressModel] = None): Cookie = {
+    val key = VehicleAndKeeperLookupDetailsCacheKey
+    val value = VehicleAndKeeperDetailsModel(
       registrationNumber = registrationNumber,
-      vehicleMake = vehicleMake,
-      vehicleModel = vehicleModel,
-      disposeFlag = true
+      make = vehicleMake,
+      model = vehicleModel,
+      title = title,
+      firstName = firstName,
+      lastName = lastName,
+      address = address
     )
     createCookie(key, value)
   }
+
 
   def vehicleLookupResponseCode(responseCode: String = "disposal_vehiclelookupfailure"): Cookie =
     createCookie(VehicleLookupResponseCodeCacheKey, responseCode)
@@ -213,7 +241,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
       DateOfDisposalDayValid.toInt,
       0,
       0
-    ).toString()
+    ).toString
 
   def disposeFormTimestamp(timestamp: String = defaultDisposeTimestamp): Cookie =
     createCookie(DisposeFormTimestampIdCacheKey, timestamp)

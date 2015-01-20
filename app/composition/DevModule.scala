@@ -16,17 +16,17 @@ import common.clientsidesession.CookieNameHashGenerator
 import common.clientsidesession.EncryptedClientSideSessionFactory
 import common.clientsidesession.Sha1HashGenerator
 import common.filters.AccessLoggingFilter.AccessLoggerName
+import common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
 import common.services.DateService
 import common.webserviceclients.addresslookup.gds.{AddressLookupServiceImpl, WebServiceImpl}
 import common.webserviceclients.addresslookup.{AddressLookupService, AddressLookupWebService}
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
-import common.webserviceclients.vehiclelookup.VehicleLookupService
-import common.webserviceclients.vehiclelookup.VehicleLookupServiceImpl
-import common.webserviceclients.vehiclelookup.VehicleLookupWebService
-import common.webserviceclients.vehiclelookup.VehicleLookupWebServiceImpl
-import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupService
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebServiceImpl
 import utils.helpers.Config
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
@@ -53,8 +53,10 @@ object DevModule extends ScalaModule {
         bind[AddressLookupService].to[AddressLookupServiceImpl].asEagerSingleton()
         bind[AddressLookupWebService].to[WebServiceImpl].asEagerSingleton()
     }
-    bind[VehicleLookupWebService].to[VehicleLookupWebServiceImpl].asEagerSingleton()
-    bind[VehicleLookupService].to[VehicleLookupServiceImpl].asEagerSingleton()
+//    bind[VehicleLookupWebService].to[VehicleLookupWebServiceImpl].asEagerSingleton() //TODO remove this
+//    bind[VehicleLookupService].to[VehicleLookupServiceImpl].asEagerSingleton() //TODO remove this
+    bind[VehicleAndKeeperLookupWebService].to[VehicleAndKeeperLookupWebServiceImpl].asEagerSingleton()
+    bind[VehicleAndKeeperLookupService].to[VehicleAndKeeperLookupServiceImpl].asEagerSingleton()
     bind[DisposeWebService].to[DisposeWebServiceImpl].asEagerSingleton()
     bind[DisposeService].to[DisposeServiceImpl].asEagerSingleton()
     bind[DateService].to[DateServiceImpl].asEagerSingleton()

@@ -42,7 +42,7 @@ final class DisposeFailureUnitSpec extends UnitSpec {
     val disposeFailure = injector.getInstance(classOf[DisposeFailure])
     val request = FakeRequest().
       withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.vehicleDetailsModel()).
+      withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
       withCookies(CookieFactoryForUnitSpecs.disposeFormModel()).
       withCookies(CookieFactoryForUnitSpecs.disposeTransactionId())
     disposeFailure.present(request)

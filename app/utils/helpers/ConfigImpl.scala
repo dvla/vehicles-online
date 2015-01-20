@@ -1,21 +1,22 @@
 package utils.helpers
 
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
-import uk.gov.dvla.vehicles.presentation.common.services.SEND.{EmailConfiguration, From}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig, VehicleLookupConfig}
+import uk.gov.dvla.vehicles.presentation.common
+import common.ConfigProperties.{getProperty, getDurationProperty, getOptionalProperty, getStringListProperty}
+import common.services.SEND.{EmailConfiguration, From}
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
+import common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
 import webserviceclients.dispose.DisposeConfig
 
 final class ConfigImpl extends Config{
 
-  override val vehiclesLookup = new VehicleLookupConfig
+//  override val vehiclesLookup = new VehicleLookupConfig
   override val ordnanceSurvey = new OrdnanceSurveyConfig
   override val gdsAddressLookup = new GDSAddressLookupConfig
   override val dispose = new DisposeConfig
   override val bruteForcePrevention = new BruteForcePreventionConfig
 
   // Micro-service config
-  override val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
+//  override val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
 
   override val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
   override val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
@@ -27,6 +28,12 @@ final class ConfigImpl extends Config{
 
   override val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
   override val disposeMsRequestTimeout = dispose.requestTimeout
+
+  // Web headers
+  override val applicationCode: String = getOptionalProperty[String]("webHeader.applicationCode").getOrElse(NotFound)
+  override val serviceTypeCode: String = getOptionalProperty[String]("webHeader.serviceTypeCode").getOrElse(NotFound)
+  override val channelCode: String = getOptionalProperty[String]("webHeader.channelCode").getOrElse(NotFound)
+  override val contactId: Long = getOptionalProperty[Long]("webHeader.contactId").getOrElse(NotFoundLong)
 
   // Brute force prevention config
   override val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader

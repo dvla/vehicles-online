@@ -2,29 +2,29 @@ package controllers
 
 import _root_.play.api.mvc.Call
 import com.google.inject.Inject
-import play.api.Logger
-import play.api.data.{Form => PlayForm, FormError}
-import play.api.mvc.{Action, AnyContent, Controller, Request, Result}
-import uk.gov.dvla.vehicles.presentation.common.LogFormats
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupBase
-import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupBase.LookupResult
-import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupBase.{VehicleFound, LookupResult, VehicleNotFound}
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleDetailsModel, BruteForcePreventionModel}
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
-import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionService
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehiclelookup.{VehicleLookupService, VehicleDetailsResponseDto, VehicleDetailsRequestDto, VehicleDetailsDto}
-import utils.helpers.Config
 import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import org.joda.time.DateTime
+import play.api.data.{Form => PlayForm, FormError}
+import play.api.mvc.{Action, AnyContent, Request}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
+import common.controllers.VehicleLookupBase
+import common.controllers.VehicleLookupBase.{VehicleFound, LookupResult, VehicleNotFound}
+import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
+import common.services.DateService
+import common.views.helpers.FormExtensions.formBinding
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
+import common.webserviceclients.common.{DmsWebHeaderDto, DmsWebEndUserDto}
+import common.webserviceclients.vehicleandkeeperlookup.{VehicleAndKeeperDetailsRequest, VehicleAndKeeperLookupService}
+import utils.helpers.Config
 
 final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionService,
-                                    vehicleLookupService: VehicleLookupService,
+                                    vehicleAndKeeperLookupService: VehicleAndKeeperLookupService,
                                     surveyUrl: SurveyUrl,
                                     dateService: DateService)
                                    (implicit val clientSideSessionFactory: ClientSideSessionFactory,
@@ -119,27 +119,53 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
   }
 
   override protected def callLookupService(trackingId: String, form: Form)(implicit request: Request[_]): Future[LookupResult] = {
-    val vehicleDetailsRequest = VehicleDetailsRequestDto(
+    val vehicleAndKeeperDetailsRequest = VehicleAndKeeperDetailsRequest(
+      dmsHeader = buildHeader(trackingId),
       referenceNumber = form.referenceNumber,
       registrationNumber = form.registrationNumber,
-      userName = request.cookies.getModel[TraderDetailsModel].fold("")(_.traderName)
+      transactionTimestamp = new DateTime
     )
 
-    vehicleLookupService.invoke(vehicleDetailsRequest, trackingId) map { response =>
+    vehicleAndKeeperLookupService.invoke(vehicleAndKeeperDetailsRequest, trackingId) map { response =>
       response.responseCode match {
         case Some(responseCode) =>
           VehicleNotFound(responseCode)
-
         case None =>
-          response.vehicleDetailsDto match {
-            case Some(dto) => 
-              // US320: we have successfully called the lookup service so we cannot be coming back from a dispose success (as the doc id will have changed and the call sould fail).
+          response.vehicleAndKeeperDetailsDto match {
+            case Some(dto) =>
+//              VehicleFound(vehicleFoundResult(dto, form.vehicleSoldTo))
+              // US320: we have successfully called the lookup service so we cannot be coming back from a dispose
+              // success (as the doc id will have changed and the call should fail).
               VehicleFound(Redirect(routes.Dispose.present()).
-                withCookie(VehicleDetailsModel.fromDto(dto)).
+                withCookie(VehicleAndKeeperDetailsModel.from(dto)).
                 discardingCookie(PreventGoingToDisposePageCacheKey))
-            case None => throw new RuntimeException("No vehicleDetailsDto found")
+
+            case None => throw new RuntimeException("No vehicleAndKeeperDetailsDto found")
           }
       }
     }
+  }
+
+  private def buildHeader(trackingId: String): DmsWebHeaderDto = {
+    val alwaysLog = true
+    val englishLanguage = "EN"
+    DmsWebHeaderDto(conversationId = trackingId,
+      originDateTime = new DateTime,
+      applicationCode = config.applicationCode,
+      channelCode = config.channelCode,
+      contactId = config.contactId,
+      eventFlag = alwaysLog,
+      serviceTypeCode = config.serviceTypeCode,
+      languageCode = englishLanguage,
+      endUser = buildEndUser)
+  }
+
+  private def buildEndUser: DmsWebEndUserDto = {
+    DmsWebEndUserDto(endUserTeamCode = config.applicationCode,
+      endUserTeamDesc = config.applicationCode,
+      endUserRole = config.applicationCode,
+      endUserId = config.applicationCode,
+      endUserIdDesc = config.applicationCode,
+      endUserLongNameDesc = config.applicationCode)
   }
 }

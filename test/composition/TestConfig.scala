@@ -1,33 +1,21 @@
 package composition
 
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties._
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getOptionalProperty
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.{EmailConfiguration, From}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.brute_force_prevention.FakeBruteForcePreventionConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicle_lookup.FakeVehicleLookupConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.FakeOrdnanceSurveyConfig
-
 import utils.helpers.Config
-import webserviceclients.dispose.DisposeConfig
 import webserviceclients.dispose_service.FakeDisposeConfig
-import scala.concurrent.duration.DurationInt
 
 class TestConfig extends Config {
-//  private val notFound = "NOT FOUND"
 
-  override lazy val vehiclesLookup = new FakeVehicleLookupConfig {
-    override lazy val baseUrl = "/"
-  }
   override lazy val ordnanceSurvey = new FakeOrdnanceSurveyConfig
   override lazy val gdsAddressLookup = new FakeGDSAddressLookupConfig
   override lazy val dispose = new FakeDisposeConfig
   override lazy val bruteForcePrevention = new FakeBruteForcePreventionConfig
 
   // Micro-service config
-  def vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
-
   def ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
   def ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
   def ordnanceSurveyUseUprn: Boolean = false
@@ -38,6 +26,12 @@ class TestConfig extends Config {
 
   def disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
   def disposeMsRequestTimeout = dispose.requestTimeout
+
+  // Web headers
+  def applicationCode = "WEBDTT"
+  def serviceTypeCode = "WEBDTT"
+  def channelCode = "WEBDTT"
+  def contactId = 1
 
   //Brute force prevention config
   def bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader
@@ -70,16 +64,13 @@ class TestConfig extends Config {
   def opening: Int = 1
   def closing: Int = 18
 
-
-
   def emailConfiguration: EmailConfiguration = EmailConfiguration(
-    "",
-    25,
-    "",
-    "",
-    From("", "DO-NOT-REPLY"),
-    From("", "Feedback"),
-    None
+    host = "",
+    port = 25,
+    username = "",
+    password = "",
+    from = From("", "DO-NOT-REPLY"),
+    feedbackEmail = From("", "Feedback"),
+    whiteList = None
   )
-
 }
