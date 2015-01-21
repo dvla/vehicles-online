@@ -136,9 +136,16 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
 //              VehicleFound(vehicleFoundResult(dto, form.vehicleSoldTo))
               // US320: we have successfully called the lookup service so we cannot be coming back from a dispose
               // success (as the doc id will have changed and the call should fail).
-              VehicleFound(Redirect(routes.Dispose.present()).
-                withCookie(VehicleAndKeeperDetailsModel.from(dto)).
-                discardingCookie(PreventGoingToDisposePageCacheKey))
+              dto.keeperEndDate match  {
+                case Some(_) =>
+                  // a date exists so redirect to duplicate error
+                  VehicleFound(Redirect(routes.DuplicateDisposalError.present()))
+                case None =>
+                  VehicleFound(Redirect(routes.Dispose.present()).
+                    withCookie(VehicleAndKeeperDetailsModel.from(dto)).
+                    discardingCookie(PreventGoingToDisposePageCacheKey))
+              }
+
 
             case None => throw new RuntimeException("No vehicleAndKeeperDetailsDto found")
           }
