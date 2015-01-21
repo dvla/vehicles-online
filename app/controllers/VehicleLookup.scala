@@ -157,15 +157,6 @@ final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionS
       eventFlag = alwaysLog,
       serviceTypeCode = config.serviceTypeCode,
       languageCode = englishLanguage,
-      endUser = buildEndUser)
-  }
-
-  private def buildEndUser: DmsWebEndUserDto = {
-    DmsWebEndUserDto(endUserTeamCode = config.applicationCode,
-      endUserTeamDesc = config.applicationCode,
-      endUserRole = config.applicationCode,
-      endUserId = config.applicationCode,
-      endUserIdDesc = config.applicationCode,
-      endUserLongNameDesc = config.applicationCode)
+      endUser = None)
   }
 }
