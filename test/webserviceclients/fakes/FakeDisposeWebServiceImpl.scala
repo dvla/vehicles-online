@@ -5,8 +5,7 @@ import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
 import webserviceclients.dispose.{DisposeWebService, DisposeResponseDto, DisposeRequestDto}
-import webserviceclients.fakes.FakeVehicleLookupWebService.RegistrationNumberValid
-import scala.concurrent.ExecutionContext.Implicits.global
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid
 import scala.concurrent.Future
 
 final class FakeDisposeWebServiceImpl extends DisposeWebService {

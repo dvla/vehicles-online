@@ -23,7 +23,13 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{BAD_REQUEST, INTERNAL_SERVER_ERROR, LOCATION, OK, SERVICE_UNAVAILABLE, contentAsString, defaultAwaitTimeout}
+import play.api.test.Helpers.BAD_REQUEST
+import play.api.test.Helpers.INTERNAL_SERVER_ERROR
+import play.api.test.Helpers.LOCATION
+import play.api.test.Helpers.OK
+import play.api.test.Helpers.SERVICE_UNAVAILABLE
+import play.api.test.Helpers.contentAsString
+import play.api.test.Helpers.defaultAwaitTimeout
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
@@ -50,7 +56,7 @@ import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseFailureW
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseSuccess
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUnableToProcessApplication
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUndefinedError
-import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global

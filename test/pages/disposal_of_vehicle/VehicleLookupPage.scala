@@ -5,11 +5,8 @@ import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Element, Page, TelField, TextField, WebBrowserDSL, WebDriverFactory}
-import views.disposal_of_vehicle.VehicleLookup
-import VehicleLookup.BackId
-import VehicleLookup.ExitId
-import VehicleLookup.SubmitId
-import webserviceclients.fakes.FakeVehicleLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
+import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, SubmitId}
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
 
 object VehicleLookupPage extends Page with WebBrowserDSL {
