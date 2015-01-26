@@ -163,8 +163,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalMonth select DateOfDisposalMonthValid
-      dateOfDisposalYear select DateOfDisposalYearValid
+      dateOfDisposalMonth enter DateOfDisposalMonthValid
+      dateOfDisposalYear enter DateOfDisposalYearValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -177,8 +177,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalDay select DateOfDisposalDayValid
-      dateOfDisposalYear select DateOfDisposalYearValid
+      dateOfDisposalDay enter DateOfDisposalDayValid
+      dateOfDisposalYear enter DateOfDisposalYearValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -191,8 +191,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalDay select DateOfDisposalDayValid
-      dateOfDisposalMonth select DateOfDisposalMonthValid
+      dateOfDisposalDay enter DateOfDisposalDayValid
+      dateOfDisposalMonth enter DateOfDisposalMonthValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -254,9 +254,9 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       cacheSetup()
       go to DisposePage
       mileage enter MileageInvalid
-      dateOfDisposalDay select DateOfDisposalDayValid
-      dateOfDisposalMonth select DateOfDisposalMonthValid
-      dateOfDisposalYear select DateOfDisposalYearValid
+      dateOfDisposalDay enter DateOfDisposalDayValid
+      dateOfDisposalMonth enter DateOfDisposalMonthValid
+      dateOfDisposalYear enter DateOfDisposalYearValid
       click on consent
       click on lossOfRegistrationConsent
 

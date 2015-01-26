@@ -117,9 +117,9 @@ final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDS
 
   private def selectTodaysDate() = {
     click on DisposePage.dateOfDisposalDay
-    DisposePage.dateOfDisposalDay select "25"
-    DisposePage.dateOfDisposalMonth select "11"
-    DisposePage.dateOfDisposalYear select "2014"
+    DisposePage.dateOfDisposalDay enter "25"
+    DisposePage.dateOfDisposalMonth enter "11"
+    DisposePage.dateOfDisposalYear enter "2014"
   }
 
   @Given("""^details are entered that correspond to a vehicle that has a valid record but does have markers or error codes$""")

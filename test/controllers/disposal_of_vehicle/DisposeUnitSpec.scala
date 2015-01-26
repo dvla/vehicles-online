@@ -96,9 +96,9 @@ final class DisposeUnitSpec extends UnitSpec {
       checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = true, isAutoFocus = true)
       checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = true, isAutoFocus = false)
 
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildSelectedOptionHtml("25", "25"))
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildSelectedOptionHtml("11", "November"))
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildSelectedOptionHtml("1970", "1970"))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.day", "25"))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.month", "11"))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.year", "1970"))
     }
 
     "display empty fields when cookie does not exist" in new WithApplication {
@@ -667,8 +667,9 @@ final class DisposeUnitSpec extends UnitSpec {
     }
   }
 
-  private def buildSelectedOptionHtml(optionValue: String, optionText: String): String = {
-    s"""<optionvalue="$optionValue"selected>$optionText</option>"""
+
+  private def buildDateControl(name: String, value: String): String = {
+    s"""name="$name"value="$value""""
   }
 
   private val linePart1Truncated: String = "a" * LineMaxLength
