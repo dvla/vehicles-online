@@ -1,7 +1,7 @@
 package uk.gov.dvla.vehicles.dispose.gatling
 
 import io.gatling.core.Predef._
-
+import scala.language.postfixOps
 import scala.concurrent.duration._
 import Chains._
 
