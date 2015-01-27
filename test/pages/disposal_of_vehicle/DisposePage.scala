@@ -4,9 +4,7 @@ import models.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOf
 import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
-import helpers.webbrowser.{Checkbox, Element, Page, SingleSel, TelField, WebBrowserDSL, WebDriverFactory}
-import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear
-import DayMonthYear.{DayId, MonthId, YearId}
+import helpers.webbrowser.{Checkbox, Element, Page, TelField, WebBrowserDSL, WebDriverFactory}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
@@ -18,11 +16,11 @@ object DisposePage extends Page with WebBrowserDSL {
 
   def mileage(implicit driver: WebDriver): TelField = telField(id(MileageId))
 
-  def dateOfDisposalDay(implicit driver: WebDriver): SingleSel = singleSel(id(s"${DateOfDisposalId}_$DayId"))
+  def dateOfDisposalDay(implicit driver: WebDriver): TelField = telField(id(s"${DateOfDisposalId}_day"))
 
-  def dateOfDisposalMonth(implicit driver: WebDriver): SingleSel = singleSel(id(s"${DateOfDisposalId}_$MonthId"))
+  def dateOfDisposalMonth(implicit driver: WebDriver): TelField = telField(id(s"${DateOfDisposalId}_month"))
 
-  def dateOfDisposalYear(implicit driver: WebDriver): SingleSel = singleSel(id(s"${DateOfDisposalId}_$YearId"))
+  def dateOfDisposalYear(implicit driver: WebDriver): TelField = telField(id(s"${DateOfDisposalId}_year"))
 
   def consent(implicit driver: WebDriver): Checkbox = checkbox(id(ConsentId))
 
@@ -37,9 +35,9 @@ object DisposePage extends Page with WebBrowserDSL {
   def happyPath(implicit driver: WebDriver) = {
     go to DisposePage
     mileage enter MileageValid
-    dateOfDisposalDay select DateOfDisposalDayValid
-    dateOfDisposalMonth select DateOfDisposalMonthValid
-    dateOfDisposalYear select DateOfDisposalYearValid
+    dateOfDisposalDay enter DateOfDisposalDayValid
+    dateOfDisposalMonth enter DateOfDisposalMonthValid
+    dateOfDisposalYear enter DateOfDisposalYearValid
     click on consent
     click on lossOfRegistrationConsent
     click on dispose
@@ -47,9 +45,9 @@ object DisposePage extends Page with WebBrowserDSL {
 
   def sadPath(implicit driver: WebDriver) = {
     go to DisposePage
-    dateOfDisposalDay select ""
-    dateOfDisposalMonth select ""
-    dateOfDisposalYear select ""
+    dateOfDisposalDay enter ""
+    dateOfDisposalMonth enter ""
+    dateOfDisposalYear enter ""
     click on dispose
   }
 }

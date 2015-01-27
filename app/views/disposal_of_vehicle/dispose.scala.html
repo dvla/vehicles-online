@@ -18,7 +18,7 @@
 @import common.views.helpers.BaseTemplate.fieldConstructor
 @import common.views.html.widgets.base.valtechDeclareCheck
 @import common.views.html.widgets.base.valtechInputText
-@import common.views.html.widgets.dates.inputDayMonthYear
+@import common.views.html.widgets.dates.inputDayMonthYearTextbox
 @import common.views.html.widgets.base.csrfTokenHiddenField
 @import views.html.helper.form
 
@@ -83,16 +83,18 @@
                         ) ++
                         (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
+
                 <div id=@DateOfDisposalId>
-                @inputDayMonthYear(
-                    field = disposeForm(DateOfDisposalId),
-                    years = dateService.today.yearRangeToDropdown(yearsIntoThePast = DateOfDisposalYearsIntoThePast),
+                @inputDayMonthYearTextbox(
+                    field =disposeForm(DateOfDisposalId),
                     args = Map(
-                        '_label -> Messages("disposal_dispose.dateofdisposal.label")
+                        '_label -> Messages("disposal_dispose.dateofdisposal.label"),
+                        'autofocus -> true
                     ),
                     dateService = dateService,
                     showTodaysDateButton = true,
-                    showTodaysDateButtonId = Some(TodaysDateOfDisposal)
+                    showTodaysDateButtonId = Some(TodaysDateOfDisposal),
+                    hintText = Some(Messages("disposal_dispose.dateofdisposal.hint"))
                 )
                 </div>
 

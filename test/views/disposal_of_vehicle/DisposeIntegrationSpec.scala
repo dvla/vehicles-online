@@ -140,6 +140,9 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       click on consent
       click on lossOfRegistrationConsent
+
+      dispose.underlying.getAttribute("class") should not include "disabled"
+
       click on dispose
 
       // We want to wait for the javascript to execute and redirect to the next page. For build servers we may need to
@@ -147,6 +150,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       val timeout: Span = scaled(Span(2, Seconds))
       implicit val patienceConfig: PatienceConfig = PatienceConfig(timeout = timeout)
 
+      eventually(dispose.underlying.getAttribute("class").contains("disabled"))
       eventually {page.title should equal(DisposeSuccessPage.title)}
     }
 
@@ -163,8 +167,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalMonth select DateOfDisposalMonthValid
-      dateOfDisposalYear select DateOfDisposalYearValid
+      dateOfDisposalMonth enter DateOfDisposalMonthValid
+      dateOfDisposalYear enter DateOfDisposalYearValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -177,8 +181,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalDay select DateOfDisposalDayValid
-      dateOfDisposalYear select DateOfDisposalYearValid
+      dateOfDisposalDay enter DateOfDisposalDayValid
+      dateOfDisposalYear enter DateOfDisposalYearValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -191,8 +195,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalDay select DateOfDisposalDayValid
-      dateOfDisposalMonth select DateOfDisposalMonthValid
+      dateOfDisposalDay enter DateOfDisposalDayValid
+      dateOfDisposalMonth enter DateOfDisposalMonthValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -254,9 +258,9 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       cacheSetup()
       go to DisposePage
       mileage enter MileageInvalid
-      dateOfDisposalDay select DateOfDisposalDayValid
-      dateOfDisposalMonth select DateOfDisposalMonthValid
-      dateOfDisposalYear select DateOfDisposalYearValid
+      dateOfDisposalDay enter DateOfDisposalDayValid
+      dateOfDisposalMonth enter DateOfDisposalMonthValid
+      dateOfDisposalYear enter DateOfDisposalYearValid
       click on consent
       click on lossOfRegistrationConsent
 
