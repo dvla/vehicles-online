@@ -140,6 +140,9 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       click on consent
       click on lossOfRegistrationConsent
+
+      dispose.underlying.getAttribute("class") should not include "disabled"
+
       click on dispose
 
       // We want to wait for the javascript to execute and redirect to the next page. For build servers we may need to
@@ -147,6 +150,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       val timeout: Span = scaled(Span(2, Seconds))
       implicit val patienceConfig: PatienceConfig = PatienceConfig(timeout = timeout)
 
+      eventually(dispose.underlying.getAttribute("class").contains("disabled"))
       eventually {page.title should equal(DisposeSuccessPage.title)}
     }
 
