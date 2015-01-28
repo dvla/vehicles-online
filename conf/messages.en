@@ -221,7 +221,7 @@ disposal_disposeconfirmation.exkeeper-p3 = Please quote the Transaction ID above
 disposal_disposeconfirmation.exkeeper-p4 = Please print this page and pass to the customer.
 disposal_disposeconfirmation.sendbutton = Send
 disposal_disposeconfirmation.transactionid = {0}
-disposal_disposeconfirmation.transactionid_label = Transaction id
+disposal_disposeconfirmation.transactionid_label = Transaction ID
 disposal_disposeconfirmation.transactionid_message = Transaction message goes here
 disposal_disposeconfirmation.transactionDate = Date of transaction
 disposal_disposeconfirmation.whatNext = What Happens Next?
@@ -294,7 +294,7 @@ disposal.closed.exit_button = Exit
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = The application is being processed.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Please destroy the original V5C/3 (disposal slip). This must not be sent to DVLA.
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Please destroy the original V5C/3 (yellow disposal slip). This must not be sent to DVLA.
 
 ms.vehiclesService.response.unableToProcessApplication-title = Transaction Unsuccessful
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;
