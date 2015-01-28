@@ -34,7 +34,7 @@ object DisposeFormModel {
     final val ConsentId = "consent"
     final val LossOfRegistrationConsentId = "lossOfRegistrationConsent"
     final val DateOfDisposalYearsIntoThePast = 2
-    final val TodaysDateOfDisposal = "todaysDateOfDisposal"
+    final val TodaysDateOfDisposal = "todays_date"
     final val BackId = "back"
     final val SubmitId = "submit"
 
