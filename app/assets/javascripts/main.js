@@ -56,7 +56,7 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
             $('#feedback_field textarea').keyup(updateCountdown);
         });
 
-        $(":submit").click(function() {
+        $(":submit, #tryagain").click(function() {
             if($(this).hasClass("disabled")) return false;
             $(this).addClass("disabled");
             return true;
