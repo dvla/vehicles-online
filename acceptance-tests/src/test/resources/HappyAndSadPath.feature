@@ -1,8 +1,7 @@
 @tag
 Feature:
   As a Motor Trader
-  I want to receive an appropriate error message when I enter an invalid document reference number
-  so that I can correct it and move to the next step in the transaction
+  I want to see succesful transaction and failure transaction from start to end
 
   Scenario:
     Given I am on the complete and confirm page
