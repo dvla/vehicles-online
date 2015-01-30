@@ -3,9 +3,9 @@ package webserviceclients.dispose
 import javax.inject.Inject
 import play.api.Logger
 import play.api.http.Status.OK
-import uk.gov.dvla.vehicles.presentation.common.LogFormats
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.dvla.vehicles.presentation.common.LogFormats
 
 final class DisposeServiceImpl @Inject()(config: DisposeConfig, ws: DisposeWebService) extends DisposeService {
 

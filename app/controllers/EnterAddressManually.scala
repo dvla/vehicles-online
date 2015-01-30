@@ -12,7 +12,7 @@ import utils.helpers.Config
 import models.{EnterAddressManuallyFormModel, SetupTradeDetailsFormModel}
 import views.html.disposal_of_vehicle.enter_address_manually
 
-final class EnterAddressManually @Inject()()
+class EnterAddressManually @Inject()()
                                  (implicit clientSideSessionFactory: ClientSideSessionFactory,
                                   config: Config) extends Controller {
 

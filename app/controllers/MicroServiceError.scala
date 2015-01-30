@@ -2,14 +2,14 @@ package controllers
 
 import com.google.inject.Inject
 import controllers.routes.VehicleLookup
+import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
+import models.CacheKeyPrefix
 import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import utils.helpers.Config
-import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
-import models.CacheKeyPrefix
 
-final class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
+class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                         config: Config) extends Controller {
   private final val DefaultRedirectUrl = VehicleLookup.present().url
 

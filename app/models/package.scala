@@ -11,9 +11,9 @@ import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
+import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import TraderDetailsModel.TraderDetailsCacheKey
 import VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 
 package object models {
   final val CacheKeyPrefix = "dtt-"

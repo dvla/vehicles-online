@@ -16,7 +16,7 @@ import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, Vehic
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import utils.helpers.Config
 
-final class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
+class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                      config: Config,
                                      surveyUrl: SurveyUrl,
                                      dateService: DateService) extends Controller {

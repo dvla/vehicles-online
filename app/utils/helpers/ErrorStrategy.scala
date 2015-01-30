@@ -1,17 +1,16 @@
 package utils.helpers
 
-import java.util.Date
-import javax.crypto.BadPaddingException
-
 import com.google.inject.Inject
 import com.google.inject.name.Named
 import controllers.routes
-import uk.gov.dvla.vehicles.presentation.common.filters.{AccessLoggingFilter, ClfEntryBuilder}
-import AccessLoggingFilter.AccessLoggerName
+import java.util.Date
+import javax.crypto.BadPaddingException
 import play.api.libs.Codecs
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{RequestHeader, Result}
 import play.api.{Logger, LoggerLike}
+import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
+import AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.InvalidSessionException
 import uk.gov.dvla.vehicles.presentation.common.filters.ClfEntryBuilder
 

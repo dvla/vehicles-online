@@ -17,13 +17,13 @@ import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, Vehic
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
-import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 import views.html.disposal_of_vehicle.dispose
+import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-final class Dispose @Inject()(webService: DisposeService, dateService: DateService)
+class Dispose @Inject()(webService: DisposeService, dateService: DateService)
                              (implicit clientSideSessionFactory: ClientSideSessionFactory,
                               config: Config) extends Controller {
 

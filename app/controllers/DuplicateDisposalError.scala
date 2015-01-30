@@ -7,7 +7,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import utils.helpers.Config
 import models.DisposeCacheKeys
 
-final class DuplicateDisposalError @Inject()()
+class DuplicateDisposalError @Inject()()
                                    (implicit clientSideSessionFactory: ClientSideSessionFactory, config: Config)
   extends Controller {
 

@@ -1,16 +1,16 @@
 package controllers
 
 import com.google.inject.Inject
+import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import models.DisposeFormModel
 import play.api.Logger
 import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
 import uk.gov.dvla.vehicles.presentation.common.model.{DisposeModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import utils.helpers.Config
-import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel
 
-final class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
+class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                        config: Config) extends Controller {
 
   def present = Action { implicit request =>

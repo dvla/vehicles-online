@@ -6,7 +6,7 @@ import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.{Config, CookieHelper}
 
-final class Error @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
+class Error @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                               config: Config) extends Controller {
 
   def present(exceptionDigest: String) = Action { implicit request =>

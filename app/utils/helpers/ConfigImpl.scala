@@ -7,7 +7,7 @@ import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
 import webserviceclients.dispose.DisposeConfig
 
-final class ConfigImpl extends Config{
+final class ConfigImpl extends Config {
 
 //  override val vehiclesLookup = new VehicleLookupConfig
   override val ordnanceSurvey = new OrdnanceSurveyConfig
@@ -60,13 +60,11 @@ final class ConfigImpl extends Config{
   override val startUrl: String = getProperty[String]("start.page")
   override val endUrl: String = getProperty[String]("end.page")
 
-
   // opening and closing times
   override val opening: Int = getProperty[Int]("openingTime")
   override val closing: Int = getProperty[Int]("closingTime")
 
   // Web headers
-
   override val emailConfiguration: EmailConfiguration = EmailConfiguration(
     getProperty[String]("smtp.host"),
     getProperty[Int]("smtp.port"),

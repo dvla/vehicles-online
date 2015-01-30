@@ -18,7 +18,7 @@ import views.html.disposal_of_vehicle.business_choose_your_address
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-final class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupService)
+class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupService)
                                                (implicit clientSideSessionFactory: ClientSideSessionFactory,
                                                 config: Config) extends Controller {
 

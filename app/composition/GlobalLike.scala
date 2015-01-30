@@ -12,7 +12,7 @@ import play.api.mvc.{RequestHeader, Result}
 import play.api.{LoggerLike, Application, Configuration, GlobalSettings, Logger, Mode, Play}
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.filters.ClfEntryBuilder
-import utils.helpers.{ErrorStrategy, Config}
+import utils.helpers.Config
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 

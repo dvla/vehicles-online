@@ -1,16 +1,16 @@
 package controllers
 
 import com.google.inject.Inject
+import models.VehicleLookupFormModel
+import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import play.api.Logger
 import play.api.mvc.{Action, AnyContent, Controller, DiscardingCookie, Request}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, BruteForcePreventionModel}
 import utils.helpers.Config
-import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
-import models.VehicleLookupFormModel
 
-final class VehicleLookupFailure @Inject()()
+class VehicleLookupFailure @Inject()()
                                  (implicit clientSideSessionFactory: ClientSideSessionFactory,
                                   config: Config) extends Controller {
 

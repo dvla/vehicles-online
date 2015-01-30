@@ -4,8 +4,8 @@ import com.google.inject.Inject
 import play.api.Play.current
 import play.api.libs.json.Json
 import play.api.libs.ws.{WS, WSResponse}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
 import scala.concurrent.Future
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
 
 final class DisposeWebServiceImpl @Inject()(config: DisposeConfig)  extends DisposeWebService {
   private val endPoint: String = s"${config.baseUrl}/vehicles/dispose/v1"

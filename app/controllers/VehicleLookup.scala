@@ -19,11 +19,11 @@ import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
 import common.views.helpers.FormExtensions.formBinding
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
-import common.webserviceclients.common.{DmsWebHeaderDto, DmsWebEndUserDto}
+import common.webserviceclients.common.DmsWebHeaderDto
 import common.webserviceclients.vehicleandkeeperlookup.{VehicleAndKeeperDetailsRequest, VehicleAndKeeperLookupService}
 import utils.helpers.Config
 
-final class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionService,
+class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionService,
                                     vehicleAndKeeperLookupService: VehicleAndKeeperLookupService,
                                     surveyUrl: SurveyUrl,
                                     dateService: DateService)
