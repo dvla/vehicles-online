@@ -62,6 +62,13 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
             return true;
         });
 
+        // Feedback form "return to application"
+
+        $("#feedback-open").on("click",function() {
+            window.open('/feedback','_blank');
+            return false;
+        });
+
     });
 
     function areCookiesEnabled(){
