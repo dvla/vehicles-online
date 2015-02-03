@@ -53,7 +53,7 @@ title = Messages("disposal_disposeconfirmation.title")
 
             <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
             <dd>
-                @{formModel.dateOfDisposal.`dd/MM/yyyy`}
+                @{formModel.dateOfDisposal.toString("dd/MM/yyyy")}
             </dd>
         </dl>
     </div>

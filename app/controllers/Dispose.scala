@@ -158,7 +158,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
     def buildDisposeMicroServiceRequest(vehicleLookup: VehicleLookupFormModel,
                                         disposeForm: DisposeFormModel,
                                         traderDetails: TraderDetailsModel): DisposeRequestDto = {
-      val dateTime = disposeFormModel.dateOfDisposal.toDateTime.get
+      val dateTime = disposeFormModel.dateOfDisposal.toDateTimeAtStartOfDay
       val formatter = ISODateTimeFormat.dateTime()
       val isoDateTimeString = formatter.print(dateTime)
 

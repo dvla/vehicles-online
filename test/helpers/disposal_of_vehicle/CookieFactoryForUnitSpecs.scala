@@ -20,7 +20,7 @@ import models.HelpCacheKey
 import models.SeenCookieMessageCacheKey
 import models.SetupTradeDetailsFormModel
 import models.VehicleLookupFormModel
-import org.joda.time.DateTime
+import org.joda.time.{LocalDate, DateTime}
 import pages.disposal_of_vehicle.{HelpPage, VehicleLookupPage}
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
@@ -218,9 +218,10 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     val key = DisposeFormModelCacheKey
     val value = DisposeFormModel(
       mileage = mileage,
-      dateOfDisposal = DayMonthYear(
-        FakeDateServiceImpl.DateOfDisposalDayValid.toInt,
-        FakeDateServiceImpl.DateOfDisposalMonthValid.toInt, FakeDateServiceImpl.DateOfDisposalYearValid.toInt
+      dateOfDisposal = new LocalDate(
+        FakeDateServiceImpl.DateOfDisposalYearValid.toInt,
+          FakeDateServiceImpl.DateOfDisposalMonthValid.toInt,
+          FakeDateServiceImpl.DateOfDisposalDayValid.toInt
       ),
       consent = FakeDisposeWebServiceImpl.ConsentValid,
       lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid

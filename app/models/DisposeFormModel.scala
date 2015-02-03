@@ -2,18 +2,17 @@ package models
 
 import mappings.Consent
 import Consent.consent
+import org.joda.time.LocalDate
 import play.api.data.Mapping
 import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common
-import common.mappings.DayMonthYear.dayMonthYear
 import common.mappings.Mileage.mileage
-import common.views.constraints.DayMonthYear.{after, notInFuture, validDate}
 import common.clientsidesession.CacheKey
 import common.services.DateService
-import common.views.models.DayMonthYear
+import uk.gov.dvla.vehicles.presentation.common.mappings.Date._
 
 final case class DisposeFormModel(mileage: Option[Int],
-                                  dateOfDisposal: DayMonthYear,
+                                  dateOfDisposal: LocalDate,
                                   consent: String,
                                   lossOfRegistrationConsent: String)
 
@@ -38,12 +37,11 @@ object DisposeFormModel {
     final val BackId = "back"
     final val SubmitId = "submit"
 
-    def mapping(dateService: DateService): Mapping[DisposeFormModel] =
+    def mapping(implicit dateService: DateService): Mapping[DisposeFormModel] =
       play.api.data.Forms.mapping(
         MileageId -> mileage,
-        DateOfDisposalId -> dayMonthYear.verifying(validDate(),
-          after(earliest = (dateService.today - DateOfDisposalYearsIntoThePast).years),
-          notInFuture(dateService)),
+        DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
+          verifying(notBefore(new LocalDate().minusYears(DateOfDisposalYearsIntoThePast))),
         ConsentId -> consent,
         LossOfRegistrationConsentId -> consent
       )(DisposeFormModel.apply)(DisposeFormModel.unapply)

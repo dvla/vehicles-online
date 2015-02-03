@@ -11,7 +11,7 @@ import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import org.joda.time.Instant
+import org.joda.time.{LocalDate, Instant}
 import org.mockito.ArgumentCaptor
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{times, verify, when}
@@ -98,7 +98,7 @@ final class DisposeUnitSpec extends UnitSpec {
 
       contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.day", "25"))
       contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.month", "11"))
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.year", "1970"))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.year", "2014"))
     }
 
     "display empty fields when cookie does not exist" in new WithApplication {

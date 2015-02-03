@@ -1,7 +1,7 @@
 package helpers.disposal_of_vehicle
 
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
-import org.joda.time.DateTime
+import org.joda.time.{LocalDate, DateTime}
 import org.openqa.selenium.{Cookie, WebDriver}
 import models.BusinessChooseYourAddressFormModel
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
@@ -157,7 +157,7 @@ object CookieFactoryForUISpecs {
   def disposeFormModel()(implicit webDriver: WebDriver) = {
     val key = DisposeFormModelCacheKey
     val value = DisposeFormModel(mileage = None,
-      dateOfDisposal = DayMonthYear.today,
+      dateOfDisposal = new LocalDate(),
       consent = FakeDisposeWebServiceImpl.ConsentValid,
       lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid)
     addCookie(key, value)
