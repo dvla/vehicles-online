@@ -1,10 +1,21 @@
 @()(implicit lang: Lang,
         config: utils.helpers.Config)
 
+@import views.common.ProtoType.FeedbackId
+
 @main(
   progress = Some(Messages("change_keeper_progress_3")),
   title = Messages("common_feedback.thankyou"),
     showBanner = false
 ) {
-  <a href="" onclick="window.close()" id="feedback-close">◄ Return to your application</a>
+
+    <!-- If Javascript is enabled, we un-hide this button -->
+    <a onclick="window.close()" id="feedback-close" style="display: none;">◄ Return to your application</a>
+    <!-- If Javascript is disabled, the close button remains hidden and we show this message -->
+    <span id="feedback-return" style="display: block;">Please close this page to return to your application</span>
+
+    <script>
+        document.getElementById("feedback-close").style.display = "block";
+        document.getElementById("feedback-return").style.display = "none";
+    </script>
 }

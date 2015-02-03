@@ -4,6 +4,7 @@
 @import views.html.common.{alternateLanguages}
 @import play.api.Play
 @import play.api.Play.current
+@import views.common.ProtoType.FeedbackId
 
 <!DOCTYPE html>
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
@@ -119,6 +120,42 @@
         <div id="global-app-error" class="app-error hidden"></div>
 
         <script data-main="@routes.Assets.at("javascripts/main.js")" src="@routes.Assets.at("lib/requirejs/require.js")"></script>
+
+        <!-- Open feedback form with JS if enabled -->
+        <script>
+        
+            // remove href from link if JS enabled
+            document.getElementById("@FeedbackId").removeAttribute("href");
+
+            function openFeedback(inputId, event, url) {
+                var element = document.getElementById(inputId);
+                if (element) {
+                    if (element.addEventListener) {
+                        /* addEventListener is a W3 standard that is implemented in the majority of other browsers (FF, Webkit, Opera, IE9+) */
+                        element.addEventListener(event, function (e) {
+                            console.log("openFeedback addEventListener id: " + inputId + ", event " + event);
+                            window.open(url,'_blank');
+                            return false;
+                        });
+                    } else if (element.attachEvent) {
+                        /* attachEvent can only be used on older trident rendering engines ( IE5+ IE5-8*) */
+                        element.attachEvent(event, function (e) {
+                            /*console.log("openFeedback addEventListener id: " + inputId + ", event " + event);*/
+                            window.open(url,'_blank');
+                            return false;
+                        });
+                    } else {
+                        console.error("element does not support addEventListener or attachEvent");
+                        return false;
+                    }
+                } else {
+                    console.error("element id: " + inputId + " not found on page");
+                    return false;
+                }
+            }
+
+            openFeedback('@FeedbackId', 'click', '@controllers.routes.FeedbackController.present()');
+        </script>
 
         <!--[if (lt IE 9) & (!IEMobile)]>
         <script src="@routes.Assets.versioned("javascripts/lib/respond.min.js")"></script>
