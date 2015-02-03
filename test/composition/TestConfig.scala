@@ -1,6 +1,6 @@
 package composition
 
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getOptionalProperty
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getOptionalProperty, booleanProp}
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.{EmailConfiguration, From}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.brute_force_prevention.FakeBruteForcePreventionConfig

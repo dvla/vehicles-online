@@ -1,6 +1,6 @@
 package webserviceclients.dispose
 
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getProperty, stringProp, intProp}
 
 class DisposeConfig {
   lazy val baseUrl = getProperty[String]("disposeVehicle.baseUrl")

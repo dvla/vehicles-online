@@ -5,7 +5,7 @@ import org.specs2.execute.{Result, AsResult}
 import play.api.test.{Helpers, WithApplication, FakeApplication, FakeRequest}
 import play.api.test.Helpers.{redirectLocation, defaultAwaitTimeout}
 import helpers.UnitSpec
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getProperty, stringProp}
 import utils.helpers.Config
 
 final class ApplicationUnitSpec extends UnitSpec {

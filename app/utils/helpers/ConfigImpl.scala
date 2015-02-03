@@ -1,7 +1,14 @@
 package utils.helpers
 
 import uk.gov.dvla.vehicles.presentation.common
-import common.ConfigProperties.{getProperty, getDurationProperty, getOptionalProperty, getStringListProperty}
+import common.ConfigProperties.getProperty
+import common.ConfigProperties.getDurationProperty
+import common.ConfigProperties.getOptionalProperty
+import common.ConfigProperties.getStringListProperty
+import common.ConfigProperties.booleanProp
+import common.ConfigProperties.stringProp
+import common.ConfigProperties.longProp
+import common.ConfigProperties.intProp
 import common.services.SEND.{EmailConfiguration, From}
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}

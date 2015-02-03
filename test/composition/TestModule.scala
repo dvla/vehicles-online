@@ -7,7 +7,7 @@ import org.scalatest.mock.MockitoSugar
 import play.api.{Configuration, LoggerLike, Logger}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.{NoCookieFlags, CookieFlags, ClientSideSessionFactory, ClearTextClientSideSessionFactory}
-import common.ConfigProperties.getOptionalProperty
+import common.ConfigProperties.{getOptionalProperty, stringProp}
 import common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService, AccessLoggingFilter}
 import AccessLoggingFilter.AccessLoggerName
 import common.services.DateService

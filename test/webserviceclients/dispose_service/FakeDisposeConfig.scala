@@ -1,6 +1,6 @@
 package webserviceclients.dispose_service
 
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getOptionalProperty
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getOptionalProperty, stringProp, intProp}
 import webserviceclients.dispose.DisposeConfig
 import scala.concurrent.duration.DurationInt
 
