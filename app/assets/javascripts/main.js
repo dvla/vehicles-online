@@ -65,7 +65,7 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
         // Feedback form "return to application"
 
         $("#feedback-open").on("click",function() {
-            window.open('/feedback','_blank');
+            window.open('/sell-motor-trade/feedback','_blank');
             return false;
         });
 
