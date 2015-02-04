@@ -29,7 +29,8 @@ class TestConfig extends Config {
 
   // Web headers
   def applicationCode = "WEBDTT"
-  def serviceTypeCode = "WEBDTT"
+  def vssServiceTypeCode = "WEBDTT"
+  def dmsServiceTypeCode = "E"
   def channelCode = "WEBDTT"
   def contactId = 1
 

@@ -162,7 +162,7 @@ class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionService
       channelCode = config.channelCode,
       contactId = config.contactId,
       eventFlag = alwaysLog,
-      serviceTypeCode = config.serviceTypeCode,
+      serviceTypeCode = config.dmsServiceTypeCode,
       languageCode = englishLanguage,
       endUser = None)
   }
