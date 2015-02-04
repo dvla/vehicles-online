@@ -131,16 +131,16 @@
                 var element = document.getElementById(inputId);
                 if (element) {
                     if (element.addEventListener) {
-                        /* addEventListener is a W3 standard that is implemented in the majority of other browsers (FF, Webkit, Opera, IE9+) */
+                        // addEventListener is a W3 standard that is implemented in the majority of other browsers (FF, Webkit, Opera, IE9+)
                         element.addEventListener(event, function (e) {
                             console.log("openFeedback addEventListener id: " + inputId + ", event " + event);
                             window.open(url,'_blank');
                             // return false;
                         });
                     } else if (element.attachEvent) {
-                        /* attachEvent can only be used on older trident rendering engines ( IE5+ IE5-8*) */
+                        // attachEvent can only be used on older trident rendering engines ( IE5+ IE5-8*)
                         element.attachEvent(event, function (e) {
-                            /*console.log("openFeedback addEventListener id: " + inputId + ", event " + event);*/
+                            // console.log("openFeedback addEventListener id: " + inputId + ", event " + event);
                             window.open(url,'_blank');
                             // return false;
                         });
