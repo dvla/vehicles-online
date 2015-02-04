@@ -123,7 +123,7 @@
 
         <!-- Open feedback form with JS if enabled -->
         <script>
-        
+
             // remove href from link if JS enabled
             document.getElementById("@FeedbackId").removeAttribute("href");
 
@@ -135,14 +135,14 @@
                         element.addEventListener(event, function (e) {
                             console.log("openFeedback addEventListener id: " + inputId + ", event " + event);
                             window.open(url,'_blank');
-                            return false;
+                            // return false;
                         });
                     } else if (element.attachEvent) {
                         /* attachEvent can only be used on older trident rendering engines ( IE5+ IE5-8*) */
                         element.attachEvent(event, function (e) {
                             /*console.log("openFeedback addEventListener id: " + inputId + ", event " + event);*/
                             window.open(url,'_blank');
-                            return false;
+                            // return false;
                         });
                     } else {
                         console.error("element does not support addEventListener or attachEvent");
