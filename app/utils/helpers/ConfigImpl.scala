@@ -38,7 +38,8 @@ final class ConfigImpl extends Config {
 
   // Web headers
   override val applicationCode: String = getOptionalProperty[String]("webHeader.applicationCode").getOrElse(NotFound)
-  override val serviceTypeCode: String = getOptionalProperty[String]("webHeader.serviceTypeCode").getOrElse(NotFound)
+  override val vssServiceTypeCode: String = getOptionalProperty[String]("webHeader.vssServiceTypeCode").getOrElse(NotFound)
+  override val dmsServiceTypeCode: String = getOptionalProperty[String]("webHeader.dmsServiceTypeCode").getOrElse(NotFound)
   override val channelCode: String = getOptionalProperty[String]("webHeader.channelCode").getOrElse(NotFound)
   override val contactId: Long = getOptionalProperty[Long]("webHeader.contactId").getOrElse(NotFoundLong)
 
