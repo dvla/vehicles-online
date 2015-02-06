@@ -1,3 +1,29 @@
+======= 1.4.3 ======
+Time of release binaries creation:
+Weds Feb 04 17:07:12 UTC 2015
+
+User stories:
+721801b        Set serviceTypeCode correctly.
+9b74e03 US2202 Corrected date format in gatling data.
+93d4666 US2177 Code tidy up of the way properties are read
+1ec0fa1 US1596 Ammended wording of happy and sad path feature.
+0dea8e8 US2237 Apply duplicate submission prevention code to the try again buttons.
+bf92a89        Modified jenkins job to run the accept task in place of gatling.
+cf4ea30 US1592 automated acceptance tests for dispose
+1ec0fa1 US1596 Amended wording of happy and sad path feature.
+b2c119c US2177 add fake configurations and make properties non-optional
+8c4743a US2179 Replace vehicle lookup micro service with vehicle and keeper lookup micro service
+8f24249 US2180 Check if date is present and redirect to duplicate disposal screen
+1bfcdbb US2195 Change date of sale to be like acquire
+a8f4c4b US2196 Dispose thank you page wording
+a9dbc71 US2233 add subject per exemplar to feedback
+0dea8e8 US2237 Apply duplicate submission prevention code to the try again buttons.
+b2fa8c2 US2244 Make the end user dto an optional component of web header dto.
+Bugs:
+3802e85 DE292  Changing how feedback form opens/closes
+e3765fa DE289  Remove cookies when in duplicate error page.
+
+
 ======= 1.4.2 ======
 Time of release binaries creation:
 Weds Jan 14 20:35:39 UTC 2015
