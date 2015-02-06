@@ -355,6 +355,15 @@ common_feedback.placeholder = (Limit is 500 characters)
 common_feedback.submit_button = Submit feedback
 common_feedback.thankyou = Thank you for your feedback
 common_feedback.subject = Sell to the trade - Feedback
+common_feedback.name = Name
+common_feedback.email = Email
+common_feedback.feedbackTitle = Please leave your name and email address in case we need to contact you
+error.feedback = Feedback cannot exceed 500 characters
+error.feedbackName = Name cannot be more than 60 characters
+feedbackEmail = Email
+feedbackName = Name
+feedback = Feedback Form
+
 
 
 # Cookie policy

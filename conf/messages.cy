@@ -355,6 +355,15 @@ common_feedback.placeholder = (Terfyn yn 500 llythyren)
 common_feedback.submit_button = Cyflwyno adborth
 common_feedback.thankyou = Diolch i chi am eich adborth
 common_feedback.subject = Gwerthu i'r fasnach - Adborth
+common_feedback.name = Enw
+common_feedback.email = e-bost
+common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a'ch cyfeiriad e-bost rhag ofn y bydd angen i ni gysylltu â chi
+error.feedback = Ni all fod yn fwy na 500 o adborth cymeriadau
+error.feedbackName = Ni all Enw fod yn fwy na 60 o gymeriadau
+feedbackEmail = E-bost
+feedbackName = Enw
+feedback = Ffurflen Adborth
+
 
 
 # Cookie policy
