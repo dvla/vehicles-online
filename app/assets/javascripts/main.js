@@ -45,16 +45,16 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
 
         // Feedback form character countdown
 
-        if ($("#feedback_field textarea").length > 0) {
+        if ($("#feedback-form textarea").length > 0) {
             function updateCountdown() {
                 // 500 is the max message length
-                var remaining = 500 - $('#feedback_field textarea').val().length;
+                var remaining = 500 - $('#feedback-form textarea').val().length;
                 $('.character-countdown').text(remaining + ' characters remaining.');
             }
             $(document).ready(function($) {
                 updateCountdown();
-                $('#feedback_field textarea').change(updateCountdown);
-                $('#feedback_field textarea').keyup(updateCountdown);
+                $('#feedback-form textarea').change(updateCountdown);
+                $('#feedback-form textarea').keyup(updateCountdown);
             });
         }
 
