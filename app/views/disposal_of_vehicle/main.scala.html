@@ -11,18 +11,19 @@
 
 @govMainDefault(title, showLanguageSwitch) {
     <div class="app vehicles-online">
+
         @if(showBanner) {
             @protoType()
         }
 
         <div class="section-content">
+        
             @progressBar(progress)
-
-            <h1>@title</h1>
 
             @errorsSummary(currentForm)
 
             @content
+
         </div>
     </div>
 }

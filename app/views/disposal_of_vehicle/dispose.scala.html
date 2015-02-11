@@ -27,6 +27,8 @@
     title = Messages("disposal_dispose.title"),
     currentForm = Some(disposeForm)
 ) {
+    <h1>@Messages("disposal_dispose.title")</h1>
+    
     @form(action = controllers.routes.Dispose.submit()) {
         @csrfTokenHiddenField()
         
@@ -45,6 +47,14 @@
                     <dd>@data.vehicleModel</dd>
                 </dl>
 
+                <dl class="playback">
+                    <h2>@Messages("disposal_dispose.disposevehicleto")</h2>
+                    <p>
+                    @data.dealerName <br />
+                    @for(addr <- data.dealerAddress) {@addr<br/>}
+                    </p>
+                </dl>
+
                 <div class="alert-warning">
                     <p>@Messages("disposal_dispose.warning")</p>
                 </div>
@@ -52,12 +62,6 @@
 
 
             <div class="disposal-form second-col uppercase-input">
-                <h2>@Messages("disposal_dispose.disposevehicleto")</h2>
-
-                <div class="playback">
-                    <p>@data.dealerName <br />
-                        @for(addr <- data.dealerAddress) {@addr<br/>}</p>
-                </div>
 
                 @valtechDeclareCheck(disposeForm(ConsentId),
                     args = Map(
