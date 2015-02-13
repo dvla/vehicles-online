@@ -20,7 +20,7 @@ import common.services.DateService
 import common.views.helpers.FormExtensions.formBinding
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.common.DmsWebHeaderDto
-import common.webserviceclients.vehicleandkeeperlookup.{VehicleAndKeeperDetailsRequest, VehicleAndKeeperLookupService}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.{VehicleAndKeeperDetailsDto, VehicleAndKeeperDetailsRequest, VehicleAndKeeperLookupService}
 import utils.helpers.Config
 
 class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionService,
@@ -141,15 +141,27 @@ class VehicleLookup @Inject()(val bruteForceService: BruteForcePreventionService
                   // a date exists so redirect to duplicate error
                   VehicleFound(Redirect(routes.DuplicateDisposalError.present()))
                 case None =>
-                  VehicleFound(Redirect(routes.Dispose.present()).
-                    withCookie(VehicleAndKeeperDetailsModel.from(dto)).
-                    discardingCookie(PreventGoingToDisposePageCacheKey))
+                  response.vehicleAndKeeperDetailsDto match {
+                    case Some(dto) => VehicleFound(vehicleFoundResult(dto))
+                    case None => throw new RuntimeException("No vehicleAndKeeperDetailsDto found")
+                  }
               }
-
 
             case None => throw new RuntimeException("No vehicleAndKeeperDetailsDto found")
           }
       }
+    }
+  }
+
+  private def vehicleFoundResult(vehicleAndKeeperDetailsDto: VehicleAndKeeperDetailsDto)(implicit request: Request[_]) = {
+    val model = VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)
+    val suppressed = model.suppressedV5Flag.getOrElse(false)
+
+    suppressed match {
+      case (true) => Redirect(routes.SuppressedV5C.present()).withCookie(model)
+      case (_) => Redirect(routes.Dispose.present()).
+        withCookie(VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)).
+        discardingCookie(PreventGoingToDisposePageCacheKey)
     }
   }
 
