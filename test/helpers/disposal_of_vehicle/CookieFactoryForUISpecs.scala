@@ -124,7 +124,9 @@ object CookieFactoryForUISpecs {
                               title: Option[String] = None,
                               firstName: Option[String] = None,
                               lastName: Option[String] = None,
-                              address: Option[AddressModel] = None)(implicit webDriver: WebDriver) = {
+                              address: Option[AddressModel] = None,
+                              disposeFlag: Boolean = false,
+                              suppressedV5CFlag: Boolean = false)(implicit webDriver: WebDriver) = {
     val key = VehicleAndKeeperLookupDetailsCacheKey
     val value = VehicleAndKeeperDetailsModel(
       registrationNumber = registrationNumber,
@@ -133,7 +135,10 @@ object CookieFactoryForUISpecs {
       title = title,
       firstName = firstName,
       lastName = lastName,
-      address = address
+      address = address,
+      disposeFlag = Some(disposeFlag),
+      keeperEndDate = if (disposeFlag) Some(new DateTime()) else None,
+      suppressedV5Flag = Some(suppressedV5CFlag)
     )
     addCookie(key, value)
     this

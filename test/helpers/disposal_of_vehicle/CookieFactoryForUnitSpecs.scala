@@ -198,7 +198,9 @@ object CookieFactoryForUnitSpecs extends TestComposition {
                                    title: Option[String] = None,
                                    firstName: Option[String] = None,
                                    lastName: Option[String] = None,
-                                   address: Option[AddressModel] = None): Cookie = {
+                                   address: Option[AddressModel] = None,
+                                   disposeFlag: Boolean = false,
+                                   suppressedV5CFlag: Boolean = false): Cookie = {
     val key = VehicleAndKeeperLookupDetailsCacheKey
     val value = VehicleAndKeeperDetailsModel(
       registrationNumber = registrationNumber,
@@ -207,7 +209,10 @@ object CookieFactoryForUnitSpecs extends TestComposition {
       title = title,
       firstName = firstName,
       lastName = lastName,
-      address = address
+      address = address,
+      disposeFlag = Some(disposeFlag),
+      keeperEndDate = if (disposeFlag) Some(new DateTime()) else None,
+      suppressedV5Flag = Some(suppressedV5CFlag)
     )
     createCookie(key, value)
   }

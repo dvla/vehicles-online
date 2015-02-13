@@ -1,3 +1,4 @@
+
 package webserviceclients.fakes
 
 import org.joda.time.DateTime
@@ -45,20 +46,25 @@ object FakeVehicleAndKeeperLookupWebService {
   final val TransactionTimestampValid = new DateTime()
 
   // TODO : Use proper values here
-  private def vehicleDetails(disposeFlag: Boolean = true) =
+  private def vehicleDetails(disposeFlag: Boolean = false,
+                              suppressedV5CFlag: Boolean = false) =
     VehicleAndKeeperDetailsDto(
       registrationNumber = RegistrationNumberValid,
       vehicleMake = Some(VehicleMakeValid),
       vehicleModel = Some(VehicleModelValid),
       keeperTitle = Some("a"),
       keeperFirstName = Some("a"),
+
       keeperLastName = Some("a"),
       keeperAddressLine1 = Some("a"),
       keeperAddressLine2 = Some("a"),
       keeperAddressLine3 = Some("a"),
       keeperAddressLine4 = Some("a"),
       keeperPostTown = Some("a"),
-      keeperPostcode = Some("a")
+      keeperPostcode = Some("a"),
+      disposeFlag = Some(disposeFlag),
+      keeperEndDate = if (disposeFlag) Some(new DateTime()) else None,
+      suppressedV5Flag = Some(suppressedV5CFlag)
     )
 
   val vehicleDetailsResponseSuccess: (Int, Option[VehicleAndKeeperDetailsResponse]) = {

@@ -1,0 +1,32 @@
+@()(implicit lang: Lang,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+        config: utils.helpers.Config)
+
+@import controllers.routes.BeforeYouStart
+@import controllers.routes.VehicleLookup
+@import views.disposal_of_vehicle.suppressedV5C.{BuyAnotherVehicleId, FinishId}
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.base.csrfTokenHiddenField
+
+@main(
+    title = Messages("error_suppressedV5C.title")
+) {
+    <div class="two-col clearfix">
+        <div class="second-col">
+            <p>@Messages("error_suppressedV5C.text1")</p>
+            <p>@Messages("error_suppressedV5C.text2")</p>
+
+            <div class="form-steps">
+                @csrfTokenHiddenField()
+                @{ /* Note the reverse routing syntax for the hyperlink */ }
+                <a class="button" id="@BuyAnotherVehicleId" href="@controllers.routes.SuppressedV5C.buyAnotherVehicle()">
+                @Messages("error_suppressedV5C.button1")
+                </a>
+                <a class="button-secondary" id="@FinishId" href="@controllers.routes.SuppressedV5C.finish()">
+                @Messages("error_suppressedV5C.button2")
+                </a>
+            </div>
+        </div>
+
+    </div>
+}

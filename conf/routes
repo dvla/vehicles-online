@@ -66,6 +66,11 @@ POST        /vrm-locked/exit                               @controllers.VrmLocke
 GET         /error/:exceptionDigest                        @controllers.Error.present(exceptionDigest)
 POST        /error/:exceptionDigest                        @controllers.Error.submit(exceptionDigest)
 
+#error page when the user looks up a vehicle and it has a suppressed V5C
+GET         /suppressed-v5c                                @controllers.SuppressedV5C.present
+GET         /suppressed-v5c/buy-another                    @controllers.SuppressedV5C.buyAnotherVehicle
+GET         /suppressed-v5c/finish                         @controllers.SuppressedV5C.finish
+
 # feedback
 GET         /feedback                                      @controllers.FeedbackController.present
 POST        /feedback                                      @controllers.FeedbackController.submit
