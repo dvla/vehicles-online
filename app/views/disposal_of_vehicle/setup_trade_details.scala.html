@@ -1,4 +1,4 @@
-@(traderLookupForm: Form[models.SetupTradeDetailsFormModel])(implicit lang: Lang,
+@(traderLookupForm: Form[uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel])(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -6,8 +6,8 @@
 @import views.disposal_of_vehicle.SetupTradeDetails.SubmitId
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
-@import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 @import uk.gov.dvla.vehicles.presentation.common
+@import common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 @import common.mappings.BusinessName
 @import common.mappings.Postcode
 @import common.views.helpers.BaseTemplate.fieldConstructor

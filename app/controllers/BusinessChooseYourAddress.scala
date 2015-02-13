@@ -3,20 +3,24 @@ package controllers
 import javax.inject.Inject
 import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.{BusinessChooseYourAddressFormModel, SetupTradeDetailsFormModel}
+import uk.gov.dvla.vehicles.presentation.common
+import common.model.SetupTradeDetailsFormModel
+import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
+import common.clientsidesession.{ClientSideSession, ClientSideSessionFactory}
+import common.model.{AddressModel, TraderDetailsModel}
+import common.views.helpers.FormExtensions.formBinding
+import common.webserviceclients.addresslookup.AddressLookupService
+import models.BusinessChooseYourAddressFormModel
 import play.api.Logger
 import play.api.data.{Form, FormError}
 import play.api.i18n.Lang
 import play.api.mvc.{Action, Controller, Request, Result}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSession, ClientSideSessionFactory}
-import uk.gov.dvla.vehicles.presentation.common.model.{AddressModel, TraderDetailsModel}
-import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupService
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.business_choose_your_address
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+
+import models.DisposeCacheKeyPrefix.CookiePrefix
 
 class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupService)
                                                (implicit clientSideSessionFactory: ClientSideSessionFactory,

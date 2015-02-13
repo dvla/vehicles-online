@@ -11,13 +11,16 @@ import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.mappings.BusinessName
-import utils.helpers.Config
-import models.SetupTradeDetailsFormModel
-import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
-import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.mappings.BusinessName
+import common.model.SetupTradeDetailsFormModel
+import common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
+import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
+import utils.helpers.Config
+
+import models.DisposeCacheKeyPrefix.CookiePrefix
 
 final class SetUpTradeDetailsUnitSpec extends UnitSpec {
 
@@ -68,7 +71,7 @@ final class SetUpTradeDetailsUnitSpec extends UnitSpec {
         r =>
           r.header.headers.get(LOCATION) should equal(Some(BusinessChooseYourAddressPage.address))
           val cookies = fetchCookiesFromHeaders(r)
-          val cookieName = SetupTradeDetailsCacheKey
+          val cookieName = setupTradeDetailsCacheKey
           cookies.find(_.name == cookieName) match {
             case Some(cookie) =>
               val json = cookie.value
@@ -110,7 +113,7 @@ final class SetUpTradeDetailsUnitSpec extends UnitSpec {
       val result = setUpTradeDetails.submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
-        cookies.map(_.name) should contain (SetupTradeDetailsCacheKey)
+        cookies.map(_.name) should contain (setupTradeDetailsCacheKey)
       }
     }
   }

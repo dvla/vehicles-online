@@ -13,14 +13,15 @@ import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.EnterAddressManuallyFormModel
-import models.SetupTradeDetailsFormModel
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import play.api.Play
 import play.api.Play.current
 import play.api.libs.json.{Json, Writes}
+import uk.gov.dvla.vehicles.presentation.common
+import common.model.SetupTradeDetailsFormModel
+import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, AddressModel, BruteForcePreventionModel, VehicleAndKeeperDetailsModel}
 import TraderDetailsModel.TraderDetailsCacheKey
 import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
@@ -43,6 +44,8 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleMakeV
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleModelValid
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
 import webserviceclients.fakes.FakeDisposeWebServiceImpl
+
+import models.DisposeCacheKeyPrefix.CookiePrefix
 
 object CookieFactoryForUISpecs {
   private def addCookie[A](key: String, value: A)(implicit tjs: Writes[A], webDriver: WebDriver): Unit = {
@@ -67,9 +70,9 @@ object CookieFactoryForUISpecs {
   }
 
   def setupTradeDetails(traderPostcode: String = PostcodeValid)(implicit webDriver: WebDriver) = {
-    val key = SetupTradeDetailsCacheKey
+    val key = setupTradeDetailsCacheKey
     val value = SetupTradeDetailsFormModel(traderBusinessName = TraderBusinessNameValid,
-      traderPostcode = traderPostcode)
+      traderPostcode = traderPostcode, traderEmail = None)
     addCookie(key, value)
     this
   }

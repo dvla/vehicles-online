@@ -6,11 +6,12 @@ import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, Controller, Request}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichForm, RichCookies, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, AddressModel}
+import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, AddressModel, SetupTradeDetailsFormModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
-import models.{EnterAddressManuallyFormModel, SetupTradeDetailsFormModel}
+import models.EnterAddressManuallyFormModel
 import views.html.disposal_of_vehicle.enter_address_manually
+import models.DisposeCacheKeyPrefix.CookiePrefix
 
 class EnterAddressManually @Inject()()
                                  (implicit clientSideSessionFactory: ClientSideSessionFactory,

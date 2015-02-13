@@ -10,6 +10,7 @@ import common.mappings.Mileage.mileage
 import common.clientsidesession.CacheKey
 import common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.mappings.Date._
+import models.DisposeCacheKeyPrefix.CookiePrefix
 
 final case class DisposeFormModel(mileage: Option[Int],
                                   dateOfDisposal: LocalDate,
@@ -18,14 +19,14 @@ final case class DisposeFormModel(mileage: Option[Int],
 
 object DisposeFormModel {
   implicit val JsonFormat = Json.format[DisposeFormModel]
-  final val DisposeFormModelCacheKey = s"${CacheKeyPrefix}disposeForm"
+  final val DisposeFormModelCacheKey = s"${CookiePrefix}disposeForm"
   implicit val Key = CacheKey[DisposeFormModel](value = DisposeFormModelCacheKey)
-  final val DisposeOccurredCacheKey = s"${CacheKeyPrefix}disposeOccurredCacheKey"
-  final val PreventGoingToDisposePageCacheKey = s"${CacheKeyPrefix}preventGoingToDisposePage"
-  final val DisposeFormTransactionIdCacheKey = s"${CacheKeyPrefix}disposeFormTransactionId"
-  final val DisposeFormTimestampIdCacheKey = s"${CacheKeyPrefix}disposeFormTimestampId"
-  final val DisposeFormRegistrationNumberCacheKey = s"${CacheKeyPrefix}disposeFormRegistrationNumber"
-  final val SurveyRequestTriggerDateCacheKey = s"${CacheKeyPrefix}surveyRequestTriggerDate"
+  final val DisposeOccurredCacheKey = s"${CookiePrefix}disposeOccurredCacheKey"
+  final val PreventGoingToDisposePageCacheKey = s"${CookiePrefix}preventGoingToDisposePage"
+  final val DisposeFormTransactionIdCacheKey = s"${CookiePrefix}disposeFormTransactionId"
+  final val DisposeFormTimestampIdCacheKey = s"${CookiePrefix}disposeFormTimestampId"
+  final val DisposeFormRegistrationNumberCacheKey = s"${CookiePrefix}disposeFormRegistrationNumber"
+  final val SurveyRequestTriggerDateCacheKey = s"${CookiePrefix}surveyRequestTriggerDate"
 
   object Form {
     final val MileageId = "mileage"

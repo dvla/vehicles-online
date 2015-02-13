@@ -11,7 +11,7 @@ import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.SetupTradeDetailsPage.happyPath
 import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage, SetupTradeDetailsPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import models.SetupTradeDetailsFormModel
+import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
 
 final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
   "got to page" should {

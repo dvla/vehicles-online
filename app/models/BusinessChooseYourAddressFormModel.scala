@@ -4,12 +4,13 @@ import mappings.DropDown
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CacheKey
+import models.DisposeCacheKeyPrefix.CookiePrefix
 
 final case class BusinessChooseYourAddressFormModel(uprnSelected: String)
 
 object BusinessChooseYourAddressFormModel {
   implicit val JsonFormat = Json.format[BusinessChooseYourAddressFormModel]
-  final val BusinessChooseYourAddressCacheKey = s"${CacheKeyPrefix}businessChooseYourAddress"
+  final val BusinessChooseYourAddressCacheKey = s"${CookiePrefix}businessChooseYourAddress"
   implicit val Key = CacheKey[BusinessChooseYourAddressFormModel](value = BusinessChooseYourAddressCacheKey)
 
   object Form {

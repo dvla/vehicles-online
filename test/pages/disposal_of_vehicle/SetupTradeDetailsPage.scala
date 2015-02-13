@@ -1,6 +1,6 @@
 package pages.disposal_of_vehicle
 
-import models.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
+import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers

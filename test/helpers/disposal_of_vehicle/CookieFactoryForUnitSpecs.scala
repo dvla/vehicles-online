@@ -11,14 +11,12 @@ import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.SetupTradeDetailsFormModel.SetupTradeDetailsCacheKey
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import models.BusinessChooseYourAddressFormModel
 import models.DisposeFormModel
 import models.EnterAddressManuallyFormModel
 import models.HelpCacheKey
 import models.SeenCookieMessageCacheKey
-import models.SetupTradeDetailsFormModel
 import models.VehicleLookupFormModel
 import org.joda.time.{LocalDate, DateTime}
 import pages.disposal_of_vehicle.{HelpPage, VehicleLookupPage}
@@ -26,6 +24,8 @@ import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.{ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
+import common.model.SetupTradeDetailsFormModel
+import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
 import common.model.TraderDetailsModel.TraderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
@@ -46,6 +46,8 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.Registration
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleModelValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleMakeValid
 import webserviceclients.fakes.{FakeDateServiceImpl, FakeDisposeWebServiceImpl}
+
+import models.DisposeCacheKeyPrefix.CookiePrefix
 
 object CookieFactoryForUnitSpecs extends TestComposition {
 
@@ -73,9 +75,9 @@ object CookieFactoryForUnitSpecs extends TestComposition {
   }
 
   def setupTradeDetails(traderPostcode: String = PostcodeValid): Cookie = {
-    val key = SetupTradeDetailsCacheKey
+    val key = setupTradeDetailsCacheKey
     val value = SetupTradeDetailsFormModel(traderBusinessName = TraderBusinessNameValid,
-      traderPostcode = traderPostcode)
+      traderPostcode = traderPostcode, traderEmail = None)
     createCookie(key, value)
   }
 
