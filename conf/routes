@@ -68,7 +68,7 @@ POST        /error/:exceptionDigest                        @controllers.Error.su
 
 #error page when the user looks up a vehicle and it has a suppressed V5C
 GET         /suppressed-v5c                                @controllers.SuppressedV5C.present
-GET         /suppressed-v5c/buy-another                    @controllers.SuppressedV5C.buyAnotherVehicle
+GET         /suppressed-v5c/buy-another                    @controllers.SuppressedV5C.sellAnotherVehicle
 GET         /suppressed-v5c/finish                         @controllers.SuppressedV5C.finish
 
 # feedback
