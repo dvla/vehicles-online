@@ -3,8 +3,13 @@ package controllers.disposal_of_vehicle
 import composition.WithApplication
 import controllers.BusinessChooseYourAddress
 import helpers.UnitSpec
+import org.mockito.Matchers._
+import org.mockito.Mockito._
+import org.mockito.invocation.InvocationOnMock
+import org.mockito.stubbing.Answer
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddress
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddressNotFound
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddress
@@ -13,6 +18,8 @@ import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForU
 import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
 import utils.helpers.Config
+
+import scala.concurrent.Future
 
 class BusinessChooseYourAddressFormSpec extends UnitSpec {
   "form" should {
@@ -35,7 +42,11 @@ class BusinessChooseYourAddressFormSpec extends UnitSpec {
                            else responseValidForPostcodeToAddressNotFound
     val responseUprn = if (uprnFound) responseValidForUprnToAddress else responseValidForUprnToAddressNotFound
     val fakeWebService = new FakeAddressLookupWebServiceImpl(responsePostcode, responseUprn)
-    val addressLookupService = new AddressLookupServiceImpl(fakeWebService)
+    val healthStatsMock = mock[HealthStats]
+    when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
+      override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
+    })
+    val addressLookupService = new AddressLookupServiceImpl(fakeWebService, healthStatsMock)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     new BusinessChooseYourAddress(addressLookupService)
