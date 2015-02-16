@@ -18,7 +18,7 @@ class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSes
     Ok(views.html.disposal_of_vehicle.suppressedV5C())
   }
 
-  def buyAnotherVehicle = Action { implicit request =>
+  def sellAnotherVehicle = Action { implicit request =>
     Redirect(routes.VehicleLookup.present()).
       discardingCookies(DisposeCacheKeys)
   }
