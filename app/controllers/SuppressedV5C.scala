@@ -1,7 +1,7 @@
 package controllers
 
 import com.google.inject.Inject
-import models.{AllCacheKeys}
+import models.{AllCacheKeys, DisposeCacheKeys}
 import play.api.mvc.{Action, Controller}
 import play.api.Logger
 import uk.gov.dvla.vehicles.presentation.common
@@ -19,7 +19,8 @@ class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSes
   }
 
   def buyAnotherVehicle = Action { implicit request =>
-    Redirect(routes.VehicleLookup.present())//.
+    Redirect(routes.VehicleLookup.present()).
+      discardingCookies(DisposeCacheKeys)
   }
 
   def finish = Action { implicit request =>
