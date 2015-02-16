@@ -1,10 +1,9 @@
 package models.domain.disposal_of_vehicle
 
 import helpers.UnitSpec
-import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
+import uk.gov.dvla.vehicles.presentation.common.model.{VmAddressModel, AddressModel}
 import AddressModel.JsonFormat
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
@@ -22,7 +21,7 @@ final class AddressViewModelSpec extends UnitSpec {
         line3 = Some(Line3Valid),
         postTown = PostTownValid))
 
-      val result = AddressModel.from(addressAndPostcodeModel, PostcodeValid)
+      val result = VmAddressModel.from(addressAndPostcodeModel, PostcodeValid)
 
       result.uprn should equal(None)
       result.address should equal(Seq(
