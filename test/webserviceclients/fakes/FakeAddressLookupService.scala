@@ -12,7 +12,7 @@ object FakeAddressLookupService {
     uprn = Some(traderUprnValid),
     address = Seq("44 Hythe Road", "White City", "London", PostcodeValid)
   )
-  final val BuildingNameOrNumberValid = "1234"
+  final val BuildingNameOrNumberValid = "12345"
   final val Line2Valid = "line2 stub"
   final val Line3Valid = "line3 stub"
   final val PostTownValid = "postTown stub"
