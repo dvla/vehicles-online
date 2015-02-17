@@ -6,8 +6,11 @@ import play.api.http.Status.OK
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.LogFormats
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 
-final class DisposeServiceImpl @Inject()(config: DisposeConfig, ws: DisposeWebService) extends DisposeService {
+final class DisposeServiceImpl @Inject()(config: DisposeConfig,
+                                         ws: DisposeWebService,
+                                         healthStats: HealthStats) extends DisposeService {
 
   override def invoke(cmd: DisposeRequestDto, trackingId: String): Future[(Int, Option[DisposeResponseDto])] = {
     val vrm = LogFormats.anonymize(cmd.registrationNumber)
@@ -17,11 +20,13 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig, ws: DisposeWebSe
     Logger.debug("Calling dispose vehicle micro-service with " +
       s"$refNo $vrm $postcode ${cmd.keeperConsent} ${cmd.prConsent} ${cmd.mileage}")
 
-    ws.callDisposeService(cmd, trackingId).map { resp =>
-      Logger.debug(s"Http response code from dispose vehicle micro-service was: ${resp.status}")
+    healthStats.report("vehicle-dispose-fulfil-microservice") {
+      ws.callDisposeService(cmd, trackingId).map { resp =>
+        Logger.debug(s"Http response code from dispose vehicle micro-service was: ${resp.status}")
 
-      if (resp.status == OK) (resp.status, resp.json.asOpt[DisposeResponseDto])
-      else (resp.status, None)
+        if (resp.status == OK) (resp.status, resp.json.asOpt[DisposeResponseDto])
+        else (resp.status, None)
+      }
     }
   }
 }

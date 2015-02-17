@@ -13,8 +13,10 @@ import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import org.joda.time.{LocalDate, Instant}
 import org.mockito.ArgumentCaptor
-import org.mockito.Matchers.any
 import org.mockito.Mockito.{times, verify, when}
+import org.mockito.Matchers.{anyString, any}
+import org.mockito.invocation.InvocationOnMock
+import org.mockito.stubbing.Answer
 import pages.disposal_of_vehicle.DisposeFailurePage
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.DuplicateDisposalErrorPage
@@ -34,6 +36,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
 import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
 import webserviceclients.dispose.DisposalAddressDto
@@ -63,6 +66,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 final class DisposeUnitSpec extends UnitSpec {
+
+  val healthStatsMock = mock[HealthStats]
+  when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
+    override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
+  })
 
   "present" should {
     "display the page" in new WithApplication {
@@ -133,7 +141,7 @@ final class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val webService: DisposeWebService = disposeWebService()
-      val disposeService = new DisposeServiceImpl(config.dispose, webService)
+      val disposeService = new DisposeServiceImpl(config.dispose, webService, healthStatsMock)
       val result = disposeController(disposeWebService = webService, disposeService = disposeService).present(request)
       contentAsString(result) should not include PrototypeHtml
     }
@@ -643,7 +651,7 @@ final class DisposeUnitSpec extends UnitSpec {
   }
 
   private def disposeController(disposeWebService: DisposeWebService): Dispose = {
-    val disposeService = new DisposeServiceImpl(config.dispose, disposeWebService)
+    val disposeService = new DisposeServiceImpl(config.dispose, disposeWebService, healthStatsMock)
     disposeController(disposeWebService, disposeService)
   }
 
