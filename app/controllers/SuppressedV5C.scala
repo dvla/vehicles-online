@@ -3,12 +3,9 @@ package controllers
 import com.google.inject.Inject
 import models.{AllCacheKeys, DisposeCacheKeys}
 import play.api.mvc.{Action, Controller}
-import play.api.Logger
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.RichResult
-import common.model.VehicleAndKeeperDetailsModel
-import common.clientsidesession.CookieImplicits.RichCookies
 import utils.helpers.Config
 
 class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
