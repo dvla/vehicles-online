@@ -2,9 +2,7 @@
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import controllers.routes.BeforeYouStart
-@import controllers.routes.VehicleLookup
-@import views.disposal_of_vehicle.suppressedV5C.{BuyAnotherVehicleId, FinishId}
+@import views.disposal_of_vehicle.suppressedV5C.{SellAnotherVehicleId, FinishId}
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.views.html.widgets.base.csrfTokenHiddenField
 
@@ -19,7 +17,7 @@
             <div class="form-steps">
                 @csrfTokenHiddenField()
                 @{ /* Note the reverse routing syntax for the hyperlink */ }
-                <a class="button" id="@BuyAnotherVehicleId" href="@controllers.routes.SuppressedV5C.sellAnotherVehicle()">
+                <a class="button" id="@SellAnotherVehicleId" href="@controllers.routes.SuppressedV5C.sellAnotherVehicle()">
                 @Messages("error_suppressedV5C.button1")
                 </a>
                 <a class="button-secondary" id="@FinishId" href="@controllers.routes.SuppressedV5C.finish()">
