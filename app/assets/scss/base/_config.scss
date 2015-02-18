@@ -1,9 +1,9 @@
-//Config file
+// Config file
 
-//html class needs to match
-$htmlNamespace: ".vehicles-online";
-$prototype-banner: $htmlNamespace + ' .prototype';
+// html class needs to match
+$htmlNamespace    : ".vehicles-online";
+$prototype-banner : $htmlNamespace + ' .prototype';
 
-//set to "alpha" or "beta" to change colours globally
-//html class needs to match
-$phase: "";
+// set to "alpha" or "beta" to change colours globally
+// html class needs to match
+$phase            : "";

@@ -1,8 +1,11 @@
 //Exemplar specific
 
-//disposal success
-.disposal-sucesss {
-    .ie8 & .button-new-disposal {
-        min-width:180px;
+#{$htmlNamespace} {
+
+    .disposal-sucesss {
+        .ie8 & .button-new-disposal {
+            min-width: 180px;
+        }
     }
-}
+
+} // end $htmlNamespace

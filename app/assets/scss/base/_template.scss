@@ -1,7 +1,7 @@
-//main content wrapper
+// Template styles
 
 #main {
-    border-bottom: 10px solid phase-colour($phase);
+    border-bottom-color: phase-colour($phase);
 }
 
 @include playback();
