@@ -88,18 +88,17 @@
                         (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
 
-                <div id=@DateOfDisposalId>
-                @inputDayMonthYearTextbox(
-                    field =disposeForm(DateOfDisposalId),
-                    args = Map(
-                        '_label -> Messages("disposal_dispose.dateofdisposal.label"),
-                        'autofocus -> true
-                    ),
-                    dateService = dateService,
-                    showTodaysDateButton = true,
-                    showTodaysDateButtonId = Some(TodaysDateOfDisposal),
-                    hintText = Some(Messages("disposal_dispose.dateofdisposal.hint"))
-                )
+                <div id="@DateOfDisposalId">
+                    @inputDayMonthYearTextbox(
+                        field =disposeForm(DateOfDisposalId),
+                        args = Map(
+                            '_label -> Messages("disposal_dispose.dateofdisposal.label")
+                        ),
+                        dateService = dateService,
+                        showTodaysDateButton = true,
+                        showTodaysDateButtonId = Some(TodaysDateOfDisposal),
+                        hintText = Some(Messages("disposal_dispose.dateofdisposal.hint"))
+                    )
                 </div>
 
                 @{
