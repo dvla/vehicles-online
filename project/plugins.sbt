@@ -6,6 +6,8 @@ resolvers += "Nexus snapshots" at "http://rep002-01.skyscape.preview-dvla.co.uk:
 
 resolvers += "Nexus releases" at "http://rep002-01.skyscape.preview-dvla.co.uk:8081/nexus/content/repositories/releases"
 
+resolvers += Resolver.url("GitHub repository", url("http://shaggyyeti.github.io/releases"))(Resolver.ivyStylePatterns)
+
 // The Typesafe repository
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
@@ -17,15 +19,15 @@ addSbtPlugin("dvla" % "build-details-generator" % "1.3.2-SNAPSHOT")
 
 addSbtPlugin("dvla" % "microservices-sandbox" % "1.3.3-SNAPSHOT")
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.3")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.8")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-rjs" % "1.0.4")
+addSbtPlugin("com.typesafe.sbt" % "sbt-rjs" % "1.0.5")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.0.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.0")
 
-addSbtPlugin("net.litola" % "play-sass" % "0.4.0")
+addSbtPlugin("default" % "sbt-sass" % "0.1.9")
 
 addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.5")
 
