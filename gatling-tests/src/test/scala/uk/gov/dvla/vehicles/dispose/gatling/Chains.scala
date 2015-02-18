@@ -8,52 +8,52 @@ object Chains {
 
   private val chain_assets_200 =
     exec(http("screen.min.css")
-      .get(s"/assets/screen.min.css")
+      .get(s"/assets/versioned/screen.min.css")
     )
       /*.exec(http("fonts.min.css")
-        .get("""/assets/fonts.min.css""")
+        .get("""/assets/versioned/fonts.min.css""")
       )*/
       .exec(http("print.min.css")
-      .get(s"/assets/print.min.css")
+      .get(s"/assets/versioned/print.min.css")
       )
       .exec(
         http("govuk-crest.png")
-          .get(s"/assets/lib/vehicles-presentation-common/images/govuk-crest.png")
+          .get(s"/assets/versioned/lib/vehicles-presentation-common/images/govuk-crest.png")
           .headers(Map( """Accept""" -> """image/png,image/*;q=0.8,*/*;q=0.5"""))
       )
       .exec(http("require.js")
-      .get(s"/assets/javascripts/require.js")
+      .get(s"/assets/versioned/javascripts/require.js")
       .headers(Map( """Accept""" -> """*/*"""))
       )
       .exec(http("custom.js")
-      .get(s"/assets/javascripts/main.js")
+      .get(s"/assets/versioned/javascripts/main.js")
       .headers(Map( """Accept""" -> """*/*"""))
       )
 
   private val chain_assets_304 =
     exec(http("screen.min.css")
-      .get(s"/assets/screen.min.css")
+      .get(s"/assets/versioned/screen.min.css")
       .headers(Map(
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:08:06 GMT""",
       """If-None-Match""" -> """59f34576dba4629e6e960e1d514fe573775e9999"""))
       //.check(status.is(304))
     )
       /*.exec(http("fonts.min.css")
-        .get("""/assets/fonts.min.css""")
+        .get("""/assets/versioned/fonts.min.css""")
         .headers(Map(
           """If-Modified-Since""" -> """Fri, 30 May 2014 13:08:32 GMT""",
           """If-None-Match""" -> """0702d8d00d43562d6fa1a4e87ac82609dc70ffc9"""))
         .check(status.is(304))
       )*/
       .exec(http("print.min.css")
-      .get(s"/assets/print.min.css")
+      .get(s"/assets/versioned/print.min.css")
       .headers(Map(
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:08:08 GMT""",
       """If-None-Match""" -> """b2b112249c52769ac41acd83e388f550e4c39c6f"""))
         //.check(status.is(304))
       )
       .exec(http("require.js")
-      .get(s"/assets/javascripts/require.js")
+      .get(s"/assets/versioned/javascripts/require.js")
       .headers(Map(
       """Accept""" -> """*/*""",
       """If-Modified-Since""" -> """Tue, 06 Aug 2013 09:49:32 GMT""",
@@ -62,7 +62,7 @@ object Chains {
       )
       .exec(
         http("govuk-crest.png")
-          .get(s"/assets/lib/vehicles-presentation-common/images/govuk-crest.png")
+          .get(s"/assets/versioned/lib/vehicles-presentation-common/images/govuk-crest.png")
           .headers(Map(
           """Accept""" -> """image/png,image/*;q=0.8,*/*;q=0.5""",
           """If-Modified-Since""" -> """Thu, 22 May 2014 14:25:18 GMT""",
@@ -70,7 +70,7 @@ object Chains {
         //.check(status.is(304))
       )
       .exec(http("custom.js")
-      .get(s"/assets/javascripts/main.js")
+      .get(s"/assets/versioned/javascripts/main.js")
       .headers(Map(
       """Accept""" -> """*/*""",
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:10:42 GMT""",
@@ -151,7 +151,7 @@ object Chains {
       )*/
       .exec(chain_assets_304)
       .exec(http("icon-tick-green.gif")
-      .get(s"/assets/lib/vehicles-presentation-common/images/icon-tick-green.gif")
+      .get(s"/assets/versioned/lib/vehicles-presentation-common/images/icon-tick-green.gif")
       .headers(headers_accept_png)
       )
 
