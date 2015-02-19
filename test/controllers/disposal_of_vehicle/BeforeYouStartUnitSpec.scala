@@ -28,6 +28,7 @@ final class BeforeYouStartUnitSpec extends UnitSpec {
       implicit val config: Config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+      when(config.assetsUrl).thenReturn(None) // Stub this config value.
       val beforeYouStartPrototypeNotVisible = new BeforeYouStart()
 
       val result = beforeYouStartPrototypeNotVisible.present(request)

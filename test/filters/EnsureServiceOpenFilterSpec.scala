@@ -143,6 +143,7 @@ class EnsureServiceOpenFilterSpec extends UnitSpec {
         when(mockConfig.opening).thenReturn(opening)
         when(mockConfig.closing).thenReturn(closing)
         when(mockConfig.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+        when(mockConfig.assetsUrl).thenReturn(None) // Stub this config value.
         bind[Config].toInstance(mockConfig)
         bind[DateTimeZoneService].toInstance(dateTimeZoneService)
       }

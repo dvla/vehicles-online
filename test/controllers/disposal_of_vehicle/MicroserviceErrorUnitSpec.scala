@@ -35,6 +35,7 @@ final class MicroserviceErrorUnitSpec extends UnitSpec {
       implicit val config: Config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+      when(config.assetsUrl).thenReturn(None) // Stub this config value.
       val microServiceErrorPrototypeNotVisible = new MicroServiceError()
 
       val result = microServiceErrorPrototypeNotVisible.present(request)

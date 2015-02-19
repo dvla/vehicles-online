@@ -35,6 +35,7 @@ final class HelpUnitSpec extends UnitSpec {
       implicit val config: Config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false)
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+      when(config.assetsUrl).thenReturn(None) // Stub this config value.
       // Stub this config value.
       val helpPrototypeNotVisible = new Help()
 

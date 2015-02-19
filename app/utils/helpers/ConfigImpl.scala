@@ -16,6 +16,8 @@ import webserviceclients.dispose.DisposeConfig
 
 final class ConfigImpl extends Config {
 
+  override def assetsUrl: Option[String] = getOptionalProperty[String]("assets.url")
+
 //  override val vehiclesLookup = new VehicleLookupConfig
   override val ordnanceSurvey = new OrdnanceSurveyConfig
   override val gdsAddressLookup = new GDSAddressLookupConfig

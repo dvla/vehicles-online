@@ -29,6 +29,7 @@ final class DuplicateDisposalErrorUnitSpec extends UnitSpec {
       implicit val config: Config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+      when(config.assetsUrl).thenReturn(None) // Stub this config value.
       val duplicateDisposalErrorPrototypeNotVisible = new DuplicateDisposalError()
 
       val result = duplicateDisposalErrorPrototypeNotVisible.present(request)

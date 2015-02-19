@@ -10,6 +10,8 @@ import webserviceclients.dispose_service.FakeDisposeConfig
 
 class TestConfig extends Config {
 
+  override def assetsUrl: Option[String] = None
+
   override lazy val ordnanceSurvey = new FakeOrdnanceSurveyConfig
   override lazy val gdsAddressLookup = new FakeGDSAddressLookupConfig
   override lazy val dispose = new FakeDisposeConfig

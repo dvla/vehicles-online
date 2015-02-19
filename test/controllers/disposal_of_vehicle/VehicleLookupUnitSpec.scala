@@ -202,6 +202,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       when(config.prototypeSurveyUrl).thenReturn("")
       when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+      when(config.assetsUrl).thenReturn(None) // Stub this config value.
 
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -605,6 +606,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
     when(config.isPrototypeBannerVisible).thenReturn(isPrototypeBannerVisible) // Stub this config value.
     when(config.prototypeSurveyUrl).thenReturn("http://fake/survey/url")
     when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+    when(config.assetsUrl).thenReturn(None) // Stub this config value.
 
     new VehicleLookup(
       bruteForceService = bruteForceService,
@@ -662,6 +664,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
     when(config.prototypeSurveyUrl).thenReturn(surveyUrl)
     when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
     when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+    when(config.assetsUrl).thenReturn(None) // Stub this config value.
     config
   }
 

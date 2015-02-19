@@ -8,6 +8,8 @@ import webserviceclients.dispose.DisposeConfig
 
 trait Config {
 
+  def assetsUrl: Option[String]
+
   final val NotFound = "NOT FOUND"
   final val NotFoundLong = 9
 
