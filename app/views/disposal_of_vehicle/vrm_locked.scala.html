@@ -18,7 +18,7 @@
     <p>@Messages("vrm_locked.text3.1")<br/><strong>@Messages("vrm_locked.text3.2")</strong></p>
     <div class="form-steps">
         <div class="step">
-            @form(action = controllers.routes.VrmLocked.newDisposal()) {
+            @form(action = controllers.routes.VrmLocked.tryAgain()) {
             @csrfTokenHiddenField()
                 <button id="@NewDisposalId" type="submit" name="action" value="newDisposal" class="button">@Messages("vrm_locked.newdisposalbutton")</button>
             }

@@ -60,7 +60,7 @@ GET         /service-error                                 @controllers.MicroSer
 GET         /service-error/try-again                       @controllers.MicroServiceError.back
 
 GET         /vrm-locked                                    @controllers.VrmLocked.present
-POST        /vrm-locked/new-disposal                       @controllers.VrmLocked.newDisposal
+POST        /vrm-locked/new-disposal                       @controllers.VrmLocked.tryAgain
 POST        /vrm-locked/exit                               @controllers.VrmLocked.exit
 
 GET         /error/:exceptionDigest                        @controllers.Error.present(exceptionDigest)

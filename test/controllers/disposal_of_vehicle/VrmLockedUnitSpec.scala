@@ -1,13 +1,12 @@
 package controllers.disposal_of_vehicle
 
-import com.typesafe.config.ConfigFactory
 import controllers.VrmLocked
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
-import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
-import play.api.{Configuration, Play}
+import pages.disposal_of_vehicle.{SetupTradeDetailsPage, VehicleLookupPage}
+import play.api.Play
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -47,7 +46,7 @@ final class VrmLockedUnitSpec extends UnitSpec {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-      val result = vrmLocked.newDisposal(request)
+      val result = vrmLocked.tryAgain(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
       }
@@ -55,7 +54,7 @@ final class VrmLockedUnitSpec extends UnitSpec {
 
     "redirect to setup trade details page after the new disposal button is clicked when the expected data is not in the cookies" in new WithApplication {
       val request = FakeRequest()
-      val result = vrmLocked.newDisposal(request)
+      val result = vrmLocked.tryAgain(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
       }
