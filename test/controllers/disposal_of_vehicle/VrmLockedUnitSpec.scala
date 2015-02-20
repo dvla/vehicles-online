@@ -46,7 +46,7 @@ final class VrmLockedUnitSpec extends UnitSpec {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-      val result = vrmLocked.tryAgain(request)
+      val result = vrmLocked.tryAnother(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
       }
@@ -54,7 +54,7 @@ final class VrmLockedUnitSpec extends UnitSpec {
 
     "redirect to setup trade details page after the new disposal button is clicked when the expected data is not in the cookies" in new WithApplication {
       val request = FakeRequest()
-      val result = vrmLocked.tryAgain(request)
+      val result = vrmLocked.tryAnother(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
       }

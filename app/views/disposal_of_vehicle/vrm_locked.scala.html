@@ -18,15 +18,19 @@
     <p>@Messages("vrm_locked.text3.1")<br/><strong>@Messages("vrm_locked.text3.2")</strong></p>
     <div class="form-steps">
         <div class="step">
-            @form(action = controllers.routes.VrmLocked.tryAgain()) {
+            @form(action = controllers.routes.VrmLocked.tryAnother()) {
             @csrfTokenHiddenField()
-                <button id="@NewDisposalId" type="submit" name="action" value="newDisposal" class="button">@Messages("vrm_locked.newdisposalbutton")</button>
+                <button id="@NewDisposalId" type="submit" name="action" value="newDisposal" class="button">
+                    @Messages("vrm_locked.newdisposalbutton")
+                </button>
             }
         </div>
         <div class="step">
             @form(action = controllers.routes.VrmLocked.exit()) {
             @csrfTokenHiddenField()
-                <button id="@ExitDisposalId" type="submit" name="action" value="exit" class="button-secondary">@Messages("vrm_locked.exit.button")</button>
+                <button id="@ExitDisposalId" type="submit" name="action" value="exit" class="button-secondary">
+                    @Messages("vrm_locked.exit.button")
+                </button>
             }
         </div>
     </div>
