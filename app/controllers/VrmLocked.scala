@@ -1,7 +1,8 @@
 package controllers
 
 import com.google.inject.Inject
-import models.{VrmLockedViewModel, AllCacheKeys, DisposeCacheKeys}
+import models.{AllCacheKeys, DisposeCacheKeys, VrmLockedViewModel}
+import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.joda.time.DateTime
 import play.api.mvc.{Request, Result}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory

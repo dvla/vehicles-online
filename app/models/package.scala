@@ -1,8 +1,6 @@
-import controllers.MicroServiceError
-import MicroServiceError.MicroServiceErrorRefererCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel, BruteForcePreventionModel}
-import BruteForcePreventionModel.BruteForcePreventionViewModelCacheKey
+import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
@@ -10,12 +8,13 @@ import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import TraderDetailsModel.TraderDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common
+import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.TraderDetailsModel.TraderDetailsCacheKey
+import common.model.VehicleAndKeeperDetailsModel
+import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
-
-import models.DisposeCacheKeyPrefix.CookiePrefix
 
 package object models {
   final val HelpCacheKey = s"${CookiePrefix}help"
@@ -31,7 +30,7 @@ package object models {
 
   // Set of cookies related to a single vehicle disposal. Removed once the vehicle is successfully disposed
   final val DisposeCacheKeys = Set(
-    BruteForcePreventionViewModelCacheKey,
+    bruteForcePreventionViewModelCacheKey,
     VehicleAndKeeperLookupDetailsCacheKey,
     VehicleLookupResponseCodeCacheKey,
     VehicleLookupFormModelCacheKey,
