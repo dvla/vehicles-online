@@ -100,7 +100,6 @@ CoverallsPlugin.coverallsSettings
 
 resolvers ++= projectResolvers
 
-
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
