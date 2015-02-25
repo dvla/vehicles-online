@@ -1,18 +1,18 @@
 package controllers
 
-import play.api.mvc._
 import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import play.api.mvc.{Action, Request, Result}
 import play.api.data.{Form, FormError}
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.controllers.{VehicleLookupBase1}
-import uk.gov.dvla.vehicles.presentation.common.model.{BruteForcePreventionModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
+import common.controllers.VehicleLookupBase1
+import common.model.{BruteForcePreventionModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsDto
