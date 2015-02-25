@@ -3,11 +3,12 @@ package models
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CacheKey
+import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupFormModelBase
 import uk.gov.dvla.vehicles.presentation.common.mappings.{VehicleRegistrationNumber, DocumentReferenceNumber}
 import models.DisposeCacheKeyPrefix.CookiePrefix
 
 final case class VehicleLookupFormModel(referenceNumber: String,
-                                        registrationNumber: String)
+                                        registrationNumber: String) extends VehicleLookupFormModelBase
 
 object VehicleLookupFormModel {
   implicit val JsonFormat = Json.format[VehicleLookupFormModel]

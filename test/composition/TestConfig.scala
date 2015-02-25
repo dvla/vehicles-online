@@ -35,6 +35,7 @@ class TestConfig extends Config {
   def dmsServiceTypeCode = "E"
   def channelCode = "WEBDTT"
   def contactId = 1
+  def orgBusinessUnit = "WEBDTT"
 
   //Brute force prevention config
   def bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader

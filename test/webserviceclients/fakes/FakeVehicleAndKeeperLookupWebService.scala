@@ -71,6 +71,10 @@ object FakeVehicleAndKeeperLookupWebService {
     (OK, Some(VehicleAndKeeperDetailsResponse(responseCode = None, Some(vehicleDetails()))))
   }
 
+  val vehicleDetailsDisposedVehicleResponseSuccess: (Int, Option[VehicleAndKeeperDetailsResponse]) = {
+    (OK, Some(VehicleAndKeeperDetailsResponse(responseCode = None, Some(vehicleDetails(disposeFlag = true)))))
+  }
+
   val vehicleDetailsKeeperStillOnRecordResponseSuccess: (Int, Option[VehicleAndKeeperDetailsResponse]) = {
     (OK, Some(VehicleAndKeeperDetailsResponse(responseCode = None, Some(vehicleDetails(disposeFlag = false)))))
   }

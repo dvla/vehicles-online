@@ -20,13 +20,8 @@ import org.mockito.Matchers._
 import org.mockito.Mockito.{when, verify}
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
-import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
-import pages.disposal_of_vehicle.DisposePage
-import pages.disposal_of_vehicle.EnterAddressManuallyPage
-import pages.disposal_of_vehicle.MicroServiceErrorPage
-import pages.disposal_of_vehicle.SetupTradeDetailsPage
-import pages.disposal_of_vehicle.VehicleLookupFailurePage
-import pages.disposal_of_vehicle.VrmLockedPage
+import pages.disposal_of_vehicle._
+import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeRequest
@@ -65,6 +60,7 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.Registration
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberWithSpaceValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsNoResponse
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseDocRefNumberNotLatest
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsDisposedVehicleResponseSuccess
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseNotFoundResponseCode
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseSuccess
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseVRMNotFound
@@ -436,6 +432,16 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
+    "redirect to DuplicateDisposalError if the keeper end date is present for that vehicle" in new WithApplication {
+      val request = buildCorrectlyPopulatedRequest()
+      val result = vehicleLookupResponseGenerator(
+        vehicleDetailsDisposedVehicleResponseSuccess,
+        bruteForceService = bruteForceServiceImpl(permitted = true)
+      ).submit(request)
+
+      result.futureValue.header.headers.get(LOCATION) should equal(Some(DuplicateDisposalErrorPage.address))
+    }
+
     "Send a request and a trackingId" in new WithApplication {
       val trackingId = "x" * 20
       val request = buildCorrectlyPopulatedRequest().
@@ -455,11 +461,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       implicit val config: Config = mock[Config]
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
 
-      val vehiclesLookup = new VehicleLookup(
+      val vehiclesLookup = new VehicleLookup()(
         bruteForceServiceImpl(permitted = true),
         vehicleLookupServiceImpl,
         surveyUrl = surveyUrl,
-        dateService = dateService
+        dateService = dateService,
+        clientSideSessionFactory,
+        config
       )
       val result = vehiclesLookup.submit(request)
 
@@ -486,11 +494,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
-      val vehiclesLookup = new VehicleLookup(
+      val vehiclesLookup = new VehicleLookup()(
         bruteForceServiceImpl(permitted = true),
         vehicleLookupServiceImpl,
         surveyUrl = surveyUrl,
-        dateService = dateService
+        dateService = dateService,
+        clientSideSessionFactory,
+        config
       )
       val result = vehiclesLookup.submit(request)
 
@@ -515,11 +525,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = injector.getInstance(classOf[Config])
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
-      val vehiclesLookup = new VehicleLookup(
+      val vehiclesLookup = new VehicleLookup()(
         bruteForceServiceImpl(permitted = true),
         vehicleLookupServiceImpl,
         surveyUrl = surveyUrl,
-        dateService = dateService
+        dateService = dateService,
+        clientSideSessionFactory,
+        config
       )
       val result = vehiclesLookup.exit(request)
       whenReady(result) { r =>
@@ -609,11 +621,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
     when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
     when(config.assetsUrl).thenReturn(None) // Stub this config value.
 
-    new VehicleLookup(
+    new VehicleLookup()(
       bruteForceService = bruteForceService,
       vehicleAndKeeperLookupService = vehicleAndKeeperLookupServiceImpl,
       surveyUrl = surveyUrl,
-      dateService = dateService
+      dateService = dateService,
+      clientSideSessionFactory,
+      config
     )
   }
 
@@ -633,11 +647,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
     implicit val config: Config = mock[Config]
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
 
-    new VehicleLookup(
+    new VehicleLookup()(
       bruteForceService = bruteForceServiceImpl(permitted = permitted),
       vehicleAndKeeperLookupService = vehicleAndKeeperLookupServiceImpl,
       surveyUrl = surveyUrl,
-      dateService = dateService
+      dateService = dateService,
+      clientSideSessionFactory,
+      config
     )
   }
 

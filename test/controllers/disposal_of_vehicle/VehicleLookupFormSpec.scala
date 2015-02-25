@@ -153,8 +153,14 @@ final class VehicleLookupFormSpec extends UnitSpec {
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
-    new VehicleLookup(bruteForceService = bruteForceServiceImpl,
-      vehicleAndKeeperLookupService = vehicleAndKeeperLookupServiceImpl, surveyUrl, dateService)
+    new VehicleLookup()(
+      bruteForceService = bruteForceServiceImpl,
+      vehicleAndKeeperLookupService = vehicleAndKeeperLookupServiceImpl,
+      surveyUrl,
+      dateService,
+      clientSideSessionFactory,
+      config
+    )
   }
 
   private def formWithValidDefaults(referenceNumber: String = ReferenceNumberValid,

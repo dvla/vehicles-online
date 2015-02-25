@@ -1,12 +1,13 @@
 package utils.helpers
 
 import uk.gov.dvla.vehicles.presentation.common
+import common.controllers.VehicleLookupConfig
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
 import common.services.SEND.EmailConfiguration
 import webserviceclients.dispose.DisposeConfig
 
-trait Config {
+trait Config extends VehicleLookupConfig {
 
   def assetsUrl: Option[String]
 
@@ -34,6 +35,7 @@ trait Config {
   def applicationCode: String
   def vssServiceTypeCode: String
   def dmsServiceTypeCode: String
+  def orgBusinessUnit: String
   def channelCode: String
   def contactId: Long
 
