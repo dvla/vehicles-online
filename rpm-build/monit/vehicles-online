@@ -1,8 +1,0 @@
-# monit/vehicles-online
-#
-check process vehicles-online
-  matching vehicles-online
-  start program = "/sbin/start vehicles-online"
-  stop program = "/sbin/stop vehicles-online"
-  if failed host 127.0.0.1 port 9000 then restart
-
