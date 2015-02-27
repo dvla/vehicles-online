@@ -370,7 +370,8 @@ error.feedbackName = Name cannot be more than 60 characters
 feedbackEmail = Email
 feedbackName = Name
 feedback = Feedback Form
-
+feedback_return = ◄ Return to your application
+feedback_close = Please close this page to return to your application
 
 
 # Cookie policy

@@ -17,6 +17,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, SET_COOKIE, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.TraderDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
@@ -280,7 +281,7 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
     when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
       override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
     })
-    val addressLookupService = new AddressLookupServiceImpl(fakeWebService, healthStatsMock)
+    val addressLookupService = new AddressLookupServiceImpl(fakeWebService, new DateServiceImpl, healthStatsMock)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.

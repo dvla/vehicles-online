@@ -18,9 +18,7 @@ RPM_LICENSE="WHAT"
 RPM_VENDOR="DVLA"
 RPM_PREFIX="/opt/"
 RPM_TARGETDIR="$WORKSPACE/target/" #grab the jenkins WORKSPACE working dir
-MONIT_FILES_DIR="rpm-build/monit/"
 UPSTART_FILES_DIR="rpm-build/upstart/"
-DEPENDS="monit"
 
 # Get the version of the binary from sbt and strip color information so we are just left with a version
 VERSION=`sbt version | tail -1 | awk {'print $2'} | sed -E "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"`
@@ -38,7 +36,6 @@ echo "*********************************"
 rm -rf ./workdir
 mkdir -p workdir/$RPM_PREFIX
 mkdir -p workdir/etc/init
-mkdir -p workdir/etc/monit.d
 
 # copy objects to workdir directory
 cd workdir/$RPM_PREFIX/
@@ -50,7 +47,6 @@ cd -
 git log > workdir/$RPM_PREFIX/$RPM_NAME/git-log.txt
 
 # add the init files
-cp -r $MONIT_FILES_DIR/* workdir/etc/monit.d
 cp -r $UPSTART_FILES_DIR/* workdir/etc/init
 
 # package the thine
@@ -67,7 +63,6 @@ fpm -n $RPM_NAME \
   --vendor=$RPM_VENDOR \
   -x "*.rpm" -x .git -x .gitignore \
   -t rpm \
-  -d $DEPENDS \
   -C workdir \
   -s dir .
 
