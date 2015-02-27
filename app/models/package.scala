@@ -11,9 +11,9 @@ import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import uk.gov.dvla.vehicles.presentation.common
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.TraderDetailsModel.TraderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
-import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
 
 package object models {

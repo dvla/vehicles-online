@@ -4,52 +4,37 @@ import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
-import play.api.Logger
-import play.api.mvc.{Action, AnyContent, Controller, DiscardingCookie, Request}
+import play.api.mvc.{Request, Result}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, BruteForcePreventionModel}
+import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupFailureBase
+import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
 import utils.helpers.Config
 
-class VehicleLookupFailure @Inject()()
-                                 (implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                  config: Config) extends Controller {
+class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
+                                       config: Config) extends VehicleLookupFailureBase[VehicleLookupFormModel] {
 
-  def present = Action { implicit request =>
-    (request.cookies.getModel[TraderDetailsModel],
-      request.cookies.getModel[BruteForcePreventionModel],
-      request.cookies.getModel[VehicleLookupFormModel],
-      request.cookies.getString(VehicleLookupResponseCodeCacheKey)) match {
-      case (Some(dealerDetails),
-            Some(bruteForcePreventionResponse),
-            Some(vehicleLookUpFormModelDetails),
-            Some(vehicleLookupResponseCode)) =>
-        val responseMessage = vehicleLookupResponseCode.split("-").map(_.trim)
-        displayVehicleLookupFailure(
-          vehicleLookUpFormModelDetails,
-          bruteForcePreventionResponse,
-          responseMessage.last
+  override val vehicleLookupResponseCodeCacheKey: String = VehicleLookupResponseCodeCacheKey
+
+  override def presentResult(model: VehicleLookupFormModel, responseCode: String)(implicit request: Request[_]): Result =
+    request.cookies.getModel[TraderDetailsModel] match {
+      case Some(dealerDetails) =>
+        Ok(views.html.disposal_of_vehicle.vehicle_lookup_failure(
+          data = model,
+          responseCodeVehicleLookupMSErrorMessage = responseCode)
         )
-      case _ => Redirect(routes.SetUpTradeDetails.present())
+      case _ => missingPresentCookieDataResult
     }
-  }
 
-  def submit = Action { implicit request =>
-    (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleLookupFormModel]) match {
-      case (Some(dealerDetails), Some(vehicleLookUpFormModelDetails)) =>
-        Logger.debug("Found dealer and vehicle details")
-        Redirect(routes.VehicleLookup.present())
-      case _ => Redirect(routes.BeforeYouStart.present())
+  override def missingPresentCookieDataResult()(implicit request: Request[_]): Result =
+    Redirect(routes.SetUpTradeDetails.present())
+
+  override def foundSubmitCookieDataResult()(implicit request: Request[_]): Result =
+    request.cookies.getModel[TraderDetailsModel] match {
+      case Some(dealerDetails) => Redirect(routes.VehicleLookup.present())
+      case _ => missingSubmitCookieDataResult
     }
-  }
 
-  private def displayVehicleLookupFailure(vehicleLookUpFormModelDetails: VehicleLookupFormModel,
-                                          bruteForcePreventionViewModel: BruteForcePreventionModel,
-                                          vehicleLookupResponseCode: String)(implicit request: Request[AnyContent]) = {
-    Ok(views.html.disposal_of_vehicle.vehicle_lookup_failure(
-      data = vehicleLookUpFormModelDetails,
-      responseCodeVehicleLookupMSErrorMessage = vehicleLookupResponseCode)
-    ).
-    discardingCookies(DiscardingCookie(name = VehicleLookupResponseCodeCacheKey))
-  }
+  override def missingSubmitCookieDataResult()(implicit request: Request[_]): Result =
+    Redirect(routes.BeforeYouStart.present())
 }
