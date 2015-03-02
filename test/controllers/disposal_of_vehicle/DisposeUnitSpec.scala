@@ -11,7 +11,7 @@ import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import org.joda.time.{LocalDate, Instant}
+import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.{times, verify, when}
 import org.mockito.Matchers.{anyString, any}
@@ -142,7 +142,7 @@ final class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val webService: DisposeWebService = disposeWebService()
-      val disposeService = new DisposeServiceImpl(config.dispose, webService, healthStatsMock)
+      val disposeService = new DisposeServiceImpl(config.dispose, webService, healthStatsMock, dateServiceStubbed())
       val result = disposeController(disposeWebService = webService, disposeService = disposeService).present(request)
       contentAsString(result) should not include PrototypeHtml
     }
@@ -654,7 +654,7 @@ final class DisposeUnitSpec extends UnitSpec {
   }
 
   private def disposeController(disposeWebService: DisposeWebService): Dispose = {
-    val disposeService = new DisposeServiceImpl(config.dispose, disposeWebService, healthStatsMock)
+    val disposeService = new DisposeServiceImpl(config.dispose, disposeWebService, healthStatsMock, dateServiceStubbed())
     disposeController(disposeWebService, disposeService)
   }
 
