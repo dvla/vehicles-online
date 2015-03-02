@@ -29,7 +29,7 @@ class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: Client
   override def missingPresentCookieDataResult()(implicit request: Request[_]): Result =
     Redirect(routes.SetUpTradeDetails.present())
 
-  override def foundSubmitCookieDataResult()(implicit request: Request[_]): Result =
+  override def submitResult()(implicit request: Request[_]): Result =
     request.cookies.getModel[TraderDetailsModel] match {
       case Some(dealerDetails) => Redirect(routes.VehicleLookup.present())
       case _ => missingSubmitCookieDataResult
