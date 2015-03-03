@@ -259,6 +259,9 @@ vehicle_and_keeper_lookup_vrm_not_found.p3 =
 vehicle_and_keeper_lookup_document_reference_mismatch.p1 = The V5C document reference number and/or the vehicle registration number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
 vehicle_and_keeper_lookup_document_reference_mismatch.p2 = For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.
 vehicle_and_keeper_lookup_document_reference_mismatch.p3 =
+unhandled_exception.p1 = The V5C document reference number and/or the vehicle registration number entered is either not valid or does not come from the most recent V5C issued for this vehicle.
+unhandled_exception.p2 = For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.
+unhandled_exception.p3 =
 
 addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters

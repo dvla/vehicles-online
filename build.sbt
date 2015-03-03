@@ -105,7 +105,7 @@ resolvers ++= projectResolvers
 
 // ====================== Sandbox Settings ==========================
 lazy val osAddressLookupProject = osAddressLookup("0.11-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.7-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
+lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.8-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
 lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.7-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
 

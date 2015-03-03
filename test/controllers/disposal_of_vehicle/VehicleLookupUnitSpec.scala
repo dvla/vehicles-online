@@ -65,6 +65,7 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetai
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseSuccess
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseVRMNotFound
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsServerDown
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseUnhandledException
 
 final class VehicleLookupUnitSpec extends UnitSpec {
 
@@ -271,6 +272,13 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       val result = vehicleLookupResponseGenerator(vehicleDetailsServerDown).submit(request)
 
       result.futureValue.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
+    }
+
+    "redirect to VehicleLookupFailure after a submit and unhandled exception returned by the fake microservice" in new WithApplication {
+      val request = buildCorrectlyPopulatedRequest()
+      val result = vehicleLookupResponseGenerator(vehicleDetailsResponseUnhandledException).submit(request)
+
+      result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
     "return a bad request if dealer details are in cache and no details are entered" in new WithApplication {
