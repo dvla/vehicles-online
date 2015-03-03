@@ -52,7 +52,23 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
                 $('.character-countdown').text(remaining + ' characters remaining.');
             }
             $(document).ready(function($) {
-                updateCountdown();
+                // IE 9- maxlenght on input textarea
+                var txts = document.getElementsByTagName('TEXTAREA')
+                for(var i = 0, l = txts.length; i < l; i++) {
+                    if(/^[0-9]+$/.test(txts[i].getAttribute("maxlength"))) {
+                        var func = function() {
+                            var len = parseInt(this.getAttribute("maxlength"), 10);
+
+                            if(this.value.length > len) {
+                                this.value = this.value.substr(0, len);
+                                return false;
+                            }
+                        }
+                        txts[i].onkeyup = func;
+                        txts[i].onblur = func;
+                    }
+                }
+                // Update Countdown on input textarea
                 $('#feedback-form textarea').change(updateCountdown);
                 $('#feedback-form textarea').keyup(updateCountdown);
             });
