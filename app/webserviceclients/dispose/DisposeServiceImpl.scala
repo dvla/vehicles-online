@@ -11,7 +11,8 @@ import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.{H
 
 final class DisposeServiceImpl @Inject()(config: DisposeConfig,
                                          ws: DisposeWebService,
-                                         healthStats: HealthStats) extends DisposeService {
+                                         healthStats: HealthStats,
+                                         dateService: DateService) extends DisposeService {
   import DisposeServiceImpl.ServiceName
 
   override def invoke(cmd: DisposeRequestDto, trackingId: String): Future[(Int, Option[DisposeResponseDto])] = {
@@ -27,16 +28,18 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
       Logger.debug(s"Http response code from dispose vehicle micro-service was: ${resp.status}")
 
       if (resp.status == OK) {
-        healthStats.success(ServiceName)
+        healthStats.success(new HealthStatsSuccess(ServiceName, dateService.now))
         (resp.status, resp.json.asOpt[DisposeResponseDto])
       } else {
-        healthStats.failure(ServiceName, new Exception(s"Response code is ${resp.status}"))
+        healthStats.failure(
+          new HealthStatsFailure(ServiceName, dateService.now, new Exception(s"Response code is ${resp.status}"))
+        )
         (resp.status, None)
       }
     }
   }.recover{
     case t: Throwable =>
-      healthStats.failure(ServiceName, t)
+      healthStats.failure(new HealthStatsFailure(ServiceName, dateService.now, t))
       throw t
   }
 }

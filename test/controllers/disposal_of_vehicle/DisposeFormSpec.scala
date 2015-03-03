@@ -172,7 +172,7 @@ final class DisposeFormSpec extends UnitSpec {
     when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
       override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
     })
-    val disposeServiceImpl = new DisposeServiceImpl(new DisposeConfig(), ws, healthStatsMock)
+    val disposeServiceImpl = new DisposeServiceImpl(new DisposeConfig(), ws, healthStatsMock, dateServiceStub())
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     new Dispose(disposeServiceImpl, dateService)
