@@ -4,8 +4,6 @@ import models.AllCacheKeys
 import com.google.inject.Inject
 import play.api.data.Form
 import play.api.mvc.{Result, Request}
-import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.controllers.SetUpTradeDetailsBase
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichResult
@@ -27,6 +25,4 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
 
   override def success(implicit request: Request[_]): Result =
     Redirect(routes.BusinessChooseYourAddress.present())
-
 }
-

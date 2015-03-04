@@ -16,6 +16,8 @@ global.buttonnavcancel = Canslwch
 global.buttonnavupdate = Diweddarwch
 global.buttonnavprint = Argraffwch
 
+global.serviceCloseWarning = Bydd y gwasanaeth yn cau cyn bo hir - yr amser bellach yn {0} bydd y gwasanaeth yn cau am {1}:00:00
+
 #footer
 footer.builtbyintro = Adeiladwyd gan
 footer.builtby = Asiantaeth Trwyddedu Gyrwyr a Cherbydau

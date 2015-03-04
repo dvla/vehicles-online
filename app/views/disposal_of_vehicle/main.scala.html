@@ -1,8 +1,10 @@
 @(progress: Option[String] = None,
     title: String,
     currentForm: Option[Form[_]] = None,
-    showLanguageSwitch: Boolean = false, showBanner: Boolean = true)(content: Html)(implicit lang: Lang,
-    config: utils.helpers.Config)
+    showLanguageSwitch: Boolean = false,
+    showBanner: Boolean = true)(content: Html)(implicit lang: Lang,
+    config: utils.helpers.Config
+    )
 
 @import views.html.common.{progressBar, protoType}
 @import views.html.common.govMainDefault
@@ -14,6 +16,21 @@
 
         @if(showBanner) {
             @protoType()
+        }
+
+        @if(org.joda.time.DateTime.now.isAfter(
+            new org.joda.time.DateTime(
+                org.joda.time.DateTime.now().getYear,
+                org.joda.time.DateTime.now().getMonthOfYear,
+                org.joda.time.DateTime.now().getDayOfMonth,
+                if (config.closing > 0) config.closing - 1 else config.closing, 59).minus(config.closingWarnPeriodMins * 60 * 1000)
+        )) {
+            <p>
+                @Messages("global.serviceCloseWarning",
+                    org.joda.time.DateTime.now.toString(org.joda.time.format.DateTimeFormat.forPattern("HH:mm:ss")),
+                    config.closing
+                )
+            </p>
         }
 
         <div class="section-content">

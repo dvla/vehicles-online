@@ -74,6 +74,8 @@ final class ConfigImpl extends Config {
   // opening and closing times
   override val opening: Int = getProperty[Int]("openingTime")
   override val closing: Int = getProperty[Int]("closingTime")
+  // TODO when enabled this should be set to something sensible eg 15
+  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(0)
 
   // Web headers
   override val emailConfiguration: EmailConfiguration = EmailConfiguration(

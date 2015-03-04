@@ -67,6 +67,7 @@ class TestConfig extends Config {
   // opening and closing times
   def opening: Int = 1
   def closing: Int = 18
+  def closingWarnPeriodMins: Int = 0
 
   def emailConfiguration: EmailConfiguration = EmailConfiguration(
     host = "",

@@ -16,6 +16,8 @@ global.buttonnavcancel = Cancel
 global.buttonnavupdate = Update
 global.buttonnavprint = Print
 
+global.serviceCloseWarning = The service will close soon - the time now is {0} the service will close at {1}:00:00
+
 #footer
 footer.builtbyintro = Built by
 footer.builtby = Driver & Vehicle Licensing Agency
