@@ -1,3 +1,20 @@
+======= 1.4.4 ======
+Time of release binaries creation:
+
+Defects:
+DE352 Feedback text allows more than 500 characters in IE7, IE8, IE9.
+
+User stories:
+US1831 [Technical] – Cleanup the repositories from Ansible and Vagrant code
+US2277 [Technical] – Serve assets from another domain
+US2289 [Technical] – Common VehicleLookup
+US2290 [Technical] – Common Controller VehicleLookupFailure
+US2317 [Technical] – Common Controller VrmLocked
+US2454 [All services] – Dev Ops anticipate system outages and stop users using services
+US2468 [All services[ - VM updates cosmetic part 3
+US2563 [All] Provide Unsuccessful Look up message for System Audit Vehicles
+US2584 [All] Feedback Link needs to function ‘out of Hours’
+
 ======= 1.4.3 ======
 Time of release binaries creation:
 Weds Feb 04 17:07:12 UTC 2015
