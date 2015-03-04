@@ -261,6 +261,9 @@ vehicle_lookup_vrm_not_found.p3 =
 vehicle_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
 vehicle_lookup_document_reference_mismatch.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
 vehicle_lookup_document_reference_mismatch.p3 =
+unhandled_exception.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+unhandled_exception.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
+unhandled_exception.p3 =
 
 addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
 error.address.maxLengthOfLinesConcatenated = Ni all cyfeiriad gynnwys mwy na 120 o nodau

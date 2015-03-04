@@ -13,9 +13,9 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
                                          ws: DisposeWebService,
                                          healthStats: HealthStats,
                                          dateService: DateService) extends DisposeService {
+  import DisposeServiceImpl.ServiceName
 
   override def invoke(cmd: DisposeRequestDto, trackingId: String): Future[(Int, Option[DisposeResponseDto])] = {
-    import DisposeServiceImpl.ServiceName
 
     val vrm = LogFormats.anonymize(cmd.registrationNumber)
     val refNo = LogFormats.anonymize(cmd.referenceNumber)
@@ -24,21 +24,23 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
     Logger.debug("Calling dispose vehicle micro-service with " +
       s"$refNo $vrm $postcode ${cmd.keeperConsent} ${cmd.prConsent} ${cmd.mileage}")
 
-    healthStats.report(ServiceName) {
-      ws.callDisposeService(cmd, trackingId).map { resp =>
-        Logger.debug(s"Http response code from dispose vehicle micro-service was: ${resp.status}")
+    ws.callDisposeService(cmd, trackingId).map { resp =>
+      Logger.debug(s"Http response code from dispose vehicle micro-service was: ${resp.status}")
 
-        if (resp.status == OK) {
-          healthStats.success(HealthStatsSuccess(ServiceName, dateService.now))
-          (resp.status, resp.json.asOpt[DisposeResponseDto])
-        } else {
-          healthStats.failure(
-            HealthStatsFailure(ServiceName, dateService.now, new Exception(s"Response code is ${resp.status}"))
-          )
-          (resp.status, None)
-        }
+      if (resp.status == OK) {
+        healthStats.success(new HealthStatsSuccess(ServiceName, dateService.now))
+        (resp.status, resp.json.asOpt[DisposeResponseDto])
+      } else {
+        healthStats.failure(
+          new HealthStatsFailure(ServiceName, dateService.now, new Exception(s"Response code is ${resp.status}"))
+        )
+        (resp.status, None)
       }
     }
+  }.recover{
+    case t: Throwable =>
+      healthStats.failure(new HealthStatsFailure(ServiceName, dateService.now, t))
+      throw t
   }
 }
 
