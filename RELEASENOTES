@@ -1,5 +1,6 @@
 ======= 1.4.4 ======
 Time of release binaries creation:
+Wed Mar 04 14:05:52 UTC 2015
 
 Defects:
 DE352 Feedback text allows more than 500 characters in IE7, IE8, IE9.
