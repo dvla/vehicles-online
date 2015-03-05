@@ -215,6 +215,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
       address = address,
       disposeFlag = Some(disposeFlag),
       keeperEndDate = if (disposeFlag) Some(new DateTime()) else None,
+      keeperChangeDate = None,
       suppressedV5Flag = Some(suppressedV5CFlag)
     )
     createCookie(key, value)

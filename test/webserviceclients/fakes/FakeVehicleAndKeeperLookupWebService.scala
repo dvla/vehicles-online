@@ -55,7 +55,6 @@ object FakeVehicleAndKeeperLookupWebService {
       vehicleModel = Some(VehicleModelValid),
       keeperTitle = Some("a"),
       keeperFirstName = Some("a"),
-
       keeperLastName = Some("a"),
       keeperAddressLine1 = Some("a"),
       keeperAddressLine2 = Some("a"),
@@ -65,6 +64,7 @@ object FakeVehicleAndKeeperLookupWebService {
       keeperPostcode = Some("a"),
       disposeFlag = Some(disposeFlag),
       keeperEndDate = if (disposeFlag) Some(new DateTime()) else None,
+      keeperChangeDate = None,
       suppressedV5Flag = Some(suppressedV5CFlag)
     )
 
