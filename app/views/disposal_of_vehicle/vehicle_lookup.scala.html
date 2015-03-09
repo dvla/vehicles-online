@@ -41,7 +41,6 @@
                     @form(action = controllers.routes.VehicleLookup.submit()) {
                         @csrfTokenHiddenField()
 
-                        <h2>@Messages("disposal_vehiclelookup.p1")</h2>
 
                         @valtechInputText(viewModel.form(VehicleRegistrationNumberId), args =
                         Map('_label -> Messages("disposal_vehiclelookup.vrninputlabel"),
