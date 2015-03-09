@@ -1,10 +1,11 @@
 package composition
 
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getOptionalProperty, booleanProp}
-import uk.gov.dvla.vehicles.presentation.common.services.SEND.{EmailConfiguration, From}
+import uk.gov.dvla.vehicles.presentation.common.services.SEND.EmailConfiguration
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.brute_force_prevention.FakeBruteForcePreventionConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.FakeOrdnanceSurveyConfig
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.From
 import utils.helpers.Config
 import webserviceclients.dispose_service.FakeDisposeConfig
 
@@ -68,6 +69,9 @@ class TestConfig extends Config {
   def opening: Int = 1
   def closing: Int = 18
   def closingWarnPeriodMins: Int = 0
+
+  def emailServiceMicroServiceUrlBase: String = NotFound
+  def emailServiceMsRequestTimeout: Int = 10000
 
   def emailConfiguration: EmailConfiguration = EmailConfiguration(
     host = "",

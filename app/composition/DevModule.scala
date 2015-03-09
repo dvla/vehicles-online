@@ -28,6 +28,8 @@ import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupSer
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebServiceImpl
+import webserviceclients.emailservice.{EmailService, EmailServiceImpl}
+import webserviceclients.emailservice.{EmailServiceWebService, EmailServiceWebServiceImpl}
 import utils.helpers.Config
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
@@ -60,6 +62,10 @@ object DevModule extends ScalaModule {
     bind[DisposeService].to[DisposeServiceImpl].asEagerSingleton()
     bind[DateService].to[DateServiceImpl].asEagerSingleton()
     bind[CookieFlags].to[CookieFlagsFromConfig].asEagerSingleton()
+
+    bind[EmailServiceWebService].to[EmailServiceWebServiceImpl].asEagerSingleton()
+    bind[EmailService].to[EmailServiceImpl].asEagerSingleton()
+
 
     if (getOptionalProperty[Boolean]("encryptCookies").getOrElse(true)) {
       bind[CookieEncryption].toInstance(new AesEncryption with CookieEncryption)

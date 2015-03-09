@@ -70,5 +70,9 @@ trait Config extends VehicleLookupConfig {
   def closingWarnPeriodMins: Int
 
   // Web headers
+
+
+  def emailServiceMicroServiceUrlBase: String
+  def emailServiceMsRequestTimeout: Int
   def emailConfiguration: EmailConfiguration
 }
