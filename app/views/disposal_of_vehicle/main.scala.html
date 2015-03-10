@@ -24,6 +24,12 @@
                 org.joda.time.DateTime.now().getMonthOfYear,
                 org.joda.time.DateTime.now().getDayOfMonth,
                 if (config.closing > 0) config.closing - 1 else config.closing, 59).minus(config.closingWarnPeriodMins * 60 * 1000)
+        ) && org.joda.time.DateTime.now.isBefore(
+            new org.joda.time.DateTime(
+                org.joda.time.DateTime.now().getYear,
+                org.joda.time.DateTime.now().getMonthOfYear,
+                org.joda.time.DateTime.now().getDayOfMonth,
+                if (config.closing > 0) config.closing - 1 else config.closing, 59)
         )) {
             <p>
                 @Messages("global.serviceCloseWarning",
