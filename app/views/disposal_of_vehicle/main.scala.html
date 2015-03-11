@@ -6,10 +6,12 @@
     config: utils.helpers.Config
     )
 
-@import views.html.common.{progressBar, protoType}
-@import views.html.common.govMainDefault
+@import services.DateServiceImpl
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.views.html.widgets.errorsSummary
+@import common.views.html.widgets.serviceClosingWarning
+@import views.html.common.{progressBar, protoType}
+@import views.html.common.govMainDefault
 
 @govMainDefault(title, showLanguageSwitch) {
     <div class="app vehicles-online">
@@ -18,26 +20,7 @@
             @protoType()
         }
 
-        @if(org.joda.time.DateTime.now.isAfter(
-            new org.joda.time.DateTime(
-                org.joda.time.DateTime.now().getYear,
-                org.joda.time.DateTime.now().getMonthOfYear,
-                org.joda.time.DateTime.now().getDayOfMonth,
-                if (config.closing > 0) config.closing - 1 else config.closing, 59).minus(config.closingWarnPeriodMins * 60 * 1000)
-        ) && org.joda.time.DateTime.now.isBefore(
-            new org.joda.time.DateTime(
-                org.joda.time.DateTime.now().getYear,
-                org.joda.time.DateTime.now().getMonthOfYear,
-                org.joda.time.DateTime.now().getDayOfMonth,
-                if (config.closing > 0) config.closing - 1 else config.closing, 59)
-        )) {
-            <p>
-                @Messages("global.serviceCloseWarning",
-                    org.joda.time.DateTime.now.toString(org.joda.time.format.DateTimeFormat.forPattern("HH:mm:ss")),
-                    config.closing
-                )
-            </p>
-        }
+        @serviceClosingWarning(config.closing, config.closingWarnPeriodMins, new DateServiceImpl)
 
         <div class="section-content">
         

@@ -72,13 +72,11 @@ final class ConfigImpl extends Config {
   override val startUrl: String = getProperty[String]("start.page")
   override val endUrl: String = getProperty[String]("end.page")
 
-  // opening and closing times
+  // Opening and closing times
   override val opening: Int = getProperty[Int]("openingTime")
   override val closing: Int = getProperty[Int]("closingTime")
-  // TODO when enabled this should be set to something sensible eg 15
-  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(0)
 
-  // Web headers
+  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(15)
 
   override val emailServiceMicroServiceUrlBase: String =
     getOptionalProperty[String]("emailServiceMicroServiceUrlBase").getOrElse(NotFound)
