@@ -177,7 +177,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os yw'r manylion uchod yn cyd-fynd, y cerbyd i'w gwerthu. Anfonwch y dystysgrif gofrestru V5C gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1DZ.
+disposal_dispose.warning= Os yw'r manylion uchod yn cyd-fynd â'r cerbyd i gael ei werthu, anfonwch y dystysgrif gofrestru V5C gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1DZ.
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
