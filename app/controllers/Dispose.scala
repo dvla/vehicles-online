@@ -6,7 +6,7 @@ import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
-import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel}
+import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel, DisposeCacheKeys}
 import org.joda.time.format.ISODateTimeFormat
 import play.api.Logger
 import play.api.data.{Form, FormError}
@@ -44,7 +44,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
         // US320 Kick them back to the VehicleLookup page if they arrive here by any route other that clicking the
         // "Exit" or "New Dispose" buttons.
         Redirect(routes.VehicleLookup.present()).
-          discardingCookie(PreventGoingToDisposePageCacheKey)
+          discardingCookie(PreventGoingToDisposePageCacheKey).
+        discardingCookies(DisposeCacheKeys)
       case _ => Redirect(routes.SetUpTradeDetails.present())
     }
   }
