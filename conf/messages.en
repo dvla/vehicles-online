@@ -158,7 +158,7 @@ disposal_businessChooseYourAddress.address.required = Select an address from the
 disposal_vehiclelookup.title = Enter vehicle details
 disposal_vehiclelookup.name = Sell a vehicle into the motor trade
 disposal_vehiclelookup.p1 = Vehicle being sold
-disposal_vehiclelookup.p2 = Vehicle will be sold to
+disposal_vehiclelookup.p2 = Trader details
 disposal_vehiclelookup.warning.p1 = Do not dispose of a vehicle with a personal registration unless the current keeper understands that the registration will be disposed of along with the vehicle.
 disposal_vehiclelookup.warning.p2 = Retain or transfer personal registrations before disposing to the trade.
 disposal_vehiclelookup.img.h2 = Help finding your V5C document reference number?
@@ -177,7 +177,7 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 
 #page 5 - confirm disposal
 disposal_dispose.title = Complete & confirm
-disposal_dispose.warning=If the details above do not match the vehicle to be sold, please contact the DVLA, Swansea, SA99 1DZ
+disposal_dispose.warning=If the details above do not match, the vehicle to be sold. Send the registration certificate V5C with a covering letter to the DVLA, Swansea, SA99 1DZ.
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration
 disposal_dispose.vehiclemake = Make

@@ -48,11 +48,11 @@
                 </dl>
 
                 <dl class="playback">
-                    <h2>@Messages("disposal_dispose.disposevehicleto")</h2>
-                    <p>
-                    @data.dealerName <br />
-                    @for(addr <- data.dealerAddress) {@addr<br/>}
-                    </p>
+                    <dt><h2>@Messages("disposal_vehiclelookup.p2")</h2></dt>
+                    <dt>@Messages("disposal_vehiclelookup.tradernamelabel")</dt>
+                    <dd>@data.dealerName</dd>
+                    <dt>@Messages("disposal_vehiclelookup.traderaddresslabel")</dt>
+                    <dd>@for(addr <- data.dealerAddress) {@addr<br/>}</dd>
                 </dl>
 
                 <div class="alert-warning">

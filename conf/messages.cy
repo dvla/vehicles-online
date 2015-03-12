@@ -158,7 +158,7 @@ disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gw
 disposal_vehiclelookup.title = Rhowch fanylion y cerbyd
 disposal_vehiclelookup.name = Gwerthu cerbyd i''r fasnach foduron
 disposal_vehiclelookup.p1 = Y cerbyd a werthir
-disposal_vehiclelookup.p2 = Gwerthir y cerbyd i
+disposal_vehiclelookup.p2 = Manylion masnachwr
 disposal_vehiclelookup.warning.p1 = Peidiwch â chael gwared o gerbyd sydd â rhif cofrestru personol oni bai bod y ceidwad presennol yn deall y ceir gwared â''r rhif cofrestru hefyd ynghyd â''r cerbyd.
 disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo rhifau cofrestru personol cyn gwaredu''r cerbyd trwy ei fasnachu.
 disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen V5CW?
@@ -177,7 +177,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os nad yw''r manylion uchod yn cydweddu â''r cerbyd a werthir, cysylltwch â''r DVLA, Abertawe, SA99 1DZ
+disposal_dispose.warning= Os yw'r manylion uchod yn cyd-fynd, y cerbyd i'w gwerthu. Anfonwch y dystysgrif gofrestru V5C gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1DZ.
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
