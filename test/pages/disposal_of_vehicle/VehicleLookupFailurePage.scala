@@ -9,7 +9,7 @@ import VehicleLookupFailure.{BeforeYouStartId, VehicleLookupId}
 
 object VehicleLookupFailurePage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/vehicle-lookup-failure"
-  final override val title: String = "Look-up was unsuccessful"
+  final override val title: String = "Unable to find a vehicle record"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)
 

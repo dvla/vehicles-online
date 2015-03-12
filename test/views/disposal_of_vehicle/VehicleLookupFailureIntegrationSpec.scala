@@ -67,7 +67,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         vehicleLookupResponseCode(responseCode = VrmNotFound)
 
       go to VehicleLookupFailurePage
-      page.source should include("For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.")
+      page.source should include("Only a limited number of attempts can be made to retrieve vehicle details for each vehicle registration number entered.")
     }
 
     "display messages that show that the number of brute force attempts does not impact which messages are displayed when 2 attempts have been made" taggedAs UiTag in new WebBrowser {
@@ -80,7 +80,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         vehicleLookupResponseCode(responseCode = VrmNotFound)
 
       go to VehicleLookupFailurePage
-      page.source should include("For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.")
+      page.source should include("Only a limited number of attempts can be made to retrieve vehicle details for each vehicle registration number entered.")
     }
 
     "display appropriate messages for document reference mismatch" taggedAs UiTag in new WebBrowser {
@@ -93,7 +93,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         vehicleLookupResponseCode(responseCode = DocumentReferenceMismatch)
 
       go to VehicleLookupFailurePage
-      page.source should include("For each vehicle registration number, only a limited number of attempts can be made to retrieve the vehicle details.")
+      page.source should include("Only a limited number of attempts can be made to retrieve vehicle details for each vehicle registration number entered.")
     }
 
   }
