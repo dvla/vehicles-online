@@ -1,3 +1,33 @@
+======= 1.4.6 ======
+Time of release binaries creation:
+Tue Mar 17 14:02:38 UTC 2015
+
+US2212	[Technical] add a timeout configuration to the Vehicle & Keeper Lookup service as for all other services
+US2379	[Technical] - Remove java script from widgets, add into a library
+US2574	Move 'Business Name' field to Top of Page and [All services] Move 'Mileage' capture fild to bottom of screen for all services
+US2601	Redirect Error codes Appropriately
+US2620	Remove 'Vehicle being sold' heading from Vehcile Lookup
+US2629	Notify Customers that service is closing shortly
+US2643	Send emails via the micro service
+US2651	Amend Unsuccessful lookup Screen with wording changes
+US2671	Bullet Points on Summary Page for Dispose
+US2677	Enhance info message if vehicle do not match
+US2687	Trader details playback has old title on Vehicle Lookup screen. Needs to be 'Trader details'
+
+======= 1.4.5 ======
+Time of release binaries creation:
+Wed Mar 04 14:06:10 UTC 2015
+DE352	feedback text allows more than 500 characters in IE7,IE8,IE9
+US1831	[Technical] - Cleanup the repositories from Ansible and Vagrant code
+US2277	[Technical] - Serve assets from another domain
+US2289	[Technical] Common Controller VehicleLookUp
+US2290	[Technical] Common Controller VehicleLookupFailure
+US2317	[Technical] Common Controller VrmLocked
+US2454	Dev ops anticipate system outages and stop users using the services.
+US2468	VM updates cosmetic part 3
+US2563	Provide Unsuccessful Look up message' for System Audit Vehicles
+US2584	Feedback Link Needs to function 'Out of Hours'
+
 ======= 1.4.4 ======
 Time of release binaries creation:
 Wed Mar 04 14:05:52 UTC 2015
