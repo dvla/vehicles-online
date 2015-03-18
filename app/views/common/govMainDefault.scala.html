@@ -5,6 +5,8 @@
 @import play.api.Play
 @import play.api.Play.current
 @import views.common.ProtoType.FeedbackId
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.serviceClosingWarning
+@import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
 
 <!DOCTYPE html>
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
@@ -52,7 +54,9 @@
     </head>
 
     <body>
-
+    <!--<div class="app">-->
+        @serviceClosingWarning(config.closing, config.closingWarnPeriodMins, new DateServiceImpl)
+    <!--</div>-->
         <a href="#main" class="visuallyhidden">Skip to main content</a>
 
         <div id="global-cookie-message">
