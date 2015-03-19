@@ -45,6 +45,36 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
 
     $(function() {
 
+        // Auto-tab for date format forms
+        $('.form-date input').one('focus', function() {
+
+            var nextInput, focusMaxLength, currentLength;
+            // Getting next field
+            nextInput = $(':input:eq(' + ($(':input').index(this) + 1) + ')');
+            // Getting focus max length
+            focusMaxLength = $(this).attr('maxlength');
+            // On keyup function
+            $(this).on('keyup', function(e) {
+                // Getting keycode from event
+                keyCode = e.keyCode || e.which;
+                // If back-tab (shift+tab)
+                if ((keyCode == 9) && (e.shiftKey)){
+                    // browse backwards through the form and empty input content
+                    $(':input:eq(' + ($(':input').index(this)) + ')').focus().val('');
+                    return false;
+                }
+                // check if limit has been reached and move to next input
+                else
+                {
+                    currentLength = $(this).val().length;
+                    if (focusMaxLength == currentLength){
+                        nextInput.focus();
+                        return false;
+                    }
+                }
+            });
+        });
+        
         openFeedback('feedback-open', 'click');
 
         //html5 autofocus fallback for browsers that do not support it natively
