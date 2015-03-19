@@ -23,7 +23,7 @@ class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSe
         Ok(views.html.disposal_of_vehicle.dispose_failure(disposeViewModel.transactionId, disposeFormModel))
       case _ =>
         Logger.debug(s"Could not find all expected data in cache on dispose failure present, " +
-          s"redirecting with tracking id: ${request.cookies.trackingId()}")
+          s"redirecting - trackingId: ${request.cookies.trackingId()}")
         Redirect(routes.SetUpTradeDetails.present())
     }
   }

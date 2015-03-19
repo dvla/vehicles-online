@@ -37,7 +37,7 @@ class EnterAddressManually @Inject()()
             BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm), setupTradeDetails.traderPostcode))
           case None =>
             Logger.debug(s"Failed to find dealer name in cache, redirecting  " +
-              s"with tracking id: ${request.cookies.trackingId()}")
+              s"- trackingId: ${request.cookies.trackingId()}")
             Redirect(routes.SetUpTradeDetails.present())
         },
       validForm =>
@@ -57,7 +57,7 @@ class EnterAddressManually @Inject()()
               withCookie(traderDetailsModel)
           case None =>
             Logger.debug(s"Failed to find dealer name in cache on submit, " +
-              s"redirecting  with tracking id: ${request.cookies.trackingId()}")
+              s"redirecting  - trackingId: ${request.cookies.trackingId()}")
             Redirect(routes.SetUpTradeDetails.present())
         }
     )
