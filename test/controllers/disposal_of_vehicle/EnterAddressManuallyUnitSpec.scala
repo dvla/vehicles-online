@@ -19,7 +19,8 @@ import utils.helpers.Config
 import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
 import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import TraderDetailsModel.TraderDetailsCacheKey
+import models.DisposeCacheKeyPrefix.CookiePrefix
+import TraderDetailsModel.traderDetailsCacheKey
 import models.EnterAddressManuallyFormModel
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
 
@@ -240,7 +241,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
-        cookies.map(_.name) should contain(TraderDetailsCacheKey)
+        cookies.map(_.name) should contain(traderDetailsCacheKey)
       }
     }
 
@@ -271,7 +272,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
     injector.getInstance(classOf[EnterAddressManually])
   }
 
-  private val traderDetailsCookieName = "traderDetails"
+  private val traderDetailsCookieName = CookiePrefix + "traderDetails"
 
   private def validateAddressCookieValues(result: Future[Result], buildingName: String, line2: String,
                                           line3: String, postTown: String, postCode: String = PostcodeValid) = {

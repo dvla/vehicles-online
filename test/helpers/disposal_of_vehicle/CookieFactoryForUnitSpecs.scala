@@ -30,7 +30,7 @@ import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCache
 import common.model.SetupTradeDetailsFormModel
 import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.TraderDetailsModel
-import common.model.TraderDetailsModel.TraderDetailsCacheKey
+import common.model.TraderDetailsModel.traderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
 import common.model.VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
 import common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
@@ -117,7 +117,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
                          line3: String = Line3Valid,
                          postTown: String = PostTownValid,
                          traderPostcode: String = PostcodeValid): Cookie = {
-    val key = TraderDetailsCacheKey
+    val key = traderDetailsCacheKey
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(
@@ -132,7 +132,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
                                              buildingNameOrNumber: String = BuildingNameOrNumberValid,
                                              postTown: String = PostTownValid,
                                              traderPostcode: String = PostcodeValid): Cookie = {
-    val key = TraderDetailsCacheKey
+    val key = traderDetailsCacheKey
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(
@@ -148,7 +148,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
                               line2: String = Line2Valid,
                               postTown: String = PostTownValid,
                               traderPostcode: String = PostcodeValid): Cookie = {
-    val key = TraderDetailsCacheKey
+    val key = traderDetailsCacheKey
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(
@@ -162,7 +162,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
   def traderDetailsModelPostTown(uprn: Option[Long] = None,
                                  postTown: String = PostTownValid,
                                  traderPostcode: String = PostcodeValid): Cookie = {
-    val key = TraderDetailsCacheKey
+    val key = traderDetailsCacheKey
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(uprn = uprn, address = Seq(postTown, traderPostcode)

@@ -7,6 +7,7 @@ import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import org.mockito.invocation.InvocationOnMock
@@ -16,7 +17,7 @@ import play.api.mvc.Cookies
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, SET_COOKIE, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.TraderDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.traderDetailsCacheKey
 import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
@@ -182,7 +183,7 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
       val result = businessChooseYourAddress(uprnFound = true, ordnanceSurveyUseUprn = true).submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
-        cookies.map(_.name) should contain allOf(BusinessChooseYourAddressCacheKey, TraderDetailsCacheKey)
+        cookies.map(_.name) should contain allOf(BusinessChooseYourAddressCacheKey, traderDetailsCacheKey)
       }
     }
 
@@ -192,7 +193,7 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
       val result = businessChooseYourAddress(uprnFound = false, ordnanceSurveyUseUprn = true).submit(request)
       whenReady(result) { r =>
         val cookies = r.header.headers.get(SET_COOKIE).toSeq.flatMap(Cookies.decode)
-        cookies.map(_.name) should contain noneOf(BusinessChooseYourAddressCacheKey, TraderDetailsCacheKey)
+        cookies.map(_.name) should contain noneOf(BusinessChooseYourAddressCacheKey, traderDetailsCacheKey)
       }
     }
   }
@@ -255,8 +256,8 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
       val result = businessChooseYourAddress(uprnFound = true, ordnanceSurveyUseUprn = false).submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
-        cookies.filter( c => c.name == TraderDetailsCacheKey).head.toString should include (""""property stub"""")
-        cookies.map(_.name) should contain allOf(BusinessChooseYourAddressCacheKey, TraderDetailsCacheKey)
+        cookies.filter( c => c.name == traderDetailsCacheKey).head.toString should include (""""property stub"""")
+        cookies.map(_.name) should contain allOf(BusinessChooseYourAddressCacheKey, traderDetailsCacheKey)
       }
     }
 
@@ -266,7 +267,7 @@ final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
       val result = businessChooseYourAddress(uprnFound = false, ordnanceSurveyUseUprn = false).submit(request)
       whenReady(result) { r =>
         val cookies = r.header.headers.get(SET_COOKIE).toSeq.flatMap(Cookies.decode)
-        cookies.map(_.name) should contain noneOf(BusinessChooseYourAddressCacheKey, TraderDetailsCacheKey)
+        cookies.map(_.name) should contain noneOf(BusinessChooseYourAddressCacheKey, traderDetailsCacheKey)
       }
     }
   }
