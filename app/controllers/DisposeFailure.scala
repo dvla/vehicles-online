@@ -22,7 +22,8 @@ class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSe
         val disposeViewModel = createViewModel(dealerDetails, vehicleDetails, Some(transactionId))
         Ok(views.html.disposal_of_vehicle.dispose_failure(disposeViewModel.transactionId, disposeFormModel))
       case _ =>
-        Logger.debug("Could not find all expected data in cache on dispose failure present, redirecting")
+        Logger.debug(s"Could not find all expected data in cache on dispose failure present, " +
+          s"redirecting with tracking id: ${request.cookies.trackingId()}")
         Redirect(routes.SetUpTradeDetails.present())
     }
   }

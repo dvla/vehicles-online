@@ -58,7 +58,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
             BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService))
           case _ =>
-            Logger.debug("Could not find expected data in cache on dispose submit - now redirecting...")
+            Logger.debug(s"Could not find expected data in cache on dispose submit - now redirecting... " +
+              s"with tracking id: ${request.cookies.trackingId()}")
             Redirect(routes.SetUpTradeDetails.present())
         }
       },
@@ -131,7 +132,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
             get
       }.recover {
         case e: Throwable =>
-          Logger.warn(s"Dispose micro-service call failed.", e)
+          Logger.warn(s"Dispose micro-service call failed. with tracking id: ${request.cookies.trackingId()}", e)
           Redirect(routes.MicroServiceError.present())
       }
     }
@@ -175,17 +176,19 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       )
     }
 
-    def handleResponseCode(disposeResponseCode: String): Call =
+    def handleResponseCode(disposeResponseCode: String)(implicit request: Request[_]): Call =
       disposeResponseCode match {
         case "ms.vehiclesService.response.unableToProcessApplication" =>
-          Logger.warn("Dispose soap endpoint redirecting to dispose failure page")
+          Logger.warn(s"Dispose soap endpoint redirecting to dispose " +
+            s"failure page with tracking id: ${request.cookies.trackingId()}")
           routes.DisposeFailure.present()
         case "ms.vehiclesService.response.duplicateDisposalToTrade" =>
-          Logger.warn("Dispose soap endpoint redirecting to duplicate disposal page")
+          Logger.warn(s"Dispose soap endpoint redirecting to duplicate disposal page" +
+            " with tracking id: ${request.cookies.trackingId()}")
           routes.DuplicateDisposalError.present()
         case _ =>
           Logger.warn(s"Dispose micro-service failed so now redirecting to micro service error page. " +
-            s"Code returned from ms was $disposeResponseCode")
+            s"Code returned from ms was $disposeResponseCode  with tracking id: ${request.cookies.trackingId()}")
           routes.MicroServiceError.present()
       }
 
@@ -199,7 +202,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       case (Some(traderDetails), Some(vehicleLookup)) =>
         callMicroService(vehicleLookup, disposeFormModel, traderDetails)
       case _ => Future {
-        Logger.error("Could not find either dealer details or VehicleLookupFormModel in cache on Dispose submit")
+        Logger.error(s"Could not find either dealer details or VehicleLookupFormModel " +
+          s"in cache on Dispose submit  with tracking id: ${request.cookies.trackingId()}")
         Redirect(routes.SetUpTradeDetails.present())
       }
     }
