@@ -156,10 +156,10 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       ))
 
       validateAddressCookieValues(result,
-        buildingName = "MY HOUSE",
-        line2 = "MY STREET",
-        line3 = "MY AREA",
-        postTown = "MY TOWN"
+        buildingName = "MY HOUSE,",
+        line2 = "MY STREET.",
+        line3 = "MY AREA.",
+        postTown = "MY TOWN,"
       )
     }
 
@@ -172,16 +172,16 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       ))
 
       validateAddressCookieValues(result,
-        buildingName = "MY HOUSE",
-        line2 = "MY STREET",
-        line3 = "MY AREA",
-        postTown = "MY TOWN"
+        buildingName = "MY HOUSE,.,..,,",
+        line2 = "MY STREET...,,.,",
+        line3 = "MY AREA.,,..",
+        postTown = "MY TOWN,,,.,,,."
       )
     }
 
     "submit does not remove multiple commas and full stops from the middle of address lines" in new WithApplication {
       val result = enterAddressManually.submit(requestWithValidDefaults(
-        buildingName = "my house 1.1,",
+        buildingName = "my house 1.1",
         line2 = "st. something street",
         line3 = "st. johns",
         postTown = "my t.own"
@@ -198,7 +198,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
     "submit removes commas, but still applies the min length rule" in new WithApplication {
       FormExtensions.trimNonWhiteListedChars("""[A-Za-z0-9\-]""")(",, m...,,,,   ") should equal("m")
       val result = enterAddressManually.submit(requestWithValidDefaults(
-        buildingName = "m...,,,,   "  // This should be a min length of 4 chars
+        buildingName = "m      "  // This should be a min length of 4 chars
       ))
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
