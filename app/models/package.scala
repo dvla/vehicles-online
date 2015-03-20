@@ -14,7 +14,7 @@ import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCache
 import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.TraderDetailsModel.traderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
-import VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
+import VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 
 package object models {
   final val HelpCacheKey = s"${CookiePrefix}help"
@@ -31,7 +31,7 @@ package object models {
   // Set of cookies related to a single vehicle disposal. Removed once the vehicle is successfully disposed
   final val DisposeCacheKeys = Set(
     bruteForcePreventionViewModelCacheKey,
-    VehicleAndKeeperLookupDetailsCacheKey,
+    vehicleAndKeeperLookupDetailsCacheKey,
     VehicleLookupResponseCodeCacheKey,
     VehicleLookupFormModelCacheKey,
     DisposeFormModelCacheKey,

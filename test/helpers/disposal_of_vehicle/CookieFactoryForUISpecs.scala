@@ -28,7 +28,7 @@ import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.TraderDetailsModel
 import common.model.TraderDetailsModel.traderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
-import common.model.VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
+import common.model.VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 import common.controllers.AlternateLanguages.{CyId, EnId}
 import common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
@@ -130,7 +130,7 @@ object CookieFactoryForUISpecs {
                               address: Option[AddressModel] = None,
                               disposeFlag: Boolean = false,
                               suppressedV5CFlag: Boolean = false)(implicit webDriver: WebDriver) = {
-    val key = VehicleAndKeeperLookupDetailsCacheKey
+    val key = vehicleAndKeeperLookupDetailsCacheKey
     val value = VehicleAndKeeperDetailsModel(
       registrationNumber = registrationNumber,
       make = vehicleMake,
