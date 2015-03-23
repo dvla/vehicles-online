@@ -46,7 +46,7 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
     $(function() {
 
         // Enabling loading class/js animation on submit's CTAs
-        $('#submit').on('click', function(e) {
+        $(':submit').on('click', function(e) {
             var runTimes;
 
             $(this).html('Loading').addClass('loading-action');
