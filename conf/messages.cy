@@ -143,7 +143,7 @@ addressAndPostcode.addressLines.line2 = Enw stryd
 addressAndPostcode.addressLines.line3 = Ardal
 addressAndPostcode.addressLines.postTown = Tref neu ddinas
 addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
-error.address.characterInvalid = Rhaid cynnwys nodau dilys A-Z, 0-9, ac ati yn unig
+error.address.characterInvalid = Rhaid iddo gynnwys rhwng cymeriadau dilys gan y AZ, 0-9, cysylltnod, collnod, stopio a lle llawn yn dilyn.
 error.postTown.characterInvalid = Mae''r dref neu ddinas yn cynnwys nodau annilys
 
 #page 3 - uprn not found
