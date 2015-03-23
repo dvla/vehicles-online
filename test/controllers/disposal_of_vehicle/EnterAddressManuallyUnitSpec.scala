@@ -19,7 +19,8 @@ import utils.helpers.Config
 import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
 import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import TraderDetailsModel.TraderDetailsCacheKey
+import models.DisposeCacheKeyPrefix.CookiePrefix
+import TraderDetailsModel.traderDetailsCacheKey
 import models.EnterAddressManuallyFormModel
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
 
@@ -155,10 +156,10 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       ))
 
       validateAddressCookieValues(result,
-        buildingName = "MY HOUSE",
-        line2 = "MY STREET",
-        line3 = "MY AREA",
-        postTown = "MY TOWN"
+        buildingName = "MY HOUSE,",
+        line2 = "MY STREET.",
+        line3 = "MY AREA.",
+        postTown = "MY TOWN,"
       )
     }
 
@@ -171,16 +172,16 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       ))
 
       validateAddressCookieValues(result,
-        buildingName = "MY HOUSE",
-        line2 = "MY STREET",
-        line3 = "MY AREA",
-        postTown = "MY TOWN"
+        buildingName = "MY HOUSE,.,..,,",
+        line2 = "MY STREET...,,.,",
+        line3 = "MY AREA.,,..",
+        postTown = "MY TOWN,,,.,,,."
       )
     }
 
     "submit does not remove multiple commas and full stops from the middle of address lines" in new WithApplication {
       val result = enterAddressManually.submit(requestWithValidDefaults(
-        buildingName = "my house 1.1,",
+        buildingName = "my house 1.1",
         line2 = "st. something street",
         line3 = "st. johns",
         postTown = "my t.own"
@@ -197,7 +198,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
     "submit removes commas, but still applies the min length rule" in new WithApplication {
       FormExtensions.trimNonWhiteListedChars("""[A-Za-z0-9\-]""")(",, m...,,,,   ") should equal("m")
       val result = enterAddressManually.submit(requestWithValidDefaults(
-        buildingName = "m...,,,,   "  // This should be a min length of 4 chars
+        buildingName = "m      "  // This should be a min length of 4 chars
       ))
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
@@ -240,7 +241,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
-        cookies.map(_.name) should contain(TraderDetailsCacheKey)
+        cookies.map(_.name) should contain(traderDetailsCacheKey)
       }
     }
 
@@ -271,7 +272,7 @@ final class EnterAddressManuallyUnitSpec extends UnitSpec {
     injector.getInstance(classOf[EnterAddressManually])
   }
 
-  private val traderDetailsCookieName = "traderDetails"
+  private val traderDetailsCookieName = CookiePrefix + "traderDetails"
 
   private def validateAddressCookieValues(result: Future[Result], buildingName: String, line2: String,
                                           line3: String, postTown: String, postCode: String = PostcodeValid) = {

@@ -12,9 +12,9 @@ import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLoo
 import uk.gov.dvla.vehicles.presentation.common
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
 import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
-import common.model.TraderDetailsModel.TraderDetailsCacheKey
+import common.model.TraderDetailsModel.traderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
-import VehicleAndKeeperDetailsModel.VehicleAndKeeperLookupDetailsCacheKey
+import VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 
 package object models {
   final val HelpCacheKey = s"${CookiePrefix}help"
@@ -31,7 +31,7 @@ package object models {
   // Set of cookies related to a single vehicle disposal. Removed once the vehicle is successfully disposed
   final val DisposeCacheKeys = Set(
     bruteForcePreventionViewModelCacheKey,
-    VehicleAndKeeperLookupDetailsCacheKey,
+    vehicleAndKeeperLookupDetailsCacheKey,
     VehicleLookupResponseCodeCacheKey,
     VehicleLookupFormModelCacheKey,
     DisposeFormModelCacheKey,
@@ -43,7 +43,7 @@ package object models {
   // Set of cookies that store the trade details data. These are retained after a successful disposal
   // so the trader does not have to re-enter their details when disposing subsequent vehicles
   final val TradeDetailsCacheKeys = Set(setupTradeDetailsCacheKey,
-    TraderDetailsCacheKey,
+    traderDetailsCacheKey,
     BusinessChooseYourAddressCacheKey,
     EnterAddressManuallyCacheKey)
 
