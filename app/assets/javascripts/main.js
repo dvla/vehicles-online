@@ -49,15 +49,19 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
         $(':submit').on('click', function(e) {
             var runTimes;
 
-            $(this).html('Loading').addClass('loading-action');
+            if ( $(this).hasClass("disabled") ) {
+                return false;
+            }
+
+            $(this).html('Loading').addClass('loading-action disabled');
             runTimes = 0;
             setInterval(function() {
                 if ( runTimes < 3 ){
-                    $('#submit').append('.');
+                    $(':submit').append('.');
                     runTimes++;
                 } else {
                     runTimes = 0;
-                    $('#submit').html('Loading');
+                    $(':submit').html('Loading');
                 }
             }, 1000);
         });
@@ -154,7 +158,7 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
             });
         }
 
-        $(":submit, #tryagain").click(function() {
+        $("#tryagain").click(function() {
             if($(this).hasClass("disabled")) return false;
             $(this).addClass("disabled");
             return true;
