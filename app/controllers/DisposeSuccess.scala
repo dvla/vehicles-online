@@ -10,7 +10,7 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.{AllCacheKeys, DisposeCacheKeys, DisposeFormModel, DisposeOnlyCacheKeys, DisposeViewModel}
 import org.joda.time.format.DateTimeFormat
-import play.api.mvc.{Action, Controller, Request}
+import play.api.mvc.{Action, Controller, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
@@ -22,32 +22,41 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
                                      surveyUrl: SurveyUrl,
                                      dateService: DateService) extends Controller {
 
-  def present = Action { implicit request =>
+  def present = Action { implicit request => doPresent(isPrivateKeeper = false) }
+
+  def presentPrivateKeeper = Action { implicit request => doPresent(isPrivateKeeper = true) }
+
+  private def doPresent(isPrivateKeeper: Boolean)(implicit request: Request[_]): Result = {
     (request.cookies.getModel[TraderDetailsModel],
-     request.cookies.getModel[DisposeFormModel],
-     request.cookies.getModel[VehicleAndKeeperDetailsModel],
-     request.cookies.getString(DisposeFormTransactionIdCacheKey),
-     request.cookies.getString(DisposeFormRegistrationNumberCacheKey),
-     request.cookies.getString(DisposeFormTimestampIdCacheKey)) match {
-       case (Some(traderDetails),
-             Some(disposeFormModel),
-             Some(vehicleDetails),
-             Some(transactionId),
-             Some(registrationNumber),
-             Some(disposeDateString)) =>
-         val disposeViewModel = createViewModel(
-           traderDetails,
-           disposeFormModel,
-           vehicleDetails,
-           Some(transactionId),
-           registrationNumber
-         )
-         val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-         val disposeDateTime = formatter.parseDateTime(disposeDateString)
-         Ok(views.html.disposal_of_vehicle.dispose_success(disposeViewModel, disposeFormModel, disposeDateTime, surveyUrl(request))).
-           discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
-       case _ => Redirect(routes.VehicleLookup.present()) // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
-     }
+      request.cookies.getModel[DisposeFormModel],
+      request.cookies.getModel[VehicleAndKeeperDetailsModel],
+      request.cookies.getString(DisposeFormTransactionIdCacheKey),
+      request.cookies.getString(DisposeFormRegistrationNumberCacheKey),
+      request.cookies.getString(DisposeFormTimestampIdCacheKey)) match {
+      case (Some(traderDetails),
+      Some(disposeFormModel),
+      Some(vehicleDetails),
+      Some(transactionId),
+      Some(registrationNumber),
+      Some(disposeDateString)) =>
+        val disposeViewModel = createViewModel(
+          traderDetails,
+          disposeFormModel,
+          vehicleDetails,
+          Some(transactionId),
+          registrationNumber
+        )
+        val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val disposeDateTime = formatter.parseDateTime(disposeDateString)
+        Ok(views.html.disposal_of_vehicle.dispose_success(
+          disposeViewModel,
+          disposeFormModel,
+          disposeDateTime,
+          surveyUrl(request),
+          isPrivateKeeper = isPrivateKeeper)
+        ).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
+      case _ => Redirect(routes.VehicleLookup.present()) // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
+    }
   }
 
   def newDisposal = Action { implicit request =>

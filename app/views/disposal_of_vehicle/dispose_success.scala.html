@@ -1,7 +1,8 @@
 @(data: models.DisposeViewModel,
     formModel: models.DisposeFormModel,
     disposeDateTime: org.joda.time.DateTime,
-    surveyUrl: Option[String]
+    surveyUrl: Option[String],
+    isPrivateKeeper: Boolean
     )(implicit lang: Lang,
     token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
     config: utils.helpers.Config)
@@ -59,15 +60,20 @@ title = Messages("disposal_disposeconfirmation.title")
 
     <div class="second-col">
 
-<div class="alert-complete">
-    <h2>@Messages("disposal_disposeconfirmation.disposalComplete")</h2>
-    <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
-    <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</p>
-</div>
+        <div class="alert-complete">
+            <h2>@Messages("disposal_disposeconfirmation.disposalComplete")</h2>
+            <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
+            <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</p>
+        </div>
         <h2>@Messages("disposal_disposeconfirmation.whatNext")</h2>
         <ul>
-            <li><p>@Messages("disposal_disposeconfirmation.exkeeper-p1")</p></li>
-            <li><p>@Messages("disposal_disposeconfirmation.exkeeper-p2")</p></li>
+            @if(isPrivateKeeper) {
+                <li><p>@Messages("disposal_disposeconfirmation.exprivatekeeper-p1")</p></li>
+                <li><p>@Messages("disposal_disposeconfirmation.exprivatekeeper-p2")</p></li>
+            } else {
+                <li><p>@Messages("disposal_disposeconfirmation.exkeeper-p1")</p></li>
+                <li><p>@Messages("disposal_disposeconfirmation.exkeeper-p2")</p></li>
+            }
             <li><p>@Messages("disposal_disposeconfirmation.exkeeper-p3")</p></li>
         </ul>
         <div class="alert-warning print-message">
@@ -77,17 +83,30 @@ title = Messages("disposal_disposeconfirmation.title")
         <div class="form-steps">
 
             <div class="step">
-                <button id="printDisposalSuccess" type="button" name="action" value="printDisposalSuccess" class="button js-only print-button" autofocus="true">@Messages("global.buttonnavprint")</button>
+                <button id="printDisposalSuccess"
+                        type="button"
+                        name="action"
+                        value="printDisposalSuccess"
+                        class="button js-only print-button"
+                        autofocus="true">
+                    @Messages("global.buttonnavprint")
+                </button>
             </div>
 
             @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
-            <div class="step">
+            @if(!isPrivateKeeper) {
+                <div class="step">
                 @form(action = controllers.routes.DisposeSuccess.newDisposal()) {
-                @csrfTokenHiddenField()
-                <button id="@NewDisposalId" type="submit" name="action" class="button button-new-disposal button-secondary">@Messages("disposal_disposeconfirmation.newdisposalbutton")</button>
+                    @csrfTokenHiddenField()
+                    <button id="@NewDisposalId"
+                            type="submit"
+                            name="action"
+                            class="button button-new-disposal button-secondary">
+                        @Messages("disposal_disposeconfirmation.newdisposalbutton")
+                    </button>
                 }
-            </div>
-
+                </div>
+            }
             <div class="step">
                 @form(action = controllers.routes.DisposeSuccess.exit()) {
                     @csrfTokenHiddenField()
@@ -97,20 +116,22 @@ title = Messages("disposal_disposeconfirmation.title")
                                     type="submit"
                                     name="action"
                                     onclick="window.open('@url', '_blank');"
-                                    class="button button-secondary">@Messages("disposal_disposeconfirmation.exitbutton")</button>
+                                    class="button button-secondary">
+                                @Messages("disposal_disposeconfirmation.exitbutton")
+                            </button>
                       }
                       case None => {
                             <button id="@ExitDisposalId"
                                     type="submit"
                                     name="action"
-                                    class="button button-secondary">@Messages("disposal_disposeconfirmation.exitbutton")</button>
+                                    class="button button-secondary">
+                                @Messages("disposal_disposeconfirmation.exitbutton")
+                            </button>
                       }
                     }
                 }
             </div>
-
         </div>
     </div>
-
 </div>
 }
