@@ -271,7 +271,7 @@ addressAndPostcode.addressLines = Cyfeiriad
 addressAndPostcode.postcode = Côd post
 error.validBusinessName = Rhaid bod rhwng 2 a 58 o nodau o hyd a dim ond nodau dilys (a-z, A-Z, 0-9, &, -,(), /, ‘ a , neu .)
 error.address.buildingNameOrNumber.invalid = Rhaid i adeilad/ rhif a stryd gynnwys rhwng 4 a 30 o nodau
-error.address.postTown = Rhaid i dref neu ddinas gynnwys lleiafswm o 3 nod
+error.address.postTown = Rhaid Tref neu ddinas yn cynnwys rhwng 3 a 20 llythyren.
 error.address.postcode.invalid = Rhaid bod rhwng 5 ac 8 nod o hyd ac mewn fformat dilys,  ee. AB1 2BA neu AB12BA
 
 # progress messages
