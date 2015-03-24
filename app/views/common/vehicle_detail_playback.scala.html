@@ -1,0 +1,11 @@
+@(model: models.DisposeViewModel)(implicit lang: Lang)
+
+<dl class="playback">
+    <dt><h2>@Messages("disposal_playback.vehicledetails")</h2></dt>
+    <dt>@Messages("disposal_playback.vehiclereg")</dt>
+    <dd>@model.registrationNumber</dd>
+    <dt>@Messages("disposal_playback.vehiclemake")</dt>
+    <dd>@model.vehicleMake</dd>
+    <dt>@Messages("disposal_playback.vehiclemodel")</dt>
+    <dd>@model.vehicleModel</dd>
+</dl>

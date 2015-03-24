@@ -31,6 +31,12 @@ prototype.link =  your feedback
 prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
 prototype.bannerPart2 = will help us to improve it
 
+#vehicle details playback
+disposal_playback.vehicledetails = Vehicle details
+disposal_playback.vehiclereg = Registration number
+disposal_playback.vehiclemake = Make
+disposal_playback.vehiclemodel = Model
+
 #widget messages
 errorsummary.title = Please correct the details below
 errorsummary.p1 = Please fix the following:

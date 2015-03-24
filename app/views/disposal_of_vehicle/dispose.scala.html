@@ -21,6 +21,7 @@
 @import common.views.html.widgets.dates.inputDayMonthYearTextbox
 @import common.views.html.widgets.base.csrfTokenHiddenField
 @import views.html.helper.form
+@import views.html.common.vehicle_detail_playback
 
 @main(
     progress = Some(Messages("disposal_progress_5")),
@@ -37,15 +38,8 @@
         <div class="two-col clearfix">
 
             <div class="disposal-info first-col">
-                <dl class="playback">
-                    <dt><h2>@Messages("disposal_dispose.vehicledetails")</h2></dt>
-                    <dt>@Messages("disposal_dispose.vehiclereg")</dt>
-                    <dd>@data.registrationNumber</dd>
-                    <dt>@Messages("disposal_dispose.vehiclemake")</dt>
-                    <dd>@data.vehicleMake</dd>
-                    <dt>@Messages("disposal_dispose.vehiclemodel")</dt>
-                    <dd>@data.vehicleModel</dd>
-                </dl>
+                @vehicle_detail_playback(data)
+
 
                 <dl class="playback">
                     <dt><h2>@Messages("disposal_vehiclelookup.p2")</h2></dt>

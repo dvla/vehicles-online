@@ -31,6 +31,12 @@ prototype.link =  dysgwch fwy
 prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
 prototype.bannerPart2 = bydd yn ein helpu i wella
 
+#vehicle details playback
+disposal_playback.vehicledetails = manylion y cerbyd
+disposal_playback.vehiclereg = Rhif cofrestru
+disposal_playback.vehiclemake = Gwneuthuriad
+disposal_playback.vehiclemodel = Model
+
 #widget messages
 errorsummary.title = Cywirwch y manylion isod
 errorsummary.p1 = Cywirwch y canlynol:
