@@ -52,7 +52,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
 
     "not log any access for the healthcheck url" in new WebBrowser(testApp4) {
       val httpClient = HttpClients.createDefault()
-      val post = new HttpGet(WebDriverFactory.testUrl + "/healthcheck")
+      val post = new HttpGet(WebDriverFactory.testUrl + s"$applicationContext/healthcheck")
       val httpResponse = httpClient.execute(post)
       httpResponse.close()
 
@@ -61,7 +61,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
 
     "not log any access for the healthcheck url with parameters" in new WebBrowser(testApp5) {
       val httpClient = HttpClients.createDefault()
-      val post = new HttpGet(WebDriverFactory.testUrl + "/healthcheck?param1=a&b=c")
+      val post = new HttpGet(WebDriverFactory.testUrl + s"$applicationContext/healthcheck?param1=a&b=c")
       val httpResponse = httpClient.execute(post)
       httpResponse.close()
 

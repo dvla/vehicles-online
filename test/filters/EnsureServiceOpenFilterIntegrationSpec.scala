@@ -1,9 +1,7 @@
 package filters
 
-import com.google.inject.Guice
-import com.google.inject.util.Modules
 import com.tzavellas.sse.guice.ScalaModule
-import composition.{TestHarness, TestModule}
+import composition.{TestComposition, TestHarness}
 import helpers.UiSpec
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
@@ -15,7 +13,7 @@ import utils.helpers.Config
 import scala.concurrent.Future
 import scala.language.existentials
 
-final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures {
+final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures with TestComposition {
   // The filter chain will return null if we redirect to the closed page.
   "Return a null next filter request if trying to access the service out of hours" in new WebBrowser {
     setUpOutOfHours {
@@ -61,21 +59,17 @@ final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarne
   private def setUpOpeningHours(test: SetUp => Any, opening: Int = 0, closing: Int = 24) {
     val sessionFactory = org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
 
-    val injector = Guice.createInjector(
-      Modules.`override`(new TestModule()).`with`(
-        new ScalaModule {
-          override def configure(): Unit = {
-            bind[ClientSideSessionFactory].toInstance(sessionFactory)
-            val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
-            when(mockConfig.opening).thenReturn(opening)
-            when(mockConfig.closing).thenReturn(closing)
-            when(mockConfig.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
-            when(mockConfig.assetsUrl).thenReturn(None) // Stub this config value.
-            bind[Config].toInstance(mockConfig)
-          }
-        }
-      )
-    )
+    val injector = testInjector(new ScalaModule {
+      override def configure(): Unit = {
+        bind[ClientSideSessionFactory].toInstance(sessionFactory)
+        val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
+        when(mockConfig.opening).thenReturn(opening)
+        when(mockConfig.closing).thenReturn(closing)
+        when(mockConfig.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+        when(mockConfig.assetsUrl).thenReturn(None) // Stub this config value.
+        bind[Config].toInstance(mockConfig)
+      }
+    })
 
     test(SetUp(
       filter = injector.getInstance(classOf[ServiceOpenFilter]),

@@ -9,7 +9,7 @@ import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
 import utils.helpers.ErrorStrategy
 
 trait Composition {
-  lazy val injector = Guice.createInjector(DevModule)
+  lazy val injector = Guice.createInjector(new DevModule)
 
   lazy val filters = Array(
     injector.getInstance(classOf[EnsureSessionCreatedFilter]),

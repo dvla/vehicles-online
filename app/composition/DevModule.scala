@@ -16,6 +16,7 @@ import common.clientsidesession.CookieNameHashGenerator
 import common.clientsidesession.EncryptedClientSideSessionFactory
 import common.clientsidesession.Sha1HashGenerator
 import common.filters.AccessLoggingFilter.AccessLoggerName
+import common.filters.{AccessLoggingConfig, DefaultAccessLoggingConfig}
 import common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
 import common.services.DateService
 import common.webserviceclients.addresslookup.gds.{AddressLookupServiceImpl, WebServiceImpl}
@@ -43,7 +44,7 @@ import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, Disp
  *
  * Look in build.scala for where we import the sse-guice library
  */
-object DevModule extends ScalaModule {
+class DevModule extends ScalaModule {
   def configure() {
 
     bind[Config].to[utils.helpers.ConfigImpl].asEagerSingleton()
@@ -66,18 +67,21 @@ object DevModule extends ScalaModule {
     bind[EmailServiceWebService].to[EmailServiceWebServiceImpl].asEagerSingleton()
     bind[EmailService].to[EmailServiceImpl].asEagerSingleton()
 
+    bindSessionFactory()
 
+    bind[BruteForcePreventionWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.WebServiceImpl].asEagerSingleton()
+    bind[BruteForcePreventionService].to[BruteForcePreventionServiceImpl].asEagerSingleton()
+    bind[LoggerLike].annotatedWith(Names.named(AccessLoggerName)).toInstance(Logger("dvla.common.AccessLogger"))
+    bind[AccessLoggingConfig].toInstance(new DefaultAccessLoggingConfig())
+    bind[DateTimeZoneService].toInstance(new DateTimeZoneServiceImpl)
+    bind[HealthStats].asEagerSingleton()
+  }
+
+  protected def bindSessionFactory(): Unit =
     if (getOptionalProperty[Boolean]("encryptCookies").getOrElse(true)) {
       bind[CookieEncryption].toInstance(new AesEncryption with CookieEncryption)
       bind[CookieNameHashGenerator].toInstance(new Sha1HashGenerator with CookieNameHashGenerator)
       bind[ClientSideSessionFactory].to[EncryptedClientSideSessionFactory].asEagerSingleton()
     } else
       bind[ClientSideSessionFactory].to[ClearTextClientSideSessionFactory].asEagerSingleton()
-
-    bind[BruteForcePreventionWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.WebServiceImpl].asEagerSingleton()
-    bind[BruteForcePreventionService].to[BruteForcePreventionServiceImpl].asEagerSingleton()
-    bind[LoggerLike].annotatedWith(Names.named(AccessLoggerName)).toInstance(Logger("dvla.common.AccessLogger"))
-    bind[DateTimeZoneService].toInstance(new DateTimeZoneServiceImpl)
-    bind[HealthStats].asEagerSingleton()
-  }
 }
