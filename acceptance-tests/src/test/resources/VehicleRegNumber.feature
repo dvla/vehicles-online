@@ -1,4 +1,4 @@
-@tag
+@working
 Feature: Disposal to Trade: Validate VRM format entry
   As a Motor Trader
   I want to enter a properly formatted VRM

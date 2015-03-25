@@ -1,4 +1,4 @@
-@tag
+@working
 Feature: Option to Auto Populate Date of Sale Field with Today's Date
 
   Scenario: On Dispose page use a manually entered date of disposal with javascript disabled
@@ -15,6 +15,3 @@ Feature: Option to Auto Populate Date of Sale Field with Today's Date
     Given the Trader is on the Complete & Confirm page and javascript is not enabled for the browser
     When the user checks the 'Use today's date' checkbox for Date of Sale
     Then the date dropdown is still unset
-
-
-

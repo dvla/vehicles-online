@@ -1,4 +1,4 @@
-@tag
+@working
 Feature: Back Navigation From Complete and Confirm page
 
   Scenario: Back Navigation from  Complete and Confirm page to trader details page

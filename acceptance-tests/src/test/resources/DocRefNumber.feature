@@ -1,4 +1,4 @@
-@tag
+@working
 Feature: Validate document reference entry format - Error Messages
   As a Motor Trader
   I want to receive an appropriate error message when I enter an invalid document reference number

@@ -1,6 +1,6 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
-import cucumber.api.java.en.{Given,When,Then}
+import cucumber.api.java.en.{Given, When, Then}
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
 import pages.disposal_of_vehicle.BeforeYouStartPage
@@ -12,14 +12,14 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 
-class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserDSL with Matchers {
+class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
   def goToCompleteAndConfirmPage() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
-    page.title shouldEqual  SetupTradeDetailsPage.title
+    page.title shouldEqual SetupTradeDetailsPage.title
     SetupTradeDetailsPage.traderName enter "trader1"
     SetupTradeDetailsPage.traderPostcode enter "qq99qq"
     click on SetupTradeDetailsPage.lookup
@@ -30,7 +30,7 @@ class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowser
     VehicleLookupPage.vehicleRegistrationNumber enter "A1"
     VehicleLookupPage.documentReferenceNumber enter "11111111111"
     click on VehicleLookupPage.findVehicleDetails
-    page.title shouldEqual  DisposePage.title
+    page.title shouldEqual DisposePage.title
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
     enterValidDisposalDate()
@@ -81,7 +81,7 @@ class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowser
   def i_am_on_the_complete_and_confirm_page_with_failure_data() {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
-    page.title shouldEqual  SetupTradeDetailsPage.title
+    page.title shouldEqual SetupTradeDetailsPage.title
     SetupTradeDetailsPage.traderName enter "traer1"
     SetupTradeDetailsPage.traderPostcode enter "qq99qq"
     click on SetupTradeDetailsPage.lookup
@@ -92,7 +92,7 @@ class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowser
     VehicleLookupPage.vehicleRegistrationNumber enter "AA11AAC"
     VehicleLookupPage.documentReferenceNumber enter "88888888883"
     click on VehicleLookupPage.findVehicleDetails
-    page.title shouldEqual  DisposePage.title
+    page.title shouldEqual DisposePage.title
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
     enterValidDisposalDate()

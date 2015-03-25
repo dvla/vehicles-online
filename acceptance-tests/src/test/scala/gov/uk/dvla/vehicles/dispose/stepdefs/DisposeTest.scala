@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 @CucumberOptions(
   features = Array("acceptance-tests/src/test/resources/"),
   glue = Array("gov.uk.dvla.vehicles.dispose.stepdefs"),
-  tags = Array("@tag")
+  tags = Array("@working")
 )
 class DisposeTest {
 }

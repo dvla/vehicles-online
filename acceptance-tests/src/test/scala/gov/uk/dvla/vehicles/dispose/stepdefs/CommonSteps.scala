@@ -21,7 +21,6 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
 
   implicit val cookieFlags = new NoCookieFlags()
   implicit lazy val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
-
   implicit lazy val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
   def goToSetupTradeDetailsPage() = {

@@ -1,4 +1,4 @@
-@tag
+@working
 Feature:
   As a Motor Trader
   I want to see successful transaction and failure transaction from start to end
@@ -20,4 +20,3 @@ Feature:
     When  I click on confirm sale button without any validation errors
     Then  I should be taken to failure  page
     And   I can see the details of transaction id with failure screen
-
