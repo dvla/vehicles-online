@@ -1,17 +1,22 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Given,When,Then}
+import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
 import pages.common.ErrorPanel
-import pages.disposal_of_vehicle._
-import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
+import pages.disposal_of_vehicle.BeforeYouStartPage
+import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import pages.disposal_of_vehicle.DisposePage
+import pages.disposal_of_vehicle.DisposePage.consent
 import pages.disposal_of_vehicle.DisposePage.dateOfDisposalDay
 import pages.disposal_of_vehicle.DisposePage.dateOfDisposalMonth
 import pages.disposal_of_vehicle.DisposePage.dateOfDisposalYear
 import pages.disposal_of_vehicle.DisposePage.dispose
 import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
-import pages.disposal_of_vehicle.DisposePage.consent
+import pages.disposal_of_vehicle.DisposeSuccessPage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 
 final class DisposeSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserDSL with Matchers {

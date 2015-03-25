@@ -1,38 +1,26 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Given, When, Then}
-import pages.common.ErrorPanel
-import org.openqa.selenium.WebDriver
-import org.scalatest.Matchers
-import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.getProperty
-import common.clientsidesession.EncryptedClientSideSessionFactory
-import common.clientsidesession.AesEncryption
-import common.clientsidesession.Sha1HashGenerator
-import common.clientsidesession.CookieNameHashGenerator
-import common.clientsidesession.CookieEncryption
-import common.clientsidesession.NoCookieFlags
-import common.clientsidesession.ClearTextClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 import helpers.common.RandomVrmGenerator
-import pages.disposal_of_vehicle._
+import org.scalatest.Matchers
+import org.openqa.selenium.WebDriver
+import pages.common.ErrorPanel
+import pages.disposal_of_vehicle.BeforeYouStartPage
+import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import pages.disposal_of_vehicle.DisposePage
+import pages.disposal_of_vehicle.DisposeSuccessPage
+import pages.disposal_of_vehicle.EnterAddressManuallyPage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import pages.disposal_of_vehicle.VehicleLookupPage
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClearTextClientSideSessionFactory
+import common.clientsidesession.NoCookieFlags
+import common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 
-// TODO - Store input as variables
+class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
 
-final class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
-
-  implicit lazy val clientSideSessionFactory = {
-    implicit val cookieFlags = new NoCookieFlags()
-    val testRemote = false //getProperty[Boolean]("test.remote")
-    if (testRemote)  {
-      implicit val cookieEncryption = new AesEncryption with CookieEncryption
-      implicit val cookieNameHashing = new Sha1HashGenerator with CookieNameHashGenerator
-      new EncryptedClientSideSessionFactory()
-    }
-    else {
-      new ClearTextClientSideSessionFactory()
-    }
-  }
+  implicit val cookieFlags = new NoCookieFlags()
+  implicit lazy val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
 
   implicit lazy val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
