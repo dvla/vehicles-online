@@ -1,12 +1,15 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
-import cucumber.api.scala.{EN, ScalaDsl}
 import cucumber.api.java.en.{Then, When, Given}
-import uk.gov.dvla.vehicles.presentation.common.helpers
-import helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import cucumber.api.scala.{EN, ScalaDsl}
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
-import pages.disposal_of_vehicle._
+import pages.disposal_of_vehicle.BeforeYouStartPage
+import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import pages.disposal_of_vehicle.DisposePage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import pages.disposal_of_vehicle.VehicleLookupPage
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 
 class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN with WebBrowserDSL with Matchers {
 

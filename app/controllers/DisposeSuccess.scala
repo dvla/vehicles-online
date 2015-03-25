@@ -33,30 +33,30 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       request.cookies.getString(DisposeFormTransactionIdCacheKey),
       request.cookies.getString(DisposeFormRegistrationNumberCacheKey),
       request.cookies.getString(DisposeFormTimestampIdCacheKey)) match {
-      case (Some(traderDetails),
-      Some(disposeFormModel),
-      Some(vehicleDetails),
-      Some(transactionId),
-      Some(registrationNumber),
-      Some(disposeDateString)) =>
-        val disposeViewModel = createViewModel(
-          traderDetails,
-          disposeFormModel,
-          vehicleDetails,
-          Some(transactionId),
-          registrationNumber
-        )
-        val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-        val disposeDateTime = formatter.parseDateTime(disposeDateString)
-        Ok(views.html.disposal_of_vehicle.dispose_success(
-          disposeViewModel,
-          disposeFormModel,
-          disposeDateTime,
-          surveyUrl(request),
-          isPrivateKeeper = isPrivateKeeper)
-        ).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
-      case _ => Redirect(routes.VehicleLookup.present()) // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
-    }
+        case (Some(traderDetails),
+              Some(disposeFormModel),
+              Some(vehicleDetails),
+              Some(transactionId),
+              Some(registrationNumber),
+              Some(disposeDateString)) =>
+          val disposeViewModel = createViewModel(
+            traderDetails,
+            disposeFormModel,
+            vehicleDetails,
+            Some(transactionId),
+            registrationNumber
+          )
+          val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+          val disposeDateTime = formatter.parseDateTime(disposeDateString)
+          Ok(views.html.disposal_of_vehicle.dispose_success(
+            disposeViewModel,
+            disposeFormModel,
+            disposeDateTime,
+            surveyUrl(request),
+            isPrivateKeeper = isPrivateKeeper)
+          ).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
+        case _ => Redirect(routes.VehicleLookup.present()) // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
+      }
   }
 
   def newDisposal = Action { implicit request =>

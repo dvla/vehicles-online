@@ -3,18 +3,24 @@ package gov.uk.dvla.vehicles.dispose.stepdefs
 import cucumber.api.java.en.{Given,When,Then}
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
-import pages.disposal_of_vehicle._
+import pages.disposal_of_vehicle.BeforeYouStartPage
+import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import pages.disposal_of_vehicle.DisposeFailurePage
+import pages.disposal_of_vehicle.DisposePage
+import pages.disposal_of_vehicle.DisposeSuccessPage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
 
 class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserDSL with Matchers {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
-  def goToCompletAndConfirmPage() = {
+  def goToCompleteAndConfirmPage() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
     page.title shouldEqual  SetupTradeDetailsPage.title
-    SetupTradeDetailsPage.traderName enter "traer1"
+    SetupTradeDetailsPage.traderName enter "trader1"
     SetupTradeDetailsPage.traderPostcode enter "qq99qq"
     click on SetupTradeDetailsPage.lookup
     page.title shouldEqual BusinessChooseYourAddressPage.title
@@ -32,7 +38,7 @@ class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowser
 
   @Given("^I am on the complete and confirm page$")
   def i_am_on_the_complete_and_confirm_page()  {
-    goToCompletAndConfirmPage()
+    goToCompleteAndConfirmPage()
   }
 
   @When("^I click on confirm sale button without any validation errors$")
@@ -40,8 +46,8 @@ class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowser
     click on DisposePage.dispose
   }
 
-  @Then("^I should be taken to succesful summary page$")
-  def i_should_be_taken_to_succesful_summary_page()  {
+  @Then("^I should be taken to successful summary page$")
+  def i_should_be_taken_to_successful_summary_page()  {
     page.title shouldEqual DisposeSuccessPage.title
   }
 
@@ -50,8 +56,8 @@ class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowser
     page.source.contains("A1-11111111111") shouldEqual true
   }
 
-  @Given("^I am on the succesful summary page$")
-  def i_am_on_the_succesful_summary_page()  {
+  @Given("^I am on the successful summary page$")
+  def i_am_on_the_successful_summary_page()  {
     i_am_on_the_complete_and_confirm_page()
     click on DisposePage.dispose
   }
@@ -107,6 +113,4 @@ class HappyAndSadPathSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowser
     DisposePage.dateOfDisposalMonth enter "11"
     DisposePage.dateOfDisposalYear enter "2013"
   }
-
 }
-

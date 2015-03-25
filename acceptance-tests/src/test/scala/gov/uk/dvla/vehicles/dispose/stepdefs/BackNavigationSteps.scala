@@ -10,11 +10,11 @@ class BackNavigationSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserD
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
-  def goToCompletAndConfirmPage() = {
+  def goToCompleteAndConfirmPage() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
     page.title shouldEqual  SetupTradeDetailsPage.title
-    SetupTradeDetailsPage.traderName enter "traer1"
+    SetupTradeDetailsPage.traderName enter "trader1"
     SetupTradeDetailsPage.traderPostcode enter "qq99qq"
     click on SetupTradeDetailsPage.lookup
     page.title shouldEqual BusinessChooseYourAddressPage.title
@@ -32,7 +32,7 @@ class BackNavigationSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserD
 
   @Given("^the user on complete and confirm page without any validation errors$")
   def the_user_on_complete_and_confirm_page_without_any_validation_errors() {
-    goToCompletAndConfirmPage()
+    goToCompleteAndConfirmPage()
   }
 
   @When("^the user clicks on back button on complete and confirm page$")
@@ -64,5 +64,4 @@ class BackNavigationSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserD
   def the_user_will_navigate_to_traderDetailsPage() {
     page.title shouldEqual  SetupTradeDetailsPage.title
   }
-
 }

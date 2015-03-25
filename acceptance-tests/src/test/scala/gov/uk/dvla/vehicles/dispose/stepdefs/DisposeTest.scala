@@ -1,7 +1,7 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
-import cucumber.api.junit.Cucumber
 import cucumber.api.CucumberOptions
+import cucumber.api.junit.Cucumber
 import org.junit.runner.RunWith
 
 @RunWith(classOf[Cucumber])
@@ -11,5 +11,4 @@ import org.junit.runner.RunWith
   tags = Array("@tag")
 )
 class DisposeTest {
-
 }
