@@ -180,4 +180,3 @@ final class DisposeSteps(webBrowserDriver:WebBrowserDriver) extends WebBrowserDS
       vehicleLookupFormModel()
   }
 }
-
