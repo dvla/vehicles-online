@@ -66,9 +66,8 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
             }, 1000);
         });
 
-        // Auto-tab for date format forms
-        $('.form-date input').one('focus', function() {
-
+        // Auto-tab for date format forms and document ref number input
+        $('.form-date input, #documentReferenceNumber').one('focus', function() {
             var nextInput, focusMaxLength, currentLength;
             // Getting next field
             nextInput = $(':input:eq(' + ($(':input').index(this) + 1) + ')');
