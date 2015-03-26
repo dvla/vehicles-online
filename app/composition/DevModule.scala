@@ -3,7 +3,6 @@ package composition
 import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
 import play.api.{Logger, LoggerLike}
-import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common
 import common.ConfigProperties.{getProperty, getOptionalProperty, stringProp, booleanProp}
 import common.clientsidesession.AesEncryption
@@ -19,6 +18,7 @@ import common.filters.AccessLoggingFilter.AccessLoggerName
 import common.filters.{AccessLoggingConfig, DefaultAccessLoggingConfig}
 import common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
 import common.services.DateService
+import common.services.DateServiceImpl
 import common.webserviceclients.addresslookup.gds.{AddressLookupServiceImpl, WebServiceImpl}
 import common.webserviceclients.addresslookup.{AddressLookupService, AddressLookupWebService}
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService

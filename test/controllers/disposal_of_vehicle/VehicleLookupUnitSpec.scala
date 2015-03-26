@@ -3,8 +3,7 @@ package controllers.disposal_of_vehicle
 import com.tzavellas.sse.guice.ScalaModule
 import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import controllers.{SurveyUrl, VehicleLookup}
-import helpers.common.CookieHelper
-import CookieHelper.fetchCookiesFromHeaders
+import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.{UnitSpec, WithApplication}
@@ -16,24 +15,29 @@ import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
-import org.mockito.Matchers._
+import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.{when, verify}
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
-import pages.disposal_of_vehicle._
-import play.api.http.Status._
+import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import pages.disposal_of_vehicle.DisposePage
+import pages.disposal_of_vehicle.DuplicateDisposalErrorPage
+import pages.disposal_of_vehicle.EnterAddressManuallyPage
+import pages.disposal_of_vehicle.MicroServiceErrorPage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import pages.disposal_of_vehicle.VehicleLookupFailurePage
+import pages.disposal_of_vehicle.VrmLockedPage
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.Future
-import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.{ClientSideSessionFactory, ClearTextClientSideSessionFactory}
 import common.mappings.DocumentReferenceNumber
-import common.model.BruteForcePreventionModel
-import BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.services.DateServiceImpl
 import common.webserviceclients.bruteforceprevention.{BruteForcePreventionConfig, BruteForcePreventionWebService}
 import common.webserviceclients.bruteforceprevention.{BruteForcePreventionServiceImpl, BruteForcePreventionService}
 import common.webserviceclients.healthstats.HealthStats
