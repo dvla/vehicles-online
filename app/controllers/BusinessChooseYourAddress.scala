@@ -10,11 +10,11 @@ import common.clientsidesession.{ClientSideSession, ClientSideSessionFactory}
 import common.model.{AddressModel, TraderDetailsModel}
 import common.views.helpers.FormExtensions.formBinding
 import common.webserviceclients.addresslookup.AddressLookupService
-import models.BusinessChooseYourAddressFormModel
+import models.{BusinessChooseYourAddressViewModel, BusinessChooseYourAddressFormModel}
 import play.api.Logger
 import play.api.data.{Form, FormError}
 import play.api.i18n.Lang
-import play.api.mvc.{Action, Controller, Request, Result}
+import play.api.mvc._
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.business_choose_your_address
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -23,24 +23,38 @@ import scala.concurrent.Future
 import models.DisposeCacheKeyPrefix.CookiePrefix
 
 class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupService)
-                                               (implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                                config: Config) extends Controller {
+                                         (implicit clientSideSessionFactory: ClientSideSessionFactory,
+                                          config: Config) extends Controller {
 
   private[controllers] val form = Form(BusinessChooseYourAddressFormModel.Form.Mapping)
+  protected val submitCall = routes.BusinessChooseYourAddress.submit
+  protected val manualAddressEntryCall = routes.EnterAddressManually.present
+  protected val backCall = routes.SetUpTradeDetails.present
 
   def present = Action.async { implicit request =>
     request.cookies.getModel[SetupTradeDetailsFormModel] match {
       case Some(setupTradeDetailsModel) =>
         val session = clientSideSessionFactory.getSession(request.cookies)
         fetchAddresses(setupTradeDetailsModel, showBusinessName = Some(true))(session, request2lang).map { addresses =>
-          if (config.ordnanceSurveyUseUprn) Ok(views.html.disposal_of_vehicle.business_choose_your_address(form.fill(),
-            setupTradeDetailsModel.traderBusinessName,
-            setupTradeDetailsModel.traderPostcode,
-            addresses))
-          else Ok(views.html.disposal_of_vehicle.business_choose_your_address(form.fill(),
-            setupTradeDetailsModel.traderBusinessName,
-            setupTradeDetailsModel.traderPostcode,
-            index(addresses)))
+          if (config.ordnanceSurveyUseUprn)
+            Ok(views.html.disposal_of_vehicle.business_choose_your_address(
+              BusinessChooseYourAddressViewModel(
+                form.fill(),
+                setupTradeDetailsModel.traderBusinessName,
+                setupTradeDetailsModel.traderPostcode,
+                addresses,
+                submitCall, manualAddressEntryCall, backCall
+              )
+            ))
+          else Ok(views.html.disposal_of_vehicle.business_choose_your_address(
+            BusinessChooseYourAddressViewModel(
+              form.fill(),
+              setupTradeDetailsModel.traderBusinessName,
+              setupTradeDetailsModel.traderPostcode,
+              index(addresses),
+              submitCall, manualAddressEntryCall, backCall
+            )
+          ))
         }
       case None => Future.successful {
         Redirect(routes.SetUpTradeDetails.present())
@@ -56,15 +70,25 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
             fetchAddresses(setupTradeDetails, showBusinessName = Some(true)).map { addresses =>
               if (config.ordnanceSurveyUseUprn)
-                BadRequest(business_choose_your_address(formWithReplacedErrors(invalidForm),
-                  setupTradeDetails.traderBusinessName,
-                  setupTradeDetails.traderPostcode,
-                  addresses))
+                BadRequest(business_choose_your_address(
+                  BusinessChooseYourAddressViewModel(
+                    formWithReplacedErrors(invalidForm),
+                    setupTradeDetails.traderBusinessName,
+                    setupTradeDetails.traderPostcode,
+                    addresses,
+                    submitCall, manualAddressEntryCall, backCall
+                  )
+                ))
               else
-                BadRequest(business_choose_your_address(formWithReplacedErrors(invalidForm),
-                  setupTradeDetails.traderBusinessName,
-                  setupTradeDetails.traderPostcode,
-                  index(addresses)))
+                BadRequest(business_choose_your_address(
+                  BusinessChooseYourAddressViewModel(
+                    formWithReplacedErrors(invalidForm),
+                    setupTradeDetails.traderBusinessName,
+                    setupTradeDetails.traderPostcode,
+                    index(addresses),
+                    submitCall, manualAddressEntryCall, backCall
+                  )
+                ))
             }
           case None => Future.successful {
             Logger.error(s"Failed to find dealer details, redirecting - trackingId: ${request.cookies.trackingId()}")

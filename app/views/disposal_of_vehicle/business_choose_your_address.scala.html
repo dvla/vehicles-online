@@ -1,9 +1,6 @@
-@(businessChooseYourAddressForm: Form[models.BusinessChooseYourAddressFormModel],
-        traderBusinessName: String,
-        traderPostcode: String,
-        dropDownOptions: Seq[(String, String)])(implicit lang: Lang,
-        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
-        config: utils.helpers.Config)
+@(viewModel: BusinessChooseYourAddressViewModel)(implicit lang: Lang,
+          token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+          config: utils.helpers.Config)
 
 @import controllers.routes.BusinessChooseYourAddress
 @import uk.gov.dvla.vehicles.presentation.common
@@ -18,29 +15,29 @@
 @main(
     progress = Some(Messages("disposal_progress_3")),
     title = Messages("disposal_businessChooseYourAddress_title"),
-    currentForm = Some(businessChooseYourAddressForm)
+    currentForm = Some(viewModel.businessChooseYourAddressForm)
 ) {
 
     <h1>@Messages("disposal_businessChooseYourAddress_title")</h1>
 
-    @form(action = BusinessChooseYourAddress.submit()) {
+    @form(action = viewModel.submit) {
         @csrfTokenHiddenField()
 
         <dl class="playback">
             <dt>@Messages("disposal_businessChooseYourAddress_businessName_label")</dt>
-            <dd>@Messages("disposal_businessChooseYourAddress_businessName", traderBusinessName)</dd>
+            <dd>@Messages("disposal_businessChooseYourAddress_businessName", viewModel.traderBusinessName)</dd>
             <dt>@Messages("disposal_businessChooseYourAddress_postcode_label")</dt>
-            <dd>@traderPostcode</dd>
+            <dd>@viewModel.traderPostcode</dd>
         </dl>
 
         <br/>
 
-        @if(dropDownOptions.isEmpty) {
+        @if(viewModel.dropDownOptions.isEmpty) {
         <h2>@Messages("disposal_businessChooseYourAddress_noaddressesfound.h2.1")</h2>
         <h2>@Messages("disposal_businessChooseYourAddress_noaddressesfound.h2.2")</h2>
         } else {
-            @valtechSelect(businessChooseYourAddressForm(AddressSelectId),
-                options = dropDownOptions.toSeq,
+            @valtechSelect(viewModel.businessChooseYourAddressForm(AddressSelectId),
+                options = viewModel.dropDownOptions.toSeq,
                 args = Map(
                     '_label -> Messages("disposal_businessChooseYourAddress_addressSelect_label"),
                     'autofocus -> true
@@ -48,18 +45,18 @@
             )
         }
 
-        @if(dropDownOptions.nonEmpty) {
-            <a id="@EnterAddressManuallyButtonId" href="@controllers.routes.EnterAddressManually.present()">@Messages("disposal_businessChooseYourAddress.manualAddressEntry")</a>
+        @if(viewModel.dropDownOptions.nonEmpty) {
+            <a id="@EnterAddressManuallyButtonId" href="@viewModel.manualAddressEntry">@Messages("disposal_businessChooseYourAddress.manualAddressEntry")</a>
         }
         <div class="form-steps">
-            @if(dropDownOptions.isEmpty) {
-                <a id="@EnterAddressManuallyButtonId" class="button" href="@controllers.routes.EnterAddressManually.present()">@Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")</a>
+            @if(viewModel.dropDownOptions.isEmpty) {
+                <a id="@EnterAddressManuallyButtonId" class="button" href="@viewModel.manualAddressEntry">@Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")</a>
             }
-            @if(dropDownOptions.nonEmpty) {
+            @if(viewModel.dropDownOptions.nonEmpty) {
                 <button id="@SelectId" type="submit" name="action" class="button">@Messages("disposal_businessChooseYourAddress.submitbutton")</button>
             }
             <br/>
-            <a class="back" id="@BackId" href="@controllers.routes.SetUpTradeDetails.present()">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
+            <a class="back" id="@BackId" href="@viewModel.back">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
         </div>
     }
 }

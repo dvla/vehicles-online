@@ -25,12 +25,15 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class Dispose @Inject()(webService: DisposeService, dateService: DateService)
-                             (implicit clientSideSessionFactory: ClientSideSessionFactory,
-                              config: Config) extends Controller {
+                       (implicit clientSideSessionFactory: ClientSideSessionFactory,
+                        config: Config) extends Controller {
 
   private[controllers] val form = Form(
     DisposeFormModel.Form.mapping(dateService)
   )
+
+  protected val submitCall = controllers.routes.Dispose.submit()
+  protected val backCall = controllers.routes.VehicleLookup.present()
 
   def present = Action { implicit request =>
     (request.cookies.getModel[TraderDetailsModel], request.cookies.getString(PreventGoingToDisposePageCacheKey)) match {
@@ -109,7 +112,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       vehicleMake = vehicleDetails.make,
       vehicleModel = vehicleDetails.model,
       dealerName = traderDetails.traderName,
-      dealerAddress = traderDetails.traderAddress.address)
+      dealerAddress = traderDetails.traderAddress.address
+    )
 
   private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormModel, trackingId: String)
                            (implicit request: Request[AnyContent]): Future[Result] = {
