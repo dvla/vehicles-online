@@ -1,6 +1,8 @@
 @(data: models.DisposeViewModel,
         disposeForm: Form[models.DisposeFormModel],
-        dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService)(implicit lang: Lang,
+        dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService,
+        submitCall: Call,
+        backCall: Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -30,7 +32,7 @@
 ) {
     <h1>@Messages("disposal_dispose.title")</h1>
     
-    @form(action = controllers.routes.Dispose.submit()) {
+    @form(action = submitCall) {
         @csrfTokenHiddenField()
         
         <script src="@controllers.StaticAssets.versioned(config.assetsUrl)("lib/vehicles-presentation-common/javascripts/autofill-todays-date.js")" type="text/javascript"></script>
@@ -101,7 +103,7 @@
                 <div class="form-steps">
                     <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_dispose.submitbutton")</button>
                     <br/>
-                    <a class="back" id="@BackId" href="@controllers.routes.VehicleLookup.present()">@Messages("disposal_dispose.backbutton")</a>
+                    <a class="back" id="@BackId" href="@backCall">@Messages("disposal_dispose.backbutton")</a>
 
                     <div class="two-col-spacer">
                     </div>

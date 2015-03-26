@@ -18,9 +18,9 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import utils.helpers.Config
 
 class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                     config: Config,
-                                     surveyUrl: SurveyUrl,
-                                     dateService: DateService) extends Controller {
+                               config: Config,
+                               surveyUrl: SurveyUrl,
+                               dateService: DateService) extends Controller {
 
   def present = Action { implicit request => doPresent(isPrivateKeeper = false) }
 

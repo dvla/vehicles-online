@@ -1,5 +1,7 @@
 package models
 
+import play.api.mvc.Call
+
 final case class DisposeViewModel(vehicleMake: Option[String],
                                   vehicleModel: Option[String],
                                   dealerName: String,

@@ -41,7 +41,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
         request.cookies.getModel[VehicleAndKeeperDetailsModel] match {
           case (Some(vehicleDetails)) =>
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-            Ok(dispose(disposeViewModel, form.fill(), dateService))
+            Ok(dispose(disposeViewModel, form.fill(), dateService, submitCall, backCall))
           case _ => Redirect(routes.VehicleLookup.present())
         }
       case (_, Some(interstitial)) =>
@@ -60,7 +60,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
         (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleAndKeeperDetailsModel]) match {
           case (Some(traderDetails), Some(vehicleDetails)) =>
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-            BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService))
+            BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService, submitCall, backCall))
           case _ =>
             Logger.debug(s"Could not find expected data in cache on dispose submit - now redirecting... " +
               s"- trackingId: ${request.cookies.trackingId()}")
