@@ -1,5 +1,7 @@
 @(data: models.VehicleLookupFormModel,
-        responseCodeVehicleLookupMSErrorMessage: String)(implicit lang: Lang,
+        responseCodeVehicleLookupMSErrorMessage: String,
+        tryAgainTarget: play.api.mvc.Call,
+        exitTarget: play.api.mvc.Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -18,8 +20,11 @@
 
     @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
     <div class="form-steps">
-        @{ /* Note the reverse routing syntax for the hyperlink */ }
-        <a class="button" id="@VehicleLookupId" href="@controllers.routes.VehicleLookup.present()">@Messages("disposal_vehiclelookupfailure.button")</a>
-        <a class="button-secondary" id="@BeforeYouStartId" href="@controllers.routes.BeforeYouStart.present()">@Messages("disposal_vehiclelookupfailure.button2")</a>
+        <a class="button" id="@VehicleLookupId" href="@tryAgainTarget">
+            @Messages("disposal_vehiclelookupfailure.button")
+        </a>
+        <a class="button-secondary" id="@BeforeYouStartId" href="@exitTarget">
+            @Messages("disposal_vehiclelookupfailure.button2")
+        </a>
     </div>
 }
