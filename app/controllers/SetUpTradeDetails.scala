@@ -21,6 +21,7 @@ import utils.helpers.Config
 class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                     config: Config) extends SetUpTradeDetailsBase {
 
+  protected val submitTarget = controllers.routes.SetUpTradeDetails.submit()
   protected val onSuccess = Redirect(routes.BusinessChooseYourAddress.present())
 
   override val form = Form(
@@ -32,12 +33,12 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
   )
 
   override def presentResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result =
-    Ok(views.html.disposal_of_vehicle.setup_trade_details(model)).
+    Ok(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget)).
       withNewSession.
       discardingCookies(AllCacheKeys)
 
   override def invalidFormResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result =
-    BadRequest(views.html.disposal_of_vehicle.setup_trade_details(model))
+    BadRequest(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget))
 
   override def success(implicit request: Request[_]): Result =
     onSuccess

@@ -1,10 +1,10 @@
-@(traderLookupForm: Form[uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel]
-        )(implicit lang: Lang,
-        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
-        config: utils.helpers.Config
-        )
+@(traderLookupForm: Form[uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel],
+  submitTarget: play.api.mvc.Call
+ )(implicit lang: Lang,
+   token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+   config: utils.helpers.Config
+ )
 
-@import controllers.routes.SetUpTradeDetails;
 @import views.disposal_of_vehicle.SetupTradeDetails.SubmitId
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
@@ -24,7 +24,7 @@
 ) {
     <h1>@Messages("disposal_setuptradedetails.title")</h1>
      
-    @form(action = SetUpTradeDetails.submit) {
+    @form(action = submitTarget) {
         @csrfTokenHiddenField()
 
         <div class="uppercase-input">
@@ -44,7 +44,9 @@
                     'maxLength -> Postcode.MaxLength))
 
             <div class="form-steps">
-                <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_setuptradedetails.button")</button>
+                <button id="@SubmitId" type="submit" name="action" class="button">
+                    @Messages("disposal_setuptradedetails.button")
+                </button>
             </div>
         </div>
     }
