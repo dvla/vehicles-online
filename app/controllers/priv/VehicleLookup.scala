@@ -1,7 +1,7 @@
 package controllers.priv
 
 import com.google.inject.Inject
-import controllers.{routes, SurveyUrl}
+import controllers.SurveyUrl
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.BruteForcePreventionService
