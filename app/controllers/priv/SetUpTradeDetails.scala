@@ -7,5 +7,6 @@ import utils.helpers.Config
 
 class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                     config: Config) extends controllers.SetUpTradeDetails {
+
   protected override val onSuccess = Redirect(routes.BusinessChooseYourAddress.present())
 }

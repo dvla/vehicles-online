@@ -10,6 +10,7 @@ import utils.helpers.Config
 class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupService)
                                          (implicit clientSideSessionFactory: ClientSideSessionFactory,
                                           config: Config) extends controllers.BusinessChooseYourAddress(addressLookupService) {
+
   protected override val submitCall = routes.BusinessChooseYourAddress.submit
   protected override val manualAddressEntryCall = routes.EnterAddressManually.present
   protected override val backCall = routes.SetUpTradeDetails.present
