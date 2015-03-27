@@ -1,5 +1,7 @@
 @(transactionId: Option[String],
-  formModel: models.DisposeFormModel)(implicit lang: Lang,
+  formModel: models.DisposeFormModel,
+  sellNewVehicleCall: Call,
+  exitCall: Call)(implicit lang: Lang,
   token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
   config: utils.helpers.Config)
 
@@ -24,7 +26,7 @@
             /* Note the reverse routing syntax for the hyperlink */
         }
         <button id="printDisposalSuccess" type="button" name="action" value="printDisposalSuccess" class="button js-only print-button" autofocus="true">@Messages("global.buttonnavprint")</button>
-        <a class="button-secondary" id="@VehicleLookupId" href="@controllers.routes.VehicleLookup.present()">@Messages("disposal_disposefailure.button")</a>
-        <a class="button-secondary" id="@SetupTradeDetailsId" href="@controllers.routes.SetUpTradeDetails.present()">@Messages("disposal_disposefailure.button2")</a>
+        <a class="button-secondary" id="@VehicleLookupId" href="@sellNewVehicleCall">@Messages("disposal_disposefailure.button")</a>
+        <a class="button-secondary" id="@SetupTradeDetailsId" href="@exitCall">@Messages("disposal_disposefailure.button2")</a>
     </div>
 }

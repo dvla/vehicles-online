@@ -13,19 +13,30 @@ import utils.helpers.Config
 
 class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                        config: Config) extends Controller {
+  protected val sellNewVehicleCall = controllers.routes.VehicleLookup.present()
+  protected val exitCall = controllers.routes.SetUpTradeDetails.present()
+  protected val onMissingCookies = Redirect(routes.SetUpTradeDetails.present())
 
   def present = Action { implicit request =>
-    (request.cookies.getModel[TraderDetailsModel],
-     request.cookies.getModel[DisposeFormModel],
-     request.cookies.getModel[VehicleAndKeeperDetailsModel],
-     request.cookies.getString(DisposeFormTransactionIdCacheKey)) match {
-      case (Some(dealerDetails), Some(disposeFormModel), Some(vehicleDetails), Some(transactionId)) =>
-        val disposeViewModel = createViewModel(dealerDetails, vehicleDetails, Some(transactionId))
-        Ok(views.html.disposal_of_vehicle.dispose_failure(disposeViewModel.transactionId, disposeFormModel))
-      case _ =>
-        Logger.debug(s"Could not find all expected data in cache on dispose failure present, " +
-          s"redirecting - trackingId: ${request.cookies.trackingId()}")
-        Redirect(routes.SetUpTradeDetails.present())
+    val result = for {
+      dealerDetails <- request.cookies.getModel[TraderDetailsModel]
+      disposeFormModel <- request.cookies.getModel[DisposeFormModel]
+      vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
+      transactionId <- request.cookies.getString(DisposeFormTransactionIdCacheKey)
+    } yield {
+      val disposeViewModel = createViewModel(dealerDetails, vehicleDetails, Some(transactionId))
+      Ok(views.html.disposal_of_vehicle.dispose_failure(
+        disposeViewModel.transactionId,
+        disposeFormModel,
+        sellNewVehicleCall,
+        exitCall
+      ))
+    }
+
+    result getOrElse {
+      Logger.debug(s"Could not find all expected data in cache on dispose failure present, " +
+        s"redirecting - trackingId: ${request.cookies.trackingId()}")
+      onMissingCookies
     }
   }
 
