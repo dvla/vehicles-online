@@ -32,15 +32,15 @@
             </dl>
             <div class="img-wrap img-wrap-desktop">
                 <h2>@Messages("disposal_vehiclelookup.img.h2")</h2>
-                <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")" alt="@Messages("disposal_vehiclelookup.img.alt")" />
+                <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")"
+                     alt="@Messages("disposal_vehiclelookup.img.alt")" />
             </div>
         </div>
         <div id="trader-details" class="second-col uppercase-input">
             <div class="form-steps">
                 <div class="step uppercase-input">
-                    @form(action = controllers.routes.VehicleLookup.submit()) {
+                    @form(action = viewModel.submit) {
                         @csrfTokenHiddenField()
-
 
                         @valtechInputText(viewModel.form(VehicleRegistrationNumberId), args =
                         Map('_label -> Messages("disposal_vehiclelookup.vrninputlabel"),
@@ -60,20 +60,25 @@
 
                         <div class="img-wrap img-wrap-mobile">
                             <h2>@Messages("disposal_vehiclelookup.img.h2")</h2>
-                            <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")" alt="@Messages("disposal_vehiclelookup.img.alt")" />
+                            <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")"
+                                 alt="@Messages("disposal_vehiclelookup.img.alt")" />
                         </div>
 
                         <div class="form-step">
-                            <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_vehiclelookup.button")</button>
+                            <button id="@SubmitId" type="submit" name="action" class="button">
+                                @Messages("disposal_vehiclelookup.button")
+                            </button>
                             <br/>
-                            <a class="back" id="@BackId" href="@controllers.routes.VehicleLookup.back()">@Messages("disposal_vehiclelookup.backbutton")</a>
+                            <a class="back" id="@BackId" href="@controllers.routes.VehicleLookup.back()">
+                                @Messages("disposal_vehiclelookup.backbutton")
+                            </a>
 
                             @if(viewModel.displayExitButton) {
                                 @viewModel.surveyUrl match {
                                     case Some(url) => {
                                         <br/>
                                         <a id="@ExitId"
-                                           href="@controllers.routes.VehicleLookup.exit()"
+                                           href="@viewModel.exit"
                                            onclick="window.open('@url', '_blank');"
                                            class="exit">@Messages("disposal_vehiclelookup.exitbutton")
                                         </a>
@@ -81,7 +86,7 @@
                                     case None => {
                                         <br/>
                                         <a id="@ExitId"
-                                           href="@controllers.routes.VehicleLookup.exit()"
+                                           href="@viewModel.exit"
                                            class="exit">@Messages("disposal_vehiclelookup.exitbutton")
                                         </a>
                                     }

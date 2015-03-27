@@ -5,8 +5,8 @@ import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
-import play.api.mvc.{Action, Request, Result}
 import play.api.data.{Form, FormError}
+import play.api.mvc.{Action, Request, Result}
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
@@ -30,17 +30,27 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   override val form = Form(VehicleLookupFormModel.Form.Mapping)
   override val responseCodeCacheKey: String = VehicleLookupResponseCodeCacheKey
 
+  protected val submitTarget = controllers.routes.VehicleLookup.submit()
+  protected val exitTarget = controllers.routes.VehicleLookup.exit()
+  protected val onVrmLocked = Redirect(routes.VrmLocked.present())
+  protected val onMicroServiceError = Redirect(routes.MicroServiceError.present())
+  protected val onVehicleLookupFailure = Redirect(routes.VehicleLookupFailure.present())
+  protected val missingTradeDetails = Redirect(routes.SetUpTradeDetails.present())
+  protected val enterAddressManually = Redirect(routes.EnterAddressManually.present())
+  protected val businessChooseYourAddress = Redirect(routes.BusinessChooseYourAddress.present())
+  protected val suppressedV5C = Redirect(routes.SuppressedV5C.present())
+  protected val duplicateDisposalError = Redirect(routes.DuplicateDisposalError.present())
+  protected val dispose = Redirect(routes.Dispose.present())
+  protected val onExit = Redirect(config.endUrl)
+
   override def vrmLocked(bruteForcePreventionModel: BruteForcePreventionModel, formModel: VehicleLookupFormModel)
-                        (implicit request: Request[_]): Result =
-    Redirect(routes.VrmLocked.present())
+                        (implicit request: Request[_]): Result = onVrmLocked
 
   override def microServiceError(t: Throwable, formModel: VehicleLookupFormModel)
-                                (implicit request: Request[_]): Result =
-    Redirect(routes.MicroServiceError.present())
+                                (implicit request: Request[_]): Result = onMicroServiceError
 
   override def vehicleLookupFailure(responseCode: String, formModel: VehicleLookupFormModel)
-                                   (implicit request: Request[_]): Result =
-    Redirect(routes.VehicleLookupFailure.present())
+                                   (implicit request: Request[_]): Result = onVehicleLookupFailure
 
   override def presentResult(implicit request: Request[_]) = {
     request.cookies.getModel[TraderDetailsModel] match {
@@ -51,9 +61,11 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
           shouldDisplayExitButton(request, clientSideSessionFactory),
           surveyUrl(request),
           traderDetails.traderName,
-          traderDetails.traderAddress.address
+          traderDetails.traderAddress.address,
+          submitTarget,
+          exitTarget
         )))
-      case None => Redirect(routes.SetUpTradeDetails.present())
+      case None => missingTradeDetails
     }
   }
 
@@ -67,10 +79,12 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
             shouldDisplayExitButton(request, clientSideSessionFactory),
             surveyUrl(request),
             traderDetails.traderName,
-            traderDetails.traderAddress.address
+            traderDetails.traderAddress.address,
+            submitTarget,
+            exitTarget
           ))
         )
-      case None => Redirect(routes.SetUpTradeDetails.present())
+      case None => missingTradeDetails
     }
   }
 
@@ -82,25 +96,24 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
     val disposed = model.keeperEndDate.isDefined
 
     (disposed, suppressed) match {
-      case (_, true) => Redirect(routes.SuppressedV5C.present()).withCookie(model)
-      case (true, false) => Redirect(routes.DuplicateDisposalError.present())
-      case (false, _) => Redirect(routes.Dispose.present()).
+      case (_, true) => suppressedV5C.withCookie(model)
+      case (true, false) => duplicateDisposalError
+      case (false, _) => dispose.
         withCookie(VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)).
         discardingCookie(PreventGoingToDisposePageCacheKey)
     }
   }
 
   def exit = Action { implicit request =>
-    Redirect(config.endUrl)
+    onExit
       .discardingCookies(AllCacheKeys)
       .withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)
   }
 
   def back = Action { implicit request =>
     request.cookies.getModel[EnterAddressManuallyFormModel] match {
-      case Some(manualAddress) =>
-        Redirect(routes.EnterAddressManually.present())
-      case None => Redirect(routes.BusinessChooseYourAddress.present())
+      case Some(manualAddress) => enterAddressManually
+      case None => businessChooseYourAddress
     }
   }
 
