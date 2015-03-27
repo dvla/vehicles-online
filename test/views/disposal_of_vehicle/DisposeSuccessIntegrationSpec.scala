@@ -145,14 +145,6 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       page.title should equal(DisposeSuccessPage.title)
       page.source should include(s"""id="$NewDisposalId"""")
     }
-
-    "not be present when the disposal is done by a private keeper instead of the trade" taggedAs UiTag in new WebBrowser {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to DisposeSuccessForPrivateKeeperPage
-      page.title should equal(DisposeSuccessForPrivateKeeperPage.title)
-      page.source should not include(s"""id="$NewDisposalId"""")
-    }
   }
 
   "exit button" should {

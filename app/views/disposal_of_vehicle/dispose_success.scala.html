@@ -2,7 +2,9 @@
     formModel: models.DisposeFormModel,
     disposeDateTime: org.joda.time.DateTime,
     surveyUrl: Option[String],
-    isPrivateKeeper: Boolean
+    isPrivateKeeper: Boolean,
+    newDisposeFormTarget: Call,
+    exitDisposeFormTarget: Call
     )(implicit lang: Lang,
     token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
     config: utils.helpers.Config)
@@ -96,7 +98,7 @@ title = Messages("disposal_disposeconfirmation.title")
             @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
             @if(!isPrivateKeeper) {
                 <div class="step">
-                @form(action = controllers.routes.DisposeSuccess.newDisposal()) {
+                @form(action = newDisposeFormTarget) {
                     @csrfTokenHiddenField()
                     <button id="@NewDisposalId"
                             type="submit"
@@ -108,7 +110,7 @@ title = Messages("disposal_disposeconfirmation.title")
                 </div>
             }
             <div class="step">
-                @form(action = controllers.routes.DisposeSuccess.exit()) {
+                @form(action = exitDisposeFormTarget) {
                     @csrfTokenHiddenField()
                     @surveyUrl match {
                       case Some(url) => {
