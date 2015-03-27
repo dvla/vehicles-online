@@ -32,8 +32,16 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
     DisposeFormModel.Form.mapping(dateService)
   )
 
-  protected val submitCall = controllers.routes.Dispose.submit()
-  protected val backCall = controllers.routes.VehicleLookup.present()
+  protected val formTarget = controllers.routes.Dispose.submit()
+  protected val backLink = controllers.routes.VehicleLookup.present()
+  protected val vehicleDetailsMissing = Redirect(routes.VehicleLookup.present())
+  protected val onVehicleAlreadyDisposed = Redirect(routes.VehicleLookup.present())
+  protected val onTraderDetailsMissing = Redirect(routes.SetUpTradeDetails.present())
+  protected val microserviceErrorCall = routes.MicroServiceError.present()
+  protected val onMicroserviceError = Redirect(microserviceErrorCall)
+  protected val onDisposeFailure = routes.DisposeFailure.present()
+  protected val onDuplicateDispose = routes.DuplicateDisposalError.present()
+  protected val onDisposeSuccess = routes.DisposeSuccess.present()
 
   def present = Action { implicit request =>
     (request.cookies.getModel[TraderDetailsModel], request.cookies.getString(PreventGoingToDisposePageCacheKey)) match {
@@ -41,37 +49,39 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
         request.cookies.getModel[VehicleAndKeeperDetailsModel] match {
           case (Some(vehicleDetails)) =>
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-            Ok(dispose(disposeViewModel, form.fill(), dateService, submitCall, backCall))
-          case _ => Redirect(routes.VehicleLookup.present())
+            Ok(dispose(disposeViewModel, form.fill(), dateService, formTarget, backLink))
+          case _ => vehicleDetailsMissing
         }
       case (_, Some(interstitial)) =>
         // US320 Kick them back to the VehicleLookup page if they arrive here by any route other that clicking the
         // "Exit" or "New Dispose" buttons.
-        Redirect(routes.VehicleLookup.present()).
+        onVehicleAlreadyDisposed.
           discardingCookie(PreventGoingToDisposePageCacheKey).
         discardingCookies(DisposeCacheKeys)
-      case _ => Redirect(routes.SetUpTradeDetails.present())
+      case _ => onTraderDetailsMissing
     }
   }
 
   def submit = Action.async { implicit request =>
     form.bindFromRequest.fold(
       invalidForm => Future.successful {
-        (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleAndKeeperDetailsModel]) match {
-          case (Some(traderDetails), Some(vehicleDetails)) =>
-            val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-            BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService, submitCall, backCall))
-          case _ =>
-            Logger.debug(s"Could not find expected data in cache on dispose submit - now redirecting... " +
-              s"- trackingId: ${request.cookies.trackingId()}")
-            Redirect(routes.SetUpTradeDetails.present())
+        val result = for {
+          traderDetails <- request.cookies.getModel[TraderDetailsModel]
+          vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
+        } yield {
+          val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
+          BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService, formTarget, backLink))
+        }
+
+        result getOrElse {
+          Logger.debug(s"Could not find expected data in cache on dispose submit - now redirecting... " +
+            s"- trackingId: ${request.cookies.trackingId()}")
+          Redirect(routes.SetUpTradeDetails.present())
         }
       },
       validForm => {
         request.cookies.getString(PreventGoingToDisposePageCacheKey) match {
-          case Some(_) => Future.successful {
-            Redirect(routes.VehicleLookup.present())
-          } // US320 prevent user using the browser back button and resubmitting.
+          case Some(_) => Future.successful(onVehicleAlreadyDisposed) // US320 prevent user using the browser back button and resubmitting.
           case None =>
             val trackingId = request.cookies.trackingId()
             disposeAction(webService, validForm, trackingId)
@@ -138,7 +148,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       }.recover {
         case e: Throwable =>
           Logger.warn(s"Dispose micro-service call failed. - trackingId: ${request.cookies.trackingId()}", e)
-          Redirect(routes.MicroServiceError.present())
+          onMicroserviceError
       }
     }
 
@@ -185,22 +195,22 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       disposeResponseCode match {
         case "ms.vehiclesService.response.unableToProcessApplication" =>
           Logger.warn(s"Dispose soap endpoint redirecting to dispose " +
-            s"failure page - trackingId: ${request.cookies.trackingId()}")
-          routes.DisposeFailure.present()
+          s"failure page - trackingId: ${request.cookies.trackingId()}")
+          onDisposeFailure
         case "ms.vehiclesService.response.duplicateDisposalToTrade" =>
           Logger.warn(s"Dispose soap endpoint redirecting to duplicate disposal page" +
             " - trackingId: ${request.cookies.trackingId()}")
-          routes.DuplicateDisposalError.present()
+          onDuplicateDispose
         case _ =>
           Logger.warn(s"Dispose micro-service failed so now redirecting to micro service error page. " +
             s"Code returned from ms was $disposeResponseCode  - trackingId: ${request.cookies.trackingId()}")
-          routes.MicroServiceError.present()
+          microserviceErrorCall
       }
 
     def handleHttpStatusCode(statusCode: Int): Call =
       statusCode match {
-        case OK => routes.DisposeSuccess.present()
-        case _ => routes.MicroServiceError.present()
+        case OK => onDisposeSuccess
+        case _ => microserviceErrorCall
       }
 
     (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleLookupFormModel]) match {
@@ -209,7 +219,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       case _ => Future {
         Logger.error(s"Could not find either dealer details or VehicleLookupFormModel " +
           s"in cache on Dispose submit  - trackingId: ${request.cookies.trackingId()}")
-        Redirect(routes.SetUpTradeDetails.present())
+        onTraderDetailsMissing
       }
     }
   }

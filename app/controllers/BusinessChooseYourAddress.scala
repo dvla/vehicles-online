@@ -27,9 +27,14 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                                           config: Config) extends Controller {
 
   private[controllers] val form = Form(BusinessChooseYourAddressFormModel.Form.Mapping)
+
   protected val submitCall = routes.BusinessChooseYourAddress.submit
   protected val manualAddressEntryCall = routes.EnterAddressManually.present
   protected val backCall = routes.SetUpTradeDetails.present
+  protected val redirectBack = Redirect(backCall)
+  protected val uprnNotFoundResult = Redirect(routes.UprnNotFound.present())
+  protected val successResult = Redirect(routes.VehicleLookup.present())
+  protected val onMissingTraderDetails = Redirect(routes.SetUpTradeDetails.present())
 
   def present = Action.async { implicit request =>
     request.cookies.getModel[SetupTradeDetailsFormModel] match {
@@ -56,9 +61,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
             )
           ))
         }
-      case None => Future.successful {
-        Redirect(routes.SetUpTradeDetails.present())
-      }
+      case None => Future.successful {redirectBack}
     }
   }
 
@@ -92,7 +95,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
             }
           case None => Future.successful {
             Logger.error(s"Failed to find dealer details, redirecting - trackingId: ${request.cookies.trackingId()}")
-            Redirect(routes.SetUpTradeDetails.present())
+            redirectBack
           }
         },
       validForm =>
@@ -105,7 +108,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
               lookupAddressByPostcodeThenIndex(validForm, setupTradeDetailsModel)
           case None => Future {
             Logger.error(s"Failed to find dealer details, redirecting - trackingId: ${request.cookies.trackingId()}")
-            Redirect(routes.SetUpTradeDetails.present())
+            onMissingTraderDetails
           }
         }
     )
@@ -130,7 +133,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     val lookedUpAddress = addressLookupService.fetchAddressForUprn(model.uprnSelected.toString, session.trackingId)
     lookedUpAddress.map {
       case Some(addressModel) => nextPage(model, traderName, addressModel)
-      case None => Redirect(routes.UprnNotFound.present())
+      case None => uprnNotFoundResult
     }
   }
 
@@ -148,7 +151,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
       }
       else {
         // Guard against IndexOutOfBoundsException
-        Redirect(routes.UprnNotFound.present())
+        uprnNotFoundResult
       }
     }
   }
@@ -159,7 +162,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     /* The redirect is done as the final step within the map so that:
      1) we are not blocking threads
      2) the browser does not change page before the future has completed and written to the cache. */
-    Redirect(routes.VehicleLookup.present()).
+    successResult.
       discardingCookie(EnterAddressManuallyCacheKey).
       withCookie(model).
       withCookie(traderDetailsModel)

@@ -13,4 +13,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
   protected override val submitCall = routes.BusinessChooseYourAddress.submit
   protected override val manualAddressEntryCall = routes.EnterAddressManually.present
   protected override val backCall = routes.SetUpTradeDetails.present
+  protected override val redirectBack = Redirect(backCall)
+  protected override val uprnNotFoundResult = Redirect(routes.UprnNotFound.present())
+  protected override val successResult = Redirect(routes.VehicleLookup.present())
 }
