@@ -139,7 +139,7 @@ SandboxSettings.loadTests := (test in Gatling in gatlingTestsProject).value
 
 SandboxSettings.acceptanceTests := (test in Test in acceptanceTestsProject).value
 
-SandboxSettings.bruteForceEnabled:= true
+SandboxSettings.bruteForceEnabled := true
 
 Sandbox.sandboxTask
 

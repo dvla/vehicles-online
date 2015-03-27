@@ -11,9 +11,9 @@ import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout}
-import services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
 import utils.helpers.Config
 import models.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import webserviceclients.fakes.FakeDateServiceImpl
