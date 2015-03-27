@@ -44,7 +44,6 @@ GET         /complete-and-confirm                          @controllers.Dispose.
 POST        /complete-and-confirm                          @controllers.Dispose.submit
 
 GET         /sell-to-the-trade-success                     @controllers.DisposeSuccess.present
-GET         /sell-to-the-trade-private-keeper-success      @controllers.DisposeSuccess.presentPrivateKeeper
 POST        /sell-to-the-trade-success/new-disposal        @controllers.DisposeSuccess.newDisposal
 POST        /sell-to-the-trade-success/exit                @controllers.DisposeSuccess.exit
 
@@ -88,3 +87,9 @@ GET         /healthcheck/debug                             @uk.gov.dvla.vehicles
 GET         /version                                       @controllers.Version.version
 
 GET         /cookie-policy                                 @controllers.CookiePolicyController.present
+
+
+
+
+GET         /private/sell-to-the-trade-success             @controllers.priv.DisposeSuccess.present
+

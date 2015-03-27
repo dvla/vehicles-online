@@ -21,57 +21,60 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
                                config: Config,
                                surveyUrl: SurveyUrl,
                                dateService: DateService) extends Controller {
+  protected val isPrivateKeeper = false
+  protected val newDisposeFormTarget = controllers.routes.DisposeSuccess.newDisposal()
+  protected val exitDisposeFormTarget = controllers.routes.DisposeSuccess.exit()
+  protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
+  protected val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
+  protected val onNewDispose = Redirect(config.endUrl)
 
-  def present = Action { implicit request => doPresent(isPrivateKeeper = false) }
-
-  def presentPrivateKeeper = Action { implicit request => doPresent(isPrivateKeeper = true) }
-
-  private def doPresent(isPrivateKeeper: Boolean)(implicit request: Request[_]): Result = {
-    (request.cookies.getModel[TraderDetailsModel],
-      request.cookies.getModel[DisposeFormModel],
-      request.cookies.getModel[VehicleAndKeeperDetailsModel],
-      request.cookies.getString(DisposeFormTransactionIdCacheKey),
-      request.cookies.getString(DisposeFormRegistrationNumberCacheKey),
-      request.cookies.getString(DisposeFormTimestampIdCacheKey)) match {
-        case (Some(traderDetails),
-              Some(disposeFormModel),
-              Some(vehicleDetails),
-              Some(transactionId),
-              Some(registrationNumber),
-              Some(disposeDateString)) =>
-          val disposeViewModel = createViewModel(
-            traderDetails,
-            disposeFormModel,
-            vehicleDetails,
-            Some(transactionId),
-            registrationNumber
-          )
-          val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-          val disposeDateTime = formatter.parseDateTime(disposeDateString)
-          Ok(views.html.disposal_of_vehicle.dispose_success(
-            disposeViewModel,
-            disposeFormModel,
-            disposeDateTime,
-            surveyUrl(request),
-            isPrivateKeeper = isPrivateKeeper)
-          ).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
-        case _ => Redirect(routes.VehicleLookup.present()) // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
-      }
+  def present = Action { implicit request =>
+    val result = for {
+      traderDetails <- request.cookies.getModel[TraderDetailsModel]
+      disposeFormModel <- request.cookies.getModel[DisposeFormModel]
+      vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
+      transactionId <- request.cookies.getString(DisposeFormTransactionIdCacheKey)
+      registrationNumber <- request.cookies.getString(DisposeFormRegistrationNumberCacheKey)
+      disposeDateString <- request.cookies.getString(DisposeFormTimestampIdCacheKey)
+    } yield {
+      val disposeViewModel = createViewModel(
+        traderDetails,
+        disposeFormModel,
+        vehicleDetails,
+        Some(transactionId),
+        registrationNumber
+      )
+      val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+      val disposeDateTime = formatter.parseDateTime(disposeDateString)
+      Ok(views.html.disposal_of_vehicle.dispose_success(
+        disposeViewModel,
+        disposeFormModel,
+        disposeDateTime,
+        surveyUrl(request),
+        isPrivateKeeper = isPrivateKeeper,
+        newDisposeFormTarget,
+        exitDisposeFormTarget
+      )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
+    }
+    
+    result getOrElse onMissingPresentCookies // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
   }
 
   def newDisposal = Action { implicit request =>
-    (request.cookies.getModel[TraderDetailsModel], request.cookies.getModel[VehicleAndKeeperDetailsModel]) match {
-      case (Some(traderDetails), Some(vehicleDetails)) =>
-        Redirect(routes.VehicleLookup.present()).
-          discardingCookies(DisposeCacheKeys).
-          withCookie(PreventGoingToDisposePageCacheKey, "").
-          withCookie(DisposeOccurredCacheKey, "")
-      case _ => Redirect(routes.SetUpTradeDetails.present())
+    val result = for {
+      traderDetails <- request.cookies.getModel[TraderDetailsModel]
+      vehicleDetails <-request.cookies.getModel[VehicleAndKeeperDetailsModel]
+    } yield {
+      Redirect(routes.VehicleLookup.present()).
+      discardingCookies(DisposeCacheKeys).
+      withCookie(PreventGoingToDisposePageCacheKey, "").
+      withCookie(DisposeOccurredCacheKey, "")
     }
+    result getOrElse onMissingNewDisposeCookies
   }
 
   def exit = Action { implicit request =>
-    Redirect(config.endUrl).
+    onNewDispose.
       discardingCookies(AllCacheKeys).
       withCookie(PreventGoingToDisposePageCacheKey, "").
       withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)
