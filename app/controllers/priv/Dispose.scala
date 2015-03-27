@@ -7,7 +7,6 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import utils.helpers.Config
 import webserviceclients.dispose.DisposeService
 
-
 class Dispose @Inject()(webService: DisposeService, dateService: DateService)
                        (implicit clientSideSessionFactory: ClientSideSessionFactory,
                         config: Config) extends controllers.Dispose(webService, dateService) {
