@@ -46,14 +46,20 @@
         }
 
         @if(viewModel.dropDownOptions.nonEmpty) {
-            <a id="@EnterAddressManuallyButtonId" href="@viewModel.manualAddressEntry">@Messages("disposal_businessChooseYourAddress.manualAddressEntry")</a>
+            <a id="@EnterAddressManuallyButtonId" href="@viewModel.manualAddressEntry">
+                @Messages("disposal_businessChooseYourAddress.manualAddressEntry")
+            </a>
         }
         <div class="form-steps">
             @if(viewModel.dropDownOptions.isEmpty) {
-                <a id="@EnterAddressManuallyButtonId" class="button" href="@viewModel.manualAddressEntry">@Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")</a>
+                <a id="@EnterAddressManuallyButtonId" class="button" href="@viewModel.manualAddressEntry">
+                    @Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")
+                </a>
             }
             @if(viewModel.dropDownOptions.nonEmpty) {
-                <button id="@SelectId" type="submit" name="action" class="button">@Messages("disposal_businessChooseYourAddress.submitbutton")</button>
+                <button id="@SelectId" type="submit" name="action" class="button">
+                    @Messages("disposal_businessChooseYourAddress.submitbutton")
+                </button>
             }
             <br/>
             <a class="back" id="@BackId" href="@viewModel.back">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
