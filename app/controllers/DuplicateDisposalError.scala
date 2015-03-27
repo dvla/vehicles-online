@@ -11,7 +11,11 @@ class DuplicateDisposalError @Inject()()
                                    (implicit clientSideSessionFactory: ClientSideSessionFactory, config: Config)
   extends Controller {
 
+  protected val tryAgainLink = controllers.routes.VehicleLookup.present()
+  protected val exitLink = controllers.routes.BeforeYouStart.present()
+
   def present = Action { implicit request =>
-    Ok(views.html.disposal_of_vehicle.duplicate_disposal_error()).discardingCookies(DisposeCacheKeys)
+    Ok(views.html.disposal_of_vehicle.duplicate_disposal_error(tryAgainLink, exitLink))
+      .discardingCookies(DisposeCacheKeys)
   }
 }
