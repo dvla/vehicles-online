@@ -1,5 +1,7 @@
 @(enterAddressManuallyForm: Form[models.EnterAddressManuallyFormModel],
-        traderPostcode: String)(implicit lang: Lang,
+        traderPostcode: String,
+        formTarget: Call,
+        backLink: Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -18,7 +20,7 @@
 ) {
     <h1>@Messages("disposal_enteraddressmanually.title")</h1>
     <div class="enter-address-manually uppercase-input sr-only-labels">
-        @form(action = controllers.routes.EnterAddressManually.submit()) {
+        @form(action = formTarget) {
             @csrfTokenHiddenField()
 
             @addressAndPostcode(enterAddressManuallyForm(AddressAndPostcodeId))
@@ -31,7 +33,7 @@
             <div class="form-steps">
                 <button id="@NextId" type="submit" name="action" class="button">@Messages("disposal_enteraddressmanually.submitbutton")</button>
                 <br/>
-                <a class="back" id="@BackId" href="@controllers.routes.BusinessChooseYourAddress.submit()">@Messages("disposal_enteraddressmanually.backbutton")</a>
+                <a class="back" id="@BackId" href="@backLink">@Messages("disposal_enteraddressmanually.backbutton")</a>
             </div>
         }
     </div>
