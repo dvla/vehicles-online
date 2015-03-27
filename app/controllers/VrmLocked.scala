@@ -14,6 +14,8 @@ import utils.helpers.Config
 class VrmLocked @Inject()()(implicit protected override val clientSideSessionFactory: ClientSideSessionFactory,
                                   config: Config) extends VrmLockedBase {
 
+  protected val tryAnotherTarget = controllers.routes.VrmLocked.tryAnother()
+  protected val exitTarget = controllers.routes.VrmLocked.exit()
   protected val bruteForceCookieMissing = Redirect(routes.VehicleLookup.present())
   protected val lookupAnotherVehicle = Redirect(routes.VehicleLookup.present())
   protected val onExit = Redirect(config.startUrl)
@@ -21,7 +23,11 @@ class VrmLocked @Inject()()(implicit protected override val clientSideSessionFac
   protected override def presentResult(model: BruteForcePreventionModel)
                                       (implicit request: Request[_]): Result =
     Ok(views.html.disposal_of_vehicle.vrm_locked(
-      VrmLockedViewModel(model.dateTimeISOChronology, DateTime.parse(model.dateTimeISOChronology).getMillis)
+      VrmLockedViewModel(model.dateTimeISOChronology,
+        DateTime.parse(model.dateTimeISOChronology).getMillis,
+        tryAnotherTarget,
+        exitTarget
+      )
     ))
 
   protected override def missingBruteForcePreventionCookie(implicit request: Request[_]): Result =
