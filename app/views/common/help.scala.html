@@ -1,9 +1,7 @@
-@()(implicit lang: Lang,
-token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
-config: utils.helpers.Config)
+@(backTarget: play.api.mvc.Call, exitTarget: play.api.mvc.Call)(implicit lang: Lang,
+  token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+  config: utils.helpers.Config)
 
-@import controllers.routes.Help
-@import controllers.routes.BeforeYouStart
 @import views.common.Help.{BackId, ExitId}
 @import views.html.disposal_of_vehicle.main
 
@@ -11,12 +9,17 @@ config: utils.helpers.Config)
 title = Messages("disposal.help.title")
 ) {
     <p>@Messages("disposal.help.p1")</p>
-    <p>@Messages("disposal.help.p2.1") <a href=@Messages("disposal.help.email")> @Messages("disposal.help.p2.2") </a></p>
+    <p>@Messages("disposal.help.p2.1")
+        <a href=@Messages("disposal.help.email")> @Messages("disposal.help.p2.2") </a>
+    </p>
 
     <div class="form-steps">
-        @* Note the reverse routing syntax for the hyperlink *@
-        <a class="back" id="@BackId" href="@Help.back()">@Messages("disposal.help.back_button")</a>
+        <a class="back" id="@BackId" href="@backTarget">
+            @Messages("disposal.help.back_button")
+        </a>
         <br/>
-        <a class="exit" id="@ExitId" href="@BeforeYouStart.present()">@Messages("disposal.help.exit_button")</a>
+        <a class="exit" id="@ExitId" href="@exitTarget">
+            @Messages("disposal.help.exit_button")
+        </a>
     </div>
 }
