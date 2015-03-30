@@ -1,4 +1,4 @@
-@()(implicit lang: Lang,
+@(enterAddressManuallyTarget: play.api.mvc.Call, setupTradeDetailsTarget: play.api.mvc.Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -13,8 +13,11 @@
     <p>@Messages("disposal_uprnnotfound.p1")</p>
 
     <div class="form-steps">
-        @* Note the reverse routing syntax for the hyperlink *@
-        <a class="button" id="@ManualaddressbuttonId" href="@controllers.routes.EnterAddressManually.present()">@Messages("disposal_uprnnotfound.setuptradedetailsbutton")</a>
-        <a class="button-secondary" id="@SetuptradedetailsbuttonId" href="@controllers.routes.SetUpTradeDetails.present()">@Messages("disposal_uprnnotfound.manualaddressbutton")</a>
+        <a class="button" id="@ManualaddressbuttonId" href="@enterAddressManuallyTarget">
+            @Messages("disposal_uprnnotfound.setuptradedetailsbutton")
+        </a>
+        <a class="button-secondary" id="@SetuptradedetailsbuttonId" href="@setupTradeDetailsTarget">
+            @Messages("disposal_uprnnotfound.manualaddressbutton")
+        </a>
     </div>
 }
