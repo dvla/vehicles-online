@@ -21,11 +21,16 @@ class EnterAddressManually @Inject()()
     EnterAddressManuallyFormModel.Form.Mapping
   )
 
+  protected val formTarget = controllers.routes.EnterAddressManually.submit()
+  protected val backLink = controllers.routes.BusinessChooseYourAddress.present()
+  protected val onCookiesMissing = Redirect(routes.SetUpTradeDetails.present())
+  protected val onSubmitSuccess = Redirect(routes.VehicleLookup.present())
+
   def present = Action { implicit request =>
     request.cookies.getModel[SetupTradeDetailsFormModel] match {
       case Some(setupTradeDetails) =>
-        Ok(enter_address_manually(form.fill(), traderPostcode = setupTradeDetails.traderPostcode))
-      case None => Redirect(routes.SetUpTradeDetails.present())
+        Ok(enter_address_manually(form.fill(), traderPostcode = setupTradeDetails.traderPostcode, formTarget, backLink))
+      case None => onCookiesMissing
     }
   }
 
@@ -34,11 +39,11 @@ class EnterAddressManually @Inject()()
       invalidForm =>
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
-            BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm), setupTradeDetails.traderPostcode))
+            BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm), setupTradeDetails.traderPostcode, formTarget, backLink))
           case None =>
             Logger.debug(s"Failed to find dealer name in cache, redirecting  " +
               s"- trackingId: ${request.cookies.trackingId()}")
-            Redirect(routes.SetUpTradeDetails.present())
+            onCookiesMissing
         },
       validForm =>
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
@@ -52,13 +57,13 @@ class EnterAddressManually @Inject()()
               traderAddress = traderAddress
             )
 
-            Redirect(routes.VehicleLookup.present()).
+            onSubmitSuccess.
               withCookie(validForm).
               withCookie(traderDetailsModel)
           case None =>
             Logger.debug(s"Failed to find dealer name in cache on submit, " +
               s"redirecting  - trackingId: ${request.cookies.trackingId()}")
-            Redirect(routes.SetUpTradeDetails.present())
+            onCookiesMissing
         }
     )
   }
