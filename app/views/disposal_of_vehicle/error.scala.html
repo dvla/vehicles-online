@@ -1,4 +1,4 @@
-@(exceptionDigest: String)(implicit lang: Lang,
+@(formTarget: Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -12,7 +12,7 @@
     title = Messages("error.title")
 ){
     <h1>@Messages("error.title")</h1>
-    @form(action = controllers.routes.Error.submit(exceptionDigest)) {
+    @form(action = formTarget) {
         @csrfTokenHiddenField()
         <div class="form-steps">
             <button id="@SubmitId" type="submit" name="action" class="button">@Messages("error.button")</button>
