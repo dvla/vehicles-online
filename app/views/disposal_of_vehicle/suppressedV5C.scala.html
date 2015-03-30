@@ -1,4 +1,4 @@
-@()(implicit lang: Lang,
+@(sellAnotherVehicleTarget: play.api.mvc.Call, finishTarget: play.api.mvc.Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
@@ -16,12 +16,11 @@
 
     <div class="form-steps">
         @csrfTokenHiddenField()
-        @{ /* Note the reverse routing syntax for the hyperlink */ }
-        <a class="button" id="@SellAnotherVehicleId" href="@controllers.routes.SuppressedV5C.sellAnotherVehicle()">
-        @Messages("error_suppressedV5C.button1")
+        <a class="button" id="@SellAnotherVehicleId" href="@sellAnotherVehicleTarget">
+            @Messages("error_suppressedV5C.button1")
         </a>
-        <a class="button-secondary" id="@FinishId" href="@controllers.routes.SuppressedV5C.finish()">
-        @Messages("error_suppressedV5C.button2")
+        <a class="button-secondary" id="@FinishId" href="@finishTarget">
+            @Messages("error_suppressedV5C.button2")
         </a>
     </div>
 }

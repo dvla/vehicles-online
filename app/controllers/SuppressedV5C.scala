@@ -11,17 +11,20 @@ import utils.helpers.Config
 class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                          config: Config) extends Controller {
 
+  protected val sellAnotherVehicleTarget = controllers.routes.SuppressedV5C.sellAnotherVehicle()
+  protected val finishTarget = controllers.routes.SuppressedV5C.finish()
+  protected val lookupAnotherVehicle = Redirect(routes.VehicleLookup.present())
+  protected val onFinish = Redirect(routes.BeforeYouStart.present())
+  
   def present = Action { implicit request =>
-    Ok(views.html.disposal_of_vehicle.suppressedV5C())
+    Ok(views.html.disposal_of_vehicle.suppressedV5C(sellAnotherVehicleTarget, finishTarget))
   }
 
   def sellAnotherVehicle = Action { implicit request =>
-    Redirect(routes.VehicleLookup.present()).
-      discardingCookies(DisposeCacheKeys)
+    lookupAnotherVehicle.discardingCookies(DisposeCacheKeys)
   }
 
   def finish = Action { implicit request =>
-    Redirect(routes.BeforeYouStart.present()).
-      discardingCookies(AllCacheKeys)
+    onFinish.discardingCookies(AllCacheKeys)
   }
 }

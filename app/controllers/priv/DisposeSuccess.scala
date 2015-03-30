@@ -10,6 +10,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
                                config: Config,
                                surveyUrl: SurveyUrl,
                                dateService: DateService) extends controllers.DisposeSuccess {
+
   protected override val isPrivateKeeper = true
   protected override val newDisposeFormTarget = controllers.routes.DisposeSuccess.newDisposal()
   protected override val exitDisposeFormTarget = controllers.routes.DisposeSuccess.exit()
