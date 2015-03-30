@@ -1,9 +1,7 @@
-@()(implicit lang: Lang,
+@(tryAgainTarget: play.api.mvc.Call, exitTarget: play.api.mvc.Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config)
 
-@import controllers.routes.BeforeYouStart
-@import controllers.routes.MicroServiceError
 @import views.disposal_of_vehicle.MicroserviceError.{ExitId, TryAgainId}
 @import views.html.disposal_of_vehicle.main
 
@@ -15,9 +13,12 @@
     <p>@Messages("micro_service_error.text")</p>
 
     <div class="form-steps">
-        @* Note the reverse routing syntax for the hyperlink *@
-        <a class="button" id="@TryAgainId" href="@MicroServiceError.back()">@Messages("micro_service_error.back.button")</a>
+        <a class="button" id="@TryAgainId" href="@tryAgainTarget">
+            @Messages("micro_service_error.back.button")
+        </a>
         <br/>
-        <a class="exit" id="@ExitId" href="@BeforeYouStart.present()">@Messages("micro_service_error.exit.button")</a>
+        <a class="exit" id="@ExitId" href="@exitTarget">
+            @Messages("micro_service_error.exit.button")
+        </a>
     </div>
 }
