@@ -7,6 +7,6 @@ import utils.helpers.Config
 class SoapEndpointError @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                     config: Config) extends controllers.SoapEndpointError {
 
-  protected override val disposeTarget = controllers.routes.Dispose.present()
+  protected override val disposeTarget = routes.Dispose.present()
   protected override val exitTarget = controllers.routes.BeforeYouStart.present()
 }

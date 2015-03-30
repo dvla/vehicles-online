@@ -7,7 +7,7 @@ import utils.helpers.Config
 class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                   config: Config) extends controllers.MicroServiceError {
 
-  protected override val defaultRedirectUrl = controllers.routes.VehicleLookup.present().url
-  protected override val tryAgainTarget = controllers.routes.MicroServiceError.back()
+  protected override val defaultRedirectUrl = routes.VehicleLookup.present().url
+  protected override val tryAgainTarget = routes.MicroServiceError.back()
   protected override val exitTarget = controllers.routes.BeforeYouStart.present()
 }

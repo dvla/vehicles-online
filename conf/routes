@@ -90,6 +90,59 @@ GET         /cookie-policy                                 @controllers.CookiePo
 
 
 
+##################################    PRIVATE ROUTES      ####################################
 
-GET         /private/sell-to-the-trade-success             @controllers.priv.DisposeSuccess.present
+#page 2 - setup-trade-details
+GET         /private/setup-trade-details                   @controllers.priv.SetUpTradeDetails.present
+POST        /private/setup-trade-details                   @controllers.priv.SetUpTradeDetails.submit
 
+#page 3 - business choose your address
+GET         /private/business-choose-your-address          @controllers.priv.BusinessChooseYourAddress.present
+POST        /private/business-choose-your-address          @controllers.priv.BusinessChooseYourAddress.submit
+
+#page 4 [optional] - enter address manually
+GET         /private/enter-address-manually                @controllers.priv.EnterAddressManually.present
+POST        /private/enter-address-manually                @controllers.priv.EnterAddressManually.submit
+
+GET         /private/vehicle-lookup                        @controllers.priv.VehicleLookup.present
+POST        /private/vehicle-lookup                        @controllers.priv.VehicleLookup.submit
+GET         /private/vehicle-lookup/exit                   @controllers.priv.VehicleLookup.exit
+GET         /private/vehicle-lookup-back                   @controllers.priv.VehicleLookup.back
+
+GET         /private/complete-and-confirm                  @controllers.priv.Dispose.present
+POST        /private/complete-and-confirm                  @controllers.priv.Dispose.submit
+
+GET         /private/sell-to-the-trade-success              @controllers.priv.DisposeSuccess.present
+POST        /private/sell-to-the-trade-success/new-disposal @controllers.priv.DisposeSuccess.newDisposal
+POST        /private/sell-to-the-trade-success/exit         @controllers.priv.DisposeSuccess.exit
+
+GET         /private/sell-to-the-trade-failure             @controllers.priv.DisposeFailure.present
+
+GET         /private/vehicle-lookup-failure                @controllers.priv.VehicleLookupFailure.present
+POST        /private/vehicle-lookup-failure                @controllers.priv.VehicleLookupFailure.submit
+
+GET         /private/uprn-not-found                        @controllers.priv.UprnNotFound.present
+
+GET         /private/duplicate-sell-to-the-trade-er        @controllers.priv.DuplicateDisposalError.present
+
+GET         /private/service-error                         @controllers.priv.MicroServiceError.present
+GET         /private/service-error/try-again               @controllers.priv.MicroServiceError.back
+
+GET         /private/vrm-locked                            @controllers.priv.VrmLocked.present
+POST        /private/vrm-locked/new-disposal               @controllers.priv.VrmLocked.tryAnother
+POST        /private/vrm-locked/exit                       @controllers.priv.VrmLocked.exit
+
+GET         /private/error/:exceptionDigest                @controllers.priv.Error.present(exceptionDigest)
+POST        /private/error/:exceptionDigest                @controllers.priv.Error.submit(exceptionDigest)
+
+#error page when the user looks up a vehicle and it has a suppressed V5C
+GET         /private/suppressed-v5c                        @controllers.priv.SuppressedV5C.present
+GET         /private/suppressed-v5c/buy-another            @controllers.priv.SuppressedV5C.sellAnotherVehicle
+GET         /private/suppressed-v5c/finish                 @controllers.priv.SuppressedV5C.finish
+
+# feedback
+GET         /private/feedback                              @controllers.priv.FeedbackController.present
+POST        /private/feedback                              @controllers.priv.FeedbackController.submit
+
+GET         /private/help                                  @controllers.priv.Help.present
+GET         /private/help/back                             @controllers.priv.Help.back

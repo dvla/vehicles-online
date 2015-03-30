@@ -31,6 +31,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   override val responseCodeCacheKey: String = VehicleLookupResponseCodeCacheKey
 
   protected val submitTarget = controllers.routes.VehicleLookup.submit()
+  protected val backTarget = controllers.routes.VehicleLookup.back()
   protected val exitTarget = controllers.routes.VehicleLookup.exit()
   protected val onVrmLocked = Redirect(routes.VrmLocked.present())
   protected val onMicroServiceError = Redirect(routes.MicroServiceError.present())
@@ -63,6 +64,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
           traderDetails.traderName,
           traderDetails.traderAddress.address,
           submitTarget,
+          backTarget,
           exitTarget
         )))
       case None => missingTradeDetails
@@ -81,6 +83,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
             traderDetails.traderName,
             traderDetails.traderAddress.address,
             submitTarget,
+            backTarget,
             exitTarget
           ))
         )

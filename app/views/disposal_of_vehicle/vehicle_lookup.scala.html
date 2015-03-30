@@ -20,7 +20,7 @@
     currentForm = Some(viewModel.form)
 ) {
     <h1>@Messages("disposal_vehiclelookup.title")</h1>
-    
+
     <div class="two-col clearfix vehicle-lookup">
         <div class="first-col trader-details">
             <dl class="playback">
@@ -69,7 +69,7 @@
                                 @Messages("disposal_vehiclelookup.button")
                             </button>
                             <br/>
-                            <a class="back" id="@BackId" href="@controllers.routes.VehicleLookup.back()">
+                            <a class="back" id="@BackId" href="@viewModel.back">
                                 @Messages("disposal_vehiclelookup.backbutton")
                             </a>
 

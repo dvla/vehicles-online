@@ -7,6 +7,6 @@ import utils.helpers.Config
 class UprnNotFound @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                config: Config) extends controllers.UprnNotFound {
 
-  protected override val enterAddressManuallyTarget = controllers.routes.EnterAddressManually.present()
-  protected override val setupTradeDetailsTarget = controllers.routes.SetUpTradeDetails.present()
+  protected override val enterAddressManuallyTarget = routes.EnterAddressManually.present()
+  protected override val setupTradeDetailsTarget = routes.SetUpTradeDetails.present()
 }

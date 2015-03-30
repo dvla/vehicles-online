@@ -18,13 +18,14 @@ class FeedbackController @Inject()(val emailService: EmailService)(implicit clie
                                         config: Config) extends Controller with FeedbackBase {
 
   override val emailConfiguration = config.emailConfiguration
+  protected val formTarget = controllers.routes.FeedbackController.submit()
 
   private[controllers] val form = Form(
     FeedbackForm.Form.Mapping
   )
 
   implicit val controls: Map[String, Call] = Map(
-  "submit" -> controllers.routes.FeedbackController.submit()
+    "submit" -> formTarget
   )
 
   def present() = Action { implicit request =>

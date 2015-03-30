@@ -10,7 +10,7 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.{AllCacheKeys, DisposeCacheKeys, DisposeFormModel, DisposeOnlyCacheKeys, DisposeViewModel}
 import org.joda.time.format.DateTimeFormat
-import play.api.mvc.{Action, Controller, Request, Result}
+import play.api.mvc.{Action, Controller, Request}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
@@ -56,7 +56,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
         exitDisposeFormTarget
       )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
     }
-    
+
     result getOrElse onMissingPresentCookies // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
   }
 
