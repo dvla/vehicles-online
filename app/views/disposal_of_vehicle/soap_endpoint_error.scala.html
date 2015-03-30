@@ -1,9 +1,7 @@
-@()(implicit lang: Lang,
-        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
-        config: utils.helpers.Config)
+@(disposeTarget: play.api.mvc.Call, exitTarget: play.api.mvc.Call)(implicit lang: Lang,
+    token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+    config: utils.helpers.Config)
 
-@import controllers.routes.BeforeYouStart
-@import controllers.routes.Dispose
 @import views.html.disposal_of_vehicle.main
 
 @main(
@@ -14,8 +12,11 @@
     <p>@Messages("soap_endpoint_error.text")</p>
 
     <div class="form-steps">
-        @{ /* Note the reverse routing syntax for the hyperlink */ }
-        <a class="button" id="back" href="@Dispose.present()">@Messages("soap_endpoint_error.back.button")</a>
-        <a class="button-secondary" id="exit" href="@BeforeYouStart.present()">@Messages("soap_endpoint_error.exit.button")</a>
+        <a class="button" id="back" href="@disposeTarget">
+            @Messages("soap_endpoint_error.back.button")
+        </a>
+        <a class="button-secondary" id="exit" href="@exitTarget">
+            @Messages("soap_endpoint_error.exit.button")
+        </a>
     </div>
 }
