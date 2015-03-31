@@ -84,10 +84,6 @@ final class ConfigImpl extends Config {
     getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(10000)
 
   override val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    getProperty[String]("smtp.host"),
-    getProperty[Int]("smtp.port"),
-    getProperty[String]("smtp.user"),
-    getProperty[String]("smtp.password"),
     From(getProperty[String]("email.senderAddress"), "DO-NOT-REPLY"),
     From(getProperty[String]("email.feedbackAddress"), "Feedback"),
     getStringListProperty("email.whitelist")
