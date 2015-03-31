@@ -65,7 +65,7 @@ import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-final class DisposeUnitSpec extends UnitSpec {
+class DisposeUnitSpec extends UnitSpec {
 
   val healthStatsMock = mock[HealthStats]
   when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {

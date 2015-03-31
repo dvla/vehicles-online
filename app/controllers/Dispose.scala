@@ -32,6 +32,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
     DisposeFormModel.Form.mapping(dateService)
   )
 
+  protected val isPrivateKeeper = false
   protected val formTarget = controllers.routes.Dispose.submit()
   protected val backLink = controllers.routes.VehicleLookup.present()
   protected val vehicleDetailsMissing = Redirect(routes.VehicleLookup.present())
@@ -49,7 +50,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
         request.cookies.getModel[VehicleAndKeeperDetailsModel] match {
           case (Some(vehicleDetails)) =>
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-            Ok(dispose(disposeViewModel, form.fill(), dateService, formTarget, backLink))
+            Ok(dispose(disposeViewModel, form.fill(), dateService, isPrivateKeeper, formTarget, backLink))
           case _ => vehicleDetailsMissing
         }
       case (_, Some(interstitial)) =>
@@ -70,7 +71,14 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
           vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
         } yield {
           val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-          BadRequest(dispose(disposeViewModel, formWithReplacedErrors(invalidForm), dateService, formTarget, backLink))
+          BadRequest(dispose(
+            disposeViewModel,
+            formWithReplacedErrors(invalidForm),
+            dateService,
+            isPrivateKeeper,
+            formTarget,
+            backLink
+          ))
         }
 
         result getOrElse {
