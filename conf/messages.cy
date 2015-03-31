@@ -1,6 +1,5 @@
 #main
 main.banner = Gwerthu cerbyd i''r fasnach foduron
-main.banner.help = Help
 
 #global
 global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml
@@ -291,15 +290,6 @@ disposal_progress_3 = Step 3 of 6
 disposal_progress_4 = Step 4 of 6
 disposal_progress_5 = Step 5 of 6
 disposal_progress_6 = Step 6 of 6
-
-# help
-disposal.help.title = Help
-disposal.help.p1 = Mae''r gwasanaeth hwn yng nghyfnod Beta Preifat
-disposal.help.p2.1 = Os angen unrhyw gymorth i''w ddefnyddio cysylltwch â Julie Riseley ar 01792 788410 neu
-disposal.help.p2.2 = anfonwch ebost
-disposal.help.email =  mailto:julie.riseley@dvla.gsi.gov.uk?Subject=Sell%20to%20the%20Trade%20Help
-disposal.help.exit_button = Allan
-disposal.help.back_button = Yn ôl
 
 # closed
 disposal.closed.title = Y Gwasanaeth Ar Gau

@@ -75,9 +75,6 @@ GET         /suppressed-v5c/finish                         @controllers.Suppress
 GET         /feedback                                      @controllers.FeedbackController.present
 POST        /feedback                                      @controllers.FeedbackController.submit
 
-GET         /help                                          @controllers.Help.present
-GET         /help/back                                     @controllers.Help.back
-
 GET         /with-language/:chosenLanguage                 uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
 
 GET         /healthcheck                                   @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond
@@ -87,8 +84,6 @@ GET         /healthcheck/debug                             @uk.gov.dvla.vehicles
 GET         /version                                       @controllers.Version.version
 
 GET         /cookie-policy                                 @controllers.CookiePolicyController.present
-
-
 
 ##################################    PRIVATE ROUTES      ####################################
 
@@ -143,6 +138,3 @@ GET         /private/suppressed-v5c/finish                 @controllers.priv.Sup
 # feedback
 GET         /private/feedback                              @controllers.priv.FeedbackController.present
 POST        /private/feedback                              @controllers.priv.FeedbackController.submit
-
-GET         /private/help                                  @controllers.priv.Help.present
-GET         /private/help/back                             @controllers.priv.Help.back

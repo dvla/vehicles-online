@@ -15,11 +15,10 @@ import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLoo
 import models.BusinessChooseYourAddressFormModel
 import models.DisposeFormModel
 import models.EnterAddressManuallyFormModel
-import models.HelpCacheKey
 import models.SeenCookieMessageCacheKey
 import models.VehicleLookupFormModel
 import org.joda.time.{LocalDate, DateTime}
-import pages.disposal_of_vehicle.{HelpPage, VehicleLookupPage}
+import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common
@@ -268,12 +267,6 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     createCookie(PreventGoingToDisposePageCacheKey, payload)
 
   def disposeOccurred = createCookie(DisposeOccurredCacheKey, "")
-
-  def help(origin: String = HelpPage.address): Cookie = {
-    val key = HelpCacheKey
-    val value = origin
-    createCookie(key, value)
-  }
 
   def disposeSurveyUrl(surveyUrl: String): Cookie =
     createCookie(SurveyRequestTriggerDateCacheKey, surveyUrl)

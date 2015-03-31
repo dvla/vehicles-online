@@ -17,7 +17,6 @@ import common.model.VehicleAndKeeperDetailsModel
 import VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 
 package object models {
-  final val HelpCacheKey = s"${CookiePrefix}help"
   final val SeenCookieMessageCacheKey = "seen_cookie_message" // Same value across all exemplars
 
   // TODO: what is this set of cookies for?
@@ -51,6 +50,5 @@ package object models {
   final val AllCacheKeys = TradeDetailsCacheKeys.++(DisposeCacheKeys)
     .++(Set(PreventGoingToDisposePageCacheKey))
     .++(Set(DisposeOccurredCacheKey))
-    .++(Set(HelpCacheKey))
     .++(Set(MicroServiceErrorRefererCacheKey))
 }

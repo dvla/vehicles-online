@@ -11,5 +11,5 @@ class VrmLocked @Inject()()(implicit protected override val clientSideSessionFac
   protected override val exitTarget = routes.VrmLocked.exit()
   protected override val bruteForceCookieMissing = Redirect(routes.VehicleLookup.present())
   protected override val lookupAnotherVehicle = Redirect(routes.VehicleLookup.present())
-  protected override val onExit = Redirect(config.startUrl)
+  protected override val onExit = Redirect(controllers.routes.BeforeYouStart.present())
 }

@@ -1,6 +1,5 @@
 #main
 main.banner = Sell a vehicle into the motor trade
-main.banner.help = Help
 
 #global
 global.cookiemessage = GOV.UK uses cookies to make the site simpler.
@@ -290,15 +289,6 @@ disposal_progress_3 = Step 3 of 6
 disposal_progress_4 = Step 4 of 6
 disposal_progress_5 = Step 5 of 6
 disposal_progress_6 = Step 6 of 6
-
-# help
-disposal.help.title = Help
-disposal.help.p1 = This service is in Private Beta phase
-disposal.help.p2.1 = If you require any help using it then please contact Julie Riseley on 01792 788410 or
-disposal.help.p2.2 = send an email
-disposal.help.email =  mailto:julie.riseley@dvla.gsi.gov.uk?Subject=Sell%20to%20the%20Trade%20Help
-disposal.help.exit_button = Exit
-disposal.help.back_button = Back
 
 # closed
 disposal.closed.title = Service Closed
