@@ -1,20 +1,20 @@
 package composition
 
-import java.io.File
-import java.util.{Date, UUID}
 import com.google.inject.Key
 import com.google.inject.name.Names
 import com.typesafe.config.ConfigFactory
-import play.api.Play.current
+import java.io.File
+import java.util.{Date, UUID}
 import play.api.i18n.Lang
 import play.api.mvc.Results.{NotFound,BadRequest}
 import play.api.mvc.{RequestHeader, Result}
-import play.api.{LoggerLike, Application, Configuration, GlobalSettings, Logger, Mode, Play}
+import play.api.Play.current
+import play.api.{Application, Configuration, GlobalSettings, Logger, LoggerLike, Mode, Play}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.filters.ClfEntryBuilder
 import utils.helpers.Config
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 /**
  * Application configuration is in a hierarchy of files:

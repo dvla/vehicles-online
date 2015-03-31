@@ -1,7 +1,7 @@
 package models
 
-import mappings.Consent
-import Consent.consent
+import mappings.Consent.consent
+import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.joda.time.LocalDate
 import play.api.data.Mapping
 import play.api.libs.json.Json
@@ -9,8 +9,7 @@ import uk.gov.dvla.vehicles.presentation.common
 import common.mappings.Mileage.mileage
 import common.clientsidesession.CacheKey
 import common.services.DateService
-import uk.gov.dvla.vehicles.presentation.common.mappings.Date._
-import models.DisposeCacheKeyPrefix.CookiePrefix
+import common.mappings.Date.{dateMapping, notBefore, notInTheFuture}
 
 final case class DisposeFormModel(mileage: Option[Int],
                                   dateOfDisposal: LocalDate,
