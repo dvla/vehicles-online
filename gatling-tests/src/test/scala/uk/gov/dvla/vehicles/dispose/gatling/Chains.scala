@@ -86,13 +86,14 @@ object Chains {
       .headers(headers_accept_html)
       .check(regex( """Sell a vehicle into the motor trade""").exists)
     )
-      .exec(chain_assets_200)
+//      .exec(chain_assets_200)
       .exec(http(s"GET /setup-trade-details")
       .get(s"/setup-trade-details")
       .headers(headers_accept_html)
       .check(regex( """Provide trader details""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token")))
-      .exec(chain_assets_304).feed(setupTradeDetails)
+//      .exec(chain_assets_304)
+      .feed(setupTradeDetails)
       .exec(http("POST /setup-trade-details")
       .post("/setup-trade-details")
       .headers(headers_x_www_form_urlencoded)
@@ -102,7 +103,8 @@ object Chains {
       .formParam( """action""", """""")
       .check(regex( """Select trader address""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token")))
-      .exec(chain_assets_304).exec(http("POST /business-choose-your-address")
+//      .exec(chain_assets_304)
+      .exec(http("POST /business-choose-your-address")
       .post("/business-choose-your-address")
       .headers(headers_x_www_form_urlencoded)
 //      .param( """disposal_businessChooseYourAddress_addressSelect""", "${uprn}") // Use UPRN
@@ -111,7 +113,7 @@ object Chains {
       .formParam( """action""", """""")
       .check(regex( """Enter vehicle details""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token")))
-      .exec(chain_assets_304)
+//      .exec(chain_assets_304)
   val vehicleLookup = csv("data/vehicle-lookup.csv").circular
   val dispose = csv("data/dispose.csv").circular
 
@@ -127,7 +129,7 @@ object Chains {
       .check(regex( """Complete &amp; confirm""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token"))
       )
-      .exec(chain_assets_304)
+//      .exec(chain_assets_304)
       .feed(dispose)
       .exec(http("POST /complete-and-confirm")
       .post("/complete-and-confirm")
@@ -149,7 +151,7 @@ object Chains {
         .headers(headers_accept_html)
         .check(regex("""Sell a vehicle into the motor trade: summary""").exists)
       )*/
-      .exec(chain_assets_304)
+//      .exec(chain_assets_304)
       .exec(http("icon-tick-green.gif")
       .get(s"/assets/versioned/lib/vehicles-presentation-common/images/icon-tick-green.gif")
       .headers(headers_accept_png)
@@ -173,5 +175,5 @@ object Chains {
       .formParam( """action""", """""")
       .check(regex( """Sell a vehicle into the motor trade""").exists)
     )
-      .exec(chain_assets_304)
+//      .exec(chain_assets_304)
 }
