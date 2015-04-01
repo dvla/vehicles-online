@@ -16,5 +16,5 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   protected override val exitDisposeFormTarget = routes.DisposeSuccess.exit()
   protected override val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
   protected override val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
-  protected override val onNewDispose = Redirect("/private" + config.endUrl)
+  protected override val onNewDispose = Redirect(controllers.routes.BeforeYouStart.present)
 }

@@ -42,7 +42,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   protected val suppressedV5C = Redirect(routes.SuppressedV5C.present())
   protected val duplicateDisposalError = Redirect(routes.DuplicateDisposalError.present())
   protected val dispose = Redirect(routes.Dispose.present())
-  protected val onExit = Redirect(config.endUrl)
+  protected val onExit = Redirect(routes.BeforeYouStart.present())
 
   override def vrmLocked(bruteForcePreventionModel: BruteForcePreventionModel, formModel: VehicleLookupFormModel)
                         (implicit request: Request[_]): Result = onVrmLocked

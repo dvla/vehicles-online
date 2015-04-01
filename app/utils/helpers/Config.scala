@@ -62,7 +62,6 @@ trait Config extends VehicleLookupConfig {
   def isHtml5ValidationEnabled: Boolean
 
   def startUrl: String
-  def endUrl: String
 
   // Opening and closing times
   def opening: Int

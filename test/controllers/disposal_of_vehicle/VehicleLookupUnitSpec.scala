@@ -547,7 +547,7 @@ final class VehicleLookupUnitSpec extends UnitSpec {
       )
       val result = vehiclesLookup.exit(request)
       whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Some(config.endUrl))
+        r.header.headers.get(LOCATION) should equal(Some("/sell-to-the-trade/before-you-start"))
       }
     }
 

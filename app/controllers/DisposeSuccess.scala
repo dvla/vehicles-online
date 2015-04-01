@@ -26,7 +26,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   protected val exitDisposeFormTarget = controllers.routes.DisposeSuccess.exit()
   protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
   protected val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
-  protected val onNewDispose = Redirect(config.endUrl)
+  protected val onNewDispose = Redirect(routes.BeforeYouStart.present())
 
   def present = Action { implicit request =>
     val result = for {

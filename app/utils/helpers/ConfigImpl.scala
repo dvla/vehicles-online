@@ -70,7 +70,6 @@ final class ConfigImpl extends Config {
   override val isHtml5ValidationEnabled: Boolean = getProperty[Boolean]("html5Validation.enabled")
 
   override val startUrl: String = getProperty[String]("start.page")
-  override val endUrl: String = getProperty[String]("end.page")
 
   // Opening and closing times
   override val opening: Int = getProperty[Int]("openingTime")

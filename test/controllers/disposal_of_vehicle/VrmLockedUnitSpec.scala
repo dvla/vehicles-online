@@ -5,7 +5,7 @@ import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
-import pages.disposal_of_vehicle.{SetupTradeDetailsPage, VehicleLookupPage}
+import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
 import play.api.Play
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
@@ -68,7 +68,7 @@ final class VrmLockedUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vrmLocked.exit(request)
       whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Play.current.configuration.getString("end.page"))
+        r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
       }
     }
   }

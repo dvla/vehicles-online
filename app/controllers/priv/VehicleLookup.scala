@@ -27,5 +27,5 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   protected override val suppressedV5C = Redirect(routes.SuppressedV5C.present())
   protected override val duplicateDisposalError = Redirect(routes.DuplicateDisposalError.present())
   protected override val dispose = Redirect(routes.Dispose.present())
-  protected override val onExit = Redirect(config.endUrl)
+  protected override val onExit = Redirect(controllers.routes.BeforeYouStart.present())
 }
