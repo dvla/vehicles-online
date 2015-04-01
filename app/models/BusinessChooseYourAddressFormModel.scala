@@ -1,10 +1,10 @@
 package models
 
 import mappings.DropDown
-import play.api.data.Forms._
+import models.DisposeCacheKeyPrefix.CookiePrefix
+import play.api.data.Forms.mapping
 import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CacheKey
-import models.DisposeCacheKeyPrefix.CookiePrefix
 
 final case class BusinessChooseYourAddressFormModel(uprnSelected: String)
 

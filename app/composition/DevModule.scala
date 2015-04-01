@@ -4,7 +4,6 @@ import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
 import play.api.{Logger, LoggerLike}
 import uk.gov.dvla.vehicles.presentation.common
-import common.ConfigProperties.{getProperty, getOptionalProperty, stringProp, booleanProp}
 import common.clientsidesession.AesEncryption
 import common.clientsidesession.ClearTextClientSideSessionFactory
 import common.clientsidesession.ClientSideSessionFactory
@@ -14,6 +13,7 @@ import common.clientsidesession.CookieFlagsFromConfig
 import common.clientsidesession.CookieNameHashGenerator
 import common.clientsidesession.EncryptedClientSideSessionFactory
 import common.clientsidesession.Sha1HashGenerator
+import common.ConfigProperties.{getProperty, getOptionalProperty, stringProp, booleanProp}
 import common.filters.AccessLoggingFilter.AccessLoggerName
 import common.filters.{AccessLoggingConfig, DefaultAccessLoggingConfig}
 import common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
