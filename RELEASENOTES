@@ -1,6 +1,31 @@
+======= 1.5 =======
+TIME OF RELEASE BINARIES CREATION:
+Wed Apr 01 14:10:11 UTC 2015
+
+DE298 all systems - latest V5 Doc Ref No allows invalid characters
+DE342 Complete and confirm box not greyed out in IE
+DE356 DISPOSAL, ACQUIRE AND KEEPER TO KEEPER WRAPPING OF NAME/ADDRESS PLAYBACK DETAILS
+DE412 K2K, Acq and Dis - Feedback does not decrease the amount of characters allowed - IE 7,8,9
+DE413 K2K, Acq and Dispose - Details missing in the playback blue box
+DE416 CsrfPreventionFilter throwsNoSuchElementException exception in tests if request doesn't have a content type.
+US1448 Resolve tabbing issue in Dispose 'Enter Vehicle Lookup'
+US2232 The 'We are sorry page' needs to be brought inline with the new styling
+US2522 Upgrade play framework to 2.3.8
+US2635 Add application prefixes to all the common cookie names
+US2636 Create BruteForce prevention acceptance tests for all the applications
+US2637 Use the tracking ID in as many log messages as possible
+US2639 Add titles back to VM services
+US2667 Create 'Private Dispose' Summary Page
+US2682 Create 'Application Processing Graphic' to Help Customers
+US2683 'Automatic Tabbing' on all date capture fields
+US2716 Style Service Closing Shortly Message
+US2757 Fix poor grammar on Summary screens
+US2777 Amend Wording on PR Consent Control Button
+US2666 Create private disposal complete and confirm
+
 ======= 1.4.6 ======
-Time of release binaries creation:
-Tue Mar 17 14:02:38 UTC 2015
+TIME OF RELEASE BINARIES CREATION:
+TUE MAR 17 14:02:38 UTC 2015
 
 US2212	[Technical] add a timeout configuration to the Vehicle & Keeper Lookup service as for all other services
 US2379	[Technical] - Remove java script from widgets, add into a library
