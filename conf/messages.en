@@ -167,6 +167,7 @@ disposal_vehiclelookup.p2 = Trader details
 disposal_vehiclelookup.warning.p1 = Do not dispose of a vehicle with a personal registration unless the current keeper understands that the registration will be disposed of along with the vehicle.
 disposal_vehiclelookup.warning.p2 = Retain or transfer personal registrations before disposing to the trade.
 disposal_vehiclelookup.img.h2 = Help finding your V5C document reference number?
+disposal_vehiclelookup.img.hint = Where to find this
 disposal_vehiclelookup.img.alt = V5C document reference number
 disposal_vehiclelookup.refnumlabel = Latest V5C document reference number
 disposal_vehiclelookup.vrninputlabel = Vehicle registration number
