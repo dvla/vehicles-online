@@ -3,11 +3,12 @@ require.config({
         'jquery': 'lib/jquery/jquery-1.9.1.min',
         'jquery-migrate': 'lib/jquery/jquery-migrate-1.2.1.min',
         'header-footer-only': 'header-footer-only',
-        'form-checked-selection': 'form-checked-selection'
+        'form-checked-selection': 'form-checked-selection',
+        'submit-button-disable': '../lib/vehicles-presentation-common/javascripts/submit-button-disable'
     }
 });
 
-require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selection"],function($) {
+require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selection", "submit-button-disable"],function($) {
 
     var IE10 = (navigator.userAgent.match(/(MSIE 10.0)/g) ? true : false);
     if (IE10) {
@@ -45,26 +46,7 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
 
     $(function() {
 
-        // Enabling loading class/js animation on submit's CTAs
-        $(':submit').on('click', function(e) {
-            var runTimes;
 
-            if ( $(this).hasClass("disabled") ) {
-                return false;
-            }
-
-            $(this).html('Loading').addClass('loading-action disabled');
-            runTimes = 0;
-            setInterval(function() {
-                if ( runTimes < 3 ){
-                    $(':submit').append('.');
-                    runTimes++;
-                } else {
-                    runTimes = 0;
-                    $(':submit').html('Loading');
-                }
-            }, 1000);
-        });
 
         // Auto-tab for date format forms and document ref number input
         $('.form-date input, #documentReferenceNumber').one('focus', function() {
