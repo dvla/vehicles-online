@@ -54,7 +54,7 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
         });
 
         // Enabling loading class/js animation on submit's CTAs
-        $(':submit').on('click', function(e) {
+        $('button[type="submit"]').on('click', function(e) {
             var runTimes;
 
             if ( $(this).hasClass("disabled") ) {
@@ -65,11 +65,11 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
             runTimes = 0;
             setInterval(function() {
                 if ( runTimes < 3 ){
-                    $(':submit').append('.');
+                    $('button[type="submit"]').append('.');
                     runTimes++;
                 } else {
                     runTimes = 0;
-                    $(':submit').html('Loading');
+                    $('button[type="submit"]').html('Loading');
                 }
             }, 1000);
         });
