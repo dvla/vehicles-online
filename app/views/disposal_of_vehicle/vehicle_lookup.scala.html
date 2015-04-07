@@ -30,11 +30,6 @@
                 <dt>@Messages("disposal_vehiclelookup.traderaddresslabel")</dt>
                 <dd>@for(addr <- viewModel.address) {@addr<br/>}</dd>
             </dl>
-            <div class="img-wrap img-wrap-desktop">
-                <h2>@Messages("disposal_vehiclelookup.img.h2")</h2>
-                <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")"
-                     alt="@Messages("disposal_vehiclelookup.img.alt")" />
-            </div>
         </div>
         <div id="trader-details" class="second-col uppercase-input">
             <div class="form-steps">
@@ -58,10 +53,22 @@
                                 (if(config.isHtml5ValidationEnabled) Map('pattern -> DocumentReferenceNumber.Pattern) else Nil)
                         )
 
-                        <div class="img-wrap img-wrap-mobile">
-                            <h2>@Messages("disposal_vehiclelookup.img.h2")</h2>
-                            <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")"
-                                 alt="@Messages("disposal_vehiclelookup.img.alt")" />
+                        <div class="hint-image-wrap img-wrap img-wrap-desktop">
+                            <p>@Messages("disposal_vehiclelookup.img.hint")</p>
+                            <div class="panel-indent-wrapper">
+                                <div class="panel-indent">
+                                    <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")" alt="@Messages("disposal_vehiclelookup.img.alt")" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hint-image-wrap img-wrap img-wrap-mobile">
+                            <p>@Messages("disposal_vehiclelookup.img.hint")</p>
+                            <div class="panel-indent-wrapper">
+                                <div class="panel-indent">
+                                    <img src="@controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png")" alt="@Messages("disposal_vehiclelookup.img.alt")" />
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-step">

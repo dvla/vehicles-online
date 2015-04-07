@@ -46,7 +46,13 @@ require(["jquery", "jquery-migrate", "header-footer-only", "form-checked-selecti
 
     $(function() {
 
+        // Images hints toogles
 
+        $('.hint-image-wrap > .panel-indent-wrapper').hide();
+
+        $('.hint-image-wrap > p').on('click', function() {
+            $(this).siblings().toggle();
+        });
 
         // Auto-tab for date format forms and document ref number input
         $('.form-date input, #documentReferenceNumber').one('focus', function() {
