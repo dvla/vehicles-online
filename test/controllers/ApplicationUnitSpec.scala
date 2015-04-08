@@ -1,9 +1,9 @@
 package controllers
 
-import composition.TestGlobal
+import composition.{WithApplication, TestGlobal}
 import org.mockito.Mockito.when
 import org.specs2.execute.{Result, AsResult}
-import play.api.test.{Helpers, WithApplication, FakeApplication, FakeRequest}
+import play.api.test.{Helpers, FakeApplication, FakeRequest}
 import play.api.test.Helpers.{redirectLocation, defaultAwaitTimeout}
 import helpers.UnitSpec
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getProperty, stringProp}
