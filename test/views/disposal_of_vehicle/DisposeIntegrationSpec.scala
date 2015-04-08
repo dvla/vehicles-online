@@ -30,6 +30,7 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.test.FakeApplication
 import ProgressBar.progressStep
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
@@ -313,11 +314,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       dealerDetails().
       vehicleAndKeeperDetailsModel()
 
-  private val fakeAppWithHtml5ValidationEnabledConfig = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("html5Validation.enabled" -> true))
+  private val fakeAppWithHtml5ValidationEnabledConfig = LightFakeApplication.create(TestGlobal, Map("html5Validation.enabled" -> true))
 
-  private val fakeAppWithHtml5ValidationDisabledConfig = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("html5Validation.enabled" -> false))
+  private val fakeAppWithHtml5ValidationDisabledConfig = LightFakeApplication.create(TestGlobal, Map("html5Validation.enabled" -> false))
+
 }

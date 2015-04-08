@@ -1,11 +1,13 @@
 package controllers
 
+import composition.TestGlobal
 import org.mockito.Mockito.when
 import org.specs2.execute.{Result, AsResult}
 import play.api.test.{Helpers, WithApplication, FakeApplication, FakeRequest}
 import play.api.test.Helpers.{redirectLocation, defaultAwaitTimeout}
 import helpers.UnitSpec
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getProperty, stringProp}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import utils.helpers.Config
 
 final class ApplicationUnitSpec extends UnitSpec {
@@ -35,7 +37,7 @@ final class ApplicationUnitSpec extends UnitSpec {
   // This Application allows us to safely apply an application context and ensure that the changes are reverted
   // once the test has finished executing. This is because the default Router object contains global shared state
   class WithApplicationContext(context: String) extends play.api.test.WithApplication (
-    app = FakeApplication(additionalConfiguration = Map("application.context" -> context))
+    app = LightFakeApplication.create( TestGlobal, Map("application.context" -> context))
   ){
     override def around[T: AsResult](t: => T): Result =
     {

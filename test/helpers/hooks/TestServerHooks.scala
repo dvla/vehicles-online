@@ -1,6 +1,8 @@
 package helpers.hooks
 
 import composition.TestGlobal
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
+
 //import cucumber.api.java.{After, Before}
 import play.api.test.{FakeApplication, TestServer}
 
@@ -21,5 +23,5 @@ final class TestServerHooks {
 
 object TestServerHooks {
   private final val port: Int = 9002
-  private lazy val fakeAppWithTestGlobal: FakeApplication = FakeApplication(withGlobal = Some(TestGlobal))
+  private lazy val fakeAppWithTestGlobal: FakeApplication = LightFakeApplication.create(TestGlobal)
 }

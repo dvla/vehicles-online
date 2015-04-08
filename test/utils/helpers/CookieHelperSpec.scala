@@ -9,6 +9,7 @@ import play.api.test.Helpers.LOCATION
 import play.api.test.{FakeApplication, FakeRequest}
 import helpers.UnitSpec
 import models.AllCacheKeys
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 final class CookieHelperSpec extends UnitSpec {
   "handleApplicationSecretChange" should {
@@ -54,7 +55,5 @@ final class CookieHelperSpec extends UnitSpec {
     }
   }
 
-  private val appWithCryptpConfig = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
+  private val appWithCryptpConfig = LightFakeApplication.create(TestGlobal,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
 }

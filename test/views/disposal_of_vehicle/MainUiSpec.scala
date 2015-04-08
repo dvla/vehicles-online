@@ -8,6 +8,7 @@ import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.common.Feedback.mailto
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import play.api.test.FakeApplication
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 final class MainUiSpec extends UiSpec with TestHarness {
   "go to page" should {
@@ -54,7 +55,6 @@ final class MainUiSpec extends UiSpec with TestHarness {
     }
   }
 
-  private val fakeAppWithPrototypeFalse = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("prototype.disclaimer" -> "false"))
+  private val fakeAppWithPrototypeFalse = LightFakeApplication.create(TestGlobal,Map("prototype.disclaimer" -> "false"))
+
 }
