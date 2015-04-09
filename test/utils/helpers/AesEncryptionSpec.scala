@@ -4,6 +4,7 @@ import composition.TestGlobal
 import helpers.{UnitSpec, WithApplication}
 import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.AesEncryption
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 final class AesEncryptionSpec extends UnitSpec {
   "encryptCookie" should {
@@ -39,12 +40,11 @@ final class AesEncryptionSpec extends UnitSpec {
   }
 
   private val ClearText = "qwerty"
-  private val fakeAppWithCryptoConfig = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo=")
-  )
-  private val fakeAppWithWrongLengthAppSecretConfig = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("application.secret256Bit" -> "rubbish")
-  )
+
+  private val fakeAppWithCryptoConfig =
+    LightFakeApplication(TestGlobal,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
+
+  private val fakeAppWithWrongLengthAppSecretConfig =
+    LightFakeApplication(TestGlobal,Map("application.secret256Bit" -> "rubbish="))
+
 }

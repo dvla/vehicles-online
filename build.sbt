@@ -75,7 +75,11 @@ testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "helpers.t
 
 javaOptions in Test += System.getProperty("waitSeconds")
 
+//testOptions in Test := Seq(Tests.Filter(s => (s.endsWith("IntegrationSpec") || s.endsWith("UiSpec"))))
+
 concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4), Tags.limit(Tags.Network, 10), Tags.limit(Tags.Test, 4))
+
+//parallelExecution in Test := true
 
 sbt.Keys.fork in Test := false
 

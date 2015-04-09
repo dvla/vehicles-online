@@ -16,6 +16,7 @@ import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
 import AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{WebBrowserDSL, WebDriverFactory}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoSugar with WebBrowserDSL {
 
@@ -89,25 +90,25 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
 
   private val mockLoggerTest1 = new MockLogger
 
-  private def testApp1 = FakeApplication(withGlobal = Some(new TestGlobalWithMockLogger(mockLoggerTest1)))
+  private def testApp1 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest1))
 
   private val mockLoggerTest2 = new MockLogger
 
-  private def testApp2 = FakeApplication(withGlobal = Some(new TestGlobalWithMockLogger(mockLoggerTest2)))
+  private def testApp2 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest2))
 
   private val mockLoggerTest3 = new MockLogger
 
-  private def testApp3 = FakeApplication(withGlobal = Some(new TestGlobalWithMockLogger(mockLoggerTest3)))
+  private def testApp3 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest3))
 
   private val mockLoggerTest4 = new MockLogger
 
-  private def testApp4 = FakeApplication(withGlobal = Some(new TestGlobalWithMockLogger(mockLoggerTest4)))
+  private def testApp4 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest4))
 
   private val mockLoggerTest5 = new MockLogger
 
-  private def testApp5 = FakeApplication(withGlobal = Some(new TestGlobalWithMockLogger(mockLoggerTest5)))
+  private def testApp5 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest5))
 
   private val mockLoggerTest6 = new MockLogger
 
-  private def testApp6 = FakeApplication(withGlobal = Some(new TestGlobalWithMockLogger(mockLoggerTest6)))
+  private def testApp6 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest6))
 }

@@ -2,15 +2,12 @@ package helpers.common
 
 import composition.TestGlobal
 import play.api.test.FakeApplication
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 object ProgressBar {
-  val fakeApplicationWithProgressBarFalse = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("progressBar.enabled" -> "false"))
+  val fakeApplicationWithProgressBarFalse = LightFakeApplication(TestGlobal, Map("progressBar.enabled" -> "false"))
 
-  val fakeApplicationWithProgressBarTrue = FakeApplication(
-    withGlobal = Some(TestGlobal),
-    additionalConfiguration = Map("progressBar.enabled" -> "true"))
+  val fakeApplicationWithProgressBarTrue = LightFakeApplication(TestGlobal, Map("progressBar.enabled" -> "true"))
 
   def progressStep(currentStep: Int): String = {
     val end = 6
