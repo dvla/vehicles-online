@@ -55,5 +55,5 @@ final class CookieHelperSpec extends UnitSpec {
     }
   }
 
-  private val appWithCryptpConfig = LightFakeApplication.create(TestGlobal,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
+  private val appWithCryptpConfig = LightFakeApplication(TestGlobal,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
 }

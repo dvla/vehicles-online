@@ -314,8 +314,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       dealerDetails().
       vehicleAndKeeperDetailsModel()
 
-  private val fakeAppWithHtml5ValidationEnabledConfig = LightFakeApplication.create(TestGlobal, Map("html5Validation.enabled" -> true))
+  private val fakeAppWithHtml5ValidationEnabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> true))
 
-  private val fakeAppWithHtml5ValidationDisabledConfig = LightFakeApplication.create(TestGlobal, Map("html5Validation.enabled" -> false))
+  private val fakeAppWithHtml5ValidationDisabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
 
 }

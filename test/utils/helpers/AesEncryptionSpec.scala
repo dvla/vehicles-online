@@ -40,6 +40,6 @@ final class AesEncryptionSpec extends UnitSpec {
   }
 
   private val ClearText = "qwerty"
-  private val fakeAppWithCryptoConfig = LightFakeApplication.create(TestGlobal,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
-  private val fakeAppWithWrongLengthAppSecretConfig = LightFakeApplication.create(TestGlobal,Map("application.secret256Bit" -> "rubbish="))
+  private val fakeAppWithCryptoConfig = LightFakeApplication(TestGlobal,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
+  private val fakeAppWithWrongLengthAppSecretConfig = LightFakeApplication(TestGlobal,Map("application.secret256Bit" -> "rubbish="))
 }

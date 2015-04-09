@@ -55,6 +55,6 @@ final class MainUiSpec extends UiSpec with TestHarness {
     }
   }
 
-  private val fakeAppWithPrototypeFalse = LightFakeApplication.create(TestGlobal,Map("prototype.disclaimer" -> "false"))
+  private val fakeAppWithPrototypeFalse = LightFakeApplication(TestGlobal,Map("prototype.disclaimer" -> "false"))
 
 }

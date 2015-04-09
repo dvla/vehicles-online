@@ -90,25 +90,25 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
 
   private val mockLoggerTest1 = new MockLogger
 
-  private def testApp1 = LightFakeApplication.create(new TestGlobalWithMockLogger(mockLoggerTest1))
+  private def testApp1 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest1))
 
   private val mockLoggerTest2 = new MockLogger
 
-  private def testApp2 = LightFakeApplication.create(new TestGlobalWithMockLogger(mockLoggerTest2))
+  private def testApp2 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest2))
 
   private val mockLoggerTest3 = new MockLogger
 
-  private def testApp3 = LightFakeApplication.create(new TestGlobalWithMockLogger(mockLoggerTest3))
+  private def testApp3 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest3))
 
   private val mockLoggerTest4 = new MockLogger
 
-  private def testApp4 = LightFakeApplication.create(new TestGlobalWithMockLogger(mockLoggerTest4))
+  private def testApp4 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest4))
 
   private val mockLoggerTest5 = new MockLogger
 
-  private def testApp5 = LightFakeApplication.create(new TestGlobalWithMockLogger(mockLoggerTest5))
+  private def testApp5 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest5))
 
   private val mockLoggerTest6 = new MockLogger
 
-  private def testApp6 = LightFakeApplication.create(new TestGlobalWithMockLogger(mockLoggerTest6))
+  private def testApp6 = LightFakeApplication(new TestGlobalWithMockLogger(mockLoggerTest6))
 }

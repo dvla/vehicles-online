@@ -242,7 +242,7 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       dealerDetails().
       disposeOccurred
 
-  private val fakeAppWithHtml5ValidationEnabledConfig = LightFakeApplication.create(TestGlobal, Map("html5Validation.enabled" -> true))
+  private val fakeAppWithHtml5ValidationEnabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> true))
 
-  private val fakeAppWithHtml5ValidationDisabledConfig = LightFakeApplication.create(TestGlobal, Map("html5Validation.enabled" -> false))
+  private val fakeAppWithHtml5ValidationDisabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
 }

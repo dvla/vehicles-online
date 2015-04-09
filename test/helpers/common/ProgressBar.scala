@@ -5,9 +5,9 @@ import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 object ProgressBar {
-  val fakeApplicationWithProgressBarFalse = LightFakeApplication.create(TestGlobal, Map("progressBar.enabled" -> "false"))
+  val fakeApplicationWithProgressBarFalse = LightFakeApplication(TestGlobal, Map("progressBar.enabled" -> "false"))
 
-  val fakeApplicationWithProgressBarTrue = LightFakeApplication.create(TestGlobal, Map("progressBar.enabled" -> "true"))
+  val fakeApplicationWithProgressBarTrue = LightFakeApplication(TestGlobal, Map("progressBar.enabled" -> "true"))
 
   def progressStep(currentStep: Int): String = {
     val end = 6
