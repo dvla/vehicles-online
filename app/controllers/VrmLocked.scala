@@ -12,7 +12,7 @@ import uk.gov.dvla.vehicles.presentation.common.model.{BruteForcePreventionModel
 import utils.helpers.Config
 
 class VrmLocked @Inject()()(implicit protected override val clientSideSessionFactory: ClientSideSessionFactory,
-                                  config: Config) extends VrmLockedBase {
+                            config: Config) extends VrmLockedBase {
 
   protected val tryAnotherTarget = controllers.routes.VrmLocked.tryAnother()
   protected val exitTarget = controllers.routes.VrmLocked.exit()

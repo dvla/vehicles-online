@@ -8,7 +8,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import utils.helpers.Config
 
 class BeforeYouStart @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                       config: Config) extends Controller {
+                                 config: Config) extends Controller {
 
   def present = Action { implicit request =>
     Ok(views.html.disposal_of_vehicle.before_you_start()).

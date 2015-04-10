@@ -1,15 +1,14 @@
 package controllers
 
 import javax.inject.Inject
+import models.DisposeCacheKeys
 import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichResult
 import utils.helpers.Config
-import models.DisposeCacheKeys
 
-class DuplicateDisposalError @Inject()()
-                                   (implicit clientSideSessionFactory: ClientSideSessionFactory, config: Config)
-  extends Controller {
+class DuplicateDisposalError @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
+                                         config: Config) extends Controller {
 
   protected val tryAgainLink = controllers.routes.VehicleLookup.present()
   protected val exitLink = controllers.routes.BeforeYouStart.present()
