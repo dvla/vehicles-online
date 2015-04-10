@@ -1,9 +1,8 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.VehicleLookupFailure
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
-import helpers.{UnitSpec, WithApplication}
+import Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
+import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
 import play.api.test.FakeRequest
@@ -11,7 +10,7 @@ import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
-final class VehicleLookupFailureUnitSpec extends UnitSpec {
+class VehicleLookupFailureUnitSpec extends UnitSpec {
 
   "present" should {
     "display the page" in new WithApplication {

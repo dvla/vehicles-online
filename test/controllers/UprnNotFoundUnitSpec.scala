@@ -1,17 +1,14 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
-import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
+import Common.PrototypeHtml
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
-import pages.disposal_of_vehicle.ErrorPage
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{OK, contentAsString, defaultAwaitTimeout}
+import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, OK}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
-final class ErrorUnitSpec extends UnitSpec {
-
+class UprnNotFoundUnitSpec extends UnitSpec {
   "present" should {
     "display the page" in new WithApplication {
       whenReady(present) { r =>
@@ -34,22 +31,17 @@ final class ErrorUnitSpec extends UnitSpec {
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
       when(config.assetsUrl).thenReturn(None) // Stub this config value.
-      val errorPrototypeNotVisible = new controllers.Error()
+      val uprnNotFoundPrototypeNotVisible = new UprnNotFound()
 
-      val result = errorPrototypeNotVisible.present(ErrorPage.exceptionDigest)(request)
+      val result = uprnNotFoundPrototypeNotVisible.present(request)
       contentAsString(result) should not include PrototypeHtml
     }
   }
 
-  // TODO please add test for 'submit'.
-
-  private lazy val errorController = injector.getInstance(classOf[controllers.Error])
+  private lazy val uprnNotFound = injector.getInstance(classOf[UprnNotFound])
 
   private lazy val present = {
-    val request = FakeRequest().
-      withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-      withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
-    errorController.present(ErrorPage.exceptionDigest)(request)
+    val request = FakeRequest()
+    uprnNotFound.present(request)
   }
 }

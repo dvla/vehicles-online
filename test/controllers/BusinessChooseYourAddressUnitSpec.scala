@@ -1,7 +1,6 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.BusinessChooseYourAddress
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
+import Common.PrototypeHtml
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
@@ -16,7 +15,7 @@ import pages.disposal_of_vehicle.{SetupTradeDetailsPage, UprnNotFoundPage, Vehic
 import play.api.i18n.Lang
 import play.api.mvc.Cookies
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{BAD_REQUEST, contentAsString, defaultAwaitTimeout, LOCATION, OK, SET_COOKIE}
+import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, SET_COOKIE, contentAsString, defaultAwaitTimeout}
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.traderDetailsCacheKey
@@ -33,7 +32,7 @@ import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForU
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddressNotFound
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
-final class BusinessChooseYourAddressUnitSpec extends UnitSpec {
+class BusinessChooseYourAddressUnitSpec extends UnitSpec {
   "present (use UPRN enabled)" should {
     "display the page if dealer details cached" in new WithApplication {
       whenReady(present(ordnanceSurveyUseUprn = true), timeout) { r =>

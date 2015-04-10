@@ -1,26 +1,24 @@
-package controllers.disposal_of_vehicle
+package controllers
 
 import composition.WithApplication
-import controllers.BusinessChooseYourAddress
 import helpers.UnitSpec
-import org.mockito.Matchers._
-import org.mockito.Mockito._
+import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import org.mockito.invocation.InvocationOnMock
+import org.mockito.Matchers.{any, anyString}
+import org.mockito.Mockito.when
 import org.mockito.stubbing.Answer
+import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
+import utils.helpers.Config
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddress
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddressNotFound
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddress
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.responseValidForUprnToAddressNotFound
-import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
-import utils.helpers.Config
-
-import scala.concurrent.Future
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 class BusinessChooseYourAddressFormSpec extends UnitSpec {
   "form" should {

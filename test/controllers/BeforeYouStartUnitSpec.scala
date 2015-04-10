@@ -1,16 +1,15 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.BeforeYouStart
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
+import Common.PrototypeHtml
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout, status}
+import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, LOCATION, OK, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
-final class BeforeYouStartUnitSpec extends UnitSpec {
+class BeforeYouStartUnitSpec extends UnitSpec {
   "present" should {
     "display the page" in new WithApplication {
       val result = beforeYouStart.present(FakeRequest())

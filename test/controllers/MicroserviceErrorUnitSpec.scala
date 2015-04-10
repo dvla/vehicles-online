@@ -1,21 +1,19 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.MicroServiceError
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
-import helpers.common.CookieHelper
-import helpers.{UnitSpec, WithApplication}
-import CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
+import Common.PrototypeHtml
+import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
+import helpers.common.CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import helpers.{UnitSpec, WithApplication}
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
-import MicroServiceError.MicroServiceErrorRefererCacheKey
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{DisposePage, VehicleLookupPage}
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{LOCATION, SERVICE_UNAVAILABLE, REFERER, contentAsString, defaultAwaitTimeout, status}
+import play.api.test.Helpers.{LOCATION, REFERER, SERVICE_UNAVAILABLE, contentAsString, defaultAwaitTimeout, status}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
-final class MicroserviceErrorUnitSpec extends UnitSpec {
+class MicroserviceErrorUnitSpec extends UnitSpec {
   "present" should {
     "display the page" in new WithApplication {
       status(present) should equal(SERVICE_UNAVAILABLE)

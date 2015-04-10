@@ -1,21 +1,20 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.Dispose
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
+import Common.PrototypeHtml
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs.TrackingIdValue
 import helpers.{UnitSpec, WithApplication}
-import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
 import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
+import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
-import org.mockito.invocation.InvocationOnMock
+import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.{never, times, verify, when}
-import org.mockito.Matchers.{anyString, any}
+import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 import pages.disposal_of_vehicle.DisposeFailurePage
 import pages.disposal_of_vehicle.DisposeSuccessPage
@@ -61,8 +60,8 @@ import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseSuccess
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUnableToProcessApplication
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUndefinedError
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
-import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
+import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
 
 class DisposeUnitSpec extends UnitSpec {
 
