@@ -13,9 +13,9 @@ import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
+import org.mockito.invocation.InvocationOnMock
 import org.mockito.Mockito.{never, times, verify, when}
 import org.mockito.Matchers.{anyString, any}
-import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 import pages.disposal_of_vehicle.DisposeFailurePage
 import pages.disposal_of_vehicle.DisposeSuccessPage
@@ -26,20 +26,22 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers.BAD_REQUEST
+import play.api.test.Helpers.contentAsString
+import play.api.test.Helpers.defaultAwaitTimeout
 import play.api.test.Helpers.INTERNAL_SERVER_ERROR
 import play.api.test.Helpers.LOCATION
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.SERVICE_UNAVAILABLE
-import play.api.test.Helpers.contentAsString
-import play.api.test.Helpers.defaultAwaitTimeout
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
-import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
 import webserviceclients.dispose.DisposalAddressDto
+import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
 import webserviceclients.dispose.DisposeRequestDto
 import webserviceclients.dispose.DisposeResponseDto
 import webserviceclients.dispose.DisposeService
@@ -53,17 +55,14 @@ import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValidWithSpace
 import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
-import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseApplicationBeingProcessed
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseFailureWithDuplicateDisposal
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseSuccess
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUnableToProcessApplication
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUndefinedError
-import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 
 class DisposeUnitSpec extends UnitSpec {
 
