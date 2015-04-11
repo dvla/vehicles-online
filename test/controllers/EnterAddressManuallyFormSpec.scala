@@ -1,16 +1,18 @@
-package controllers.disposal_of_vehicle
+package controllers
 
 import composition.WithApplication
-import controllers.EnterAddressManually
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
-import AddressLinesViewModel.Form.LineMaxLength
 import helpers.UnitSpec
-import models.EnterAddressManuallyFormModel
-import EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
-import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
+import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.AddressLinesId
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.BuildingNameOrNumberId
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line2Id
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line3Id
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.PostTownId
 import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
 
-final class EnterAddressManuallyFormSpec extends UnitSpec {
+class EnterAddressManuallyFormSpec extends UnitSpec {
+
   "form" should {
     "accept if form is valid with all fields filled in" in new WithApplication {
       val model = formWithValidDefaults().get.addressAndPostcodeModel

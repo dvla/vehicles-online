@@ -1,7 +1,6 @@
-package controllers.disposal_of_vehicle
+package controllers
 
 import composition.WithApplication
-import controllers.{SurveyUrl, VehicleLookup}
 import helpers.UnitSpec
 import helpers.common.RandomVrmGenerator
 import helpers.disposal_of_vehicle.InvalidVRMFormat.allInvalidVrmFormats
@@ -18,9 +17,9 @@ import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.services.DateServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
-import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.healthstats.HealthStats
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsRequest
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsResponse
@@ -31,10 +30,9 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.ConsentValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.ReferenceNumberValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseSuccess
-
 import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
 
-final class VehicleLookupFormSpec extends UnitSpec {
+class VehicleLookupFormSpec extends UnitSpec {
   implicit val dateService = new DateServiceImpl
 
   "form" should {

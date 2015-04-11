@@ -3,19 +3,20 @@ package controllers
 import com.google.inject.Inject
 import play.api.data.{FormError, Form}
 import play.api.i18n.Messages
-import play.api.mvc._
+import play.api.mvc.{Action, AnyContent, Call, Controller}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.controllers.FeedbackBase
 import common.model.FeedbackForm
-import common.model.FeedbackForm.Form._
+import common.model.FeedbackForm.Form.{feedback, nameMapping, emailMapping}
 import common.views.helpers.FormExtensions.formBinding
 import common.clientsidesession.CookieImplicits.RichCookies
 import utils.helpers.Config
 import webserviceclients.emailservice.EmailService
 
-class FeedbackController @Inject()(val emailService: EmailService)(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                        config: Config) extends Controller with FeedbackBase {
+class FeedbackController @Inject()(val emailService: EmailService)
+                                  (implicit clientSideSessionFactory: ClientSideSessionFactory,
+                                   config: Config) extends Controller with FeedbackBase {
 
   override val emailConfiguration = config.emailConfiguration
   protected val formTarget = controllers.routes.FeedbackController.submit()
@@ -52,5 +53,4 @@ class FeedbackController @Inject()(val emailService: EmailService)(implicit clie
         emailMapping, FormError(key = emailMapping, message = "error.email", args = Seq.empty)
       ).distinctErrors
   }
-
 }

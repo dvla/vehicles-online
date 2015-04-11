@@ -1,21 +1,20 @@
 package controllers
 
 import com.google.inject.Inject
-import play.api.Logger
+import models.DisposeCacheKeyPrefix.CookiePrefix
+import models.EnterAddressManuallyFormModel
 import play.api.data.{Form, FormError}
+import play.api.Logger
 import play.api.mvc.{Action, Controller, Request}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichForm, RichCookies, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{VmAddressModel, TraderDetailsModel, SetupTradeDetailsFormModel}
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
-import models.EnterAddressManuallyFormModel
 import views.html.disposal_of_vehicle.enter_address_manually
-import models.DisposeCacheKeyPrefix.CookiePrefix
 
-class EnterAddressManually @Inject()()
-                                 (implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                  config: Config) extends Controller {
+class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
+                                       config: Config) extends Controller {
 
   private[controllers] val form = Form(
     EnterAddressManuallyFormModel.Form.Mapping

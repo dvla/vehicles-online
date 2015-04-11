@@ -1,28 +1,24 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.SetUpTradeDetails
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
+import Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
-import helpers.common.CookieHelper
-import helpers.{WithApplication, UnitSpec}
-import CookieHelper.fetchCookiesFromHeaders
+import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
+import helpers.{UnitSpec, WithApplication}
+import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
-import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.ClientSideSessionFactory
-import common.mappings.BusinessName
-import common.model.SetupTradeDetailsFormModel
-import common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
-import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
-import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.mappings.BusinessName
+import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
+import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
+import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import utils.helpers.Config
+import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 
-import models.DisposeCacheKeyPrefix.CookiePrefix
-
-final class SetUpTradeDetailsUnitSpec extends UnitSpec {
+class SetUpTradeDetailsUnitSpec extends UnitSpec {
 
   "present" should {
     "display the page" in new WithApplication {

@@ -1,20 +1,18 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.SoapEndpointError
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
+import controllers.Common.PrototypeHtml
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{OK, contentAsString, defaultAwaitTimeout}
+import play.api.test.Helpers.{OK, contentAsString, defaultAwaitTimeout, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
-final class SoapEndpointErrorUnitSpec extends UnitSpec {
+class DuplicateDisposalErrorUnitSpec extends UnitSpec {
+
   "present" should {
     "display the page" in new WithApplication {
-      whenReady(present) { r =>
-        r.header.status should equal(OK)
-      }
+      status(present) should equal(OK)
     }
 
     "not display progress bar" in new WithApplication {
@@ -32,13 +30,16 @@ final class SoapEndpointErrorUnitSpec extends UnitSpec {
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
       when(config.assetsUrl).thenReturn(None) // Stub this config value.
-      val soapEndpointErrorPrototypeNotVisible = new SoapEndpointError()
+      val duplicateDisposalErrorPrototypeNotVisible = new DuplicateDisposalError()
 
-      val result = soapEndpointErrorPrototypeNotVisible.present(request)
+      val result = duplicateDisposalErrorPrototypeNotVisible.present(request)
       contentAsString(result) should not include PrototypeHtml
     }
   }
 
-  private lazy val soapEndpointError = injector.getInstance(classOf[SoapEndpointError])
-  private lazy val present = soapEndpointError.present(FakeRequest())
+  private lazy val present = {
+    val duplicateDisposalError = injector.getInstance(classOf[DuplicateDisposalError])
+    val newFakeRequest = FakeRequest()
+    duplicateDisposalError.present(newFakeRequest)
+  }
 }

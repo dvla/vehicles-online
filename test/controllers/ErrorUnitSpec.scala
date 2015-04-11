@@ -1,16 +1,17 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.DisposeFailure
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
-import helpers.{UnitSpec, WithApplication}
+import Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
+import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
+import pages.disposal_of_vehicle.ErrorPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{OK, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
-final class DisposeFailureUnitSpec extends UnitSpec {
+class ErrorUnitSpec extends UnitSpec {
+
   "present" should {
     "display the page" in new WithApplication {
       whenReady(present) { r =>
@@ -31,20 +32,24 @@ final class DisposeFailureUnitSpec extends UnitSpec {
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
-      val disposeFailurePrototypeNotVisible = new DisposeFailure()
+      when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
+      when(config.assetsUrl).thenReturn(None) // Stub this config value.
+      val errorPrototypeNotVisible = new controllers.Error()
 
-      val result = disposeFailurePrototypeNotVisible.present(request)
+      val result = errorPrototypeNotVisible.present(ErrorPage.exceptionDigest)(request)
       contentAsString(result) should not include PrototypeHtml
     }
   }
 
+  // TODO please add test for 'submit'.
+
+  private lazy val errorController = injector.getInstance(classOf[controllers.Error])
+
   private lazy val present = {
-    val disposeFailure = injector.getInstance(classOf[DisposeFailure])
     val request = FakeRequest().
+      withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
       withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.disposeFormModel()).
-      withCookies(CookieFactoryForUnitSpecs.disposeTransactionId())
-    disposeFailure.present(request)
+      withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+    errorController.present(ErrorPage.exceptionDigest)(request)
   }
 }

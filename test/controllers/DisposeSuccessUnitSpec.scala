@@ -1,26 +1,23 @@
-package controllers.disposal_of_vehicle
+package controllers
 
+import Common.PrototypeHtml
 import com.tzavellas.sse.guice.ScalaModule
-import controllers.{SurveyUrl, DisposeSuccess}
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
+import models.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import org.joda.time.Instant
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout}
+import scala.concurrent.duration.DurationInt
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
-import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
+import uk.gov.dvla.vehicles.presentation.common.services.{DateService, DateServiceImpl}
 import utils.helpers.Config
-import models.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import webserviceclients.fakes.FakeDateServiceImpl
 
-import scala.concurrent.duration.DurationInt
-
-final class DisposeSuccessUnitSpec extends UnitSpec {
+class DisposeSuccessUnitSpec extends UnitSpec {
   implicit val dateService = new DateServiceImpl
   val testDuration = 7.days.toMillis
 

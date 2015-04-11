@@ -9,9 +9,11 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel, DisposeCacheKeys}
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.joda.time.format.ISODateTimeFormat
-import play.api.Logger
 import play.api.data.{Form, FormError}
+import play.api.Logger
 import play.api.mvc.{Action, AnyContent, Call, Controller, Request, Result}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
@@ -20,9 +22,6 @@ import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.for
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.dispose
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 class Dispose @Inject()(webService: DisposeService, dateService: DateService)
                        (implicit clientSideSessionFactory: ClientSideSessionFactory,

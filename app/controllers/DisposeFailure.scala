@@ -1,9 +1,9 @@
 package controllers
 
 import com.google.inject.Inject
-import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel
 import models.DisposeCacheKeyPrefix.CookiePrefix
+import models.DisposeFormModel
+import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import play.api.Logger
 import play.api.mvc.{Action, Controller}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -12,7 +12,7 @@ import uk.gov.dvla.vehicles.presentation.common.model.{DisposeModel, TraderDetai
 import utils.helpers.Config
 
 class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                       config: Config) extends Controller {
+                                 config: Config) extends Controller {
   protected val sellNewVehicleCall = controllers.routes.VehicleLookup.present()
   protected val exitCall = controllers.routes.SetUpTradeDetails.present()
   protected val onMissingCookies = Redirect(routes.SetUpTradeDetails.present())

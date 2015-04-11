@@ -8,7 +8,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import utils.helpers.{Config, CookieHelper}
 
 class Error @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                              config: Config) extends Controller {
+                        config: Config) extends Controller {
 
   protected def formTarget(exceptionDigest: String): Call = controllers.routes.Error.submit(exceptionDigest)
 

@@ -1,30 +1,28 @@
-package controllers.disposal_of_vehicle
+package controllers
 
 import composition.WithApplication
-import controllers.Dispose
 import helpers.UnitSpec
-import org.joda.time.{LocalDate, Instant}
-import org.mockito.Mockito.when
-import org.mockito.Matchers.{anyString, any}
+import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
+import org.joda.time.{Instant, LocalDate}
 import org.mockito.invocation.InvocationOnMock
+import org.mockito.Matchers.{any, anyString}
+import org.mockito.Mockito.when
 import org.mockito.stubbing.Answer
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import play.api.libs.json.Json
-import webserviceclients.dispose.{DisposeConfig, DisposeWebService, DisposeServiceImpl, DisposeRequestDto}
 import scala.concurrent.Future
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
+import uk.gov.dvla.vehicles.presentation.common.mappings.Mileage
+import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
+import utils.helpers.Config
+import webserviceclients.dispose.{DisposeConfig, DisposeRequestDto, DisposeServiceImpl, DisposeWebService}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.{ConsentValid, MileageValid, disposeResponseSuccess}
 import webserviceclients.fakes.FakeResponse
-import utils.helpers.Config
-import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.ClientSideSessionFactory
-import common.mappings.DayMonthYear.{DayId, MonthId, YearId}
-import common.mappings.Mileage
-import common.services.DateService
-import common.views.models.DayMonthYear
-import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
 
-final class DisposeFormSpec extends UnitSpec {
+class DisposeFormSpec extends UnitSpec {
   "form" should {
     "accept when all fields contain valid responses" in new WithApplication {
       val model = formWithValidDefaults().get

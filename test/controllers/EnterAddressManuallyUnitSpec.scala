@@ -1,32 +1,38 @@
-package controllers.disposal_of_vehicle
+package controllers
 
-import controllers.EnterAddressManually
-import controllers.disposal_of_vehicle.Common.PrototypeHtml
+import Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
+import models.DisposeCacheKeyPrefix.CookiePrefix
+import models.EnterAddressManuallyFormModel
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
+import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{SetupTradeDetailsPage, VehicleLookupPage}
 import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
+import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
+import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.traderDetailsCacheKey
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.AddressLinesId
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.BuildingNameOrNumberId
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line2Id
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line3Id
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.PostTownId
 import utils.helpers.Config
 import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
-import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
-import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.DisposeCacheKeyPrefix.CookiePrefix
-import TraderDetailsModel.traderDetailsCacheKey
-import models.EnterAddressManuallyFormModel
-import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid}
+import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
+import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
+import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
+import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 
-import scala.concurrent.Future
-
-final class EnterAddressManuallyUnitSpec extends UnitSpec {
+class EnterAddressManuallyUnitSpec extends UnitSpec {
   "present" should {
     "display the page" in new WithApplication {
       whenReady(present) { r =>
