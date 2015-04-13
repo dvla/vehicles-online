@@ -13,9 +13,9 @@ import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleReg
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
-import org.mockito.Matchers.{any, anyString}
-import org.mockito.Mockito.{verify, when}
 import org.mockito.invocation.InvocationOnMock
+import org.mockito.Matchers.{any, anyString}
+import org.mockito.Mockito.{never, times, verify, when}
 import org.mockito.stubbing.Answer
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
@@ -28,7 +28,7 @@ import pages.disposal_of_vehicle.VrmLockedPage
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{LOCATION, contentAsString, defaultAwaitTimeout}
+import play.api.test.Helpers.{BAD_REQUEST, contentAsString, defaultAwaitTimeout, LOCATION}
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
@@ -64,11 +64,11 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetai
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseVRMNotFound
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsServerDown
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
+import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseFirstAttempt
+import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseSecondAttempt
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmAttempt2
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmThrows
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseFirstAttempt
-import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.responseSecondAttempt
 import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
 
 class VehicleLookupUnitSpec extends UnitSpec {
@@ -522,6 +522,31 @@ class VehicleLookupUnitSpec extends UnitSpec {
         trackingIdCaptor.getValue should be(ClearTextClientSideSessionFactory.DefaultTrackingId)
       }
     }
+
+    "call the vehicle lookup micro service and brute force service after a valid request" in new WithApplication {
+      val (bruteForceService, bruteForceWebServiceMock) = bruteForceServiceAndWebServiceMock(permitted = true)
+      val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(bruteForceService = bruteForceService)
+      val request = buildCorrectlyPopulatedRequest()
+      val result = vehicleLookupController.submit(request)
+      whenReady(result) { r =>
+        r.header.headers.get(LOCATION) should equal(Some(DisposePage.address))
+        verify(bruteForceWebServiceMock, times(1)).callBruteForce(anyString())
+        verify(vehicleLookupMicroServiceMock, times(1)).invoke(any[VehicleAndKeeperDetailsRequest], anyString())
+      }
+    }
+
+    "not call the vehicle lookup micro service after a invalid request" in new WithApplication {
+      val (bruteForceService, bruteForceWebServiceMock) = bruteForceServiceAndWebServiceMock(permitted = true)
+      val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(bruteForceService = bruteForceService)
+      val request = buildCorrectlyPopulatedRequest(registrationNumber = "").
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      val result = vehicleLookupController.submit(request)
+      whenReady(result) { r =>
+        r.header.status should equal(BAD_REQUEST)
+        verify(bruteForceWebServiceMock, never()).callBruteForce(anyString())
+        verify(vehicleLookupMicroServiceMock, never()).invoke(any[VehicleAndKeeperDetailsRequest], anyString())
+      }
+    }
   }
 
   "exit" should {
@@ -567,9 +592,16 @@ class VehicleLookupUnitSpec extends UnitSpec {
 
   private val ExitAnchorHtml = """a id="exit""""
 
-  private def responseThrows: Future[WSResponse] = Future.failed (new RuntimeException("This error is generated deliberately by a test"))
+  private def responseThrows: Future[WSResponse] = Future.failed(
+    new RuntimeException("This error is generated deliberately by a test")
+  )
 
   private def bruteForceServiceImpl(permitted: Boolean): BruteForcePreventionService = {
+    val (bruteForcePreventionService, _) = bruteForceServiceAndWebServiceMock(permitted)
+    bruteForcePreventionService
+  }
+
+  private def bruteForceServiceAndWebServiceMock(permitted: Boolean): (BruteForcePreventionService, BruteForcePreventionWebService) = {
 
     def bruteForcePreventionWebService: BruteForcePreventionWebService = {
       val status = if (permitted) play.api.http.Status.OK else play.api.http.Status.FORBIDDEN
@@ -597,23 +629,32 @@ class VehicleLookupUnitSpec extends UnitSpec {
       override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
     })
 
-    new BruteForcePreventionServiceImpl(
+    val bruteForcePreventionWebServiceMock = bruteForcePreventionWebService
+    val bruteForcePreventionService = new BruteForcePreventionServiceImpl(
       config = new BruteForcePreventionConfig,
-      ws = bruteForcePreventionWebService,
+      ws = bruteForcePreventionWebServiceMock,
       healthStatsMock,
       dateService = new FakeDateServiceImpl
     )
+    (bruteForcePreventionService, bruteForcePreventionWebServiceMock)
   }
 
   private def vehicleLookupResponseGenerator(fullResponse: (Int, Option[VehicleAndKeeperDetailsResponse]) = vehicleDetailsResponseSuccess,
+                                              bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
+                                              isPrototypeBannerVisible: Boolean = true): VehicleLookup = {
+    val (vehicleLookupController, _) = vehicleLookupControllerAndMocks(fullResponse, bruteForceService, isPrototypeBannerVisible)
+    vehicleLookupController
+  }
+
+  private def vehicleLookupControllerAndMocks(fullResponse: (Int, Option[VehicleAndKeeperDetailsResponse]) = vehicleDetailsResponseSuccess,
                                              bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
-                                             isPrototypeBannerVisible: Boolean = true) = {
+                                             isPrototypeBannerVisible: Boolean = true): (VehicleLookup, VehicleAndKeeperLookupWebService) = {
 
     val (status, vehicleDetailsResponse) = fullResponse
     val responseAsJson = vehicleDetailsResponse.map(Json.toJson(_))
-    val ws = mock[VehicleAndKeeperLookupWebService]
+    val wsMock = mock[VehicleAndKeeperLookupWebService]
 
-    when(ws.invoke(any[VehicleAndKeeperDetailsRequest], any[String]))
+    when(wsMock.invoke(any[VehicleAndKeeperDetailsRequest], any[String]))
       .thenReturn(Future.successful {
         new FakeResponse(status = status, fakeJson = responseAsJson) // Any call to a webservice will always return this successful response.
       })
@@ -623,7 +664,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
     })
 
-    val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(ws, healthStatsMock)
+    val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(wsMock, healthStatsMock)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
@@ -633,7 +674,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
     when(config.assetsUrl).thenReturn(None) // Stub this config value.
 
-    new VehicleLookup()(
+    val vehicleLookup = new VehicleLookup()(
       bruteForceService = bruteForceService,
       vehicleAndKeeperLookupService = vehicleAndKeeperLookupServiceImpl,
       surveyUrl = surveyUrl,
@@ -641,6 +682,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       clientSideSessionFactory,
       config
     )
+    (vehicleLookup, wsMock)
   }
 
   private lazy val vehicleLookupError = {
@@ -692,8 +734,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
     val surveyUrl = url
     when(config.prototypeSurveyUrl).thenReturn(surveyUrl)
     when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
-    when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
-    when(config.assetsUrl).thenReturn(None) // Stub this config value.
+    when(config.googleAnalyticsTrackingId).thenReturn(None)
+    when(config.assetsUrl).thenReturn(None)
     config
   }
 
