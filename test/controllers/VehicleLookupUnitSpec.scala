@@ -73,6 +73,11 @@ import webserviceclients.fakes.{FakeDateServiceImpl, FakeResponse}
 
 class VehicleLookupUnitSpec extends UnitSpec {
 
+  val healthStatsMock = mock[HealthStats]
+  when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
+    override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
+  })
+
   "present" should {
     "display the page" in new WithApplication {
       present.futureValue.header.status should equal(play.api.http.Status.OK)
@@ -464,10 +469,6 @@ class VehicleLookupUnitSpec extends UnitSpec {
         thenReturn(Future.successful {
           new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get)))
         })
-      val healthStatsMock = mock[HealthStats]
-      when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-        override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
-      })
       val vehicleLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(mockVehiclesLookupService, healthStatsMock)
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
@@ -498,10 +499,6 @@ class VehicleLookupUnitSpec extends UnitSpec {
         .thenReturn(Future.successful {
           new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get)))
         })
-      val healthStatsMock = mock[HealthStats]
-      when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-        override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
-      })
       val vehicleLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(mockVehiclesLookupService, healthStatsMock)
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
@@ -554,10 +551,6 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val mockVehiclesLookupService = mock[VehicleAndKeeperLookupWebService]
-      val healthStatsMock = mock[HealthStats]
-      when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-        override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
-      })
       val vehicleLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(mockVehiclesLookupService, healthStatsMock)
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = injector.getInstance(classOf[Config])
@@ -624,11 +617,6 @@ class VehicleLookupUnitSpec extends UnitSpec {
       bruteForcePreventionWebService
     }
 
-    val healthStatsMock = mock[HealthStats]
-    when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-      override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
-    })
-
     val bruteForcePreventionWebServiceMock = bruteForcePreventionWebService
     val bruteForcePreventionService = new BruteForcePreventionServiceImpl(
       config = new BruteForcePreventionConfig,
@@ -659,11 +647,6 @@ class VehicleLookupUnitSpec extends UnitSpec {
         new FakeResponse(status = status, fakeJson = responseAsJson) // Any call to a webservice will always return this successful response.
       })
 
-    val healthStatsMock = mock[HealthStats]
-    when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-      override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
-    })
-
     val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(wsMock, healthStatsMock)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
@@ -692,10 +675,6 @@ class VehicleLookupUnitSpec extends UnitSpec {
     when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperDetailsRequest], any[String]))
       .thenReturn(Future.failed(new IllegalArgumentException))
 
-    val healthStatsMock = mock[HealthStats]
-    when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-      override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
-    })
     val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(vehicleAndKeeperLookupWebService, healthStatsMock)
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
