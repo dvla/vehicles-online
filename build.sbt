@@ -87,6 +87,8 @@ jacoco.settings
 
 parallelExecution in jacoco.Config := false
 
+parallelExecution in Test in acceptanceTestsProject := true
+
 // Using node to do the javascript optimisation cuts the time down dramatically
 JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 

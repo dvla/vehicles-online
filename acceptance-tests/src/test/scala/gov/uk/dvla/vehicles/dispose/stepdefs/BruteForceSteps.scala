@@ -5,13 +5,14 @@ import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
 import pages.disposal_of_vehicle.{DisposePage, VehicleLookupFailurePage, VehicleLookupPage, VrmLockedPage}
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.RandomVrmGenerator
 
 class BruteForceSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
   val commonSteps = new CommonSteps(webBrowserDriver)
-  final val VrmLocked = "a111" // This reg will lock so it can only be used once and cannot be used by any other test
-  final val VrmNotLocked = "a11" // This reg will not lock so it can be used again after a successful lookup
+  final val VrmLocked = RandomVrmGenerator.uniqueVrm // This reg will lock so it can only be used once and cannot be used by any other test
+  final val VrmNotLocked = RandomVrmGenerator.uniqueVrm // This reg will not lock so it can be used again after a successful lookup
   final val DocRefNumberSuccessfulLookup = "1" * 11
   final val DocRefNumberUnsuccessfulLookup = "1" * 10 + "2"
 

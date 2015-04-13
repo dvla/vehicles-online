@@ -2,7 +2,6 @@ package controllers
 
 import composition.WithApplication
 import helpers.UnitSpec
-import helpers.common.RandomVrmGenerator
 import helpers.disposal_of_vehicle.InvalidVRMFormat.allInvalidVrmFormats
 import helpers.disposal_of_vehicle.ValidVRMFormat.allValidVrmFormats
 import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
@@ -12,6 +11,7 @@ import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 import play.api.http.Status.OK
 import play.api.libs.json.{JsValue, Json}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.RandomVrmGenerator
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
@@ -54,7 +54,7 @@ class VehicleLookupFormSpec extends UnitSpec {
     "reject if blank" in new WithApplication {
       val vehicleLookupFormError = formWithValidDefaults(referenceNumber = "").errors
       val expectedKey = DocumentReferenceNumberId
-      
+
       vehicleLookupFormError should have length 3
       vehicleLookupFormError(0).key should equal(expectedKey)
       vehicleLookupFormError(0).message should equal("error.minLength")
@@ -108,7 +108,7 @@ class VehicleLookupFormSpec extends UnitSpec {
 
     "accept a selection of randomly generated vrms that all satisfy vrm regex" in new WithApplication {
       for (i <- 1 to 100) {
-        val randomVrm = RandomVrmGenerator.vrm
+        val randomVrm = RandomVrmGenerator.uniqueVrm
         formWithValidDefaults(registrationNumber = randomVrm).get.registrationNumber should equal(randomVrm)
       }
     }

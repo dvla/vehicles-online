@@ -1,7 +1,6 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Given, When, Then}
-import helpers.common.RandomVrmGenerator
 import org.scalatest.Matchers
 import org.openqa.selenium.WebDriver
 import pages.common.ErrorPanel
@@ -16,6 +15,7 @@ import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClearTextClientSideSessionFactory
 import common.clientsidesession.NoCookieFlags
 import common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.RandomVrmGenerator
 
 class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
 
@@ -51,7 +51,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
 
   def goToDisposePage() = {
     goToVehicleLookupPage()
-    VehicleLookupPage.vehicleRegistrationNumber enter RandomVrmGenerator.vrm
+    VehicleLookupPage.vehicleRegistrationNumber enter RandomVrmGenerator.uniqueVrm
     VehicleLookupPage.documentReferenceNumber enter "11111111111"
     click on VehicleLookupPage.findVehicleDetails
     page.title should equal(DisposePage.title)
@@ -71,7 +71,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
   def a_correctly_formatted_document_reference_number_has_been_entered(docRefNo:String) = {
     goToVehicleLookupPage()
     // override doc ref no with test value
-    VehicleLookupPage.vehicleRegistrationNumber enter RandomVrmGenerator.vrm
+    VehicleLookupPage.vehicleRegistrationNumber enter RandomVrmGenerator.uniqueVrm
     VehicleLookupPage.documentReferenceNumber enter docRefNo
   }
 
