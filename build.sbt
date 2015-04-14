@@ -108,9 +108,7 @@ CoverallsPlugin.coverallsSettings
 
 resolvers ++= projectResolvers
 
-//set empty map of web jar CDNs in order to force require js to use the locally served version
-//webJarCdns := Map()
-webJarCdns := Map("org.webjars" -> "https://cdn.jsdelivr.net/webjars")
+webJarCdns := Map()
 
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
