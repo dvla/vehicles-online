@@ -9,6 +9,7 @@ import sandbox.Tasks
 import Common._
 import io.gatling.sbt.GatlingPlugin
 import GatlingPlugin.Gatling
+import com.typesafe.sbt.rjs.Import.RjsKeys.webJarCdns
 
 name := "vehicles-online"
 
@@ -106,6 +107,10 @@ ScoverageSbtPlugin.ScoverageKeys.excludedPackages in ScoverageSbtPlugin.scoverag
 CoverallsPlugin.coverallsSettings
 
 resolvers ++= projectResolvers
+
+//set empty map of web jar CDNs in order to force require js to use the locally served version
+//webJarCdns := Map()
+webJarCdns := Map("org.webjars" -> "https://cdn.jsdelivr.net/webjars")
 
 // Uncomment before releasing to bithub in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
