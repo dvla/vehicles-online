@@ -1,3 +1,14 @@
+======= 1.6 =======
+TIME OF RELEASE BINARIES CREATION:
+Wed Apr 15 11:49:00 UTC 2015
+
+47906cc US2562 Extended unit tests to verify the number of calls to each web service for the dispose page
+24ee8ef US2587: post request on healthcheck returns a bad requests if no tracking id is present
+d2e0085 US2761
+94140f5 US2859 using the common js library for disabling the submit button
+9b3695f US2795
+f6bd253 US2797
+
 ======= 1.5 =======
 TIME OF RELEASE BINARIES CREATION:
 Wed Apr 01 14:10:11 UTC 2015
