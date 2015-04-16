@@ -113,7 +113,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }
 
     // This test needs to run with javaScript enabled.
-    "display DisposeSuccess page on correct submission with javascript enabled" taggedAs UiTag in new WebBrowserWithJs {
+    "display DisposeSuccess page on correct submission with javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
 
