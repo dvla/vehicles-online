@@ -7,5 +7,5 @@ import utils.helpers.Config
 
 class Error @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                         config: Config) extends controllers.Error {
-  protected override def formTarget(exceptionDigest: String): Call = routes.Error.submit(exceptionDigest)
+//  protected override def formTarget(exceptionDigest: String): Call = routes.Error.submit(exceptionDigest)
 }
