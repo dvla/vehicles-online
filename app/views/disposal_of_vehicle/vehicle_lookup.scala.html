@@ -39,9 +39,10 @@
 
                         @valtechInputText(viewModel.form(VehicleRegistrationNumberId), args =
                         Map('_label -> Messages("disposal_vehiclelookup.vrninputlabel"),
-                        'maxLength -> VehicleRegistrationNumber.MaxLength,
-                        '_showConstraints -> false,
-                        'autofocus -> true))
+                            'maxLength -> VehicleRegistrationNumber.MaxLength,
+                            '_showConstraints -> false,
+                            'alphaNumericOnly -> true,
+                            'autofocus -> true))
 
                         @valtechInputText(viewModel.form(DocumentReferenceNumberId), args =
                             Map('_label -> Messages("disposal_vehiclelookup.refnumlabel"),
