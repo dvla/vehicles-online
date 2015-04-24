@@ -56,8 +56,8 @@ class VehicleLookupFormSpec extends UnitSpec {
       val expectedKey = DocumentReferenceNumberId
 
       vehicleLookupFormError should have length 3
-      vehicleLookupFormError(0).key should equal(expectedKey)
-      vehicleLookupFormError(0).message should equal("error.minLength")
+      vehicleLookupFormError.head.key should equal(expectedKey)
+      vehicleLookupFormError.head.message should equal("error.minLength")
       vehicleLookupFormError(1).key should equal(expectedKey)
       vehicleLookupFormError(1).message should equal("error.required")
       vehicleLookupFormError(2).key should equal(expectedKey)

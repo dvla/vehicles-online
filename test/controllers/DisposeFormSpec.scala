@@ -101,8 +101,8 @@ class DisposeFormSpec extends UnitSpec {
         yearOfDispose = yearOfDispose)
 
       result.errors should have length 1
-      result.errors(0).key should equal(DateOfDisposalId)
-      result.errors(0).message should equal("error.date.notBefore")
+      result.errors.head.key should equal(DateOfDisposalId)
+      result.errors.head.message should equal("error.date.notBefore")
     }
 
     "reject if date is too far in the past" in new WithApplication {
@@ -114,8 +114,8 @@ class DisposeFormSpec extends UnitSpec {
         disposeController = dispose(dateServiceStubbed))
 
       result.errors should have length 1
-      result.errors(0).key should equal(DateOfDisposalId)
-      result.errors(0).message should equal("error.date.invalid")
+      result.errors.head.key should equal(DateOfDisposalId)
+      result.errors.head.message should equal("error.date.invalid")
     }
 
     "reject if date entered is an invalid date" in new WithApplication {
@@ -130,8 +130,8 @@ class DisposeFormSpec extends UnitSpec {
         yearOfDispose = year)
 
       result.errors should have length 1
-      result.errors(0).key should equal(DateOfDisposalId)
-      result.errors(0).message should equal("error.date.invalid")
+      result.errors.head.key should equal(DateOfDisposalId)
+      result.errors.head.message should equal("error.date.invalid")
     }
   }
 

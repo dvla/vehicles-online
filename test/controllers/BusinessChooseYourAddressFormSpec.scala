@@ -31,8 +31,8 @@ class BusinessChooseYourAddressFormSpec extends UnitSpec {
     "reject if empty" in new WithApplication {
       val errors = formWithValidDefaults(addressSelected = "").errors
       errors.length should equal(1)
-      errors(0).key should equal(AddressSelectId)
-      errors(0).message should equal("error.required")
+      errors.head.key should equal(AddressSelectId)
+      errors.head.message should equal("error.required")
     }
   }
 
