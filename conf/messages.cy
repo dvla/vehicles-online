@@ -129,6 +129,7 @@ disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Rhow
 error.dropDownInvalid = Dewiswch werth o''r gwymplen
 disposal_businessChooseYourAddress_noaddressesfound.h2.1 = Dim cyfeiriadau ar gael gyda''r côd post yna.
 disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Naill ai "Rhowch y cyfeiriad" neu cliciwch " Yn ôl " i roi cynnig arni eto.
+disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn â llaw
 
 #page 3 - manual address entry
 disposal_enteraddressmanually.title = Rhowch y cyfeiriad
@@ -156,8 +157,6 @@ disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
 disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion â llaw
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
 disposal_uprnnotfound.setuptradedetailsbutton = Rhowch gyfeiriad i mewn â llaw
-
-disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn â llaw
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Rhowch fanylion y cerbyd
@@ -224,7 +223,6 @@ disposal_disposeconfirmation.vehiclemake = Gwneuthuriad
 disposal_disposeconfirmation.vehiclemodel = Model
 disposal_disposeconfirmation.vehiclekeeper = Ceidwad
 disposal_disposeconfirmation.disposedto = Gwerthwyd i
-disposal_disposeconfirmation.exkeeper = Anfonir llythyr at yr enw a''r cyfeiriad ar y V5CW cyn pen 4 wythnos. Os na dderbynnir llythyr o fewn yr amser hwn rhaid cysylltu ag Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802 gan y gallai barhau i fod yn atebol am y cerbyd hwn.
 disposal_disposeconfirmation.exkeeper-p1 = Bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exprivatekeeper-p1 = Bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = Bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
@@ -265,12 +263,12 @@ disposal_vehiclelookupfailure.name = Wedi methu
 disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe SA99 1BD
 disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
 disposal_vehiclelookupfailure.button2 = Allan
-vehicle_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_vrm_not_found.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
-vehicle_lookup_vrm_not_found.p3 =
-vehicle_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_document_reference_mismatch.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
-vehicle_lookup_document_reference_mismatch.p3 =
+vehicle_and_keeper_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_and_keeper_lookup_vrm_not_found.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
+vehicle_and_keeper_lookup_vrm_not_found.p3 =
+vehicle_and_keeper_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_and_keeper_lookup_document_reference_mismatch.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
+vehicle_and_keeper_lookup_document_reference_mismatch.p3 =
 unhandled_exception.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
 unhandled_exception.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
 unhandled_exception.p3 =
@@ -323,6 +321,13 @@ soap_endpoint_error.title= Mae''n ddrwg gennym
 soap_endpoint_error.text= Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni eto yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe, SA99 1BD
 soap_endpoint_error.back.button= Yn ôl
 soap_endpoint_error.exit.button= Allan
+
+#keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
+error_suppressedV5C.title = Cerbyd yn rhan o fflyd hatal
+error_suppressedV5C.text1 = Ni all DVLA gofnodi gwerthu cerbyd hwn gan ei fod yn rhan o fflyd hatal.
+error_suppressedV5C.text2 = Cyn y gall gwerthu cerbyd hwn yn cael ei diweddaru, bydd angen i chi ofyn am dystysgrif cofrestru cerbyd (V5C) oddi wrth y DVLA. Gellir gwneud hyn drwy ddefnyddio View Cofnod Cerbydau.
+error_suppressedV5C.button1 = Gwerthu cerbyd arall
+error_suppressedV5C.button2 = Gorffen
 
 #vrm locked
 vrm_locked.title= Rhif cofrestru wedi''i gloi
@@ -390,7 +395,6 @@ cookie-policy.table.purpose = diben cwci
 cookie-policy.table.expires = yn dod i ben ar
 cookie-policy-p10 = Mae''r cwcis canlynol yn cael eu defnyddio:
 
-
 cookie-policy.name.google_analytics = Mesur defnydd o''r wefan (Google Analytics)
 cookie-policy.name.google_analytics.p1 = Meddalwedd Google Analytics yn casglu gwybodaeth am sut y byddwch yn defnyddio''r safle. Gwneir hyn er mwyn helpu i sicrhau bod y safle yn diwallu anghenion ei defnyddwyr ac i helpu i wneud gwelliannau.
 cookie-policy.name.google_analytics.p2 = Mae Google Analytics yn storio gwybodaeth am: <ul> <li> y tudalennau rydych yn ymweld - pa mor hir rydych yn ei wario ar bob tudalen </ li> <li> sut yr ydych yn cyrraedd y safle </ li> <li> yr hyn yr ydych yn clicio ar wrth i chi chi''n ymweld â''r safle </ li> </ ul>
@@ -416,8 +420,6 @@ cookie-policy.name.introductory_message.p2 =
 cookie-policy.name.introductory_message.p3 =
 cookie-policy.name.introductory_message.p4 =
 cookie-policy.cookies.introductory_message.seen_cookie_message = Yn Achub neges i roi gwybod i ni eich bod wedi gweld ein neges cwci
-
-
 
 cookie-policy.expires.1month = 1 mis
 cookie-policy.expires.4months= 4 mis

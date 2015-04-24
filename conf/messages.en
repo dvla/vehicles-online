@@ -129,6 +129,7 @@ disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Ente
 error.dropDownInvalid = Please select a value from the drop down list.
 disposal_businessChooseYourAddress_noaddressesfound.h2.1 = No addresses found for that postcode.
 disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Please either ''Enter address'' or click ''Back'' to try again.
+disposal_businessChooseYourAddress.address.required = Select an address from the drop down or enter it manually
 
 #page 3 - manual address entry
 disposal_enteraddressmanually.title = Enter address
@@ -156,8 +157,6 @@ disposal_uprnnotfound.title = Error confirming post code
 disposal_uprnnotfound.p1 = An error has occurred validating your postcode. Please re-enter or enter your details manually
 disposal_uprnnotfound.manualaddressbutton = Set-up trade details
 disposal_uprnnotfound.setuptradedetailsbutton = Manually enter address
-
-disposal_businessChooseYourAddress.address.required = Select an address from the drop down or enter it manually
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Enter vehicle details
@@ -379,7 +378,6 @@ feedback = Feedback Form
 feedback_return = ◄ Return to your application
 feedback_close = Please close this page to return to your application
 
-
 # Cookie policy
 footer.cookies = Cookies
 cookie-policy-title = Cookies
@@ -396,7 +394,6 @@ cookie-policy.table.name = Cookie name
 cookie-policy.table.purpose = cookie purpose
 cookie-policy.table.expires = expires on
 cookie-policy-p10 = The following cookies are used:
-
 
 cookie-policy.name.google_analytics = Measuring website usage (Google Analytics)
 cookie-policy.name.google_analytics.p1 = Google Analytics software collects information about how you use the site. This is done to help make sure the site is meeting the needs of its users and to help make improvements.
@@ -424,8 +421,6 @@ cookie-policy.name.introductory_message.p3 =
 cookie-policy.name.introductory_message.p4 =
 cookie-policy.cookies.introductory_message.seen_cookie_message = Saves a message to let us know that you have seen our cookie message
 
-
-
 cookie-policy.expires.1month = 1 month
 cookie-policy.expires.4months= 4 months
 cookie-policy.expires.6months = 6 months
@@ -434,4 +429,3 @@ cookie-policy.expires.2years = 2 years
 cookie-policy.expires.30min = 30 minutes
 cookie-policy.expires.inactivity = After 15 minutes of inactivity or when you close your browser
 cookie-policy.expires.close = When you close your browser
-
