@@ -16,7 +16,8 @@ global.buttonnavupdate = Update
 global.buttonnavprint = Print
 
 global.serviceCloseWarning = The service will close soon - the time now is {0} the service will close at {1}:00
-global.serviceCloseWarning.fiveMinutes = This service is available from {0}:00 to {1}:00, you have {2} to complete this service.
+global.serviceCloseWarning.fiveMinutes = This service is available from {0}:00 to {1}:00, you have
+global.serviceCloseWarning.fiveMinutes.p2 = to complete this service.
 
 #footer
 footer.builtbyintro = Built by
