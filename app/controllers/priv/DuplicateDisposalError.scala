@@ -8,6 +8,6 @@ import utils.helpers.Config
 class DuplicateDisposalError @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                          config: Config) extends controllers.DuplicateDisposalError {
 
-  protected override val tryAgainLink = routes.VehicleLookup.present()
-  protected override val exitLink = controllers.routes.BeforeYouStart.present()
+//  protected override val tryAgainLink = routes.VehicleLookup.present()
+//  protected override val exitLink = controllers.routes.BeforeYouStart.present()
 }

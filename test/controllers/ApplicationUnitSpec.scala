@@ -1,11 +1,11 @@
 package controllers
 
-import composition.{WithApplication, TestGlobal}
+import composition.{TestGlobal, WithApplication}
 import helpers.UnitSpec
 import org.mockito.Mockito.when
 import org.specs2.execute.{Result, AsResult}
-import play.api.test.{Helpers, FakeRequest}
-import play.api.test.Helpers.{redirectLocation, defaultAwaitTimeout}
+import play.api.test.{FakeRequest, Helpers}
+import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation}
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{getProperty, stringProp}
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import utils.helpers.Config

@@ -2,6 +2,20 @@
 TIME OF RELEASE BINARIES CREATION:
 Wed Apr 15 11:49:00 UTC 2015
 
+Defects:
+DE437 Correct the exit links in dispose to use the BeforeYouStart route and not the config.startUrl
+
+User stories:
+DE437 Correct the exit links in dispose to use the BeforeYouStart route and not the config.startUrl
+US2562 Extend unit tests to verify the number of calls to each web service
+US2589 Use a link to view the Doc Ref number on the V5C/3.
+US2667 Create 'Private Dispose' Summary Page
+US2761 Style printed output to be consistent with all VM
+US2795 Amend summary playback titles to be consistent with playback during transaction
+US2893 CSRF token should not throw a runtime exception when it is incorrect
+US2899 Tests (scalatest, acceptance, gatling) must not trigger a real email to be sent
+US2562 Extend unit tests to verify the number of calls to each web service
+
 47906cc US2562 Extended unit tests to verify the number of calls to each web service for the dispose page
 24ee8ef US2587: post request on healthcheck returns a bad requests if no tracking id is present
 d2e0085 US2761

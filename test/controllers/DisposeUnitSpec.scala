@@ -12,9 +12,9 @@ import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
+import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.{never, times, verify, when}
-import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 import pages.disposal_of_vehicle.DisposeFailurePage
 import pages.disposal_of_vehicle.DisposeSuccessPage

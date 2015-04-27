@@ -35,7 +35,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
       httpResponse.close()
 
       val infoLogs = mockLoggerTest2.captureLogInfos(1)
-      infoLogs.get(0) should include( s"""] "POST $applicationContext/business-choose-your-address HTTP/1.1" 400""")
+      infoLogs.get(0) should include( s"""] "POST $applicationContext/business-choose-your-address HTTP/1.1" 403""")
       //infoLogs.get(1) should include( s"""] "GET $applicationContext/error/""")
     }
 
@@ -47,7 +47,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
 
       val infoLogs = mockLoggerTest3.captureLogInfos(1)
 
-      infoLogs.get(0) should include( """] "POST /some/unknown/url HTTP/1.1" 400""")
+      infoLogs.get(0) should include( """] "POST /some/unknown/url HTTP/1.1" 403""")
       //infoLogs.get(1) should include( s"""] "GET $applicationContext/error/""")
     }
 

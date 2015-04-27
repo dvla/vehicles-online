@@ -129,6 +129,7 @@ disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Rhow
 error.dropDownInvalid = Dewiswch werth o''r gwymplen
 disposal_businessChooseYourAddress_noaddressesfound.h2.1 = Dim cyfeiriadau ar gael gyda''r côd post yna.
 disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Naill ai "Rhowch y cyfeiriad" neu cliciwch " Yn ôl " i roi cynnig arni eto.
+disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn â llaw
 
 #page 3 - manual address entry
 disposal_enteraddressmanually.title = Rhowch y cyfeiriad
@@ -157,8 +158,6 @@ disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd p
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
 disposal_uprnnotfound.setuptradedetailsbutton = Rhowch gyfeiriad i mewn â llaw
 
-disposal_businessChooseYourAddress.address.required = Dewiswch gyfeiriad o''r gwymplen neu rhowch i mewn â llaw
-
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Rhowch fanylion y cerbyd
 disposal_vehiclelookup.name = Gwerthu cerbyd i''r fasnach foduron
@@ -167,6 +166,7 @@ disposal_vehiclelookup.p2 = Manylion masnachwr
 disposal_vehiclelookup.warning.p1 = Peidiwch â chael gwared o gerbyd sydd â rhif cofrestru personol oni bai bod y ceidwad presennol yn deall y ceir gwared â''r rhif cofrestru hefyd ynghyd â''r cerbyd.
 disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo rhifau cofrestru personol cyn gwaredu''r cerbyd trwy ei fasnachu.
 disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen V5CW?
+disposal_vehiclelookup.img.hint = Ble i ddod o hyd hyn
 disposal_vehiclelookup.img.alt = Rhif cyfeirnod y ddogfen V5CW
 disposal_vehiclelookup.refnumlabel = Rhif cyfeirnod y ddogfen V5CW ddiweddaraf
 disposal_vehiclelookup.vrninputlabel = Rhif cofrestru''r cerbyd
@@ -182,7 +182,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os yw'r manylion uchod yn cyd-fynd â'r cerbyd i gael ei werthu, anfonwch y dystysgrif gofrestru V5C gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1DZ.
+disposal_dispose.warning= Os yw''r manylion uchod yn cyd-fynd â''r cerbyd i gael ei werthu, anfonwch y dystysgrif gofrestru V5C gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1DZ.
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
@@ -210,7 +210,7 @@ disposal_dispose.consent.mandatory = Rhaid i chi gael caniatâd y ceidwad cofres
 consent = Caniatâd
 disposal_dispose.loss_of_registration.consent = Rwy''n cadarnhau bod y ceidwad presennol yn deall y bydd y rhif cofrestru''n cael ei golli pan werthir y cerbyd hwn
 disposal_dispose.loss_of_registration.privateKeeper.consent = Rwy''n deall y bydd y rhif cofrestru yn cael ei golli ar werthu cerbyd hwn
-disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli'r rhif cofrestru cysylltiedig â''r cerbyd hwn
+disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig â''r cerbyd hwn
 lossOfRegistrationConsent = Caniatâd
 mileage = Milltiredd
 
@@ -223,7 +223,6 @@ disposal_disposeconfirmation.vehiclemake = Gwneuthuriad
 disposal_disposeconfirmation.vehiclemodel = Model
 disposal_disposeconfirmation.vehiclekeeper = Ceidwad
 disposal_disposeconfirmation.disposedto = Gwerthwyd i
-disposal_disposeconfirmation.exkeeper = Anfonir llythyr at yr enw a''r cyfeiriad ar y V5CW cyn pen 4 wythnos. Os na dderbynnir llythyr o fewn yr amser hwn rhaid cysylltu ag Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802 gan y gallai barhau i fod yn atebol am y cerbyd hwn.
 disposal_disposeconfirmation.exkeeper-p1 = Bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exprivatekeeper-p1 = Bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = Bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
@@ -241,7 +240,7 @@ disposal_disposeconfirmation.registrationNumber_label = Rhif cofrestru
 disposal_disposeconfirmation.backbutton = Yn ôl
 disposal_disposeconfirmation.newdisposalbutton = Gwerthu cerbyd arall
 disposal_disposeconfirmation.disposaldate = Dyddiad y gwerthiant
-disposal_disposeconfirmation.mileage = Milltiredd
+disposal_disposeconfirmation.mileage = Milltiredd cerbydau
 disposal_disposeconfirmation.mileageNotEntered = HEB EI ROI
 disposal_disposeconfirmation.noMileageEntered = Dim milltiredd wedi ei roi
 disposal_disposeconfirmation.exitbutton = Gorffen
@@ -264,12 +263,12 @@ disposal_vehiclelookupfailure.name = Wedi methu
 disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe SA99 1BD
 disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
 disposal_vehiclelookupfailure.button2 = Allan
-vehicle_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_vrm_not_found.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
-vehicle_lookup_vrm_not_found.p3 =
-vehicle_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
-vehicle_lookup_document_reference_mismatch.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
-vehicle_lookup_document_reference_mismatch.p3 =
+vehicle_and_keeper_lookup_vrm_not_found.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_and_keeper_lookup_vrm_not_found.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
+vehicle_and_keeper_lookup_vrm_not_found.p3 =
+vehicle_and_keeper_lookup_document_reference_mismatch.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_and_keeper_lookup_document_reference_mismatch.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
+vehicle_and_keeper_lookup_document_reference_mismatch.p3 =
 unhandled_exception.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
 unhandled_exception.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
 unhandled_exception.p3 =
@@ -323,9 +322,16 @@ soap_endpoint_error.text= Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig a
 soap_endpoint_error.back.button= Yn ôl
 soap_endpoint_error.exit.button= Allan
 
+#keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
+error_suppressedV5C.title = Cerbyd yn rhan o fflyd hatal
+error_suppressedV5C.text1 = Ni all DVLA gofnodi gwerthu cerbyd hwn gan ei fod yn rhan o fflyd hatal.
+error_suppressedV5C.text2 = Cyn y gall gwerthu cerbyd hwn yn cael ei diweddaru, bydd angen i chi ofyn am dystysgrif cofrestru cerbyd (V5C) oddi wrth y DVLA. Gellir gwneud hyn drwy ddefnyddio View Cofnod Cerbydau.
+error_suppressedV5C.button1 = Gwerthu cerbyd arall
+error_suppressedV5C.button2 = Gorffen
+
 #vrm locked
 vrm_locked.title= Rhif cofrestru wedi''i gloi
-vrm_locked.text1= Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerbyd. Mae''r system bellach yn cloi''r Rhif cofrestru cerbyd hwn am 10 munud. Gellir prosesu cerbydau eraill yn ystod yr amser hwn drwy ddewis ‘'Gwerthu cerbyd arall'' isod
+vrm_locked.text1= Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerbyd. Mae''r system bellach yn cloi''r Rhif cofrestru cerbyd hwn am 10 munud. Gellir prosesu cerbydau eraill yn ystod yr amser hwn drwy ddewis ''Gwerthu cerbyd arall'' isod
 vrm_locked.text2= Wedi''i gloi ar
 vrm_locked.text3.1= Os ydych yn siŵr bod y manylion yn gywir yna anfonwch eich V5C/3 wedi''u cwblhau i
 vrm_locked.text3.2= DVLA, Abertawe, SA99 1BD
@@ -336,7 +342,7 @@ vrm_locked.exit.button= Allan
 onHandlerNotFound.title= Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.header= Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.body= Ni allwn ddod o hyd i''r dudalen y gwnaethoch gais amdani, mae''r digwyddiad hwn wedi ei logio ar gyfer archwiliad.
-onHandlerNotFound.noJavascript= Os ydych am wneud cais eto dewiswch y botwm mynd yn ôl ar eich porwr, fel arall dewiswch 'Allan' i adael y gwasanaeth.
+onHandlerNotFound.noJavascript= Os ydych am wneud cais eto dewiswch y botwm mynd yn ôl ar eich porwr, fel arall dewiswch ''Allan'' i adael y gwasanaeth.
 onHandlerNotFound.start.button= Dechreuwch
 
 # 400 onHandlerBadRequest
@@ -355,51 +361,51 @@ mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 # feedback
 common_feedback.title = Rhoi Adborth
 common_feedback.message = Peidiwch â chynnwys unrhyw wybodaeth bersonol neu ariannol - er enghraifft eich rhif Yswiriant Gwladol.
-common_feedback.label = Beth aeth o'i le, os unrhyw beth? Beth aeth yn dda? Sut y gallem wella'r gwasanaeth hwn?
+common_feedback.label = Beth aeth o''i le, os unrhyw beth? Beth aeth yn dda? Sut y gallem wella''r gwasanaeth hwn?
+common_feedback.charactersRemaining = cymeriadau sy''n weddill
 common_feedback.placeholder = (Terfyn yn 500 llythyren)
 common_feedback.submit_button = Cyflwyno adborth
 common_feedback.thankyou = Diolch i chi am eich adborth
-common_feedback.subject = Gwerthu i'r fasnach - Adborth
+common_feedback.subject = Gwerthu i''r fasnach - Adborth
 common_feedback.name = Enw
-common_feedback.email = e-bost
-common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a'ch cyfeiriad e-bost rhag ofn y bydd angen i ni gysylltu â chi
+common_feedback.email = E-bost
+common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a''ch cyfeiriad e-bost rhag ofn y bydd angen i ni gysylltu â chi
 error.feedback = Ni all fod yn fwy na 500 o adborth cymeriadau
 error.feedbackName = Ni all Enw fod yn fwy na 60 o gymeriadau
 feedbackEmail = E-bost
 feedbackName = Enw
 feedback = Ffurflen Adborth
-
-
+feedback_return = ◄ Dychwelyd i''ch cais
+feedback_close = Caewch y dudalen hon i ddychwelyd i''ch cais
 
 # Cookie policy
 footer.cookies = Cwcis
 cookie-policy-title = Cwcis
-cookie-policy-p1 = Ffeiliau bach (a elwir yn 'cwcis') yn cael eu rhoi ar eich cyfrifiadur i gasglu gwybodaeth am sut rydych yn pori'r safle.
+cookie-policy-p1 = Ffeiliau bach (a elwir yn ''cwcis'') yn cael eu rhoi ar eich cyfrifiadur i gasglu gwybodaeth am sut rydych yn pori''r safle.
 cookie-policy-p2 = Mae cwcis yn cael eu defnyddio i:
-cookie-policy-p3 = mesur sut yr ydych yn defnyddio'r wefan fel y gellir ei diweddaru a'i gwella yn seiliedig ar eich anghenion
-cookie-policy-p4 = cofio'r hysbysiadau rydych wedi ei weld fel nad ydych yn ei ddangos eto
-cookie-policy-p5 = Nid yw cwcis GOV.UK yn cael eu defnyddio i nodi chi'n bersonol.
+cookie-policy-p3 = mesur sut yr ydych yn defnyddio''r wefan fel y gellir ei diweddaru a''i gwella yn seiliedig ar eich anghenion
+cookie-policy-p4 = cofio''r hysbysiadau rydych wedi ei weld fel nad ydych yn ei ddangos eto
+cookie-policy-p5 = Nid yw cwcis GOV.UK yn cael eu defnyddio i nodi chi''n bersonol.
 cookie-policy-p6 = Fel arfer, byddwch yn gweld neges ar y safle cyn cwci yn cael ei storio ar eich cyfrifiadur.
 cookie-policy-p7 = Cael gwybod mwy am
 cookie-policy-p8 = sut i reoli cwcis
 cookie-policy-p9 = Sut y cwcis yn cael eu defnyddio
-cookie-policy.table.name = enw'r cwci
+cookie-policy.table.name = enw''r cwci
 cookie-policy.table.purpose = diben cwci
 cookie-policy.table.expires = yn dod i ben ar
-cookie-policy-p10 = Mae'r cwcis canlynol yn cael eu defnyddio:
+cookie-policy-p10 = Mae''r cwcis canlynol yn cael eu defnyddio:
 
-
-cookie-policy.name.google_analytics = Mesur defnydd o'r wefan (Google Analytics)
-cookie-policy.name.google_analytics.p1 = Meddalwedd Google Analytics yn casglu gwybodaeth am sut y byddwch yn defnyddio'r safle. Gwneir hyn er mwyn helpu i sicrhau bod y safle yn diwallu anghenion ei defnyddwyr ac i helpu i wneud gwelliannau.
-cookie-policy.name.google_analytics.p2 = Mae Google Analytics yn storio gwybodaeth am: <ul> <li> y tudalennau rydych yn ymweld - pa mor hir rydych yn ei wario ar bob tudalen </ li> <li> sut yr ydych yn cyrraedd y safle </ li> <li> yr hyn yr ydych yn clicio ar wrth i chi chi'n ymweld â'r safle </ li> </ ul>
+cookie-policy.name.google_analytics = Mesur defnydd o''r wefan (Google Analytics)
+cookie-policy.name.google_analytics.p1 = Meddalwedd Google Analytics yn casglu gwybodaeth am sut y byddwch yn defnyddio''r safle. Gwneir hyn er mwyn helpu i sicrhau bod y safle yn diwallu anghenion ei defnyddwyr ac i helpu i wneud gwelliannau.
+cookie-policy.name.google_analytics.p2 = Mae Google Analytics yn storio gwybodaeth am: <ul> <li> y tudalennau rydych yn ymweld - pa mor hir rydych yn ei wario ar bob tudalen </ li> <li> sut yr ydych yn cyrraedd y safle </ li> <li> yr hyn yr ydych yn clicio ar wrth i chi chi''n ymweld â''r safle </ li> </ ul>
 cookie-policy.name.google_analytics.p3 = Nid ydym yn casglu nac yn cadw eich gwybodaeth bersonol (ee eich enw neu gyfeiriad) felly ni ellir wybodaeth hon yn cael ei defnyddio i nodi pwy ydych chi.
 cookie-policy.name.google_analytics.p4 = Nid yw Google yn cael defnyddio neu rannu ein data analytics. Gallwch <a href="https://tools.google.com/dlpage/gaoptout" data-sso="false"> target="_blank" optio allan o cwcis Google Analytics </a>
-cookie-policy.cookies.google_analytics.utma = Penderfynu ar y nifer o ymwelwyr unigryw i'r safle
+cookie-policy.cookies.google_analytics.utma = Penderfynu ar y nifer o ymwelwyr unigryw i''r safle
 cookie-policy.cookies.google_analytics.utmb = Mae hyn yn gweithio gyda _utmc i gyfrifo hyd cyfartalog yr amser y byddwch yn ei dreulio ar ein safle
 cookie-policy.cookies.google_analytics.utmc = Mae hyn yn gweithio gyda _utmb i gyfrifo pan fyddwch yn cau eich porwr
 cookie-policy.cookies.google_analytics.utmz = Mae hyn yn darparu gwybodaeth am sut yr ydych yn cyrraedd y safle (ee o wefan arall neu beiriant chwilio)
 cookie-policy.cookies.google_analytics.ga_nextpage_params = Mae hyn yn storfeydd data i gael ei anfon at Google ar y dudalen nesaf byddwch yn gofyn
-cookie-policy.cookies.google_analytics.GDS_successEvents = Mae'r rhain yn ein helpu i nodi sut yr ydych yn defnyddio GOV.UK fel y gallwn wneud y safle yn well
+cookie-policy.cookies.google_analytics.GDS_successEvents = Mae''r rhain yn ein helpu i nodi sut yr ydych yn defnyddio GOV.UK fel y gallwn wneud y safle yn well
 
 cookie-policy.name.sessions = Sesiwn
 cookie-policy.name.sessions.p1 =  Mae cwci yn cael ei osod i gofnodi eich gweithgaredd sesiwn.
@@ -414,8 +420,6 @@ cookie-policy.name.introductory_message.p2 =
 cookie-policy.name.introductory_message.p3 =
 cookie-policy.name.introductory_message.p4 =
 cookie-policy.cookies.introductory_message.seen_cookie_message = Yn Achub neges i roi gwybod i ni eich bod wedi gweld ein neges cwci
-
-
 
 cookie-policy.expires.1month = 1 mis
 cookie-policy.expires.4months= 4 mis
