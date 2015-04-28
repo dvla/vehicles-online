@@ -17,6 +17,11 @@ global.buttonnavprint = Print
 
 global.serviceCloseWarning = The service will close soon - the time now is {0} the service will close at {1}:00
 
+global-please-wait-header = Please wait
+global-please-wait-p1 = We are currently receiving a large volume of applications which has led to our service performance being slower than usual.
+global-please-wait-p2 = This page will update automatically, please do not close your browser.
+global-please-wait-close = Close this message
+
 #footer
 footer.builtbyintro = Built by
 footer.builtby = Driver & Vehicle Licensing Agency
