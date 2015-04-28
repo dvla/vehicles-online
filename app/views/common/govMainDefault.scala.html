@@ -7,6 +7,7 @@
 @import views.common.ProtoType.FeedbackId
 @import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.serviceClosingWarning
 @import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.pleaseWait
 
 <!DOCTYPE html>
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
@@ -119,6 +120,8 @@
             </div>
         </div>
         <!--end footer-->
+
+        @pleaseWait()
 
         <div id="global-app-error" class="app-error hidden"></div>
 
