@@ -15,9 +15,9 @@ global.buttonnavcancel = Canslwch
 global.buttonnavupdate = Diweddarwch
 global.buttonnavprint = Argraffwch
 
-global.serviceCloseWarning = Bydd y gwasanaeth yn cau cyn bo hir - yr amser bellach yn {0} bydd y gwasanaeth yn cau am {1}:00:00
-global.serviceCloseWarning.fiveMinutes = Mae''r gwasanaeth hwn ar gael {0}:00-{1}:00, mae gennych
-global.serviceCloseWarning.fiveMinutes.p2 = i gwblhau'r gwasanaeth hwn.
+global.serviceCloseWarning = Mae'r gwasanaeth hwn ar gael gan {0}:00 i {1}:00, mae gennych
+global.serviceCloseWarning.p2 = i gwblhau'r gwasanaeth hwn.
+global.serviceClosed = Gwasanaeth bellach wedi cau. Gwasanaeth ar gael {0}:00 i {1}:00
 
 #footer
 footer.builtbyintro = Adeiladwyd gan
