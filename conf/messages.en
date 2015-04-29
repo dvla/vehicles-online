@@ -15,7 +15,9 @@ global.buttonnavcancel = Cancel
 global.buttonnavupdate = Update
 global.buttonnavprint = Print
 
-global.serviceCloseWarning = The service will close soon - the time now is {0} the service will close at {1}:00
+global.serviceCloseWarning = This service is available from {0}:00 to {1}:00, you have
+global.serviceCloseWarning.p2 = to complete this service.
+global.serviceClosed = Service now closed. Service is available {0}:00 to {1}:00
 
 global-please-wait-header = Please wait
 global-please-wait-p1 = We are currently receiving a large volume of applications which has led to our service performance being slower than usual.
