@@ -15,7 +15,14 @@ global.buttonnavcancel = Canslwch
 global.buttonnavupdate = Diweddarwch
 global.buttonnavprint = Argraffwch
 
-global.serviceCloseWarning = Bydd y gwasanaeth yn cau cyn bo hir - yr amser bellach yn {0} bydd y gwasanaeth yn cau am {1}:00:00
+global.serviceCloseWarning = Mae'r gwasanaeth hwn ar gael gan {0}:00 i {1}:00, mae gennych
+global.serviceCloseWarning.p2 = i gwblhau'r gwasanaeth hwn.
+global.serviceClosed = Gwasanaeth bellach wedi cau. Gwasanaeth ar gael {0}:00 i {1}:00
+
+global-please-wait-header = Os gwelwch yn dda aros
+global-please-wait-p1 = Hyn o bryd rydym yn derbyn nifer fawr o geisiadau sydd wedi arwain at ein perfformiad gwasanaeth yn arafach nag arfer.
+global-please-wait-p2 = Bydd y dudalen hon yn diweddaru yn awtomatig, peidiwch cau eich porwr.
+global-please-wait-close = Cau''r neges hon
 
 #footer
 footer.builtbyintro = Adeiladwyd gan
