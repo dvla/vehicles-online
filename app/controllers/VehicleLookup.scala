@@ -7,6 +7,7 @@ import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKe
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, Request, Result}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupErrorMessage
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
@@ -50,7 +51,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   override def microServiceError(t: Throwable, formModel: VehicleLookupFormModel)
                                 (implicit request: Request[_]): Result = onMicroServiceError
 
-  override def vehicleLookupFailure(responseCode: String, formModel: VehicleLookupFormModel)
+  override def vehicleLookupFailure(responseCode: VehicleAndKeeperLookupErrorMessage, formModel: VehicleLookupFormModel)
                                    (implicit request: Request[_]): Result = onVehicleLookupFailure
 
   override def presentResult(implicit request: Request[_]) = {
