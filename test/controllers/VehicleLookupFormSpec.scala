@@ -11,19 +11,18 @@ import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 import play.api.http.Status.OK
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.RandomVrmGenerator
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.services.DateServiceImpl
+import common.testhelpers.RandomVrmGenerator
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.healthstats.HealthStats
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsRequest
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupErrorMessage
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponseV2
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponse
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import utils.helpers.Config
@@ -44,11 +43,11 @@ class VehicleLookupFormSpec extends UnitSpec {
   }
 
   "referenceNumber" should {
-    allInvalidVrmFormats.map(vrm => "reject invalid vehicle registration mark : " + vrm in new WithApplication {
+    allInvalidVrmFormats.foreach(vrm => "reject invalid vehicle registration mark : " + vrm in new WithApplication {
       formWithValidDefaults(registrationNumber = vrm).errors should have length 1
     })
 
-    allValidVrmFormats.map(vrm => "accept valid vehicle registration mark : " + vrm in new WithApplication {
+    allValidVrmFormats.foreach(vrm => "accept valid vehicle registration mark : " + vrm in new WithApplication {
       formWithValidDefaults(registrationNumber = vrm).get.registrationNumber should equal(vrm)
     })
 
@@ -132,7 +131,7 @@ class VehicleLookupFormSpec extends UnitSpec {
     )
   }
 
-  private def vehicleLookupResponseGenerator(fullResponse:(Int, Option[VehicleAndKeeperLookupResponseV2])) = {
+  private def vehicleLookupResponseGenerator(fullResponse:(Int, Option[VehicleAndKeeperLookupResponse])) = {
     val vehicleAndKeeperLookupWebService = mock[VehicleAndKeeperLookupWebService]
 
     when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperDetailsRequest], any[String])).

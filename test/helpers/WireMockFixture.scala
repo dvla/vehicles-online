@@ -1,10 +1,10 @@
 package helpers
 
-import java.net.ServerSocket
-import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.http.{Request, RequestListener, Response}
+import com.github.tomakehurst.wiremock.WireMockServer
+import java.net.ServerSocket
 import org.scalatest.{BeforeAndAfterEach, Suite, SuiteMixin}
 import scala.collection.mutable
 

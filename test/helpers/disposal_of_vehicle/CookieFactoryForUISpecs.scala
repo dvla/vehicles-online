@@ -5,6 +5,7 @@ import org.joda.time.{LocalDate, DateTime}
 import org.openqa.selenium.{Cookie, WebDriver}
 import models.BusinessChooseYourAddressFormModel
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModel
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
@@ -13,9 +14,9 @@ import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.EnterAddressManuallyFormModel
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import play.api.Play
 import play.api.Play.current
 import play.api.libs.json.{Json, Writes}
@@ -47,8 +48,6 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleMakeV
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleModelValid
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
 import webserviceclients.fakes.FakeDisposeWebServiceImpl
-
-import models.DisposeCacheKeyPrefix.CookiePrefix
 
 object CookieFactoryForUISpecs {
   private def addCookie[A](key: String, value: A)(implicit tjs: Writes[A], webDriver: WebDriver): Unit = {

@@ -1,10 +1,10 @@
 package models.domain.common
 
 import helpers.UnitSpec
-import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressAndPostcodeViewModel
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
 
-final class AddressAndPostcodeSpec extends UnitSpec {
+class AddressAndPostcodeSpec extends UnitSpec {
   "Address - model" should {
     "return expected toString value" in {
       val address = AddressAndPostcodeViewModel(addressLinesModel = AddressLinesViewModel(buildingNameOrNumber = "abcd",

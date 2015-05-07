@@ -1,9 +1,9 @@
 package models.domain.disposal_of_vehicle
 
 import helpers.UnitSpec
-import uk.gov.dvla.vehicles.presentation.common.model.{VmAddressModel, AddressModel}
-import AddressModel.JsonFormat
 import play.api.libs.json.Json
+import uk.gov.dvla.vehicles.presentation.common.model.{AddressModel, VmAddressModel}
+import uk.gov.dvla.vehicles.presentation.common.model.AddressModel.JsonFormat
 import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid

@@ -7,13 +7,12 @@ import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
 import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
+import scala.concurrent.Future
+import scala.language.existentials
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
-import scala.concurrent.Future
-import scala.language.existentials
-
-final class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures with TestComposition {
+class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures with TestComposition {
   // The filter chain will return null if we redirect to the closed page.
   "Return a null next filter request if trying to access the service out of hours" in new WebBrowser {
     setUpOutOfHours {

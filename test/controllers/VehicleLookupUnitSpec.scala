@@ -42,7 +42,7 @@ import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.healthstats.HealthStats
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsRequest
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponseV2
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponse
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import utils.helpers.Config
@@ -565,14 +565,14 @@ class VehicleLookupUnitSpec extends UnitSpec {
     (bruteForcePreventionService, bruteForcePreventionWebServiceMock)
   }
 
-  private def vehicleLookupResponseGenerator(fullResponse: (Int, Option[VehicleAndKeeperLookupResponseV2]) = vehicleDetailsResponseSuccess,
+  private def vehicleLookupResponseGenerator(fullResponse: (Int, Option[VehicleAndKeeperLookupResponse]) = vehicleDetailsResponseSuccess,
                                               bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
                                               isPrototypeBannerVisible: Boolean = true): VehicleLookup = {
     val (vehicleLookupController, _) = vehicleLookupControllerAndMocks(fullResponse, bruteForceService, isPrototypeBannerVisible)
     vehicleLookupController
   }
 
-  private def vehicleLookupControllerAndMocks(fullResponse: (Int, Option[VehicleAndKeeperLookupResponseV2]) = vehicleDetailsResponseSuccess,
+  private def vehicleLookupControllerAndMocks(fullResponse: (Int, Option[VehicleAndKeeperLookupResponse]) = vehicleDetailsResponseSuccess,
                                              bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
                                              isPrototypeBannerVisible: Boolean = true): (VehicleLookup, VehicleAndKeeperLookupWebService) = {
 

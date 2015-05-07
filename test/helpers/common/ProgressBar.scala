@@ -1,7 +1,6 @@
 package helpers.common
 
 import composition.TestGlobal
-import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 object ProgressBar {

@@ -5,9 +5,9 @@ import com.google.inject.{Guice, Injector, Module}
 import com.typesafe.config.ConfigFactory
 import com.tzavellas.sse.guice.ScalaModule
 import org.scalatest.mock.MockitoSugar
-import play.api.{ Configuration, Logger}
+import play.api.{Configuration, Logger}
 import uk.gov.dvla.vehicles.presentation.common
-import common.ConfigProperties._
+import common.ConfigProperties.{getOptionalProperty, stringProp}
 import common.clientsidesession.{ClearTextClientSideSessionFactory, ClientSideSessionFactory, NoCookieFlags, CookieFlags}
 import common.services.DateService
 import common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
@@ -17,7 +17,10 @@ import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWeb
 import webserviceclients.dispose.{DisposeWebService, DisposeConfig}
 import webserviceclients.dispose_service.FakeDisposeConfig
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl
-import webserviceclients.fakes.{FakeAddressLookupWebServiceImpl, FakeDateServiceImpl, FakeDisposeWebServiceImpl, FakeVehicleAndKeeperLookupWebService}
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl
+import webserviceclients.fakes.FakeDateServiceImpl
+import webserviceclients.fakes.FakeDisposeWebServiceImpl
+import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService
 
 trait TestComposition extends Composition {
   override lazy val injector: Injector = Guice.createInjector(testMod)

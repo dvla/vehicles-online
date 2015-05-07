@@ -1,24 +1,22 @@
 package filters
 
-import java.util.Locale
-
 import com.google.inject.Guice
 import com.tzavellas.sse.guice.ScalaModule
 import helpers.{WithApplication, UnitSpec}
+import java.util.Locale
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.{DateTime, DateTimeZone}
 import org.mockito.Mockito.when
-import org.scalatest.mock.MockitoSugar
 import play.api.i18n.Messages
 import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
-import utils.helpers.Config
+import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.language.existentials
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
+import utils.helpers.Config
 
 class EnsureServiceOpenFilterSpec extends UnitSpec {
 

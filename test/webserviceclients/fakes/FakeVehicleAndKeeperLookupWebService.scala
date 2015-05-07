@@ -1,17 +1,15 @@
-
 package webserviceclients.fakes
 
 import org.joda.time.DateTime
 import play.api.http.Status.{OK, SERVICE_UNAVAILABLE}
 import play.api.libs.json.Json
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsDto
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsRequest
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupErrorMessage
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponseV2
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponse
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 final class FakeVehicleAndKeeperLookupWebService extends VehicleAndKeeperLookupWebService {
   import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService._
@@ -69,39 +67,39 @@ object FakeVehicleAndKeeperLookupWebService {
       suppressedV5Flag = Some(suppressedV5CFlag)
     )
 
-  val vehicleDetailsResponseSuccess: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
-    (OK, Some(VehicleAndKeeperLookupResponseV2(responseCode = None, Some(vehicleDetails()))))
+  val vehicleDetailsResponseSuccess: (Int, Option[VehicleAndKeeperLookupResponse]) = {
+    (OK, Some(VehicleAndKeeperLookupResponse(responseCode = None, Some(vehicleDetails()))))
   }
 
-  val vehicleDetailsDisposedVehicleResponseSuccess: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
-    (OK, Some(VehicleAndKeeperLookupResponseV2(responseCode = None, Some(vehicleDetails(disposeFlag = true)))))
+  val vehicleDetailsDisposedVehicleResponseSuccess: (Int, Option[VehicleAndKeeperLookupResponse]) = {
+    (OK, Some(VehicleAndKeeperLookupResponse(responseCode = None, Some(vehicleDetails(disposeFlag = true)))))
   }
 
-  val vehicleDetailsKeeperStillOnRecordResponseSuccess: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
-    (OK, Some(VehicleAndKeeperLookupResponseV2(responseCode = None, Some(vehicleDetails(disposeFlag = false)))))
+  val vehicleDetailsKeeperStillOnRecordResponseSuccess: (Int, Option[VehicleAndKeeperLookupResponse]) = {
+    (OK, Some(VehicleAndKeeperLookupResponse(responseCode = None, Some(vehicleDetails(disposeFlag = false)))))
   }
 
-  val vehicleDetailsResponseVRMNotFound: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
-    (OK, Some(VehicleAndKeeperLookupResponseV2(responseCode = Some(VrmNotFound), None)))
+  val vehicleDetailsResponseVRMNotFound: (Int, Option[VehicleAndKeeperLookupResponse]) = {
+    (OK, Some(VehicleAndKeeperLookupResponse(responseCode = Some(VrmNotFound), None)))
   }
 
-  val vehicleDetailsResponseDocRefNumberNotLatest: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
-    (OK, Some(VehicleAndKeeperLookupResponseV2(responseCode = Some(DocumentRecordMismatch), None)))
+  val vehicleDetailsResponseDocRefNumberNotLatest: (Int, Option[VehicleAndKeeperLookupResponse]) = {
+    (OK, Some(VehicleAndKeeperLookupResponse(responseCode = Some(DocumentRecordMismatch), None)))
   }
 
-  val vehicleDetailsResponseUnhandledException: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
-    (OK, Some(VehicleAndKeeperLookupResponseV2(responseCode = Some(DocumentRecordMismatch), None)))
+  val vehicleDetailsResponseUnhandledException: (Int, Option[VehicleAndKeeperLookupResponse]) = {
+    (OK, Some(VehicleAndKeeperLookupResponse(responseCode = Some(DocumentRecordMismatch), None)))
   }
 
-  val vehicleDetailsResponseNotFoundResponseCode: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
-    (OK, Some(VehicleAndKeeperLookupResponseV2(responseCode = None, None)))
+  val vehicleDetailsResponseNotFoundResponseCode: (Int, Option[VehicleAndKeeperLookupResponse]) = {
+    (OK, Some(VehicleAndKeeperLookupResponse(responseCode = None, None)))
   }
 
-  val vehicleDetailsServerDown: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
+  val vehicleDetailsServerDown: (Int, Option[VehicleAndKeeperLookupResponse]) = {
     (SERVICE_UNAVAILABLE, None)
   }
 
-  val vehicleDetailsNoResponse: (Int, Option[VehicleAndKeeperLookupResponseV2]) = {
+  val vehicleDetailsNoResponse: (Int, Option[VehicleAndKeeperLookupResponse]) = {
     (OK, None)
   }
 }

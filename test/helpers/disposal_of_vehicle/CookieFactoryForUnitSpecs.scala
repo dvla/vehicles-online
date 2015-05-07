@@ -2,7 +2,10 @@ package helpers.disposal_of_vehicle
 
 import composition.TestComposition
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
+import models.BusinessChooseYourAddressFormModel
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import models.DisposeCacheKeyPrefix.CookiePrefix
+import models.DisposeFormModel
 import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
@@ -10,13 +13,11 @@ import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
-import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
-import models.BusinessChooseYourAddressFormModel
-import models.DisposeFormModel
 import models.EnterAddressManuallyFormModel
+import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.SeenCookieMessageCacheKey
 import models.VehicleLookupFormModel
+import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import org.joda.time.{LocalDate, DateTime}
 import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.{Json, Writes}
@@ -48,8 +49,6 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.Registration
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleModelValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleMakeValid
 import webserviceclients.fakes.{FakeDateServiceImpl, FakeDisposeWebServiceImpl}
-
-import models.DisposeCacheKeyPrefix.CookiePrefix
 
 object CookieFactoryForUnitSpecs extends TestComposition {
 

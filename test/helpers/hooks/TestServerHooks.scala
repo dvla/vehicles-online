@@ -1,10 +1,8 @@
 package helpers.hooks
 
 import composition.TestGlobal
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
-
-//import cucumber.api.java.{After, Before}
 import play.api.test.{FakeApplication, TestServer}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 final class TestServerHooks {
   import helpers.hooks.TestServerHooks._

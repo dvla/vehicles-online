@@ -1,8 +1,8 @@
 package helpers
 
 import composition.TestGlobal
-import play.api.test.FakeApplication
 import helpers.WithApplication.fakeAppWithTestGlobal
+import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 abstract class WithApplication(app: FakeApplication = fakeAppWithTestGlobal)
