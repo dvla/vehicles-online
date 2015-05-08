@@ -1,18 +1,19 @@
 package utils.helpers
 
 import uk.gov.dvla.vehicles.presentation.common
+import common.ConfigProperties.booleanProp
 import common.ConfigProperties.getProperty
 import common.ConfigProperties.getDurationProperty
 import common.ConfigProperties.getOptionalProperty
 import common.ConfigProperties.getStringListProperty
-import common.ConfigProperties.booleanProp
-import common.ConfigProperties.stringProp
-import common.ConfigProperties.longProp
 import common.ConfigProperties.intProp
+import common.ConfigProperties.longProp
+import common.ConfigProperties.stringProp
 import common.services.SEND.EmailConfiguration
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.From
+import common.webserviceclients.addresslookup.ordnanceservey.OrdnanceSurveyConfig
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
+import common.webserviceclients.config.GDSAddressLookupConfig
+import common.webserviceclients.emailservice.From
 import webserviceclients.dispose.DisposeConfig
 
 final class ConfigImpl extends Config {

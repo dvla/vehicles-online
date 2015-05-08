@@ -7,7 +7,6 @@ import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKe
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, Request, Result}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupErrorMessage
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
@@ -15,10 +14,11 @@ import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResu
 import common.controllers.VehicleLookupBase
 import common.model.{BruteForcePreventionModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
-import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperDetailsDto
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupService
 import common.views.helpers.FormExtensions.formBinding
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupDetailsDto
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupErrorMessage
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupService
 import utils.helpers.Config
 
 class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionService,
@@ -92,7 +92,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
     }
   }
 
-  override def vehicleFoundResult(vehicleAndKeeperDetailsDto: VehicleAndKeeperDetailsDto,
+  override def vehicleFoundResult(vehicleAndKeeperDetailsDto: VehicleAndKeeperLookupDetailsDto,
                                   formModel: VehicleLookupFormModel)
                                  (implicit request: Request[_]): Result = {
     val model = VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)

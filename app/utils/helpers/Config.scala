@@ -2,9 +2,10 @@ package utils.helpers
 
 import uk.gov.dvla.vehicles.presentation.common
 import common.controllers.VehicleLookupConfig
-import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
-import common.webserviceclients.config.{GDSAddressLookupConfig, OrdnanceSurveyConfig}
 import common.services.SEND.EmailConfiguration
+import common.webserviceclients.addresslookup.ordnanceservey.OrdnanceSurveyConfig
+import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
+import common.webserviceclients.config.GDSAddressLookupConfig
 import webserviceclients.dispose.DisposeConfig
 
 trait Config extends VehicleLookupConfig {
