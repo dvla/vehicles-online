@@ -29,7 +29,7 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
       page.source.contains(progressStep(1)) should equal(false)
     }
 
-    "remove redundant cookies (needed for when a user exits the service and comes back)" taggedAs UiTag in new WebBrowser {
+    "remove redundant cookies (needed for when a user exits the service and comes back)" taggedAs UiTag in new PhantomJsByDefault {
       def cacheSetup()(implicit webDriver: WebDriver) =
         CookieFactoryForUISpecs.setupTradeDetails().
           businessChooseYourAddress().

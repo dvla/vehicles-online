@@ -39,7 +39,7 @@ final class ErrorIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "submit button" should {
-    "remove redundant cookies when 'start again' button is clicked" taggedAs UiTag in new WebBrowser {
+    "remove redundant cookies when 'start again' button is clicked" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()
       go to ErrorPage

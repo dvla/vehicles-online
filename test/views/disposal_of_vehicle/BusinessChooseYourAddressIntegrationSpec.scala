@@ -155,7 +155,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "remove redundant EnterAddressManually cookie (as we are now in an alternate history)" taggedAs UiTag in new WebBrowser {
+    "remove redundant EnterAddressManually cookie (as we are now in an alternate history)" taggedAs UiTag in new PhantomJsByDefault {
       def cacheSetupVisitedEnterAddressManuallyPage()(implicit webDriver: WebDriver) =
         CookieFactoryForUISpecs.setupTradeDetails().enterAddressManually()
 

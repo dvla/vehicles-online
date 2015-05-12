@@ -59,7 +59,7 @@ final class VrmLockedUiSpec extends UiSpec with TestHarness {
       page.title should equal(SetupTradeDetailsPage.title)
     }
 
-    "remove redundant cookies" taggedAs UiTag in new WebBrowser {
+    "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()
       go to VrmLockedPage
@@ -84,7 +84,7 @@ final class VrmLockedUiSpec extends UiSpec with TestHarness {
       page.title should equal(BeforeYouStartPage.title)
     }
 
-    "remove redundant cookies" taggedAs UiTag in new WebBrowser {
+    "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()
       go to VrmLockedPage

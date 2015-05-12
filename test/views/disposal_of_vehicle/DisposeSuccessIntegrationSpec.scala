@@ -116,7 +116,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       page.title should equal(VehicleLookupPage.title)
     }
 
-    "remove and retain cookies" taggedAs UiTag in new WebBrowser {
+    "remove and retain cookies" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessPage
@@ -156,7 +156,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       page.title should equal(BeforeYouStartPage.title)
     }
 
-    "remove redundant cookies" taggedAs UiTag in new WebBrowser {
+    "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessPage

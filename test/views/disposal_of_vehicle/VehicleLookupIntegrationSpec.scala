@@ -19,6 +19,7 @@ import pages.disposal_of_vehicle.VrmLockedPage
 import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import models.AllCacheKeys
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebDriverFactory
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import webserviceclients.fakes.FakeAddressLookupService.addressWithUprn
 
@@ -222,7 +223,7 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       page.title should equal(BeforeYouStartPage.title)
     }
 
-    "remove redundant cookies" taggedAs UiTag in new WebBrowser {
+    "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()
       go to VehicleLookupPage
