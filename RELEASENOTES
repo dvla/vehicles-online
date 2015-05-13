@@ -1,3 +1,38 @@
+======= 1.8   ========
+TIME OF RELEASE BINARIES CREATION:
+
+Defects:
+DE442	Invalid characters in date field
+DE481	Postcode facility
+DE415	Bullet point out of alignement in IE
+DE414	Large gaps in Address Lines on complete & confirm playback box and print screen
+
+User stories:
+US3153	Upgrade play framework to version 2.3.9
+US3025	Sentence case for What Happens Next?  Dispose Summary
+US2580	Make the response code from V&K lookup a two var case class
+US2802	Make service shutdown warning dynamic
+
+======= 1.7 =======
+TIME OF RELEASE BINARIES CREATION:
+Tue May 05 16:24:53 UTC 2015
+
+Defects:
+DE360	Invalid characters in VRN
+
+User stories:
+US3094	Show Please Wait spinner during eligibility and fulfil
+US3036	Write an automated test that verifies that the English and Welsh message bundles are setup correctly	
+US3020	Remove the hard coded text from the feedback count down javascript so it can be I18N
+US2989	Change Summary Screen 'Mileage' Header to 'Vehicle mileage'
+US2551	Email microservice needs to set the SSL flag to be true
+US2859	Common JS for projects
+US2857	CSRF token should not throw a runtime exception when it is incorrect
+US2384	Tests (scalatest, acceptance, gatling) must not trigger a real email to be sent
+US2882	Remove payment description from  Success pages
+US2279	Investigate to serve assets from another domain
+US2883	Create an "bad request" page for the load balancer
+
 ======= 1.6 =======
 TIME OF RELEASE BINARIES CREATION:
 Wed Apr 15 11:49:00 UTC 2015
