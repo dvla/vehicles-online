@@ -42,3 +42,9 @@ p.transaction-id {
         text-transform: uppercase;
     }
 }
+
+.please-wait-overlay,
+.please-wait-overlay h2,
+.serviceClosingWarning{
+    display: none !important;
+}
