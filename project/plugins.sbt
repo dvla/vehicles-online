@@ -1,5 +1,5 @@
 // Comment to get more information during initialization
-logLevel := Level.Debug
+logLevel := Level.Info
 
 // Our plugin resolvers
 resolvers += "Nexus snapshots" at "http://rep002-01.skyscape.preview-dvla.co.uk:8081/nexus/content/repositories/snapshots"
