@@ -25,6 +25,9 @@ final class FakeAddressLookupWebServiceImpl(responseOfPostcodeWebService: Future
 
   override def callUprnWebService(uprn: String, trackingId: String)
                                  (implicit lang: Lang): Future[WSResponse] = responseOfUprnWebService
+
+  override def callAddresses(postcode: String, trackingId: String)
+                            (implicit lang: Lang): Future[WSResponse] = ???
 }
 
 object FakeAddressLookupWebServiceImpl {
