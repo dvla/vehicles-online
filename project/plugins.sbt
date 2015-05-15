@@ -1,5 +1,5 @@
-// Comment to get more information during initialization
-logLevel := Level.Debug
+// Do not set this to Debug level as it will fail the Travis build when open sourcing due to it being too verbose
+logLevel := Level.Info
 
 // Our plugin resolvers
 resolvers += "Nexus snapshots" at "http://rep002-01.skyscape.preview-dvla.co.uk:8081/nexus/content/repositories/snapshots"
