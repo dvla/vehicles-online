@@ -156,7 +156,7 @@ addressAndPostcode.addressLines.line2 = Street name
 addressAndPostcode.addressLines.line3 = Area
 addressAndPostcode.addressLines.postTown = Town or city
 addressAndPostcode.addressLines.postTown.hint = e.g. SWANSEA
-error.address.characterInvalid = Must contain between valid characters from the following A-Z, 0-9, hyphen, apostrophe, full stop and space.
+error.address.characterInvalid = Must contain valid characters from the following A-Z, 0-9, hyphen, apostrophe, full stop and space.
 error.postTown.characterInvalid = Town or city contains invalid characters
 
 #page 3 - uprn not found

@@ -123,9 +123,8 @@ title = Messages("disposal_disposeconfirmation.title")
             <dd>@{java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get)}</dd>
             }
             <dt>@Messages("disposal_disposeconfirmation.disposedto")</dt>
-            <dd> @data.dealerName <br/> @for(addr <- data.dealerAddress) {@addr<br/>}
-            </dd>
-            
+            <dd> @data.dealerName <br/> @for(addr <- data.dealerAddress) {@addr<br/>}</dd>
+
             <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
             <dd>@{formModel.dateOfDisposal.toString("dd/MM/yyyy")}</dd>
         </dl>
