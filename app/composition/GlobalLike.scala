@@ -4,8 +4,7 @@ import com.google.inject.Key
 import com.google.inject.name.Names
 import com.typesafe.config.ConfigFactory
 import java.io.File
-import java.util.{TimeZone, Date, UUID}
-import org.joda.time.DateTimeZone
+import java.util.{Date, UUID}
 import play.api.i18n.Lang
 import play.api.mvc.Results.{NotFound,BadRequest}
 import play.api.mvc.{RequestHeader, Result}
@@ -40,9 +39,6 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
 
   override def onStart(app: Application) {
     Logger.info("vehicles-online Started") // used for operations, do not remove
-    val localTimeZone = "Europe/London"
-    TimeZone.setDefault(TimeZone.getTimeZone(localTimeZone))
-    DateTimeZone.setDefault(DateTimeZone.forID(localTimeZone))
   }
 
   override def onLoadConfig(configuration: Configuration,
