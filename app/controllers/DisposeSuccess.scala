@@ -10,11 +10,14 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.{AllCacheKeys, DisposeCacheKeys, DisposeFormModel, DisposeOnlyCacheKeys, DisposeViewModel}
 import org.joda.time.format.DateTimeFormat
+import play.api.Logger
 import play.api.mvc.{Action, Controller, Request}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
+import common.LogFormats.logMessage
+import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
+import common.services.DateService
 import utils.helpers.Config
 
 class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -37,6 +40,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       registrationNumber <- request.cookies.getString(DisposeFormRegistrationNumberCacheKey)
       disposeDateString <- request.cookies.getString(DisposeFormTimestampIdCacheKey)
     } yield {
+        Logger.info(logMessage("Dispose success page", request.cookies.trackingId()))
       val disposeViewModel = createViewModel(
         traderDetails,
         disposeFormModel,
@@ -74,6 +78,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   }
 
   def exit = Action { implicit request =>
+    Logger.debug(logMessage(s"Redirect from DisposeSuccess to ${onNewDispose}", request.cookies.trackingId()))
     onNewDispose.
       discardingCookies(AllCacheKeys).
       withCookie(PreventGoingToDisposePageCacheKey, "").
@@ -107,9 +112,15 @@ class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFa
 
     request.cookies.getString(SurveyRequestTriggerDateCacheKey) match {
       case Some(lastSurveyMillis) =>
-        if ((lastSurveyMillis.toLong + config.prototypeSurveyPrepositionInterval) < dateService.now.getMillis) url
+        if ((lastSurveyMillis.toLong + config.prototypeSurveyPrepositionInterval) < dateService.now.getMillis) {
+          Logger.debug(logMessage(s"Redirecting to survey ${url}", request.cookies.trackingId()))
+          url
+        }
         else None
-      case None => url
+      case None => {
+        Logger.debug(logMessage(s"Redirecting to survey ${url}", request.cookies.trackingId()))
+        url
+      }
     }
   }
 }

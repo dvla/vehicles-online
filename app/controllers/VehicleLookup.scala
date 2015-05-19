@@ -5,6 +5,7 @@ import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import play.api.Logger
 import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, Request, Result}
 import scala.concurrent.Future
@@ -12,6 +13,7 @@ import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import common.controllers.VehicleLookupBase
+import common.LogFormats.logMessage
 import common.model.{BruteForcePreventionModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
 import common.views.helpers.FormExtensions.formBinding
@@ -68,7 +70,11 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
           backTarget,
           exitTarget
         )))
-      case None => missingTradeDetails
+      case None => {
+        Logger.error(logMessage(s"Failed to find dealer details, redirecting to ${routes.SetUpTradeDetails.present()}",
+          request.cookies.trackingId()))
+        missingTradeDetails
+      }
     }
   }
 
@@ -88,27 +94,44 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
             exitTarget
           ))
         )
-      case None => missingTradeDetails
+      case None => {
+        Logger.error(logMessage(s"Failed to find dealer details, redirecting to ${routes.SetUpTradeDetails.present()}",
+          request.cookies.trackingId()))
+        missingTradeDetails
+      }
     }
   }
 
   override def vehicleFoundResult(vehicleAndKeeperDetailsDto: VehicleAndKeeperLookupDetailsDto,
                                   formModel: VehicleLookupFormModel)
                                  (implicit request: Request[_]): Result = {
+
     val model = VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)
     val suppressed = model.suppressedV5Flag.getOrElse(false)
     val disposed = model.keeperEndDate.isDefined
 
     (disposed, suppressed) match {
-      case (_, true) => suppressedV5C.withCookie(model)
-      case (true, false) => duplicateDisposalError
-      case (false, _) => dispose.
-        withCookie(VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)).
-        discardingCookie(PreventGoingToDisposePageCacheKey)
+      case (_, true) => {
+        Logger.info(logMessage(s"Redirecting from VehicleLookup to ${routes.SuppressedV5C.present()}}", request.cookies.trackingId()))
+        suppressedV5C.withCookie(model)
+      }
+      case (true, false) => {
+        Logger.info(logMessage(s"Redirecting from VehicleLookup to ${routes.DuplicateDisposalError.present()}}",
+          request.cookies.trackingId()))
+        duplicateDisposalError
+      }
+      case (false, _) => {
+        Logger.info(logMessage(s"Redirecting from VehicleLookup to ${PreventGoingToDisposePageCacheKey}}",
+          request.cookies.trackingId()))
+        dispose.
+          withCookie(VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)).
+          discardingCookie(PreventGoingToDisposePageCacheKey)
+      }
     }
   }
 
   def exit = Action { implicit request =>
+    Logger.info(logMessage(s"Redirecting from VehicleLookup to ${routes.BeforeYouStart.present()}}", request.cookies.trackingId()))
     onExit
       .discardingCookies(AllCacheKeys)
       .withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)
@@ -116,8 +139,16 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
 
   def back = Action { implicit request =>
     request.cookies.getModel[EnterAddressManuallyFormModel] match {
-      case Some(manualAddress) => enterAddressManually
-      case None => businessChooseYourAddress
+      case Some(manualAddress) => {
+        Logger.info(logMessage(s"Manual address entry found so redirecting to ${routes.EnterAddressManually.present()}}",
+          request.cookies.trackingId()))
+        enterAddressManually
+      }
+      case None => {
+        Logger.info(logMessage(s"Manual address entry not found so redirecting to ${routes.BusinessChooseYourAddress.present()}}",
+          request.cookies.trackingId()))
+        businessChooseYourAddress
+      }
     }
   }
 

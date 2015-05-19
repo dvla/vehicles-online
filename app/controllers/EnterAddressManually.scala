@@ -6,10 +6,12 @@ import models.EnterAddressManuallyFormModel
 import play.api.data.{Form, FormError}
 import play.api.Logger
 import play.api.mvc.{Action, Controller, Request}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichForm, RichCookies, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.model.{VmAddressModel, TraderDetailsModel, SetupTradeDetailsFormModel}
-import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions.formBinding
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieImplicits.{RichForm, RichCookies, RichResult}
+import common.LogFormats.logMessage
+import common.model.{VmAddressModel, TraderDetailsModel, SetupTradeDetailsFormModel}
+import common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.enter_address_manually
 
@@ -38,10 +40,11 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
       invalidForm =>
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
-            BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm), setupTradeDetails.traderPostcode, formTarget, backLink))
+            BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm),
+              setupTradeDetails.traderPostcode, formTarget, backLink))
           case None =>
-            Logger.debug(s"Failed to find dealer name in cache, redirecting  " +
-              s"- trackingId: ${request.cookies.trackingId()}")
+            Logger.debug(logMessage(s"Failed to find dealer name in cache, redirecting to ${onCookiesMissing}",
+              request.cookies.trackingId()))
             onCookiesMissing
         },
       validForm =>
@@ -55,13 +58,13 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
               traderName = setupTradeDetails.traderBusinessName,
               traderAddress = traderAddress
             )
-
+            Logger.debug(logMessage(s"Address found, redirecting to ${onSubmitSuccess} ", request.cookies.trackingId()))
             onSubmitSuccess.
               withCookie(validForm).
               withCookie(traderDetailsModel)
           case None =>
-            Logger.debug(s"Failed to find dealer name in cache on submit, " +
-              s"redirecting  - trackingId: ${request.cookies.trackingId()}")
+            Logger.debug(logMessage(s"Failed to find dealer name in cache on submit, " +
+              s"redirecting to ${onCookiesMissing}", request.cookies.trackingId()))
             onCookiesMissing
         }
     )
