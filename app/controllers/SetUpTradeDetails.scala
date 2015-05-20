@@ -3,19 +3,20 @@ package controllers
 import com.google.inject.Inject
 import models.AllCacheKeys
 import models.DisposeCacheKeyPrefix.CookiePrefix
+import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms.{mapping, optional}
 import play.api.mvc.{Result, Request}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichResult
-import uk.gov.dvla.vehicles.presentation.common.controllers.SetUpTradeDetailsBase
-import uk.gov.dvla.vehicles.presentation.common.mappings.BusinessName.businessNameMapping
-import uk.gov.dvla.vehicles.presentation.common.mappings.Email.email
-import uk.gov.dvla.vehicles.presentation.common.mappings.Postcode.postcode
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form.TraderEmailId
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form.TraderNameId
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form.TraderPostcodeId
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieImplicits.{RichResult, RichCookies}
+import common.controllers.SetUpTradeDetailsBase
+import common.LogFormats.logMessage
+import common.mappings.BusinessName.businessNameMapping
+import common.mappings.Email.email
+import common.mappings.Postcode.postcode
+import common.model.SetupTradeDetailsFormModel
+import common.model.SetupTradeDetailsFormModel.Form.{TraderEmailId, TraderNameId, TraderPostcodeId}
 import utils.helpers.Config
 
 class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -40,6 +41,8 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
   override def invalidFormResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result =
     BadRequest(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget))
 
-  override def success(implicit request: Request[_]): Result =
+  override def success(implicit request: Request[_]): Result = {
+    Logger.info(s"Redirect to ${onSuccess} - trackingId: ${request.cookies.trackingId()}")
     onSuccess
+  }
 }

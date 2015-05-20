@@ -4,11 +4,14 @@ import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
+import play.api.Logger
 import play.api.mvc.{Request, Result}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichCookies
-import uk.gov.dvla.vehicles.presentation.common.controllers.VehicleLookupFailureBase
-import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieImplicits.RichCookies
+import common.controllers.VehicleLookupFailureBase
+import common.LogFormats.logMessage
+import common.model.TraderDetailsModel
 import utils.helpers.Config
 
 class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -33,15 +36,29 @@ class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: Client
       case _ => missingPresentCookieDataResult
     }
 
-  override def missingPresentCookieDataResult()(implicit request: Request[_]): Result =
+  override def missingPresentCookieDataResult()(implicit request: Request[_]): Result = {
+    Logger.error(s"Failed to find cookie details, redirecting to ${routes.SetUpTradeDetails.present()} - " +
+      s"trackingId: ${request.cookies.trackingId()}")
     missingPresentCookieData
+  }
 
   override def submitResult()(implicit request: Request[_]): Result =
     request.cookies.getModel[TraderDetailsModel] match {
-      case Some(dealerDetails) => success
-      case _ => missingSubmitCookieDataResult
+      case Some(dealerDetails) => {
+        Logger.info(s"Failed to find vehicle details, redirecting to ${routes.VehicleLookup.present()} - " +
+          s"trackingId: ${request.cookies.trackingId()}")
+        success
+      }
+      case _ => {
+        Logger.info(s"Failed to find dealer details, redirecting to ${routes.SetUpTradeDetails.present()} - " +
+          s"trackingId: ${request.cookies.trackingId()}")
+        missingSubmitCookieDataResult
+      }
     }
 
-  override def missingSubmitCookieDataResult()(implicit request: Request[_]): Result =
+  override def missingSubmitCookieDataResult()(implicit request: Request[_]): Result = {
+    Logger.error(s"Failed to find cookie details, redirecting to ${routes.BeforeYouStart.present()} - " +
+      s"trackingId: ${request.cookies.trackingId()}")
     missingSubmitCookieData
+  }
 }
