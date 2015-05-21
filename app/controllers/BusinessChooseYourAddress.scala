@@ -14,7 +14,6 @@ import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.{ClientSideSession, ClientSideSessionFactory}
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import common.LogFormats.logMessage
 import common.model.{AddressModel, SetupTradeDetailsFormModel, TraderDetailsModel}
 import common.views.helpers.FormExtensions.formBinding
 import common.webserviceclients.addresslookup.AddressLookupService
@@ -27,16 +26,13 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
 
   private[controllers] val form = Form(BusinessChooseYourAddressFormModel.Form.Mapping)
 
-  protected val submitCall = routes.BusinessChooseYourAddress.submit
-  protected val manualAddressEntryCall = routes.EnterAddressManually.present
-  protected val backCall = routes.SetUpTradeDetails.present
-  protected val redirectBack = Redirect(backCall)
-  protected val uprnNotFoundCall = routes.UprnNotFound.present()
-  protected val uprnNotFoundResult = Redirect(uprnNotFoundCall)
-  protected val successCall = routes.VehicleLookup.present()
-  protected val successResult = Redirect(successCall)
-  protected val missingTraderDetailsCall = routes.SetUpTradeDetails.present()
-  protected val onMissingTraderDetails = Redirect(missingTraderDetailsCall)
+  protected val submitCall = routes.BusinessChooseYourAddress.submit()
+  protected val manualAddressEntryCall = routes.EnterAddressManually.present()
+  protected val backCall = routes.SetUpTradeDetails.present()
+  protected val redirectBack = Redirect(routes.SetUpTradeDetails.present())
+  protected val uprnNotFoundResult = Redirect(routes.UprnNotFound.present())
+  protected val successResult = Redirect(routes.VehicleLookup.present())
+  protected val onMissingTraderDetails = Redirect(routes.SetUpTradeDetails.present())
 
   def present = Action.async { implicit request =>
     request.cookies.getModel[SetupTradeDetailsFormModel] match {
@@ -63,11 +59,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
             )
           ))
         }
-      case None => Future.successful {
-        Logger.error(logMessage(s"Failed to find dealer details, redirecting to ${backCall}",
-          request.cookies.trackingId()))
-        redirectBack
-      }
+      case None => Future.successful {redirectBack}
     }
   }
 
@@ -78,9 +70,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
           case Some(setupTradeDetails) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
             fetchAddresses(setupTradeDetails, showBusinessName = Some(true)).map { addresses =>
-              if (config.ordnanceSurveyUseUprn){
-              Logger.debug(logMessage(s"Failed to find address details, redirecting to ${manualAddressEntryCall}",
-                request.cookies.trackingId()))
+              if (config.ordnanceSurveyUseUprn)
                 BadRequest(business_choose_your_address(
                   BusinessChooseYourAddressViewModel(
                     formWithReplacedErrors(invalidForm),
@@ -90,10 +80,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                     submitCall, manualAddressEntryCall, backCall
                   )
                 ))
-              }
-              else {
-                Logger.debug(logMessage(s"Failed to find address details, redirecting to ${manualAddressEntryCall}",
-                  request.cookies.trackingId()))
+              else
                 BadRequest(business_choose_your_address(
                   BusinessChooseYourAddressViewModel(
                     formWithReplacedErrors(invalidForm),
@@ -103,10 +90,9 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                     submitCall, manualAddressEntryCall, backCall
                   )
                 ))
-              }
             }
           case None => Future.successful {
-            Logger.error(logMessage("Failed to find dealer details, redirecting", request.cookies.trackingId()))
+            Logger.error(s"Failed to find dealer details, redirecting - trackingId: ${request.cookies.trackingId()}")
             redirectBack
           }
         },
@@ -119,8 +105,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
             else
               lookupAddressByPostcodeThenIndex(validForm, setupTradeDetailsModel)
           case None => Future {
-            Logger.error(logMessage(s"Failed to find dealer details, redirecting to ${missingTraderDetailsCall}",
-              request.cookies.trackingId()))
+            Logger.error(s"Failed to find dealer details, redirecting - trackingId: ${request.cookies.trackingId()}")
             onMissingTraderDetails
           }
         }
@@ -146,10 +131,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     val lookedUpAddress = addressLookupService.fetchAddressForUprn(model.uprnSelected.toString, session.trackingId)
     lookedUpAddress.map {
       case Some(addressModel) => nextPage(model, traderName, addressModel)
-      case None => {
-        Logger.debug(logMessage(s"Failed to find UPRN, redirecting to ${successCall}", request.cookies.trackingId()))
-        uprnNotFoundResult
-      }
+      case None => uprnNotFoundResult
     }
   }
 
@@ -167,7 +149,6 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
       }
       else {
         // Guard against IndexOutOfBoundsException
-        Logger.debug(logMessage(s"Failed to find UPRN, redirecting to ${successCall}", request.cookies.trackingId()))
         uprnNotFoundResult
       }
     }
@@ -179,7 +160,6 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     /* The redirect is done as the final step within the map so that:
      1) we are not blocking threads
      2) the browser does not change page before the future has completed and written to the cache. */
-    Logger.debug(logMessage(s"Address found, redirecting to ${successCall}", request.cookies.trackingId()))
     successResult.
       discardingCookie(EnterAddressManuallyCacheKey).
       withCookie(model).
