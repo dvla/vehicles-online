@@ -8,6 +8,7 @@ import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel, DisposeCacheKeys}
 import models.DisposeCacheKeyPrefix.CookiePrefix
+import org.joda.time.DateTimeZone
 import org.joda.time.format.ISODateTimeFormat
 import play.api.data.{Form, FormError}
 import play.api.Logger
@@ -221,7 +222,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
     def buildDisposeMicroServiceRequest(vehicleLookup: VehicleLookupFormModel,
                                         disposeForm: DisposeFormModel,
                                         traderDetails: TraderDetailsModel): DisposeRequestDto = {
-      val dateTime = disposeFormModel.dateOfDisposal.toDateTimeAtStartOfDay
+      val dateTime = disposeFormModel.dateOfDisposal.toDateTimeAtStartOfDay(DateTimeZone.forID("UTC"))
       val formatter = ISODateTimeFormat.dateTime()
       val isoDateTimeString = formatter.print(dateTime)
 
