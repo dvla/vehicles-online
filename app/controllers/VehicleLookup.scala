@@ -70,11 +70,10 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
           backTarget,
           exitTarget
         )))
-      case None => {
+      case None =>
         Logger.error(logMessage(s"Failed to find dealer details, redirecting to ${routes.SetUpTradeDetails.present()}",
           request.cookies.trackingId()))
         missingTradeDetails
-      }
     }
   }
 
@@ -94,11 +93,10 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
             exitTarget
           ))
         )
-      case None => {
+      case None =>
         Logger.error(logMessage(s"Failed to find dealer details, redirecting to ${routes.SetUpTradeDetails.present()}",
           request.cookies.trackingId()))
         missingTradeDetails
-      }
     }
   }
 
@@ -111,22 +109,19 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
     val disposed = model.keeperEndDate.isDefined
 
     (disposed, suppressed) match {
-      case (_, true) => {
+      case (_, true) =>
         Logger.info(logMessage(s"Redirecting from VehicleLookup to ${routes.SuppressedV5C.present()}}", request.cookies.trackingId()))
         suppressedV5C.withCookie(model)
-      }
-      case (true, false) => {
+      case (true, false) =>
         Logger.info(logMessage(s"Redirecting from VehicleLookup to ${routes.DuplicateDisposalError.present()}}",
           request.cookies.trackingId()))
         duplicateDisposalError
-      }
-      case (false, _) => {
-        Logger.info(logMessage(s"Redirecting from VehicleLookup to ${PreventGoingToDisposePageCacheKey}}",
+      case (false, _) =>
+        Logger.info(logMessage(s"Redirecting from VehicleLookup to $PreventGoingToDisposePageCacheKey}",
           request.cookies.trackingId()))
         dispose.
           withCookie(VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)).
           discardingCookie(PreventGoingToDisposePageCacheKey)
-      }
     }
   }
 
@@ -139,16 +134,14 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
 
   def back = Action { implicit request =>
     request.cookies.getModel[EnterAddressManuallyFormModel] match {
-      case Some(manualAddress) => {
+      case Some(manualAddress) =>
         Logger.info(logMessage(s"Manual address entry found so redirecting to ${routes.EnterAddressManually.present()}}",
           request.cookies.trackingId()))
         enterAddressManually
-      }
-      case None => {
+      case None =>
         Logger.info(logMessage(s"Manual address entry not found so redirecting to ${routes.BusinessChooseYourAddress.present()}}",
           request.cookies.trackingId()))
         businessChooseYourAddress
-      }
     }
   }
 

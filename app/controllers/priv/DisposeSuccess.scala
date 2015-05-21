@@ -11,10 +11,10 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
                                surveyUrl: SurveyUrl,
                                dateService: DateService) extends controllers.DisposeSuccess {
 
-//  protected override val isPrivateKeeper = true
-//  protected override val newDisposeFormTarget = routes.DisposeSuccess.newDisposal()
-//  protected override val exitDisposeFormTarget = routes.DisposeSuccess.exit()
-//  protected override val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
-//  protected override val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
-//  protected override val onNewDispose = Redirect(controllers.routes.BeforeYouStart.present)
+  protected override val isPrivateKeeper = true
+  protected override val newDisposeFormTarget = routes.DisposeSuccess.newDisposal()
+  protected override val exitDisposeFormTarget = routes.DisposeSuccess.exit()
+  protected override val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
+  protected override val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
+  protected override val onNewDispose = Redirect(controllers.routes.BeforeYouStart.present)
 }
