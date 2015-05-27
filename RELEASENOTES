@@ -1,3 +1,10 @@
+======= 1.9 ========
+TIME OF RELEASE BINARIES CREATION:
+Wed May 27 FILL-ME-IN UTC 2015
+
+US3140 Set the default timezone to Europe/London in all exemplars and micro services
+US3183 Re-enable the private dispose to trade functionality
+
 ======= 1.8.1  ========
 TIME OF RELEASE BINARIES CREATION:
 Tue May 19 13:34:09 UTC 2015
