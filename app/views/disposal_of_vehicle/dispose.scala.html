@@ -43,7 +43,6 @@
             <div class="disposal-info first-col">
                 @vehicle_detail_playback(data)
 
-
                 <dl class="playback">
                     <dt><h2>@Messages("disposal_vehiclelookup.p2")</h2></dt>
                     <dt>@Messages("disposal_vehiclelookup.tradernamelabel")</dt>
@@ -56,7 +55,6 @@
                     <p>@Messages("disposal_dispose.warning")</p>
                 </div>
             </div>
-
 
             <div class="disposal-form second-col uppercase-input">
                 @if(isPrivateKeeper) {
@@ -72,7 +70,6 @@
                     @valtechDeclareCheck(disposeForm(ConsentId),
                         args = Map(
                             '_showConstraints -> false,
-                            'autofocus -> true,
                             '_label -> Messages("disposal_dispose.consent")
                         )
                     )
@@ -83,10 +80,7 @@
                         '_showConstraints -> false
                     ) ++
                    (if(isPrivateKeeper)
-                      Map(
-                        'autofocus -> true,
-                        '_label -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent")
-                      )
+                      Map('_label -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent"))
                    else
                       Map('_label -> Messages("disposal_dispose.loss_of_registration.consent"))
                    )
@@ -95,9 +89,7 @@
                 <div id="@DateOfDisposalId">
                     @inputDayMonthYearTextbox(
                         field =disposeForm(DateOfDisposalId),
-                        args = Map(
-                            '_label -> Messages("disposal_dispose.dateofdisposal.label")
-                        ),
+                        args = Map('_label -> Messages("disposal_dispose.dateofdisposal.label")),
                         dateService = dateService,
                         showTodaysDateButton = (if(isPrivateKeeper) false else true),
                         showTodaysDateButtonId = Some(TodaysDateOfDisposal),

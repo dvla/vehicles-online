@@ -99,8 +99,8 @@ class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
       val contentWithCarriageReturnsAndSpacesRemoved = content.replaceAll("[\n\r]", "").replaceAll(emptySpace, "")
-      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = true, isAutoFocus = true)
-      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = true, isAutoFocus = false)
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = true)
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = true)
 
       contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.day", "25"))
       contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.month", "11"))
@@ -115,8 +115,8 @@ class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       val content = contentAsString(result)
       val contentWithCarriageReturnsAndSpacesRemoved = content.replaceAll("[\n\r]", "").replaceAll(emptySpace, "")
-      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = false, isAutoFocus = true)
-      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = false, isAutoFocus = false)
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = false)
+      checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = false)
       content should not include "selected" // No drop downs should be selected
     }
 
@@ -648,14 +648,12 @@ class DisposeUnitSpec extends UnitSpec {
     new Dispose(disposeService, dateServiceStubbed())
   }
 
-  private def checkboxHasAttributes(content: String, widgetName: String, isChecked: Boolean, isAutoFocus: Boolean) = {
+  private def checkboxHasAttributes(content: String, widgetName: String, isChecked: Boolean) = {
     val checkboxRegex = s"""<inputid="$widgetName"name="$widgetName"[^>]*>""".r
     val checkboxHtml = checkboxRegex.findFirstIn(content)
     checkboxHtml match {
       case Some(checkbox) =>
         if (isChecked) checkbox should include( """checked""")
-        else {}
-        if (isAutoFocus) checkbox should include( """autofocus="true"""")
         else {}
       case _ => fail("did not find the checkbox in ")
     }
