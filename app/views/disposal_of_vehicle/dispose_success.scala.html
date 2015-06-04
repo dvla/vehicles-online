@@ -64,7 +64,9 @@ title = Messages("disposal_disposeconfirmation.title")
                     <button id="@NewDisposalId"
                     type="submit"
                     name="action"
-                    class="button button-new-disposal button-secondary">
+                    class="button button-new-disposal button-secondary ga-track-click-event-once"
+                    ga-event-type="dispose-success"
+                    ga-event-value="sell-another">
                     @Messages("disposal_disposeconfirmation.newdisposalbutton")
                     </button>
                 }
@@ -79,7 +81,9 @@ title = Messages("disposal_disposeconfirmation.title")
                         type="submit"
                         name="action"
                         onclick="window.open('@url', '_blank');"
-                        class="button button-secondary">
+                        class="button button-secondary ga-track-click-event-once"
+                        ga-event-type="dispose-success"
+                        ga-event-value="exit">
                         @Messages("disposal_disposeconfirmation.exitbutton")
                         </button>
                     }
@@ -87,7 +91,7 @@ title = Messages("disposal_disposeconfirmation.title")
                         <button id="@ExitDisposalId"
                         type="submit"
                         name="action"
-                        class="button button-secondary">
+                        class="button button-secondary ga-dispose-success-exit">
                         @Messages("disposal_disposeconfirmation.exitbutton")
                         </button>
                     }

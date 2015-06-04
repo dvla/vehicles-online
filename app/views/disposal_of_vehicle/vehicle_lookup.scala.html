@@ -53,7 +53,9 @@
                                 (if(config.isHtml5ValidationEnabled) Map('pattern -> DocumentReferenceNumber.Pattern) else Nil)
                         )
 
-                        <div class="hint-image-wrap img-wrap img-wrap-desktop">
+                        <div class="hint-image-wrap img-wrap img-wrap-desktop ga-track-click-event-once"
+                             ga-event-type="manual-address-entry"
+                             ga-event-value="navigate-to">
                             <p>@Messages("disposal_vehiclelookup.img.hint")</p>
                             <div class="panel-indent-wrapper">
                                 <div class="panel-indent">
@@ -62,7 +64,9 @@
                             </div>
                         </div>
 
-                        <div class="hint-image-wrap img-wrap img-wrap-mobile">
+                        <div class="hint-image-wrap img-wrap img-wrap-mobile ga-track-click-event-once"
+                             ga-event-type="manual-address-entry"
+                             ga-event-value="navigate-to">
                             <p>@Messages("disposal_vehiclelookup.img.hint")</p>
                             <div class="panel-indent-wrapper">
                                 <div class="panel-indent">
