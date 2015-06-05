@@ -1,5 +1,5 @@
-require(['../lib/vehicles-presentation-common/javascripts/config'], function() {
-    require(["page-init"],function(pageInit) {
-        pageInit.initAll()
+require(['config'], function() {
+    require(['dispose-page-init'], function(pageInit) {
+        pageInit.init()
     });
 });
