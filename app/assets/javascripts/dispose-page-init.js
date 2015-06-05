@@ -5,7 +5,7 @@ define(['jquery', 'jquery-migrate', "page-init"], function($, jqueryMigrate, pag
         var gaTodaysDateClickedClass = "ga-use-todays-date-clicked"
         $('#todays_date').on('click', function() {
             if (!$(this).hasClass(gaTodaysDateClickedClass)) {
-                _gaq.push(['_trackEvent', 'dispose', 'use-todays-date']);
+                _gaq.push(['_trackEvent', 'dispose', 'use-todays-date', 'click', 1]);
                 $(this).addClass(gaTodaysDateClickedClass);
             }
         });
