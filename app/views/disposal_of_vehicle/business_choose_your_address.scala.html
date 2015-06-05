@@ -46,7 +46,7 @@
 
         @if(viewModel.dropDownOptions.nonEmpty) {
             <a id="@EnterAddressManuallyButtonId"
-               class="ga-track-click-event-once"
+               class="button ga-track-click-event-once"
                ga-event-category="manual-address-entry"
                ga-event-action="navigate-to"
                href="@viewModel.manualAddressEntry">
@@ -56,7 +56,7 @@
         <div class="form-steps">
             @if(viewModel.dropDownOptions.isEmpty) {
                 <a id="@EnterAddressManuallyButtonId"
-                   class="ga-track-click-event-once"
+                   class="button ga-track-click-event-once"
                    ga-event-category="manual-address-entry"
                    ga-event-action="navigate-to"
                    href="@viewModel.manualAddressEntry">

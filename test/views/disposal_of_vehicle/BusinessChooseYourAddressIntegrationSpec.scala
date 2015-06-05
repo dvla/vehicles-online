@@ -55,7 +55,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
     "display appropriate content when address service returns addresses" taggedAs UiTag in new WebBrowser {
       SetupTradeDetailsPage.happyPath()
       page.source.contains("No addresses found for that postcode") should equal(false) // Does not contain message
-      page.source should include("""<a id="enterAddressManuallyButton" href""")
+      page.source should include("""<a id="enterAddressManuallyButton"""")
     }
 
     "display the postcode entered in the previous page" taggedAs UiTag in new WebBrowser {
@@ -82,7 +82,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       SetupTradeDetailsPage.submitPostcodeWithoutAddresses
 
       page.source should include("No addresses found for that postcode") // Does not contain the positive message
-      page.source should include("""<a id="enterAddressManuallyButton" class="button"""")
+      page.source should include("""<a id="enterAddressManuallyButton" class="button""")
     }
 
     "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
