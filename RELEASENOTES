@@ -1,3 +1,18 @@
+======= 1.10 ========
+TIME OF RELEASE BINARIES CREATION:
+Wed June 10 FILL-ME-IN UTC 2015
+
+Defects:
+DE535  Refused to execute script from 'https://qa-vm.dev-dvla.co.uk/assets/javascripts/autofill-todays-date.js'
+DE544  Google Analytics error ""Uncaught ReferenceError: _gaq is not defined"".
+DE497  Selecting address from drop down menu
+
+User stories:
+US3188 Create Google Analytics Events
+US3242 Service heading
+US3243 Auto-focus
+US3245 Pseudo buttons
+
 ======= 1.9 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed May 27 14:12:22 UTC 2015
