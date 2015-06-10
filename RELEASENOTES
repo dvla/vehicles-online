@@ -1,6 +1,6 @@
 ======= 1.10 ========
 TIME OF RELEASE BINARIES CREATION:
-Wed June 10 FILL-ME-IN UTC 2015
+Wed June 10 14:29:52 UTC 2015
 
 Defects:
 DE535  Refused to execute script from 'https://qa-vm.dev-dvla.co.uk/assets/javascripts/autofill-todays-date.js'
