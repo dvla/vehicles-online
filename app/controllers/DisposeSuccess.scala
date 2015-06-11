@@ -78,7 +78,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   }
 
   def exit = Action { implicit request =>
-    Logger.debug(logMessage(s"Redirect from DisposeSuccess to ${onNewDispose}", request.cookies.trackingId()))
+    Logger.debug(logMessage(s"Redirect from DisposeSuccess to $onNewDispose", request.cookies.trackingId()))
     onNewDispose.
       discardingCookies(AllCacheKeys).
       withCookie(PreventGoingToDisposePageCacheKey, "").
@@ -113,14 +113,13 @@ class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFa
     request.cookies.getString(SurveyRequestTriggerDateCacheKey) match {
       case Some(lastSurveyMillis) =>
         if ((lastSurveyMillis.toLong + config.prototypeSurveyPrepositionInterval) < dateService.now.getMillis) {
-          Logger.debug(logMessage(s"Redirecting to survey ${url}", request.cookies.trackingId()))
+          Logger.debug(logMessage(s"Redirecting to survey $url", request.cookies.trackingId()))
           url
         }
         else None
-      case None => {
-        Logger.debug(logMessage(s"Redirecting to survey ${url}", request.cookies.trackingId()))
+      case None =>
+        Logger.debug(logMessage(s"Redirecting to survey $url", request.cookies.trackingId()))
         url
-      }
     }
   }
 }
