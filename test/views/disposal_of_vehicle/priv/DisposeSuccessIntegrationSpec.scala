@@ -10,13 +10,13 @@ import views.disposal_of_vehicle.DisposeSuccess
 
 class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
 
-  "new disposal button" ignore {
+  "new disposal button" should {
     "not be present when the disposal is done by a private keeper instead of the trade" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessForPrivateKeeperPage
       page.title should equal(DisposeSuccessForPrivateKeeperPage.title)
-      page.source should not include(s"""id="$DisposeSuccess.NewDisposalId"""")
+      page.source should not include s"""id="$DisposeSuccess.NewDisposalId""""
     }
   }
 

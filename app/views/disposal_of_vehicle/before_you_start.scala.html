@@ -27,9 +27,9 @@
   </div>
   <div class="second-col">
     <p>@Messages("disposal_beforeyoustart.description")</p>
-    <div class="alert-warning"><h3>@Messages("disposal_beforeyoustart.tradeWarn")</h3></div>
+    <div class="alert-warning"><h2>@Messages("disposal_beforeyoustart.tradeWarn")</h2></div>
     <p>
-        <a class="button" id="@NextId" href="@SetUpTradeDetails.submit()">@Messages("disposal_beforeyoustart.button")</a>
+        <a class="button" role="button" id="@NextId" href="@SetUpTradeDetails.submit()">@Messages("disposal_beforeyoustart.button")</a>
     </p>
     <h2>@Messages("disposal_beforeyoustart.p1")</h2>
     <ol>
@@ -58,7 +58,7 @@
     <div class="form-steps">
         @csrfTokenHiddenField()
         @* Note the reverse routing syntax for the hyperlink *@
-        <a class="button" id="@NextId" href="@SetUpTradeDetails.submit()">@Messages("disposal_beforeyoustart.button")</a>
+        <a class="button" role="button" id="@NextId" href="@SetUpTradeDetails.submit()">@Messages("disposal_beforeyoustart.button")</a>
     </div>
   </div>
 </div>

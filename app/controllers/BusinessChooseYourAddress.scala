@@ -26,10 +26,10 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
 
   private[controllers] val form = Form(BusinessChooseYourAddressFormModel.Form.Mapping)
 
-  protected val submitCall = routes.BusinessChooseYourAddress.submit
-  protected val manualAddressEntryCall = routes.EnterAddressManually.present
-  protected val backCall = routes.SetUpTradeDetails.present
-  protected val redirectBack = Redirect(routes.SetUpTradeDetails.present)
+  protected val submitCall = routes.BusinessChooseYourAddress.submit()
+  protected val manualAddressEntryCall = routes.EnterAddressManually.present()
+  protected val backCall = routes.SetUpTradeDetails.present()
+  protected val redirectBack = Redirect(routes.SetUpTradeDetails.present())
   protected val uprnNotFoundResult = Redirect(routes.UprnNotFound.present())
   protected val successResult = Redirect(routes.VehicleLookup.present())
   protected val onMissingTraderDetails = Redirect(routes.SetUpTradeDetails.present())

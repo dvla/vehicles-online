@@ -43,7 +43,6 @@
             <div class="disposal-info first-col">
                 @vehicle_detail_playback(data)
 
-
                 <dl class="playback">
                     <dt><h2>@Messages("disposal_vehiclelookup.p2")</h2></dt>
                     <dt>@Messages("disposal_vehiclelookup.tradernamelabel")</dt>
@@ -56,7 +55,6 @@
                     <p>@Messages("disposal_dispose.warning")</p>
                 </div>
             </div>
-
 
             <div class="disposal-form second-col uppercase-input">
                 @if(isPrivateKeeper) {
@@ -72,7 +70,6 @@
                     @valtechDeclareCheck(disposeForm(ConsentId),
                         args = Map(
                             '_showConstraints -> false,
-                            'autofocus -> true,
                             '_label -> Messages("disposal_dispose.consent")
                         )
                     )
@@ -83,10 +80,7 @@
                         '_showConstraints -> false
                     ) ++
                    (if(isPrivateKeeper)
-                      Map(
-                        'autofocus -> true,
-                        '_label -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent")
-                      )
+                      Map('_label -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent"))
                    else
                       Map('_label -> Messages("disposal_dispose.loss_of_registration.consent"))
                    )
@@ -106,11 +100,14 @@
                 </div>
 
                 @valtechInputText(disposeForm(MileageId), args =
-                        Map('_label -> Messages("disposal_dispose.mileage.label"),
-                            '_showConstraints -> false,
-                            'typeTel -> true,
-                            'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
-                            //'title -> Messages("disposal_dispose.mileage.validation")
+                        Map(
+                          '_label -> Messages("disposal_dispose.mileage.label"),
+                          '_showConstraints -> false,
+                          'class -> "ga-track-optional-text",
+                          Symbol("ga-action") -> "mileage",
+                          'typeTel -> true,
+                          'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
+                          //'title -> Messages("disposal_dispose.mileage.validation")
                         ) ++
                    (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )

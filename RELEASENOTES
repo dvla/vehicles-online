@@ -1,5 +1,35 @@
+======= 1.10 ========
+TIME OF RELEASE BINARIES CREATION:
+Wed June 10 14:29:52 UTC 2015
+
+Defects:
+DE535  Refused to execute script from 'https://qa-vm.dev-dvla.co.uk/assets/javascripts/autofill-todays-date.js'
+DE544  Google Analytics error ""Uncaught ReferenceError: _gaq is not defined"".
+DE497  Selecting address from drop down menu
+
+User stories:
+US3188 Create Google Analytics Events
+US3242 Service heading
+US3243 Auto-focus
+US3245 Pseudo buttons
+
+======= 1.9 ========
+TIME OF RELEASE BINARIES CREATION:
+Wed May 27 14:12:22 UTC 2015
+
+US3140 Set the default timezone to Europe/London in all exemplars and micro services
+US3183 Re-enable the private dispose to trade functionality
+
+======= 1.8.1  ========
+TIME OF RELEASE BINARIES CREATION:
+Tue May 19 13:34:09 UTC 2015
+
+Defects:
+DE503 All Services - VSS record updating -1 day from date entered
+
 ======= 1.8   ========
 TIME OF RELEASE BINARIES CREATION:
+Wed May 13 13:06:59 UTC 2015
 
 Defects:
 DE442	Invalid characters in date field

@@ -41,8 +41,7 @@
                         Map('_label -> Messages("disposal_vehiclelookup.vrninputlabel"),
                             'maxLength -> VehicleRegistrationNumber.MaxLength,
                             '_showConstraints -> false,
-                            'alphaNumericOnly -> true,
-                            'autofocus -> true))
+                            'alphaNumericOnly -> true))
 
                         @valtechInputText(viewModel.form(DocumentReferenceNumberId), args =
                             Map('_label -> Messages("disposal_vehiclelookup.refnumlabel"),
@@ -54,7 +53,9 @@
                                 (if(config.isHtml5ValidationEnabled) Map('pattern -> DocumentReferenceNumber.Pattern) else Nil)
                         )
 
-                        <div class="hint-image-wrap img-wrap img-wrap-desktop">
+                        <div class="hint-image-wrap img-wrap img-wrap-desktop ga-track-click-event-once"
+                             ga-event-category="ct_link"
+                             ga-event-action="v5c-docref-hint-show">
                             <p>@Messages("disposal_vehiclelookup.img.hint")</p>
                             <div class="panel-indent-wrapper">
                                 <div class="panel-indent">
@@ -63,7 +64,9 @@
                             </div>
                         </div>
 
-                        <div class="hint-image-wrap img-wrap img-wrap-mobile">
+                        <div class="hint-image-wrap img-wrap img-wrap-mobile ga-track-click-event-once"
+                             ga-event-category="ct_link"
+                             ga-event-action="v5c-docref-hint-show">
                             <p>@Messages("disposal_vehiclelookup.img.hint")</p>
                             <div class="panel-indent-wrapper">
                                 <div class="panel-indent">

@@ -9,5 +9,5 @@ class FeedbackController @Inject()(emailService: EmailService)(implicit clientSi
                                                                config: Config)
   extends controllers.FeedbackController(emailService) {
 
-//  protected override val formTarget = routes.FeedbackController.submit()
+  protected override val formTarget = routes.FeedbackController.submit()
 }
