@@ -9,9 +9,9 @@ import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDSL, WebBrowserDriver}
 
-class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN with WebBrowserDSL with Matchers {
+class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN with WebBrowserDSL with Matchers with WithClue {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
@@ -27,7 +27,7 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN
 
   @Given("^I enter trader name and postcode then click on next button$")
   def i_enter_trader_name_and_postcode_then_click_on_next_button() {
-    page.title shouldEqual SetupTradeDetailsPage.title
+    page.title shouldEqual SetupTradeDetailsPage.title withClue trackingId
     SetupTradeDetailsPage.traderName enter "sudotrader"
     SetupTradeDetailsPage.traderPostcode enter "qq99qq"
     click on SetupTradeDetailsPage.lookup
@@ -35,14 +35,14 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN
 
   @Given("^Select the address form address choose page then click on next button$")
   def select_the_address_form_address_choose_page_then_click_on_next_button() {
-    page.title shouldEqual BusinessChooseYourAddressPage.title
+    page.title shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
     BusinessChooseYourAddressPage.chooseAddress.value = "0"
     click on BusinessChooseYourAddressPage.select
   }
 
   @When("^I enter vehicle look up details and click on submit button$")
   def i_enter_vehicle_look_up_details_and_click_on_submit_button() {
-    page.title shouldEqual VehicleLookupPage.title
+    page.title shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber enter "b1"
     VehicleLookupPage.documentReferenceNumber enter "11111111111"
     click on VehicleLookupPage.findVehicleDetails
@@ -50,7 +50,7 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN
 
   @Then("^I should be taken to complete and confirm page and fill the required details and click on confirm sale button$")
   def i_should_be_taken_to_complete_and_confirm_page_and_fill_the_required_details_and_click_on_confirm_sale_button() {
-    page.title shouldEqual DisposePage.title
+    page.title shouldEqual DisposePage.title withClue trackingId
   }
 
   @Then("^I am on the summary page$")

@@ -8,27 +8,27 @@ import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDSL, WebBrowserDriver}
 
-class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
+class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers with WithClue {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
   def goToCompleteAndConfirmPage() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
-    page.title shouldEqual SetupTradeDetailsPage.title
+    page.title shouldEqual SetupTradeDetailsPage.title withClue trackingId
     SetupTradeDetailsPage.traderName enter "trader1"
     SetupTradeDetailsPage.traderPostcode enter "qq99qq"
     click on SetupTradeDetailsPage.lookup
-    page.title shouldEqual BusinessChooseYourAddressPage.title
+    page.title shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
     BusinessChooseYourAddressPage.chooseAddress.value = "0"
     click on BusinessChooseYourAddressPage.select
-    page.title shouldEqual VehicleLookupPage.title
+    page.title shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber enter "A1"
     VehicleLookupPage.documentReferenceNumber enter "11111111111"
     click on VehicleLookupPage.findVehicleDetails
-    page.title shouldEqual DisposePage.title
+    page.title shouldEqual DisposePage.title withClue trackingId
     click on DisposePage.useTodaysDate
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
@@ -46,7 +46,7 @@ class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowser
 
   @Then("^the user should taken to vehicle lookUp Page$")
   def the_user_should_taken_to_vehicle_lookUp_Page()  {
-    page.title shouldEqual VehicleLookupPage.title
+    page.title shouldEqual VehicleLookupPage.title withClue trackingId
   }
 
   @When("^the user click on the back button in vehicle look up page$")
@@ -56,7 +56,7 @@ class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowser
 
   @Then("^navigate to business choose address page$")
   def navigate_to_business_choose_address_page(): Unit =  {
-    page.title shouldEqual BusinessChooseYourAddressPage.title
+    page.title shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
   }
 
   @When("^the user click on the back button on business choose address page$")
@@ -66,6 +66,6 @@ class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowser
 
   @Then("^the user will navigate to traderDetailsPage$")
   def the_user_will_navigate_to_traderDetailsPage() {
-    page.title shouldEqual  SetupTradeDetailsPage.title
+    page.title shouldEqual  SetupTradeDetailsPage.title withClue trackingId
   }
 }

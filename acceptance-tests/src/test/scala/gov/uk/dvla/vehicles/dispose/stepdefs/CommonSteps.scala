@@ -14,10 +14,10 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClearTextClientSideSessionFactory
 import common.clientsidesession.NoCookieFlags
-import common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDSL, WebBrowserDriver}
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.RandomVrmGenerator
 
-class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
+class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers with WithClue {
 
   implicit val cookieFlags = new NoCookieFlags()
   implicit lazy val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
@@ -25,9 +25,9 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
 
   def goToSetupTradeDetailsPage() = {
     go to BeforeYouStartPage
-    page.title should equal(BeforeYouStartPage.title)
+    page.title should equal(BeforeYouStartPage.title) withClue trackingId
     click on BeforeYouStartPage.startNow
-    page.title should equal(SetupTradeDetailsPage.title)
+    page.title should equal(SetupTradeDetailsPage.title) withClue trackingId
   }
 
   def goToEnterAddressManuallyPage() = {
@@ -35,18 +35,18 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
     SetupTradeDetailsPage.traderName enter "Big Motors Limited"
     SetupTradeDetailsPage.traderPostcode enter "AA99 1AA"
     click on SetupTradeDetailsPage.lookup
-    page.title should equal(BusinessChooseYourAddressPage.title)
+    page.title should equal(BusinessChooseYourAddressPage.title) withClue trackingId
     click on BusinessChooseYourAddressPage.manualAddress
-    page.title should equal(EnterAddressManuallyPage.title)
+    page.title should equal(EnterAddressManuallyPage.title) withClue trackingId
   }
 
   def goToVehicleLookupPage() = {
     goToEnterAddressManuallyPage()
-    page.title should equal(EnterAddressManuallyPage.title)
+    page.title should equal(EnterAddressManuallyPage.title) withClue trackingId
     EnterAddressManuallyPage.addressBuildingNameOrNumber enter "1 Long Road"
     EnterAddressManuallyPage.addressPostTown enter "Swansea"
     click on EnterAddressManuallyPage.next
-    page.title should equal(VehicleLookupPage.title)
+    page.title should equal(VehicleLookupPage.title) withClue trackingId
   }
 
   def goToDisposePage() = {
@@ -54,7 +54,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
     VehicleLookupPage.vehicleRegistrationNumber enter RandomVrmGenerator.uniqueVrm
     VehicleLookupPage.documentReferenceNumber enter "11111111111"
     click on VehicleLookupPage.findVehicleDetails
-    page.title should equal(DisposePage.title)
+    page.title should equal(DisposePage.title) withClue trackingId
   }
 
   def goToDisposeSuccessPage() = {
@@ -64,7 +64,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
     click on DisposePage.dispose
-    page.title should equal(DisposeSuccessPage.title)
+    page.title should equal(DisposeSuccessPage.title) withClue trackingId
   }
 
   @Given("""^a correctly formatted document reference number "(.*)" has been entered$""")
@@ -115,7 +115,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
     VehicleLookupPage.vehicleRegistrationNumber enter "AA11 AAC"
     VehicleLookupPage.documentReferenceNumber enter "88888888883"
     click on VehicleLookupPage.findVehicleDetails
-    page.title should equal(DisposePage.title)
+    page.title should equal(DisposePage.title) withClue trackingId
     DisposePage.mileage enter "10000"
     selectTodaysDate()
     click on DisposePage.consent
@@ -151,22 +151,22 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with
 
   @Then("""^the next step in the dispose transaction "(.*)" is shown$""")
   def the_next_step_in_the_dispose_transaction_is_shown(title:String) = {
-    page.title should equal(title)
+    page.title should equal(title) withClue trackingId
   }
 
   @Then("""^a single error message "(.*)" is displayed$""")
   def a_single_error_message_msg_is_displayed(message: String) = {
-    ErrorPanel.numberOfErrors should equal(1)
-    ErrorPanel.text should include(message)
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should include(message) withClue trackingId
   }
 
   @Then("""^a message is displayed "(.*?)"$""")
   def a_message_is_displayed(message: String) = {
-    page.text should include(message)
+    page.text should include(message) withClue trackingId
   }
 
   @Then("""^the dispose transaction does not proceed past the "(.*)" step$""")
   def the_dispose_transaction_does_not_proceed_past_the_step(title:String) = {
-    page.title should equal(title)
+    page.title should equal(title) withClue trackingId
   }
 }

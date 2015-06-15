@@ -17,9 +17,9 @@ import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDSL, WebBrowserDriver}
 
-class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
+class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers with WithClue {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
@@ -36,18 +36,18 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
   def the_Trader_is_on_the_Complete_Confirm_page_and_javascript_is_not_enabled_for_the_browser() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
-    page.title should equal(SetupTradeDetailsPage.title)
-    page.title should equal(SetupTradeDetailsPage.title)
+    page.title should equal(SetupTradeDetailsPage.title) withClue trackingId
+    page.title should equal(SetupTradeDetailsPage.title) withClue trackingId
     SetupTradeDetailsPage.traderName enter "Big Motors Limited"
     SetupTradeDetailsPage.traderPostcode enter "qq99qq"
     click on SetupTradeDetailsPage.lookup
-    page.title shouldEqual  BusinessChooseYourAddressPage.title
+    page.title shouldEqual  BusinessChooseYourAddressPage.title withClue trackingId
     BusinessChooseYourAddressPage.chooseAddress.value="0"
     click on BusinessChooseYourAddressPage.select
     VehicleLookupPage.vehicleRegistrationNumber enter "b1"
     VehicleLookupPage.documentReferenceNumber enter "11111111111"
     click on VehicleLookupPage.findVehicleDetails
-    page.title shouldEqual DisposePage.title
+    page.title shouldEqual DisposePage.title withClue trackingId
     go to DisposePage
   }
 
@@ -143,9 +143,9 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
 
   @Then("""^the date dropdown is still unset$""")
   def the_date_dropdown_is_still_unset() = {
-    dateOfDisposalDay.value should equal("")
-    dateOfDisposalMonth.value should equal("")
-    dateOfDisposalYear.value should equal("")
+    dateOfDisposalDay.value should equal("") withClue trackingId
+    dateOfDisposalMonth.value should equal("") withClue trackingId
+    dateOfDisposalYear.value should equal("") withClue trackingId
   }
 
   @Then("""^the user can select "Confirm sale" without error on the date of sale field$""")
@@ -153,12 +153,12 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
     click on consent
     click on lossOfRegistrationConsent
     click on dispose
-    page.title should equal(DisposeSuccessPage.title)
+    page.title should equal(DisposeSuccessPage.title) withClue trackingId
   }
 
   @Then("""^an error will occur stating "Must be between today and two years ago"$""")
   def an_error_will_occur_stating_Must_be_between_today_and_two_years_ago() = {
-    ErrorPanel.numberOfErrors should equal(1)
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
   }
 
   private def enterValidDisposalDate() {
@@ -170,7 +170,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
   private def buildDisposeSetup() {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
-    page.title should equal(SetupTradeDetailsPage.title)
+    page.title should equal(SetupTradeDetailsPage.title) withClue trackingId
     SetupTradeDetailsPage.traderName enter "Big Motors Limited"
     SetupTradeDetailsPage.traderPostcode enter "AA99 1AA"
     click on SetupTradeDetailsPage.lookup
