@@ -367,7 +367,7 @@ mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 
 # feedback
 common_feedback.title = Rhoi Adborth
-common_feedback.message = Peidiwch â chynnwys unrhyw wybodaeth bersonol neu ariannol - er enghraifft eich rhif Yswiriant Gwladol.
+common_feedback.message = Peidiwch â chynnwys unrhyw wybodaeth bersonol neu ariannol.
 common_feedback.label = Beth aeth o''i le, os unrhyw beth? Beth aeth yn dda? Sut y gallem wella''r gwasanaeth hwn?
 common_feedback.charactersRemaining = cymeriadau sy''n weddill
 common_feedback.placeholder = (Terfyn yn 500 llythyren)
