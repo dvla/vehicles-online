@@ -51,7 +51,9 @@ title = Messages("disposal_disposeconfirmation.title")
                 type="button"
                 name="action"
                 value="printDisposalSuccess"
-                class="button js-only print-button">
+                class="button js-only print-button ga-track-click-event-once"
+                ga-event-category="ct_print"
+                ga-event-action="print">
                 @Messages("global.buttonnavprint")
                 </button>
             </div>
