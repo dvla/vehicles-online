@@ -4,10 +4,10 @@ import cucumber.api.java.en.{Given, When, Then}
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
 import pages.disposal_of_vehicle.{DisposePage, VehicleLookupFailurePage, VehicleLookupPage, VrmLockedPage}
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDSL, WebBrowserDriver}
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.RandomVrmGenerator
 
-class BruteForceSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers {
+class BruteForceSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers with WithClue {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
   val commonSteps = new CommonSteps(webBrowserDriver)
@@ -20,7 +20,7 @@ class BruteForceSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL 
     VehicleLookupPage.vehicleRegistrationNumber enter vrm
     VehicleLookupPage.documentReferenceNumber enter docRefNumber
     click on VehicleLookupPage.findVehicleDetails
-    page.title shouldEqual expectedPageTitle
+    page.title shouldEqual expectedPageTitle withClue trackingId
   }
 
   @Given("""^the user is on the vehicle lookup page$""")
@@ -33,7 +33,7 @@ class BruteForceSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL 
     for (attempt <- 1 to 3) {
       lookupVehicle(VrmLocked, DocRefNumberUnsuccessfulLookup, VehicleLookupFailurePage.title)
       click on VehicleLookupFailurePage.vehicleLookup
-      page.title shouldEqual(VehicleLookupPage.title)
+      page.title shouldEqual VehicleLookupPage.title withClue trackingId
     }
   }
 
@@ -42,7 +42,7 @@ class BruteForceSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL 
     for (attempt <- 1 to 2) {
       lookupVehicle(VrmNotLocked, DocRefNumberUnsuccessfulLookup, VehicleLookupFailurePage.title)
       click on VehicleLookupFailurePage.vehicleLookup
-      page.title shouldEqual(VehicleLookupPage.title)
+      page.title shouldEqual VehicleLookupPage.title withClue trackingId
     }
   }
 
@@ -56,6 +56,6 @@ class BruteForceSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL 
     VehicleLookupPage.vehicleRegistrationNumber enter VrmNotLocked
     VehicleLookupPage.documentReferenceNumber enter DocRefNumberSuccessfulLookup
     click on VehicleLookupPage.findVehicleDetails
-    page.title should equal(DisposePage.title)
+    page.title should equal(DisposePage.title) withClue trackingId
   }
 }
