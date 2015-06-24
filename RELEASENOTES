@@ -1,11 +1,14 @@
 ======= 1.11 ========
 TIME OF RELEASE BINARIES CREATION:
-Wed June 24 UTC 2015
+Wed June 24  08:35:07 UTC 2015
 
 Defects:
+DE560	Two submit button on Summary Page resulting duplication.
+DE564	Failed email message blocks email queue
 
 User stories:
-
+US3240	Remove copy from User Feedback page
+US3353	Outstanding GA Events
 
 ======= 1.10 ========
 TIME OF RELEASE BINARIES CREATION:
