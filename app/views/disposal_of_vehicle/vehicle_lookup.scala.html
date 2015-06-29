@@ -46,7 +46,7 @@
                             'maxLength -> VehicleRegistrationNumber.MaxLength,
                             '_showConstraints -> false,
                             'alphaNumericOnly -> true))
-
+                        <div class="hint-margin">
                         @valtechInputText(viewModel.form(DocumentReferenceNumberId), args =
                             Map('_label -> Messages("disposal_vehiclelookup.refnumlabel"),
                                 '_showConstraints -> false,
@@ -56,7 +56,7 @@
                                 'title -> Messages("")) ++ // [SKW] for accessibility Tony removed have 'title text as the screen reader reads it twice, the knock-on effect is that our custom validation messages aren't displayed so the user has no idea what is wrong.
                                 (if(config.isHtml5ValidationEnabled) Map('pattern -> DocumentReferenceNumber.Pattern) else Nil)
                         )
-
+                        </div>
                         <div class="hint-image-wrap img-wrap img-wrap-desktop ga-track-click-event-once"
                              ga-event-category="ct_link"
                              ga-event-action="v5c-docref-hint-show">
