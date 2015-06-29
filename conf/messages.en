@@ -1,5 +1,5 @@
 #main
-main.banner = Sell a vehicle into the motor trade
+main.banner = Buying a vehicle into trade
 
 #global
 global.cookiemessage = GOV.UK uses cookies to make the site simpler.
@@ -73,7 +73,7 @@ select_default = Please select
 error.invalid = Invalid value
 
 #page 1 - Before You Start
-disposal_beforeyoustart.title = Sell a vehicle into the motor trade
+disposal_beforeyoustart.title = Buying a vehicle into trade
 disposal_beforeyoustart.p1 = Before you start:
 disposal_beforeyoustart.listitem1 = No changes can be made to the V5C and the name and address must be correct
 disposal_beforeyoustart.listitem1linktext = Vehicle Enquiry Service (VES)
@@ -245,7 +245,7 @@ disposal_disposeconfirmation.whatNext = What happens next?
 disposal_disposeconfirmation.registrationNumber = {0}
 disposal_disposeconfirmation.registrationNumber_label = Vehicle details
 disposal_disposeconfirmation.backbutton = Back
-disposal_disposeconfirmation.newdisposalbutton = Sell another vehicle
+disposal_disposeconfirmation.newdisposalbutton = Notify Another Sale
 disposal_disposeconfirmation.disposaldate = Date of sale
 disposal_disposeconfirmation.mileage = Vehicle Mileage
 disposal_disposeconfirmation.mileageNotEntered = NOT ENTERED
@@ -255,7 +255,7 @@ disposal_disposeconfirmation.survey = Take a survey
 disposal_disposeconfirmation.transactionDetails = Transaction Details
 
 #page 7 - dispose failure
-disposal_disposefailure.title = Sell a vehicle into the motor trade: failure
+disposal_disposefailure.title = Buying a vehicle into trade: failure
 disposal_disposefailure.name = Failure
 disposal_disposefailure.p1 = It has not been possible to complete your transaction. Please call 0300 790 6802
 disposal_disposefailure.button = Sell another vehicle
