@@ -19,6 +19,10 @@
     title = Messages("disposal_vehiclelookup.title"),
     currentForm = Some(viewModel.form)
 ) {
+    <a class="back" id="@BackId" href="@viewModel.back">
+    @Messages("disposal_vehiclelookup.backbutton")
+    </a>
+
     <h1>@Messages("disposal_vehiclelookup.title")</h1>
 
     <div class="two-col clearfix vehicle-lookup">
@@ -80,9 +84,7 @@
                                 @Messages("disposal_vehiclelookup.button")
                             </button>
                             <br/>
-                            <a class="back" id="@BackId" href="@viewModel.back">
-                                @Messages("disposal_vehiclelookup.backbutton")
-                            </a>
+
 
                             @if(viewModel.displayExitButton) {
                                 @viewModel.surveyUrl match {
