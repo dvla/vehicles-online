@@ -1,10 +1,12 @@
 package pages.disposal_of_vehicle
 
-import models.DisposeFormModel.Form.{BackId, ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, SubmitId, TodaysDateOfDisposal}
+import models.DisposeFormModel.Form._
 import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
+import uk.gov.dvla.vehicles.presentation.common
 import uk.gov.dvla.vehicles.presentation.common.helpers
-import helpers.webbrowser.{Checkbox, Element, Page, TelField, WebBrowserDSL, WebDriverFactory}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser._
+import common.mappings.OptionalToggle.Invisible
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
@@ -24,6 +26,8 @@ object DisposePage extends Page with WebBrowserDSL {
 
   def consent(implicit driver: WebDriver): Checkbox = checkbox(id(ConsentId))
 
+  def emailInvisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Invisible"))
+
   def lossOfRegistrationConsent(implicit driver: WebDriver): Element = find(id(LossOfRegistrationConsentId)).get
 
   def useTodaysDate(implicit driver: WebDriver): Element = find(id(TodaysDateOfDisposal)).get
@@ -38,6 +42,7 @@ object DisposePage extends Page with WebBrowserDSL {
     dateOfDisposalDay enter DateOfDisposalDayValid
     dateOfDisposalMonth enter DateOfDisposalMonthValid
     dateOfDisposalYear enter DateOfDisposalYearValid
+    //click on emailInvisible
     click on consent
     click on lossOfRegistrationConsent
     click on dispose

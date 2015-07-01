@@ -1,5 +1,5 @@
 @(data: models.DisposeViewModel,
-        disposeForm: Form[models.DisposeFormModel],
+        disposeForm: Form[models.DisposeFormModelPrivate],
         dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService,
         isPrivateKeeper: Boolean,
         submitCall: Call,
@@ -104,22 +104,20 @@
                     )
                 </div>
 
-                @if(isPrivateKeeper) {
 
-                    @optionalToggle(
-                        disposeForm(EmailOptionId),
-                        Messages("acquire_businesskeeperdetails.traderemailoption"),
-                        Messages("acquire_businesskeeperdetails.traderemailoption.yes"),
-                        Messages("acquire_businesskeeperdetails.traderemailoption.no"),
-                        email(
-                            disposeForm(EmailId),
-                            labelText = Messages("acquire_businesskeeperdetails.email"),
-                            hintText = None,
-                            args = Map('maxLength -> EmailMaxLength)
-                        )
+                @optionalToggle(
+                    disposeForm(EmailOptionId),
+                    Messages("acquire_businesskeeperdetails.traderemailoption"),
+                    Messages("acquire_businesskeeperdetails.traderemailoption.yes"),
+                    Messages("acquire_businesskeeperdetails.traderemailoption.no"),
+                    email(
+                        disposeForm(EmailId),
+                        labelText = Messages("acquire_businesskeeperdetails.email"),
+                        hintText = None,
+                        args = Map('maxLength -> EmailMaxLength)
                     )
+                )
 
-                }
 
                 @valtechInputText(disposeForm(MileageId), args =
                         Map(

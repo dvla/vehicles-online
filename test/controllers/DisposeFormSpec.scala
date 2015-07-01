@@ -2,17 +2,20 @@ package controllers
 
 import composition.WithApplication
 import helpers.UnitSpec
-import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
+import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, EmailOptionId}
 import org.joda.time.{Instant, LocalDate}
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.when
 import org.mockito.stubbing.Answer
 import play.api.libs.json.Json
+import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
+import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form.EmailId
+import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form._
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
-import uk.gov.dvla.vehicles.presentation.common.mappings.Mileage
+import uk.gov.dvla.vehicles.presentation.common.mappings.{OptionalToggle, Mileage}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
@@ -190,6 +193,7 @@ class DisposeFormSpec extends UnitSpec {
         s"$DateOfDisposalId.$DayId" -> dayOfDispose,
         s"$DateOfDisposalId.$MonthId" -> monthOfDispose,
         s"$DateOfDisposalId.$YearId" -> yearOfDispose,
+        s"$EmailOptionId" -> OptionalToggle.Invisible,
         ConsentId -> consent,
         LossOfRegistrationConsentId -> lossOfRegistrationConsent
       )

@@ -169,6 +169,7 @@ object CookieFactoryForUISpecs {
     val key = DisposeFormModelCacheKey
     val value = DisposeFormModel(mileage = None,
       dateOfDisposal = new LocalDate(),
+      email = None,
       consent = FakeDisposeWebServiceImpl.ConsentValid,
       lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid)
     addCookie(key, value)
