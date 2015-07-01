@@ -84,7 +84,7 @@ object Chains {
     exec(http(s"GET /before-you-start")
       .get(s"/before-you-start")
       .headers(headers_accept_html)
-      .check(regex( """Sell a vehicle into the motor trade""").exists)
+      .check(regex( """Buying a vehicle into trade""").exists)
     )
 //      .exec(chain_assets_200)
       .exec(http(s"GET /setup-trade-details")
@@ -173,7 +173,7 @@ object Chains {
       .headers(headers_accept_html)
       .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
       .formParam( """action""", """""")
-      .check(regex( """Sell a vehicle into the motor trade""").exists)
+      .check(regex( """Buying a vehicle into trade""").exists)
     )
 //      .exec(chain_assets_304)
 }

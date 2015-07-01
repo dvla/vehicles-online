@@ -1,5 +1,5 @@
 #main
-main.banner = Sell a vehicle into the motor trade
+main.banner = Buying a vehicle into trade
 
 #global
 global.cookiemessage = GOV.UK uses cookies to make the site simpler.
@@ -73,7 +73,7 @@ select_default = Please select
 error.invalid = Invalid value
 
 #page 1 - Before You Start
-disposal_beforeyoustart.title = Sell a vehicle into the motor trade
+disposal_beforeyoustart.title = Buying a vehicle into trade
 disposal_beforeyoustart.p1 = Before you start:
 disposal_beforeyoustart.listitem1 = No changes can be made to the V5C and the name and address must be correct
 disposal_beforeyoustart.listitem1linktext = Vehicle Enquiry Service (VES)
@@ -234,8 +234,8 @@ disposal_disposeconfirmation.exkeeper-p1 = A letter will be sent to the name and
 disposal_disposeconfirmation.exprivatekeeper-p1 = A letter will be sent to you at the address on the V5C within 4 weeks.
 disposal_disposeconfirmation.exkeeper-p2 = If they do not receive a letter in this time they must contact DVLA Customer Enquiries as they could still be liable for this vehicle.
 disposal_disposeconfirmation.exprivatekeeper-p2 = If you do not receive a letter in this time then you must contact DVLA Customer Enquiries on 0300 790 6802 as you could still be liable for this vehicle.
-disposal_disposeconfirmation.exkeeper-p3 = Since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled
-disposal_disposeconfirmation.exkeeper-p4 = Please print this page and pass to the customer.
+disposal_disposeconfirmation.exkeeper-p3 = Since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled.
+disposal_disposeconfirmation.exkeeper-p4 = You may want to take a print of this summary for your records.
 disposal_disposeconfirmation.sendbutton = Send
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = Transaction ID
@@ -245,7 +245,7 @@ disposal_disposeconfirmation.whatNext = What happens next?
 disposal_disposeconfirmation.registrationNumber = {0}
 disposal_disposeconfirmation.registrationNumber_label = Vehicle details
 disposal_disposeconfirmation.backbutton = Back
-disposal_disposeconfirmation.newdisposalbutton = Sell another vehicle
+disposal_disposeconfirmation.newdisposalbutton = Notify Another Sale
 disposal_disposeconfirmation.disposaldate = Date of sale
 disposal_disposeconfirmation.mileage = Vehicle Mileage
 disposal_disposeconfirmation.mileageNotEntered = NOT ENTERED
@@ -255,7 +255,7 @@ disposal_disposeconfirmation.survey = Take a survey
 disposal_disposeconfirmation.transactionDetails = Transaction Details
 
 #page 7 - dispose failure
-disposal_disposefailure.title = Sell a vehicle into the motor trade: failure
+disposal_disposefailure.title = Buying a vehicle into trade: failure
 disposal_disposefailure.name = Failure
 disposal_disposefailure.p1 = It has not been possible to complete your transaction. Please call 0300 790 6802
 disposal_disposefailure.button = Sell another vehicle
@@ -319,7 +319,7 @@ micro_service_error.exit.button=Exit
 
 #duplicate-disposal error page
 duplicate_disposal_error.title=We are sorry
-duplicate_disposal_error.text=This vehicle has already been notified as sold. If you think this is an error then please call DVLA Customer Enquiries on 0300 790 6802
+duplicate_disposal_error.text= This vehicle has already been notified as sold. If you think this is an error then please call DVLA Customer Enquiries on 0300 790 6802 (please enter code 544 when prompted).
 duplicate_disposal_error.back.button=Try again
 duplicate_disposal_error.exit.button=Exit
 
