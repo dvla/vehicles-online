@@ -18,6 +18,7 @@
     title = Messages("disposal_enteraddressmanually.title"),
     currentForm = Some(enterAddressManuallyForm)
 ) {
+    <a class="back" id="@BackId" href="@backLink">@Messages("disposal_enteraddressmanually.backbutton")</a>
     <h1>@Messages("disposal_enteraddressmanually.title")</h1>
     <div class="enter-address-manually uppercase-input sr-only-labels">
         @form(action = formTarget) {
@@ -32,8 +33,6 @@
             <div class="read-only-input">@traderPostcode</div>
             <div class="form-steps">
                 <button id="@NextId" type="submit" name="action" class="button">@Messages("disposal_enteraddressmanually.submitbutton")</button>
-                <br/>
-                <a class="back" id="@BackId" href="@backLink">@Messages("disposal_enteraddressmanually.backbutton")</a>
             </div>
         }
     </div>
