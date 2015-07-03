@@ -1,5 +1,5 @@
 @(data: models.DisposeViewModel,
-        disposeForm: Form[models.DisposeFormModel],
+        disposeForm: Form[models.DisposeFormModelPrivate],
         dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService,
         isPrivateKeeper: Boolean,
         submitCall: Call,
@@ -65,12 +65,12 @@
             <div class="disposal-form second-col uppercase-input">
                 @if(isPrivateKeeper) {
                     <div class="hidden">
-                        @valtechDeclareCheck(disposeForm(ConsentId),
-                            args = Map(
-                                '_label -> Messages("disposal_dispose.consent"),
-                                'checked -> "checked"
-                            )
+                    @valtechDeclareCheck(disposeForm(ConsentId),
+                        args = Map(
+                            '_label -> Messages("disposal_dispose.consent"),
+                            'checked -> "checked"
                         )
+                    )
                     </div>
                 } else {
                     @valtechDeclareCheck(disposeForm(ConsentId),
@@ -85,55 +85,70 @@
                     args = Map(
                         '_showConstraints -> false
                     ) ++
-                   (if(isPrivateKeeper)
-                      Map('_label -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent"))
-                   else
-                      Map('_label -> Messages("disposal_dispose.loss_of_registration.consent"))
-                   )
+                            (if(isPrivateKeeper)
+                                Map('_label -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent"))
+                            else
+                                Map('_label -> Messages("disposal_dispose.loss_of_registration.consent"))
+                                    )
                 )
 
                 <div id="@DateOfDisposalId">
-                    @inputDayMonthYearTextbox(
-                        field =disposeForm(DateOfDisposalId),
-                        args = Map(
-                            '_label -> Messages("disposal_dispose.dateofdisposal.label")
-                        ),
-                        dateService = dateService,
-                        showTodaysDateButton = !isPrivateKeeper,
-                        showTodaysDateButtonId = Some(TodaysDateOfDisposal),
-                        hintText = Some(Messages("disposal_dispose.dateofdisposal.hint"))
-                    )
+                @inputDayMonthYearTextbox(
+                    field =disposeForm(DateOfDisposalId),
+                    args = Map(
+                        '_label -> Messages("disposal_dispose.dateofdisposal.label")
+                    ),
+                    dateService = dateService,
+                    showTodaysDateButton = !isPrivateKeeper,
+                    showTodaysDateButtonId = Some(TodaysDateOfDisposal),
+                    hintText = Some(Messages("disposal_dispose.dateofdisposal.hint"))
+                )
                 </div>
 
                 @valtechInputText(disposeForm(MileageId), args =
                         Map(
-                          '_label -> Messages("disposal_dispose.mileage.label"),
-                          '_showConstraints -> false,
-                          'class -> "ga-track-optional-text",
-                          Symbol("ga-action") -> "mileage",
-                          'typeTel -> true,
-                          'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
-                          //'title -> Messages("disposal_dispose.mileage.validation")
+                            '_label -> Messages("disposal_dispose.mileage.label"),
+                            '_showConstraints -> false,
+                            'class -> "ga-track-optional-text",
+                            Symbol("ga-action") -> "mileage",
+                            'typeTel -> true,
+                            'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
+                            //'title -> Messages("disposal_dispose.mileage.validation")
                         ) ++
-                   (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
+                                (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
+            </div>
 
-                @{
-                    /* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */
-                }
-                <div class="form-steps">
-                    <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_dispose.submitbutton")</button>
-                    <br/>
+            <div class="disposal-form second-col">
+            @optionalToggle(
+                disposeForm(EmailOptionId),
+                Messages("disposal_businesskeeperdetails.traderemailoption"),
+                Messages("disposal_businesskeeperdetails.traderemailoption.yes"),
+                Messages("disposal_businesskeeperdetails.traderemailoption.no"),
+                email(
+                    disposeForm(EmailId),
+                    labelText = Messages("disposal_businesskeeperdetails.email"),
+                    hintText = None,
+                    args = Map('maxLength -> EmailMaxLength)
+                )
+            )
+            </div>
+
+            @{
+                /* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */
+            }
+            <div class="form-steps">
+                <button id="@SubmitId" type="submit" name="action" class="button">@Messages("disposal_dispose.submitbutton")</button>
+                <br/>
 
 
-                    <div class="two-col-spacer">
-                    </div>
+                <div class="two-col-spacer">
                 </div>
             </div>
         </div>
     }
 
     <script src="@controllers.StaticAssets.versioned(config.assetsUrl)("javascripts/firefox-dont-cache-page.js")"
-            type="text/javascript">
+    type="text/javascript">
     </script>
 }

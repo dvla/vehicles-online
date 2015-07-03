@@ -8,7 +8,7 @@ import views.disposal_of_vehicle.BeforeYouStart.NextId
 
 object  BeforeYouStartPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/before-you-start"
-  final override val title: String = "Sell a vehicle into the motor trade"
+  final override val title: String = "Buying a vehicle into trade"
   final val titleCy: String = "Gwerthu cerbyd i'r fasnach foduron"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)

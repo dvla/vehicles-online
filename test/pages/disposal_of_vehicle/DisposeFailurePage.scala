@@ -9,7 +9,7 @@ import DisposeFailure.{SetupTradeDetailsId, VehicleLookupId}
 
 object DisposeFailurePage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/sell-to-the-trade-failure"
-  final override val title: String = "Sell a vehicle into the motor trade: failure"
+  final override val title: String = "Buying a vehicle into trade: failure"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)
 

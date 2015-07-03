@@ -64,7 +64,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowse
 
   @Given("^I can see the buy another vehicle and finish button$")
   def i_can_see_the_buy_another_vehicle_and_finish_button()  {
-    page.source.contains("Sell another vehicle") shouldEqual true withClue trackingId
+    page.source.contains("Notify Another Sale") shouldEqual true withClue trackingId
   }
 
   @When("^I click on buy another vehicle button$")
