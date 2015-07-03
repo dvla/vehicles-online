@@ -301,7 +301,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
   }
 
   private lazy val disposeSuccess = injector.getInstance(classOf[DisposeSuccess])
-  private val requestFullyPopulated = FakeRequest().
+  private lazy val requestFullyPopulated = FakeRequest().
     withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
     withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
     withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
