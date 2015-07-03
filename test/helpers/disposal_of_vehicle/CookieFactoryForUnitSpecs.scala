@@ -232,7 +232,6 @@ object CookieFactoryForUnitSpecs extends TestComposition {
           FakeDateServiceImpl.DateOfDisposalMonthValid.toInt,
           FakeDateServiceImpl.DateOfDisposalDayValid.toInt
       ),
-      email = None,
       consent = FakeDisposeWebServiceImpl.ConsentValid,
       lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid
     )

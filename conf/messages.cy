@@ -69,6 +69,10 @@ datePlaceholder.October=Hydref
 datePlaceholder.November=Tachwedd
 datePlaceholder.December=Rhagfyr
 
+error.email.confirm.required = Cadarnhewch y cyfeiriad e-bost
+error.email.not.match = Nid oedd y cyfeiriadau e-bost yn cyd-fynd
+email.verify.label = Cadarnhau cyfeiriad e-bost
+
 select_default = Dewiswch
 error.invalid = Gwerth annilys
 
@@ -220,6 +224,10 @@ disposal_dispose.loss_of_registration.privateKeeper.consent = Rwy''n deall y byd
 disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig â''r cerbyd hwn
 lossOfRegistrationConsent = Caniatâd
 mileage = Milltiredd
+disposal_businesskeeperdetails.traderemailoption = Ydych chi eisiau cadarnhad e-bost y gwerthiant?
+disposal_businesskeeperdetails.traderemailoption.yes = Ydy
+disposal_businesskeeperdetails.traderemailoption.no = Na
+disposal_businesskeeperdetails.email = Eich cyfeiriad e-bost
 
 #page 6 - summary
 disposal_disposeconfirmation.title = Crynodeb

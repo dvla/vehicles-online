@@ -60,8 +60,8 @@ final case class DisposeFormModelPrivate(mileage: Option[Int],
 
 object DisposeFormModelPrivate {
   implicit val JsonFormat = Json.format[DisposeFormModelPrivate]
-  final val DisposeFormModelCacheKey = s"${CookiePrefix}disposeForm"
-  implicit val Key = CacheKey[DisposeFormModel](value = DisposeFormModelCacheKey)
+  final val DisposeFormPrivateModelCacheKey = s"${CookiePrefix}disposeFormprivate"
+  implicit val Key = CacheKey[DisposeFormModelPrivate](value = DisposeFormPrivateModelCacheKey)
   final val DisposeOccurredCacheKey = s"${CookiePrefix}disposeOccurredCacheKey"
   final val PreventGoingToDisposePageCacheKey = s"${CookiePrefix}preventGoingToDisposePage"
   final val DisposeFormTransactionIdCacheKey = s"${CookiePrefix}disposeFormTransactionId"

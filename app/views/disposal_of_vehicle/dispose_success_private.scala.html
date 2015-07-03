@@ -1,0 +1,138 @@
+@(data: models.DisposeViewModel,
+    formModel: models.DisposeFormModelPrivate,
+    disposeDateTime: org.joda.time.DateTime,
+    surveyUrl: Option[String],
+    isPrivateKeeper: Boolean,
+    newDisposeFormTarget: Call,
+    exitDisposeFormTarget: Call
+    )(implicit lang: Lang,
+    token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+    config: utils.helpers.Config)
+
+@import views.disposal_of_vehicle.DisposeSuccess.{ExitDisposalId, NewDisposalId}
+@import views.html.disposal_of_vehicle.main
+@import views.html.helper.form
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.base.csrfTokenHiddenField
+
+@main(
+progress = Some(Messages("disposal_progress_6")),
+title = Messages("disposal_disposeconfirmation.title")
+){
+
+<div class="two-col disposal-sucesss">
+
+    <div class="second-col">
+
+        <div class="alert-complete">
+            <h1>@Messages("disposal_disposeconfirmation.disposalComplete")</h1>
+            <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
+            <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</p>
+        </div>
+        <h2>@Messages("disposal_disposeconfirmation.whatNext")</h2>
+        <ul>
+            @if(isPrivateKeeper) {
+                <li>@Messages("disposal_disposeconfirmation.exprivatekeeper-p1")</li>
+                <li>@Messages("disposal_disposeconfirmation.exprivatekeeper-p2")</li>
+            } else {
+                <li>@Messages("disposal_disposeconfirmation.exkeeper-p1")</li>
+                <li>@Messages("disposal_disposeconfirmation.exkeeper-p2")</li>
+            }
+            <li>@Messages("disposal_disposeconfirmation.exkeeper-p3")</li>
+            <li>@Messages("disposal_disposeconfirmation.exkeeper-p4")</li>
+        </ul>
+
+        <div class="form-steps">
+
+            <div class="step">
+                <button id="printDisposalSuccess"
+                type="button"
+                name="action"
+                value="printDisposalSuccess"
+                class="button js-only print-button ga-track-click-event-once"
+                ga-event-category="ct_print"
+                ga-event-action="print">
+                @Messages("global.buttonnavprint")
+                </button>
+            </div>
+
+            @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
+            @if(!isPrivateKeeper) {
+                <div class="step">
+                @form(action = newDisposeFormTarget) {
+                    @csrfTokenHiddenField()
+                    <button id="@NewDisposalId"
+                    type="submit"
+                    name="action"
+                    class="button button-new-disposal button-secondary ga-track-click-event-once"
+                    ga-event-category="ct_link"
+                    ga-event-action="sell-another">
+                    @Messages("disposal_disposeconfirmation.newdisposalbutton")
+                    </button>
+                }
+                </div>
+            }
+            <div class="step">
+            @form(action = exitDisposeFormTarget) {
+                @csrfTokenHiddenField()
+                @surveyUrl match {
+                    case Some(url) => {
+                        <button id="@ExitDisposalId"
+                        type="submit"
+                        name="action"
+                        onclick="window.open('@url', '_blank');"
+                        class="button button-secondary ga-track-click-event-once"
+                        ga-event-category="dispose-success"
+                        ga-event-action="exit">
+                        @Messages("disposal_disposeconfirmation.exitbutton")
+                        </button>
+                    }
+                    case None => {
+                        <button id="@ExitDisposalId"
+                        type="submit"
+                        name="action"
+                        class="button button-secondary ga-dispose-success-exit">
+                        @Messages("disposal_disposeconfirmation.exitbutton")
+                        </button>
+                    }
+                }
+            }
+            </div>
+        </div>
+    </div>
+
+    <div class="first-col">
+        <dl class="playback">
+          <h2>@Messages("disposal_disposeconfirmation.transactionDetails")</h2>
+          <dt>@Messages("disposal_disposeconfirmation.transactionid_label")</dt>
+          <dd>@Messages("disposal_disposeconfirmation.transactionid", data.transactionId.getOrElse(""))</dd>
+          <dt>@Messages("disposal_disposeconfirmation.transactionDate")</dt>
+          <dd>@Messages( disposeDateTime.toString("dd/MM/yyy"))</dd>
+        </dl>
+        <dl class="playback bg-plain related">
+            <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
+            <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.vehiclemake")</dt>
+            <dd>@data.vehicleMake</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.vehiclemodel")</dt>
+            <dd>@data.vehicleModel</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.mileage")</dt>
+            @if(formModel.mileage == None) {
+            <dd>@Messages("disposal_disposeconfirmation.mileageNotEntered")</dd>
+            } else {
+            <dd>@{java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get)}</dd>
+            }
+            <dt>@Messages("disposal_disposeconfirmation.disposedto")</dt>
+            <dd> @data.dealerName <br/> @for(addr <- data.dealerAddress) {@addr<br/>}</dd>
+
+            <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
+            <dd>@{formModel.dateOfDisposal.toString("dd/MM/yyyy")}</dd>
+        </dl>
+    </div>
+
+
+</div>
+}

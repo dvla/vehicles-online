@@ -34,9 +34,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
     DisposeFormModel.Form.mapping(dateService)
   )
 
-  protected val view() = dispose()
   protected val isPrivateKeeper = false
-  protected val formTarget = controllers.routes.Dispose.submit()
+  protected val formTarget= controllers.routes.Dispose.submit()
   protected val backLink = controllers.routes.VehicleLookup.present()
   protected val vehicleDetailsMissing = Redirect(routes.VehicleLookup.present())
   protected val onVehicleAlreadyDisposed = Redirect(routes.VehicleLookup.present())

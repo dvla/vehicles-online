@@ -69,6 +69,10 @@ datePlaceholder.October=October
 datePlaceholder.November=November
 datePlaceholder.December=December
 
+error.email.confirm.required = Please confirm the email address
+error.email.not.match = The email addresses did not match
+email.verify.label = Confirm email address
+
 select_default = Please select
 error.invalid = Invalid value
 
@@ -220,6 +224,10 @@ disposal_dispose.loss_of_registration.privateKeeper.consent = I understand that 
 disposal_dispose.loss_of_registration.consent.notgiven = You must confirm that you have made the keeper aware that they will lose the registration number associated with this vehicle
 lossOfRegistrationConsent = Consent
 mileage = Mileage
+disposal_businesskeeperdetails.traderemailoption = Do you want an email confirmation of the sale?
+disposal_businesskeeperdetails.traderemailoption.yes = Yes
+disposal_businesskeeperdetails.traderemailoption.no = No
+disposal_businesskeeperdetails.email = Your email address
 
 #page 6 - summary
 disposal_disposeconfirmation.title = Summary
