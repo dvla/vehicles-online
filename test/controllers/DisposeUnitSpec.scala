@@ -9,7 +9,7 @@ import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId}
+import models.DisposeFormModel.Form._
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.invocation.InvocationOnMock
@@ -31,6 +31,7 @@ import play.api.test.Helpers.INTERNAL_SERVER_ERROR
 import play.api.test.Helpers.LOCATION
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.SERVICE_UNAVAILABLE
+import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -605,6 +606,7 @@ class DisposeUnitSpec extends UnitSpec {
       s"$DateOfDisposalId.$DayId" -> DateOfDisposalDayValid,
       s"$DateOfDisposalId.$MonthId" -> DateOfDisposalMonthValid,
       s"$DateOfDisposalId.$YearId" -> DateOfDisposalYearValid,
+      s"$EmailOptionId" -> OptionalToggle.Invisible,
       ConsentId -> FakeDisposeWebServiceImpl.ConsentValid,
       LossOfRegistrationConsentId -> FakeDisposeWebServiceImpl.ConsentValid
     )

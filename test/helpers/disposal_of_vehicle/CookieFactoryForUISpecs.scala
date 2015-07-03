@@ -3,19 +3,18 @@ package helpers.disposal_of_vehicle
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
 import org.joda.time.{LocalDate, DateTime}
 import org.openqa.selenium.{Cookie, WebDriver}
-import models.BusinessChooseYourAddressFormModel
+import models._
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import models.DisposeCacheKeyPrefix.CookiePrefix
-import models.DisposeFormModel
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.DisposeFormModelCacheKey
-import models.EnterAddressManuallyFormModel
+import models.DisposeFormModelPrivate.DisposeFormPrivateModelCacheKey
+
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import play.api.Play
 import play.api.Play.current
@@ -169,6 +168,17 @@ object CookieFactoryForUISpecs {
     val key = DisposeFormModelCacheKey
     val value = DisposeFormModel(mileage = None,
       dateOfDisposal = new LocalDate(),
+      consent = FakeDisposeWebServiceImpl.ConsentValid,
+      lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid)
+    addCookie(key, value)
+    this
+  }
+
+  def disposeFormPrivateModel()(implicit webDriver: WebDriver) = {
+    val key = DisposeFormPrivateModelCacheKey
+    val value = DisposeFormModelPrivate(mileage = None,
+      dateOfDisposal = new LocalDate(),
+      email = None,
       consent = FakeDisposeWebServiceImpl.ConsentValid,
       lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid)
     addCookie(key, value)

@@ -32,6 +32,8 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   protected val onNewDispose = Redirect(routes.BeforeYouStart.present())
 
   def present = Action { implicit request =>
+
+    val disposeFormModelOpt = request
     val result = for {
       traderDetails <- request.cookies.getModel[TraderDetailsModel]
       disposeFormModel <- request.cookies.getModel[DisposeFormModel]
