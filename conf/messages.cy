@@ -72,6 +72,8 @@ datePlaceholder.December=Rhagfyr
 error.email.confirm.required = Cadarnhewch y cyfeiriad e-bost
 error.email.not.match = Nid oedd y cyfeiriadau e-bost yn cyd-fynd
 email.verify.label = Cadarnhau cyfeiriad e-bost
+option_email = Opsiynau e-bost
+mandatory-alternative.not-selected = Dywedwch wrthym a ydych yn gofyn am e-bost cadarnhau
 
 select_default = Dewiswch
 error.invalid = Gwerth annilys
