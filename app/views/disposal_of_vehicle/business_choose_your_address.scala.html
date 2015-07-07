@@ -15,10 +15,10 @@
 @main(
     progress = Some(Messages("disposal_progress_3")),
     title = Messages("disposal_businessChooseYourAddress_title"),
-    currentForm = Some(viewModel.businessChooseYourAddressForm)
+    currentForm = Some(viewModel.businessChooseYourAddressForm),
+    backButton = Some(viewModel.back)
 ) {
 
-    <a class="back" id="@BackId" href="@viewModel.back">@Messages("disposal_businessChooseYourAddress.backbutton")</a>
     <h1>@Messages("disposal_businessChooseYourAddress_title")</h1>
 
     @form(action = viewModel.submit) {

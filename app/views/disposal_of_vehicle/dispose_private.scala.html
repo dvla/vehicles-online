@@ -34,9 +34,9 @@
 @main(
     progress = Some(Messages("disposal_progress_5")),
     title = Messages("disposal_dispose.title"),
-    currentForm = Some(disposeForm)
+    currentForm = Some(disposeForm),
+    backButton = Some(backCall)
 ) {
-    <a class="back" id="@BackId" href="@backCall">@Messages("disposal_dispose.backbutton")</a>
     <h1>@Messages("disposal_dispose.title")</h1>
 
     @form(action = submitCall) {

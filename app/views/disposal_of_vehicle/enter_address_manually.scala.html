@@ -16,9 +16,9 @@
 @main(
     progress = Some(Messages("disposal_progress_3")),
     title = Messages("disposal_enteraddressmanually.title"),
-    currentForm = Some(enterAddressManuallyForm)
+    currentForm = Some(enterAddressManuallyForm),
+    backButton = Some(backLink)
 ) {
-    <a class="back" id="@BackId" href="@backLink">@Messages("disposal_enteraddressmanually.backbutton")</a>
     <h1>@Messages("disposal_enteraddressmanually.title")</h1>
     <div class="enter-address-manually uppercase-input sr-only-labels">
         @form(action = formTarget) {
