@@ -14,7 +14,7 @@ object EmailMessageBuilder {
   import uk.gov.dvla.vehicles.presentation.common.services.SEND.Contents
 
   def buildWith(vehicleDetailsOpt: Option[VehicleAndKeeperDetailsModel],  transactionId: String,
-                transactionTimestamp: DateTime = new DateTime): Contents = {
+                imagesPath: String, transactionTimestamp: DateTime = new DateTime): Contents = {
 
     val transactionTimestampStr = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(transactionTimestamp.toDate)
 

@@ -307,7 +307,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
 
         val registrationNumber = vehicleDetails.map(_.registrationNumber).getOrElse("")
 
-        val template = EmailMessageBuilder.buildWith(vehicleDetails, transactionId)
+        val template = EmailMessageBuilder.buildWith(vehicleDetails, transactionId, config.imagesPath)
 
         Logger.info(s"Email sent - trackingId: ${request.cookies.trackingId()}")
 

@@ -88,4 +88,6 @@ final class ConfigImpl extends Config {
     From(getProperty[String]("email.feedbackAddress"), "Feedback"),
     getStringListProperty("email.whitelist")
   )
+
+  override val imagesPath: String = getProperty[String]("email.image.path")
 }

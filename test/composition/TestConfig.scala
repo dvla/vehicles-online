@@ -78,4 +78,6 @@ class TestConfig extends Config {
     feedbackEmail = From("", "Feedback"),
     whiteList = None
   )
+
+  def imagesPath: String = ""
 }
