@@ -1,3 +1,19 @@
+======= 1.12 ========
+TIME OF RELEASE BINARIES CREATION:
+Wed July 08 12:09:33 UTC 2015
+
+DE562	On the Summary page, change the ""print alert"" sentence to bullet point ""print sentence"".	
+US3422	Capture Keeper email	
+US3423	Send Confirmation Email	
+DE565	Emails are being entered with spaces	
+US3427	Remove CEG number from End Pages	
+US3429	Move the Back Control	
+US3430	Move Where to find this above V5C Ref No Box	
+US3431	Direct to GDS Feedback Pages	
+US3433	Rename the Trader Services	
+US3434	Add CEG code number to Duplicate Disposal Page	
+DE604	Correct Error Message is not displayed, when not choosing the option (Yes, No) for the keeper email.	
+
 ======= 1.11 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed June 24  08:35:07 UTC 2015
