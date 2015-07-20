@@ -11,7 +11,7 @@ import io.gatling.sbt.GatlingPlugin
 import GatlingPlugin.Gatling
 import com.typesafe.sbt.rjs.Import.RjsKeys.webJarCdns
 
-name := "vehicles-online"
+name := "vehicles-online" 
 
 version := versionString
 
