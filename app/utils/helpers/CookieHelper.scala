@@ -9,14 +9,13 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicit
 import scala.concurrent.Future
 
 object CookieHelper {
-  def discardAllCookies(implicit request: RequestHeader): Future[Result] = {
+  def discardAllCookies(implicit request: RequestHeader): Result = {
     Logger.warn(s"Removing all cookies except seen cookie.")
 
-    Future.successful {
-      val discardingCookiesKeys = request.cookies.map(_.name).filter(_ != SeenCookieMessageCacheKey)
-      val discardingCookies = discardingCookiesKeys.map(DiscardingCookie(_)).toSeq
-      Redirect(routes.BeforeYouStart.present())
-        .discardingCookies(discardingCookies: _*)
-    }
+    val discardingCookiesKeys = request.cookies.map(_.name).filter(_ != SeenCookieMessageCacheKey)
+    val discardingCookies = discardingCookiesKeys.map(DiscardingCookie(_)).toSeq
+    Redirect(routes.BeforeYouStart.present())
+      .discardingCookies(discardingCookies: _*)
+
   }
 }

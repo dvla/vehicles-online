@@ -22,9 +22,11 @@ class Error @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFact
   }
 
   // TODO is there a submit button that calls this? If it is unused then delete.
-  def submit(exceptionDigest: String) = Action.async { implicit request =>
+  def submit(exceptionDigest: String) = Action { implicit request =>
     Logger.debug(s"Error submit called - now removing full set of cookies and " +
       s"redirecting to Start page - trackingId: ${request.cookies.trackingId()}")
     CookieHelper.discardAllCookies
   }
+
+
 }

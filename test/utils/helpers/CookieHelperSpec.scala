@@ -25,14 +25,12 @@ final class CookieHelperSpec extends UnitSpec {
 
       val result = CookieHelper.discardAllCookies(request)
 
-      whenReady(result) { r =>
-        val cookies = fetchCookiesFromHeaders(r)
-        cookies.filter(cookie => AllCacheKeys.contains(cookie.name)).foreach { cookie =>
-          cookie.maxAge match {
-            case Some(maxAge) if maxAge < 0 => // Success
-            case Some(maxAge) => fail(s"maxAge should be negative but was $maxAge")
-            case _ => fail("should be some maxAge")
-          }
+      val cookies = fetchCookiesFromHeaders(result)
+      cookies.filter(cookie => AllCacheKeys.contains(cookie.name)).foreach { cookie =>
+        cookie.maxAge match {
+          case Some(maxAge) if maxAge < 0 => // Success
+          case Some(maxAge) => fail(s"maxAge should be negative but was $maxAge")
+          case _ => fail("should be some maxAge")
         }
       }
     }
@@ -48,10 +46,9 @@ final class CookieHelperSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber())
 
       val result = CookieHelper. discardAllCookies(request)
-      
-      whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
-      }
+
+      result.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
+
     }
   }
 
