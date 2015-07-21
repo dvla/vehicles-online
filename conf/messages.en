@@ -389,6 +389,7 @@ common_feedback.email = Email
 common_feedback.feedbackTitle = Please leave your name and email address in case we need to contact you
 error.feedback = Feedback cannot exceed 500 characters
 error.feedbackName = Name cannot be more than 60 characters
+error.email = Must be a valid email address
 feedbackEmail = Email
 feedbackName = Name
 feedback = Feedback Form

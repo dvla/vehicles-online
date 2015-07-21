@@ -387,6 +387,7 @@ common_feedback.subject = Gwerthu i''r fasnach - Adborth
 common_feedback.name = Enw
 common_feedback.email = E-bost
 common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a''ch cyfeiriad e-bost rhag ofn y bydd angen i ni gysylltu â chi
+error.email = Must be a valid email address
 error.feedback = Ni all fod yn fwy na 500 o adborth cymeriadau
 error.feedbackName = Ni all Enw fod yn fwy na 60 o gymeriadau
 feedbackEmail = E-bost
