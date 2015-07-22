@@ -1,3 +1,12 @@
+======= 1.13 ========
+TIME OF RELEASE BINARIES CREATION:
+Wed July 22 09:31:15 UTC 2015
+
+US3208	RabbitMQ Cluster Fix,Accepted,Personalised Registration
+DE543	Vehicle mileage on Thank you page,Accepted,Vehicles Management
+US3512	Ensure there are 3 alphas in first line of address,Accepted,Vehicles Management
+DE611	Space in email domain doesn't display the correct error message.,Accepted,Common
+
 ======= 1.12 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed July 08 12:09:33 UTC 2015
