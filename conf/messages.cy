@@ -342,7 +342,9 @@ soap_endpoint_error.exit.button= Allan
 #keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
 error_suppressedV5C.title = Cerbyd yn rhan o fflyd hatal
 error_suppressedV5C.text1 = Ni all DVLA gofnodi gwerthu cerbyd hwn gan ei fod yn rhan o fflyd hatal.
-error_suppressedV5C.text2 = Cyn y gall gwerthu cerbyd hwn yn cael ei diweddaru, bydd angen i chi ofyn am dystysgrif cofrestru cerbyd (V5C) oddi wrth y DVLA. Gellir gwneud hyn drwy ddefnyddio View Cofnod Cerbydau.
+error_suppressedV5C.text2 = Before a sale of this vehicle can be updated, you will need to request a vehicle registration certificate (V5C) from the DVLA. This can be done using the
+error_suppressedV5C.text3 = View Vehicle Record service.
+error_suppressedV5C.link = https://www.gov.uk/dvla-fleet-vehicle-info
 error_suppressedV5C.button1 = Gwerthu cerbyd arall
 error_suppressedV5C.button2 = Gorffen
 
