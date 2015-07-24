@@ -5,7 +5,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                    config: Config) extends controllers.SetUpTradeDetails {
+                                    config: Config)
+  extends controllers.SetUpTradeDetails with PrivateKeeperController {
 
   protected override val submitTarget = routes.SetUpTradeDetails.submit()
   protected override val onSuccess = Redirect(routes.BusinessChooseYourAddress.present())

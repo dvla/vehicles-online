@@ -1,12 +1,13 @@
 @()(implicit lang: Lang,
-        config: utils.helpers.Config)
+    config: utils.helpers.Config,
+    isPrivateKeeper: Boolean)
 
 @import views.common.ProtoType.FeedbackId
 
 @main(
   progress = Some(Messages("change_keeper_progress_3")),
   title = Messages("common_feedback.thankyou"),
-    showBanner = false
+  showBanner = false
 ) {
     <h1>@Messages("common_feedback.thankyou")</h1>
     

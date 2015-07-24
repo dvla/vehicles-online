@@ -15,7 +15,8 @@ import common.model.TraderDetailsModel
 import utils.helpers.Config
 
 class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                       config: Config) extends VehicleLookupFailureBase[VehicleLookupFormModel] {
+                                       config: Config)
+  extends VehicleLookupFailureBase[VehicleLookupFormModel] with BusinessController {
 
   protected val tryAgainTarget = controllers.routes.VehicleLookup.present()
   protected val exitTarget = controllers.routes.BeforeYouStart.present()

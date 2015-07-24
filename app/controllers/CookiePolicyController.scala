@@ -7,7 +7,7 @@ import uk.gov.dvla.vehicles.presentation.common.model.CookieReport
 import utils.helpers.Config
 
 class CookiePolicyController @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                       config: Config) extends Controller {
+                                       config: Config) extends BusinessController {
 
   private val cookies = Map(
     "google_analytics" -> List(

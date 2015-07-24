@@ -1,11 +1,14 @@
 package filters
 
 import com.google.inject.Inject
+import controllers.BusinessController
 import uk.gov.dvla.vehicles.presentation.common.filters.{DateTimeZoneService, EnsureServiceOpenFilter}
 import utils.helpers.Config
 
 class ServiceOpenFilter @Inject()(implicit config: Config,
-                                  timeZone: DateTimeZoneService) extends EnsureServiceOpenFilter {
+                                  timeZone: DateTimeZoneService)
+  extends EnsureServiceOpenFilter with BusinessController {
+
   protected lazy val opening = config.opening
   protected lazy val closing = config.closing
   protected lazy val dateTimeZone = timeZone

@@ -10,7 +10,7 @@ import common.LogFormats.logMessage
 import utils.helpers.{Config, CookieHelper}
 
 class Error @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                        config: Config) extends Controller {
+                        config: Config) extends BusinessController {
 
   protected def formTarget(exceptionDigest: String): Call = controllers.routes.Error.submit(exceptionDigest)
 

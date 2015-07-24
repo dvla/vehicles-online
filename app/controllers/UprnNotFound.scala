@@ -6,7 +6,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class UprnNotFound @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                               config: Config) extends Controller {
+                               config: Config) extends BusinessController {
 
   protected val enterAddressManuallyTarget = controllers.routes.EnterAddressManually.present()
   protected val setupTradeDetailsTarget = controllers.routes.SetUpTradeDetails.present()

@@ -5,7 +5,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class VrmLocked @Inject()()(implicit protected override val clientSideSessionFactory: ClientSideSessionFactory,
-                            config: Config) extends controllers.VrmLocked {
+                            config: Config) extends controllers.VrmLocked with PrivateKeeperController {
 
   protected override val tryAnotherTarget = routes.VrmLocked.tryAnother()
   protected override val exitTarget = routes.VrmLocked.exit()

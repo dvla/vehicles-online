@@ -5,7 +5,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class SoapEndpointError @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                    config: Config) extends controllers.SoapEndpointError {
+                                    config: Config)
+  extends controllers.SoapEndpointError with PrivateKeeperController {
 
   protected override val disposeTarget = routes.Dispose.present()
   protected override val exitTarget = controllers.routes.BeforeYouStart.present()

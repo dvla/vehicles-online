@@ -1,5 +1,5 @@
 @(title: String, showLanguageSwitch: Boolean)(content: Html)(implicit lang: Lang,
-        config: utils.helpers.Config)
+        config: utils.helpers.Config, isPrivateKeeper: Boolean)
 
 @import views.html.common.{alternateLanguages}
 @import play.api.Play
@@ -80,7 +80,7 @@
                     </div>
                     <div class="header-proposition">
                         <div class="content proposition-menu">
-                            <h2 class="page-title"><strong>@{Messages("main.banner")}</strong></h2>
+                            <h2 class="page-title"><strong>@if(isPrivateKeeper){@Messages("main.banner.private")}else{@Messages("main.banner")}</strong></h2>
                         </div>
                     </div>
                 </div>

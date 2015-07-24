@@ -1,6 +1,7 @@
 package controllers.priv
 
 import com.google.inject.Inject
+import controllers.BusinessController
 import email.EmailMessageBuilder
 import models.{DisposeViewModel, VehicleLookupFormModel, DisposeFormModelPrivate, DisposeCacheKeys}
 import models.DisposeFormModelPrivate.Form.{ConsentId, LossOfRegistrationConsentId, MileageId}
@@ -30,13 +31,12 @@ import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, Dispose
 
 class Dispose @Inject()(webService: DisposeService, dateService: DateService, emailService: EmailService)
                        (implicit clientSideSessionFactory: ClientSideSessionFactory,
-                        config: Config) extends Controller {
+                        config: Config) extends PrivateKeeperController {
 
   def form = Form(
     DisposeFormModelPrivate.Form.mapping(dateService)
   )
 
-  protected val isPrivateKeeper = true
   protected val formTarget = routes.Dispose.submit()
   protected val backLink = routes.VehicleLookup.present()
   protected val vehicleDetailsMissing = Redirect(routes.VehicleLookup.present())
@@ -54,7 +54,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
         request.cookies.getModel[VehicleAndKeeperDetailsModel] match {
           case (Some(vehicleDetails)) =>
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
-            Ok(dispose_private(disposeViewModel, form.fill(), dateService, isPrivateKeeper, formTarget, backLink))
+            Ok(dispose_private(disposeViewModel, form.fill(), dateService, formTarget, backLink))
           case _ => {
             Logger.error(logMessage(s"Failed to find vehicle details, redirecting to ${vehicleDetailsMissing}",
               request.cookies.trackingId()))
@@ -90,7 +90,6 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
               disposeViewModel,
               formWithReplacedErrors(invalidForm),
               dateService,
-              isPrivateKeeper,
               formTarget,
               backLink
             ))

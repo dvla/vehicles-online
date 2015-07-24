@@ -9,7 +9,7 @@ import common.clientsidesession.CookieImplicits.RichResult
 import utils.helpers.Config
 
 class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                config: Config) extends Controller {
+                                config: Config) extends BusinessController {
 
   protected val sellAnotherVehicleTarget = controllers.routes.SuppressedV5C.sellAnotherVehicle()
   protected val finishTarget = controllers.routes.SuppressedV5C.finish()

@@ -11,7 +11,7 @@ import common.LogFormats.logMessage
 import utils.helpers.Config
 
 class DuplicateDisposalError @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                         config: Config) extends Controller {
+                                         config: Config) extends BusinessController {
 
   protected val tryAgainLink = controllers.routes.VehicleLookup.present()
   protected val exitLink = controllers.routes.BeforeYouStart.present()

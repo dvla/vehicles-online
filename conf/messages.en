@@ -1,5 +1,6 @@
 #main
 main.banner = Buying a vehicle into trade
+main.banner.private = Sold a vehicle to the motor trade
 
 #global
 global.cookiemessage = GOV.UK uses cookies to make the site simpler.

@@ -16,7 +16,7 @@ import utils.helpers.Config
 import views.html.disposal_of_vehicle.enter_address_manually
 
 class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                       config: Config) extends Controller {
+                                       config: Config) extends BusinessController {
 
   private[controllers] val form = Form(
     EnterAddressManuallyFormModel.Form.Mapping

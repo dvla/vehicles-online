@@ -14,7 +14,7 @@ import common.model.{DisposeModel, TraderDetailsModel, VehicleAndKeeperDetailsMo
 import utils.helpers.Config
 
 class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                 config: Config) extends Controller {
+                                 config: Config) extends BusinessController  {
   protected val sellNewVehicleCall = controllers.routes.VehicleLookup.present()
   protected val exitCall = controllers.routes.SetUpTradeDetails.present()
   protected val onMissingCookies = Redirect(routes.SetUpTradeDetails.present())

@@ -4,7 +4,8 @@
     backButton: Option[Call] = None,
     showLanguageSwitch: Boolean = false,
     showBanner: Boolean = true)(content: Html)(implicit lang: Lang,
-    config: utils.helpers.Config
+    config: utils.helpers.Config,
+    isPrivateKeeper: Boolean
     )
 
 @import uk.gov.dvla.vehicles.presentation.common

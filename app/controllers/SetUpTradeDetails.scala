@@ -20,7 +20,7 @@ import common.model.SetupTradeDetailsFormModel.Form.{TraderEmailId, TraderNameId
 import utils.helpers.Config
 
 class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                    config: Config) extends SetUpTradeDetailsBase {
+                                    config: Config) extends SetUpTradeDetailsBase with BusinessController {
 
   protected val submitTarget = controllers.routes.SetUpTradeDetails.submit()
   protected val onSuccess = Redirect(routes.BusinessChooseYourAddress.present())
