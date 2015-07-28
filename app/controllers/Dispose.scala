@@ -153,10 +153,10 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
   private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormModel, trackingId: String)
                            (implicit request: Request[AnyContent]): Future[Result] = {
 
-    def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto]) =
+    def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto], disposeRequest: DisposeRequestDto) =
     // This makes the choice of which page to go to based on the first one it finds that is not None.
       response match {
-        case Some(r) if r.responseCode.isDefined => handleResponseCode(r.responseCode.get)
+        case Some(r) if r.responseCode.isDefined => handleResponseCode(r.responseCode.get, disposeRequest)
         case _ => handleHttpStatusCode(httpResponseCode)
       }
 
@@ -182,7 +182,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
 
       webService.invoke(disposeRequest, trackingId).map {
         case (httpResponseCode, response) => {
-          Some(Redirect(nextPage(httpResponseCode, response))).
+          Some(Redirect(nextPage(httpResponseCode, response, disposeRequest))).
             map(_.withCookie(disposeFormModel)).
             map(storeResponseInCache(response, _)).
             map(transactionTimestamp).
@@ -238,7 +238,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       )
     }
 
-    def handleResponseCode(disposeResponseCode: String)(implicit request: Request[_]): Call =
+    def handleResponseCode(disposeResponseCode: String,
+                           disposeRequest: DisposeRequestDto)(implicit request: Request[_]): Call =
       disposeResponseCode match {
         case "ms.vehiclesService.response.unableToProcessApplication" =>
           Logger.warn(logMessage(s"Dispose soap endpoint redirecting to dispose failure page." +
@@ -248,11 +249,33 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
           Logger.warn(logMessage(s"Dispose soap endpoint redirecting to duplicate disposal page" +
             s"Code returned from ms was $disposeResponseCode", request.cookies.trackingId()))
           onDuplicateDispose
+        case "X0001" | "W0075" =>
+          logDisposeRequest(disposeResponseCode, disposeRequest)
+          onDisposeSuccess
         case _ =>
           Logger.warn(logMessage(s"Dispose micro-service failed so now redirecting to micro service error page. " +
             s"Code returned from ms was $disposeResponseCode", request.cookies.trackingId()))
           microserviceErrorCall
       }
+
+    def logDisposeRequest(disposeResponseCode: String,
+                          disposeRequest: DisposeRequestDto)(implicit request: Request[_]) = {
+      Logger.error(logMessage(disposeResponseCode,
+        request.cookies.trackingId(),
+        Seq(disposeRequest.dateOfDisposal,
+          disposeRequest.keeperConsent.toString,
+          disposeRequest.mileage.toString,
+          disposeRequest.prConsent.toString,
+          anonymize(disposeRequest.referenceNumber),
+          anonymize(disposeRequest.registrationNumber))++
+          disposeRequest.traderAddress.line.map(addr => anonymize(addr)) ++
+          Seq(anonymize(disposeRequest.traderAddress.postTown),
+            anonymize(disposeRequest.traderAddress.postCode),
+            anonymize(disposeRequest.traderAddress.uprn),
+            anonymize(disposeRequest.traderName),
+            disposeRequest.transactionTimestamp
+          )))
+    }
 
     def handleHttpStatusCode(statusCode: Int): Call =
       statusCode match {
