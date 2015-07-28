@@ -5,9 +5,10 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 import webserviceclients.emailservice.EmailService
 
-class FeedbackController @Inject()(emailService: EmailService)(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                                               config: Config)
-  extends controllers.FeedbackController(emailService) {
+class FeedbackController @Inject()(emailService: EmailService)
+                                  (implicit clientSideSessionFactory: ClientSideSessionFactory,
+                                   config: Config)
+  extends controllers.FeedbackController(emailService) with PrivateKeeperController {
 
   protected override val formTarget = routes.FeedbackController.submit()
 }

@@ -23,8 +23,7 @@ import utils.helpers.Config
 class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                config: Config,
                                surveyUrl: SurveyUrl,
-                               dateService: DateService) extends Controller {
-  protected val isPrivateKeeper = false
+                               dateService: DateService) extends BusinessController {
   protected val newDisposeFormTarget = controllers.routes.DisposeSuccess.newDisposal()
   protected val exitDisposeFormTarget = controllers.routes.DisposeSuccess.exit()
   protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
@@ -57,7 +56,6 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
         disposeFormModel,
         disposeDateTime,
         surveyUrl(request),
-        isPrivateKeeper = isPrivateKeeper,
         newDisposeFormTarget,
         exitDisposeFormTarget
       )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this

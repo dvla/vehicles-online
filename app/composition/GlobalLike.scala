@@ -71,6 +71,7 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
     }
     implicit val lang: Lang = Lang(value)
     implicit val config = injector.getInstance(classOf[Config])
+    implicit val isPrivateKeeper = false
     Logger.warn(s"Broken link returning http code 404. uri: ${request.uri}")
     NotFound(views.html.errors.onHandlerNotFound(request))
   }
@@ -80,6 +81,7 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
 
   override def onBadRequest(request: RequestHeader, error: String): Future[Result] = Future.successful {
     implicit val config = injector.getInstance(classOf[Config])
+    implicit val isPrivateKeeper = false
 
     val result = BadRequest(views.html.errors.onHandlerBadRequest(request, error))
 

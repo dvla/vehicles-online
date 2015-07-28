@@ -1,6 +1,7 @@
 package controllers.priv
 
 import com.google.inject.Inject
+import controllers.BusinessController
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModelPrivate
 import models.DisposeFormModelPrivate.DisposeFormTransactionIdCacheKey
@@ -14,7 +15,7 @@ import common.model.{DisposeModel, TraderDetailsModel, VehicleAndKeeperDetailsMo
 import utils.helpers.Config
 
 class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                 config: Config) extends Controller {
+                                 config: Config) extends PrivateKeeperController {
 
   protected val sellNewVehicleCall = routes.VehicleLookup.present()
   protected val exitCall = routes.SetUpTradeDetails.present()

@@ -22,7 +22,7 @@ import views.html.disposal_of_vehicle.business_choose_your_address
 
 class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupService)
                                          (implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                          config: Config) extends Controller {
+                                          config: Config) extends BusinessController {
 
   private[controllers] val form = Form(BusinessChooseYourAddressFormModel.Form.Mapping)
 

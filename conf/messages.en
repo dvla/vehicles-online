@@ -1,5 +1,6 @@
 #main
 main.banner = Buying a vehicle into trade
+main.banner.private = Sold a vehicle to the motor trade
 
 #global
 global.cookiemessage = GOV.UK uses cookies to make the site simpler.
@@ -180,6 +181,7 @@ disposal_vehiclelookup.warning.p1 = Do not dispose of a vehicle with a personal 
 disposal_vehiclelookup.warning.p2 = Retain or transfer personal registrations before disposing to the trade.
 disposal_vehiclelookup.img.h2 = Help finding your V5C document reference number?
 disposal_vehiclelookup.img.hint = Where to find this
+disposal_vehiclelookup.v5c = Vehicle Registration Certificate (V5C)
 disposal_vehiclelookup.img.alt = V5C document reference number
 disposal_vehiclelookup.refnumlabel = Latest V5C document reference number
 disposal_vehiclelookup.vrninputlabel = Vehicle registration number

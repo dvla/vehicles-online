@@ -12,7 +12,7 @@ import common.LogFormats.logMessage
 import utils.helpers.Config
 
 class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                  config: Config) extends Controller {
+                                  config: Config) extends BusinessController {
   
   protected val defaultRedirectUrl = controllers.routes.VehicleLookup.present().url
   protected val tryAgainTarget = controllers.routes.MicroServiceError.back()

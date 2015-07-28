@@ -3,7 +3,8 @@
         formTarget: Call,
         backLink: Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
-        config: utils.helpers.Config)
+        config: utils.helpers.Config,
+        isPrivateKeeper: Boolean)
 
 @import views.disposal_of_vehicle.EnterAddressManually.{BackId, NextId}
 @import views.html.disposal_of_vehicle.main

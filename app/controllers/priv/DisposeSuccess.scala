@@ -1,6 +1,6 @@
 package controllers.priv
 
-import controllers.SurveyUrl
+import controllers.{BusinessController, SurveyUrl}
 import models.DisposeFormModel._
 import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
@@ -25,9 +25,8 @@ import utils.helpers.Config
 class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                config: Config,
                                surveyUrl: SurveyUrl,
-                               dateService: DateService) extends Controller {
+                               dateService: DateService) extends PrivateKeeperController {
 
-  protected val isPrivateKeeper = true
   protected val newDisposeFormTarget = routes.DisposeSuccess.newDisposal()
   protected val exitDisposeFormTarget = routes.DisposeSuccess.exit()
   protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
@@ -60,7 +59,6 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
           disposeFormModel,
           disposeDateTime,
           surveyUrl(request),
-          isPrivateKeeper = isPrivateKeeper,
           newDisposeFormTarget,
           exitDisposeFormTarget
         )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this

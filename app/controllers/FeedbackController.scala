@@ -16,7 +16,7 @@ import webserviceclients.emailservice.EmailService
 
 class FeedbackController @Inject()(val emailService: EmailService)
                                   (implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                   config: Config) extends Controller with FeedbackBase {
+                                   config: Config) extends BusinessController with FeedbackBase {
 
   override val emailConfiguration = config.emailConfiguration
   protected val formTarget = controllers.routes.FeedbackController.submit()

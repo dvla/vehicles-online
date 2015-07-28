@@ -13,7 +13,8 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
                               surveyUrl: SurveyUrl,
                               dateService: DateService,
                               clientSideSessionFactory: ClientSideSessionFactory,
-                              config: Config) extends controllers.VehicleLookup {
+                              config: Config)
+  extends controllers.VehicleLookup with PrivateKeeperController {
 
   protected override val submitTarget = routes.VehicleLookup.submit()
   protected override val backTarget = routes.VehicleLookup.back()

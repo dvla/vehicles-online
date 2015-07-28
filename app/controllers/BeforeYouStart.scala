@@ -11,7 +11,7 @@ import common.LogFormats.logMessage
 import utils.helpers.Config
 
 class BeforeYouStart @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                 config: Config) extends Controller {
+                                 config: Config) extends BusinessController {
 
   def present = Action { implicit request =>
     Ok(views.html.disposal_of_vehicle.before_you_start()).

@@ -5,7 +5,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                       config: Config) extends controllers.VehicleLookupFailure {
+                                       config: Config)
+  extends controllers.VehicleLookupFailure with PrivateKeeperController {
 
   protected override val tryAgainTarget = routes.VehicleLookup.present()
   protected override val exitTarget = controllers.routes.BeforeYouStart.present()

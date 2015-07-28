@@ -5,7 +5,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                  config: Config) extends controllers.MicroServiceError {
+                                  config: Config)
+  extends controllers.MicroServiceError with PrivateKeeperController {
 
   protected override val defaultRedirectUrl = routes.VehicleLookup.present().url
   protected override val tryAgainTarget = routes.MicroServiceError.back()

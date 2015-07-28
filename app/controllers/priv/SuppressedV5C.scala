@@ -5,7 +5,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                config: Config) extends controllers.SuppressedV5C {
+                                config: Config)
+  extends controllers.SuppressedV5C with PrivateKeeperController {
 
   protected override val sellAnotherVehicleTarget = routes.SuppressedV5C.sellAnotherVehicle()
   protected override val finishTarget = routes.SuppressedV5C.finish()

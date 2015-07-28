@@ -28,7 +28,8 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
                               surveyUrl: SurveyUrl,
                               dateService: DateService,
                               clientSideSessionFactory: ClientSideSessionFactory,
-                              config: Config) extends VehicleLookupBase[VehicleLookupFormModel] {
+                              config: Config)
+  extends VehicleLookupBase[VehicleLookupFormModel] with BusinessController {
 
   override val form = Form(VehicleLookupFormModel.Form.Mapping)
   override val responseCodeCacheKey: String = VehicleLookupResponseCodeCacheKey

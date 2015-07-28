@@ -1,5 +1,6 @@
 #main
 main.banner = Gwerthu cerbyd i''r fasnach foduron
+main.banner.private = Wedi gwerthu cerbyd i'r fasnach modur
 
 #global
 global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml
@@ -180,6 +181,7 @@ disposal_vehiclelookup.warning.p1 = Peidiwch â chael gwared o gerbyd sydd â rh
 disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo rhifau cofrestru personol cyn gwaredu''r cerbyd trwy ei fasnachu.
 disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen V5CW?
 disposal_vehiclelookup.img.hint = Ble i ddod o hyd hyn
+disposal_vehiclelookup.v5c = Vehicle Registration Certificate (V5C)
 disposal_vehiclelookup.img.alt = Rhif cyfeirnod y ddogfen V5CW
 disposal_vehiclelookup.refnumlabel = Rhif cyfeirnod y ddogfen V5CW ddiweddaraf
 disposal_vehiclelookup.vrninputlabel = Rhif cofrestru''r cerbyd

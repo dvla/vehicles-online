@@ -5,7 +5,8 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                       config: Config) extends controllers.EnterAddressManually {
+                                       config: Config)
+  extends controllers.EnterAddressManually with PrivateKeeperController {
 
   protected override val formTarget = routes.EnterAddressManually.submit()
   protected override val backLink = routes.BusinessChooseYourAddress.present()
