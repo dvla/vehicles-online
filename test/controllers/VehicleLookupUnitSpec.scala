@@ -467,7 +467,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       whenReady(result) { r =>
         val trackingIdCaptor = ArgumentCaptor.forClass(classOf[String])
         verify(mockVehiclesLookupService).invoke(any[VehicleAndKeeperLookupRequest], trackingIdCaptor.capture())
-        trackingIdCaptor.getValue should be(ClearTextClientSideSessionFactory.DefaultTrackingId)
+        trackingIdCaptor.getValue should be(ClearTextClientSideSessionFactory.DefaultTrackingId.value)
       }
     }
 

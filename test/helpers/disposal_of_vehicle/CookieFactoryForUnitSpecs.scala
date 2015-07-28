@@ -23,7 +23,7 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.{ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
 import common.model.AddressModel
 import common.model.BruteForcePreventionModel
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
@@ -56,7 +56,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
 
   implicit private val cookieFlags = injector.getInstance(classOf[CookieFlags])
   final val TrackingIdValue = "trackingId"
-  private val session = new ClearTextClientSideSession(TrackingIdValue)
+  private val session = new ClearTextClientSideSession(TrackingId(TrackingIdValue))
 
   private def createCookie[A](key: String, value: A)(implicit tjs: Writes[A]): Cookie = {
     val json = Json.toJson(value).toString()

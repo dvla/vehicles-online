@@ -124,11 +124,11 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
       distinctErrors
 
   private def fetchAddresses(model: SetupTradeDetailsFormModel, showBusinessName: Option[Boolean])(implicit session: ClientSideSession, lang: Lang) =
-    addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId, showBusinessName = showBusinessName)
+    addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId.value, showBusinessName = showBusinessName)
 
   private def lookupUprn(model: BusinessChooseYourAddressFormModel, traderName: String)
                         (implicit request: Request[_], session: ClientSideSession) = {
-    val lookedUpAddress = addressLookupService.fetchAddressForUprn(model.uprnSelected.toString, session.trackingId)
+    val lookedUpAddress = addressLookupService.fetchAddressForUprn(model.uprnSelected.toString, session.trackingId.value)
     lookedUpAddress.map {
       case Some(addressModel) => nextPage(model, traderName, addressModel)
       case None => uprnNotFoundResult
