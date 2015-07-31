@@ -13,7 +13,7 @@ import play.api.http.Status.OK
 import play.api.libs.json.{JsValue, Json}
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import common.services.DateServiceImpl
 import common.testhelpers.RandomVrmGenerator
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
@@ -134,7 +134,7 @@ class VehicleLookupFormSpec extends UnitSpec {
   private def vehicleLookupResponseGenerator(fullResponse:(Int, Option[VehicleAndKeeperLookupResponse])) = {
     val vehicleAndKeeperLookupWebService = mock[VehicleAndKeeperLookupWebService]
 
-    when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperLookupRequest], any[String])).
+    when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId])).
       thenReturn(Future.successful {
         val responseAsJson : Option[JsValue] = fullResponse._2 match {
           case Some(e) => Some(Json.toJson(e))

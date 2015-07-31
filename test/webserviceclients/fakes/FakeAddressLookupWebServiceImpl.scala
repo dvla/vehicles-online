@@ -4,6 +4,7 @@ import play.api.http.Status.OK
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupWebService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.{Address, Details, Location, Presentation}
@@ -16,17 +17,17 @@ import scala.concurrent.Future
 final class FakeAddressLookupWebServiceImpl(responseOfPostcodeWebService: Future[WSResponse],
                                             responseOfUprnWebService: Future[WSResponse]) extends AddressLookupWebService {
 
-  override def callPostcodeWebService(postcode: String, trackingId: String, showBusinessName: Option[Boolean] = None)
+  override def callPostcodeWebService(postcode: String, trackingId: TrackingId, showBusinessName: Option[Boolean] = None)
                                      (implicit lang: Lang): Future[WSResponse] =
     if (postcode == PostcodeWithoutAddresses.toUpperCase) Future.successful {
       FakeResponse(status = OK, fakeJson = None)
     }
     else responseOfPostcodeWebService
 
-  override def callUprnWebService(uprn: String, trackingId: String)
+  override def callUprnWebService(uprn: String, trackingId: TrackingId)
                                  (implicit lang: Lang): Future[WSResponse] = responseOfUprnWebService
 
-  override def callAddresses(postcode: String, trackingId: String)
+  override def callAddresses(postcode: String, trackingId: TrackingId)
                             (implicit lang: Lang): Future[WSResponse] = ???
 }
 

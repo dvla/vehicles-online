@@ -3,6 +3,7 @@ package webserviceclients.fakes
 import org.joda.time.DateTime
 import play.api.http.Status.{OK, SERVICE_UNAVAILABLE}
 import play.api.libs.json.Json
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupDetailsDto
@@ -14,7 +15,7 @@ import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeep
 final class FakeVehicleAndKeeperLookupWebService extends VehicleAndKeeperLookupWebService {
   import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService._
 
-  override def invoke(request: VehicleAndKeeperLookupRequest, trackingId: String) = Future {
+  override def invoke(request: VehicleAndKeeperLookupRequest, trackingId: TrackingId) = Future {
     val (responseStatus, response) = {
       request.referenceNumber match {
         case "99999999991" => vehicleDetailsResponseVRMNotFound

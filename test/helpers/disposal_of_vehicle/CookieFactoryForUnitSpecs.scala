@@ -55,8 +55,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
   // TODO can we make this more fluent by returning "this" at the end of the defs
 
   implicit private val cookieFlags = injector.getInstance(classOf[CookieFlags])
-  final val TrackingIdValue = "trackingId"
-  private val session = new ClearTextClientSideSession(TrackingId(TrackingIdValue))
+  final val TrackingIdValue = TrackingId("trackingId")
+  private val session = new ClearTextClientSideSession(TrackingIdValue)
 
   private def createCookie[A](key: String, value: A)(implicit tjs: Writes[A]): Cookie = {
     val json = Json.toJson(value).toString()
@@ -238,8 +238,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     createCookie(key, value)
   }
 
-  def trackingIdModel(value: String = TrackingIdValue): Cookie = {
-    createCookie(ClientSideSessionFactory.TrackingIdCookieName, value)
+  def trackingIdModel(trackingId: TrackingId = TrackingIdValue): Cookie = {
+    createCookie(ClientSideSessionFactory.TrackingIdCookieName, trackingId.value)
   }
 
   def disposeFormRegistrationNumber(registrationNumber: String = RegistrationNumberValid): Cookie =
@@ -256,8 +256,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
   def disposeFormTimestamp(timestamp: String = defaultDisposeTimestamp): Cookie =
     createCookie(DisposeFormTimestampIdCacheKey, timestamp)
 
-  def disposeTransactionId(transactionId: String = TransactionIdValid): Cookie =
-    createCookie(DisposeFormTransactionIdCacheKey, transactionId)
+  def disposeTransactionId(transactionId: TrackingId = TransactionIdValid): Cookie =
+    createCookie(DisposeFormTransactionIdCacheKey, transactionId.value)
 
   def vehicleRegistrationNumber(registrationNumber: String = RegistrationNumberValid): Cookie =
     createCookie(DisposeFormRegistrationNumberCacheKey, registrationNumber)

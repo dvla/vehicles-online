@@ -2,7 +2,7 @@ package webserviceclients.dispose_service
 
 import play.api.libs.json.Json
 import helpers.{WithApplication, UnitSpec}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClearTextClientSideSessionFactory, NoCookieFlags}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClearTextClientSideSessionFactory, NoCookieFlags}
 import helpers.WireMockFixture
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
 import webserviceclients.dispose.{DisposeConfig, DisposalAddressDto, DisposeRequestDto, DisposeWebServiceImpl}
@@ -16,7 +16,7 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
     override lazy val baseUrl = s"http://localhost:$wireMockPort"
   })
 
-  private final val trackingId = "track-id-test"
+  private final val trackingId = TrackingId("track-id-test")
 
   implicit val disposalAddressDtoFormat = Json.format[DisposalAddressDto]
   implicit val disposeRequestFormat = Json.format[DisposeRequestDto]
@@ -43,7 +43,7 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
       whenReady(resultFuture, timeout) { result =>
         wireMock.verifyThat(1, postRequestedFor(
           urlEqualTo(s"/vehicles/dispose/v1")
-        ).withHeader(HttpHeaders.TrackingId, equalTo(trackingId)).
+        ).withHeader(HttpHeaders.TrackingId, equalTo(trackingId.value)).
           withRequestBody(equalTo(Json.toJson(request).toString())))
       }
     }

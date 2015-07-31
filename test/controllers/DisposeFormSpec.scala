@@ -13,7 +13,7 @@ import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
 import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form.EmailId
 import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form._
 import scala.concurrent.Future
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
 import uk.gov.dvla.vehicles.presentation.common.mappings.{OptionalToggle, Mileage}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
@@ -164,7 +164,7 @@ class DisposeFormSpec extends UnitSpec {
 
   private def dispose(dateService: DateService = dateServiceStub()) = {
     val ws = mock[DisposeWebService]
-    when(ws.callDisposeService(any[DisposeRequestDto], any[String])).thenReturn(Future.successful {
+    when(ws.callDisposeService(any[DisposeRequestDto], any[TrackingId])).thenReturn(Future.successful {
       val responseAsJson = Json.toJson(disposeResponseSuccess)
       import play.api.http.Status.OK
       new FakeResponse(status = OK, fakeJson = Some(responseAsJson)) // Any call to a webservice will always return this successful response.

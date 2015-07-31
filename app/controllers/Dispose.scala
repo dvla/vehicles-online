@@ -16,7 +16,7 @@ import play.api.mvc.{Action, AnyContent, Call, Controller, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import common.LogFormats.{logMessage, anonymize}
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
@@ -148,7 +148,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       dealerAddress = traderDetails.traderAddress.address
     )
 
-  private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormModel, trackingId: String)
+  private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormModel, trackingId: TrackingId)
                            (implicit request: Request[AnyContent]): Future[Result] = {
 
     def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto], disposeRequest: DisposeRequestDto) =

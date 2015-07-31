@@ -19,7 +19,7 @@ import uk.gov.dvla.vehicles.presentation.common
 import webserviceclients.emailservice.EmailService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import common.LogFormats.{logMessage, anonymize}
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
@@ -155,7 +155,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
   private def disposeAction(webService: DisposeService,
                             disposeFormModel: DisposeFormModelPrivate,
                             vehicleDetails: Option[VehicleAndKeeperDetailsModel],
-                            trackingId: String)
+                            trackingId: TrackingId)
                            (implicit request: Request[AnyContent]): Future[Result] = {
 
     def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto], disposeRequest: DisposeRequestDto) =
@@ -317,7 +317,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
   def createAndSendEmail(vehicleDetails: Option[VehicleAndKeeperDetailsModel],
                          email: Option[String],
                          transactionId: String,
-                         trackingId: String)(implicit request: Request[_]) =
+                         trackingId: TrackingId)(implicit request: Request[_]) =
     email match {
       case Some(emailAddr) =>
         import scala.language.postfixOps

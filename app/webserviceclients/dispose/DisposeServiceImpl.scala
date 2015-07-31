@@ -3,6 +3,7 @@ package webserviceclients.dispose
 import javax.inject.Inject
 import play.api.Logger
 import play.api.http.Status.OK
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -15,7 +16,7 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
                                          dateService: DateService) extends DisposeService {
   import DisposeServiceImpl.ServiceName
 
-  override def invoke(cmd: DisposeRequestDto, trackingId: String): Future[(Int, Option[DisposeResponseDto])] = {
+  override def invoke(cmd: DisposeRequestDto, trackingId: TrackingId): Future[(Int, Option[DisposeResponseDto])] = {
 
     val vrm = LogFormats.anonymize(cmd.registrationNumber)
     val refNo = LogFormats.anonymize(cmd.referenceNumber)

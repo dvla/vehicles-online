@@ -34,7 +34,7 @@ import play.api.test.Helpers.SERVICE_UNAVAILABLE
 import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
@@ -205,7 +205,7 @@ class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService).submit(request)
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
-        verify(disposeService, never()).invoke(any[DisposeRequestDto], anyString())
+        verify(disposeService, never()).invoke(any[DisposeRequestDto], any[TrackingId])
       }
     }
 
@@ -240,7 +240,7 @@ class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeResponseThrows = mock[(Int, Option[DisposeResponseDto])]
       val mockWebServiceThrows = mock[DisposeService]
-      when(mockWebServiceThrows.invoke(any[DisposeRequestDto], any[String])).thenReturn(Future.failed(new RuntimeException))
+      when(mockWebServiceThrows.invoke(any[DisposeRequestDto], any[TrackingId])).thenReturn(Future.failed(new RuntimeException))
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       when(config.googleAnalyticsTrackingId).thenReturn(None)
@@ -344,7 +344,7 @@ class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
       val mockDisposeService = mock[DisposeService]
-      when(mockDisposeService.invoke(any(classOf[DisposeRequestDto]), any[String])).
+      when(mockDisposeService.invoke(any(classOf[DisposeRequestDto]), any[TrackingId])).
         thenReturn(Future[(Int, Option[DisposeResponseDto])] {
         (200, None)
       })
@@ -355,7 +355,7 @@ class DisposeUnitSpec extends UnitSpec {
       val dispose = new Dispose(mockDisposeService, dateServiceStubbed())
       val result = dispose.submit(request)
       whenReady(result) { r =>
-        val trackingIdCaptor = ArgumentCaptor.forClass(classOf[String])
+        val trackingIdCaptor = ArgumentCaptor.forClass(classOf[TrackingId])
         verify(mockDisposeService).invoke(any[DisposeRequestDto], trackingIdCaptor.capture())
         trackingIdCaptor.getValue should be(TrackingIdValue)
       }
@@ -614,7 +614,7 @@ class DisposeUnitSpec extends UnitSpec {
 
   private def disposeServiceMock(): DisposeService = {
     val disposeServiceMock = mock[DisposeService]
-    when(disposeServiceMock.invoke(any[DisposeRequestDto], any[String])).
+    when(disposeServiceMock.invoke(any[DisposeRequestDto], any[TrackingId])).
       thenReturn(Future.successful((0, None)))
     disposeServiceMock
   }
@@ -622,7 +622,7 @@ class DisposeUnitSpec extends UnitSpec {
   private def disposeWebService(disposeServiceStatus: Int = OK,
                                 disposeServiceResponse: Option[DisposeResponseDto] = Some(disposeResponseSuccess)): DisposeWebService = {
     val disposeWebService = mock[DisposeWebService]
-    when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[String])).
+    when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[TrackingId])).
       thenReturn(Future.successful {
       val fakeJson = disposeServiceResponse map (Json.toJson(_))
       new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson) // Any call to a webservice will always return this successful response.

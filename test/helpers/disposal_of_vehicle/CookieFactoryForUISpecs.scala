@@ -31,6 +31,7 @@ import common.model.VehicleAndKeeperDetailsModel
 import common.model.VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 import common.controllers.AlternateLanguages.{CyId, EnId}
 import common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
@@ -185,9 +186,9 @@ object CookieFactoryForUISpecs {
     this
   }
 
-  def disposeTransactionId(transactionId: String = TransactionIdValid)(implicit webDriver: WebDriver) = {
+  def disposeTransactionId(transactionId: TrackingId = TransactionIdValid)(implicit webDriver: WebDriver) = {
     val key = DisposeFormTransactionIdCacheKey
-    val value = transactionId
+    val value = transactionId.value
     addCookie(key, value)
     this
   }
