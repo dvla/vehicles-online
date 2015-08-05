@@ -4,12 +4,10 @@ import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.EnterAddressManuallyFormModel
 import play.api.data.{Form, FormError}
-import play.api.Logger
-import play.api.mvc.{Action, Controller, Request}
+import play.api.mvc.{Action, Request}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichForm, RichCookies, RichResult}
-import common.LogFormats.logMessage
 import common.model.{VmAddressModel, TraderDetailsModel, SetupTradeDetailsFormModel}
 import common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
@@ -43,8 +41,7 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
             BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm),
               setupTradeDetails.traderPostcode, formTarget, backLink))
           case None =>
-            Logger.debug(logMessage(s"Failed to find dealer name in cache, redirecting to ${onCookiesMissing}",
-              request.cookies.trackingId()))
+            logMessage(request.cookies.trackingId(), Debug, s"Failed to find dealer name in cache, redirecting to $onCookiesMissing")
             onCookiesMissing
         },
       validForm =>
@@ -58,13 +55,13 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
               traderName = setupTradeDetails.traderBusinessName,
               traderAddress = traderAddress
             )
-            Logger.debug(logMessage(s"Address found, redirecting to ${onSubmitSuccess} ", request.cookies.trackingId()))
+            logMessage(request.cookies.trackingId(), Debug, s"Address found, redirecting to $onSubmitSuccess ")
             onSubmitSuccess.
               withCookie(validForm).
               withCookie(traderDetailsModel)
           case None =>
-            Logger.debug(logMessage(s"Failed to find dealer name in cache on submit, " +
-              s"redirecting to ${onCookiesMissing}", request.cookies.trackingId()))
+            logMessage(request.cookies.trackingId(), Debug, s"Failed to find dealer name in cache on submit, " +
+              s"redirecting to $onCookiesMissing")
             onCookiesMissing
         }
     )

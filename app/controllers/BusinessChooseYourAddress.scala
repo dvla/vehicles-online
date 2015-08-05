@@ -92,7 +92,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                 ))
             }
           case None => Future.successful {
-            Logger.error(s"Failed to find dealer details, redirecting - trackingId: ${request.cookies.trackingId()}")
+            logMessage(request.cookies.trackingId(), Error, s"Failed to find dealer details, redirecting")
             redirectBack
           }
         },
@@ -105,7 +105,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
             else
               lookupAddressByPostcodeThenIndex(validForm, setupTradeDetailsModel)
           case None => Future {
-            Logger.error(s"Failed to find dealer details, redirecting - trackingId: ${request.cookies.trackingId()}")
+            logMessage(request.cookies.trackingId(), Error, s"Failed to find dealer details, redirecting")
             onMissingTraderDetails
           }
         }

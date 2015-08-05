@@ -1,6 +1,6 @@
 package controllers.priv
 
-import controllers.{BusinessController, SurveyUrl}
+import controllers.SurveyUrl
 import models.DisposeFormModel._
 import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
@@ -12,12 +12,10 @@ import models.DisposeFormModelPrivate.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModelPrivate.SurveyRequestTriggerDateCacheKey
 import models._
 import org.joda.time.format.DateTimeFormat
-import play.api.Logger
-import play.api.mvc.{Controller, Action, Request}
+import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
-import common.LogFormats.logMessage
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
 import utils.helpers.Config
@@ -44,7 +42,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       registrationNumber <- request.cookies.getString(DisposeFormRegistrationNumberCacheKey)
       disposeDateString <- request.cookies.getString(DisposeFormTimestampIdCacheKey)
     } yield {
-        Logger.info(logMessage("Dispose success page", request.cookies.trackingId()))
+        logMessage(request.cookies.trackingId(), Info, "Dispose success page")
         val disposeViewModel = createViewModel(
           traderDetails,
           //disposeFormModel,
@@ -81,7 +79,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   }
 
   def exit = Action { implicit request =>
-    Logger.debug(logMessage(s"Redirect from DisposeSuccess to $onNewDispose", request.cookies.trackingId()))
+    logMessage(request.cookies.trackingId(), Debug, s"Redirect from DisposeSuccess to $onNewDispose")
     onNewDispose.
       discardingCookies(AllCacheKeys).
       withCookie(PreventGoingToDisposePageCacheKey, "").

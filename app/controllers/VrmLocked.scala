@@ -4,13 +4,11 @@ import com.google.inject.Inject
 import models.{AllCacheKeys, DisposeCacheKeys, VrmLockedViewModel}
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.joda.time.DateTime
-import play.api.Logger
 import play.api.mvc.{Request, Result}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import common.controllers.VrmLockedBase
-import common.LogFormats.logMessage
 import common.model.{BruteForcePreventionModel, TraderDetailsModel}
 import utils.helpers.Config
 
@@ -34,8 +32,7 @@ class VrmLocked @Inject()()(implicit protected override val clientSideSessionFac
     ))
 
   protected override def missingBruteForcePreventionCookie(implicit request: Request[_]): Result = {
-    Logger.error(logMessage(s"Failed to find brute force prevention cookie, redirecting to ${bruteForceCookieMissing}",
-      request.cookies.trackingId()))
+    logMessage(request.cookies.trackingId(), Error, s"Failed to find brute force prevention cookie, redirecting to $bruteForceCookieMissing")
     bruteForceCookieMissing
   }
 

@@ -2,16 +2,15 @@ package controllers
 
 import com.google.inject.Inject
 import models.AllCacheKeys
-import play.api.Logger
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Action}
 import uk.gov.dvla.vehicles.presentation.common
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import common.LogFormats.logMessage
+import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
+import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
 import utils.helpers.Config
 
 class BeforeYouStart @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                 config: Config) extends BusinessController {
+                                 config: Config) extends BusinessController with DVLALogger {
 
   def present = Action { implicit request =>
     Ok(views.html.disposal_of_vehicle.before_you_start()).
@@ -20,8 +19,7 @@ class BeforeYouStart @Inject()()(implicit clientSideSessionFactory: ClientSideSe
   }
 
   def submit = Action { implicit request =>
-    Logger.debug(logMessage(s"Redirecting from BeforeYouStart to ${routes.SetUpTradeDetails.present()}",
-      request.cookies.trackingId()))
+    logMessage(request.cookies.trackingId(), Debug, s"Redirecting from BeforeYouStart to ${routes.SetUpTradeDetails.present()}")
     Redirect(routes.SetUpTradeDetails.present())
   }
 }

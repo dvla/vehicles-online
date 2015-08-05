@@ -13,7 +13,6 @@ import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.joda.time.DateTimeZone
 import org.joda.time.format.ISODateTimeFormat
 import play.api.data.{Form, FormError}
-import play.api.Logger
 import play.api.mvc.{Action, AnyContent, Call, Controller, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common
 import webserviceclients.emailservice.EmailService
@@ -21,7 +20,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import common.LogFormats.{logMessage, anonymize}
+import common.LogFormats.anonymize
 import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import uk.gov.dvla.vehicles.presentation.common.services.{SEND, DateService}
 import common.views.helpers.FormExtensions.formBinding
@@ -56,23 +55,20 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
             Ok(dispose_private(disposeViewModel, form.fill(), dateService, formTarget, backLink))
           case _ => {
-            Logger.error(logMessage(s"Failed to find vehicle details, redirecting to ${vehicleDetailsMissing}",
-              request.cookies.trackingId()))
+            logMessage(request.cookies.trackingId(), Error, s"Failed to find vehicle details, redirecting to $vehicleDetailsMissing")
             vehicleDetailsMissing
           }
         }
       case (_, Some(interstitial)) => {
         // US320 Kick them back to the VehicleLookup page if they arrive here by any route other that clicking the
         // "Exit" or "New Dispose" buttons.
-        Logger.error(logMessage(s"Vehicle ids already dispose, redirecting to ${onVehicleAlreadyDisposed}",
-          request.cookies.trackingId()))
+        logMessage(request.cookies.trackingId(), Error, s"Vehicle ids already dispose, redirecting to $onVehicleAlreadyDisposed")
         onVehicleAlreadyDisposed.
           discardingCookie(PreventGoingToDisposePageCacheKey).
           discardingCookies(DisposeCacheKeys)
       }
       case _ => {
-        Logger.error(logMessage(s"Failed to find dealer details, redirecting to ${onTraderDetailsMissing}",
-          request.cookies.trackingId()))
+        logMessage(request.cookies.trackingId(), Error, s"Failed to find dealer details, redirecting to $onTraderDetailsMissing")
         onTraderDetailsMissing
       }
     }
@@ -96,16 +92,14 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
           }
 
         result getOrElse {
-          Logger.debug(logMessage(s"Could not find expected data in cache on dispose submit - now redirecting...",
-            request.cookies.trackingId()))
+          logMessage(request.cookies.trackingId(), Error, s"Could not find expected data in cache on dispose submit - now redirecting...")
           Redirect(routes.SetUpTradeDetails.present())
         }
       },
       validForm => {
         request.cookies.getString(PreventGoingToDisposePageCacheKey) match {
           case Some(_) => {
-            Logger.error(logMessage(s"Vehicle ids already dispose, redirecting to ${onVehicleAlreadyDisposed}",
-              request.cookies.trackingId()))
+            logMessage(request.cookies.trackingId(), Error, s"Vehicle ids already dispose, redirecting to $onVehicleAlreadyDisposed")
             Future.successful(onVehicleAlreadyDisposed)
           } // US320 prevent user using the browser back button and resubmitting.
           case None =>
@@ -168,11 +162,10 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
 
     def callMicroService(vehicleLookup: VehicleLookupFormModel, disposeForm: DisposeFormModelPrivate, traderDetails: TraderDetailsModel) = {
       val disposeRequest = buildDisposeMicroServiceRequest(vehicleLookup, disposeForm, traderDetails)
-      Logger.info(logMessage(s"Call Dispose micro-service", request.cookies.trackingId()))
+      logMessage(request.cookies.trackingId(), Info, s"Call Dispose micro-service")
 
-      Logger.debug(logMessage("Dispose micro-service request",
-        request.cookies.trackingId(),
-        Seq(disposeRequest.dateOfDisposal,
+      logMessage( request.cookies.trackingId(), Debug, "Dispose micro-service request",
+        Some(Seq(disposeRequest.dateOfDisposal,
           disposeRequest.keeperConsent.toString,
           disposeRequest.mileage.toString,
           disposeRequest.prConsent.toString,
@@ -184,7 +177,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
             anonymize(disposeRequest.traderAddress.uprn),
             anonymize(disposeRequest.traderName),
             disposeRequest.transactionTimestamp
-          )))
+          )) )
 
       webService.invoke(disposeRequest, trackingId).map {
         case (httpResponseCode, response) => {
@@ -197,7 +190,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
         }
       }.recover {
         case e: Throwable =>
-          Logger.warn(logMessage(s"Dispose micro-service call failed", request.cookies.trackingId()), e)
+          logMessage(request.cookies.trackingId(), Warn, s"Dispose micro-service call failed")
           onMicroserviceError
       }
     }
@@ -205,8 +198,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
     def storeResponseInCache(response: Option[DisposeResponseDto], nextPage: Result): Result =
       response match {
         case Some(o) =>
-          Logger.debug(logMessage("Dispose micro-service response", request.cookies.trackingId(),
-            Seq(o.auditId, anonymize(o.registrationNumber), o.responseCode.getOrElse(""), anonymize(o.transactionId))))
+          logMessage( request.cookies.trackingId(), Debug, "Dispose micro-service response",
+            Some(Seq(o.auditId, anonymize(o.registrationNumber), o.responseCode.getOrElse(""), anonymize(o.transactionId))) )
 
           val nextPageWithTransactionId =
             if (!o.transactionId.isEmpty) nextPage.withCookie(DisposeFormTransactionIdCacheKey, o.transactionId)
@@ -248,27 +241,26 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
                            disposeRequest: DisposeRequestDto)(implicit request: Request[_]): Call =
       disposeResponseCode match {
         case "ms.vehiclesService.response.unableToProcessApplication" =>
-          Logger.warn(logMessage(s"Dispose soap endpoint redirecting to dispose failure page." +
-            s"Code returned from ms was $disposeResponseCode", request.cookies.trackingId()))
+          logMessage(request.cookies.trackingId(), Warn, s"Dispose soap endpoint redirecting to dispose failure page." +
+            s"Code returned from ms was $disposeResponseCode")
           onDisposeFailure
         case "ms.vehiclesService.response.duplicateDisposalToTrade" =>
-          Logger.warn(logMessage(s"Dispose soap endpoint redirecting to duplicate disposal page" +
-            s"Code returned from ms was $disposeResponseCode", request.cookies.trackingId()))
+          logMessage(request.cookies.trackingId(), Warn, s"Dispose soap endpoint redirecting to duplicate disposal page" +
+            s"Code returned from ms was $disposeResponseCode")
           onDuplicateDispose
         case "X0001" | "W0075" =>
           logDisposeRequest(disposeResponseCode, disposeRequest)
           onDisposeSuccess
         case _ =>
-          Logger.warn(logMessage(s"Dispose micro-service failed so now redirecting to micro service error page. " +
-            s"Code returned from ms was $disposeResponseCode", request.cookies.trackingId()))
+          logMessage(request.cookies.trackingId(), Warn, s"Dispose micro-service failed so now redirecting to micro service error page. " +
+            s"Code returned from ms was $disposeResponseCode")
           microserviceErrorCall
       }
 
     def logDisposeRequest(disposeResponseCode: String,
                           disposeRequest: DisposeRequestDto)(implicit request: Request[_]) = {
-      Logger.error(logMessage(disposeResponseCode,
-        request.cookies.trackingId(),
-        Seq(disposeRequest.dateOfDisposal,
+      logMessage( request.cookies.trackingId(), Error, disposeResponseCode,
+        Some(Seq(disposeRequest.dateOfDisposal,
           disposeRequest.keeperConsent.toString,
           disposeRequest.mileage.toString,
           disposeRequest.prConsent.toString,
@@ -280,20 +272,19 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
             anonymize(disposeRequest.traderAddress.uprn),
             anonymize(disposeRequest.traderName),
             disposeRequest.transactionTimestamp
-          )))
+          )) )
     }
 
     def handleHttpStatusCode(statusCode: Int)(transactionId: String): Call =
       statusCode match {
         case OK => {
-          Logger.debug(logMessage(s"Dispose micro-service success so now redirecting to ${onDisposeSuccess}",
-            request.cookies.trackingId()))
+          logMessage(request.cookies.trackingId(), Debug, s"Dispose micro-service success so now redirecting to $onDisposeSuccess")
           createAndSendEmail(vehicleDetails, disposeFormModel.email, transactionId, trackingId)
           onDisposeSuccess
         }
         case _ => {
-          Logger.warn(logMessage(s"Dispose micro-service failed so now redirecting to micro service error page. " +
-            s"Code returned from ms was $statusCode", request.cookies.trackingId()))
+          logMessage(request.cookies.trackingId(), Warn, s"Dispose micro-service failed so now redirecting to micro service error page. " +
+            s"Code returned from ms was $statusCode")
           microserviceErrorCall
         }
       }
@@ -302,8 +293,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
       case (Some(traderDetails), Some(vehicleLookup)) =>
         callMicroService(vehicleLookup, disposeFormModel, traderDetails)
       case _ => Future {
-        Logger.error(logMessage(s"Could not find either dealer details or VehicleLookupFormModel " +
-          s"in cache on Dispose submit so redirect to ${onTraderDetailsMissing}", request.cookies.trackingId()))
+        logMessage(request.cookies.trackingId(), Error, s"Could not find either dealer details or VehicleLookupFormModel " +
+          s"in cache on Dispose submit so redirect to $onTraderDetailsMissing")
         onTraderDetailsMissing
       }
     }
@@ -331,13 +322,12 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
 
         val template = EmailMessageBuilder.buildWith(vehicleDetails, transactionId, config.imagesPath)
 
-        Logger.info(s"Email sent - trackingId: ${request.cookies.trackingId()}")
+        logMessage(request.cookies.trackingId(), Info, s"Email sent")
 
         // This sends the email.
         SEND email template withSubject s"$registrationNumber Confirmation of new vehicle keeper" to emailAddr send trackingId
 
-      case None => Logger.warn(s"tried to send an email with no keeper details - " +
-        s"trackingId: ${request.cookies.trackingId()}")
+      case None => logMessage(request.cookies.trackingId(), Warn, s"tried to send an email with no keeper details")
     }
 }
 

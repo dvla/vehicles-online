@@ -10,12 +10,11 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.{AllCacheKeys, DisposeCacheKeys, DisposeFormModel, DisposeOnlyCacheKeys, DisposeViewModel}
 import org.joda.time.format.DateTimeFormat
-import play.api.Logger
-import play.api.mvc.{Action, Controller, Request}
+import play.api.mvc.{Action, Request}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
-import common.LogFormats.logMessage
+import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
 import utils.helpers.Config
@@ -41,7 +40,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       registrationNumber <- request.cookies.getString(DisposeFormRegistrationNumberCacheKey)
       disposeDateString <- request.cookies.getString(DisposeFormTimestampIdCacheKey)
     } yield {
-        Logger.info(logMessage("Dispose success page", request.cookies.trackingId()))
+        logMessage(request.cookies.trackingId(), Info, "Dispose success page")
       val disposeViewModel = createViewModel(
         traderDetails,
         disposeFormModel,
@@ -78,7 +77,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   }
 
   def exit = Action { implicit request =>
-    Logger.debug(logMessage(s"Redirect from DisposeSuccess to $onNewDispose", request.cookies.trackingId()))
+    logMessage(request.cookies.trackingId(), Debug, s"Redirect from DisposeSuccess to $onNewDispose")
     onNewDispose.
       discardingCookies(AllCacheKeys).
       withCookie(PreventGoingToDisposePageCacheKey, "").
@@ -103,7 +102,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
 class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                           config: Config,
                           dateService: DateService)
-  extends (Request[_] => Option[String]) {
+  extends (Request[_] => Option[String]) with DVLALogger {
 
   def apply(request: Request[_]): Option[String] = {
     def url = if (!config.prototypeSurveyUrl.trim.isEmpty)
@@ -113,12 +112,12 @@ class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFa
     request.cookies.getString(SurveyRequestTriggerDateCacheKey) match {
       case Some(lastSurveyMillis) =>
         if ((lastSurveyMillis.toLong + config.prototypeSurveyPrepositionInterval) < dateService.now.getMillis) {
-          Logger.debug(logMessage(s"Redirecting to survey $url", request.cookies.trackingId()))
+          logMessage(request.cookies.trackingId(), Debug, s"Redirecting to survey $url")
           url
         }
         else None
       case None =>
-        Logger.debug(logMessage(s"Redirecting to survey $url", request.cookies.trackingId()))
+        logMessage(request.cookies.trackingId(), Debug,s"Redirecting to survey $url")
         url
     }
   }
