@@ -75,6 +75,8 @@ final class ConfigImpl extends Config {
   // Opening and closing times
   override val opening: Int = getProperty[Int]("openingTime")
   override val closing: Int = getProperty[Int]("closingTime")
+  override val openingTimeMinOfDay: Int = getProperty[Int]("openingTimeMinOfDay")
+  override val closingTimeMinOfDay: Int = getProperty[Int]("closingTimeMinOfDay")
 
   override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(15)
 
