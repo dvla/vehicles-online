@@ -13,8 +13,9 @@ import uk.gov.dvla.vehicles.presentation.common.filters.ClfEntryBuilder
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 
 class ErrorStrategy @Inject()(clfEntryBuilder: ClfEntryBuilder,
-                              @Named(AccessLoggerName) accessLogger: LoggerLike, dateService: DateService)
-  extends ErrorStrategyBase(clfEntryBuilder, clfEntry => accessLogger.info(clfEntry), dateService) {
+                              @Named(AccessLoggerName) accessLogger: LoggerLike,
+                              dateService: DateService)
+  extends ErrorStrategyBase(clfEntryBuilder, clfEntry => accessLogger.info(clfEntry), accessLogger, dateService) {
 
     protected override def sessionExceptionResult(request: RequestHeader ) =
       CookieHelper.discardAllCookies(request)

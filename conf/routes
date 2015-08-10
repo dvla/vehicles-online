@@ -107,7 +107,7 @@ POST        /feedback                                              @controllers.
 GET         /private/feedback                                      @controllers.priv.FeedbackController.present
 POST        /private/feedback                                      @controllers.priv.FeedbackController.submit
 
-GET         /with-language/:chosenLanguage                         uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
+GET         /with-language/:chosenLanguage                         @uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
 
 GET         /healthcheck                                           @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond
 

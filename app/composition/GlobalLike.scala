@@ -87,7 +87,7 @@ trait GlobalLike extends WithFilters with GlobalSettings with Composition {
 
     val clfEntryBuilder = injector.getInstance(classOf[ClfEntryBuilder])
     val accessLogger = injector.getInstance(Key.get(classOf[LoggerLike], Names.named(AccessLoggerName)))
-    accessLogger.info(clfEntryBuilder.clfEntry(new Date(), request, result))
+    clfEntryBuilder.clfEntry(new Date(), request, result)(accessLogger)
     result
   }
 }

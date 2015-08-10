@@ -434,7 +434,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "Send a request and a trackingId" in new WithApplication {
-      val trackingId = TrackingId("x" * 20)
+      val trackingId = TrackingId("default_test_tracking_id")
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel(trackingId))
@@ -478,7 +478,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val result = vehicleLookupController.submit(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(DisposePage.address))
-        verify(bruteForceWebServiceMock, times(1)).callBruteForce(anyString())
+        verify(bruteForceWebServiceMock, times(1)).callBruteForce(anyString(), any[TrackingId])
         verify(vehicleLookupMicroServiceMock, times(1)).invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId])
       }
     }
@@ -491,7 +491,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val result = vehicleLookupController.submit(request)
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
-        verify(bruteForceWebServiceMock, never()).callBruteForce(anyString())
+        verify(bruteForceWebServiceMock, never()).callBruteForce(anyString(), any[TrackingId])
         verify(vehicleLookupMicroServiceMock, never()).invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId])
       }
     }
@@ -538,18 +538,18 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val status = if (permitted) play.api.http.Status.OK else play.api.http.Status.FORBIDDEN
       val bruteForcePreventionWebService: BruteForcePreventionWebService = mock[BruteForcePreventionWebService]
 
-      when(bruteForcePreventionWebService.callBruteForce(RegistrationNumberValid))
+      when(bruteForcePreventionWebService.callBruteForce(RegistrationNumberValid, TrackingId("default_test_tracking_id")))
         .thenReturn(Future.successful(new FakeResponse(status = status, fakeJson = responseFirstAttempt)))
 
-      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmAttempt2)).
+      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmAttempt2, TrackingId("default_test_tracking_id"))).
         thenReturn(Future.successful(new FakeResponse(status = status, fakeJson = responseSecondAttempt)))
 
-      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmLocked)).
+      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmLocked, TrackingId("default_test_tracking_id"))).
         thenReturn(Future.successful(new FakeResponse(status = status)))
 
-      when(bruteForcePreventionWebService.callBruteForce(VrmThrows)).thenReturn(responseThrows)
+      when(bruteForcePreventionWebService.callBruteForce(VrmThrows, TrackingId("default_test_tracking_id"))).thenReturn(responseThrows)
 
-      when(bruteForcePreventionWebService.reset(any[String]))
+      when(bruteForcePreventionWebService.reset(any[String], any[TrackingId]))
         .thenReturn(Future.successful(new FakeResponse(status = play.api.http.Status.OK)))
 
       bruteForcePreventionWebService

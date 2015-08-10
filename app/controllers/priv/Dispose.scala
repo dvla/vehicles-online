@@ -313,7 +313,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService, em
       case Some(emailAddr) =>
         import scala.language.postfixOps
 
-        import SEND._ // Keep this local so that we don't pollute rest of the class with unnecessary imports.
+        import SEND.{email} // Keep this local so that we don't pollute rest of the class with unnecessary imports.
 
         implicit val emailConfiguration = config.emailConfiguration
         implicit val implicitEmailService = implicitly[EmailService](emailService)
