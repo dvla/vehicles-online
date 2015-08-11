@@ -48,22 +48,22 @@ class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness wit
                            nextFilter: MockFilter)
 
   private def setUpInHours(test: SetUp => Any) {
-    setUpOpeningHours(test, 0, 24)
+    setUpOpeningHours(test, 0, 1439)
   }
 
   private def setUpOutOfHours(test: SetUp => Any) = {
     setUpOpeningHours(test, 1, 1)
   }
 
-  private def setUpOpeningHours(test: SetUp => Any, opening: Int = 0, closing: Int = 24) {
+  private def setUpOpeningHours(test: SetUp => Any, opening: Int = 0, closing: Int = 1439) {
     val sessionFactory = org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
 
     val injector = testInjector(new ScalaModule {
       override def configure(): Unit = {
         bind[ClientSideSessionFactory].toInstance(sessionFactory)
         val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
-        when(mockConfig.opening).thenReturn(opening)
-        when(mockConfig.closing).thenReturn(closing)
+        when(mockConfig.openingTimeMinOfDay).thenReturn(opening)
+        when(mockConfig.closingTimeMinOfDay).thenReturn(closing)
         when(mockConfig.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
         when(mockConfig.assetsUrl).thenReturn(None) // Stub this config value.
         bind[Config].toInstance(mockConfig)

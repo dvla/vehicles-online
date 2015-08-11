@@ -65,8 +65,8 @@ trait Config extends VehicleLookupConfig {
   def startUrl: String
 
   // Opening and closing times
-  def opening: Int
-  def closing: Int
+  def openingTimeMinOfDay: Int
+  def closingTimeMinOfDay: Int
   def closingWarnPeriodMins: Int
 
   def emailServiceMicroServiceUrlBase: String

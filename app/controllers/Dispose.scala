@@ -101,8 +101,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
             Future.successful(onVehicleAlreadyDisposed)
           } // US320 prevent user using the browser back button and resubmitting.
           case None =>
-            val trackingId = request.cookies.trackingId()
-            disposeAction(webService, validForm, trackingId)
+            doDisposeAction(webService, validForm)
         }
       }
     )
@@ -143,8 +142,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       dealerAddress = traderDetails.traderAddress.address
     )
 
-  private def disposeAction(webService: DisposeService, disposeFormModel: DisposeFormModel, trackingId: TrackingId)
-                           (implicit request: Request[AnyContent]): Future[Result] = {
+  private def doDisposeAction(webService: DisposeService, disposeFormModel: DisposeFormModel)
+                                (implicit request: Request[AnyContent]): Future[Result] = {
 
     def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto], disposeRequest: DisposeRequestDto) =
     // This makes the choice of which page to go to based on the first one it finds that is not None.
@@ -172,7 +171,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
             disposeRequest.transactionTimestamp
           )) )
 
-      webService.invoke(disposeRequest, trackingId).map {
+      webService.invoke(disposeRequest, request.cookies.trackingId()).map {
         case (httpResponseCode, response) => {
           Some(Redirect(nextPage(httpResponseCode, response, disposeRequest))).
             map(_.withCookie(disposeFormModel)).

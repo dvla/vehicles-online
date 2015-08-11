@@ -58,8 +58,8 @@
         <!-- End Google Analytics -->
     </head>
 
-    <body data-closing-time="@config.closing">
-        @serviceClosingWarning(config.opening, config.closing, config.closingWarnPeriodMins)
+    <body data-closing-time="@config.closingTimeMinOfDay">
+        @serviceClosingWarning(config.openingTimeMinOfDay, config.closingTimeMinOfDay, config.closingWarnPeriodMins)
         <a href="#main" class="visuallyhidden">Skip to main content</a>
 
         <div id="global-cookie-message">

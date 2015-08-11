@@ -1,5 +1,6 @@
 package composition
 
+import org.mockito.Mockito._
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{booleanProp, getOptionalProperty, intProp}
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.EmailConfiguration
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
@@ -66,8 +67,9 @@ class TestConfig extends Config {
   def endUrl: String = "/sell-to-the-trade/before-you-start"
 
   // Opening and closing times
-  def opening: Int = getOptionalProperty[Int]("openingTime").getOrElse(0)
-  def closing: Int = getOptionalProperty[Int]("closingTime").getOrElse(24)
+  def openingTimeMinOfDay: Int = getOptionalProperty[Int]("openingTimeMinOfDay").getOrElse(0)
+  def closingTimeMinOfDay: Int = getOptionalProperty[Int]("closingTimeMinOfDay").getOrElse(1440)
+
   def closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(0)
 
   def emailServiceMicroServiceUrlBase: String = NotFound
