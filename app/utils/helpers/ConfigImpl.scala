@@ -73,8 +73,6 @@ final class ConfigImpl extends Config {
   override val startUrl: String = getProperty[String]("start.page")
 
   // Opening and closing times
-  override val opening: Int = getProperty[Int]("openingTime")
-  override val closing: Int = getProperty[Int]("closingTime")
   override val openingTimeMinOfDay: Int = getProperty[Int]("openingTimeMinOfDay")
   override val closingTimeMinOfDay: Int = getProperty[Int]("closingTimeMinOfDay")
 
