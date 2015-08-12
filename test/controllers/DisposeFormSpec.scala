@@ -12,6 +12,7 @@ import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
 import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form.EmailId
 import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form._
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
@@ -20,6 +21,7 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
+import webserviceclients.emailservice.{EmailService, EmailServiceSendRequest, EmailServiceSendResponse}
 import webserviceclients.dispose.{DisposeConfig, DisposeRequestDto, DisposeServiceImpl, DisposeWebService}
 import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.{ConsentValid, MileageValid, disposeResponseSuccess}
@@ -175,8 +177,13 @@ class DisposeFormSpec extends UnitSpec {
     })
     val disposeServiceImpl = new DisposeServiceImpl(new DisposeConfig(), ws, healthStatsMock, dateServiceStub())
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
+
+    val emailServiceMock: EmailService = mock[EmailService]
+    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), anyString())).
+      thenReturn(Future(EmailServiceSendResponse()))
+
     implicit val config: Config = mock[Config]
-    new Dispose(disposeServiceImpl, dateService)
+    new Dispose(disposeServiceImpl, emailServiceMock, dateService)
   }
 
   private def formWithValidDefaults(mileage: String = MileageValid,

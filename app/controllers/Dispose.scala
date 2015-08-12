@@ -8,25 +8,26 @@ import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.{DisposeFormModel, DisposeViewModel, VehicleLookupFormModel, DisposeCacheKeys}
 import models.DisposeCacheKeyPrefix.CookiePrefix
-import org.joda.time.DateTimeZone
+import org.joda.time.{DateTime, DateTimeZone}
 import org.joda.time.format.ISODateTimeFormat
 import play.api.data.{Form, FormError}
 import play.api.Logger
 import play.api.mvc.{Action, AnyContent, Call, Controller, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common
+import webserviceclients.emailservice.EmailService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import common.LogFormats.{logMessage, anonymize}
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
-import common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.services.{SEND, DateService}
 import common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.dispose
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 
-class Dispose @Inject()(webService: DisposeService, dateService: DateService)
+class Dispose @Inject()(webService: DisposeService, emailService: EmailService, dateService: DateService)
                        (implicit clientSideSessionFactory: ClientSideSessionFactory,
                         config: Config) extends BusinessController  {
 
@@ -161,7 +162,8 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
     def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto], disposeRequest: DisposeRequestDto) =
     // This makes the choice of which page to go to based on the first one it finds that is not None.
       response match {
-        case Some(r) if r.responseCode.isDefined => handleResponseCode(r.responseCode.get, disposeRequest)
+        case Some(r) if r.responseCode.isDefined => handleResponseCode(r.responseCode.get,
+          response.map(_.transactionId).getOrElse(""), disposeRequest)
         case _ => handleHttpStatusCode(httpResponseCode)
       }
 
@@ -176,7 +178,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
           disposeRequest.mileage.toString,
           disposeRequest.prConsent.toString,
           anonymize(disposeRequest.referenceNumber),
-          anonymize(disposeRequest.registrationNumber))++
+          anonymize(disposeRequest.registrationNumber)) ++
           disposeRequest.traderAddress.line.map(addr => anonymize(addr)) ++
           Seq(anonymize(disposeRequest.traderAddress.postTown),
             anonymize(disposeRequest.traderAddress.postCode),
@@ -243,7 +245,7 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
       )
     }
 
-    def handleResponseCode(disposeResponseCode: String,
+    def handleResponseCode(disposeResponseCode: String, transactionId: String,
                            disposeRequest: DisposeRequestDto)(implicit request: Request[_]): Call =
       disposeResponseCode match {
         case "ms.vehiclesService.response.unableToProcessApplication" =>
@@ -256,31 +258,13 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
           onDuplicateDispose
         case "X0001" | "W0075" =>
           logDisposeRequest(disposeResponseCode, disposeRequest)
+          createAndSendEmailRequiringFurtherAction(transactionId, disposeRequest)
           onDisposeSuccess
         case _ =>
           Logger.warn(logMessage(s"Dispose micro-service failed so now redirecting to micro service error page. " +
             s"Code returned from ms was $disposeResponseCode", request.cookies.trackingId()))
           microserviceErrorCall
       }
-
-    def logDisposeRequest(disposeResponseCode: String,
-                          disposeRequest: DisposeRequestDto)(implicit request: Request[_]) = {
-      Logger.error(logMessage(disposeResponseCode,
-        request.cookies.trackingId(),
-        Seq(disposeRequest.dateOfDisposal,
-          disposeRequest.keeperConsent.toString,
-          disposeRequest.mileage.toString,
-          disposeRequest.prConsent.toString,
-          anonymize(disposeRequest.referenceNumber),
-          anonymize(disposeRequest.registrationNumber))++
-          disposeRequest.traderAddress.line.map(addr => anonymize(addr)) ++
-          Seq(anonymize(disposeRequest.traderAddress.postTown),
-            anonymize(disposeRequest.traderAddress.postCode),
-            anonymize(disposeRequest.traderAddress.uprn),
-            anonymize(disposeRequest.traderName),
-            disposeRequest.transactionTimestamp
-          )))
-    }
 
     def handleHttpStatusCode(statusCode: Int): Call =
       statusCode match {
@@ -305,5 +289,71 @@ class Dispose @Inject()(webService: DisposeService, dateService: DateService)
         onTraderDetailsMissing
       }
     }
+  }
+
+  def logDisposeRequest(disposeResponseCode: String,
+                        disposeRequest: DisposeRequestDto)(implicit request: Request[_]) = {
+    Logger.error(logMessage(disposeResponseCode,
+      request.cookies.trackingId(),
+      Seq(disposeRequest.dateOfDisposal,
+        disposeRequest.keeperConsent.toString,
+        disposeRequest.mileage.toString,
+        disposeRequest.prConsent.toString,
+        anonymize(disposeRequest.referenceNumber),
+        anonymize(disposeRequest.registrationNumber))++
+        disposeRequest.traderAddress.line.map(addr => anonymize(addr)) ++
+        Seq(anonymize(disposeRequest.traderAddress.postTown),
+          anonymize(disposeRequest.traderAddress.postCode),
+          anonymize(disposeRequest.traderAddress.uprn),
+          anonymize(disposeRequest.traderName),
+          disposeRequest.transactionTimestamp
+        )))
+  }
+
+  def createAndSendEmailRequiringFurtherAction(transactionId: String,
+                                               disposeRequest: DisposeRequestDto)(implicit request: Request[_]) = {
+
+    import SEND._ // Keep this local so that we don't pollute rest of the class with unnecessary imports.
+
+    implicit val emailConfiguration = config.emailConfiguration
+    implicit val implicitEmailService = implicitly[EmailService](emailService)
+
+    val email = config.emailConfiguration.feedbackEmail.email
+
+    val dateTime = DateTime.parse(disposeRequest.transactionTimestamp).toString("dd/MM/yy HH:mm")
+
+    val message1 =
+      s"""
+         |Vehicle Registration:  ${disposeRequest.registrationNumber}
+         |Transaction ID:  ${transactionId}
+         |Date/Time of Transaction: ${dateTime}
+      """.stripMargin
+
+    val message2 =
+      s"""
+         |Trader Name:  ${disposeRequest.traderName}
+         |Trader Address:  ${disposeRequest.traderAddress.line.mkString("\n                 ")}
+         |                 ${disposeRequest.traderAddress.postTown.getOrElse("NOT ENTERED")}
+         |                 ${disposeRequest.traderAddress.postCode}
+         |Document Reference Number: ${disposeRequest.referenceNumber}
+         |Mileage: ${disposeRequest.mileage.getOrElse("NOT ENTERED")}
+         |Date of Sale:  ${DateTime.parse(disposeRequest.dateOfDisposal).toString("dd/MM/yy")}
+         |Transaction ID:  ${transactionId}
+         |Date/Time of Transaction:  ${dateTime}
+      """.stripMargin
+
+    SEND
+      .email(Contents(message1, message1))
+      .withSubject(s"Disposal Failure (1 of 2) ${transactionId}")
+      .to(email)
+      .send(request.cookies.trackingId)
+
+    Logger.info(message2)
+
+    SEND
+      .email(Contents(message2, message2))
+      .withSubject(s"Disposal Failure (2 of 2) ${transactionId}")
+      .to(email)
+      .send(request.cookies.trackingId)
   }
 }
