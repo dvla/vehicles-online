@@ -1,6 +1,6 @@
 #main
 main.banner = Gwerthu cerbyd i''r fasnach foduron
-main.banner.private = Wedi gwerthu cerbyd i'r fasnach modur
+main.banner.private = Wedi gwerthu cerbyd i’r masnach moduro
 
 #global
 global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml
