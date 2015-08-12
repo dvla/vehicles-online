@@ -40,6 +40,7 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewMod
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
+import webserviceclients.emailservice.{EmailService, EmailServiceSendRequest, EmailServiceSendResponse}
 import webserviceclients.dispose.DisposalAddressDto
 import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
 import webserviceclients.dispose.DisposeRequestDto
@@ -244,7 +245,12 @@ class DisposeUnitSpec extends UnitSpec {
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       when(config.googleAnalyticsTrackingId).thenReturn(None)
-      val dispose = new Dispose(mockWebServiceThrows, dateServiceStubbed())
+
+      val emailServiceMock: EmailService = mock[EmailService]
+      when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId])).
+        thenReturn(Future(EmailServiceSendResponse()))
+
+      val dispose = new Dispose(mockWebServiceThrows, emailServiceMock, dateServiceStubbed())
       val result = dispose.submit(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
@@ -352,7 +358,12 @@ class DisposeUnitSpec extends UnitSpec {
       implicit val config: Config = mock[Config]
       when(config.googleAnalyticsTrackingId).thenReturn(None)
       when(config.assetsUrl).thenReturn(None)
-      val dispose = new Dispose(mockDisposeService, dateServiceStubbed())
+
+      val emailServiceMock: EmailService = mock[EmailService]
+      when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId])).
+        thenReturn(Future(EmailServiceSendResponse()))
+
+      val dispose = new Dispose(mockDisposeService, emailServiceMock, dateServiceStubbed())
       val result = dispose.submit(request)
       whenReady(result) { r =>
         val trackingIdCaptor = ArgumentCaptor.forClass(classOf[TrackingId])
@@ -647,7 +658,11 @@ class DisposeUnitSpec extends UnitSpec {
                                (implicit config: Config = config): Dispose = {
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
 
-    new Dispose(disposeService, dateServiceStubbed())
+    val emailServiceMock: EmailService = mock[EmailService]
+    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId])).
+      thenReturn(Future(EmailServiceSendResponse()))
+
+    new Dispose(disposeService, emailServiceMock, dateServiceStubbed())
   }
 
   private def checkboxHasAttributes(content: String, widgetName: String, isChecked: Boolean) = {
