@@ -51,7 +51,8 @@ class TestConfig extends Config {
   def isPrototypeBannerVisible: Boolean = getOptionalProperty[Boolean]("prototype.disclaimer").getOrElse(true)
 
   // Prototype survey URL
-  def prototypeSurveyUrl: String = "" // could be optional
+  def surveyUrl: String = "" // could be optional
+  def privateKeeperSurveyUrl = ""
   def prototypeSurveyPrepositionInterval: Long = 1000000000000L
 
   // Google analytics

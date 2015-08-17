@@ -56,7 +56,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
           disposeViewModel,
           disposeFormModel,
           disposeDateTime,
-          surveyUrl(request),
+          surveyUrl(request, isPrivateKeeper = isPrivateKeeper),
           newDisposeFormTarget,
           exitDisposeFormTarget
         )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this

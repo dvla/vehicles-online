@@ -158,7 +158,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       implicit val config = mockSurveyConfig()
 
       val vehiclesLookup = lookupWithMockConfig(config)
-      contentAsString(vehiclesLookup.present(request)) should include(config.prototypeSurveyUrl)
+      contentAsString(vehiclesLookup.present(request)) should include(config.surveyUrl)
     }
 
     "not offer the survey for one just after the initial survey offering" in new WithApplication {
@@ -171,7 +171,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
 
       val vehiclesLookup = lookupWithMockConfig(config)
-      contentAsString(vehiclesLookup.present(request)) should not include config.prototypeSurveyUrl
+      contentAsString(vehiclesLookup.present(request)) should not include config.surveyUrl
     }
 
     "offer the survey one week after the first offering" in new WithApplication {
@@ -185,7 +185,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
 
       val vehiclesLookup = lookupWithMockConfig(config)
-      contentAsString(vehiclesLookup.present(request)) should include(config.prototypeSurveyUrl)
+      contentAsString(vehiclesLookup.present(request)) should include(config.surveyUrl)
     }
 
     "not offer the survey one week after the first offering" in new WithApplication {
@@ -199,7 +199,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
 
       val vehiclesLookup = lookupWithMockConfig(config)
-      contentAsString(vehiclesLookup.present(request)) should not include config.prototypeSurveyUrl
+      contentAsString(vehiclesLookup.present(request)) should not include config.surveyUrl
     }
 
     "not offer the survey if the survey url is not set in the config" in new WithApplication {
@@ -591,7 +591,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
 
     when(config.isPrototypeBannerVisible).thenReturn(isPrototypeBannerVisible) // Stub this config value.
-    when(config.prototypeSurveyUrl).thenReturn("http://fake/survey/url")
+    when(config.surveyUrl).thenReturn("http://fake/survey/url")
     when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
     when(config.assetsUrl).thenReturn(None) // Stub this config value.
 
@@ -649,7 +649,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
   private def mockSurveyConfig(url: String = "http://test/survey/url"): Config = {
     val config = mock[Config]
     val surveyUrl = url
-    when(config.prototypeSurveyUrl).thenReturn(surveyUrl)
+    when(config.surveyUrl).thenReturn(surveyUrl)
     when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
     when(config.googleAnalyticsTrackingId).thenReturn(None)
     when(config.assetsUrl).thenReturn(None)

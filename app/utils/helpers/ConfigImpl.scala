@@ -60,7 +60,8 @@ final class ConfigImpl extends Config {
   override val isPrototypeBannerVisible: Boolean = getProperty[Boolean]("prototype.disclaimer")
 
   // Prototype survey URL
-  override val prototypeSurveyUrl: String = getProperty[String]("survey.url") // could be optional
+  override val surveyUrl: String = getProperty[String]("survey.url")
+  override val privateKeeperSurveyUrl: String = getProperty[String]("private.survey.url")
   override val prototypeSurveyPrepositionInterval: Long = getDurationProperty("survey.interval")
 
   // Google analytics

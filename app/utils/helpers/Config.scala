@@ -52,7 +52,8 @@ trait Config extends VehicleLookupConfig {
   def isPrototypeBannerVisible: Boolean
 
   // Prototype survey URL
-  def prototypeSurveyUrl: String
+  def surveyUrl: String
+  def privateKeeperSurveyUrl: String
   def prototypeSurveyPrepositionInterval: Long
 
   // Google analytics

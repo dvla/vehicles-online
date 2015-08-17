@@ -54,7 +54,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
         disposeViewModel,
         disposeFormModel,
         disposeDateTime,
-        surveyUrl(request),
+        surveyUrl(request, isPrivateKeeper = isPrivateKeeper),
         newDisposeFormTarget,
         exitDisposeFormTarget
       )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
@@ -102,12 +102,14 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
 class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                           config: Config,
                           dateService: DateService)
-  extends (Request[_] => Option[String]) with DVLALogger {
+  extends ((Request[_], Boolean) => Option[String]) with DVLALogger {
 
-  def apply(request: Request[_]): Option[String] = {
-    def url = if (!config.prototypeSurveyUrl.trim.isEmpty)
-      Some(config.prototypeSurveyUrl.trim)
-    else None
+  def apply(request: Request[_], isPrivateKeeper: Boolean): Option[String] = {
+    def url =
+      if (isPrivateKeeper)
+        if (!config.privateKeeperSurveyUrl.trim.isEmpty) Some(config.privateKeeperSurveyUrl.trim) else None
+      else
+        if (!config.surveyUrl.trim.isEmpty) Some(config.surveyUrl.trim) else None
 
     request.cookies.getString(SurveyRequestTriggerDateCacheKey) match {
       case Some(lastSurveyMillis) =>

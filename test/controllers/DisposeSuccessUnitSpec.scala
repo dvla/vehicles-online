@@ -140,7 +140,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
 
       val disposeSuccess = disposeWithMockConfig(config)
 
-      contentAsString(disposeSuccess.present(requestFullyPopulated)) should include(config.prototypeSurveyUrl)
+      contentAsString(disposeSuccess.present(requestFullyPopulated)) should include(config.surveyUrl)
     }
 
     "not offer the survey for one just after the initial survey offering" in new WithApplication {
@@ -151,7 +151,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       val disposeSuccess = disposeWithMockConfig(config)
       contentAsString(disposeSuccess.present(
         requestFullyPopulated.withCookies(CookieFactoryForUnitSpecs.disposeSurveyUrl(aMomentAgo))
-      )) should not include config.prototypeSurveyUrl
+      )) should not include config.surveyUrl
     }
 
     "offer the survey one week after the first offering" in new WithApplication {
@@ -162,7 +162,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       val disposeSuccess = disposeWithMockConfig(config)
       contentAsString(disposeSuccess.present(
         requestFullyPopulated.withCookies(CookieFactoryForUnitSpecs.disposeSurveyUrl(moreThen7daysAgo))
-      )) should include(config.prototypeSurveyUrl)
+      )) should include(config.surveyUrl)
     }
 
     "not offer the survey one week after the first offering" in new WithApplication {
@@ -173,7 +173,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       val disposeSuccess = disposeWithMockConfig(config)
       contentAsString(disposeSuccess.present(
         requestFullyPopulated.withCookies(CookieFactoryForUnitSpecs.disposeSurveyUrl(lessThen7daysАgo))
-      )) should not include config.prototypeSurveyUrl
+      )) should not include config.surveyUrl
     }
 
     "not offer the survey if the survey url is not set in the config" in new WithApplication {
@@ -185,7 +185,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       val disposeSuccessFake = disposeWithMockConfig(config)
       val presentFake = disposeSuccessFake.present(requestFullyPopulated)
 
-      when(config.prototypeSurveyUrl).thenReturn("")
+      when(config.surveyUrl).thenReturn("")
       when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
       when(config.assetsUrl).thenReturn(None) // Stub this config value.
@@ -319,7 +319,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
   def mockSurveyConfig(url: String = "http://test/survery/url"): Config = {
     val config = mock[Config]
     val surveyUrl = url
-    when(config.prototypeSurveyUrl).thenReturn(surveyUrl)
+    when(config.surveyUrl).thenReturn(surveyUrl)
     when(config.prototypeSurveyPrepositionInterval).thenReturn(testDuration)
     when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
     when(config.assetsUrl).thenReturn(None) // Stub this config value.

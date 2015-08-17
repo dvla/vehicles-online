@@ -62,7 +62,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
         VehicleLookupViewModel(
           form.fill(),
           shouldDisplayExitButton(request, clientSideSessionFactory),
-          surveyUrl(request),
+          surveyUrl(request, isPrivateKeeper = isPrivateKeeper),
           traderDetails.traderName,
           traderDetails.traderAddress.address,
           submitTarget,
@@ -83,7 +83,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
           VehicleLookupViewModel(
             formWithReplacedErrors(invalidForm),
             shouldDisplayExitButton(request, clientSideSessionFactory),
-            surveyUrl(request),
+            surveyUrl(request, isPrivateKeeper = isPrivateKeeper),
             traderDetails.traderName,
             traderDetails.traderAddress.address,
             submitTarget,
