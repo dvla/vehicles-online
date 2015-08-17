@@ -7,6 +7,7 @@ import ProgressBar.progressStep
 import helpers.tags.UiTag
 import helpers.UiSpec
 import org.openqa.selenium.{By, WebElement, WebDriver}
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import pages.common.ErrorPanel
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
@@ -71,6 +72,29 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       csrf.getAttribute("type") should equal("hidden")
       csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
       csrf.getAttribute("value").size > 0 should equal(true)
+    }
+
+    "display the v5c image on the page with Javascript disabled" taggedAs UiTag in new WebBrowser {
+      go to BeforeYouStartPage
+      cacheSetup()
+
+      go to VehicleLookupPage
+      page.title should equal(VehicleLookupPage.title)
+
+      new WebDriverWait(webDriver, 3).until(ExpectedConditions.visibilityOfElementLocated(
+        By.xpath("//div[@data-tooltip='tooltip_documentReferenceNumber']"))
+      )
+    }
+
+    "put the v5c image in a tooltip with Javascript enabled" taggedAs UiTag in new WebBrowserWithJs {
+      go to BeforeYouStartPage
+      cacheSetup()
+
+      go to VehicleLookupPage
+      val v5c = By.xpath("//div[@data-tooltip='tooltip_documentReferenceNumber']")
+      val waiting = new WebDriverWait(webDriver, 3)
+      waiting.until(ExpectedConditions.presenceOfElementLocated(v5c))
+      waiting.until(ExpectedConditions.invisibilityOfElementLocated(v5c))
     }
   }
 

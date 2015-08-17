@@ -1,6 +1,6 @@
 #main
 main.banner = Gwerthu cerbyd i''r fasnach foduron
-main.banner.private = Wedi gwerthu cerbyd i'r fasnach modur
+main.banner.private = Wedi gwerthu cerbyd i’r masnach moduro
 
 #global
 global.cookiemessage = Mae GOV.UK yn defnyddio cwcis i wneud y safle''n fwy syml
@@ -16,9 +16,9 @@ global.buttonnavcancel = Canslwch
 global.buttonnavupdate = Diweddarwch
 global.buttonnavprint = Argraffwch
 
-global.serviceCloseWarning = Mae'r gwasanaeth hwn ar gael gan {0}:00 i {1}:00, mae gennych
-global.serviceCloseWarning.p2 = i gwblhau'r gwasanaeth hwn.
-global.serviceClosed = Gwasanaeth bellach wedi cau. Gwasanaeth ar gael {0}:00 i {1}:00
+global.serviceCloseWarning = Mae''r gwasanaeth hwn ar gael gan {0} i {1}, mae gennych
+global.serviceCloseWarning.p2 = i gwblhau''r gwasanaeth hwn.
+global.serviceClosed = Gwasanaeth bellach wedi cau. Gwasanaeth ar gael {0} i {1}
 
 global-please-wait-header = Os gwelwch yn dda aros
 global-please-wait-p1 = Hyn o bryd rydym yn derbyn nifer fawr o geisiadau sydd wedi arwain at ein perfformiad gwasanaeth yn arafach nag arfer.

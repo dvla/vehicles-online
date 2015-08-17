@@ -332,8 +332,6 @@ class Dispose @Inject()(webService: DisposeService, emailService: EmailService, 
       .to(email)
       .send(request.cookies.trackingId)
 
-    Logger.info(message2)
-
     SEND
       .email(Contents(message2, message2))
       .withSubject(s"Disposal Failure (2 of 2) ${transactionId}")
