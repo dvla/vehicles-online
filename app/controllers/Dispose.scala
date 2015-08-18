@@ -306,35 +306,68 @@ class Dispose @Inject()(webService: DisposeService, emailService: EmailService, 
 
     val dateTime = DateTime.parse(disposeRequest.transactionTimestamp).toString("dd/MM/yy HH:mm")
 
-    val message1 =
+    val htmlTemplateStart = (title: String) =>
       s"""
-         |Vehicle Registration:  ${disposeRequest.registrationNumber}
-         |Transaction ID:  ${transactionId}
-         |Date/Time of Transaction: ${dateTime}
+         |<!DOCTYPE html>
+         |<head>
+         |<title>${title}</title>
+         |</head>
+         |<body>
+         |<ul style="padding: 0; list-style-type: none;">
+       """.stripMargin
+
+    val htmlTemplateEnd =
+      s"""
+        |</ul>
+        |</body>
+        |</html>
       """.stripMargin
 
-    val message2 =
+    val message1Title = s"Disposal Failure (1 of 2) ${transactionId}"
+
+    val message1Template = (start: (String) => String, end: String, startLine: String, endLine: String) =>
+      start(message1Title) +
       s"""
-         |Trader Name:  ${disposeRequest.traderName}
-         |Trader Address:  ${disposeRequest.traderAddress.line.mkString("\n                 ")}
-         |                 ${disposeRequest.traderAddress.postTown.getOrElse("NOT ENTERED")}
-         |                 ${disposeRequest.traderAddress.postCode}
-         |Document Reference Number: ${disposeRequest.referenceNumber}
-         |Mileage: ${disposeRequest.mileage.getOrElse("NOT ENTERED")}
-         |Date of Sale:  ${DateTime.parse(disposeRequest.dateOfDisposal).toString("dd/MM/yy")}
-         |Transaction ID:  ${transactionId}
-         |Date/Time of Transaction:  ${dateTime}
-      """.stripMargin
+          |${startLine}Vehicle Registration:  ${disposeRequest.registrationNumber}${endLine}
+          |${startLine}Transaction ID:  ${transactionId}${endLine}
+          |${startLine}Date/Time of Transaction: ${dateTime}${endLine}
+      """.stripMargin +
+      end
+
+    val message1 = message1Template((_) => "", "", "", "")
+    val message1Html = message1Template(htmlTemplateStart, htmlTemplateEnd, "<li>", "</li>")
+
+    val message2Title = s"Disposal Failure (2 of 2) ${transactionId}"
+
+    val message2Template = (start: (String) => String, end: String, startLine: String, endLine: String,
+                            addressSep: String, addressPad: String) =>
+      start(message2Title) +
+      s"""
+          |${startLine}Trader Name:  ${disposeRequest.traderName}${endLine}
+          |${startLine}Trader Address:  ${disposeRequest.traderAddress.line.mkString(addressSep + addressPad)}${endLine}
+          |${addressPad}${disposeRequest.traderAddress.postTown.getOrElse("NOT ENTERED")}${endLine}
+          |${addressPad}${disposeRequest.traderAddress.postCode}${endLine}
+          |${startLine}Document Reference Number: ${disposeRequest.referenceNumber}${endLine}
+          |${startLine}Mileage: ${disposeRequest.mileage.getOrElse("NOT ENTERED")}${endLine}
+          |${startLine}Date of Sale:  ${DateTime.parse(disposeRequest.dateOfDisposal).toString("dd/MM/yy")}${endLine}
+          |${startLine}Transaction ID:  ${transactionId}${endLine}
+          |${startLine}Date/Time of Transaction:  ${dateTime}${endLine}
+      """.stripMargin +
+      end
+
+    val message2 = message2Template((_) => "", "", "", "", "\n", "                 ")
+    val message2Html = message2Template(htmlTemplateStart, htmlTemplateEnd,
+                                        "<li>", "</li>", "</li>", "<li style='padding-left: 8.5em'>")
 
     SEND
-      .email(Contents(message1, message1))
-      .withSubject(s"Disposal Failure (1 of 2) ${transactionId}")
+      .email(Contents(message1Html, message1))
+      .withSubject(message1Title)
       .to(email)
       .send(request.cookies.trackingId)
 
     SEND
-      .email(Contents(message2, message2))
-      .withSubject(s"Disposal Failure (2 of 2) ${transactionId}")
+      .email(Contents(message2Html, message2))
+      .withSubject(message2Title)
       .to(email)
       .send(request.cookies.trackingId)
   }
