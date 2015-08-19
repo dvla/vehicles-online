@@ -1,3 +1,12 @@
+======= 1.15 ========
+TIME OF RELEASE BINARIES CREATION:
+
+DE661 Java Script disabled - V5C image not being displayed
+US3506 Handle X0001 and W0075 errors
+US3663 Updated messages for closing warning and closed page
+US3709 Change sandbox to read unencrypted secrets
+US3726 Redirect dispose to the correct URL surveys
+
 ======= 1.14 ========
 TIME OF RELEASE BINARIES CREATION:
 Thu Aug 13 09:54:06 UTC 2015
