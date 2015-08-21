@@ -1,6 +1,5 @@
 package composition
 
-import org.mockito.Mockito._
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{booleanProp, getOptionalProperty, intProp}
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.EmailConfiguration
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig

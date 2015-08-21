@@ -1,7 +1,6 @@
 package controllers.priv
 
 import javax.inject.Inject
-
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 

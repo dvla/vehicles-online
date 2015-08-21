@@ -3,7 +3,7 @@ package controllers
 import com.google.inject.Inject
 import play.api.data.{FormError, Form}
 import play.api.i18n.Messages
-import play.api.mvc.{Action, AnyContent, Call, Controller}
+import play.api.mvc.{Action, AnyContent, Call}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.controllers.FeedbackBase

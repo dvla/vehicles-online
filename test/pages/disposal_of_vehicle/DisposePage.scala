@@ -1,13 +1,28 @@
 package pages.disposal_of_vehicle
 
-import models.DisposeFormModel.Form._
+//import models.DisposeFormModel.Form._
+import models.DisposeFormModel.Form.MileageId
+import models.DisposeFormModel.Form.DateOfDisposalId
+import models.DisposeFormModel.Form.ConsentId
+import models.DisposeFormModel.Form.EmailOptionId
+import models.DisposeFormModel.Form.LossOfRegistrationConsentId
+import models.DisposeFormModel.Form.TodaysDateOfDisposal
+import models.DisposeFormModel.Form.BackId
+import models.DisposeFormModel.Form.SubmitId
 import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.helpers
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser._
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.Checkbox
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.Element
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.Page
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.RadioButton
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.TelField
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebBrowserDSL
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebDriverFactory
 import common.mappings.OptionalToggle.Invisible
-import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
 object DisposePage extends Page with WebBrowserDSL {

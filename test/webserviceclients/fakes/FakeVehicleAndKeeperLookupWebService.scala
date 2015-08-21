@@ -13,7 +13,11 @@ import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeep
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 
 final class FakeVehicleAndKeeperLookupWebService extends VehicleAndKeeperLookupWebService {
-  import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService._
+  import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseVRMNotFound
+  import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseDocRefNumberNotLatest
+  import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsKeeperStillOnRecordResponseSuccess
+  import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseNotFoundResponseCode
+  import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.vehicleDetailsResponseSuccess
 
   override def invoke(request: VehicleAndKeeperLookupRequest, trackingId: TrackingId) = Future {
     val (responseStatus, response) = {
@@ -26,7 +30,8 @@ final class FakeVehicleAndKeeperLookupWebService extends VehicleAndKeeperLookupW
       }
     }
     val responseAsJson = Json.toJson(response)
-    new FakeResponse(status = responseStatus, fakeJson = Some(responseAsJson)) // Any call to a webservice will always return this successful response.
+    // Any call to a webservice will always return this successful response.
+    new FakeResponse(status = responseStatus, fakeJson = Some(responseAsJson))
   }
 }
 
@@ -42,7 +47,9 @@ object FakeVehicleAndKeeperLookupWebService {
   final val ConsentValid = "true"
   final val TransactionIdValid = "A1-100"
   final val VrmNotFound = VehicleAndKeeperLookupErrorMessage(code = "", message = "vehicle_lookup_vrm_not_found")
-  final val DocumentRecordMismatch = VehicleAndKeeperLookupErrorMessage(code = "", message = "vehicle_lookup_document_record_mismatch")
+  final val DocumentRecordMismatch = VehicleAndKeeperLookupErrorMessage(code = "",
+    message = "vehicle_lookup_document_record_mismatch"
+  )
   final val UnhandledException = VehicleAndKeeperLookupErrorMessage(code = "", message = "unhandled_exception")
   final val TransactionTimestampValid = new DateTime()
 

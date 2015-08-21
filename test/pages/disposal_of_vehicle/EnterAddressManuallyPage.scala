@@ -9,7 +9,10 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewMod
 import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import views.disposal_of_vehicle.EnterAddressManually
 import EnterAddressManually.{BackId, NextId}
-import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
+import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
+import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
+import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
+import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 
 object EnterAddressManuallyPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/enter-address-manually"

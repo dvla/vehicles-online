@@ -14,9 +14,9 @@ import play.api.mvc.{Action, Request}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
-import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
 import utils.helpers.Config
 
 class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -31,7 +31,6 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
 
   def present = Action { implicit request =>
 
-    val disposeFormModelOpt = request
     val result = for {
       traderDetails <- request.cookies.getModel[TraderDetailsModel]
       disposeFormModel <- request.cookies.getModel[DisposeFormModel]
@@ -59,8 +58,8 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
         exitDisposeFormTarget
       )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
     }
-
-    result getOrElse onMissingPresentCookies // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
+    // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
+    result getOrElse onMissingPresentCookies
   }
 
   def newDisposal = Action { implicit request =>
@@ -119,7 +118,7 @@ class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFa
         }
         else None
       case None =>
-        logMessage(request.cookies.trackingId(), Debug,s"Redirecting to survey $url")
+        logMessage(request.cookies.trackingId(), Debug, s"Redirecting to survey $url")
         url
     }
   }

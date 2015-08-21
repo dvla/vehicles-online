@@ -35,7 +35,7 @@ final class AddressViewModelSpec extends UnitSpec {
 
   "format" should {
     "serialize to json" in {
-      val address = AddressModel(
+      AddressModel(
         uprn = Some(KeeperUprnValid),
         address = Seq(BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid))
     }

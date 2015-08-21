@@ -17,11 +17,11 @@ class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideS
   protected val exitTarget = controllers.routes.BeforeYouStart.present()
 
   def present = Action { implicit request =>
-    logMessage(request.cookies.trackingId(), Debug, s"MicroService Error page")
+    logMessage(request.cookies.trackingId(), Debug, "MicroService Error page")
 
     val referer = request.headers.get(REFERER).getOrElse(defaultRedirectUrl)
-    logMessage(request.cookies.trackingId(), Debug,s"Referer $referer")
-    logMessage(request.cookies.trackingId(), Debug,s"Try again target $tryAgainTarget")
+    logMessage(request.cookies.trackingId(), Debug, s"Referer $referer")
+    logMessage(request.cookies.trackingId(), Debug, s"Try again target $tryAgainTarget")
 
     ServiceUnavailable(views.html.disposal_of_vehicle.micro_service_error(tryAgainTarget, exitTarget)).
       // Save the previous page URL (from the referrer header) into a cookie.
@@ -31,7 +31,9 @@ class MicroServiceError @Inject()(implicit clientSideSessionFactory: ClientSideS
   }
 
   def back = Action { implicit request =>
-    val referer: String = request.cookies.getString(MicroServiceError.MicroServiceErrorRefererCacheKey).getOrElse(defaultRedirectUrl)
+    val referer: String = request.cookies
+      .getString(MicroServiceError.MicroServiceErrorRefererCacheKey)
+      .getOrElse(defaultRedirectUrl)
     Redirect(referer).discardingCookie(MicroServiceError.MicroServiceErrorRefererCacheKey)
   }
 }

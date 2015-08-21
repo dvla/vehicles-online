@@ -11,7 +11,6 @@ import org.openqa.selenium.{By, WebDriver, WebElement}
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.DisposeSuccessPage.{exitDisposal, newDisposal}
-import pages.disposal_of_vehicle.DisposeSuccessForPrivateKeeperPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
@@ -103,8 +102,9 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       go to DisposeSuccessPage
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
-      csrf.getAttribute("value").size > 0 should equal(true)
+      csrf.getAttribute("name") should
+        equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("value").nonEmpty should equal(true)
     }
   }
 

@@ -43,7 +43,7 @@ final class ApplicationUnitSpec extends UnitSpec {
     {
       Helpers.running(app) {
         try AsResult.effectively(t)
-        finally app.routes.map(_.setPrefix("/"))
+        finally app.routes.foreach(_.setPrefix("/"))
       }
     }
   }

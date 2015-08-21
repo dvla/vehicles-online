@@ -25,7 +25,7 @@ class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSe
       vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
       transactionId <- request.cookies.getString(DisposeFormTransactionIdCacheKey)
     } yield {
-        logMessage(request.cookies.trackingId(), Info, s"Presenet disposeFailure page")
+        logMessage(request.cookies.trackingId(), Info, "Presenet disposeFailure page")
         val disposeViewModel = createViewModel(dealerDetails, vehicleDetails, Some(transactionId))
         Ok(views.html.disposal_of_vehicle.dispose_failure_private(
           disposeViewModel.transactionId,
@@ -36,8 +36,8 @@ class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSe
       }
 
     result getOrElse {
-      logMessage(request.cookies.trackingId(), Debug, s"Could not find all expected data in cache on dispose failure present, " +
-        s"redirecting to $onMissingCookies")
+      logMessage(request.cookies.trackingId(), Debug, "Could not find all expected data in cache on dispose " +
+        "failure present, redirecting to $onMissingCookies")
       onMissingCookies
     }
   }
@@ -54,4 +54,3 @@ class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSe
       transactionId = transactionId
     )
 }
-

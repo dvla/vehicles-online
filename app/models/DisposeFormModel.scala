@@ -10,7 +10,7 @@ import common.mappings.Mileage.mileage
 import common.clientsidesession.CacheKey
 import common.services.DateService
 import common.mappings.Date.{dateMapping, notBefore, notInTheFuture}
-import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
+import uk.gov.dvla.vehicles.presentation.common.mappings.Email.emailConfirm
 import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 
 final case class DisposeFormModel(mileage: Option[Int],

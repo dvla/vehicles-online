@@ -2,10 +2,12 @@ package webserviceclients.dispose_service
 
 import play.api.libs.json.Json
 import helpers.{WithApplication, UnitSpec}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClearTextClientSideSessionFactory, NoCookieFlags}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.NoCookieFlags
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import helpers.WireMockFixture
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
-import webserviceclients.dispose.{DisposeConfig, DisposalAddressDto, DisposeRequestDto, DisposeWebServiceImpl}
+import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeWebServiceImpl}
 import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
 
 class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {

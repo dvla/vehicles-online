@@ -1,8 +1,9 @@
 package controllers.priv
 
 import controllers.SurveyUrl
-import models.DisposeFormModel._
 import com.google.inject.Inject
+import models.AllCacheKeys
+import models.DisposeCacheKeys
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModelPrivate.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModelPrivate.DisposeFormTimestampIdCacheKey
@@ -10,7 +11,9 @@ import models.DisposeFormModelPrivate.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModelPrivate.DisposeOccurredCacheKey
 import models.DisposeFormModelPrivate.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModelPrivate.SurveyRequestTriggerDateCacheKey
-import models._
+import models.DisposeFormModelPrivate
+import models.DisposeOnlyCacheKeys
+import models.DisposeViewModel
 import org.joda.time.format.DateTimeFormat
 import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
@@ -29,11 +32,10 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   protected val exitDisposeFormTarget = routes.DisposeSuccess.exit()
   protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
   protected val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
-  protected val onNewDispose = Redirect(controllers.routes.BeforeYouStart.present)
+  protected val onNewDispose = Redirect(controllers.routes.BeforeYouStart.present())
 
   def present = Action { implicit request =>
 
-    val disposeFormModelOpt = request
     val result = for {
       traderDetails <- request.cookies.getModel[TraderDetailsModel]
       disposeFormModel <- request.cookies.getModel[DisposeFormModelPrivate]
@@ -62,7 +64,8 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
         )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
       }
 
-    result getOrElse onMissingPresentCookies // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
+    // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
+    result getOrElse onMissingPresentCookies
   }
 
   def newDisposal = Action { implicit request =>
@@ -87,7 +90,6 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   }
 
   private def createViewModel(traderDetails: TraderDetailsModel,
-                              //disposeFormModel: DisposeFormModel,
                               vehicleDetails: VehicleAndKeeperDetailsModel,
                               transactionId: Option[String],
                               registrationNumber: String): DisposeViewModel =
@@ -100,27 +102,3 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       registrationNumber = registrationNumber
     )
 }
-
-//class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-//                          config: Config,
-//                          dateService: DateService)
-//  extends (Request[_] => Option[String]) {
-//
-//  def apply(request: Request[_]): Option[String] = {
-//    def url = if (!config.prototypeSurveyUrl.trim.isEmpty)
-//      Some(config.prototypeSurveyUrl.trim)
-//    else None
-//
-//    request.cookies.getString(SurveyRequestTriggerDateCacheKey) match {
-//      case Some(lastSurveyMillis) =>
-//        if ((lastSurveyMillis.toLong + config.prototypeSurveyPrepositionInterval) < dateService.now.getMillis) {
-//          Logger.debug(logMessage(s"Redirecting to survey $url", request.cookies.trackingId()))
-//          url
-//        }
-//        else None
-//      case None =>
-//        Logger.debug(logMessage(s"Redirecting to survey $url", request.cookies.trackingId()))
-//        url
-//    }
-//  }
-//}

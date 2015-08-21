@@ -18,7 +18,9 @@ final class FakeBruteForcePreventionWebServiceImpl() extends BruteForcePreventio
     }
   }
 
-  override def reset(vrm: String, trackingId: TrackingId): Future[WSResponse] = Future.successful { FakeResponse(status = OK) }
+  override def reset(vrm: String, trackingId: TrackingId): Future[WSResponse] = Future.successful {
+    FakeResponse(status = OK)
+  }
 }
 
 object FakeBruteForcePreventionWebServiceImpl {

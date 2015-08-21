@@ -23,7 +23,10 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClearTextClientSideSession, ClientSideSessionFactory, CookieFlags}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSession
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieFlags
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import common.model.AddressModel
 import common.model.BruteForcePreventionModel
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
@@ -42,7 +45,9 @@ import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
-import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.TransactionIdValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.ReferenceNumberValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid

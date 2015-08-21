@@ -7,8 +7,7 @@ import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import play.api.data.{Form, FormError}
 import play.api.i18n.Lang
-import play.api.Logger
-import play.api.mvc.{Action, Controller, Request, Result}
+import play.api.mvc.{Action, Request, Result}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
@@ -92,7 +91,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                 ))
             }
           case None => Future.successful {
-            logMessage(request.cookies.trackingId(), Error, s"Failed to find dealer details, redirecting")
+            logMessage(request.cookies.trackingId(), Error, "Failed to find dealer details, redirecting")
             redirectBack
           }
         },
@@ -105,7 +104,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
             else
               lookupAddressByPostcodeThenIndex(validForm, setupTradeDetailsModel)
           case None => Future {
-            logMessage(request.cookies.trackingId(), Error, s"Failed to find dealer details, redirecting")
+            logMessage(request.cookies.trackingId(), Error, "Failed to find dealer details, redirecting")
             onMissingTraderDetails
           }
         }
@@ -120,11 +119,18 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
 
   private def formWithReplacedErrors(form: Form[BusinessChooseYourAddressFormModel])(implicit request: Request[_]) =
     form.replaceError(AddressSelectId, "error.required",
-      FormError(key = AddressSelectId, message = "disposal_businessChooseYourAddress.address.required", args = Seq.empty)).
-      distinctErrors
+      FormError(key = AddressSelectId,
+        message = "disposal_businessChooseYourAddress.address.required",
+        args = Seq.empty
+      )
+    ).distinctErrors
 
-  private def fetchAddresses(model: SetupTradeDetailsFormModel, showBusinessName: Option[Boolean])(implicit session: ClientSideSession, lang: Lang) =
-    addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId, showBusinessName = showBusinessName)
+  private def fetchAddresses(model: SetupTradeDetailsFormModel, showBusinessName: Option[Boolean])
+                            (implicit session: ClientSideSession, lang: Lang) =
+    addressLookupService.fetchAddressesForPostcode(model.traderPostcode,
+      session.trackingId,
+      showBusinessName = showBusinessName
+    )
 
   private def lookupUprn(model: BusinessChooseYourAddressFormModel, traderName: String)
                         (implicit request: Request[_], session: ClientSideSession) = {
@@ -135,8 +141,12 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     }
   }
 
-  private def lookupAddressByPostcodeThenIndex(model: BusinessChooseYourAddressFormModel, setupBusinessDetailsForm: SetupTradeDetailsFormModel)
-                                              (implicit request: Request[_], session: ClientSideSession): Future[Result] = {
+  private def lookupAddressByPostcodeThenIndex(model: BusinessChooseYourAddressFormModel,
+                                               setupBusinessDetailsForm: SetupTradeDetailsFormModel
+                                                )
+                                              (implicit request: Request[_],
+                                               session: ClientSideSession
+                                                ): Future[Result] = {
     fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
       val indexSelected = model.uprnSelected.toInt
       if (indexSelected < addresses.length) {

@@ -66,7 +66,8 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
     "display expected addresses in dropdown when address service returns addresses" taggedAs UiTag in new WebBrowser {
       SetupTradeDetailsPage.happyPath()
 
-      BusinessChooseYourAddressPage.getListCount should equal(4) // The first option is the "Please select..." and the other options are the addresses.
+      // The first option is the "Please select..." and the other options are the addresses.
+      BusinessChooseYourAddressPage.getListCount should equal(4)
       page.source should include(
         s"presentationProperty stub, 123, property stub, street stub, town stub, area stub, $PostcodeValid"
       )
@@ -89,8 +90,9 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       SetupTradeDetailsPage.happyPath()
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
-      csrf.getAttribute("value").size > 0 should equal(true)
+      csrf.getAttribute("name") should
+        equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("value").nonEmpty should equal(true)
     }
 
     "not display any links to change language" taggedAs UiTag in new WebBrowser {
@@ -155,7 +157,8 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "remove redundant EnterAddressManually cookie (as we are now in an alternate history)" taggedAs UiTag in new PhantomJsByDefault {
+    "remove redundant EnterAddressManually cookie " +
+      "(as we are now in an alternate history)" taggedAs UiTag in new PhantomJsByDefault {
       def cacheSetupVisitedEnterAddressManuallyPage()(implicit webDriver: WebDriver) =
         CookieFactoryForUISpecs.setupTradeDetails().enterAddressManually()
 

@@ -11,7 +11,7 @@ final class FakeResponse(override val status: Int,
                          fakeXml: Option[Elem] = None,
                          fakeJson: Option[JsValue] = None) extends WSResponse {
 
-  def allHeaders: Map[String, Seq[String]] = headers.map { case (k, v) => k -> Seq(v) }.toMap
+  def allHeaders: Map[String, Seq[String]] = headers.map { case (k, v) => k -> Seq(v) }
   def underlying[T]: T = ???
   def cookies: Seq[WSCookie] = Nil
 
@@ -21,7 +21,8 @@ final class FakeResponse(override val status: Int,
 
   override lazy val body: String = fakeBody.getOrElse("")
   override lazy val xml: Elem = fakeXml.get
-  override lazy val json: JsValue = fakeJson.get // Beware that if you constructed with the default then calling this will throw an exception.
+  // Beware that if you constructed with the default then calling this will throw an exception.
+  override lazy val json: JsValue = fakeJson.get
 }
 
 object FakeResponse {

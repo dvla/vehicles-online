@@ -3,6 +3,7 @@ package composition
 import com.google.inject.name.Names
 import com.tzavellas.sse.guice.ScalaModule
 import play.api.{Logger, LoggerLike}
+import utils.helpers.Config
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.AesEncryption
 import common.clientsidesession.ClearTextClientSideSessionFactory
@@ -31,11 +32,10 @@ import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWeb
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebServiceImpl
 import webserviceclients.emailservice.{EmailService, EmailServiceImpl}
 import webserviceclients.emailservice.{EmailServiceWebService, EmailServiceWebServiceImpl}
-import utils.helpers.Config
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
 /**
- * Provides real implementations of traits
+  * Provides real implementations of traits
  * Note the use of sse-guice, which is a library that makes the Guice internal DSL more scala friendly
  * eg we can write this:
  * bind[Service].to[ServiceImpl].in[Singleton]
@@ -51,8 +51,12 @@ class DevModule extends ScalaModule {
 
     getProperty[String]("addressLookupService.type") match {
       case "ordnanceSurvey" =>
-        bind[AddressLookupService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl].asEagerSingleton()
-        bind[AddressLookupWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.WebServiceImpl].asEagerSingleton()
+        bind[AddressLookupService]
+          .to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl]
+          .asEagerSingleton()
+        bind[AddressLookupWebService]
+          .to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.WebServiceImpl]
+          .asEagerSingleton()
       case _ =>
         bind[AddressLookupService].to[AddressLookupServiceImpl].asEagerSingleton()
         bind[AddressLookupWebService].to[WebServiceImpl].asEagerSingleton()
@@ -69,7 +73,9 @@ class DevModule extends ScalaModule {
 
     bindSessionFactory()
 
-    bind[BruteForcePreventionWebService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.WebServiceImpl].asEagerSingleton()
+    bind[BruteForcePreventionWebService]
+      .to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.bruteforceprevention.WebServiceImpl]
+      .asEagerSingleton()
     bind[BruteForcePreventionService].to[BruteForcePreventionServiceImpl].asEagerSingleton()
     bind[LoggerLike].annotatedWith(Names.named(AccessLoggerName)).toInstance(Logger("dvla.common.AccessLogger"))
     bind[AccessLoggingConfig].toInstance(new DefaultAccessLoggingConfig())

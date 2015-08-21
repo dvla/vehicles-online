@@ -10,4 +10,4 @@ case class BusinessChooseYourAddressViewModel(businessChooseYourAddressForm: For
                                               dropDownOptions: Seq[(String, String)],
                                               submit: Call,
                                               manualAddressEntry: Call,
-                                              back: Call = routes.SetUpTradeDetails.present)
+                                              back: Call = routes.SetUpTradeDetails.present())

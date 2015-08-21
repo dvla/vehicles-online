@@ -5,14 +5,13 @@ import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
-import pages.common.Feedback.mailto
 import pages.disposal_of_vehicle.BeforeYouStartPage
-import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 final class MainUiSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the 'Cymraeg' language button and not the 'English' language button when the play language cookie has value 'en'" taggedAs UiTag in new WebBrowser {
+    "display the 'Cymraeg' language button and not the 'English' language button when the play language " +
+      "cookie has value 'en'" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage // By default will load in English.
       CookieFactoryForUISpecs.withLanguageEn()
       go to BeforeYouStartPage
@@ -21,7 +20,8 @@ final class MainUiSpec extends UiSpec with TestHarness {
       isEnglishDisplayed should equal(false)
     }
 
-    "display the 'English' language button and not the 'Cymraeg' language button when the play language cookie has value 'cy'" taggedAs UiTag in new WebBrowser {
+    "display the 'English' language button and not the 'Cymraeg' language button when the play language " +
+      "cookie has value 'cy'" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage // By default will load in English.
       CookieFactoryForUISpecs.withLanguageCy()
       go to BeforeYouStartPage
@@ -30,21 +30,13 @@ final class MainUiSpec extends UiSpec with TestHarness {
       isEnglishDisplayed should equal(true)
     }
 
-    "display the 'Cymraeg' language button and not the 'English' language button when the play language cookie does not exist (assumption that the browser default language is English)" taggedAs UiTag in new WebBrowser {
+    "display the 'Cymraeg' language button and not the 'English' language button when the play language cookie " +
+      "does not exist (assumption that the browser default language is English)" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
 
       isCymraegDisplayed should equal(true)
       isEnglishDisplayed should equal(false)
     }
-
-    // this is not a valid text anymore
-//    "display mailto link that specifies a subject" taggedAs UiTag in new WebBrowser {
-//      go to BeforeYouStartPage
-//
-//      val result = mailto.attribute("href").get
-//      result should include("mailto:")
-//      result should include("Subject=")
-//    }
 
     abstract class PrototypeFalse extends WebBrowser(app = fakeAppWithPrototypeFalse)
 
@@ -56,5 +48,4 @@ final class MainUiSpec extends UiSpec with TestHarness {
   }
 
   private val fakeAppWithPrototypeFalse = LightFakeApplication(TestGlobal,Map("prototype.disclaimer" -> "false"))
-
 }

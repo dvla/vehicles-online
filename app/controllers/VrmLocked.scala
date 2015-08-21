@@ -32,7 +32,8 @@ class VrmLocked @Inject()()(implicit protected override val clientSideSessionFac
     ))
 
   protected override def missingBruteForcePreventionCookie(implicit request: Request[_]): Result = {
-    logMessage(request.cookies.trackingId(), Error, s"Failed to find brute force prevention cookie, redirecting to $bruteForceCookieMissing")
+    logMessage(request.cookies.trackingId(), Error,
+      s"Failed to find brute force prevention cookie, redirecting to $bruteForceCookieMissing")
     bruteForceCookieMissing
   }
 

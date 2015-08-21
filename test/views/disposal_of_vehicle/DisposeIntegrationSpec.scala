@@ -27,7 +27,6 @@ import pages.disposal_of_vehicle.DisposePage.useTodaysDate
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import play.api.test.FakeApplication
 import ProgressBar.progressStep
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
@@ -96,8 +95,10 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to DisposePage
       val csrf = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
-      csrf.getAttribute("value").size > 0 should equal(true)
+      csrf.getAttribute("name") should equal(
+        uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName
+      )
+      csrf.getAttribute("value").nonEmpty should equal(true)
     }
   }
 
@@ -113,7 +114,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }
 
     // This test needs to run with javaScript enabled.
-    "display DisposeSuccess page on correct submission with javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
+    "display DisposeSuccess page on correct submission with " +
+      "javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
 
@@ -128,7 +130,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }
 
     // This test needs to run with javaScript enabled.
-    "display DisposeSuccess page on correct submission when a user auto populates the date of disposal with javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
+    "display DisposeSuccess page on correct submission when a user auto populates " +
+      "the date of disposal with javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
       go to DisposePage
@@ -206,7 +209,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "display validation errors when day month and year are not input but all other mandatory fields have been" taggedAs UiTag in new WebBrowser {
+    "display validation errors when day month and year are not input but all " +
+      "other mandatory fields have been" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
@@ -254,7 +258,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.hasErrors should equal(false)
     }*/
 
-    "display one validation error message when milage has non-numeric (Html5Validation disabled)" taggedAs UiTag in new WebBrowser(app = fakeAppWithHtml5ValidationDisabledConfig) {
+    "display one validation error message when milage has non-numeric (Html5Validation disabled)" taggedAs UiTag in
+      new WebBrowser(app = fakeAppWithHtml5ValidationDisabledConfig) {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
@@ -314,8 +319,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       dealerDetails().
       vehicleAndKeeperDetailsModel()
 
-  private val fakeAppWithHtml5ValidationEnabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> true))
 
-  private val fakeAppWithHtml5ValidationDisabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
+  private val fakeAppWithHtml5ValidationDisabledConfig =
+    LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
 
 }

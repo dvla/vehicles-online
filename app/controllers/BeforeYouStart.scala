@@ -2,7 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import models.AllCacheKeys
-import play.api.mvc.{Action}
+import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
@@ -19,7 +19,8 @@ class BeforeYouStart @Inject()()(implicit clientSideSessionFactory: ClientSideSe
   }
 
   def submit = Action { implicit request =>
-    logMessage(request.cookies.trackingId(), Debug, s"Redirecting from BeforeYouStart to ${routes.SetUpTradeDetails.present()}")
+    logMessage(request.cookies.trackingId(), Debug,
+      s"Redirecting from BeforeYouStart to ${routes.SetUpTradeDetails.present()}")
     Redirect(routes.SetUpTradeDetails.present())
   }
 }

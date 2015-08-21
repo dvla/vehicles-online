@@ -11,6 +11,5 @@ object CookieHelper {
     val discardingCookies = discardingCookiesKeys.map(DiscardingCookie(_)).toSeq
     Redirect(routes.BeforeYouStart.present())
       .discardingCookies(discardingCookies: _*)
-
   }
 }

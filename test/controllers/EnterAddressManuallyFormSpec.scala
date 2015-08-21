@@ -9,7 +9,10 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewMod
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line3Id
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.PostTownId
-import webserviceclients.fakes.FakeAddressLookupService.{BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid}
+import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
+import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
+import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
+import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 
 class EnterAddressManuallyFormSpec extends UnitSpec {
 
@@ -43,7 +46,11 @@ class EnterAddressManuallyFormSpec extends UnitSpec {
     }
 
     "reject when all fields are blank" in new WithApplication {
-      formWithValidDefaults(buildingNameOrNumber = "", line2 = "", line3 = "", postTown = "").errors should have length 4
+      formWithValidDefaults(buildingNameOrNumber = "",
+        line2 = "",
+        line3 = "",
+        postTown = ""
+      ).errors should have length 4
     }
 
     "reject if post town is blank" in new WithApplication {

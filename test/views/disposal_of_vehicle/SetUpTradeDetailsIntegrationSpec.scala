@@ -36,11 +36,13 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
       go to SetupTradeDetailsPage
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
-      csrf.getAttribute("value").size > 0 should equal(true)
+      csrf.getAttribute("name") should
+        equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("value").nonEmpty should equal(true)
     }
 
-    "display the 'Cymraeg' language button and not the 'English' language button when the language cookie is set to 'en'" taggedAs UiTag in new WebBrowser {
+    "display the 'Cymraeg' language button and not the 'English' language button when the language " +
+      "cookie is set to 'en'" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage // By default will load in English.
       CookieFactoryForUISpecs.withLanguageEn()
       go to SetupTradeDetailsPage
@@ -49,7 +51,8 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
       isEnglishDisplayed should equal(false)
     }
 
-    "display the 'English' language button and not the 'Cymraeg' language button when the language cookie is set to 'cy'" taggedAs UiTag in new WebBrowser {
+    "display the 'English' language button and not the 'Cymraeg' language button when the language " +
+      "cookie is set to 'cy'" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage // By default will load in English.
       CookieFactoryForUISpecs.withLanguageCy()
       go to SetupTradeDetailsPage
@@ -80,12 +83,14 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
       Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderNameId) should equal(true)
     }
 
-    "add aria required attribute to trader postcode field when required field not input" taggedAs UiTag in new WebBrowser {
+    "add aria required attribute to trader postcode field when required field not input" taggedAs UiTag in
+      new WebBrowser {
       happyPath(traderBusinessPostcode = "")
       Accessibility.ariaRequiredPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }
 
-    "add aria invalid attribute to trader postcode field when required field not input" taggedAs UiTag in new WebBrowser {
+    "add aria invalid attribute to trader postcode field when required field not input" taggedAs UiTag in
+      new WebBrowser {
       happyPath(traderBusinessPostcode = "")
       Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }

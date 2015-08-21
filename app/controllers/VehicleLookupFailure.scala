@@ -23,7 +23,8 @@ class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: Client
   protected val success = Redirect(routes.VehicleLookup.present())
   override val vehicleLookupResponseCodeCacheKey: String = VehicleLookupResponseCodeCacheKey
 
-  override def presentResult(model: VehicleLookupFormModel, responseCode: String)(implicit request: Request[_]): Result =
+  override def presentResult(model: VehicleLookupFormModel, responseCode: String)
+                            (implicit request: Request[_]): Result =
     request.cookies.getModel[TraderDetailsModel] match {
       case Some(dealerDetails) =>
         Ok(views.html.disposal_of_vehicle.vehicle_lookup_failure(
@@ -36,24 +37,26 @@ class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: Client
     }
 
   override def missingPresentCookieDataResult()(implicit request: Request[_]): Result = {
-    logMessage(request.cookies.trackingId(), Error, s"Failed to find cookie details, redirecting to ${routes.SetUpTradeDetails.present()}")
+    logMessage(request.cookies.trackingId(), Error,
+      s"Failed to find cookie details, redirecting to ${routes.SetUpTradeDetails.present()}")
     missingPresentCookieData
   }
 
   override def submitResult()(implicit request: Request[_]): Result =
     request.cookies.getModel[TraderDetailsModel] match {
-      case Some(dealerDetails) => {
-        logMessage(request.cookies.trackingId(), Info, s"Failed to find vehicle details, redirecting to ${routes.VehicleLookup.present()}")
+      case Some(dealerDetails) =>
+        logMessage(request.cookies.trackingId(), Info,
+          s"Failed to find vehicle details, redirecting to ${routes.VehicleLookup.present()}")
         success
-      }
-      case _ => {
-        logMessage(request.cookies.trackingId(), Info, s"Failed to find dealer details, redirecting to ${routes.SetUpTradeDetails.present()}")
+      case _ =>
+        logMessage(request.cookies.trackingId(), Info,
+          s"Failed to find dealer details, redirecting to ${routes.SetUpTradeDetails.present()}")
         missingSubmitCookieDataResult
-      }
     }
 
   override def missingSubmitCookieDataResult()(implicit request: Request[_]): Result = {
-    logMessage(request.cookies.trackingId(), Error, s"Failed to find cookie details, redirecting to ${routes.BeforeYouStart.present()}")
+    logMessage(request.cookies.trackingId(), Error,
+      s"Failed to find cookie details, redirecting to ${routes.BeforeYouStart.present()}")
     missingSubmitCookieData
   }
 }
