@@ -4,18 +4,18 @@ import play.api.http.Status.OK
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
-import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupWebService
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.Address
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.Details
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.Location
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.Presentation
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.PostcodeToAddressResponseDto
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.UprnAddressPairDto
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.UprnToAddressResponseDto
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.TrackingId
+import common.model.AddressModel
+import common.webserviceclients.addresslookup.AddressLookupWebService
+import common.webserviceclients.addresslookup.gds.domain.Address
+import common.webserviceclients.addresslookup.gds.domain.Details
+import common.webserviceclients.addresslookup.gds.domain.Location
+import common.webserviceclients.addresslookup.gds.domain.Presentation
+import common.webserviceclients.addresslookup.ordnanceservey.PostcodeToAddressResponseDto
+import common.webserviceclients.addresslookup.ordnanceservey.UprnAddressPairDto
+import common.webserviceclients.addresslookup.ordnanceservey.UprnToAddressResponseDto
 import scala.concurrent.Future
-
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeWithoutAddresses}
 
 final class FakeAddressLookupWebServiceImpl(responseOfPostcodeWebService: Future[WSResponse],

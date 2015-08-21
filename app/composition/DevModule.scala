@@ -30,6 +30,8 @@ import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupSer
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebServiceImpl
+import common.webserviceclients.addresslookup.ordnanceservey.{AddressLookupServiceImpl => OrdnanceSurveyServiceImpl}
+import common.webserviceclients.addresslookup.ordnanceservey.{WebServiceImpl => OrdnanceSurveyWebServiceImpl}
 import webserviceclients.emailservice.{EmailService, EmailServiceImpl}
 import webserviceclients.emailservice.{EmailServiceWebService, EmailServiceWebServiceImpl}
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
@@ -52,10 +54,10 @@ class DevModule extends ScalaModule {
     getProperty[String]("addressLookupService.type") match {
       case "ordnanceSurvey" =>
         bind[AddressLookupService]
-          .to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl]
+          .to[OrdnanceSurveyServiceImpl]
           .asEagerSingleton()
         bind[AddressLookupWebService]
-          .to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.WebServiceImpl]
+          .to[OrdnanceSurveyWebServiceImpl]
           .asEagerSingleton()
       case _ =>
         bind[AddressLookupService].to[AddressLookupServiceImpl].asEagerSingleton()

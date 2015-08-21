@@ -1,5 +1,6 @@
 package views.disposal_of_vehicle
 
+
 import composition.TestHarness
 import helpers.common.ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
