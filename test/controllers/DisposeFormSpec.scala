@@ -16,9 +16,11 @@ import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, Mo
 import uk.gov.dvla.vehicles.presentation.common.mappings.{OptionalToggle, Mileage}
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendRequest
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendResponse
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
-import webserviceclients.emailservice.{EmailService, EmailServiceSendRequest, EmailServiceSendResponse}
 import webserviceclients.dispose.{DisposeConfig, DisposeRequestDto, DisposeServiceImpl, DisposeWebService}
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid

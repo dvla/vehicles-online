@@ -42,9 +42,11 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, C
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendRequest
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendResponse
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
-import webserviceclients.emailservice.{EmailService, EmailServiceSendRequest, EmailServiceSendResponse}
 import webserviceclients.dispose.DisposalAddressDto
 import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
 import webserviceclients.dispose.DisposeRequestDto

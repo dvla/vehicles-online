@@ -32,8 +32,8 @@ import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWeb
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebServiceImpl
 import common.webserviceclients.addresslookup.ordnanceservey.{AddressLookupServiceImpl => OrdnanceSurveyServiceImpl}
 import common.webserviceclients.addresslookup.ordnanceservey.{WebServiceImpl => OrdnanceSurveyWebServiceImpl}
-import webserviceclients.emailservice.{EmailService, EmailServiceImpl}
-import webserviceclients.emailservice.{EmailServiceWebService, EmailServiceWebServiceImpl}
+import common.webserviceclients.emailservice.{EmailService, EmailServiceImpl}
+import common.webserviceclients.emailservice.{EmailServiceWebService, EmailServiceWebServiceImpl}
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
 
 /**

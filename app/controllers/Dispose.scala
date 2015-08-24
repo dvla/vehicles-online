@@ -12,15 +12,15 @@ import org.joda.time.{DateTime, DateTimeZone}
 import org.joda.time.format.ISODateTimeFormat
 import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, AnyContent, Call, Request, Result}
-import uk.gov.dvla.vehicles.presentation.common
-import webserviceclients.emailservice.EmailService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common
+import common.webserviceclients.emailservice.EmailService
+import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import common.LogFormats.anonymize
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
-import uk.gov.dvla.vehicles.presentation.common.services.{SEND, DateService}
+import common.services.{SEND, DateService}
 import common.views.helpers.FormExtensions.formBinding
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.dispose

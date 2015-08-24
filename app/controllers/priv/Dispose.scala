@@ -17,14 +17,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
+import common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import common.LogFormats.anonymize
+import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
+import common.services.{SEND, DateService}
 import common.views.helpers.FormExtensions.formBinding
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
-import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
-import uk.gov.dvla.vehicles.presentation.common.services.{SEND, DateService}
+import common.webserviceclients.emailservice.EmailService
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.dispose_private
-import webserviceclients.emailservice.EmailService
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 
 class Dispose @Inject()(webService: DisposeService, dateService: DateService, emailService: EmailService)
