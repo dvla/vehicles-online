@@ -147,7 +147,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                                               (implicit request: Request[_],
                                                session: ClientSideSession
                                                 ): Future[Result] = {
-    fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
+    fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(true))(session, request2lang).map { addresses =>
       val indexSelected = model.uprnSelected.toInt
       if (indexSelected < addresses.length) {
         val lookedUpAddresses = index(addresses)
