@@ -28,7 +28,7 @@ class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       enterAddressManually().
       dealerDetails().
       vehicleAndKeeperDetailsModel().
-      disposeFormPrivateModel().
+      privateDisposeFormModel().
       disposeTransactionId().
       vehicleRegistrationNumber().
       disposeFormTimestamp()

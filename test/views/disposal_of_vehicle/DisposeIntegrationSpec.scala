@@ -5,7 +5,8 @@ import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
-import models.DisposeFormModel.Form.TodaysDateOfDisposal
+import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
+import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.concurrent.Eventually.{eventually, PatienceConfig, scaled}
 import org.scalatest.time.{Seconds, Span}
@@ -99,6 +100,14 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
         uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName
       )
       csrf.getAttribute("value").nonEmpty should equal(true)
+    }
+
+    "not display optional email" taggedAs UiTag in new WebBrowser {
+      go to BeforeYouStartPage
+      cacheSetup()
+
+      go to DisposePage
+      webDriver.findElements(By.id(EmailOptionId)).isEmpty should be (true)
     }
   }
 
@@ -289,7 +298,6 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "javascript disabled" should {
-    // This test needs to run with javaScript enabled.
     "not display the Use Todays Date checkbox" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup().

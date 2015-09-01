@@ -118,7 +118,8 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
   }
 
   private def formWithReplacedErrors(form: Form[BusinessChooseYourAddressFormModel])(implicit request: Request[_]) =
-    form.replaceError(AddressSelectId, "error.required",
+    form.replaceError(
+      AddressSelectId, "error.required",
       FormError(key = AddressSelectId,
         message = "disposal_businessChooseYourAddress.address.required",
         args = Seq.empty

@@ -14,8 +14,7 @@ import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.DisposeFormModelCacheKey
-import models.DisposeFormModelPrivate
-import models.DisposeFormModelPrivate.DisposeFormPrivateModelCacheKey
+import models.PrivateDisposeFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
@@ -180,9 +179,9 @@ object CookieFactoryForUISpecs {
     this
   }
 
-  def disposeFormPrivateModel()(implicit webDriver: WebDriver) = {
-    val key = DisposeFormPrivateModelCacheKey
-    val value = DisposeFormModelPrivate(mileage = None,
+  def privateDisposeFormModel()(implicit webDriver: WebDriver) = {
+    val key = models.PrivateDisposeFormModel.PrivateDisposeFormModelCacheKey
+    val value = PrivateDisposeFormModel(mileage = None,
       dateOfDisposal = new LocalDate(),
       email = None,
       consent = FakeDisposeWebServiceImpl.ConsentValid,

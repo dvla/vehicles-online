@@ -10,85 +10,83 @@ import common.mappings.Mileage.mileage
 import common.clientsidesession.CacheKey
 import common.services.DateService
 import common.mappings.Date.{dateMapping, notBefore, notInTheFuture}
-import uk.gov.dvla.vehicles.presentation.common.mappings.Email.emailConfirm
-import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
+import common.mappings.Email.emailConfirm
+import common.mappings.OptionalToggle
+
+trait DisposeFormModelBase {
+  val mileage: Option[Int]
+  val dateOfDisposal: LocalDate
+  val consent: String
+  val lossOfRegistrationConsent: String
+}
+
+object DisposeFormModelBase {
+  object Form {
+    final val MileageId = "mileage"
+    final val DateOfDisposalId = "dateOfDisposal"
+    final val ConsentId = "consent"
+    final val LossOfRegistrationConsentId = "lossOfRegistrationConsent"
+    final val DateOfDisposalYearsIntoThePast = 2
+    final val TodaysDateOfDisposal = "todays_date"
+    final val BackId = "back"
+    final val SubmitId = "submit"
+  }
+}
 
 final case class DisposeFormModel(mileage: Option[Int],
                                   dateOfDisposal: LocalDate,
                                   consent: String,
-                                  lossOfRegistrationConsent: String)
+                                  lossOfRegistrationConsent: String) extends DisposeFormModelBase
 
-object DisposeFormModel {
-  implicit val JsonFormat = Json.format[DisposeFormModel]
+final case class PrivateDisposeFormModel(mileage: Option[Int],
+                                  dateOfDisposal: LocalDate,
+                                  email: Option[String],
+                                  consent: String,
+                                  lossOfRegistrationConsent: String) extends DisposeFormModelBase
+
+trait DisposeFormModelObjectBase {
   final val DisposeFormModelCacheKey = s"${CookiePrefix}disposeForm"
-  implicit val Key = CacheKey[DisposeFormModel](value = DisposeFormModelCacheKey)
   final val DisposeOccurredCacheKey = s"${CookiePrefix}disposeOccurredCacheKey"
   final val PreventGoingToDisposePageCacheKey = s"${CookiePrefix}preventGoingToDisposePage"
   final val DisposeFormTransactionIdCacheKey = s"${CookiePrefix}disposeFormTransactionId"
   final val DisposeFormTimestampIdCacheKey = s"${CookiePrefix}disposeFormTimestampId"
   final val DisposeFormRegistrationNumberCacheKey = s"${CookiePrefix}disposeFormRegistrationNumber"
   final val SurveyRequestTriggerDateCacheKey = s"${CookiePrefix}surveyRequestTriggerDate"
+}
+
+object DisposeFormModel extends DisposeFormModelObjectBase {
+  implicit val JsonFormat = Json.format[DisposeFormModel]
+  implicit val Key = CacheKey[DisposeFormModel](value = DisposeFormModelCacheKey)
 
   object Form {
-    final val MileageId = "mileage"
-    final val DateOfDisposalId = "dateOfDisposal"
-    final val ConsentId = "consent"
-    final val LossOfRegistrationConsentId = "lossOfRegistrationConsent"
-    final val DateOfDisposalYearsIntoThePast = 2
-    final val TodaysDateOfDisposal = "todays_date"
-    final val EmailId = "email"
-    final val EmailOptionId = "option_email"
-    final val BackId = "back"
-    final val SubmitId = "submit"
-
     def mapping(implicit dateService: DateService): Mapping[DisposeFormModel] =
       play.api.data.Forms.mapping(
-        MileageId -> mileage,
-        DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
-          verifying(notBefore(new LocalDate().minusYears(DateOfDisposalYearsIntoThePast))),
-        ConsentId -> consent,
-        LossOfRegistrationConsentId -> consent
+        DisposeFormModelBase.Form.MileageId -> mileage,
+        DisposeFormModelBase.Form.DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
+          verifying(notBefore(new LocalDate().minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
+        DisposeFormModelBase.Form.ConsentId -> consent,
+        DisposeFormModelBase.Form.LossOfRegistrationConsentId -> consent
       )(DisposeFormModel.apply)(DisposeFormModel.unapply)
   }
 }
 
-final case class DisposeFormModelPrivate(mileage: Option[Int],
-                                  dateOfDisposal: LocalDate,
-                                  email: Option[String],
-                                  consent: String,
-                                  lossOfRegistrationConsent: String)
-
-object DisposeFormModelPrivate {
-  implicit val JsonFormat = Json.format[DisposeFormModelPrivate]
-  final val DisposeFormPrivateModelCacheKey = s"${CookiePrefix}disposeFormprivate"
-  implicit val Key = CacheKey[DisposeFormModelPrivate](value = DisposeFormPrivateModelCacheKey)
-  final val DisposeOccurredCacheKey = s"${CookiePrefix}disposeOccurredCacheKey"
-  final val PreventGoingToDisposePageCacheKey = s"${CookiePrefix}preventGoingToDisposePage"
-  final val DisposeFormTransactionIdCacheKey = s"${CookiePrefix}disposeFormTransactionId"
-  final val DisposeFormTimestampIdCacheKey = s"${CookiePrefix}disposeFormTimestampId"
-  final val DisposeFormRegistrationNumberCacheKey = s"${CookiePrefix}disposeFormRegistrationNumber"
-  final val SurveyRequestTriggerDateCacheKey = s"${CookiePrefix}surveyRequestTriggerDate"
+object PrivateDisposeFormModel extends DisposeFormModelObjectBase {
+  implicit val JsonFormat = Json.format[PrivateDisposeFormModel]
+  final val PrivateDisposeFormModelCacheKey = s"${CookiePrefix}disposeFormPrivate"
+  implicit val Key = CacheKey[PrivateDisposeFormModel](value = PrivateDisposeFormModelCacheKey)
 
   object Form {
-    final val MileageId = "mileage"
-    final val DateOfDisposalId = "dateOfDisposal"
-    final val ConsentId = "consent"
-    final val LossOfRegistrationConsentId = "lossOfRegistrationConsent"
-    final val DateOfDisposalYearsIntoThePast = 2
-    final val TodaysDateOfDisposal = "todays_date"
     final val EmailId = "email"
     final val EmailOptionId = "option_email"
-    final val BackId = "back"
-    final val SubmitId = "submit"
 
-    def mapping(implicit dateService: DateService): Mapping[DisposeFormModelPrivate] =
+    def mapping(implicit dateService: DateService): Mapping[PrivateDisposeFormModel] =
       play.api.data.Forms.mapping(
-        MileageId -> mileage,
-        DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
-          verifying(notBefore(new LocalDate().minusYears(DateOfDisposalYearsIntoThePast))),
+        DisposeFormModelBase.Form.MileageId -> mileage,
+        DisposeFormModelBase.Form.DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
+          verifying(notBefore(new LocalDate().minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
         EmailOptionId -> OptionalToggle.optional(emailConfirm.withPrefix(EmailId)),
-        ConsentId -> consent,
-        LossOfRegistrationConsentId -> consent
-      )(DisposeFormModelPrivate.apply)(DisposeFormModelPrivate.unapply)
+        DisposeFormModelBase.Form.ConsentId -> consent,
+        DisposeFormModelBase.Form.LossOfRegistrationConsentId -> consent
+      )(PrivateDisposeFormModel.apply)(PrivateDisposeFormModel.unapply)
   }
 }

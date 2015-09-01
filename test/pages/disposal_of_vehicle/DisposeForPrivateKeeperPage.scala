@@ -6,8 +6,8 @@ import models.DisposeFormModelBase.Form.DateOfDisposalId
 import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
 import models.DisposeFormModelBase.Form.MileageId
 import models.DisposeFormModelBase.Form.SubmitId
-import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
 import models.PrivateDisposeFormModel.Form.EmailOptionId
+import models.PrivateDisposeFormModel.Form.EmailId
 import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common
@@ -16,16 +16,14 @@ import common.helpers.webbrowser.Element
 import common.helpers.webbrowser.Page
 import common.helpers.webbrowser.RadioButton
 import common.helpers.webbrowser.TelField
+import common.helpers.webbrowser.TextField
 import common.helpers.webbrowser.WebBrowserDSL
 import common.helpers.webbrowser.WebDriverFactory
-import common.mappings.OptionalToggle.Invisible
-import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
-import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
-import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
-import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
+import common.mappings.Email.{EmailId => EmailEnterId, EmailVerifyId}
+import common.mappings.OptionalToggle.{Invisible, Visible}
 
-object DisposePage extends Page with WebBrowserDSL {
-  final val address = s"$applicationContext/complete-and-confirm"
+object DisposeForPrivateKeeperPage extends Page with WebBrowserDSL {
+  final val address = s"$applicationContext/private/complete-and-confirm"
   final override val title: String = "Complete & confirm"
 
   override def url: String = WebDriverFactory.testUrl + address.substring(1)
@@ -40,32 +38,17 @@ object DisposePage extends Page with WebBrowserDSL {
 
   def consent(implicit driver: WebDriver): Checkbox = checkbox(id(ConsentId))
 
+  def emailField(implicit driver: WebDriver): TextField = textField(id(s"${EmailId}_$EmailEnterId"))
+
+  def emailConfirmField(implicit driver: WebDriver): TextField = textField(id(s"${EmailId}_$EmailVerifyId"))
+
   def emailInvisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Invisible"))
 
-  def lossOfRegistrationConsent(implicit driver: WebDriver): Element = find(id(LossOfRegistrationConsentId)).get
+  def emailVisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Visible"))
 
-  def useTodaysDate(implicit driver: WebDriver): Element = find(id(TodaysDateOfDisposal)).get
+  def lossOfRegistrationConsent(implicit driver: WebDriver): Element = find(id(LossOfRegistrationConsentId)).get
 
   def back(implicit driver: WebDriver): Element = find(id(BackId)).get
 
   def dispose(implicit driver: WebDriver): Element = find(id(SubmitId)).get
-
-  def happyPath(implicit driver: WebDriver) = {
-    go to DisposePage
-    mileage enter MileageValid
-    dateOfDisposalDay enter DateOfDisposalDayValid
-    dateOfDisposalMonth enter DateOfDisposalMonthValid
-    dateOfDisposalYear enter DateOfDisposalYearValid
-    click on consent
-    click on lossOfRegistrationConsent
-    click on dispose
-  }
-
-  def sadPath(implicit driver: WebDriver) = {
-    go to DisposePage
-    dateOfDisposalDay enter ""
-    dateOfDisposalMonth enter ""
-    dateOfDisposalYear enter ""
-    click on dispose
-  }
 }

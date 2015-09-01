@@ -1,5 +1,5 @@
 @(data: models.DisposeViewModel,
-        disposeForm: Form[models.DisposeFormModel],
+        disposeForm: Form[_],
         dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService,
         submitCall: Call,
         backCall: Call)(implicit lang: Lang,
@@ -7,16 +7,16 @@
         config: utils.helpers.Config,
         isPrivateKeeper: Boolean))
 
-@import models.DisposeFormModel.Form.BackId
-@import models.DisposeFormModel.Form.ConsentId
-@import models.DisposeFormModel.Form.DateOfDisposalId
-@import models.DisposeFormModel.Form.DateOfDisposalYearsIntoThePast
-@import models.DisposeFormModel.Form.LossOfRegistrationConsentId
-@import models.DisposeFormModel.Form.MileageId
-@import models.DisposeFormModel.Form.SubmitId
-@import models.DisposeFormModel.Form.TodaysDateOfDisposal
-@import models.DisposeFormModel.Form.EmailOptionId
-@import models.DisposeFormModel.Form.EmailId
+@import models.DisposeFormModelBase.Form.BackId
+@import models.DisposeFormModelBase.Form.ConsentId
+@import models.DisposeFormModelBase.Form.DateOfDisposalId
+@import models.DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast
+@import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
+@import models.DisposeFormModelBase.Form.MileageId
+@import models.DisposeFormModelBase.Form.SubmitId
+@import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
+@import models.PrivateDisposeFormModel.Form.EmailOptionId
+@import models.PrivateDisposeFormModel.Form.EmailId
 @import views.html.disposal_of_vehicle.main
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.mappings.Email.EmailMaxLength
@@ -117,6 +117,23 @@
                         ) ++
                    (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
+
+                @if(isPrivateKeeper){
+                    <div class="disposal-form second-col">
+                        @optionalToggle(
+                            disposeForm(EmailOptionId),
+                            Messages("disposal_businesskeeperdetails.traderemailoption"),
+                            Messages("disposal_businesskeeperdetails.traderemailoption.yes"),
+                            Messages("disposal_businesskeeperdetails.traderemailoption.no"),
+                            email(
+                                disposeForm(EmailId),
+                                labelText = Messages("disposal_businesskeeperdetails.email"),
+                                hintText = None,
+                                args = Map('maxLength -> EmailMaxLength)
+                            )
+                        )
+                    </div>
+                }
 
                 @{
                     /* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */

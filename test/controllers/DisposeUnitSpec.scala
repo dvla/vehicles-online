@@ -9,11 +9,11 @@ import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel.Form.ConsentId
-import models.DisposeFormModel.Form.DateOfDisposalId
-import models.DisposeFormModel.Form.EmailOptionId
-import models.DisposeFormModel.Form.LossOfRegistrationConsentId
-import models.DisposeFormModel.Form.MileageId
+import models.DisposeFormModelBase.Form.ConsentId
+import models.DisposeFormModelBase.Form.DateOfDisposalId
+import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
+import models.DisposeFormModelBase.Form.MileageId
+import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.invocation.InvocationOnMock
@@ -35,10 +35,10 @@ import play.api.test.Helpers.INTERNAL_SERVER_ERROR
 import play.api.test.Helpers.LOCATION
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.SERVICE_UNAVAILABLE
-import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
+import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear

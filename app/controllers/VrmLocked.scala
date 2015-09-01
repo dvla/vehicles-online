@@ -1,7 +1,7 @@
 package controllers
 
 import com.google.inject.Inject
-import models.{AllCacheKeys, DisposeCacheKeys, VrmLockedViewModel}
+import models.VrmLockedViewModel
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.joda.time.DateTime
 import play.api.mvc.{Request, Result}

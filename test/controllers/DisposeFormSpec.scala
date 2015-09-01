@@ -2,7 +2,11 @@ package controllers
 
 import composition.WithApplication
 import helpers.UnitSpec
-import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, EmailOptionId}
+import models.DisposeFormModelBase.Form.ConsentId
+import models.DisposeFormModelBase.Form.DateOfDisposalId
+import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
+import models.DisposeFormModelBase.Form.MileageId
+import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.joda.time.{Instant, LocalDate}
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}
@@ -11,15 +15,16 @@ import org.mockito.stubbing.Answer
 import play.api.libs.json.Json
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
-import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
-import uk.gov.dvla.vehicles.presentation.common.mappings.{OptionalToggle, Mileage}
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
-import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendRequest
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendResponse
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.{TrackingId, ClientSideSessionFactory}
+import common.mappings.DayMonthYear.{DayId, MonthId, YearId}
+import common.mappings.{OptionalToggle, Mileage}
+import common.services.DateService
+import common.views.models.DayMonthYear
+import common.webserviceclients.emailservice.EmailService
+import common.webserviceclients.emailservice.EmailServiceSendRequest
+import common.webserviceclients.emailservice.EmailServiceSendResponse
+import common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
 import webserviceclients.dispose.{DisposeConfig, DisposeRequestDto, DisposeServiceImpl, DisposeWebService}
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid

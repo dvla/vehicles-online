@@ -2,13 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
-import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
-import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
-import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel.DisposeOccurredCacheKey
-import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
-import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
-import models.{AllCacheKeys, DisposeCacheKeys, DisposeFormModel, DisposeOnlyCacheKeys, DisposeViewModel}
+import models.DisposeViewModel
 import org.joda.time.format.DateTimeFormat
 import play.api.mvc.{Action, Request}
 import uk.gov.dvla.vehicles.presentation.common
@@ -23,17 +17,25 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
                                config: Config,
                                surveyUrl: SurveyUrl,
                                dateService: DateService) extends BusinessController {
+
   protected val newDisposeFormTarget = controllers.routes.DisposeSuccess.newDisposal()
   protected val exitDisposeFormTarget = controllers.routes.DisposeSuccess.exit()
   protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
   protected val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
   protected val onNewDispose = Redirect(routes.BeforeYouStart.present())
 
-  def present = Action { implicit request =>
+  protected val DisposeFormTransactionIdCacheKey = models.DisposeFormModel.DisposeFormTransactionIdCacheKey
+  protected val DisposeFormRegistrationNumberCacheKey = models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
+  protected val DisposeFormTimestampIdCacheKey = models.DisposeFormModel.DisposeFormTimestampIdCacheKey
+  protected val PreventGoingToDisposePageCacheKey = models.DisposeFormModel.PreventGoingToDisposePageCacheKey
+  protected val SurveyRequestTriggerDateCacheKey = models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
+  protected val DisposeOccurredCacheKey = models.DisposeFormModel.DisposeOccurredCacheKey
 
+  def present = Action { implicit request =>
     val result = for {
       traderDetails <- request.cookies.getModel[TraderDetailsModel]
-      disposeFormModel <- request.cookies.getModel[DisposeFormModel]
+      disposeFormModel <- if (isPrivateKeeper) request.cookies.getModel[models.PrivateDisposeFormModel]
+                          else request.cookies.getModel[models.DisposeFormModel]
       vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
       transactionId <- request.cookies.getString(DisposeFormTransactionIdCacheKey)
       registrationNumber <- request.cookies.getString(DisposeFormRegistrationNumberCacheKey)
@@ -42,7 +44,6 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
         logMessage(request.cookies.trackingId(), Info, "Dispose success page")
       val disposeViewModel = createViewModel(
         traderDetails,
-        disposeFormModel,
         vehicleDetails,
         Some(transactionId),
         registrationNumber
@@ -84,7 +85,6 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   }
 
   private def createViewModel(traderDetails: TraderDetailsModel,
-                              disposeFormModel: DisposeFormModel,
                               vehicleDetails: VehicleAndKeeperDetailsModel,
                               transactionId: Option[String],
                               registrationNumber: String): DisposeViewModel =
@@ -109,6 +109,10 @@ class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFa
         if (!config.privateKeeperSurveyUrl.trim.isEmpty) Some(config.privateKeeperSurveyUrl.trim) else None
       else
         if (!config.surveyUrl.trim.isEmpty) Some(config.surveyUrl.trim) else None
+
+    val SurveyRequestTriggerDateCacheKey =
+      if (isPrivateKeeper) models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
+      else models.PrivateDisposeFormModel.SurveyRequestTriggerDateCacheKey
 
     request.cookies.getString(SurveyRequestTriggerDateCacheKey) match {
       case Some(lastSurveyMillis) =>
