@@ -12,6 +12,7 @@ import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.dateOfDisposalDay
 import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.dateOfDisposalMonth
 import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.dateOfDisposalYear
 import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.emailInvisible
+import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.emailVisible
 import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.title
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
@@ -54,6 +55,7 @@ class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       go to DisposeForPrivateKeeperPage
       emailInvisible.isDisplayed should be (true)
+      emailVisible.isDisplayed should be (true)
     }
   }
 
@@ -71,31 +73,6 @@ class DisposeIntegrationSpec extends UiSpec with TestHarness {
       dateOfDisposalYear enter DateOfDisposalYearValid
 
       click on DisposeForPrivateKeeperPage.emailInvisible
-
-      click on dispose
-
-      page.url should equal(DisposeSuccessForPrivateKeeperPage.url)
-      page.title should equal(DisposeSuccessForPrivateKeeperPage.title)
-    }
-
-    "display DisposeSuccess on correct submission with email confirmation" taggedAs UiTag in new WebBrowser {
-      go to BeforeYouStartPage
-      cacheSetup().vehicleLookupFormModel()
-
-      go to DisposeForPrivateKeeperPage
-
-      click on lossOfRegistrationConsent
-
-      dateOfDisposalDay enter DateOfDisposalDayValid
-      dateOfDisposalMonth enter DateOfDisposalMonthValid
-      dateOfDisposalYear enter DateOfDisposalYearValid
-
-      click on DisposeForPrivateKeeperPage.emailVisible
-
-      val email = "my@email.com"
-
-      DisposeForPrivateKeeperPage.emailField enter email
-      DisposeForPrivateKeeperPage.emailConfirmField enter email
 
       click on dispose
 
