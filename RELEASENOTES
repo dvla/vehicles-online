@@ -1,5 +1,18 @@
 ======= 1.15 ========
 TIME OF RELEASE BINARIES CREATION:
+
+
+DE659	Disposal & Private disposal - Wording shown in the display box of the V5C
+DE675 	Fix to lookup address by index - now includes company name
+US3716	Remove the duplicate code in private controllers for Dispose, DisposeSuccess and DisposeFailure
+US3731	Remove openingTime, closingTime properties from all exemplars
+US3737	Code review and clean up on vehicles-online e.g. logMessage, wildcard on imports, line length
+US3742	Timeout is too short for unit test VehicleLookupIntegrationSpec
+US3754	Change text in email confirmation sent from "Dispose to trade" and K2K
+US3758	Code review and clean up on vehicles-presentation-common e.g. logMessage, wildcard on imports, line length
+
+======= 1.15 ========
+TIME OF RELEASE BINARIES CREATION:
 Wed Aug 19 10:46:34 UTC 2015
 
 DE661 Java Script disabled - V5C image not being displayed
