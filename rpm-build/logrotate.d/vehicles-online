@@ -1,0 +1,10 @@
+/opt/vehicles-online/logs/*.log {
+        missingok
+        copytruncate
+        notifempty
+        dateext
+        daily
+        create 644 vehicles-online vehicles-online
+        compress
+        rotate 35
+}
