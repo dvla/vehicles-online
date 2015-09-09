@@ -8,7 +8,10 @@ import org.scalatest.mock.MockitoSugar
 import play.api.{Configuration, Logger}
 import uk.gov.dvla.vehicles.presentation.common
 import common.ConfigProperties.{getOptionalProperty, stringProp}
-import common.clientsidesession.{ClearTextClientSideSessionFactory, ClientSideSessionFactory, NoCookieFlags, CookieFlags}
+import common.clientsidesession.ClearTextClientSideSessionFactory
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.NoCookieFlags
+import common.clientsidesession.CookieFlags
 import common.services.DateService
 import common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
 import common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
@@ -64,7 +67,8 @@ private class TestModule() extends ScalaModule with MockitoSugar {
 
 
   private def ordnanceSurveyAddressLookup() = {
-    bind[AddressLookupService].to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl]
+    bind[AddressLookupService]
+      .to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl]
 
     val fakeWebServiceImpl = new FakeAddressLookupWebServiceImpl(
       responseOfPostcodeWebService = FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddress,

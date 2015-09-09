@@ -1,8 +1,8 @@
 package webserviceclients.dispose
 
+import scala.annotation.tailrec
 import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
-import scala.annotation.tailrec
 
 case class DisposalAddressDto(line: Seq[String], postTown: Option[String], postCode: String, uprn: Option[Long])
 
@@ -32,7 +32,7 @@ object DisposalAddressDto {
   @tailrec
   private def linesOverMaxLength(address: Seq[String]): Boolean =
     if (address.isEmpty) false
-    else if (address.head.size > LineMaxLength) true
+    else if (address.head.length > LineMaxLength) true
     else linesOverMaxLength(address.tail)
 
   private def buildStandardDisposalAddressDto(addressViewModel: AddressModel): DisposalAddressDto = {
@@ -45,8 +45,8 @@ object DisposalAddressDto {
     val address = assignEmptyLines(addressViewModel.address)
     val isLine2Empty = address(Line2Index) == emptyLine
     val isLine3Empty = address(Line3Index) == emptyLine
-    val isBuildingNameOrNumberOverMax = address(BuildingNameOrNumberIndex).size > LineMaxLength
-    val isLine2OverMax = address(Line2Index).size > LineMaxLength
+    val isBuildingNameOrNumberOverMax = address(BuildingNameOrNumberIndex).length > LineMaxLength
+    val isLine2OverMax = address(Line2Index).length > LineMaxLength
 
     val amendedAddressLines = addressLinesDecider(
       isBuildingNameOrNumberOverMax,
@@ -93,7 +93,7 @@ object DisposalAddressDto {
   @tailrec
   private def trimLines(address: Seq[String], accumulatedAddress: Seq[String]) : Seq[String] = {
     if (address.isEmpty) accumulatedAddress
-    else if (address.head.size > LineMaxLength)
+    else if (address.head.length > LineMaxLength)
       trimLines(address.tail, accumulatedAddress :+ address.head.substring(0, LineMaxLength))
     else trimLines(address.tail, accumulatedAddress :+ address.head)
   }

@@ -7,7 +7,9 @@ import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Element, Page, TextField, WebBrowserDSL, WebDriverFactory}
 import views.disposal_of_vehicle.SetupTradeDetails
 import SetupTradeDetails.SubmitId
-import webserviceclients.fakes.FakeAddressLookupService.{PostcodeWithoutAddresses, PostcodeValid, TraderBusinessNameValid}
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeWithoutAddresses
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
+import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
 
 object SetupTradeDetailsPage extends Page with WebBrowserDSL {
   final val address = s"$applicationContext/setup-trade-details"

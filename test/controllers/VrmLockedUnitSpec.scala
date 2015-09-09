@@ -41,7 +41,8 @@ class VrmLockedUnitSpec extends UnitSpec {
   }
 
   "newDisposal" should {
-    "redirect to vehicle lookup page after the new disposal button is clicked when the expected data is in the cookies" in new WithApplication {
+    "redirect to vehicle lookup page after the new disposal " +
+      "button is clicked when the expected data is in the cookies" in new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -51,7 +52,8 @@ class VrmLockedUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to setup trade details page after the new disposal button is clicked when the expected data is not in the cookies" in new WithApplication {
+    "redirect to setup trade details page after the new disposal button " +
+      "is clicked when the expected data is not in the cookies" in new WithApplication {
       val request = FakeRequest()
       val result = vrmLocked.tryAnother(request)
       whenReady(result) { r =>

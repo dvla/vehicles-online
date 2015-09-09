@@ -4,11 +4,11 @@ import composition.TestGlobal
 import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.WithApplication
-import pages.disposal_of_vehicle.BeforeYouStartPage
-import play.api.test.Helpers.LOCATION
-import play.api.test.{FakeApplication, FakeRequest}
 import helpers.UnitSpec
 import models.AllCacheKeys
+import pages.disposal_of_vehicle.BeforeYouStartPage
+import play.api.test.Helpers.LOCATION
+import play.api.test.FakeRequest
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 final class CookieHelperSpec extends UnitSpec {

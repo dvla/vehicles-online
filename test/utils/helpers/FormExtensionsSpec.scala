@@ -138,7 +138,7 @@ final class FormExtensionsSpec extends UnitSpec {
       ).bind(Map("value" -> "foo  "))
 
       form.hasErrors should equal(true)
-      form.errors(0).message should equal("error.minLength")
+      form.errors.head.message should equal("error.minLength")
     }
   }
 

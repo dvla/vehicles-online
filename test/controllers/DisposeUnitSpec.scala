@@ -9,7 +9,11 @@ import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel.Form._
+import models.DisposeFormModelBase.Form.ConsentId
+import models.DisposeFormModelBase.Form.DateOfDisposalId
+import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
+import models.DisposeFormModelBase.Form.MileageId
+import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.invocation.InvocationOnMock
@@ -31,16 +35,18 @@ import play.api.test.Helpers.INTERNAL_SERVER_ERROR
 import play.api.test.Helpers.LOCATION
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.SERVICE_UNAVAILABLE
-import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
+import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendRequest
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendResponse
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
-import webserviceclients.emailservice.{EmailService, EmailServiceSendRequest, EmailServiceSendResponse}
 import webserviceclients.dispose.DisposalAddressDto
 import webserviceclients.dispose.DisposalAddressDto.BuildingNameOrNumberHolder
 import webserviceclients.dispose.DisposeRequestDto
@@ -55,7 +61,9 @@ import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValidWithSpace
 import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
-import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseApplicationBeingProcessed
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseFailureWithDuplicateDisposal
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseSuccess
@@ -190,7 +198,8 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to setupTradeDetails page after the dispose button is clicked and no vehicleLookupFormModel is cached" in new WithApplication {
+    "redirect to setupTradeDetails page after the dispose button is clicked and no vehicleLookupFormModel is cached" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest.withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = disposeController(disposeWebService = disposeWebService()).submit(request)
       whenReady(result) { r =>
@@ -203,7 +212,9 @@ class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val disposeService = disposeServiceMock()
-      val result = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService).submit(request)
+      val result = disposeController(disposeWebService = disposeWebService(),
+        disposeService = disposeService
+      ).submit(request)
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
         verify(disposeService, never()).invoke(any[DisposeRequestDto], any[TrackingId])
@@ -226,7 +237,8 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "redirect to setupTradeDetails page when form submitted with errors and previous pages have not been visited" in new WithApplication {
+    "redirect to setupTradeDetails page when form submitted with errors and previous pages have not been visited" in
+      new WithApplication {
       val request = FakeRequest().withFormUrlEncodedBody()
       val result = disposeController(disposeWebService = disposeWebService()).submit(request)
       whenReady(result) { r =>
@@ -241,7 +253,9 @@ class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeResponseThrows = mock[(Int, Option[DisposeResponseDto])]
       val mockWebServiceThrows = mock[DisposeService]
-      when(mockWebServiceThrows.invoke(any[DisposeRequestDto], any[TrackingId])).thenReturn(Future.failed(new RuntimeException))
+      when(mockWebServiceThrows.invoke(any[DisposeRequestDto], any[TrackingId]))
+        .thenReturn(Future.failed(new RuntimeException))
+
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
       when(config.googleAnalyticsTrackingId).thenReturn(None)
@@ -420,7 +434,8 @@ class DisposeUnitSpec extends UnitSpec {
       val request = buildCorrectlyPopulatedRequest.
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(traderPostcode = PostcodeValidWithSpace)). // postcode contains space
+        // postcode contains space
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(traderPostcode = PostcodeValidWithSpace)).
         withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
       val result = controller.submit(request)
@@ -464,7 +479,8 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate building name or number and place remainder on line 2 when line 3 is empty. Line 2 is over max length, should be placed on line 3 and truncated" in new WithApplication {
+    "truncate building name or number and place remainder on line 2 when line 3 is empty. " +
+      "Line 2 is over max length, should be placed on line 3 and truncated" in new WithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -485,7 +501,8 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate building name or number when over 30 characters. Move line 2 to line 3 and remainder of building name or number to line 2 when line 3 is empty" in new WithApplication {
+    "truncate building name or number when over 30 characters. Move line 2 to line 3 and remainder of " +
+      "building name or number to line 2 when line 3 is empty" in new WithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -502,7 +519,8 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate building name or number, create line 2 and move remainder to line2  when only building name or number, town and postcode returned" in new WithApplication {
+    "truncate building name or number, create line 2 and move remainder to line2 when only " +
+      "building name or number, town and postcode returned" in new WithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -520,7 +538,8 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate address line 2, create line 3 and move remainder to line3 when only building name or number, line2, town and postcode returned" in new WithApplication {
+    "truncate address line 2, create line 3 and move remainder to line3 when only " +
+      "building name or number, line2, town and postcode returned" in new WithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -537,7 +556,9 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate building name or number, create line 3, move line 2 to line 3 remainder of building name or number to line 2 when building name or number, line2, town and postcode returned" in new WithApplication {
+    "truncate building name or number, create line 3, move line 2 to line 3 remainder of " +
+      "building name or number to line 2 when building name or number, line2, " +
+      "town and postcode returned" in new WithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -631,12 +652,14 @@ class DisposeUnitSpec extends UnitSpec {
   }
 
   private def disposeWebService(disposeServiceStatus: Int = OK,
-                                disposeServiceResponse: Option[DisposeResponseDto] = Some(disposeResponseSuccess)): DisposeWebService = {
+                                disposeServiceResponse: Option[DisposeResponseDto] = Some(disposeResponseSuccess)
+                                 ): DisposeWebService = {
     val disposeWebService = mock[DisposeWebService]
     when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[TrackingId])).
       thenReturn(Future.successful {
       val fakeJson = disposeServiceResponse map (Json.toJson(_))
-      new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson) // Any call to a webservice will always return this successful response.
+      // Any call to a webservice will always return this successful response.
+      new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson)
     })
     disposeWebService
   }
@@ -650,7 +673,11 @@ class DisposeUnitSpec extends UnitSpec {
   }
 
   private def disposeController(disposeWebService: DisposeWebService): Dispose = {
-    val disposeService = new DisposeServiceImpl(config.dispose, disposeWebService, healthStatsMock, dateServiceStubbed())
+    val disposeService = new DisposeServiceImpl(config.dispose,
+      disposeWebService,
+      healthStatsMock,
+      dateServiceStubbed()
+    )
     disposeController(disposeWebService, disposeService)
   }
 

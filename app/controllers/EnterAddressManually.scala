@@ -41,7 +41,8 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
             BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm),
               setupTradeDetails.traderPostcode, formTarget, backLink))
           case None =>
-            logMessage(request.cookies.trackingId(), Debug, s"Failed to find dealer name in cache, redirecting to $onCookiesMissing")
+            logMessage(request.cookies.trackingId(), Debug,
+              s"Failed to find dealer name in cache, redirecting to $onCookiesMissing")
             onCookiesMissing
         },
       validForm =>
@@ -55,12 +56,14 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
               traderName = setupTradeDetails.traderBusinessName,
               traderAddress = traderAddress
             )
-            logMessage(request.cookies.trackingId(), Debug, s"Address found, redirecting to $onSubmitSuccess ")
+            logMessage(request.cookies.trackingId(), Debug,
+              s"Address found, redirecting to $onSubmitSuccess ")
             onSubmitSuccess.
               withCookie(validForm).
               withCookie(traderDetailsModel)
           case None =>
-            logMessage(request.cookies.trackingId(), Debug, s"Failed to find dealer name in cache on submit, " +
+            logMessage(request.cookies.trackingId(), Debug,
+              "Failed to find dealer name in cache on submit, " +
               s"redirecting to $onCookiesMissing")
             onCookiesMissing
         }

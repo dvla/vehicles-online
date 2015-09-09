@@ -1,12 +1,6 @@
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import models.DisposeCacheKeyPrefix.CookiePrefix
-import models.DisposeFormModel.DisposeFormModelCacheKey
-import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
-import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
-import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
-import models.DisposeFormModel.DisposeOccurredCacheKey
-import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import uk.gov.dvla.vehicles.presentation.common
@@ -19,25 +13,31 @@ import VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 package object models {
   final val SeenCookieMessageCacheKey = "seen_cookie_message" // Same value across all exemplars
 
-  // TODO: what is this set of cookies for?
   final val DisposeOnlyCacheKeys = Set(
-    DisposeFormModelCacheKey,
-    DisposeFormTransactionIdCacheKey,
-    DisposeFormTimestampIdCacheKey,
-    DisposeFormRegistrationNumberCacheKey
+    models.DisposeFormModel.DisposeFormModelCacheKey,
+    models.DisposeFormModel.DisposeFormTransactionIdCacheKey,
+    models.DisposeFormModel.DisposeFormTimestampIdCacheKey,
+    models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
+  )
+
+  final val PrivateDisposeOnlyCacheKeys = Set(
+    models.PrivateDisposeFormModel.PrivateDisposeFormModelCacheKey,
+    models.PrivateDisposeFormModel.DisposeFormTransactionIdCacheKey,
+    models.PrivateDisposeFormModel.DisposeFormTimestampIdCacheKey,
+    models.PrivateDisposeFormModel.DisposeFormRegistrationNumberCacheKey
   )
 
   // Set of cookies related to a single vehicle disposal. Removed once the vehicle is successfully disposed
-  final val DisposeCacheKeys = Set(
+  final val VehicleCacheKeys = Set(
     bruteForcePreventionViewModelCacheKey,
     vehicleAndKeeperLookupDetailsCacheKey,
     VehicleLookupResponseCodeCacheKey,
-    VehicleLookupFormModelCacheKey,
-    DisposeFormModelCacheKey,
-    DisposeFormTransactionIdCacheKey,
-    DisposeFormTimestampIdCacheKey,
-    DisposeFormRegistrationNumberCacheKey
+    VehicleLookupFormModelCacheKey
   )
+
+  final val DisposeCacheKeys = VehicleCacheKeys ++ DisposeOnlyCacheKeys
+
+  final val PrivateDisposeCacheKeys = VehicleCacheKeys ++ PrivateDisposeOnlyCacheKeys
 
   // Set of cookies that store the trade details data. These are retained after a successful disposal
   // so the trader does not have to re-enter their details when disposing subsequent vehicles
@@ -48,7 +48,12 @@ package object models {
 
   // The full set of cache keys. These are removed at the start of the process in the "before_you_start" page
   final val AllCacheKeys = TradeDetailsCacheKeys.++(DisposeCacheKeys)
-    .++(Set(PreventGoingToDisposePageCacheKey))
-    .++(Set(DisposeOccurredCacheKey))
+    .++(Set(models.DisposeFormModel.PreventGoingToDisposePageCacheKey))
+    .++(Set(models.DisposeFormModel.DisposeOccurredCacheKey))
+    .++(Set(MicroServiceErrorRefererCacheKey))
+
+  final val PrivateAllCacheKeys = TradeDetailsCacheKeys.++(PrivateDisposeCacheKeys)
+    .++(Set(models.PrivateDisposeFormModel.PreventGoingToDisposePageCacheKey))
+    .++(Set(models.PrivateDisposeFormModel.DisposeOccurredCacheKey))
     .++(Set(MicroServiceErrorRefererCacheKey))
 }

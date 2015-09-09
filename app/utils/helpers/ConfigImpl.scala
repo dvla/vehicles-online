@@ -41,12 +41,18 @@ final class ConfigImpl extends Config {
   override val disposeMsRequestTimeout = dispose.requestTimeout
 
   // Web headers
-  override val applicationCode: String = getOptionalProperty[String]("webHeader.applicationCode").getOrElse(NotFound)
-  override val vssServiceTypeCode: String = getOptionalProperty[String]("webHeader.vssServiceTypeCode").getOrElse(NotFound)
-  override val dmsServiceTypeCode: String = getOptionalProperty[String]("webHeader.dmsServiceTypeCode").getOrElse(NotFound)
-  override val channelCode: String = getOptionalProperty[String]("webHeader.channelCode").getOrElse(NotFound)
-  override val contactId: Long = getOptionalProperty[Long]("webHeader.contactId").getOrElse(NotFoundLong)
-  override val orgBusinessUnit: String = getOptionalProperty[String]("webHeader.orgBusinessUnit").getOrElse(NotFound)
+  override val applicationCode: String =
+    getOptionalProperty[String]("webHeader.applicationCode").getOrElse(NotFound)
+  override val vssServiceTypeCode: String =
+    getOptionalProperty[String]("webHeader.vssServiceTypeCode").getOrElse(NotFound)
+  override val dmsServiceTypeCode: String =
+    getOptionalProperty[String]("webHeader.dmsServiceTypeCode").getOrElse(NotFound)
+  override val channelCode: String =
+    getOptionalProperty[String]("webHeader.channelCode").getOrElse(NotFound)
+  override val contactId: Long =
+    getOptionalProperty[Long]("webHeader.contactId").getOrElse(NotFoundLong)
+  override val orgBusinessUnit: String =
+    getOptionalProperty[String]("webHeader.orgBusinessUnit").getOrElse(NotFound)
 
   // Brute force prevention config
   override val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader

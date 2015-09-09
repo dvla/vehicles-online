@@ -11,7 +11,6 @@ import org.scalatest.mock.MockitoSugar
 import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage}
 import pages.ApplicationContext.applicationContext
 import play.api.LoggerLike
-import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
 import AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.helpers

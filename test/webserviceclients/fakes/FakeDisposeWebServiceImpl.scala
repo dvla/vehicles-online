@@ -4,15 +4,20 @@ import play.api.Logger
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
+import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import webserviceclients.dispose.{DisposeWebService, DisposeResponseDto, DisposeRequestDto}
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid
-import scala.concurrent.Future
 
 final class FakeDisposeWebServiceImpl extends DisposeWebService {
-  import FakeDisposeWebServiceImpl._
+  import FakeDisposeWebServiceImpl.disposeResponseSoapEndpointFailure
+  import FakeDisposeWebServiceImpl.disposeResponseSuccess
+  import FakeDisposeWebServiceImpl.SimulateMicroServiceUnavailable
+  import FakeDisposeWebServiceImpl.SimulateSoapEndpointFailure
 
-  override def callDisposeService(request: DisposeRequestDto, trackingId: TrackingId): Future[WSResponse] = Future.successful {
+  override def callDisposeService(request: DisposeRequestDto,
+                                  trackingId: TrackingId
+                                   ): Future[WSResponse] = Future.successful {
     val disposeResponse: DisposeResponseDto = {
       request.referenceNumber match {
         case SimulateMicroServiceUnavailable => throw new RuntimeException("simulateMicroServiceUnavailable")
@@ -22,7 +27,8 @@ final class FakeDisposeWebServiceImpl extends DisposeWebService {
     }
     val responseAsJson = Json.toJson(disposeResponse)
     Logger.debug(s"FakeVehicleLookupWebService callVehicleLookupService with: $responseAsJson")
-    new FakeResponse(status = OK, fakeJson = Some(responseAsJson)) // Any call to a webservice will always return this successful response.
+    // Any call to a webservice will always return this successful response.
+    new FakeResponse(status = OK, fakeJson = Some(responseAsJson))
   }
 }
 
@@ -44,13 +50,17 @@ object FakeDisposeWebServiceImpl {
       responseCode = None)
 
   val disposeResponseFailureWithResponseCode =
-    DisposeResponseDto(transactionId = TransactionIdValid.value, // We should always get back a transaction id even for failure scenarios. Only exception is if the soap endpoint is down
+    // We should always get back a transaction id even for failure scenarios.
+    // Only exception is if the soap endpoint is down
+    DisposeResponseDto(transactionId = TransactionIdValid.value,
       registrationNumber = "",
       auditId = "",
       responseCode = Some("ms.vehiclesService.response.unableToProcessApplication"))
 
   val disposeResponseFailureWithDuplicateDisposal =
-    DisposeResponseDto(transactionId = TransactionIdValid.value, // We should always get back a transaction id even for failure scenarios. Only exception is if the soap endpoint is down
+    // We should always get back a transaction id even for failure scenarios.
+    // Only exception is if the soap endpoint is down
+    DisposeResponseDto(transactionId = TransactionIdValid.value,
       registrationNumber = "",
       auditId = "",
       responseCode = Some("ms.vehiclesService.response.duplicateDisposalToTrade"))

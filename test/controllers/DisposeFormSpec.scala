@@ -2,28 +2,34 @@ package controllers
 
 import composition.WithApplication
 import helpers.UnitSpec
-import models.DisposeFormModel.Form.{ConsentId, DateOfDisposalId, LossOfRegistrationConsentId, MileageId, EmailOptionId}
+import models.DisposeFormModelBase.Form.ConsentId
+import models.DisposeFormModelBase.Form.DateOfDisposalId
+import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
+import models.DisposeFormModelBase.Form.MileageId
+import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.joda.time.{Instant, LocalDate}
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.when
 import org.mockito.stubbing.Answer
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
-import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form.EmailId
-import uk.gov.dvla.vehicles.presentation.common.model.PrivateKeeperDetailsFormModel.Form._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
-import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
-import uk.gov.dvla.vehicles.presentation.common.mappings.{OptionalToggle, Mileage}
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
-import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.{TrackingId, ClientSideSessionFactory}
+import common.mappings.DayMonthYear.{DayId, MonthId, YearId}
+import common.mappings.{OptionalToggle, Mileage}
+import common.services.DateService
+import common.views.models.DayMonthYear
+import common.webserviceclients.emailservice.EmailService
+import common.webserviceclients.emailservice.EmailServiceSendRequest
+import common.webserviceclients.emailservice.EmailServiceSendResponse
+import common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
-import webserviceclients.emailservice.{EmailService, EmailServiceSendRequest, EmailServiceSendResponse}
 import webserviceclients.dispose.{DisposeConfig, DisposeRequestDto, DisposeServiceImpl, DisposeWebService}
-import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.{ConsentValid, MileageValid, disposeResponseSuccess}
 import webserviceclients.fakes.FakeResponse
 
@@ -169,11 +175,13 @@ class DisposeFormSpec extends UnitSpec {
     when(ws.callDisposeService(any[DisposeRequestDto], any[TrackingId])).thenReturn(Future.successful {
       val responseAsJson = Json.toJson(disposeResponseSuccess)
       import play.api.http.Status.OK
-      new FakeResponse(status = OK, fakeJson = Some(responseAsJson)) // Any call to a webservice will always return this successful response.
+      // Any call to a webservice will always return this successful response.
+      new FakeResponse(status = OK, fakeJson = Some(responseAsJson))
     })
     val healthStatsMock = mock[HealthStats]
     when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-      override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
+      override def answer(invocation: InvocationOnMock): Future[_] =
+        invocation.getArguments()(1).asInstanceOf[Future[_]]
     })
     val disposeServiceImpl = new DisposeServiceImpl(new DisposeConfig(), ws, healthStatsMock, dateServiceStub())
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])

@@ -2,7 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import models.{AllCacheKeys, DisposeCacheKeys}
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.RichResult

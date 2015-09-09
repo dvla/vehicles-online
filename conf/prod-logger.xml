@@ -30,16 +30,9 @@
         </encoder>
     </appender>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <target>System.out</target>
-        <encoder>
-            <pattern>%date{MM/dd HH:mm:ss} %-5level[%thread] %logger{1} - %msg%n</pattern>
-        </encoder>
-    </appender>
-
     <!--Only log play messages to stdout -->
     <logger name="play" level="DEBUG" additivity="false">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </logger>
 
     <!-- log application messages to root logger appenders -->
@@ -54,7 +47,6 @@
      The top ancestor is root; thus all loggers will log to the application log and graylog. -->
     <root level="TRACE">
         <appender-ref ref="FILE"/>
-        <appender-ref ref="CONSOLE"/>
         <appender-ref ref="SYSLOG"/>
     </root>
 

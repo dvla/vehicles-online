@@ -30,7 +30,8 @@ final class UprnNotFoundIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "manualAddress button" should {
-    "go to manualaddress page after the Manual Address button is clicked and trade details have been set up in cache" taggedAs UiTag in new WebBrowser {
+    "go to manualaddress page after the Manual Address button is clicked and " +
+      "trade details have been set up in cache" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.setupTradeDetails()
       go to UprnNotFoundPage

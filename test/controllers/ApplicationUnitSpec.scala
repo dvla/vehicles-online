@@ -14,7 +14,6 @@ final class ApplicationUnitSpec extends UnitSpec {
   lazy val applicationContext = getProperty[String]("application.context")
 
   "index" should {
-
     "redirect the user to the start url" in new WithApplication {
       implicit val config = configWithStartUrl("/testStart")
       val result = new ApplicationRoot().index(FakeRequest())
@@ -43,7 +42,7 @@ final class ApplicationUnitSpec extends UnitSpec {
     {
       Helpers.running(app) {
         try AsResult.effectively(t)
-        finally app.routes.map(_.setPrefix("/"))
+        finally app.routes.foreach(_.setPrefix("/"))
       }
     }
   }

@@ -11,7 +11,8 @@ import views.disposal_of_vehicle.DisposeSuccess
 class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
 
   "new disposal button" should {
-    "not be present when the disposal is done by a private keeper instead of the trade" taggedAs UiTag in new WebBrowser {
+    "not be present when the disposal is done by a private keeper instead of the trade" taggedAs UiTag in
+      new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessForPrivateKeeperPage
@@ -27,7 +28,7 @@ class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       enterAddressManually().
       dealerDetails().
       vehicleAndKeeperDetailsModel().
-      disposeFormPrivateModel().
+      privateDisposeFormModel().
       disposeTransactionId().
       vehicleRegistrationNumber().
       disposeFormTimestamp()

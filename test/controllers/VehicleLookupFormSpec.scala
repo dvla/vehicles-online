@@ -81,7 +81,8 @@ class VehicleLookupFormSpec extends UnitSpec {
     }
 
     "accept if valid" in new WithApplication {
-      formWithValidDefaults(registrationNumber = RegistrationNumberValid).get.referenceNumber should equal(ReferenceNumberValid)
+      formWithValidDefaults(registrationNumber = RegistrationNumberValid).get.referenceNumber should
+        equal(ReferenceNumberValid)
     }
   }
 
@@ -120,7 +121,8 @@ class VehicleLookupFormSpec extends UnitSpec {
       thenReturn( Future.successful( new FakeResponse(status = OK) ))
     val healthStatsMock = mock[HealthStats]
     when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-      override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
+      override def answer(invocation: InvocationOnMock): Future[_] =
+        invocation.getArguments()(1).asInstanceOf[Future[_]]
     })
 
     new BruteForcePreventionServiceImpl(
@@ -140,11 +142,13 @@ class VehicleLookupFormSpec extends UnitSpec {
           case Some(e) => Some(Json.toJson(e))
           case _ => None
         }
-        new FakeResponse(status = fullResponse._1, fakeJson = responseAsJson)// Any call to a webservice will always return this successful response.
+        // Any call to a webservice will always return this successful response.
+        new FakeResponse(status = fullResponse._1, fakeJson = responseAsJson)
       })
     val healthStatsMock = mock[HealthStats]
     when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
-      override def answer(invocation: InvocationOnMock): Future[_] = invocation.getArguments()(1).asInstanceOf[Future[_]]
+      override def answer(invocation: InvocationOnMock): Future[_] =
+        invocation.getArguments()(1).asInstanceOf[Future[_]]
     })
     val vehicleAndKeeperLookupServiceImpl =
       new VehicleAndKeeperLookupServiceImpl(vehicleAndKeeperLookupWebService, healthStatsMock)

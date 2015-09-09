@@ -1,7 +1,6 @@
 package controllers
 
 import javax.inject.Inject
-import models.DisposeCacheKeys
 import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
@@ -15,7 +14,7 @@ class DuplicateDisposalError @Inject()()(implicit clientSideSessionFactory: Clie
   protected val exitLink = controllers.routes.BeforeYouStart.present()
 
   def present = Action { implicit request =>
-    logMessage(request.cookies.trackingId(), Info, s"Duplicate disposal page")
+    logMessage(request.cookies.trackingId(), Info, "Duplicate disposal page")
     Ok(views.html.disposal_of_vehicle.duplicate_disposal_error(tryAgainLink, exitLink))
       .discardingCookies(DisposeCacheKeys)
   }

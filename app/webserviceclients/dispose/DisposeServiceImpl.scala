@@ -1,19 +1,21 @@
 package webserviceclients.dispose
 
 import javax.inject.Inject
-import play.api.Logger
 import play.api.http.Status.OK
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
-import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
+import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.LogFormats
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.{HealthStatsFailure, HealthStatsSuccess, HealthStats}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStatsFailure
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStatsSuccess
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 
 final class DisposeServiceImpl @Inject()(config: DisposeConfig,
                                          ws: DisposeWebService,
                                          healthStats: HealthStats,
-                                         dateService: DateService) extends DisposeService {
+                                         dateService: DateService) extends DisposeService with DVLALogger {
   import DisposeServiceImpl.ServiceName
 
   override def invoke(cmd: DisposeRequestDto, trackingId: TrackingId): Future[(Int, Option[DisposeResponseDto])] = {
@@ -22,11 +24,11 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
     val refNo = LogFormats.anonymize(cmd.referenceNumber)
     val postcode = LogFormats.anonymize(cmd.traderAddress.postCode)
 
-    Logger.debug("Calling dispose vehicle micro-service with " +
+    logMessage(trackingId, Debug, "Calling dispose vehicle micro-service with " +
       s"$refNo $vrm $postcode ${cmd.keeperConsent} ${cmd.prConsent} ${cmd.mileage}")
 
     ws.callDisposeService(cmd, trackingId).map { resp =>
-      Logger.debug(s"Http response code from dispose vehicle micro-service was: ${resp.status}")
+      logMessage(trackingId, Debug, s"Http response code from dispose vehicle micro-service was: ${resp.status}")
 
       if (resp.status == OK) {
         healthStats.success(new HealthStatsSuccess(ServiceName, dateService.now))

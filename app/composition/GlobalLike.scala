@@ -22,7 +22,7 @@ import utils.helpers.Config
  *
  *         application.conf
  * /             |            \
- * application.prod.conf    application.dev.conf    application.test.conf <- these can override and add to application.conf
+ * application.prod.conf  application.dev.conf  application.test.conf <- these can override and add to application.conf
  *
  * play test  <- test mode picks up application.test.conf
  * play run   <- dev mode picks up application.dev.conf

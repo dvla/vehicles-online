@@ -22,5 +22,4 @@ class ErrorStrategy @Inject()(clfEntryBuilder: ClfEntryBuilder,
 
     protected  override def errorPageResult(exceptionDigest: String) =
       Redirect(routes.Error.present(exceptionDigest))
-
 }

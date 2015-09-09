@@ -2,7 +2,6 @@ package utils.helpers
 
 import composition.TestGlobal
 import helpers.{UnitSpec, WithApplication}
-import play.api.test.FakeApplication
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.AesEncryption
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
@@ -13,7 +12,8 @@ final class AesEncryptionSpec extends UnitSpec {
       aesEncryption.encrypt(ClearText) should not equal ClearText
     }
 
-    "return a different encrypted string given same clear text input" in new WithApplication(app = fakeAppWithCryptoConfig) {
+    "return a different encrypted string given same clear text input" in
+      new WithApplication(app = fakeAppWithCryptoConfig) {
       val aesEncryption = new AesEncryption
       val cipherText1 = aesEncryption.encrypt(ClearText)
       val cipherText2 = aesEncryption.encrypt(ClearText)
@@ -23,7 +23,8 @@ final class AesEncryptionSpec extends UnitSpec {
       }
     }
 
-    "throw an exception when the application secret key is the wrong size" in new WithApplication(app = fakeAppWithWrongLengthAppSecretConfig) {
+    "throw an exception when the application secret key is the wrong size" in
+      new WithApplication(app = fakeAppWithWrongLengthAppSecretConfig) {
       intercept[Exception] {
         val aesEncryption = new AesEncryption
         aesEncryption.encrypt(ClearText)

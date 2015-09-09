@@ -1,7 +1,6 @@
 package email
 
 import java.text.SimpleDateFormat
-
 import org.joda.time.DateTime
 import uk.gov.dvla.vehicles.presentation.common.model.VehicleAndKeeperDetailsModel
 
@@ -61,7 +60,7 @@ object EmailMessageBuilder {
        |                    <tr>
        |                        <td style="border-collapse: collapse; padding: 20px 0;">
        |                            <a target="_blank" href="https://www.gov.uk/" style="color: #ffffff; text-decoration: none;">
-       |                                <img src="${imagesPath}/gov-uk.jpg" width="320" height="106" alt="Crown image" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" />
+       |                                <img src="$imagesPath/gov-uk.jpg" width="320" height="106" alt="Crown image" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" />
        |                            </a>
        |                        </td>
        |                    </tr>
@@ -79,7 +78,7 @@ object EmailMessageBuilder {
        |
        |                            <p><strong style="text-decoration: underline">This is an automated email - Please do not reply as emails received at this address cannot be responded to.</strong></p>
        |
-       |                            <p>Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle.</p>
+       |                            <p>Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must <strong>not</strong> be sent to DVLA.</p>
        |
        |                            <p>Your application details are:</p>
        |
@@ -94,6 +93,10 @@ object EmailMessageBuilder {
        |
        |                            <p>DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. The refund will be sent to the address on the V5C log book, which was used.</p>
        |
+       |                            <p>You may still receive a V11 tax reminder as these are pre-printed up to 6 weeks in advance. If you do receive a V11 for this vehicle after notifying the sale, please ignore it.</p>
+       |
+       |                            <p>If another payment is taken before your Direct Debit is cancelled, you’ll be automatically refunded within 10 days.</p>
+       |
        |                            <p>For more information on driving and transport go to <a href="http://www.gov.uk/browse/driving" target="_blank">www.gov.uk/browse/driving</a>.</p>
        |
        |                            <p>You may wish to save or print this email confirmation for your records.</p>
@@ -103,7 +106,7 @@ object EmailMessageBuilder {
        |                            Vehicles Service Manager
        |                            </p>
        |
-       |                            <img src="${imagesPath}/dvla_logo.png" width="320" alt="DVLA logo" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" />
+       |                            <img src="$imagesPath/dvla_logo.png" width="320" alt="DVLA logo" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" />
        |
        |                        </td>
        |                    </tr>
@@ -126,7 +129,7 @@ object EmailMessageBuilder {
         |THIS IS AN AUTOMATED EMAIL - Please do not reply as emails received at this address cannot be responded to.
         |
         |
-        |Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle.
+        |Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must not be sent to DVLA.
         |
         |Your application details are:
         |Vehicle Registration Number: $registrationNumber
@@ -136,6 +139,10 @@ object EmailMessageBuilder {
         |You should receive a postal acknowledgement letter within 4 weeks.
         |
         |DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. The refund will be sent to the address on the V5C log book, which was used.
+        |
+        |You may still receive a V11 tax reminder as these are pre-printed up to 6 weeks in advance. If you do receive a V11 for this vehicle after notifying the sale, please ignore it.
+        |
+        |If another payment is taken before your Direct Debit is cancelled, you’ll be automatically refunded within 10 days.
         |
         |For more information on driving and transport go to http://www.gov.uk/browse/driving
         |

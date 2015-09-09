@@ -32,7 +32,9 @@ import play.api.test.Helpers.{BAD_REQUEST, contentAsString, defaultAwaitTimeout,
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClearTextClientSideSessionFactory, ClientSideSessionFactory}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import common.mappings.DocumentReferenceNumber
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
 import common.services.DateServiceImpl
@@ -213,7 +215,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
   }
 
   "submit" should {
-    "redirect to Dispose after a valid submit and true message returned from the fake microservice" in new WithApplication {
+    "redirect to Dispose after a valid submit and true message returned from the fake microservice" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator().submit(request)
 
@@ -242,31 +245,36 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to MicroServiceError after a submit and no response code and no vehicledetailsdto returned from the fake microservice" in new WithApplication {
+    "redirect to MicroServiceError after a submit and no response code and no vehicledetailsdto returned from " +
+      "the fake microservice" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseNotFoundResponseCode).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
     }
 
-    "redirect to VehicleLookupFailure after a submit and vrm not found by the fake microservice" in new WithApplication {
+    "redirect to VehicleLookupFailure after a submit and vrm not found by the fake microservice" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseVRMNotFound).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
-    "redirect to VehicleLookupFailure after a submit and document reference number mismatch returned by the fake microservice" in new WithApplication {
+    "redirect to VehicleLookupFailure after a submit and document reference number mismatch returned by the " +
+      "fake microservice" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseDocRefNumberNotLatest).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
-    "redirect to VehicleLookupFailure after a submit and vss error returned by the fake microservice" in new WithApplication {
+    "redirect to VehicleLookupFailure after a submit and vss error returned by the fake microservice" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsServerDown).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
     }
 
-    "redirect to VehicleLookupFailure after a submit and unhandled exception returned by the fake microservice" in new WithApplication {
+    "redirect to VehicleLookupFailure after a submit and unhandled exception returned by the fake microservice" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseUnhandledException).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
@@ -279,13 +287,15 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.status should equal(play.api.http.Status.BAD_REQUEST)
     }
 
-    "redirect to setupTradeDetails page if dealer details are not in cache and no details are entered" in new WithApplication {
+    "redirect to setupTradeDetails page if dealer details are not in cache and no details are entered" in new
+        WithApplication {
       val request = buildCorrectlyPopulatedRequest(referenceNumber = "", registrationNumber = "")
       val result = vehicleLookupResponseGenerator().submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
     }
 
-    "replace max length error message for document reference number with standard error message (US43)" in new WithApplication {
+    "replace max length error message for document reference number with standard error message (US43)" in new
+        WithApplication {
       val request = buildCorrectlyPopulatedRequest(referenceNumber = "1" * (DocumentReferenceNumber.MaxLength + 1)).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -297,7 +307,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
         r.findAllIn(contentAsString(result)).length should equal(1)
     }
 
-    "replace required and min length error messages for document reference number with standard error message (US43)" in new WithApplication {
+    "replace required and min length error messages for document reference number with " +
+      "standard error message (US43)" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest(referenceNumber = "").
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -309,7 +320,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
         r.findAllIn(contentAsString(result)).length should equal(1)
     }
 
-    "replace max length error message for vehicle registration number with standard error message (US43)" in new WithApplication {
+    "replace max length error message for vehicle registration number with standard error message (US43)" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = "PJ05YYYX").
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -317,15 +329,19 @@ class VehicleLookupUnitSpec extends UnitSpec {
       count should equal(2)
     }
 
-    "replace required and min length error messages for vehicle registration number with standard error message (US43)" in new WithApplication {
+    "replace required and min length error messages for vehicle registration number with standard " +
+      "error message (US43)" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = "").
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
       val count = "Must be as shown on the latest V5C".r.findAllIn(contentAsString(result)).length
-      count should equal(2) // The same message is displayed in 2 places - once in the validation-summary at the top of the page and once above the field.
+      // The same message is displayed in 2 places - once in the validation-summary at the top of the page
+      // and once above the field.
+      count should equal(2)
     }
 
-    "redirect to EnterAddressManually when back button is pressed and the user has manually entered an address" in new WithApplication {
+    "redirect to EnterAddressManually when back button is pressed and the user has manually entered an address" in
+      new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.enterAddressManually())
       val result = vehicleLookupResponseGenerator().back(request)
@@ -339,7 +355,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(BusinessChooseYourAddressPage.address))
     }
 
-    "redirect to BusinessChooseYourAddress when back is called and the user has completed the vehicle lookup form" in new WithApplication {
+    "redirect to BusinessChooseYourAddress when back is called and the user has completed the vehicle lookup form" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(uprn = Some(traderUprnValid))).
         withCookies(CookieFactoryForUnitSpecs.businessChooseYourAddressUseUprn())
@@ -356,11 +373,13 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to MicroServiceError after a submit if response status is Ok and no response payload" in new WithApplication {
+    "redirect to MicroServiceError after a submit if response status is Ok and no response payload" in
+      new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsNoResponse).submit(request)
 
-      // TODO This test passes for the wrong reason, it is throwing when VehicleLookupServiceImpl tries to access resp.json, whereas we want VehicleLookupServiceImpl to return None as a response payload.
+      // TODO This test passes for the wrong reason, it is throwing when VehicleLookupServiceImpl tries to access
+      // resp.json, whereas we want VehicleLookupServiceImpl to return None as a response payload.
       result.futureValue.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
     }
 
@@ -376,7 +395,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
 
     "write cookie when document reference number mismatch returned by microservice" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest()
-      val result = vehicleLookupResponseGenerator(fullResponse = vehicleDetailsResponseDocRefNumberNotLatest).submit(request)
+      val result = vehicleLookupResponseGenerator(fullResponse = vehicleDetailsResponseDocRefNumberNotLatest).
+        submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
         cookies.map(_.name) should contain allOf(
@@ -403,7 +423,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VrmLockedPage.address))
     }
 
-    "redirect to VehicleLookupFailure and display 1st attempt message when document reference number not found and security service returns 1st attempt" in new WithApplication {
+    "redirect to VehicleLookupFailure and display 1st attempt message when document reference number " +
+     "not found and security service returns 1st attempt" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = RegistrationNumberValid)
       val result = vehicleLookupResponseGenerator(
         vehicleDetailsResponseDocRefNumberNotLatest,
@@ -413,7 +434,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
-    "redirect to VehicleLookupFailure and display 2nd attempt message when document reference number not found and security service returns 2nd attempt" in new WithApplication {
+    "redirect to VehicleLookupFailure and display 2nd attempt message when document reference number " +
+      "not found and security service returns 2nd attempt" in new WithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = VrmAttempt2)
       val result = vehicleLookupResponseGenerator(
         vehicleDetailsResponseDocRefNumberNotLatest,
@@ -473,7 +495,9 @@ class VehicleLookupUnitSpec extends UnitSpec {
 
     "call the vehicle lookup micro service and brute force service after a valid request" in new WithApplication {
       val (bruteForceService, bruteForceWebServiceMock) = bruteForceServiceAndWebServiceMock(permitted = true)
-      val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(bruteForceService = bruteForceService)
+      val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(
+        bruteForceService = bruteForceService
+      )
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupController.submit(request)
       whenReady(result) { r =>
@@ -485,7 +509,9 @@ class VehicleLookupUnitSpec extends UnitSpec {
 
     "not call the vehicle lookup micro service after a invalid request" in new WithApplication {
       val (bruteForceService, bruteForceWebServiceMock) = bruteForceServiceAndWebServiceMock(permitted = true)
-      val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(bruteForceService = bruteForceService)
+      val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(
+        bruteForceService = bruteForceService
+      )
       val request = buildCorrectlyPopulatedRequest(registrationNumber = "").
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupController.submit(request)
@@ -532,22 +558,29 @@ class VehicleLookupUnitSpec extends UnitSpec {
     bruteForcePreventionService
   }
 
-  private def bruteForceServiceAndWebServiceMock(permitted: Boolean): (BruteForcePreventionService, BruteForcePreventionWebService) = {
+  private def bruteForceServiceAndWebServiceMock(permitted: Boolean): (BruteForcePreventionService,
+    BruteForcePreventionWebService
+    ) = {
 
     def bruteForcePreventionWebService: BruteForcePreventionWebService = {
       val status = if (permitted) play.api.http.Status.OK else play.api.http.Status.FORBIDDEN
       val bruteForcePreventionWebService: BruteForcePreventionWebService = mock[BruteForcePreventionWebService]
 
-      when(bruteForcePreventionWebService.callBruteForce(RegistrationNumberValid, TrackingId("default_test_tracking_id")))
-        .thenReturn(Future.successful(new FakeResponse(status = status, fakeJson = responseFirstAttempt)))
+      when(bruteForcePreventionWebService.callBruteForce(RegistrationNumberValid,
+        TrackingId("default_test_tracking_id"))
+      ).thenReturn(Future.successful(new FakeResponse(status = status, fakeJson = responseFirstAttempt)))
 
-      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmAttempt2, TrackingId("default_test_tracking_id"))).
-        thenReturn(Future.successful(new FakeResponse(status = status, fakeJson = responseSecondAttempt)))
+      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmAttempt2,
+        TrackingId("default_test_tracking_id"))
+      ).thenReturn(Future.successful(new FakeResponse(status = status, fakeJson = responseSecondAttempt)))
 
-      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmLocked, TrackingId("default_test_tracking_id"))).
-        thenReturn(Future.successful(new FakeResponse(status = status)))
+      when(bruteForcePreventionWebService.callBruteForce(FakeBruteForcePreventionWebServiceImpl.VrmLocked,
+        TrackingId("default_test_tracking_id"))
+      ).thenReturn(Future.successful(new FakeResponse(status = status)))
 
-      when(bruteForcePreventionWebService.callBruteForce(VrmThrows, TrackingId("default_test_tracking_id"))).thenReturn(responseThrows)
+      when(bruteForcePreventionWebService.callBruteForce(VrmThrows,
+        TrackingId("default_test_tracking_id"))
+      ).thenReturn(responseThrows)
 
       when(bruteForcePreventionWebService.reset(any[String], any[TrackingId]))
         .thenReturn(Future.successful(new FakeResponse(status = play.api.http.Status.OK)))
@@ -568,7 +601,10 @@ class VehicleLookupUnitSpec extends UnitSpec {
   private def vehicleLookupResponseGenerator(fullResponse: (Int, Option[VehicleAndKeeperLookupResponse]) = vehicleDetailsResponseSuccess,
                                               bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
                                               isPrototypeBannerVisible: Boolean = true): VehicleLookup = {
-    val (vehicleLookupController, _) = vehicleLookupControllerAndMocks(fullResponse, bruteForceService, isPrototypeBannerVisible)
+    val (vehicleLookupController, _) = vehicleLookupControllerAndMocks(fullResponse,
+      bruteForceService,
+      isPrototypeBannerVisible
+    )
     vehicleLookupController
   }
 
@@ -582,7 +618,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
 
     when(wsMock.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId]))
       .thenReturn(Future.successful {
-        new FakeResponse(status = status, fakeJson = responseAsJson) // Any call to a webservice will always return this successful response.
+        // Any call to a webservice will always return this successful response.
+        new FakeResponse(status = status, fakeJson = responseAsJson)
       })
 
     val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(wsMock, healthStatsMock)
@@ -613,7 +650,9 @@ class VehicleLookupUnitSpec extends UnitSpec {
     when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId]))
       .thenReturn(Future.failed(new IllegalArgumentException))
 
-    val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(vehicleAndKeeperLookupWebService, healthStatsMock)
+    val vehicleAndKeeperLookupServiceImpl = new VehicleAndKeeperLookupServiceImpl(vehicleAndKeeperLookupWebService,
+      healthStatsMock
+    )
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
     implicit val config: Config = mock[Config]
     implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)

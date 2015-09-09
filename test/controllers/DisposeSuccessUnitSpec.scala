@@ -65,7 +65,8 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on present when only VehicleDetails and DisposeDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on present when only VehicleDetails and DisposeDetails are cached" in
+      new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.disposeFormModel())
@@ -75,7 +76,8 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on present when only VehicleDetails and DealerDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on present when only VehicleDetails and DealerDetails are cached" in
+      new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeSuccess.present(request)
@@ -84,7 +86,8 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on present when only DisposeDetails and DealerDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on present when only DisposeDetails " +
+      "and DealerDetails are cached" in new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = disposeSuccess.present(request)
@@ -157,7 +160,10 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     "offer the survey one week after the first offering" in new WithApplication {
       implicit val config = mockSurveyConfig()
 
-      val moreThen7daysAgo = (Instant.now.getMillis - config.prototypeSurveyPrepositionInterval - 1.minute.toMillis).toString
+      val moreThen7daysAgo = (Instant.now.getMillis
+        - config.prototypeSurveyPrepositionInterval
+        - 1.minute.toMillis
+        ).toString
 
       val disposeSuccess = disposeWithMockConfig(config)
       contentAsString(disposeSuccess.present(
@@ -168,7 +174,10 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     "not offer the survey one week after the first offering" in new WithApplication {
       implicit val config = mockSurveyConfig()
 
-      val lessThen7daysАgo = (Instant.now.getMillis - config.prototypeSurveyPrepositionInterval + 1.minute.toMillis).toString
+      val lessThen7daysАgo = (Instant.now.getMillis
+        - config.prototypeSurveyPrepositionInterval
+        + 1.minute.toMillis
+        ).toString
 
       val disposeSuccess = disposeWithMockConfig(config)
       contentAsString(disposeSuccess.present(
@@ -235,7 +244,8 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on submit when only VehicleDetails and DisposeDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on submit when only VehicleDetails and DisposeDetails are cached" in
+      new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
         withCookies(CookieFactoryForUnitSpecs.disposeFormModel())
@@ -245,7 +255,8 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on submit when only VehicleDetails and DealerDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on submit when only VehicleDetails and DealerDetails are cached" in
+      new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeSuccess.newDisposal(request)
@@ -254,7 +265,8 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on submit when only DisposeDetails and DealerDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on submit when only DisposeDetails and DealerDetails are cached" in
+      new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())

@@ -14,5 +14,6 @@ class ServiceOpenFilter @Inject()(implicit config: Config,
   protected lazy val dateTimeZone = timeZone
   protected lazy val html = views.html.disposal_of_vehicle.closed("", "")
 
-  override protected def html(opening: String, closing: String) = views.html.disposal_of_vehicle.closed(opening, closing)
+  override protected def html(opening: String, closing: String) =
+    views.html.disposal_of_vehicle.closed(opening, closing)
 }

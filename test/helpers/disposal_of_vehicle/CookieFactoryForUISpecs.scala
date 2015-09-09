@@ -3,18 +3,20 @@ package helpers.disposal_of_vehicle
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
 import org.joda.time.{LocalDate, DateTime}
 import org.openqa.selenium.{Cookie, WebDriver}
-import models._
+import models.BusinessChooseYourAddressFormModel
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
+import models.EnterAddressManuallyFormModel
 import models.DisposeCacheKeyPrefix.CookiePrefix
+import models.DisposeFormModel
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.DisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.DisposeFormModelCacheKey
-import models.DisposeFormModelPrivate.DisposeFormPrivateModelCacheKey
-
+import models.PrivateDisposeFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
+import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import play.api.Play
 import play.api.Play.current
@@ -40,7 +42,9 @@ import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
 import webserviceclients.fakes.FakeAddressLookupService.addressWithoutUprn
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
-import webserviceclients.fakes.FakeDateServiceImpl.{DateOfDisposalDayValid, DateOfDisposalMonthValid, DateOfDisposalYearValid}
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
+import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.TransactionIdValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.ReferenceNumberValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid
@@ -175,9 +179,9 @@ object CookieFactoryForUISpecs {
     this
   }
 
-  def disposeFormPrivateModel()(implicit webDriver: WebDriver) = {
-    val key = DisposeFormPrivateModelCacheKey
-    val value = DisposeFormModelPrivate(mileage = None,
+  def privateDisposeFormModel()(implicit webDriver: WebDriver) = {
+    val key = models.PrivateDisposeFormModel.PrivateDisposeFormModelCacheKey
+    val value = PrivateDisposeFormModel(mileage = None,
       dateOfDisposal = new LocalDate(),
       email = None,
       consent = FakeDisposeWebServiceImpl.ConsentValid,

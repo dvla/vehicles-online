@@ -10,6 +10,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import utils.helpers.Config
 
 class BeforeYouStartUnitSpec extends UnitSpec {
+
   "present" should {
     "display the page" in new WithApplication {
       val result = beforeYouStart.present(FakeRequest())

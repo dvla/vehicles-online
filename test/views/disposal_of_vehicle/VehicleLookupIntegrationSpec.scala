@@ -3,9 +3,9 @@ package views.disposal_of_vehicle
 import composition.{TestGlobal, TestHarness}
 import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import ProgressBar.progressStep
 import helpers.tags.UiTag
 import helpers.UiSpec
+import models.AllCacheKeys
 import org.openqa.selenium.{By, WebElement, WebDriver}
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import pages.common.ErrorPanel
@@ -17,11 +17,10 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import pages.disposal_of_vehicle.VehicleLookupPage.{happyPath, tryLockedVrm, back, exit}
 import pages.disposal_of_vehicle.VrmLockedPage
-import play.api.test.FakeApplication
+import ProgressBar.progressStep
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import models.AllCacheKeys
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebDriverFactory
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
+import uk.gov.dvla.vehicles.presentation.common.views.widgetdriver.Wait
 import webserviceclients.fakes.FakeAddressLookupService.addressWithUprn
 
 final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
@@ -70,8 +69,9 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       go to VehicleLookupPage
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
-      csrf.getAttribute("value").size > 0 should equal(true)
+      csrf.getAttribute("name") should
+        equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("value").nonEmpty should equal(true)
     }
 
     "display the v5c image on the page with Javascript disabled" taggedAs UiTag in new WebBrowser {
@@ -81,8 +81,9 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       go to VehicleLookupPage
       page.title should equal(VehicleLookupPage.title)
 
-      new WebDriverWait(webDriver, 3).until(ExpectedConditions.visibilityOfElementLocated(
-        By.xpath("//div[@data-tooltip='tooltip_documentReferenceNumber']"))
+      Wait.until(ExpectedConditions.visibilityOfElementLocated(
+        By.xpath("//div[@data-tooltip='tooltip_documentReferenceNumber']")),
+        5
       )
     }
 
@@ -92,9 +93,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
 
       go to VehicleLookupPage
       val v5c = By.xpath("//div[@data-tooltip='tooltip_documentReferenceNumber']")
-      val waiting = new WebDriverWait(webDriver, 3)
-      waiting.until(ExpectedConditions.presenceOfElementLocated(v5c))
-      waiting.until(ExpectedConditions.invisibilityOfElementLocated(v5c))
+      Wait.until(ExpectedConditions.presenceOfElementLocated(v5c), 5)
+      Wait.until(ExpectedConditions.invisibilityOfElementLocated(v5c), 5)
     }
   }
 
@@ -126,7 +126,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "display one validation error message when a registrationNumber is entered containing one character" taggedAs UiTag in new WebBrowser {
+    "display one validation error message when a registrationNumber " +
+      "is entered containing one character" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -135,7 +136,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "display one validation error message when a registrationNumber is entered containing special characters" taggedAs UiTag in new WebBrowser {
+    "display one validation error message when a registrationNumber is " +
+      "entered containing special characters" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -144,7 +146,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "display two validation error messages when no vehicle details are entered but consent is given" taggedAs UiTag in new WebBrowser {
+    "display two validation error messages when no vehicle details are " +
+      "entered but consent is given" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -153,7 +156,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(2)
     }
 
-    "display one validation error message when only a valid registrationNumber is entered and consent is given" taggedAs UiTag in new WebBrowser {
+    "display one validation error message when only a valid registrationNumber is " +
+      "entered and consent is given" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -191,7 +195,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.hasErrors should equal(false)
     }*/
 
-    "display one validation error message when invalid referenceNumber (Html5Validation disabled)" taggedAs UiTag in new WebBrowser(app = fakeAppWithHtml5ValidationDisabledConfig) {
+    "display one validation error message when invalid referenceNumber " +
+      "(Html5Validation disabled)" taggedAs UiTag in new WebBrowser(app = fakeAppWithHtml5ValidationDisabledConfig) {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -210,7 +215,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "back" should {
-    "display BusinessChooseYourAddress page when back link is clicked with uprn present" taggedAs UiTag in new WebBrowser {
+    "display BusinessChooseYourAddress page when back link is " +
+      "clicked with uprn present" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         setupTradeDetails().
@@ -222,7 +228,8 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       page.title should equal(BusinessChooseYourAddressPage.title)
     }
 
-    "display EnterAddressManually page when back link is clicked after user has manually entered the address" taggedAs UiTag in new WebBrowser {
+    "display EnterAddressManually page when back link is clicked " +
+      "after user has manually entered the address" taggedAs UiTag in new WebBrowser {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         setupTradeDetails().
@@ -267,7 +274,6 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       dealerDetails().
       disposeOccurred
 
-  private val fakeAppWithHtml5ValidationEnabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> true))
-
-  private val fakeAppWithHtml5ValidationDisabledConfig = LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
+  private val fakeAppWithHtml5ValidationDisabledConfig =
+    LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
 }

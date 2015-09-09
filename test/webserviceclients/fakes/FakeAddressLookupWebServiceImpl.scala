@@ -4,20 +4,28 @@ import play.api.http.Status.OK
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.api.libs.ws.WSResponse
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
-import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupWebService
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.{Address, Details, Location, Presentation}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.{PostcodeToAddressResponseDto, UprnAddressPairDto, UprnToAddressResponseDto}
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.TrackingId
+import common.model.AddressModel
+import common.webserviceclients.addresslookup.AddressLookupWebService
+import common.webserviceclients.addresslookup.gds.domain.Address
+import common.webserviceclients.addresslookup.gds.domain.Details
+import common.webserviceclients.addresslookup.gds.domain.Location
+import common.webserviceclients.addresslookup.gds.domain.Presentation
+import common.webserviceclients.addresslookup.ordnanceservey.PostcodeToAddressResponseDto
+import common.webserviceclients.addresslookup.ordnanceservey.UprnAddressPairDto
+import common.webserviceclients.addresslookup.ordnanceservey.UprnToAddressResponseDto
+import scala.concurrent.Future
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeWithoutAddresses}
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-
 final class FakeAddressLookupWebServiceImpl(responseOfPostcodeWebService: Future[WSResponse],
-                                            responseOfUprnWebService: Future[WSResponse]) extends AddressLookupWebService {
+                                            responseOfUprnWebService: Future[WSResponse])
+  extends AddressLookupWebService {
 
-  override def callPostcodeWebService(postcode: String, trackingId: TrackingId, showBusinessName: Option[Boolean] = None)
+  override def callPostcodeWebService(postcode: String,
+                                      trackingId: TrackingId,
+                                      showBusinessName: Option[Boolean] = None
+                                       )
                                      (implicit lang: Lang): Future[WSResponse] =
     if (postcode == PostcodeWithoutAddresses.toUpperCase) Future.successful {
       FakeResponse(status = OK, fakeJson = None)
@@ -39,7 +47,10 @@ object FakeAddressLookupWebServiceImpl {
     Seq(houseName, houseNumber, "property stub", "street stub", "town stub", "area stub", PostcodeValid)
   }
 
-  def uprnAddressPairWithDefaults(uprn: String = traderUprnValid.toString, houseName: String = "presentationProperty stub", houseNumber: String = "123") =
+  def uprnAddressPairWithDefaults(uprn: String = traderUprnValid.toString,
+                                  houseName: String = "presentationProperty stub",
+                                  houseNumber: String = "123"
+                                   ) =
     UprnAddressPairDto(uprn, address = addressSeq(houseName, houseNumber).mkString(", "))
 
   def postcodeToAddressResponseValid: PostcodeToAddressResponseDto = {
@@ -70,7 +81,9 @@ object FakeAddressLookupWebServiceImpl {
 
   val uprnToAddressResponseValid = {
     val uprnAddressPair = uprnAddressPairWithDefaults()
-    UprnToAddressResponseDto(addressViewModel = Some(AddressModel(uprn = Some(uprnAddressPair.uprn.toLong), address = uprnAddressPair.address.split(", "))))
+    UprnToAddressResponseDto(addressViewModel = Some(
+      AddressModel(uprn = Some(uprnAddressPair.uprn.toLong), address = uprnAddressPair.address.split(", ")))
+    )
   }
 
   def responseValidForUprnToAddress: Future[WSResponse] = {
@@ -117,7 +130,7 @@ object FakeAddressLookupWebServiceImpl {
     )
 
   def responseValidForGdsAddressLookup: Future[WSResponse] = {
-    import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.JsonFormats._
+    import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.gds.domain.JsonFormats.addressFormat
     val inputAsJson = Json.toJson(Seq(gdsAddress(), gdsAddress(presentationStreet = "456")))
 
     Future.successful {
