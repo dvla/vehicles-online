@@ -17,7 +17,7 @@ resolvers += "Maven 2" at "http://repo2.maven.org/maven2"
 
 addSbtPlugin("dvla" % "build-details-generator" % "1.3.2-SNAPSHOT")
 
-addSbtPlugin("dvla" % "microservices-sandbox" % "1.3.7-SNAPSHOT")
+addSbtPlugin("dvla" % "microservices-sandbox" % "1.3.8-SNAPSHOT")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.9")
 
