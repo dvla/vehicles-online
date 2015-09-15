@@ -14,7 +14,7 @@ import utils.helpers.Config
 
 class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures with TestComposition {
   // The filter chain will return null if we redirect to the closed page.
-  "Return a null next filter request if trying to access the service out of hours" in new WebBrowser {
+  "Return a null next filter request if trying to access the service out of hours" in new WebBrowserForSelenium{
     setUpOutOfHours {
       case SetUp(filter, request, sessionFactory, nextFilter) =>
         val filterResult: Future[Result] = filter.apply(nextFilter)(request)
@@ -24,7 +24,7 @@ class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness wit
     }
   }
 
-  "Return a valid next filter request if trying to access the service within acceptable hours" in new WebBrowser{
+  "Return a valid next filter request if trying to access the service within acceptable hours" in new WebBrowserForSelenium{
     setUpInHours {
       case SetUp(filter, request, sessionFactory, nextFilter) =>
         val filterResult: Future[Result] = filter.apply(nextFilter)(request)

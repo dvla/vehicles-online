@@ -9,6 +9,7 @@ import helpers.UiSpec
 import models.EnterAddressManuallyFormModel
 import EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import org.openqa.selenium.{By, WebElement, WebDriver}
+import org.scalatest.selenium.WebBrowser.{click, go, pageTitle, pageSource}
 import pages.common.ErrorPanel
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage
@@ -23,11 +24,11 @@ import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 
 final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHarness {
   "business choose your address page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to BusinessChooseYourAddressPage
-      page.title should equal(BusinessChooseYourAddressPage.title)
+      pageTitle should equal(BusinessChooseYourAddressPage.title)
     }
 
     "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
@@ -35,7 +36,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       cacheSetup()
       go to BusinessChooseYourAddressPage
 
-      page.source.contains(progressStep(3)) should equal(true)
+      pageSource.contains(progressStep(3)) should equal(true)
     }
 
     "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
@@ -43,50 +44,52 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       cacheSetup()
       go to BusinessChooseYourAddressPage
 
-      page.source.contains(progressStep(3)) should equal(false)
+      pageSource.contains(progressStep(3)) should equal(false)
     }
 
-    "redirect when no traderBusinessName is cached" taggedAs UiTag in new WebBrowser {
+    "redirect when no traderBusinessName is cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BusinessChooseYourAddressPage
 
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
-    "display appropriate content when address service returns addresses" taggedAs UiTag in new WebBrowser {
+    "display appropriate content when address service returns addresses" taggedAs UiTag in new WebBrowserForSelenium {
       SetupTradeDetailsPage.happyPath()
-      page.source.contains("No addresses found for that postcode") should equal(false) // Does not contain message
-      page.source should include("""<a id="enterAddressManuallyButton"""")
+      pageSource.contains("No addresses found for that postcode") should equal(false) // Does not contain message
+      pageSource should include("""<a id="enterAddressManuallyButton"""")
     }
 
-    "display the postcode entered in the previous page" taggedAs UiTag in new WebBrowser {
+    "display the postcode entered in the previous page" taggedAs UiTag in new WebBrowserForSelenium {
       SetupTradeDetailsPage.happyPath()
-      page.source.contains(FakeAddressLookupService.PostcodeValid.toUpperCase) should equal(true)
+      pageSource.contains(FakeAddressLookupService.PostcodeValid.toUpperCase) should equal(true)
     }
 
-    "display expected addresses in dropdown when address service returns addresses" taggedAs UiTag in new WebBrowser {
+    "display expected addresses in dropdown when address service returns addresses" taggedAs UiTag in
+      new WebBrowserForSelenium {
       SetupTradeDetailsPage.happyPath()
 
       // The first option is the "Please select..." and the other options are the addresses.
       BusinessChooseYourAddressPage.getListCount should equal(4)
-      page.source should include(
+      pageSource should include(
         s"presentationProperty stub, 123, property stub, street stub, town stub, area stub, $PostcodeValid"
       )
-      page.source should include(
+      pageSource should include(
         s"presentationProperty stub, 456, property stub, street stub, town stub, area stub, $PostcodeValid"
       )
-      page.source should include(
+      pageSource should include(
         s"presentationProperty stub, 789, property stub, street stub, town stub, area stub, $PostcodeValid"
       )
     }
 
-    "display appropriate content when address service returns no addresses" taggedAs UiTag in new WebBrowser {
+    "display appropriate content when address service returns no addresses" taggedAs UiTag in
+      new WebBrowserForSelenium {
       SetupTradeDetailsPage.submitPostcodeWithoutAddresses
 
-      page.source should include("No addresses found for that postcode") // Does not contain the positive message
-      page.source should include("""<a id="enterAddressManuallyButton"""")
+      pageSource should include("No addresses found for that postcode") // Does not contain the positive message
+      pageSource should include("""<a id="enterAddressManuallyButton"""")
     }
 
-    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
+    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {
       SetupTradeDetailsPage.happyPath()
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
@@ -95,7 +98,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       csrf.getAttribute("value").nonEmpty should equal(true)
     }
 
-    "not display any links to change language" taggedAs UiTag in new WebBrowser {
+    "not display any links to change language" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       CookieFactoryForUISpecs.withLanguageEn()
@@ -107,49 +110,50 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
   }
 
   "manualAddress button that is displayed when addresses have been found" should {
-    "go to the manual address entry page" taggedAs UiTag in new WebBrowser {
+    "go to the manual address entry page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to BusinessChooseYourAddressPage
 
       click on manualAddress
 
-      page.title should equal(EnterAddressManuallyPage.title)
+      pageTitle should equal(EnterAddressManuallyPage.title)
     }
   }
 
   "manualAddress button that is displayed when no addresses have been found" should {
-    "go to the manual address entry page" taggedAs UiTag in new WebBrowser {
+    "go to the manual address entry page" taggedAs UiTag in new WebBrowserForSelenium {
       SetupTradeDetailsPage.submitPostcodeWithoutAddresses
 
       click on manualAddress
 
-      page.title should equal(EnterAddressManuallyPage.title)
+      pageTitle should equal(EnterAddressManuallyPage.title)
     }
   }
 
   "back button" should {
-    "display previous page" taggedAs UiTag in new WebBrowser {
+    "display previous page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to BusinessChooseYourAddressPage
 
       click on back
 
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
   }
 
   "select button" should {
-    "go to the next page when correct data is entered" taggedAs UiTag in new WebBrowser {
+    "go to the next page when correct data is entered" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       happyPath
 
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "display validation error messages when addressSelected is not in the list" taggedAs UiTag in new WebBrowser {
+    "display validation error messages when addressSelected is not in the list" taggedAs UiTag in
+      new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       sadPath

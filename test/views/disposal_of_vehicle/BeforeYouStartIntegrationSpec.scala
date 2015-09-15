@@ -6,6 +6,7 @@ import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
 import org.openqa.selenium.WebDriver
+import org.scalatest.selenium.WebBrowser.{click, go, pageTitle, pageSource}
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage.startNow
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage}
@@ -14,19 +15,19 @@ import models.AllCacheKeys
 
 final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium{
       go to BeforeYouStartPage
-      page.title should equal(BeforeYouStartPage.title)
+      pageTitle should equal(BeforeYouStartPage.title)
     }
 
     "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
       go to BeforeYouStartPage
-      page.source.contains(progressStep(1)) should equal(true)
+      pageSource.contains(progressStep(1)) should equal(true)
     }
 
     "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
       go to BeforeYouStartPage
-      page.source.contains(progressStep(1)) should equal(false)
+      pageSource.contains(progressStep(1)) should equal(false)
     }
 
     "remove redundant cookies (needed for when a user exits the service and comes back)" taggedAs UiTag in
@@ -53,7 +54,7 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "display the 'Cymraeg' language button and not the 'English' language button when the play language cookie has " +
-    "value 'en'" taggedAs UiTag in new WebBrowser {
+    "value 'en'" taggedAs UiTag in new WebBrowserForSelenium {
     go to BeforeYouStartPage // By default will load in English.
     CookieFactoryForUISpecs.withLanguageEn()
     go to BeforeYouStartPage
@@ -63,18 +64,19 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "display the 'English' language button and not the 'Cymraeg' language button when the play language cookie has "  +
-    "value 'cy'" taggedAs UiTag in new WebBrowser {
+    "value 'cy'" taggedAs UiTag in new WebBrowserForSelenium {
     go to BeforeYouStartPage // By default will load in English.
     CookieFactoryForUISpecs.withLanguageCy()
     go to BeforeYouStartPage
 
     isCymraegDisplayed should equal(false)
     isEnglishDisplayed should equal(true)
-    page.title should equal(BeforeYouStartPage.titleCy)
+    pageTitle should equal(BeforeYouStartPage.titleCy)
   }
 
   "display the 'Cymraeg' language button and not the 'English' language button and mailto when the play language " +
-    "cookie does not exist (assumption that the browser default language is English)" taggedAs UiTag in new WebBrowser {
+    "cookie does not exist (assumption that the browser default language is English)" taggedAs UiTag in
+    new WebBrowserForSelenium {
     go to BeforeYouStartPage
 
     isCymraegDisplayed should equal(true)
@@ -82,10 +84,10 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "startNow button" should {
-    "go to next page" taggedAs UiTag in new WebBrowser {
+    "go to next page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       click on startNow
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
   }
 }
