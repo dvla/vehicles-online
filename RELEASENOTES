@@ -1,5 +1,12 @@
 ======= 1.17 ========
 TIME OF RELEASE BINARIES CREATION:
+Wed Sep 16 09:59:14 UTC 2015
+
+US1777	Remove deprecated approach to marking fields as optional.
+US3799	Cursor needs to be placed in VRN field when 'Notify Another Sale' is selected
+US3800	Better Emphasize 'Destroy V5C' on all VM & PR Services
+US3731	Remove openingTime, closingTime properties from all exemplars
+US3789	Tidy up the upstart scripts for all microservices and apps
 
 ======= 1.16 ========
 TIME OF RELEASE BINARIES CREATION:
