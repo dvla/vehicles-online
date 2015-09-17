@@ -1,16 +1,15 @@
 @(opening: String, closing: String)(implicit lang: Lang,
 config: utils.helpers.Config,
-isPrivateKeeper: Boolean))
+isPrivateKeeper: Boolean)
 
 @import views.html.disposal_of_vehicle.main
 
 @main(
-    title = Messages("disposal.closed.title")
+    title = Messages("closed.title")
 ) {
-    <h1>@Messages("disposal.closed.title")</h1>
-    <p>@Messages("disposal.closed.p1")</p>
-    <p>@Messages("disposal.closed.p2", opening, closing)</p>
+    <h1>@Messages("closed.title")</h1>
+    <p>@Messages("closed.p1", opening, closing)</p>
     <div class="form-steps">
-        <a id="exit-button" href="https://www.gov.uk/" class="button">@Messages("disposal.closed.exit_button")</a>
+        <a id="exit-button" href="https://www.gov.uk/" class="button">@Messages("closed.exit_button")</a>
     </div>
 }

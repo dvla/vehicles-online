@@ -310,10 +310,9 @@ disposal_progress_5 = Step 5 of 6
 disposal_progress_6 = Step 6 of 6
 
 # closed
-disposal.closed.title = Y Gwasanaeth Ar Gau
-disposal.closed.p1 = Nid yw''r systemau cefnogol i''r gwasanaeth hwn ar gael yn gyfredol.
-disposal.closed.p2 = Oriau arferol gweithredu yw Llun i Sadwrn - {0}.i {1}. Cwblhewch eich trafodyn yn ystod yr oriau hyn.
-disposal.closed.exit_button = Allan
+closed.title = Nid yw’r Gwasanaeth ar gael
+closed.p1 = Mae’r gwasanaeth ar gael o ddydd Llun i ddydd Sadwrn yn unig {0} to {1}
+closed.exit_button = Gadael
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
