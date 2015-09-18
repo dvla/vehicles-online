@@ -13,6 +13,7 @@
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.views.html.widgets.addressAndPostcode
 @import common.views.html.widgets.base.csrfTokenHiddenField
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.alertWarning
 
 @main(
     progress = Some(Messages("disposal_progress_3")),
@@ -21,7 +22,18 @@
     backButton = Some(backLink)
 ) {
     <h1>@Messages("disposal_enteraddressmanually.title")</h1>
-    <div class="enter-address-manually uppercase-input sr-only-labels">
+    <div class="two-col clearfix vehicle-lookup">
+        <div class="first-col trader-details">
+            @if(Messages("disposal_enteraddressmanually.addresswarning")) {
+                @alertWarning() {
+                    <p>@Messages("disposal_enteraddressmanually.addresswarning")
+                        <a href="http://www3.royalmail.com/find-a-postcode/nojs/enquiry" target="_blank">
+                           @Messages("disposal_enteraddressmanually.addresswarninglinktext")</a>
+                    </p>
+                }
+            }
+        </div>
+        <div class="second-col enter-address-manually uppercase-input sr-only-labels">
         @form(action = formTarget) {
             @csrfTokenHiddenField()
 
@@ -36,5 +48,6 @@
                 <button id="@NextId" type="submit" name="action" class="button">@Messages("disposal_enteraddressmanually.submitbutton")</button>
             </div>
         }
+        </div>
     </div>
 }
