@@ -17,6 +17,7 @@ import common.helpers.webbrowser.Page
 import common.helpers.webbrowser.RadioButton
 import common.helpers.webbrowser.TelField
 import common.helpers.webbrowser.TextField
+import common.helpers.webbrowser.EmailField
 import common.helpers.webbrowser.WebBrowserDSL
 import common.helpers.webbrowser.WebDriverFactory
 import common.mappings.Email.{EmailId => EmailEnterId, EmailVerifyId}
@@ -38,9 +39,9 @@ object DisposeForPrivateKeeperPage extends Page with WebBrowserDSL {
 
   def consent(implicit driver: WebDriver): Checkbox = checkbox(id(ConsentId))
 
-  def emailField(implicit driver: WebDriver): TextField = textField(id(s"${EmailId}_$EmailEnterId"))
+  def emailField(implicit driver: WebDriver): EmailField = emailField(id(s"${EmailId}_$EmailEnterId"))
 
-  def emailConfirmField(implicit driver: WebDriver): TextField = textField(id(s"${EmailId}_$EmailVerifyId"))
+  def emailConfirmField(implicit driver: WebDriver): EmailField = emailField(id(s"${EmailId}_$EmailVerifyId"))
 
   def emailInvisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Invisible"))
 
