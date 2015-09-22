@@ -9,7 +9,23 @@ import helpers.UiSpec
 import models.EnterAddressManuallyFormModel
 import EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import org.openqa.selenium.{By, WebElement, WebDriver}
-import org.scalatest.selenium.WebBrowser.{click, go, pageTitle, pageSource}
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.common.ErrorPanel
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage
@@ -64,12 +80,9 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       pageSource.contains(FakeAddressLookupService.PostcodeValid.toUpperCase) should equal(true)
     }
 
-    "display expected addresses in dropdown when address service returns addresses" taggedAs UiTag in
-      new WebBrowserForSelenium {
+    "display expected addresses in dropdown when address service returns addresses" taggedAs UiTag in new WebBrowserForSelenium {
       SetupTradeDetailsPage.happyPath()
 
-      // The first option is the "Please select..." and the other options are the addresses.
-      BusinessChooseYourAddressPage.getListCount should equal(4)
       pageSource should include(
         s"presentationProperty stub, 123, property stub, street stub, town stub, area stub, $PostcodeValid"
       )
@@ -81,8 +94,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       )
     }
 
-    "display appropriate content when address service returns no addresses" taggedAs UiTag in
-      new WebBrowserForSelenium {
+    "display appropriate content when address service returns no addresses" taggedAs UiTag in new WebBrowserForSelenium {
       SetupTradeDetailsPage.submitPostcodeWithoutAddresses
 
       pageSource should include("No addresses found for that postcode") // Does not contain the positive message
@@ -93,9 +105,8 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       SetupTradeDetailsPage.happyPath()
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
-      csrf.getAttribute("name") should
-        equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
-      csrf.getAttribute("value").nonEmpty should equal(true)
+      csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
+      csrf.getAttribute("value").size > 0 should equal(true)
     }
 
     "not display any links to change language" taggedAs UiTag in new WebBrowserForSelenium {
@@ -152,8 +163,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "display validation error messages when addressSelected is not in the list" taggedAs UiTag in
-      new WebBrowserForSelenium {
+    "display validation error messages when addressSelected is not in the list" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       sadPath
@@ -161,8 +171,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "remove redundant EnterAddressManually cookie " +
-      "(as we are now in an alternate history)" taggedAs UiTag in new PhantomJsByDefault {
+    "remove redundant EnterAddressManually cookie (as we are now in an alternate history)" taggedAs UiTag in new PhantomJsByDefault {
       def cacheSetupVisitedEnterAddressManuallyPage()(implicit webDriver: WebDriver) =
         CookieFactoryForUISpecs.setupTradeDetails().enterAddressManually()
 

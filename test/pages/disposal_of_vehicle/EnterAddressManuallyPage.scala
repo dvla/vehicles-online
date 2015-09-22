@@ -2,9 +2,17 @@ package pages.disposal_of_vehicle
 
 import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import org.openqa.selenium.WebDriver
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
-import helpers.webbrowser.{Element, Page, TextField, WebBrowserDSL, WebDriverFactory}
+import helpers.webbrowser.{Page, WebDriverFactory}
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
 import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import views.disposal_of_vehicle.EnterAddressManually
@@ -14,11 +22,11 @@ import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
 import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 
-object EnterAddressManuallyPage extends Page with WebBrowserDSL {
+object EnterAddressManuallyPage extends Page {
   final val address = s"$applicationContext/enter-address-manually"
   final override val title: String = "Enter address"
   
-  override def url: String = WebDriverFactory.testUrl + address.substring(1)
+  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def addressBuildingNameOrNumber(implicit driver: WebDriver): TextField =
     textField(id(s"${AddressAndPostcodeId}_${AddressLinesId}_$BuildingNameOrNumberId"))

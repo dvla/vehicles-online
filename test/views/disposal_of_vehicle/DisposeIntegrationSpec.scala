@@ -8,6 +8,23 @@ import helpers.UiSpec
 import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
 import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.openqa.selenium.{By, WebDriver}
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import org.scalatest.concurrent.Eventually.{eventually, PatienceConfig, scaled}
 import org.scalatest.time.{Seconds, Span}
 import pages.common.ErrorPanel
@@ -38,13 +55,13 @@ import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageInvalid
 
 final class DisposeIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
 
       go to DisposePage
 
-      page.title should equal(title)
+      pageTitle should equal(title)
     }
 
     "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
@@ -53,7 +70,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       go to DisposePage
 
-      page.source.contains(progressStep(5)) should equal(true)
+      pageSource.contains(progressStep(5)) should equal(true)
     }
 
     "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
@@ -62,34 +79,34 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       go to DisposePage
 
-      page.source.contains(progressStep(5)) should equal(false)
+      pageSource.contains(progressStep(5)) should equal(false)
     }
 
-    "redirect when no vehicleDetailsModel is cached" taggedAs UiTag in new WebBrowser {
+    "redirect when no vehicleDetailsModel is cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.dealerDetails()
 
       go to DisposePage
 
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "redirect when no businessChooseYourAddress is cached" taggedAs UiTag in new WebBrowser {
+    "redirect when no businessChooseYourAddress is cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.vehicleAndKeeperDetailsModel()
 
       go to DisposePage
 
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
-    "redirect when no traderBusinessName is cached" taggedAs UiTag in new WebBrowser {
+    "redirect when no traderBusinessName is cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to DisposePage
 
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
-    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
+    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -102,7 +119,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       csrf.getAttribute("value").nonEmpty should equal(true)
     }
 
-    "not display optional email" taggedAs UiTag in new WebBrowser {
+    "not display optional email" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -112,14 +129,14 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "dispose button" should {
-    "display DisposeSuccess page on correct submission" taggedAs UiTag in new WebBrowser {
+    "display DisposeSuccess page on correct submission" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup().
         vehicleLookupFormModel()
 
       happyPath
 
-      page.title should equal(DisposeSuccessPage.title)
+      pageTitle should equal(DisposeSuccessPage.title)
     }
 
     // This test needs to run with javaScript enabled.
@@ -135,7 +152,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       val timeout: Span = scaled(Span(2, Seconds))
       implicit val patienceConfig: PatienceConfig = PatienceConfig(timeout = timeout)
 
-      eventually {page.title should equal(DisposeSuccessPage.title)}
+      eventually {pageTitle should equal(DisposeSuccessPage.title)}
     }
 
     // This test needs to run with javaScript enabled.
@@ -164,10 +181,10 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       implicit val patienceConfig: PatienceConfig = PatienceConfig(timeout = timeout)
 
       eventually(dispose.underlying.getAttribute("class").contains("disabled"))
-      eventually {page.title should equal(DisposeSuccessPage.title)}
+      eventually {pageTitle should equal(DisposeSuccessPage.title)}
     }
 
-    "display validation errors when no data is entered" taggedAs UiTag in new WebBrowser {
+    "display validation errors when no data is entered" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -176,12 +193,12 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(3)
     }
 
-    "display validation errors when month and year are input but no day" taggedAs UiTag in new WebBrowser {
+    "display validation errors when month and year are input but no day" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalMonth enter DateOfDisposalMonthValid
-      dateOfDisposalYear enter DateOfDisposalYearValid
+      dateOfDisposalMonth.value = DateOfDisposalMonthValid
+      dateOfDisposalYear.value = DateOfDisposalYearValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -190,12 +207,12 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "display validation errors when day and year are input but no month" taggedAs UiTag in new WebBrowser {
+    "display validation errors when day and year are input but no month" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalDay enter DateOfDisposalDayValid
-      dateOfDisposalYear enter DateOfDisposalYearValid
+      dateOfDisposalDay.value = DateOfDisposalDayValid
+      dateOfDisposalYear.value = DateOfDisposalYearValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -204,12 +221,12 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    "display validation errors when day and month are input but no year" taggedAs UiTag in new WebBrowser {
+    "display validation errors when day and month are input but no year" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      dateOfDisposalDay enter DateOfDisposalDayValid
-      dateOfDisposalMonth enter DateOfDisposalMonthValid
+      dateOfDisposalDay.value = DateOfDisposalDayValid
+      dateOfDisposalMonth.value = DateOfDisposalMonthValid
 
       click on consent
       click on lossOfRegistrationConsent
@@ -219,7 +236,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }
 
     "display validation errors when day month and year are not input but all " +
-      "other mandatory fields have been" taggedAs UiTag in new WebBrowser {
+      "other mandatory fields have been" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
@@ -268,14 +285,14 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
     }*/
 
     "display one validation error message when milage has non-numeric (Html5Validation disabled)" taggedAs UiTag in
-      new WebBrowser(app = fakeAppWithHtml5ValidationDisabledConfig) {
+      new WebBrowserForSelenium(app = fakeAppWithHtml5ValidationDisabledConfig) {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      mileage enter MileageInvalid
-      dateOfDisposalDay enter DateOfDisposalDayValid
-      dateOfDisposalMonth enter DateOfDisposalMonthValid
-      dateOfDisposalYear enter DateOfDisposalYearValid
+      mileage.value = MileageInvalid
+      dateOfDisposalDay.value = DateOfDisposalDayValid
+      dateOfDisposalMonth.value = DateOfDisposalMonthValid
+      dateOfDisposalYear.value = DateOfDisposalYearValid
       click on consent
       click on lossOfRegistrationConsent
 
@@ -286,19 +303,19 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "back button" should {
-    "display previous page" taggedAs UiTag in new WebBrowser {
+    "display previous page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
 
       click on back
 
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
   }
 
   "javascript disabled" should {
-    "not display the Use Todays Date checkbox" taggedAs UiTag in new WebBrowser {
+    "not display the Use Todays Date checkbox" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup().
         vehicleLookupFormModel()

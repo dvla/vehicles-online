@@ -12,7 +12,7 @@ object  BeforeYouStartPage extends Page {
   final override val title: String = "Buying a vehicle into trade"
   final val titleCy: String = "Gwerthu cerbyd i'r fasnach foduron"
 
-  override def url: String = WebDriverFactory.testUrl + address.substring(1)
+  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def startNow(implicit driver: WebDriver) = find(id(NextId)).get
 }

@@ -8,16 +8,33 @@ import helpers.UiSpec
 import org.apache.http.client.methods.{HttpGet, HttpPost}
 import org.apache.http.impl.client.HttpClients
 import org.scalatest.mock.MockitoSugar
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage}
 import pages.ApplicationContext.applicationContext
 import play.api.LoggerLike
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
 import AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.helpers
-import helpers.webbrowser.{WebBrowserDSL, WebDriverFactory}
+import helpers.webbrowser.{WebDriverFactory}
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
-class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoSugar with WebBrowserDSL {
+class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoSugar {
 
   "Access Logging" should {
     "Log access that complete with success" in new WebBrowserForSelenium(testApp1) {

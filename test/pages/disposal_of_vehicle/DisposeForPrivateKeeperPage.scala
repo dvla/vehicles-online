@@ -9,24 +9,30 @@ import models.DisposeFormModelBase.Form.SubmitId
 import models.PrivateDisposeFormModel.Form.EmailOptionId
 import models.PrivateDisposeFormModel.Form.EmailId
 import org.openqa.selenium.WebDriver
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common
-import common.helpers.webbrowser.Checkbox
-import common.helpers.webbrowser.Element
 import common.helpers.webbrowser.Page
-import common.helpers.webbrowser.RadioButton
-import common.helpers.webbrowser.TelField
-import common.helpers.webbrowser.TextField
-import common.helpers.webbrowser.WebBrowserDSL
 import common.helpers.webbrowser.WebDriverFactory
 import common.mappings.Email.{EmailId => EmailEnterId, EmailVerifyId}
 import common.mappings.OptionalToggle.{Invisible, Visible}
 
-object DisposeForPrivateKeeperPage extends Page with WebBrowserDSL {
+object DisposeForPrivateKeeperPage extends Page {
   final val address = s"$applicationContext/private/complete-and-confirm"
   final override val title: String = "Complete & confirm"
 
-  override def url: String = WebDriverFactory.testUrl + address.substring(1)
+  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def mileage(implicit driver: WebDriver): TelField = telField(id(MileageId))
 
