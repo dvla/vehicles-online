@@ -13,6 +13,7 @@
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
 @import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.alertWarning
 @import common.views.html.widgets.base.csrfTokenHiddenField
 
 @main(
@@ -27,7 +28,9 @@ title = Messages("disposal_disposeconfirmation.title")
         <div class="alert-complete">
             <h1>@Messages("disposal_disposeconfirmation.disposalComplete")</h1>
             <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
-            <div class="alert-warning"><p><strong>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</strong></p></div>
+            @alertWarning() {
+              <p><strong>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p2")</strong></p>
+            }
         </div>
         <h2>@Messages("disposal_disposeconfirmation.whatNext")</h2>
         <ul>

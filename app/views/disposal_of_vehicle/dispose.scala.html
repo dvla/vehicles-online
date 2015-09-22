@@ -28,8 +28,9 @@
 @import common.views.html.widgets.base.csrfTokenHiddenField
 @import views.html.helper.form
 @import views.html.common.vehicle_detail_playback
-@import common.views.html.widgets.optionalToggle
+@import common.views.html.widgets.alertWarning
 @import common.views.html.widgets.email
+@import common.views.html.widgets.optionalToggle
 
 @main(
     progress = Some(Messages("disposal_progress_5")),
@@ -57,9 +58,7 @@
                     <dd>@for(addr <- data.dealerAddress) {@addr<br/>}</dd>
                 </dl>
 
-                <div class="alert-warning">
-                    <p>@Messages("disposal_dispose.warning")</p>
-                </div>
+                @alertWarning() { <p>@Messages("disposal_dispose.warning")</p> }
             </div>
 
             <div class="disposal-form second-col uppercase-input">

@@ -7,6 +7,7 @@
 @import views.disposal_of_vehicle.BeforeYouStart.NextId
 @import views.html.disposal_of_vehicle.main
 @import uk.gov.dvla.vehicles.presentation.common
+@import common.views.html.widgets.alertWarning
 @import common.views.html.widgets.base.csrfTokenHiddenField
 
 @main(
@@ -29,7 +30,7 @@
   </div>
   <div class="second-col">
     <p>@Messages("disposal_beforeyoustart.description")</p>
-    <div class="alert-warning"><h2>@Messages("disposal_beforeyoustart.tradeWarn")</h2></div>
+    @alertWarning() { <h2>@Messages("disposal_beforeyoustart.tradeWarn")</h2> }
     <p>
         <a class="button" role="button" id="@NextId" href="@SetUpTradeDetails.submit()">@Messages("disposal_beforeyoustart.button")</a>
     </p>
@@ -45,7 +46,7 @@
       <li>@Messages("disposal_beforeyoustart.youWillNeedListItem1")</li>
       <li>@Messages("disposal_beforeyoustart.youWillNeedListItem2")</li>
     </ul>
-    <div class="alert-warning"><h3>@Messages("disposal_beforeyoustart.recordUpdateWarn")</h3></div>
+    @alertWarning() { <h3>@Messages("disposal_beforeyoustart.recordUpdateWarn")</h3> }
     <h2>@Messages("disposal_beforeyoustart.finishedTitle")</h2>
     <ul class="list-standard">
       <li>@Messages("disposal_beforeyoustart.finishedListItem1")</li>
