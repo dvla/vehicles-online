@@ -43,9 +43,9 @@ object DisposeForPrivateKeeperPage extends Page {
 
   def consent(implicit driver: WebDriver): Checkbox = checkbox(id(ConsentId))
 
-  def emailField(implicit driver: WebDriver): EmailField = emailField(id(s"${EmailId}_$EmailEnterId"))
+  def emailField(implicit driver: WebDriver): EmailField = emailField(driver)
 
-  def emailConfirmField(implicit driver: WebDriver): EmailField = emailField(id(s"${EmailId}_$EmailVerifyId"))
+  def emailConfirmField(implicit driver: WebDriver): EmailField = emailField(driver)
 
   def emailInvisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Invisible"))
 
