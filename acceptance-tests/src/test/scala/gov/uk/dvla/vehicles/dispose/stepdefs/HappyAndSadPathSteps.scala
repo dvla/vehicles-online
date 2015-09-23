@@ -3,20 +3,8 @@ package gov.uk.dvla.vehicles.dispose.stepdefs
 import cucumber.api.java.en.{Given, When, Then}
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
-import WebBrowser.enter
-import WebBrowser.Checkbox
-import WebBrowser.checkbox
-import WebBrowser.TextField
-import WebBrowser.textField
-import WebBrowser.TelField
-import WebBrowser.telField
-import WebBrowser.RadioButton
-import WebBrowser.radioButton
 import WebBrowser.click
 import WebBrowser.go
-import WebBrowser.find
-import WebBrowser.id
-import WebBrowser.Element
 import WebBrowser.pageSource
 import WebBrowser.pageTitle
 import org.scalatest.Matchers
@@ -27,9 +15,9 @@ import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
 
-class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers with WithClue{
+class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue{
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
