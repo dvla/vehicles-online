@@ -6,6 +6,23 @@ import helpers.common.ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import org.openqa.selenium.{By, WebElement}
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.common.{Accessibility, ErrorPanel}
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.SetupTradeDetailsPage.happyPath
@@ -15,24 +32,24 @@ import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
 
 final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
   "got to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to SetupTradeDetailsPage
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
     "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
       go to SetupTradeDetailsPage
 
-      page.source.contains(progressStep(2)) should equal(true)
+      pageSource.contains(progressStep(2)) should equal(true)
     }
 
     "display the progress of the page when progress bar is set to false" taggedAs UiTag in new ProgressBarFalse {
       go to SetupTradeDetailsPage
 
-      page.source.contains(progressStep(2)) should equal(false)
+      pageSource.contains(progressStep(2)) should equal(false)
     }
 
-    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
+    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {
       go to SetupTradeDetailsPage
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
@@ -42,7 +59,7 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
     }
 
     "display the 'Cymraeg' language button and not the 'English' language button when the language " +
-      "cookie is set to 'en'" taggedAs UiTag in new WebBrowser {
+      "cookie is set to 'en'" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage // By default will load in English.
       CookieFactoryForUISpecs.withLanguageEn()
       go to SetupTradeDetailsPage
@@ -52,7 +69,7 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
     }
 
     "display the 'English' language button and not the 'Cymraeg' language button when the language " +
-      "cookie is set to 'cy'" taggedAs UiTag in new WebBrowser {
+      "cookie is set to 'cy'" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage // By default will load in English.
       CookieFactoryForUISpecs.withLanguageCy()
       go to SetupTradeDetailsPage
@@ -63,34 +80,34 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "lookup button" should {
-    "go to the next page when correct data is entered" taggedAs UiTag in new WebBrowser {
+    "go to the next page when correct data is entered" taggedAs UiTag in new WebBrowserForSelenium {
       happyPath()
-      page.title should equal(BusinessChooseYourAddressPage.title)
+      pageTitle should equal(BusinessChooseYourAddressPage.title)
     }
 
-    "display two summary validation error messages when no details are entered" taggedAs UiTag in new WebBrowser {
+    "display two summary validation error messages when no details are entered" taggedAs UiTag in new WebBrowserForSelenium {
       happyPath(traderBusinessName = "", traderBusinessPostcode = "")
       ErrorPanel.numberOfErrors should equal(2)
     }
 
-    "add aria required attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowser {
+    "add aria required attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowserForSelenium {
       happyPath(traderBusinessName = "")
       Accessibility.ariaRequiredPresent(SetupTradeDetailsFormModel.Form.TraderNameId) should equal(true)
     }
 
-    "add aria invalid attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowser {
+    "add aria invalid attribute to trader name field when required field not input" taggedAs UiTag in new WebBrowserForSelenium {
       happyPath(traderBusinessName = "")
       Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderNameId) should equal(true)
     }
 
     "add aria required attribute to trader postcode field when required field not input" taggedAs UiTag in
-      new WebBrowser {
+      new WebBrowserForSelenium {
       happyPath(traderBusinessPostcode = "")
       Accessibility.ariaRequiredPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }
 
     "add aria invalid attribute to trader postcode field when required field not input" taggedAs UiTag in
-      new WebBrowser {
+      new WebBrowserForSelenium {
       happyPath(traderBusinessPostcode = "")
       Accessibility.ariaInvalidPresent(SetupTradeDetailsFormModel.Form.TraderPostcodeId) should equal(true)
     }

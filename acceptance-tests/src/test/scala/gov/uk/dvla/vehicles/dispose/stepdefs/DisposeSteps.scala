@@ -4,6 +4,9 @@ import cucumber.api.java.en.{Given, When, Then}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.WebDriver
 import org.scalatest.Matchers
+import org.scalatest.selenium.WebBrowser.pageTitle
+import org.scalatest.selenium.WebBrowser.click
+import org.scalatest.selenium.WebBrowser.go
 import pages.common.ErrorPanel
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
@@ -17,9 +20,9 @@ import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDSL, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
 
-class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL with Matchers with WithClue {
+class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
@@ -36,18 +39,18 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
   def the_Trader_is_on_the_Complete_Confirm_page_and_javascript_is_not_enabled_for_the_browser() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
-    page.title should equal(SetupTradeDetailsPage.title) withClue trackingId
-    page.title should equal(SetupTradeDetailsPage.title) withClue trackingId
-    SetupTradeDetailsPage.traderName enter "Big Motors Limited"
-    SetupTradeDetailsPage.traderPostcode enter "qq99qq"
+    pageTitle should equal(SetupTradeDetailsPage.title) withClue trackingId
+    pageTitle should equal(SetupTradeDetailsPage.title) withClue trackingId
+    SetupTradeDetailsPage.traderName.value = "Big Motors Limited"
+    SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
-    page.title shouldEqual  BusinessChooseYourAddressPage.title withClue trackingId
+    pageTitle shouldEqual  BusinessChooseYourAddressPage.title withClue trackingId
     BusinessChooseYourAddressPage.chooseAddress.value="0"
     click on BusinessChooseYourAddressPage.select
-    VehicleLookupPage.vehicleRegistrationNumber enter "b1"
-    VehicleLookupPage.documentReferenceNumber enter "11111111111"
+    VehicleLookupPage.vehicleRegistrationNumber.value = "b1"
+    VehicleLookupPage.documentReferenceNumber.value = "11111111111"
     click on VehicleLookupPage.findVehicleDetails
-    page.title shouldEqual DisposePage.title withClue trackingId
+    pageTitle shouldEqual DisposePage.title withClue trackingId
     go to DisposePage
   }
 
@@ -98,8 +101,8 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
     go to BeforeYouStartPage
     CookieFactoryForUISpecs.setupTradeDetails().dealerDetails()
     go to VehicleLookupPage
-    VehicleLookupPage.vehicleRegistrationNumber enter "AB12AWR"
-    VehicleLookupPage.documentReferenceNumber enter "11111111112"
+    VehicleLookupPage.vehicleRegistrationNumber.value = "AB12AWR"
+    VehicleLookupPage.documentReferenceNumber.value = "11111111112"
     click on VehicleLookupPage.findVehicleDetails
     enterValidDisposalDate()
     click on DisposePage.consent
@@ -111,8 +114,8 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
     go to BeforeYouStartPage
     CookieFactoryForUISpecs.setupTradeDetails().dealerDetails()
     go to VehicleLookupPage
-    VehicleLookupPage.vehicleRegistrationNumber enter "AB12AWR"
-    VehicleLookupPage.documentReferenceNumber enter "11111111113"
+    VehicleLookupPage.vehicleRegistrationNumber.value = "AB12AWR"
+    VehicleLookupPage.documentReferenceNumber.value = "11111111113"
     click on VehicleLookupPage.findVehicleDetails
     enterValidDisposalDate()
     click on DisposePage.consent
@@ -153,7 +156,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
     click on consent
     click on lossOfRegistrationConsent
     click on dispose
-    page.title should equal(DisposeSuccessPage.title) withClue trackingId
+    pageTitle should equal(DisposeSuccessPage.title) withClue trackingId
   }
 
   @Then("""^an error will occur stating "Must be between today and two years ago"$""")
@@ -162,17 +165,17 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends WebBrowserDSL wit
   }
 
   private def enterValidDisposalDate() {
-    DisposePage.dateOfDisposalDay enter "25"
-    DisposePage.dateOfDisposalMonth enter "11"
-    DisposePage.dateOfDisposalYear enter "2013"
+    DisposePage.dateOfDisposalDay.value = "25"
+    DisposePage.dateOfDisposalMonth.value = "11"
+    DisposePage.dateOfDisposalYear.value = "2013"
   }
 
   private def buildDisposeSetup() {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
-    page.title should equal(SetupTradeDetailsPage.title) withClue trackingId
-    SetupTradeDetailsPage.traderName enter "Big Motors Limited"
-    SetupTradeDetailsPage.traderPostcode enter "AA99 1AA"
+    pageTitle should equal(SetupTradeDetailsPage.title) withClue trackingId
+    SetupTradeDetailsPage.traderName.value = "Big Motors Limited"
+    SetupTradeDetailsPage.traderPostcode.value = "AA99 1AA"
     click on SetupTradeDetailsPage.lookup
     CookieFactoryForUISpecs.setupTradeDetails().
       dealerDetails().

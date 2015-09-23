@@ -11,19 +11,19 @@ import helpers.webbrowser.WebDriverFactory
 
 class HealthCheckIntegrationSpec extends UiSpec with TestHarness {
   "Accessing the /healthcheck url" should {
-    "return 200 for GET" in new WebBrowser {
+    "return 200 for GET" in new WebBrowserForSelenium {
       val httpResponse = execute(new HttpGet(WebDriverFactory.testUrl + s"$applicationContext/healthcheck"))
       try httpResponse.getStatusLine.getStatusCode should be(Status.OK)
       finally httpResponse.close()
     }
 
-    "return 403 for POST" in new WebBrowser {
+    "return 403 for POST" in new WebBrowserForSelenium {
       val httpResponse = execute(new HttpPost(WebDriverFactory.testUrl + s"$applicationContext/healthcheck"))
       try httpResponse.getStatusLine.getStatusCode should be (Status.FORBIDDEN)
       finally httpResponse.close()
     }
 
-    "return 404 for PUT etc." in new WebBrowser {
+    "return 404 for PUT etc." in new WebBrowserForSelenium {
       val httpResponse = execute(new HttpPut(WebDriverFactory.testUrl + s"$applicationContext/healthcheck"))
       try httpResponse.getStatusLine.getStatusCode should be(Status.NOT_FOUND)
       finally httpResponse.close()

@@ -4,27 +4,44 @@ import composition.TestHarness
 import helpers.UiSpec
 import helpers.common.ProgressBar
 import helpers.tags.UiTag
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.OnHandlerNotFoundPage.exit
 import pages.disposal_of_vehicle.{BeforeYouStartPage, OnHandlerNotFoundPage}
 
 final class OnHandlerNotFoundIntegrationSpec extends UiSpec with TestHarness {
   "go to not found page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to OnHandlerNotFoundPage
-      page.title should equal(OnHandlerNotFoundPage.title)
+      pageTitle should equal(OnHandlerNotFoundPage.title)
     }
 
     "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
       go to OnHandlerNotFoundPage
-      page.source should not contain ProgressBar.div
+      pageSource should not contain ProgressBar.div
     }
   }
 
   "exit" should {
-    "redirect to BeforeYouStartPage" taggedAs UiTag in new WebBrowser {
+    "redirect to BeforeYouStartPage" taggedAs UiTag in new WebBrowserForSelenium {
       go to OnHandlerNotFoundPage
       click on exit
-      page.title should equal(BeforeYouStartPage.title)
+      pageTitle should equal(BeforeYouStartPage.title)
     }
   }
 }

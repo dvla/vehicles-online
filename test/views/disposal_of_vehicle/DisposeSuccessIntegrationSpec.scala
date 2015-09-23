@@ -9,6 +9,23 @@ import helpers.UiSpec
 import models.DisposeFormModel.{DisposeOccurredCacheKey, PreventGoingToDisposePageCacheKey}
 import models.{AllCacheKeys, DisposeCacheKeys, TradeDetailsCacheKeys}
 import org.openqa.selenium.{By, WebDriver, WebElement}
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.DisposeSuccessPage.{exitDisposal, newDisposal}
@@ -19,84 +36,84 @@ import views.disposal_of_vehicle.DisposeSuccess.NewDisposalId
 
 final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessPage
-      page.title should equal(DisposeSuccessPage.title)
+      pageTitle should equal(DisposeSuccessPage.title)
     }
 
     "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessPage
-      page.source.contains(progressStep(6)) should equal(true)
+      pageSource.contains(progressStep(6)) should equal(true)
     }
 
     "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessPage
-      page.source.contains(progressStep(6)) should equal(false)
+      pageSource.contains(progressStep(6)) should equal(false)
     }
 
-    "redirect when no details are cached" taggedAs UiTag in new WebBrowser {
+    "redirect when no details are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to DisposeSuccessPage
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
-    "redirect when only DealerDetails are cached" taggedAs UiTag in new WebBrowser {
+    "redirect when only DealerDetails are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.dealerDetails()
       go to DisposeSuccessPage
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "redirect when only VehicleDetails are cached" taggedAs UiTag in new WebBrowser {
+    "redirect when only VehicleDetails are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.vehicleAndKeeperDetailsModel()
       go to DisposeSuccessPage
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
-    "redirect when only DisposeDetails are cached" taggedAs UiTag in new WebBrowser {
+    "redirect when only DisposeDetails are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.disposeFormModel()
       go to DisposeSuccessPage
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
-    "redirect when only DealerDetails and VehicleDetails are cached" taggedAs UiTag in new WebBrowser {
+    "redirect when only DealerDetails and VehicleDetails are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         dealerDetails().
         vehicleAndKeeperDetailsModel()
 
       go to DisposeSuccessPage
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "redirect when only DisposeDetails and VehicleDetails are cached" taggedAs UiTag in new WebBrowser {
+    "redirect when only DisposeDetails and VehicleDetails are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         disposeFormModel().
         vehicleAndKeeperDetailsModel()
 
       go to DisposeSuccessPage
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
-    "redirect when only DisposeDetails and DealerDetails are cached" taggedAs UiTag in new WebBrowser {
+    "redirect when only DisposeDetails and DealerDetails are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         dealerDetails().
         disposeFormModel()
 
       go to DisposeSuccessPage
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
+    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
 
@@ -110,11 +127,11 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "newDisposal button" should {
-    "display vehicle lookup page" taggedAs UiTag in new WebBrowser {
+    "display vehicle lookup page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       DisposeSuccessPage.happyPath
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
     "remove and retain cookies" taggedAs UiTag in new PhantomJsByDefault {
@@ -139,22 +156,22 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       webDriver.manage().getCookieNamed(DisposeOccurredCacheKey) should not equal null
     }
 
-    "be present when the disposal is done by the trade" taggedAs UiTag in new WebBrowser {
+    "be present when the disposal is done by the trade" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessPage
-      page.title should equal(DisposeSuccessPage.title)
-      page.source should include(s"""id="$NewDisposalId"""")
+      pageTitle should equal(DisposeSuccessPage.title)
+      pageSource should include(s"""id="$NewDisposalId"""")
     }
   }
 
   "exit button" should {
-    "display before you start page" taggedAs UiTag in new WebBrowser {
+    "display before you start page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeSuccessPage
       click on exitDisposal
-      page.title should equal(BeforeYouStartPage.title)
+      pageTitle should equal(BeforeYouStartPage.title)
     }
 
     "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {
@@ -197,7 +214,7 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
 
         webDriver.navigate().back()
 
-        page.title should equal(VehicleLookupPage.title)
+        pageTitle should equal(VehicleLookupPage.title)
       }
     }*/
   }

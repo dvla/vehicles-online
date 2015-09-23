@@ -9,14 +9,21 @@ import models.DisposeFormModelBase.Form.SubmitId
 import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
 import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.openqa.selenium.WebDriver
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common
-import common.helpers.webbrowser.Checkbox
-import common.helpers.webbrowser.Element
 import common.helpers.webbrowser.Page
-import common.helpers.webbrowser.RadioButton
-import common.helpers.webbrowser.TelField
-import common.helpers.webbrowser.WebBrowserDSL
 import common.helpers.webbrowser.WebDriverFactory
 import common.mappings.OptionalToggle.Invisible
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
@@ -24,11 +31,11 @@ import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
-object DisposePage extends Page with WebBrowserDSL {
+object DisposePage extends Page {
   final val address = s"$applicationContext/complete-and-confirm"
   final override val title: String = "Complete & confirm"
 
-  override def url: String = WebDriverFactory.testUrl + address.substring(1)
+  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def mileage(implicit driver: WebDriver): TelField = telField(id(MileageId))
 
@@ -52,10 +59,10 @@ object DisposePage extends Page with WebBrowserDSL {
 
   def happyPath(implicit driver: WebDriver) = {
     go to DisposePage
-    mileage enter MileageValid
-    dateOfDisposalDay enter DateOfDisposalDayValid
-    dateOfDisposalMonth enter DateOfDisposalMonthValid
-    dateOfDisposalYear enter DateOfDisposalYearValid
+    mileage.value = MileageValid
+    dateOfDisposalDay.value = DateOfDisposalDayValid
+    dateOfDisposalMonth.value = DateOfDisposalMonthValid
+    dateOfDisposalYear.value = DateOfDisposalYearValid
     click on consent
     click on lossOfRegistrationConsent
     click on dispose
@@ -63,9 +70,9 @@ object DisposePage extends Page with WebBrowserDSL {
 
   def sadPath(implicit driver: WebDriver) = {
     go to DisposePage
-    dateOfDisposalDay enter ""
-    dateOfDisposalMonth enter ""
-    dateOfDisposalYear enter ""
+    dateOfDisposalDay.value = ""
+    dateOfDisposalMonth.value = ""
+    dateOfDisposalYear.value = ""
     click on dispose
   }
 }

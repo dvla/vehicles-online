@@ -6,6 +6,23 @@ import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
 import org.openqa.selenium.WebDriver
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.DuplicateDisposalErrorPage
 import pages.disposal_of_vehicle.DuplicateDisposalErrorPage.{exit, tryAgain}
@@ -15,40 +32,40 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 
 final class DuplicateDisposalIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to DuplicateDisposalErrorPage
-      page.title should equal(DuplicateDisposalErrorPage.title)
+      pageTitle should equal(DuplicateDisposalErrorPage.title)
     }
 
     "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue  {
       go to DuplicateDisposalErrorPage
-      page.source should not contain ProgressBar.div
+      pageSource should not contain ProgressBar.div
     }
   }
 
   "tryAgain button" should {
-    "redirect to vehiclelookup" taggedAs UiTag in new WebBrowser {
+    "redirect to vehiclelookup" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DuplicateDisposalErrorPage
       click on tryAgain
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "redirect to setuptradedetails when no details are cached" taggedAs UiTag in new WebBrowser {
+    "redirect to setuptradedetails when no details are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to MicroServiceErrorPage
       click on tryAgain
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
   }
 
   "exit button" should {
-    "redirect to beforeyoustart" taggedAs UiTag in new WebBrowser {
+    "redirect to beforeyoustart" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to MicroServiceErrorPage
       click on exit
-      page.title should equal(BeforeYouStartPage.title)
+      pageTitle should equal(BeforeYouStartPage.title)
     }
   }
 

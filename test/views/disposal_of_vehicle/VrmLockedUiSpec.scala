@@ -6,6 +6,11 @@ import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import org.openqa.selenium.{By, WebDriver, WebElement}
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.VrmLockedPage.{exit, newDisposal}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage, VrmLockedPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
@@ -13,12 +18,12 @@ import models.{DisposeCacheKeys, AllCacheKeys}
 
 final class VrmLockedUiSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.bruteForcePreventionViewModel()
       go to VrmLockedPage
 
-      page.title should equal(VrmLockedPage.title)
+      pageTitle should equal(VrmLockedPage.title)
     }
 
     "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
@@ -26,10 +31,10 @@ final class VrmLockedUiSpec extends UiSpec with TestHarness {
       CookieFactoryForUISpecs.bruteForcePreventionViewModel()
       go to VrmLockedPage
 
-      page.source should not contain ProgressBar.div
+      pageSource should not contain ProgressBar.div
     }
 
-    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
+    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {
       go to VrmLockedPage
       val csrf: WebElement = webDriver.findElement(By.name(CsrfPreventionAction.TokenName))
       csrf.getAttribute("type") should equal("hidden")
@@ -40,24 +45,24 @@ final class VrmLockedUiSpec extends UiSpec with TestHarness {
   }
 
   "newDisposal button" should {
-    "redirect to vehiclelookup" taggedAs UiTag in new WebBrowser {
+    "redirect to vehiclelookup" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to VrmLockedPage
 
       click on newDisposal
 
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "redirect to setuptradedetails when no trade details are cached" taggedAs UiTag in new WebBrowser {
+    "redirect to setuptradedetails when no trade details are cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.bruteForcePreventionViewModel()
       go to VrmLockedPage
 
       click on newDisposal
 
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
     "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {
@@ -75,14 +80,14 @@ final class VrmLockedUiSpec extends UiSpec with TestHarness {
   }
 
   "exit button" should {
-    "redirect to beforeyoustart" taggedAs UiTag in new WebBrowser {
+    "redirect to beforeyoustart" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to VrmLockedPage
 
       click on exit
 
-      page.title should equal(BeforeYouStartPage.title)
+      pageTitle should equal(BeforeYouStartPage.title)
     }
 
     "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {

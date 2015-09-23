@@ -7,27 +7,44 @@ import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import models.AllCacheKeys
 import org.openqa.selenium.{By, WebDriver, WebElement}
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.ErrorPage.startAgain
 import pages.disposal_of_vehicle.{BeforeYouStartPage, ErrorPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 
 final class ErrorIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to ErrorPage
-      page.title should equal(ErrorPage.title)
+      pageTitle should equal(ErrorPage.title)
     }
 
     "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue  {
       go to BeforeYouStartPage
       cacheSetup()
       go to ErrorPage
-      page.source should not contain ProgressBar.div
+      pageSource should not contain ProgressBar.div
     }
 
-    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowser {
+    "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to ErrorPage

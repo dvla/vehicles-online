@@ -6,46 +6,63 @@ import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import org.openqa.selenium.WebDriver
+import org.scalatest.selenium.WebBrowser
+import WebBrowser.enter
+import WebBrowser.Checkbox
+import WebBrowser.checkbox
+import WebBrowser.TextField
+import WebBrowser.textField
+import WebBrowser.TelField
+import WebBrowser.telField
+import WebBrowser.RadioButton
+import WebBrowser.radioButton
+import WebBrowser.click
+import WebBrowser.go
+import WebBrowser.find
+import WebBrowser.id
+import WebBrowser.Element
+import WebBrowser.pageSource
+import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.DisposeFailurePage.{setuptradedetails, vehiclelookup}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposeFailurePage, SetupTradeDetailsPage, VehicleLookupPage}
 
 final class DisposeFailureIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
-    "display the page" taggedAs UiTag in new WebBrowser {
+    "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeFailurePage
-      page.title should equal(DisposeFailurePage.title)
+      pageTitle should equal(DisposeFailurePage.title)
     }
 
-    "redirect to setuptrade details if cache is empty on page load" taggedAs UiTag in new WebBrowser {
+    "redirect to setuptrade details if cache is empty on page load" taggedAs UiTag in new WebBrowserForSelenium {
       go to DisposeFailurePage
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
 
     "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
       go to DisposeFailurePage
-      page.source should not contain ProgressBar.div
+      pageSource should not contain ProgressBar.div
     }
   }
 
   "vehiclelookup button" should {
-    "redirect to vehiclelookup" taggedAs UiTag in new WebBrowser {
+    "redirect to vehiclelookup" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeFailurePage
       click on vehiclelookup
-      page.title should equal(VehicleLookupPage.title)
+      pageTitle should equal(VehicleLookupPage.title)
     }
   }
 
   "setuptradedetails button" should {
-    "redirect to setuptradedetails" taggedAs UiTag in new WebBrowser {
+    "redirect to setuptradedetails" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposeFailurePage
       click on setuptradedetails
-      page.title should equal(SetupTradeDetailsPage.title)
+      pageTitle should equal(SetupTradeDetailsPage.title)
     }
   }
 
