@@ -111,9 +111,9 @@
                           'class -> "ga-track-optional-text",
                           Symbol("ga-action") -> "mileage",
                           'typeTel -> true,
-                            'optionalFieldKey -> true,
-                          'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
-                          //'title -> Messages("disposal_dispose.mileage.validation")
+                          'optionalFieldKey -> true,
+                          'maxLength -> Mileage.MaxLength, // Must be set independently of the pattern as the pattern is only checked when the user submits.
+                          'validityMessage -> Messages("disposal_dispose.mileage.validation")
                         ) ++
                    (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
@@ -129,7 +129,9 @@
                                 disposeForm(EmailId),
                                 labelText = Messages("disposal_businesskeeperdetails.email"),
                                 hintText = None,
-                                args = Map('maxLength -> EmailMaxLength)
+                                args = Map('maxLength -> EmailMaxLength,
+                                           'validityMessage -> Messages("error.email")
+                                       )
                             )
                         )
                     </div>

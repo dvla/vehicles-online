@@ -51,7 +51,7 @@
                             'tooltipHeading -> Messages("disposal_vehiclelookup.v5c"),
                             'typeTel -> true,
                             'maxLength -> DocumentReferenceNumber.MaxLength, // Must be set independently of the pattern as the pattern is only checked when the user submits.
-                            //'title -> Messages("error.validDocumentReferenceNumber")
+                            'validityMessage -> Messages("error.validDocumentReferenceNumber"),
                             'title -> Messages("")) ++ // [SKW] for accessibility Tony removed have 'title text as the screen reader reads it twice, the knock-on effect is that our custom validation messages aren't displayed so the user has no idea what is wrong.
                             (if(config.isHtml5ValidationEnabled) Map('pattern -> DocumentReferenceNumber.Pattern) else Nil)
                         )
