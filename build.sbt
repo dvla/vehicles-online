@@ -53,8 +53,8 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.33-SNAPSHOT" withSources() withJavadoc() exclude("junit", "junit-dep"),
-  "dvla" %% "vehicles-presentation-common" % "2.33-SNAPSHOT" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.33" withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.33" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
   "org.webjars" % "requirejs" % "2.1.14-1",
   "junit" % "junit" % "4.11",
   "junit" % "junit-dep" % "4.11"
@@ -117,7 +117,7 @@ webJarCdns := Map()
 lazy val osAddressLookupProject = osAddressLookup("0.20").disablePlugins(PlayScala, SbtWeb)
 lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.17").disablePlugins(PlayScala, SbtWeb)
 lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.12").disablePlugins(PlayScala, SbtWeb)
-lazy val emailServiceProject = emailService("0.13").disablePlugins(PlayScala, SbtWeb)
+lazy val emailServiceProject = emailService("0.14").disablePlugins(PlayScala, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
 
 SandboxSettings.portOffset := 17000
