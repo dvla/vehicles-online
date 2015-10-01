@@ -98,7 +98,9 @@
                     <div class="footer-meta-inner">
                         <ul>
                             <li><a href="@routes.CookiePolicyController.present()" target="_blank">@Messages("footer.cookies")</a></li>
-                            <li>@alternateLanguages(showLanguageSwitch)</li>
+                            @if(showLanguageSwitch) {
+                                <li>@alternateLanguages(showLanguageSwitch)</li>
+                            }
                             <li>@{Messages("footer.builtbyintro")}&nbsp;<a href="https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency" target="_blank">@{Messages("footer.builtby")}</a></li>
                         </ul>
                         <div class="open-government-licence">
