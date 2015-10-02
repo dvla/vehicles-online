@@ -21,7 +21,6 @@ class TestConfig extends Config {
   // Micro-service config
   def ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
   def ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
-  def ordnanceSurveyUseUprn: Boolean = false
 
   def gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
   def gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
