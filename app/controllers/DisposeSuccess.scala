@@ -41,7 +41,9 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       registrationNumber <- request.cookies.getString(DisposeFormRegistrationNumberCacheKey)
       disposeDateString <- request.cookies.getString(DisposeFormTimestampIdCacheKey)
     } yield {
-        logMessage(request.cookies.trackingId(), Info, "Dispose success page")
+      logMessage(request.cookies.trackingId(), Info,
+        "User transaction completed successfully - now displaying the dispose success view"
+      )
       val disposeViewModel = createViewModel(
         traderDetails,
         vehicleDetails,
@@ -60,7 +62,12 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
     }
     // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
-    result getOrElse onMissingPresentCookies
+    result getOrElse {
+      val msg = "User transaction completed successfully but not displaying the success view " +
+        "because the user arrived without all of the required cookies"
+      logMessage(request.cookies.trackingId(), Warn, msg)
+      onMissingPresentCookies
+    }
   }
 
   def newDisposal = Action { implicit request =>
@@ -68,20 +75,20 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
       traderDetails <- request.cookies.getModel[TraderDetailsModel]
       vehicleDetails <-request.cookies.getModel[VehicleAndKeeperDetailsModel]
     } yield {
-      Redirect(routes.VehicleLookup.present()).
-      discardingCookies(DisposeCacheKeys).
-      withCookie(PreventGoingToDisposePageCacheKey, "").
-      withCookie(DisposeOccurredCacheKey, "")
+      Redirect(routes.VehicleLookup.present())
+        .discardingCookies(DisposeCacheKeys)
+        .withCookie(PreventGoingToDisposePageCacheKey, "")
+        .withCookie(DisposeOccurredCacheKey, "")
     }
     result getOrElse onMissingNewDisposeCookies
   }
 
   def exit = Action { implicit request =>
     logMessage(request.cookies.trackingId(), Debug, s"Redirect from DisposeSuccess to $onNewDispose")
-    onNewDispose.
-      discardingCookies(AllCacheKeys).
-      withCookie(PreventGoingToDisposePageCacheKey, "").
-      withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)
+    onNewDispose
+      .discardingCookies(AllCacheKeys)
+      .withCookie(PreventGoingToDisposePageCacheKey, "")
+      .withCookie(SurveyRequestTriggerDateCacheKey, dateService.now.getMillis.toString)
   }
 
   private def createViewModel(traderDetails: TraderDetailsModel,
