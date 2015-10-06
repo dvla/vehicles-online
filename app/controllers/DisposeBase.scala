@@ -160,14 +160,6 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
   private def doDisposeAction(webService: DisposeService, disposeFormModel: FormModel)
                                 (implicit request: Request[AnyContent]): Future[Result] = {
 
-    def nextPage(httpResponseCode: Int, response: Option[DisposeResponseDto], disposeRequest: DisposeRequestDto) =
-    // This makes the choice of which page to go to based on the first one it finds that is not None.
-      response match {
-        case Some(r) if r.responseCode.isDefined =>
-          handleResponseCode(r.responseCode.get, response.map(_.transactionId).getOrElse(""), disposeRequest)
-        case _ => handleHttpStatusCode(httpResponseCode, response.map(_.transactionId).getOrElse(""))
-      }
-
     def callMicroService(vehicleLookup: VehicleLookupFormModel,
                          disposeForm: FormModel,
                          traderDetails: TraderDetailsModel) = {
@@ -192,13 +184,13 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
 
       webService.invoke(disposeRequest, request.cookies.trackingId()).map {
         case (httpResponseCode, response) =>
-          Some(Redirect(nextPage(httpResponseCode, response, disposeRequest))).
-            map(withModelCookie(_, disposeFormModel)).
-            map(storeResponseInCache(response, _)).
-            map(transactionTimestamp).
-            // Interstitial should redirect to DisposeSuccess.
-            map(result => result.withCookie(PreventGoingToDisposePageCacheKey, "")).
-            get
+          Some(Redirect(nextPage(httpResponseCode, response, disposeRequest)))
+            .map(withModelCookie(_, disposeFormModel))
+            .map(storeResponseInCache(response, _))
+            .map(transactionTimestamp)
+            // Interstitial should redirect to DisposeSuccess
+            .map(result => result.withCookie(PreventGoingToDisposePageCacheKey, ""))
+            .get
       }.recover {
         case e: Throwable =>
           logMessage(request.cookies.trackingId(), Warn,
@@ -210,18 +202,21 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     def storeResponseInCache(response: Option[DisposeResponseDto], nextPage: Result): Result =
       response match {
         case Some(o) =>
-          logMessage(request.cookies.trackingId(), Debug, "Dispose micro-service response",
-            Some(
-              Seq(o.auditId, anonymize(o.registrationNumber), o.responseCode.getOrElse(""), anonymize(o.transactionId))
-            )
-          )
+          logMessage(request.cookies.trackingId(), Debug, "Dispose micro-service response", Some(
+            Seq(o.disposeResponse.auditId, anonymize(o.disposeResponse.registrationNumber),
+              o.response match { case Some(c) => c.code; case _ => "" }, anonymize(o.disposeResponse.transactionId))
+          ))
 
           val nextPageWithTransactionId =
-            if (!o.transactionId.isEmpty) nextPage.withCookie(DisposeFormTransactionIdCacheKey, o.transactionId)
+            if (!o.disposeResponse.transactionId.isEmpty)
+              nextPage.withCookie(DisposeFormTransactionIdCacheKey, o.disposeResponse.transactionId)
             else nextPage
 
-          if (!o.registrationNumber.isEmpty)
-            nextPageWithTransactionId.withCookie(DisposeFormRegistrationNumberCacheKey, o.registrationNumber)
+          if (!o.disposeResponse.registrationNumber.isEmpty)
+            nextPageWithTransactionId.withCookie(
+              DisposeFormRegistrationNumberCacheKey,
+              o.disposeResponse.registrationNumber
+            )
           else nextPageWithTransactionId
         case None => nextPage
       }
@@ -252,42 +247,56 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       )
     }
 
-    def handleResponseCode(disposeResponseCode: String, transactionId: String,
-                           disposeRequest: DisposeRequestDto)(implicit request: Request[_]): Call =
-      disposeResponseCode match {
-        case "ms.vehiclesService.response.unableToProcessApplication" =>
-          logMessage(request.cookies.trackingId(), Warn,
-            "Dispose soap endpoint redirecting to dispose failure page." +
-            s"Code returned from ms was $disposeResponseCode")
-          onDisposeFailure
-        case "ms.vehiclesService.response.duplicateDisposalToTrade" =>
-          logMessage(request.cookies.trackingId(), Warn,
-            "Dispose soap endpoint redirecting to duplicate disposal page" +
-            s"Code returned from ms was $disposeResponseCode")
-          onDuplicateDispose
-        case "X0001" | "W0075" =>
-          logDisposeRequest(disposeResponseCode, disposeRequest)
-          createAndSendEmailRequiringFurtherAction(transactionId, disposeRequest)
-          onDisposeSuccessAction(transactionId, disposeFormModel)
-          onDisposeSuccess
-        case _ =>
-          logMessage(request.cookies.trackingId(), Warn,
-            "Dispose micro-service failed so now redirecting to micro service error page. " +
-            s"Code returned from ms was $disposeResponseCode")
-          microserviceErrorCall
-      }
-
-    def handleHttpStatusCode(statusCode: Int, transactionId: String): Call =
+    def nextPage(statusCode: Int,
+                 disposeResponse: Option[DisposeResponseDto],
+                 disposeRequest: DisposeRequestDto): Call =
       statusCode match {
         case OK =>
           logMessage(request.cookies.trackingId(), Debug,
             s"Dispose micro-service success so now redirecting to $onDisposeSuccess")
-          onDisposeSuccessAction(transactionId, disposeFormModel)
+          for {
+            dr <- disposeResponse
+            r <- dr.response
+          } yield {
+            r.message match {
+              case "ms.vehiclesService.response.furtherActionRequired" =>
+                logDisposeRequest(r.code, disposeRequest)
+                createAndSendEmailRequiringFurtherAction(dr.disposeResponse.transactionId, disposeRequest)
+              case _ =>
+            }
+          }
+          // OK should always contain a disposeResponse
+          onDisposeSuccessAction(disposeResponse.get.disposeResponse.transactionId, disposeFormModel)
           onDisposeSuccess
+        case INTERNAL_SERVER_ERROR => {
+          val call = for {
+            dr <- disposeResponse
+            r <- dr.response
+          } yield {
+              r.message match {
+                case "ms.vehiclesService.response.unableToProcessApplication" =>
+                  logMessage(request.cookies.trackingId(), Warn,
+                    "Dispose soap endpoint redirecting to dispose failure page." +
+                      s"Code returned from ms was $statusCode")
+                  onDisposeFailure
+                case "ms.vehiclesService.response.duplicateDisposalToTrade" =>
+                  logMessage(request.cookies.trackingId(), Warn,
+                    "Dispose soap endpoint redirecting to duplicate disposal page" +
+                      s"Code returned from ms was $statusCode")
+                  onDuplicateDispose
+                case _ =>
+                  logMessage(request.cookies.trackingId(), Warn,
+                    "Dispose micro-service failed so now redirecting to micro service error page. " +
+                      s"Code returned from ms was $statusCode with code ${r.message}")
+                  microserviceErrorCall
+              }
+            }
+          call.getOrElse(microserviceErrorCall)
+        }
         case _ =>
           logMessage(request.cookies.trackingId(), Warn,
             "Dispose micro-service failed so now redirecting to micro service error page. " +
-            s"Code returned from ms was $statusCode")
+              s"Code returned from ms was $statusCode")
           microserviceErrorCall
       }
 

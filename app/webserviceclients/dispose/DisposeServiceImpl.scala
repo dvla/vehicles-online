@@ -1,7 +1,7 @@
 package webserviceclients.dispose
 
 import javax.inject.Inject
-import play.api.http.Status.OK
+import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
@@ -18,7 +18,8 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
                                          dateService: DateService) extends DisposeService with DVLALogger {
   import DisposeServiceImpl.ServiceName
 
-  override def invoke(cmd: DisposeRequestDto, trackingId: TrackingId): Future[(Int, Option[DisposeResponseDto])] = {
+  override def invoke(cmd: DisposeRequestDto, trackingId: TrackingId):
+                                              Future[(Int, Option[DisposeResponseDto])] = {
 
     val vrm = LogFormats.anonymize(cmd.registrationNumber)
     val refNo = LogFormats.anonymize(cmd.referenceNumber)
@@ -33,17 +34,22 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
       if (resp.status == OK) {
         healthStats.success(new HealthStatsSuccess(ServiceName, dateService.now))
         (resp.status, resp.json.asOpt[DisposeResponseDto])
+      } else if (resp.status == INTERNAL_SERVER_ERROR) {
+        healthStats.failure(
+          new HealthStatsFailure(ServiceName, dateService.now, new Exception(s"Response code is ${resp.status}"))
+        )
+        (resp.status, resp.json.asOpt[DisposeResponseDto])
       } else {
         healthStats.failure(
           new HealthStatsFailure(ServiceName, dateService.now, new Exception(s"Response code is ${resp.status}"))
         )
         (resp.status, None)
       }
+    }.recover {
+      case t: Throwable =>
+        healthStats.failure(new HealthStatsFailure(ServiceName, dateService.now, t))
+        throw t
     }
-  }.recover{
-    case t: Throwable =>
-      healthStats.failure(new HealthStatsFailure(ServiceName, dateService.now, t))
-      throw t
   }
 }
 
