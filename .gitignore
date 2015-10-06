@@ -16,7 +16,6 @@ project/plugins/project/
 # Scala-IDE specific
 *.scala_dependencies
 
-
 logs
 project/project
 project/target
@@ -30,8 +29,7 @@ dist
 *.classpath
 cache/
 .sbt.ivy.lock
-
-
+application.log.lck
 
 /RUNNING_PID
 

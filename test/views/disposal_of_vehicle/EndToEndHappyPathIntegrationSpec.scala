@@ -30,7 +30,7 @@ import webserviceclients.fakes.FakeAddressLookupService
 
 class EndToEndHappyPathIntegrationSpec extends UiSpec with TestHarness {
   "The happy end to end case" should {
-    "follow the happy path trough all the pages" taggedAs UiTag in new WebBrowserForSelenium {
+    "follow the happy path through all the pages" taggedAs UiTag in new WebBrowserForSelenium {
 
       info("Going Before You Start page and click start")
       go to BeforeYouStartPage

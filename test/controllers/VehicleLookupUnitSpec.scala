@@ -25,7 +25,7 @@ import pages.disposal_of_vehicle.MicroServiceErrorPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupFailurePage
 import pages.disposal_of_vehicle.VrmLockedPage
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, JsValue}
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, contentAsString, defaultAwaitTimeout, LOCATION}
@@ -43,10 +43,7 @@ import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.healthstats.HealthStats
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupRequest
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponse
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.{VehicleAndKeeperLookupSuccessResponse, VehicleAndKeeperLookupFailureResponse, VehicleAndKeeperLookupRequest, VehicleAndKeeperLookupServiceImpl, VehicleAndKeeperLookupWebService}
 import utils.helpers.Config
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
@@ -464,7 +461,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val (vehiclesLookup, mockVehiclesLookupService) = vehicleLookupControllerAndMocks()
       when(mockVehiclesLookupService.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId])).
         thenReturn(Future.successful {
-        new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get)))
+        new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get.right.get)))
       })
 
       val result = vehiclesLookup.submit(request)
@@ -482,7 +479,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val (vehiclesLookup, mockVehiclesLookupService) = vehicleLookupControllerAndMocks()
       when(mockVehiclesLookupService.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId])).
         thenReturn(Future.successful {
-        new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get)))
+        new FakeResponse(status = 200, fakeJson = Some(Json.toJson(vehicleDetailsResponseSuccess._2.get.right.get)))
       })
 
       val result = vehiclesLookup.submit(request)
@@ -598,7 +595,9 @@ class VehicleLookupUnitSpec extends UnitSpec {
     (bruteForcePreventionService, bruteForcePreventionWebServiceMock)
   }
 
-  private def vehicleLookupResponseGenerator(fullResponse: (Int, Option[VehicleAndKeeperLookupResponse]) = vehicleDetailsResponseSuccess,
+  private def vehicleLookupResponseGenerator(fullResponse:
+                                             (Int, Option[Either[VehicleAndKeeperLookupFailureResponse,
+                                                                 VehicleAndKeeperLookupSuccessResponse]]) = vehicleDetailsResponseSuccess,
                                               bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
                                               isPrototypeBannerVisible: Boolean = true): VehicleLookup = {
     val (vehicleLookupController, _) = vehicleLookupControllerAndMocks(fullResponse,
@@ -608,12 +607,20 @@ class VehicleLookupUnitSpec extends UnitSpec {
     vehicleLookupController
   }
 
-  private def vehicleLookupControllerAndMocks(fullResponse: (Int, Option[VehicleAndKeeperLookupResponse]) = vehicleDetailsResponseSuccess,
+  private def vehicleLookupControllerAndMocks(fullResponse: (Int, Option[Either[VehicleAndKeeperLookupFailureResponse,
+                                                                                VehicleAndKeeperLookupSuccessResponse]]) = vehicleDetailsResponseSuccess,
                                              bruteForceService: BruteForcePreventionService = bruteForceServiceImpl(permitted = true),
                                              isPrototypeBannerVisible: Boolean = true): (VehicleLookup, VehicleAndKeeperLookupWebService) = {
 
     val (status, vehicleDetailsResponse) = fullResponse
-    val responseAsJson = vehicleDetailsResponse.map(Json.toJson(_))
+    val responseAsJson: Option[JsValue] = (status, vehicleDetailsResponse) match {
+      case (_, None) => None
+      case (_, Some(response)) => response match {
+        case Left(failure) => Some(Json.toJson(failure))
+        case Right(success) => Some(Json.toJson(success))
+      }
+    }
+    //val responseAsJson = vehicleDetailsResponse.map(Json.toJson(_))
     val wsMock = mock[VehicleAndKeeperLookupWebService]
 
     when(wsMock.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId]))

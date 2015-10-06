@@ -188,7 +188,7 @@ class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeFailure = disposeController(
         disposeWebService = disposeWebService(
-          disposeServiceStatus = OK,
+          disposeServiceStatus = INTERNAL_SERVER_ERROR,
           disposeServiceResponse = Some(disposeResponseFailureWithDuplicateDisposal)
         )
       )
@@ -301,7 +301,10 @@ class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeFailure = disposeController(disposeWebService =
-        disposeWebService(disposeServiceResponse = Some(disposeResponseUnableToProcessApplication)))
+        disposeWebService(
+          disposeServiceStatus = INTERNAL_SERVER_ERROR,
+          disposeServiceResponse = Some(disposeResponseUnableToProcessApplication))
+        )
       val result = disposeFailure.submit(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(DisposeFailurePage.address))
@@ -313,7 +316,10 @@ class DisposeUnitSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeFailure = disposeController(disposeWebService =
-        disposeWebService(disposeServiceResponse = Some(disposeResponseUndefinedError)))
+        disposeWebService(
+          disposeServiceStatus = INTERNAL_SERVER_ERROR,
+          disposeServiceResponse = Some(disposeResponseUndefinedError))
+        )
       val result = disposeFailure.submit(request)
 
       whenReady(result, timeout) { r =>

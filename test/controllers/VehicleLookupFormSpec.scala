@@ -21,8 +21,9 @@ import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.healthstats.HealthStats
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupFailureResponse
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupRequest
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupResponse
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupSuccessResponse
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import utils.helpers.Config
@@ -133,13 +134,18 @@ class VehicleLookupFormSpec extends UnitSpec {
     )
   }
 
-  private def vehicleLookupResponseGenerator(fullResponse:(Int, Option[VehicleAndKeeperLookupResponse])) = {
+  private def vehicleLookupResponseGenerator(fullResponse:
+                                             (Int, Option[Either[VehicleAndKeeperLookupFailureResponse,
+                                               VehicleAndKeeperLookupSuccessResponse]])) = {
     val vehicleAndKeeperLookupWebService = mock[VehicleAndKeeperLookupWebService]
 
     when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId])).
       thenReturn(Future.successful {
         val responseAsJson : Option[JsValue] = fullResponse._2 match {
-          case Some(e) => Some(Json.toJson(e))
+          case Some(response) => response match {
+            case Left(failure) => Some(Json.toJson(failure))
+            case Right(success) => Some(Json.toJson(success))
+          }
           case _ => None
         }
         // Any call to a webservice will always return this successful response.

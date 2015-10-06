@@ -19,7 +19,7 @@ import common.services.DateService
 import common.views.helpers.FormExtensions.formBinding
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupDetailsDto
-import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupErrorMessage
+import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupFailureResponse
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupService
 import utils.helpers.Config
 
@@ -54,7 +54,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   override def microServiceError(t: Throwable, formModel: VehicleLookupFormModel)
                                 (implicit request: Request[_]): Result = onMicroServiceError
 
-  override def vehicleLookupFailure(responseCode: VehicleAndKeeperLookupErrorMessage, formModel: VehicleLookupFormModel)
+  override def vehicleLookupFailure(failure: VehicleAndKeeperLookupFailureResponse, formModel: VehicleLookupFormModel)
                                    (implicit request: Request[_]): Result = onVehicleLookupFailure
 
   override def presentResult(implicit request: Request[_]) = {
