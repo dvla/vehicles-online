@@ -51,5 +51,5 @@ final class AddressViewModelSpec extends UnitSpec {
   }
 
   private val asJson = Json.parse(
-    s"""{"uprn":10123456789,"address":["12345","line2 stub","line3 stub","postTown stub","$PostcodeValid"]}""")
+    s"""{"uprn":10123456789,"address":["12345ABCD","line2 stub","line3 stub","postTown stub","$PostcodeValid"]}""")
 }
