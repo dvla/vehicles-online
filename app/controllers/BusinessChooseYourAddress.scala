@@ -97,14 +97,9 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
 
   private def fetchAddresses(model: SetupTradeDetailsFormModel, showBusinessName: Option[Boolean])
                             (implicit session: ClientSideSession, lang: Lang) =
-    addressLookupService.fetchAddressesForPostcode(model.traderPostcode,
-      session.trackingId,
-      showBusinessName = showBusinessName
-    )
+    addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId)
 
-  /*
-  TODO : Renmae, handle possible missing values
-   */
+//  TODO : Renmae, handle possible missing values
   private def lookupAddressByPostcodeThenIndex(model: BusinessChooseYourAddressFormModel,
                                                setupBusinessDetailsForm: SetupTradeDetailsFormModel
                                                 )

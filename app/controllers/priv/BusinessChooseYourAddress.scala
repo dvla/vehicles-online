@@ -15,7 +15,6 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
   protected override val manualAddressEntryCall = routes.EnterAddressManually.present()
   protected override val backCall = routes.SetUpTradeDetails.present()
   protected override val redirectBack = Redirect(routes.SetUpTradeDetails.present())
-  protected override val uprnNotFoundResult = Redirect(routes.UprnNotFound.present())
   protected override val successResult = Redirect(routes.VehicleLookup.present())
   protected override val onMissingTraderDetails = Redirect(routes.SetUpTradeDetails.present())
 }

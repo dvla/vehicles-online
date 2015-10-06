@@ -12,6 +12,7 @@ import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue {
 
@@ -25,7 +26,7 @@ class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends Matchers w
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = "0"
+    BusinessChooseYourAddressPage.chooseAddress.value = traderUprnValid.toString
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "A1"

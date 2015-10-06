@@ -166,6 +166,7 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
     "display validation error messages when addressSelected is not in the list" taggedAs UiTag in new WebBrowserForSelenium {
       go to BeforeYouStartPage
       cacheSetup()
+
       sadPath
 
       ErrorPanel.numberOfErrors should equal(1)
