@@ -44,64 +44,6 @@ title = Messages("disposal_disposeconfirmation.title")
             <li>@Messages("disposal_disposeconfirmation.exkeeper-p3")</li>
             <li>@Messages("disposal_disposeconfirmation.exkeeper-p4")</li>
         </ul>
-
-        <div class="form-steps">
-
-            <div class="step">
-                <button id="printDisposalSuccess"
-                type="button"
-                name="action"
-                value="printDisposalSuccess"
-                class="button js-only print-button ga-track-click-event-once"
-                ga-event-category="ct_print"
-                ga-event-action="print">
-                @Messages("global.buttonnavprint")
-                </button>
-            </div>
-
-            @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
-            @if(!isPrivateKeeper) {
-                <div class="step">
-                @form(action = newDisposeFormTarget) {
-                    @csrfTokenHiddenField()
-                    <button id="@NewDisposalId"
-                    type="submit"
-                    name="action"
-                    class="button button-new-disposal button-secondary ga-track-click-event-once"
-                    ga-event-category="ct_link"
-                    ga-event-action="sell-another">
-                    @Messages("disposal_disposeconfirmation.newdisposalbutton")
-                    </button>
-                }
-                </div>
-            }
-            <div class="step">
-            @form(action = exitDisposeFormTarget) {
-                @csrfTokenHiddenField()
-                @surveyUrl match {
-                    case Some(url) => {
-                        <button id="@ExitDisposalId"
-                        type="submit"
-                        name="action"
-                        onclick="window.open('@url', '_blank');"
-                        class="button button-secondary ga-track-click-event-once"
-                        ga-event-category="dispose-success"
-                        ga-event-action="exit">
-                        @Messages("disposal_disposeconfirmation.exitbutton")
-                        </button>
-                    }
-                    case None => {
-                        <button id="@ExitDisposalId"
-                        type="submit"
-                        name="action"
-                        class="button button-secondary ga-dispose-success-exit">
-                        @Messages("disposal_disposeconfirmation.exitbutton")
-                        </button>
-                    }
-                }
-            }
-            </div>
-        </div>
     </div>
 
     <div class="first-col">
@@ -136,6 +78,61 @@ title = Messages("disposal_disposeconfirmation.title")
         </dl>
     </div>
 
+    <div class="form-steps">
+        <div class="step">
+            <button id="printDisposalSuccess"
+                    type="button"
+                    name="action"
+                    value="printDisposalSuccess"
+                    class="button js-only print-button ga-track-click-event-once"
+                    ga-event-category="ct_print"
+                    ga-event-action="print">
+                @Messages("global.buttonnavprint")
+            </button>
+        </div>
 
+        @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
+        @if(!isPrivateKeeper) {
+        <div class="step">
+            @form(action = newDisposeFormTarget) {
+            @csrfTokenHiddenField()
+            <button id="@NewDisposalId"
+                    type="submit"
+                    name="action"
+                    class="button button-new-disposal button-secondary ga-track-click-event-once"
+                    ga-event-category="ct_link"
+                    ga-event-action="sell-another">
+                @Messages("disposal_disposeconfirmation.newdisposalbutton")
+            </button>
+            }
+        </div>
+        }
+        <div class="step">
+            @form(action = exitDisposeFormTarget) {
+            @csrfTokenHiddenField()
+            @surveyUrl match {
+            case Some(url) => {
+            <button id="@ExitDisposalId"
+                    type="submit"
+                    name="action"
+                    onclick="window.open('@url', '_blank');"
+                    class="button button-secondary ga-track-click-event-once"
+                    ga-event-category="dispose-success"
+                    ga-event-action="exit">
+                @Messages("disposal_disposeconfirmation.exitbutton")
+            </button>
+            }
+            case None => {
+            <button id="@ExitDisposalId"
+                    type="submit"
+                    name="action"
+                    class="button button-secondary ga-dispose-success-exit">
+                @Messages("disposal_disposeconfirmation.exitbutton")
+            </button>
+            }
+            }
+            }
+        </div>
+    </div>
 </div>
 }
