@@ -35,7 +35,7 @@ class ChangeTraderDetailsSteps(webBrowserDriver: WebBrowserDriver) extends Match
     goToVehicleDetailsPage()
   }
 
-  @When("^I select the 'Do you wish to change the trader details above\\?' function$")
+  @When("^I select the 'Change these trader details\\?' function$")
   def the_user_selects_the_change_trader_details_function()  {
     click on VehicleLookupPage.resetTraderDetails
   }

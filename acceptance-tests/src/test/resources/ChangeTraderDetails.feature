@@ -6,5 +6,5 @@ Feature: Disposal to Trade: Change Trader Details
 
   Scenario:
     Given I am on the Enter vehicle details page
-    When I select the 'Do you wish to change the trader details above?' function
+    When I select the 'Change these trader details?' function
     Then I will be directed to the Provide Trader details page with the entry fields empty
