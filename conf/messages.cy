@@ -193,6 +193,7 @@ disposal_vehiclelookup.button2 = Golygu
 disposal_vehiclelookup.exitbutton = Gorffen
 disposal_vehiclelookup.tradernamelabel = Enw''r masnachwr
 disposal_vehiclelookup.traderaddresslabel = Cyfeiriad y masnachwr
+disposal_vehiclelookup.traderresetdetails =
 vehicleRegistrationNumber = Rhif cofrestru''r cerbyd
 documentReferenceNumber = Rhif cyfeirnod y ddogfen
 error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 11 digid

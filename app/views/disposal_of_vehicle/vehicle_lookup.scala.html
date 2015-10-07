@@ -4,7 +4,7 @@
   isPrivateKeeper: Boolean
 )
 
-@import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, SubmitId}
+@import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, ResetTraderDetailsId, SubmitId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
 @import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
@@ -31,6 +31,12 @@
                 <dt>@Messages("disposal_vehiclelookup.traderaddresslabel")</dt>
                 <dd>@for(addr <- viewModel.address) {@addr<br/>}</dd>
             </dl>
+            @if(Messages("disposal_vehiclelookup.traderresetdetails")) {
+            <div>
+                <a id="@ResetTraderDetailsId"
+                   href="@viewModel.resetTraderDetails">@Messages("disposal_vehiclelookup.traderresetdetails")</a>
+            </div>
+            }
         </div>
         <div id="trader-details" class="second-col uppercase-input">
             <div class="form-steps">

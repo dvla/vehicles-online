@@ -1,0 +1,16 @@
+package gov.uk.dvla.vehicles.dispose.runner
+
+import cucumber.api.CucumberOptions
+import cucumber.api.junit.Cucumber
+import org.junit.runner.RunWith
+
+@RunWith(classOf[Cucumber])
+@CucumberOptions(
+  features = Array("acceptance-tests/src/test/resources/ChangeTraderDetails.feature"),
+  glue = Array("gov.uk.dvla.vehicles.dispose.stepdefs"),
+  tags = Array("@working"),
+  format = Array("pretty", "html:target/cucumber")
+)
+class ChangeTraderDetails {
+
+}
