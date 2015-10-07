@@ -23,6 +23,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   protected override val onMicroServiceError = Redirect(routes.MicroServiceError.present())
   protected override val onVehicleLookupFailure = Redirect(routes.VehicleLookupFailure.present())
   protected override val missingTradeDetails = Redirect(routes.SetUpTradeDetails.present())
+  protected override val resetTradeDetails = routes.SetUpTradeDetails.reset()
   protected override val enterAddressManually = Redirect(routes.EnterAddressManually.present())
   protected override val businessChooseYourAddress = Redirect(routes.BusinessChooseYourAddress.present())
   protected override val suppressedV5C = Redirect(routes.SuppressedV5C.present())

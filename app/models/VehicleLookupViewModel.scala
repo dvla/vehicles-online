@@ -10,5 +10,6 @@ case class VehicleLookupViewModel(form: Form[models.VehicleLookupFormModel],
                                   address: Seq[String],
                                   submit: Call,
                                   back: Call,
-                                  exit: Call
+                                  exit: Call,
+                                  resetTraderDetails: Call
                                  )

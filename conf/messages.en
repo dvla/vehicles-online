@@ -193,6 +193,7 @@ disposal_vehiclelookup.button2 = Edit
 disposal_vehiclelookup.exitbutton = Finish
 disposal_vehiclelookup.tradernamelabel = Trader name
 disposal_vehiclelookup.traderaddresslabel = Trader address
+disposal_vehiclelookup.traderresetdetails = Change these trader details?
 vehicleRegistrationNumber = Vehicle registration number
 documentReferenceNumber = Document reference number
 error.validDocumentReferenceNumber = Document reference number must be an 11-digit number

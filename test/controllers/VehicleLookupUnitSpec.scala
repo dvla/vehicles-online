@@ -43,8 +43,14 @@ import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.healthstats.HealthStats
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup.{VehicleAndKeeperLookupSuccessResponse, VehicleAndKeeperLookupFailureResponse, VehicleAndKeeperLookupRequest, VehicleAndKeeperLookupServiceImpl, VehicleAndKeeperLookupWebService}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup
+import vehicleandkeeperlookup.VehicleAndKeeperLookupSuccessResponse
+import vehicleandkeeperlookup.VehicleAndKeeperLookupFailureResponse
+import vehicleandkeeperlookup.VehicleAndKeeperLookupRequest
+import vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
+import vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import utils.helpers.Config
+import views.disposal_of_vehicle.VehicleLookup.ResetTraderDetailsId
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
@@ -114,6 +120,15 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val result = vehicleLookupResponseGenerator().present(request)
       val content = contentAsString(result)
       content should include(ExitAnchorHtml)
+    }
+
+    "display reset trade details anchor" in new WithApplication {
+      val request = FakeRequest().
+        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
+        withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
+      val result = vehicleLookupResponseGenerator().present(request)
+      val content = contentAsString(result)
+      content should include(s"""a id="$ResetTraderDetailsId""")
     }
 
     "display data captured in previous pages" in new WithApplication {
