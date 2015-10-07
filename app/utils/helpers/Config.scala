@@ -23,7 +23,6 @@ trait Config extends VehicleLookupConfig {
   // Micro-service config
   def ordnanceSurveyMicroServiceUrl: String
   def ordnanceSurveyRequestTimeout: Int
-  def ordnanceSurveyUseUprn: Boolean
 
   def gdsAddressLookupBaseUrl: String
   def gdsAddressLookupRequestTimeout: Int

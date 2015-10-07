@@ -31,7 +31,6 @@ final class ConfigImpl extends Config {
 
   override val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
   override val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
-  override val ordnanceSurveyUseUprn: Boolean = getProperty[Boolean]("ordnancesurvey.useUprn")
 
   override val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
   override val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout

@@ -70,9 +70,6 @@ POST        /vehicle-lookup-failure                                @controllers.
 GET         /private/vehicle-lookup-failure                        @controllers.priv.VehicleLookupFailure.present
 POST        /private/vehicle-lookup-failure                        @controllers.priv.VehicleLookupFailure.submit
 
-GET         /uprn-not-found                                        @controllers.UprnNotFound.present
-GET         /private/uprn-not-found                                @controllers.priv.UprnNotFound.present
-
 GET         /duplicate-sell-to-the-trade-error                     @controllers.DuplicateDisposalError.present
 GET         /private/duplicate-sell-to-the-trade-error             @controllers.priv.DuplicateDisposalError.present
 

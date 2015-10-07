@@ -15,11 +15,13 @@ import views.disposal_of_vehicle.BusinessChooseYourAddress
 import BusinessChooseYourAddress.BackId
 import BusinessChooseYourAddress.EnterAddressManuallyButtonId
 import BusinessChooseYourAddress.SelectId
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.selectedAddressLine
 
 object BusinessChooseYourAddressPage extends Page {
   final val address: String = s"$applicationContext/business-choose-your-address"
   final override val title = "Select trader address"
   final val titleCy = "Dewiswch eich cyfeiriad masnach"
+  val addressLine = "presentationProperty stub, 123, property stub, street stub, town stub, area stub, QQ99QQ"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
@@ -33,9 +35,7 @@ object BusinessChooseYourAddressPage extends Page {
 
   def happyPath(implicit driver: WebDriver) = {
     go to BusinessChooseYourAddressPage
-    // HACK for Northern Ireland
-//    chooseAddress.value = traderUprnValid.toString
-    chooseAddress.value = "0"
+    chooseAddress.value = selectedAddressLine
     click on select
   }
 
