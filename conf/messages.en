@@ -193,6 +193,7 @@ disposal_vehiclelookup.button2 = Edit
 disposal_vehiclelookup.exitbutton = Finish
 disposal_vehiclelookup.tradernamelabel = Trader name
 disposal_vehiclelookup.traderaddresslabel = Trader address
+disposal_vehiclelookup.traderresetdetails = Change these trader details?
 vehicleRegistrationNumber = Vehicle registration number
 documentReferenceNumber = Document reference number
 error.validDocumentReferenceNumber = Document reference number must be an 11-digit number
@@ -385,6 +386,7 @@ mandatory = Fields not labelled (optional) are mandatory
 # feedback
 common_feedback.title = Give Feedback
 common_feedback.message = Please don''t include any personal or financial information.
+common_feedback.warning = This page is for feedback only and we are unable to offer a personal reply to your email
 common_feedback.label = What went wrong, if anything? What went well? How could we improve this service?
 common_feedback.charactersRemaining = characters remaining
 common_feedback.placeholder = (Limit is 500 characters)

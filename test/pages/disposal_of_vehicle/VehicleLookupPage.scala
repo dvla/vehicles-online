@@ -15,7 +15,7 @@ import WebBrowser.Element
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
-import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, SubmitId}
+import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, ResetTraderDetailsId, SubmitId}
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
 
@@ -28,6 +28,8 @@ object VehicleLookupPage extends Page {
   def vehicleRegistrationNumber(implicit driver: WebDriver): TextField = textField(id(VehicleRegistrationNumberId))
 
   def documentReferenceNumber(implicit driver: WebDriver): TelField = telField(id(DocumentReferenceNumberId))
+
+  def resetTraderDetails(implicit driver: WebDriver): Element = find(id(ResetTraderDetailsId)).get
 
   def back(implicit driver: WebDriver): Element = find(id(BackId)).get
 
