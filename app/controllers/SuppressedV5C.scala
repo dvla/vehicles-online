@@ -1,11 +1,10 @@
 package controllers
 
 import com.google.inject.Inject
-import models.{AllCacheKeys, DisposeCacheKeys}
 import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
-import common.clientsidesession.CookieImplicits.RichResult
+import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import utils.helpers.Config
 
 class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -17,6 +16,7 @@ class SuppressedV5C @Inject()()(implicit clientSideSessionFactory: ClientSideSes
   protected val onFinish = Redirect(routes.BeforeYouStart.present())
   
   def present = Action { implicit request =>
+    logMessage(request.cookies.trackingId(), Info, "Presenting suppressed V5C view")
     Ok(views.html.disposal_of_vehicle.suppressedV5C(sellAnotherVehicleTarget, finishTarget))
   }
 

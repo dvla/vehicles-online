@@ -59,6 +59,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       case (Some(traderDetails), None) =>
         request.cookies.getModel[VehicleAndKeeperDetailsModel] match {
           case (Some(vehicleDetails)) =>
+            logMessage(request.cookies.trackingId(), Info, "Presenting dispose (complete and confirm) view")
             val disposeViewModel = createViewModel(traderDetails, vehicleDetails)
             Ok(dispose(disposeViewModel, fill(form), dateService, formTarget, backLink))
           case _ =>
@@ -108,7 +109,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         request.cookies.getString(PreventGoingToDisposePageCacheKey) match {
           case Some(_) =>
             logMessage(request.cookies.trackingId(), Error,
-              s"Vehicle ids already dispose, redirecting to $onVehicleAlreadyDisposed")
+              s"Vehicle is already disposed, redirecting to $onVehicleAlreadyDisposed")
             Future.successful(onVehicleAlreadyDisposed)
           case None =>
             // US320 prevent user using the browser back button and resubmitting.
@@ -164,7 +165,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
                          disposeForm: FormModel,
                          traderDetails: TraderDetailsModel) = {
       val disposeRequest = buildDisposeMicroServiceRequest(vehicleLookup, disposeForm, traderDetails)
-      logMessage(request.cookies.trackingId(), Info, "Call Dispose micro-service")
+      logMessage(request.cookies.trackingId(), Info, "Calling Dispose micro-service")
 
       logMessage(request.cookies.trackingId(), Debug, "Dispose micro-service request",
         Some(Seq(disposeRequest.dateOfDisposal,
@@ -253,7 +254,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       statusCode match {
         case OK =>
           logMessage(request.cookies.trackingId(), Debug,
-            s"Dispose micro-service success so now redirecting to $onDisposeSuccess")
+            s"Dispose micro-service returned success so now redirecting to $onDisposeSuccess")
           for {
             dr <- disposeResponse
             r <- dr.response
@@ -268,7 +269,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
           // OK should always contain a disposeResponse
           onDisposeSuccessAction(disposeResponse.get.disposeResponse.transactionId, disposeFormModel)
           onDisposeSuccess
-        case INTERNAL_SERVER_ERROR => {
+        case INTERNAL_SERVER_ERROR =>
           val call = for {
             dr <- disposeResponse
             r <- dr.response
@@ -276,26 +277,25 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
               r.message match {
                 case "ms.vehiclesService.response.unableToProcessApplication" =>
                   logMessage(request.cookies.trackingId(), Warn,
-                    "Dispose soap endpoint redirecting to dispose failure page." +
-                      s"Code returned from ms was $statusCode")
+                    "Disposal of vehicle failed so now redirecting to dispose failure view. " +
+                      s"HTTP code returned from ms was $statusCode with code ${r.message}")
                   onDisposeFailure
                 case "ms.vehiclesService.response.duplicateDisposalToTrade" =>
                   logMessage(request.cookies.trackingId(), Warn,
-                    "Dispose soap endpoint redirecting to duplicate disposal page" +
-                      s"Code returned from ms was $statusCode")
+                    "Disposal of vehicle failed so now redirecting to duplicate disposal view. " +
+                      s"HTTP code returned from ms was $statusCode with code ${r.message}")
                   onDuplicateDispose
                 case _ =>
                   logMessage(request.cookies.trackingId(), Warn,
-                    "Dispose micro-service failed so now redirecting to micro service error page. " +
-                      s"Code returned from ms was $statusCode with code ${r.message}")
+                    "Dispose micro-service failed so now redirecting to micro service error view. " +
+                      s"HTTP code returned from ms was $statusCode with code ${r.message}")
                   microserviceErrorCall
               }
             }
           call.getOrElse(microserviceErrorCall)
-        }
         case _ =>
           logMessage(request.cookies.trackingId(), Warn,
-            "Dispose micro-service failed so now redirecting to micro service error page. " +
+            "Dispose micro-service failed so now redirecting to micro service error view. " +
               s"Code returned from ms was $statusCode")
           microserviceErrorCall
       }
@@ -306,7 +306,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       case _ => Future {
         logMessage(request.cookies.trackingId(), Error,
           "Could not find either dealer details or VehicleLookupFormModel " +
-          s"in cache on Dispose submit so redirect to $onTraderDetailsMissing")
+          s"in cache on Dispose submit so redirecting to $onTraderDetailsMissing")
         onTraderDetailsMissing
       }
     }

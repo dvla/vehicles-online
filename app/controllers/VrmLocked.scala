@@ -22,7 +22,8 @@ class VrmLocked @Inject()()(implicit protected override val clientSideSessionFac
   protected val onExit = Redirect(routes.BeforeYouStart.present())
 
   protected override def presentResult(model: BruteForcePreventionModel)
-                                      (implicit request: Request[_]): Result =
+                                      (implicit request: Request[_]): Result = {
+    logMessage(request.cookies.trackingId(), Info, "Presenting VRM locked view")
     Ok(views.html.disposal_of_vehicle.vrm_locked(
       VrmLockedViewModel(model.dateTimeISOChronology,
         DateTime.parse(model.dateTimeISOChronology).getMillis,
@@ -30,6 +31,7 @@ class VrmLocked @Inject()()(implicit protected override val clientSideSessionFac
         exitTarget
       )
     ))
+  }
 
   protected override def missingBruteForcePreventionCookie(implicit request: Request[_]): Result = {
     logMessage(request.cookies.trackingId(), Error,

@@ -27,6 +27,7 @@ class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: Client
                             (implicit request: Request[_]): Result =
     request.cookies.getModel[TraderDetailsModel] match {
       case Some(dealerDetails) =>
+        logMessage(request.cookies.trackingId(), Info, "Presenting vehicle lookup failure view")
         Ok(views.html.disposal_of_vehicle.vehicle_lookup_failure(
           data = model,
           responseCodeVehicleLookupMSErrorMessage = responseCode,

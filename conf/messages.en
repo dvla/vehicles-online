@@ -328,13 +328,15 @@ ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview 
 
 #micro-service error page
 micro_service_error.title=We are sorry
-micro_service_error.text=The service is temporarily unavailable.
+micro_service_error.text1=The service is temporarily unavailable.
+micro_service_error.text2=If you need to contact support please quote reference {0}
 micro_service_error.back.button=Try again
 micro_service_error.exit.button=Exit
 
 #duplicate-disposal error page
 duplicate_disposal_error.title=We are sorry
-duplicate_disposal_error.text= This vehicle has already been notified as sold. If you think this is an error then please call DVLA Customer Enquiries on 0300 123 1350 (please enter code 544 when prompted).
+duplicate_disposal_error.text1=This vehicle has already been notified as sold. If you think this is an error then please call DVLA Customer Enquiries on 0300 123 1350 (please enter code 544 when prompted).
+duplicate_disposal_error.text2=Please quote reference {0}
 duplicate_disposal_error.back.button=Try again
 duplicate_disposal_error.exit.button=Exit
 

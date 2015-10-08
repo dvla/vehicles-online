@@ -38,6 +38,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
       case Some(setupTradeDetailsModel) =>
         val session = clientSideSessionFactory.getSession(request.cookies)
         fetchAddresses(setupTradeDetailsModel, showBusinessName = Some(true))(session, request2lang).map { addresses =>
+          logMessage(request.cookies.trackingId(), Info, "Presenting business choose your address view")
           if (config.ordnanceSurveyUseUprn)
             Ok(views.html.disposal_of_vehicle.business_choose_your_address(
               BusinessChooseYourAddressViewModel(
@@ -171,9 +172,9 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     /* The redirect is done as the final step within the map so that:
      1) we are not blocking threads
      2) the browser does not change page before the future has completed and written to the cache. */
-    successResult.
-      discardingCookie(EnterAddressManuallyCacheKey).
-      withCookie(model).
-      withCookie(traderDetailsModel)
+    successResult
+      .discardingCookie(EnterAddressManuallyCacheKey)
+      .withCookie(model)
+      .withCookie(traderDetailsModel)
   }
 }

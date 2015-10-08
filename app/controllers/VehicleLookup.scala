@@ -60,6 +60,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   override def presentResult(implicit request: Request[_]) = {
     request.cookies.getModel[TraderDetailsModel] match {
       case Some(traderDetails) =>
+        logMessage(request.cookies.trackingId(), Info, "Presenting vehicle lookup view")
         Ok(views.html.disposal_of_vehicle.vehicle_lookup(
         VehicleLookupViewModel(
           form.fill(),
@@ -112,18 +113,18 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
     (disposed, suppressed) match {
       case (_, true) =>
         logMessage(request.cookies.trackingId(), Info,
-          s"Redirecting from VehicleLookup to ${routes.SuppressedV5C.present()}}")
+          s"The vehicle has suppressed V5C flag switched on so redirecting from VehicleLookup to ${routes.SuppressedV5C.present()}}")
         suppressedV5C.withCookie(model)
       case (true, false) =>
         logMessage(request.cookies.trackingId(), Info,
-          s"Redirecting from VehicleLookup to ${routes.DuplicateDisposalError.present()}}")
+          s"The vehicle has already been disposed so redirecting from VehicleLookup to ${routes.DuplicateDisposalError.present()}}")
         duplicateDisposalError
       case (false, _) =>
         logMessage(request.cookies.trackingId(), Info,
           s"Redirecting from VehicleLookup to $PreventGoingToDisposePageCacheKey}")
-        dispose.
-          withCookie(VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto)).
-          discardingCookie(PreventGoingToDisposePageCacheKey)
+        dispose
+          .withCookie(VehicleAndKeeperDetailsModel.from(vehicleAndKeeperDetailsDto))
+          .discardingCookie(PreventGoingToDisposePageCacheKey)
     }
   }
 

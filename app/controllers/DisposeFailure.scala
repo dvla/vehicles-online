@@ -24,7 +24,7 @@ class DisposeFailure @Inject()()(implicit clientSideSessionFactory: ClientSideSe
       vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
       transactionId <- request.cookies.getString(DisposeFormTransactionIdCacheKey)
     } yield {
-      logMessage(request.cookies.trackingId(), Info, "Present disposeFailure page")
+      logMessage(request.cookies.trackingId(), Info, "Presenting dispose failure view")
       val disposeViewModel = createViewModel(dealerDetails, vehicleDetails, Some(transactionId))
       Ok(views.html.disposal_of_vehicle.dispose_failure(
         disposeViewModel.transactionId,

@@ -32,10 +32,10 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
   )
 
   override def presentResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result = {
-
-    Ok(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget)).
-      withNewSession.
-      discardingCookies(AllCacheKeys)
+    logMessage(request.cookies.trackingId(), Info, "Presenting set up trade details view")
+    Ok(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget))
+      .withNewSession
+      .discardingCookies(AllCacheKeys)
   }
   override def invalidFormResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result =
     BadRequest(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget))
