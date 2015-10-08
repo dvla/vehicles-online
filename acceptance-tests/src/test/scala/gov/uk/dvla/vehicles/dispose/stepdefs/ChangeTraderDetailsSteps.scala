@@ -25,7 +25,7 @@ class ChangeTraderDetailsSteps(webBrowserDriver: WebBrowserDriver) extends Match
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = "0"
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
   }
