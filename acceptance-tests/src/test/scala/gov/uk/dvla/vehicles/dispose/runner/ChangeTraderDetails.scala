@@ -8,8 +8,7 @@ import org.junit.runner.RunWith
 @CucumberOptions(
   features = Array("acceptance-tests/src/test/resources/ChangeTraderDetails.feature"),
   glue = Array("gov.uk.dvla.vehicles.dispose.stepdefs"),
-  tags = Array("@working"),
-  format = Array("pretty", "html:target/cucumber")
+  tags = Array("@working")
 )
 class ChangeTraderDetails {
 
