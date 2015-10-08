@@ -22,6 +22,7 @@ object BusinessChooseYourAddressPage extends Page {
   final override val title = "Select trader address"
   final val titleCy = "Dewiswch eich cyfeiriad masnach"
   val addressLine = "presentationProperty stub, 123, property stub, street stub, town stub, area stub, QQ99QQ"
+  final val selectedAddressLine = "Not real street 1, Not real street2, Not real town, QQ9 9QQ"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
@@ -35,7 +36,7 @@ object BusinessChooseYourAddressPage extends Page {
 
   def happyPath(implicit driver: WebDriver) = {
     go to BusinessChooseYourAddressPage
-    chooseAddress.value = selectedAddressLine
+    chooseAddress.value = addressLine
     click on select
   }
 

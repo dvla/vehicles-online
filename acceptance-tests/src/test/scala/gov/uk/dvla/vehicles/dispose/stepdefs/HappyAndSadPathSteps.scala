@@ -22,8 +22,6 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
-  val addressLine = "presentationProperty stub, 123, property stub, street stub, town stub, area stub, QQ99QQ"
-
   def goToCompleteAndConfirmPage() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
@@ -32,7 +30,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = addressLine
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "A1"
@@ -94,11 +92,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-
-
-      println("&&&&&&&&&&" + pageSource)
-
-    BusinessChooseYourAddressPage.chooseAddress.value = addressLine
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "AA11AAC"

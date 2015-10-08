@@ -39,7 +39,7 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN
   @Given("^Select the address form address choose page then click on next button$")
   def select_the_address_form_address_choose_page_then_click_on_next_button() {
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = "0"
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
   }
 

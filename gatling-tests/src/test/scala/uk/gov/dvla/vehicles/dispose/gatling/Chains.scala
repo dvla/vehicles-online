@@ -107,8 +107,7 @@ object Chains {
       .exec(http("POST /business-choose-your-address")
       .post("/business-choose-your-address")
       .headers(headers_x_www_form_urlencoded)
-//      .param( """disposal_businessChooseYourAddress_addressSelect""", "${uprn}") // Use UPRN
-      .formParam( """disposal_businessChooseYourAddress_addressSelect""", "0") // UPRN disabled for Northern Ireland
+      .formParam( """disposal_businessChooseYourAddress_addressSelect""", "Not real street 1, Not real street2, Not real town, QQ9 9QQ")
       .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
       .formParam( """action""", """""")
       .check(regex( """Enter vehicle details""").exists)

@@ -6,13 +6,13 @@ import org.scalatest.Matchers
 import org.scalatest.selenium.WebBrowser.pageTitle
 import org.scalatest.selenium.WebBrowser.click
 import org.scalatest.selenium.WebBrowser.go
+import org.scalatest.selenium.WebBrowser.pageSource
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue {
 
@@ -26,7 +26,7 @@ class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends Matchers w
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = traderUprnValid.toString
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "A1"
