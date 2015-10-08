@@ -93,12 +93,6 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     createCookie(key, value)
   }
 
-  def businessChooseYourAddress(uprnSelected: String = "0"): Cookie = {
-    val key = BusinessChooseYourAddressCacheKey
-    val value = BusinessChooseYourAddressFormModel(uprnSelected = uprnSelected)
-    createCookie(key, value)
-  }
-
   def enterAddressManually(): Cookie = {
     val key = EnterAddressManuallyCacheKey
     val value = EnterAddressManuallyFormModel(

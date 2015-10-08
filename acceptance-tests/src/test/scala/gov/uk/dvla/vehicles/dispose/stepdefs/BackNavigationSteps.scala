@@ -6,6 +6,7 @@ import org.scalatest.Matchers
 import org.scalatest.selenium.WebBrowser.pageTitle
 import org.scalatest.selenium.WebBrowser.click
 import org.scalatest.selenium.WebBrowser.go
+import org.scalatest.selenium.WebBrowser.pageSource
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
@@ -25,7 +26,7 @@ class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends Matchers w
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = "0"
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "A1"

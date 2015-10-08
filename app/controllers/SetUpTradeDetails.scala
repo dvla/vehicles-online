@@ -1,7 +1,6 @@
 package controllers
 
 import com.google.inject.Inject
-import models.AllCacheKeys
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import play.api.data.Form
 import play.api.data.Forms.{mapping, optional}
@@ -43,5 +42,11 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
   override def success(implicit request: Request[_]): Result = {
     logMessage(request.cookies.trackingId(), Info, s"Redirect to $onSuccess")
     onSuccess
+  }
+
+  def reset = play.api.mvc.Action { implicit request =>
+    logMessage(request.cookies.trackingId(), Info, s"Reset trader details")
+    Ok(views.html.disposal_of_vehicle.setup_trade_details(form, submitTarget))
+      .discardingCookies(models.TradeDetailsCacheKeys)
   }
 }

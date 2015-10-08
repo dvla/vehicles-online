@@ -41,6 +41,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   protected val onMicroServiceError = Redirect(routes.MicroServiceError.present())
   protected val onVehicleLookupFailure = Redirect(routes.VehicleLookupFailure.present())
   protected val missingTradeDetails = Redirect(routes.SetUpTradeDetails.present())
+  protected val resetTradeDetails = routes.SetUpTradeDetails.reset()
   protected val enterAddressManually = Redirect(routes.EnterAddressManually.present())
   protected val businessChooseYourAddress = Redirect(routes.BusinessChooseYourAddress.present())
   protected val suppressedV5C = Redirect(routes.SuppressedV5C.present())
@@ -70,7 +71,8 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
           traderDetails.traderAddress.address,
           submitTarget,
           backTarget,
-          exitTarget
+          exitTarget,
+          resetTradeDetails
         )))
       case None =>
         logMessage(request.cookies.trackingId(), Error,
@@ -92,7 +94,8 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
             traderDetails.traderAddress.address,
             submitTarget,
             backTarget,
-            exitTarget
+            exitTarget,
+            resetTradeDetails
           ))
         )
       case None =>

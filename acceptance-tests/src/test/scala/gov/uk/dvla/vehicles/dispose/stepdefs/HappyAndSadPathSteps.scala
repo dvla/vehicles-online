@@ -16,6 +16,7 @@ import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue{
 
@@ -29,7 +30,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = "0"
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "A1"
@@ -82,7 +83,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
   }
 
-  @Given("^I am on the complete and confirm page with failure data$")
+    @Given("^I am on the complete and confirm page with failure data$")
   def i_am_on_the_complete_and_confirm_page_with_failure_data() {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
@@ -91,7 +92,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = "0"
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "AA11AAC"

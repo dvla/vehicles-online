@@ -28,7 +28,7 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN
    click on BeforeYouStartPage.startNow
   }
 
-  @Given("^I.value = trader name and postcode then click on next button$")
+  @Given("^I enter trader name and postcode then click on next button$")
   def i_enter_trader_name_and_postcode_then_click_on_next_button() {
     pageTitle shouldEqual SetupTradeDetailsPage.title withClue trackingId
     SetupTradeDetailsPage.traderName.value = "sudotrader"
@@ -39,11 +39,11 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN
   @Given("^Select the address form address choose page then click on next button$")
   def select_the_address_form_address_choose_page_then_click_on_next_button() {
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value = "0"
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
   }
 
-  @When("^I.value = vehicle look up details and click on submit button$")
+  @When("^I enter vehicle look up details and click on submit button$")
   def i_enter_vehicle_look_up_details_and_click_on_submit_button() {
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
     VehicleLookupPage.vehicleRegistrationNumber.value = "b1"

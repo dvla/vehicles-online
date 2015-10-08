@@ -45,7 +45,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual  BusinessChooseYourAddressPage.title withClue trackingId
-    BusinessChooseYourAddressPage.chooseAddress.value="0"
+    BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
     click on BusinessChooseYourAddressPage.select
     VehicleLookupPage.vehicleRegistrationNumber.value = "b1"
     VehicleLookupPage.documentReferenceNumber.value = "11111111111"

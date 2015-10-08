@@ -29,7 +29,6 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
   protected val manualAddressEntryCall = routes.EnterAddressManually.present()
   protected val backCall = routes.SetUpTradeDetails.present()
   protected val redirectBack = Redirect(routes.SetUpTradeDetails.present())
-  protected val uprnNotFoundResult = Redirect(routes.UprnNotFound.present())
   protected val successResult = Redirect(routes.VehicleLookup.present())
   protected val onMissingTraderDetails = Redirect(routes.SetUpTradeDetails.present())
 
@@ -39,22 +38,12 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
         val session = clientSideSessionFactory.getSession(request.cookies)
         fetchAddresses(setupTradeDetailsModel, showBusinessName = Some(true))(session, request2lang).map { addresses =>
           logMessage(request.cookies.trackingId(), Info, "Presenting business choose your address view")
-          if (config.ordnanceSurveyUseUprn)
-            Ok(views.html.disposal_of_vehicle.business_choose_your_address(
-              BusinessChooseYourAddressViewModel(
-                form.fill(),
-                setupTradeDetailsModel.traderBusinessName,
-                setupTradeDetailsModel.traderPostcode,
-                addresses,
-                submitCall, manualAddressEntryCall, backCall
-              )
-            ))
-          else Ok(views.html.disposal_of_vehicle.business_choose_your_address(
+          Ok(views.html.disposal_of_vehicle.business_choose_your_address(
             BusinessChooseYourAddressViewModel(
               form.fill(),
               setupTradeDetailsModel.traderBusinessName,
               setupTradeDetailsModel.traderPostcode,
-              index(addresses),
+              addresses,
               submitCall, manualAddressEntryCall, backCall
             )
           ))
@@ -70,23 +59,12 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
           case Some(setupTradeDetails) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
             fetchAddresses(setupTradeDetails, showBusinessName = Some(true)).map { addresses =>
-              if (config.ordnanceSurveyUseUprn)
                 BadRequest(business_choose_your_address(
                   BusinessChooseYourAddressViewModel(
                     formWithReplacedErrors(invalidForm),
                     setupTradeDetails.traderBusinessName,
                     setupTradeDetails.traderPostcode,
                     addresses,
-                    submitCall, manualAddressEntryCall, backCall
-                  )
-                ))
-              else
-                BadRequest(business_choose_your_address(
-                  BusinessChooseYourAddressViewModel(
-                    formWithReplacedErrors(invalidForm),
-                    setupTradeDetails.traderBusinessName,
-                    setupTradeDetails.traderPostcode,
-                    index(addresses),
                     submitCall, manualAddressEntryCall, backCall
                   )
                 ))
@@ -100,9 +78,6 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetailsModel) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
-            if (config.ordnanceSurveyUseUprn)
-              lookupUprn(validForm, setupTradeDetailsModel.traderBusinessName)
-            else
               lookupAddressByPostcodeThenIndex(validForm, setupTradeDetailsModel)
           case None => Future {
             logMessage(request.cookies.trackingId(), Error, "Failed to find dealer details, redirecting")
@@ -110,12 +85,6 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
           }
         }
     )
-  }
-
-  private def index(addresses: Seq[(String, String)]) = {
-    addresses.map { case (uprn, address) => address}. // Extract the address.
-      zipWithIndex. // Add an index for each address
-      map { case (address, index) => (index.toString, address)} // Flip them around so index comes first.
   }
 
   private def formWithReplacedErrors(form: Form[BusinessChooseYourAddressFormModel])(implicit request: Request[_]) =
@@ -129,20 +98,9 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
 
   private def fetchAddresses(model: SetupTradeDetailsFormModel, showBusinessName: Option[Boolean])
                             (implicit session: ClientSideSession, lang: Lang) =
-    addressLookupService.fetchAddressesForPostcode(model.traderPostcode,
-      session.trackingId,
-      showBusinessName = showBusinessName
-    )
+    addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId)
 
-  private def lookupUprn(model: BusinessChooseYourAddressFormModel, traderName: String)
-                        (implicit request: Request[_], session: ClientSideSession) = {
-    val lookedUpAddress = addressLookupService.fetchAddressForUprn(model.uprnSelected.toString, session.trackingId)
-    lookedUpAddress.map {
-      case Some(addressModel) => nextPage(model, traderName, addressModel)
-      case None => uprnNotFoundResult
-    }
-  }
-
+//  TODO : Renmae, handle possible missing values
   private def lookupAddressByPostcodeThenIndex(model: BusinessChooseYourAddressFormModel,
                                                setupBusinessDetailsForm: SetupTradeDetailsFormModel
                                                 )
@@ -150,19 +108,9 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                                                session: ClientSideSession
                                                 ): Future[Result] = {
     fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
-      val indexSelected = model.uprnSelected.toInt
-      if (indexSelected < addresses.length) {
-        val lookedUpAddresses = index(addresses)
-        val lookedUpAddress = lookedUpAddresses(indexSelected) match {
-          case (index, address) => address
-        }
+        val lookedUpAddress = model.uprnSelected
         val addressModel = AddressModel(uprn = None, address = lookedUpAddress.split(",") map (line => line.trim))
         nextPage(model, setupBusinessDetailsForm.traderBusinessName, addressModel)
-      }
-      else {
-        // Guard against IndexOutOfBoundsException
-        uprnNotFoundResult
-      }
     }
   }
 
