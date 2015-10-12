@@ -5,7 +5,7 @@
         backCall: Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
         config: utils.helpers.Config,
-        isPrivateKeeper: Boolean))
+        isPrivateKeeper: Boolean)
 
 @import models.DisposeFormModelBase.Form.BackId
 @import models.DisposeFormModelBase.Form.ConsentId
@@ -17,7 +17,7 @@
 @import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
 @import models.PrivateDisposeFormModel.Form.EmailOptionId
 @import models.PrivateDisposeFormModel.Form.EmailId
-@import views.html.disposal_of_vehicle.main
+@import scala.collection.mutable.LinkedHashMap
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.mappings.Email.EmailMaxLength
 @import common.mappings.Mileage
@@ -26,11 +26,13 @@
 @import common.views.html.widgets.base.valtechInputText
 @import common.views.html.widgets.dates.inputDayMonthYearTextbox
 @import common.views.html.widgets.base.csrfTokenHiddenField
-@import views.html.helper.form
-@import views.html.common.vehicle_detail_playback
 @import common.views.html.widgets.alertWarning
 @import common.views.html.widgets.email
 @import common.views.html.widgets.optionalToggle
+@import common.views.html.widgets.playbackList
+@import views.html.disposal_of_vehicle.main
+@import views.html.helper.form
+
 
 @main(
     progress = Some(Messages("disposal_progress_5")),
@@ -46,15 +48,33 @@
         <div class="two-col clearfix">
 
             <div class="disposal-info first-col">
-                @vehicle_detail_playback(data)
+                @playbackList(
+                    Messages("disposal_playback.vehicledetails"),
+                    {
+                        val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                        val flaggedRegNumberLabel: String = "REG_" + Messages("disposal_playback.vehiclereg")
+                        playbackItems += (flaggedRegNumberLabel -> data.registrationNumber)
 
-                <dl class="playback">
-                    <dt><h2>@Messages("disposal_vehiclelookup.p2")</h2></dt>
-                    <dt>@Messages("disposal_vehiclelookup.tradernamelabel")</dt>
-                    <dd>@data.dealerName</dd>
-                    <dt>@Messages("disposal_vehiclelookup.traderaddresslabel")</dt>
-                    <dd>@for(addr <- data.dealerAddress) {@addr<br/>}</dd>
-                </dl>
+                        data.vehicleMake match {
+                            case Some(make) => playbackItems += (Messages("disposal_playback.vehiclemake") -> make)
+                            case None => playbackItems
+                        }
+
+                        data.vehicleModel match {
+                            case Some(model) => playbackItems += (Messages("disposal_playback.vehiclemodel") -> model)
+                            case None => playbackItems
+                        }
+                    }
+                )()
+
+                @playbackList(
+                    Messages("disposal_vehiclelookup.p2"),
+                    {
+                        val playbackItems: LinkedHashMap[String, String] = LinkedHashMap();
+                        playbackItems += (Messages("disposal_vehiclelookup.tradernamelabel") -> data.dealerName)
+                        playbackItems += (Messages("disposal_vehiclelookup.traderaddresslabel") -> data.dealerAddress.mkString("<br/>"))
+                    }
+                )()
 
                 @alertWarning() { <p>@Messages("disposal_dispose.warning")</p> }
             </div>

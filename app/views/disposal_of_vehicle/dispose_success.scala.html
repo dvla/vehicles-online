@@ -9,6 +9,7 @@
     config: utils.helpers.Config,
     isPrivateKeeper: Boolean)
 
+@import scala.collection.mutable.LinkedHashMap
 @import views.disposal_of_vehicle.DisposeSuccess.{ExitDisposalId, NewDisposalId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
@@ -16,6 +17,7 @@
 @import common.views.html.widgets.alertWarning
 @import common.views.html.widgets.alertSuccess
 @import common.views.html.widgets.base.csrfTokenHiddenField
+@import common.views.html.widgets.playbackList
 
 @main(
 progress = Some(Messages("disposal_progress_6")),
@@ -47,13 +49,15 @@ title = Messages("disposal_disposeconfirmation.title")
     </div>
 
     <div class="first-col">
-        <dl class="playback">
-          <h2>@Messages("disposal_disposeconfirmation.transactionDetails")</h2>
-          <dt>@Messages("disposal_disposeconfirmation.transactionid_label")</dt>
-          <dd>@Messages("disposal_disposeconfirmation.transactionid", data.transactionId.getOrElse(""))</dd>
-          <dt>@Messages("disposal_disposeconfirmation.transactionDate")</dt>
-          <dd>@Messages( disposeDateTime.toString("dd/MM/yyy"))</dd>
-        </dl>
+        @playbackList(
+            Messages("disposal_disposeconfirmation.transactionDetails"),
+            {
+                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap();
+                playbackItems += (Messages("disposal_disposeconfirmation.transactionid_label") -> data.transactionId.getOrElse(""))
+                playbackItems += (Messages("disposal_disposeconfirmation.transactionDate") -> disposeDateTime.toString("dd/MM/yyy"))
+            }
+        )()
+
         <dl class="playback bg-plain related">
             <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
             <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>

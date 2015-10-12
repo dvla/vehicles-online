@@ -4,15 +4,17 @@
   isPrivateKeeper: Boolean
 )
 
-@import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, ResetTraderDetailsId, SubmitId}
-@import views.html.disposal_of_vehicle.main
-@import views.html.helper.form
 @import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
+@import scala.collection.mutable.LinkedHashMap
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.mappings.{DocumentReferenceNumber, VehicleRegistrationNumber}
 @import common.views.helpers.BaseTemplate.fieldConstructor
 @import common.views.html.widgets.base.valtechInputText
 @import common.views.html.widgets.base.csrfTokenHiddenField
+@import common.views.html.widgets.playbackList
+@import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, ResetTraderDetailsId, SubmitId}
+@import views.html.disposal_of_vehicle.main
+@import views.html.helper.form
 
 @main(
     progress = Some(Messages("disposal_progress_4")),
@@ -24,13 +26,15 @@
 
     <div class="two-col clearfix vehicle-lookup">
         <div class="first-col trader-details">
-            <dl class="playback">
-                <dt><h2>@Messages("disposal_vehiclelookup.p2")</h2></dt>
-                <dt>@Messages("disposal_vehiclelookup.tradernamelabel")</dt>
-                <dd>@viewModel.traderName</dd>
-                <dt>@Messages("disposal_vehiclelookup.traderaddresslabel")</dt>
-                <dd>@for(addr <- viewModel.address) {@addr<br/>}</dd>
-            </dl>
+            @playbackList(
+                Messages("disposal_vehiclelookup.p2"),
+                {
+                    val playbackItems: LinkedHashMap[String, String] = LinkedHashMap();
+                    playbackItems += (Messages("disposal_vehiclelookup.tradernamelabel") -> viewModel.traderName)
+                    playbackItems += (Messages("disposal_vehiclelookup.traderaddresslabel") -> viewModel.address.mkString("<br/>"))
+                }
+            )()
+
             @if(Messages("disposal_vehiclelookup.traderresetdetails")) {
             <div>
                 <a id="@ResetTraderDetailsId"
