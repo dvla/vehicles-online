@@ -48,7 +48,8 @@
                         Map('_label -> Messages("disposal_vehiclelookup.vrninputlabel"),
                             'maxLength -> VehicleRegistrationNumber.MaxLength,
                             '_showConstraints -> false,
-                            'alphaNumericOnly -> true))
+                            'alphaNumericOnly -> true,
+                            'autofocus -> true))
 
                         @valtechInputText(viewModel.form(DocumentReferenceNumberId), args =
                             Map('_label -> Messages("disposal_vehiclelookup.refnumlabel"),
@@ -95,11 +96,4 @@
             </div>
         </div>
     </div>
-
-<script src="@controllers.StaticAssets.versioned(config.assetsUrl)("javascripts/dispose-page-focus.js")"
-    type="text/javascript">
-</script>
-<script>
-    setFocus("@VehicleRegistrationNumberId");
-</script>
 }
