@@ -1,5 +1,22 @@
 ======= 1.18 ========
 TIME OF RELEASE BINARIES CREATION:
+
+
+DE760 Missing sentence under Thank You on Summary page
+DE770 Android - Print, Notify Another Sale and Finish wording position
+US1410 Widget code tidy up - change the inputDayMonthYear widget so that it uses the same mapping as the valtechDate widget
+US3432 Add change trader details function to vehicle lookup screen
+US3792 Fix the error handling in some microservices (vehicles-and-keeper)
+US3814 Create and impliment Alert-Complete as a common widget in vehicles-presentation-common
+US3819 Create and implement playback and playback-list as common widgets in vehicles-presentation-common
+US3853 Cursor needs to be placed in VRN field when 'Notify Another Sale' is selected
+US3861 Message on Feedback Screen to Tell Customers that we wont reply to their questions
+US3866 Revisit os-address-lookup to improve the microservice return response
+US3890 Add transaction completed logging in each exemplar
+US3901 Audit the logging
+
+======= 1.18 ========
+TIME OF RELEASE BINARIES CREATION:
 Wed Sep 30 09:14:11 UTC 2015
 
 US2440 Stop using Sion's WebBorwser DSL, use the real Selenium DSL
