@@ -330,14 +330,14 @@ ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview 
 #micro-service error page
 micro_service_error.title= Mae''n ddrwg gennym
 micro_service_error.text1= Nid yw''r gwasanaeth ar gael dros dro.
-micro_service_error.text2= Os bydd angen i chi gysylltu â cefnogaeth dyfynnwch cyfeirnod {0}
+micro_service_error.text2=
 micro_service_error.back.button= Yn ôl
 micro_service_error.exit.button= Allan
 
 #duplicate-disposal error page
 duplicate_disposal_error.title= Mae''n ddrwg gennym
 duplicate_disposal_error.text1= Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802
-duplicate_disposal_error.text2= Dyfynnwch y cyfeirnod {0}
+duplicate_disposal_error.text2=
 duplicate_disposal_error.back.button= Yn ôl
 duplicate_disposal_error.exit.button= Allan
 
