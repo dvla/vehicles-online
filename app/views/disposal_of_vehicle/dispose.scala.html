@@ -79,7 +79,7 @@
                 @alertWarning() { <p>@Messages("disposal_dispose.warning")</p> }
             </div>
 
-            <div class="disposal-form second-col uppercase-input">
+            <div class="disposal-form second-col">
                 @if(isPrivateKeeper) {
                     <div class="hidden">
                         @valtechDeclareCheck(disposeForm(ConsentId),
@@ -149,11 +149,9 @@
                                 disposeForm(EmailId),
                                 labelText = Messages("disposal_businesskeeperdetails.email"),
                                 hintText = None,
-                                args = Map('maxLength -> EmailMaxLength,
-                                           'validityMessage -> Messages("error.email")
+                                args = Map('maxLength -> EmailMaxLength)
                                        )
                             )
-                        )
                     </div>
                 }
 
