@@ -24,7 +24,7 @@
 @import common.views.helpers.BaseTemplate.fieldConstructor
 @import common.views.html.widgets.base.valtechDeclareCheck
 @import common.views.html.widgets.base.valtechInputText
-@import common.views.html.widgets.dates.inputDayMonthYearTextbox
+@import common.views.html.widgets.dates.valtechDate
 @import common.views.html.widgets.base.csrfTokenHiddenField
 @import common.views.html.widgets.alertWarning
 @import common.views.html.widgets.email
@@ -112,12 +112,9 @@
                 )
 
                 <div id="@DateOfDisposalId">
-                    @inputDayMonthYearTextbox(
-                        field =disposeForm(DateOfDisposalId),
-                        args = Map(
-                            '_label -> Messages("disposal_dispose.dateofdisposal.label")
-                        ),
-                        dateService = dateService,
+                    @valtechDate(
+                        field = disposeForm(DateOfDisposalId),
+                        labelText = Messages("disposal_dispose.dateofdisposal.label"),
                         showTodaysDateButton = !isPrivateKeeper,
                         showTodaysDateButtonId = Some(TodaysDateOfDisposal),
                         hintText = Some(Messages("disposal_dispose.dateofdisposal.hint"))
