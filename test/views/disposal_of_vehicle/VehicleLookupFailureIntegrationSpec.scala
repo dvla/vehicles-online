@@ -5,23 +5,10 @@ import helpers.UiSpec
 import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
-import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
-import WebBrowser.enter
-import WebBrowser.Checkbox
-import WebBrowser.checkbox
-import WebBrowser.TextField
-import WebBrowser.textField
-import WebBrowser.TelField
-import WebBrowser.telField
-import WebBrowser.RadioButton
-import WebBrowser.radioButton
 import WebBrowser.click
 import WebBrowser.go
-import WebBrowser.find
-import WebBrowser.id
-import WebBrowser.Element
 import WebBrowser.pageSource
 import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.VehicleLookupFailurePage.{beforeYouStart, vehicleLookup}
@@ -68,13 +55,6 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
       CookieFactoryForUISpecs.dealerDetails()
       go to VehicleLookupFailurePage
       pageTitle should equal(SetupTradeDetailsPage.title)
-    }
-
-    "remove redundant cookies when displayed" taggedAs UiTag in new PhantomJsByDefault {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to VehicleLookupFailurePage
-      webDriver.manage().getCookieNamed(VehicleLookupResponseCodeCacheKey) should equal(null)
     }
 
     "display messages that show that the number of brute force attempts does not impact which messages " +

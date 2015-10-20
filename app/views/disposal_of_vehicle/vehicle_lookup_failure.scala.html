@@ -1,5 +1,4 @@
 @(data: models.VehicleLookupFormModel,
-        responseCodeVehicleLookupMSErrorMessage: String,
         tryAgainTarget: play.api.mvc.Call,
         exitTarget: play.api.mvc.Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
@@ -13,10 +12,10 @@
     title = Messages("disposal_vehiclelookupfailure.title")
 ) {
     <h1>@Messages("disposal_vehiclelookupfailure.title")</h1>
-
-    <p>@Messages(s"$responseCodeVehicleLookupMSErrorMessage.p1")</p>
-    <p>@Messages(s"$responseCodeVehicleLookupMSErrorMessage.p2")</p>
-    <p>@Messages(s"$responseCodeVehicleLookupMSErrorMessage.p3")</p>
+    <p>@Messages("vehicle_and_keeper_lookup_failure.p0")</p>
+    <p>@Messages("vehicle_and_keeper_lookup_failure.p1")</p>
+    <p>@Messages("vehicle_and_keeper_lookup_failure.p2")</p>
+    <p>@Messages("vehicle_and_keeper_lookup_failure.p3")</p>
     <br>
 
     @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}

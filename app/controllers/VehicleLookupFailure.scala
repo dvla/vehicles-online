@@ -3,7 +3,6 @@ package controllers
 import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.VehicleLookupFormModel
-import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import play.api.mvc.{Request, Result}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
@@ -21,16 +20,14 @@ class VehicleLookupFailure @Inject()()(implicit clientSideSessionFactory: Client
   protected val missingPresentCookieData = Redirect(routes.SetUpTradeDetails.present())
   protected val missingSubmitCookieData = Redirect(routes.BeforeYouStart.present())
   protected val success = Redirect(routes.VehicleLookup.present())
-  override val vehicleLookupResponseCodeCacheKey: String = VehicleLookupResponseCodeCacheKey
 
-  override def presentResult(model: VehicleLookupFormModel, responseCode: String)
+  override def presentResult(model: VehicleLookupFormModel)
                             (implicit request: Request[_]): Result =
     request.cookies.getModel[TraderDetailsModel] match {
       case Some(dealerDetails) =>
         logMessage(request.cookies.trackingId(), Info, "Presenting vehicle lookup failure view")
         Ok(views.html.disposal_of_vehicle.vehicle_lookup_failure(
           data = model,
-          responseCodeVehicleLookupMSErrorMessage = responseCode,
           tryAgainTarget,
           exitTarget)
         )
