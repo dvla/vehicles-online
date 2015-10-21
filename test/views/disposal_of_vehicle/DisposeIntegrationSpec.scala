@@ -9,20 +9,8 @@ import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
 import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.selenium.WebBrowser
-import WebBrowser.enter
-import WebBrowser.Checkbox
-import WebBrowser.checkbox
-import WebBrowser.TextField
-import WebBrowser.textField
-import WebBrowser.TelField
-import WebBrowser.telField
-import WebBrowser.RadioButton
-import WebBrowser.radioButton
 import WebBrowser.click
 import WebBrowser.go
-import WebBrowser.find
-import WebBrowser.id
-import WebBrowser.Element
 import WebBrowser.pageSource
 import WebBrowser.pageTitle
 import org.scalatest.concurrent.Eventually.{eventually, PatienceConfig, scaled}
@@ -51,6 +39,9 @@ import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
+import webserviceclients.fakes.FakeDateServiceImpl.TodayDay
+import webserviceclients.fakes.FakeDateServiceImpl.TodayMonth
+import webserviceclients.fakes.FakeDateServiceImpl.TodayYear
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageInvalid
 
 final class DisposeIntegrationSpec extends UiSpec with TestHarness {
@@ -141,7 +132,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
     // This test needs to run with javaScript enabled.
     "display DisposeSuccess page on correct submission with " +
-      "javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
+      "javascript enabled" taggedAs UiTag in new WebBrowserWithJs {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
 
@@ -157,16 +148,16 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
     // This test needs to run with javaScript enabled.
     "display DisposeSuccess page on correct submission when a user auto populates " +
-      "the date of disposal with javascript enabled" taggedAs UiTag ignore new WebBrowserWithJs {
+      "the date of disposal with javascript enabled" taggedAs UiTag in  new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup().vehicleLookupFormModel()
       go to DisposePage
 
       click on useTodaysDate
 
-      dateOfDisposalDay.value should equal(DateOfDisposalDayValid)
-      dateOfDisposalMonth.value should equal(DateOfDisposalMonthValid)
-      dateOfDisposalYear.value should equal(DateOfDisposalYearValid)
+      dateOfDisposalDay.value should equal(TodayDay)
+      dateOfDisposalMonth.value should equal(TodayMonth)
+      dateOfDisposalYear.value should equal(TodayYear)
 
       click on consent
       click on lossOfRegistrationConsent
@@ -180,7 +171,6 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       val timeout: Span = scaled(Span(2, Seconds))
       implicit val patienceConfig: PatienceConfig = PatienceConfig(timeout = timeout)
 
-      eventually(dispose.underlying.getAttribute("class").contains("disabled"))
       eventually {pageTitle should equal(DisposeSuccessPage.title)}
     }
 
@@ -326,16 +316,16 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
   "use today's date" should {
     // This test needs to run with javaScript enabled.
-    "fill in the date fields" taggedAs UiTag ignore new WebBrowserWithJs {
+    "fill in the date fields" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
 
       click on useTodaysDate
 
-      dateOfDisposalDay.value should equal(DateOfDisposalDayValid)
-      dateOfDisposalMonth.value should equal(DateOfDisposalMonthValid)
-      dateOfDisposalYear.value should equal(DateOfDisposalYearValid)
+      dateOfDisposalDay.value should equal(TodayDay)
+      dateOfDisposalMonth.value should equal(TodayMonth)
+      dateOfDisposalYear.value should equal(TodayYear)
     }
   }
 
