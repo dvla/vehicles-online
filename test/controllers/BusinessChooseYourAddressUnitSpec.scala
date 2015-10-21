@@ -76,7 +76,7 @@ class BusinessChooseYourAddressUnitSpec extends UnitSpec {
       contentAsString(result) should not include PrototypeHtml
     }
 
-    "fetch the addresses for the trader's postcode from the address lookup micro service" ignore new WithApplication {
+    "fetch the addresses for the trader's postcode from the address lookup micro service" in new WithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val (controller, addressServiceMock) = businessChooseYourAddressControllerAndMocks()
@@ -133,46 +133,41 @@ class BusinessChooseYourAddressUnitSpec extends UnitSpec {
       }
     }
 
-    "write cookie when UPRN found" in new WithApplication {
-      val request = buildCorrectlyPopulatedRequest().
+    "write cookie when address found" in new WithApplication {
+      val addressLine = "presentationProperty stub, 123, property stub, street stub, town stub, area stub, QQ99QQ"
+      val request = buildCorrectlyPopulatedRequest(addressSelected = addressLine).
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = businessChooseYourAddressController(uprnFound = true).submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
+        cookies.filter(c => c.name == traderDetailsCacheKey).head.toString should include( """"property stub"""")
         cookies.map(_.name) should contain allOf(BusinessChooseYourAddressCacheKey, traderDetailsCacheKey)
       }
     }
 
-    // TODO : put these tests back
-    "does not write cookie when UPRN not found" ignore new WithApplication {
-      val request = buildCorrectlyPopulatedRequest().
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
-      val result = businessChooseYourAddressController(uprnFound = false).submit(request)
-      whenReady(result) { r =>
-        val cookies = r.header.headers.get(SET_COOKIE).toSeq.flatMap(Cookies.decode)
-        cookies.map(_.name) should contain noneOf(BusinessChooseYourAddressCacheKey, traderDetailsCacheKey)
-      }
-    }
-
-    "not call the micro service to lookup the address by UPRN when an invalid submission is made" ignore
+    "still call the micro service to fetch back addresses even though an invalid submission is made" in
       new WithApplication {
-      val request = buildCorrectlyPopulatedRequest(addressSelected = "").
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
-      val (controller, addressServiceMock) = businessChooseYourAddressControllerAndMocks(uprnFound = true)
-      val result = controller.submit(request)
-      whenReady(result, timeout) { r =>
-        r.header.status should equal(BAD_REQUEST)
-        verify(addressServiceMock, never()).callPostcodeWebService(anyString(), any[TrackingId])(any[Lang])
+        val request = buildCorrectlyPopulatedRequest(addressSelected = "").
+          withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        val (controller, addressServiceMock) = businessChooseYourAddressControllerAndMocks(uprnFound = true)
+        val result = controller.submit(request)
+        whenReady(result, timeout) { r =>
+          r.header.status should equal(BAD_REQUEST)
+          verify(addressServiceMock, times(1)).callPostcodeWebService(anyString(),
+            any[TrackingId]
+          )(any[Lang])
+        }
       }
-    }
 
-    "call the micro service to lookup the address by UPRN when a valid submission is made" ignore new WithApplication {
-      val request = buildCorrectlyPopulatedRequest().
+    "call the micro service to lookup the address by postcode when a valid submission is made" in new WithApplication {
+      val request = buildCorrectlyPopulatedRequest(addressSelected = "1").
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val (controller, addressServiceMock) = businessChooseYourAddressControllerAndMocks(uprnFound = true)
       val result = controller.submit(request)
       whenReady(result) { r =>
-        verify(addressServiceMock, times(1)).callPostcodeWebService(anyString(), any[TrackingId])(any[Lang])
+        verify(addressServiceMock, times(1)).callPostcodeWebService(anyString(),
+          any[TrackingId]
+        )(any[Lang])
       }
     }
   }
