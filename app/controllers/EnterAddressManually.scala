@@ -7,9 +7,10 @@ import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, Request}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
-import common.clientsidesession.CookieImplicits.{RichForm, RichCookies, RichResult}
+import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import common.model.{VmAddressModel, TraderDetailsModel, SetupTradeDetailsFormModel}
 import common.views.helpers.FormExtensions.formBinding
+import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.enter_address_manually
 
@@ -29,7 +30,19 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
     request.cookies.getModel[SetupTradeDetailsFormModel] match {
       case Some(setupTradeDetails) =>
         logMessage(request.cookies.trackingId(), Info, "Presenting enter address manually view")
-        Ok(enter_address_manually(form.fill(), traderPostcode = setupTradeDetails.traderPostcode, formTarget, backLink))
+        val formFill = request.cookies.getModel[EnterAddressManuallyFormModel] match {
+          case Some(formModel) => form.fill(formModel)
+          case None => form.fill(
+            EnterAddressManuallyFormModel(
+              AddressAndPostcodeViewModel(
+                None,
+                AddressLinesViewModel("", None, None, None, ""),
+                setupTradeDetails.traderPostcode
+              )
+            )
+          )
+        }
+        Ok(enter_address_manually(formFill, formTarget, backLink))
       case None => onCookiesMissing
     }
   }
@@ -39,8 +52,7 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
       invalidForm =>
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
-            BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm),
-              setupTradeDetails.traderPostcode, formTarget, backLink))
+            BadRequest(enter_address_manually(formWithReplacedErrors(invalidForm), formTarget, backLink))
           case None =>
             logMessage(request.cookies.trackingId(), Debug,
               s"Failed to find dealer name in cache, redirecting to $onCookiesMissing")
@@ -49,10 +61,7 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
       validForm =>
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
-            val traderAddress = VmAddressModel.from(
-              validForm.addressAndPostcodeModel,
-              setupTradeDetails.traderPostcode
-            )
+            val traderAddress = VmAddressModel.from(validForm.addressAndPostcodeModel)
             val traderDetailsModel = TraderDetailsModel(
               traderName = setupTradeDetails.traderBusinessName,
               traderAddress = traderAddress

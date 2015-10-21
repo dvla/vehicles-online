@@ -102,7 +102,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
           line2 = Some(Line2Valid),
           line3 = Some(Line3Valid),
           postTown = PostTownValid
-        )
+        ),
+        postCode = PostcodeValid
       )
     )
     createCookie(key, value)

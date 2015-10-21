@@ -7,23 +7,33 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewMod
 class AddressAndPostcodeSpec extends UnitSpec {
   "Address - model" should {
     "return expected toString value" in {
-      val address = AddressAndPostcodeViewModel(addressLinesModel = AddressLinesViewModel(buildingNameOrNumber = "abcd",
-        line2 = Some("e"),
-        line3 = Some("f"),
-        postTown = "ghi"))
+      val address = AddressAndPostcodeViewModel(
+        addressLinesModel = AddressLinesViewModel(
+          buildingNameOrNumber = "abcd",
+          line2 = Some("e"),
+          line3 = Some("f"),
+          postTown = "ghi"
+        ),
+        postCode = "J"
+      )
 
-      val result = address.toViewFormat(postcode = "J").mkString(", ")
+      val result = address.toViewFormat.mkString(", ")
 
       result should equal("ABCD, E, F, GHI, J")
     }
 
     "return expected toString value with missings values" in {
-      val address = AddressAndPostcodeViewModel(addressLinesModel = AddressLinesViewModel(buildingNameOrNumber = "abcd",
-        line2 = None,
-        line3 = None,
-        postTown = "efg"))
+      val address = AddressAndPostcodeViewModel(
+        addressLinesModel = AddressLinesViewModel(
+          buildingNameOrNumber = "abcd",
+          line2 = None,
+          line3 = None,
+          postTown = "efg"
+        ),
+        postCode = "H"
+      )
 
-      val result = address.toViewFormat(postcode = "H").mkString(", ")
+      val result = address.toViewFormat.mkString(", ")
 
       result should equal("ABCD, EFG, H")
     }

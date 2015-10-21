@@ -93,10 +93,14 @@ object CookieFactoryForUISpecs {
   def enterAddressManually()(implicit webDriver: WebDriver) = {
     val key = EnterAddressManuallyCacheKey
     val value = EnterAddressManuallyFormModel(addressAndPostcodeModel = AddressAndPostcodeViewModel(
-      addressLinesModel = AddressLinesViewModel(buildingNameOrNumber = BuildingNameOrNumberValid,
-      line2 = Some(Line2Valid),
-      line3 = Some(Line3Valid),
-      postTown = PostTownValid)))
+      addressLinesModel = AddressLinesViewModel(
+        buildingNameOrNumber = BuildingNameOrNumberValid,
+        line2 = Some(Line2Valid),
+        line3 = Some(Line3Valid),
+        postTown = PostTownValid
+      ),
+      postCode = PostcodeValid)
+    )
     addCookie(key, value)
     this
   }

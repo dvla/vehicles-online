@@ -1,5 +1,4 @@
 @(enterAddressManuallyForm: Form[models.EnterAddressManuallyFormModel],
-        traderPostcode: String,
         formTarget: Call,
         backLink: Call)(implicit lang: Lang,
         token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
@@ -39,11 +38,6 @@
 
             @addressAndPostcode(enterAddressManuallyForm(AddressAndPostcodeId))
 
-            @{
-                /* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */
-            }
-            <legend>@Messages("address.postcode.label")</legend>
-            <div class="read-only-input">@traderPostcode</div>
             <div class="form-steps">
                 <button id="@NextId" type="submit" name="action" class="button">@Messages("disposal_enteraddressmanually.submitbutton")</button>
             </div>

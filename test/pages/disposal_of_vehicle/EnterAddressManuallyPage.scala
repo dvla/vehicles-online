@@ -13,6 +13,7 @@ import WebBrowser.Element
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressAndPostcodeViewModel.Form.PostcodeId
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel
 import AddressLinesViewModel.Form.{AddressLinesId, BuildingNameOrNumberId, Line2Id, Line3Id, PostTownId}
 import views.disposal_of_vehicle.EnterAddressManually
@@ -21,6 +22,7 @@ import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberVali
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
 import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 
 object EnterAddressManuallyPage extends Page {
   final val address = s"$applicationContext/enter-address-manually"
@@ -39,6 +41,9 @@ object EnterAddressManuallyPage extends Page {
 
   def addressPostTown(implicit driver: WebDriver): TextField =
     textField(id(s"${AddressAndPostcodeId}_${AddressLinesId}_$PostTownId"))
+
+  def addressPostCode(implicit driver: WebDriver): TextField =
+    textField(id(s"${AddressAndPostcodeId}_$PostcodeId"))
 
   def next(implicit driver: WebDriver): Element = find(id(NextId)).get
 

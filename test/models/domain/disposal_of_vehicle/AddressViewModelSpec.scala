@@ -15,13 +15,17 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.KeeperUprnVa
 final class AddressViewModelSpec extends UnitSpec {
   "from" should {
     "translate correctly" in {
-      val addressAndPostcodeModel = AddressAndPostcodeViewModel(addressLinesModel = AddressLinesViewModel(
-        buildingNameOrNumber = BuildingNameOrNumberValid,
-        line2 = Some(Line2Valid),
-        line3 = Some(Line3Valid),
-        postTown = PostTownValid))
+      val addressAndPostcodeModel = AddressAndPostcodeViewModel(
+        addressLinesModel = AddressLinesViewModel(
+          buildingNameOrNumber = BuildingNameOrNumberValid,
+          line2 = Some(Line2Valid),
+          line3 = Some(Line3Valid),
+          postTown = PostTownValid
+        ),
+        postCode = PostcodeValid
+      )
 
-      val result = VmAddressModel.from(addressAndPostcodeModel, PostcodeValid)
+      val result = VmAddressModel.from(addressAndPostcodeModel)
 
       result.uprn should equal(None)
       result.address should equal(Seq(

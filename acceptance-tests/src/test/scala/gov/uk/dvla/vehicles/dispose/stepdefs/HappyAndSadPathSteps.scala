@@ -83,7 +83,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     pageTitle shouldEqual VehicleLookupPage.title withClue trackingId
   }
 
-    @Given("^I am on the complete and confirm page with failure data$")
+  @Given("^I am on the complete and confirm page with failure data$")
   def i_am_on_the_complete_and_confirm_page_with_failure_data() {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow

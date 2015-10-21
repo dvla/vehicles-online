@@ -105,6 +105,33 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
+    "return bad request if no postcode is entered" in new WithApplication {
+      val request = FakeRequest().withFormUrlEncodedBody(
+        s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
+        s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> Line2Valid,
+        s"$AddressAndPostcodeId.$AddressLinesId.$Line3Id" -> Line3Valid,
+        s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid).
+        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+      val result = enterAddressManually.submit(request)
+      whenReady(result) { r =>
+        r.header.status should equal(BAD_REQUEST)
+      }
+    }
+
+    "return bad request if an invalid postcode is entered" in new WithApplication {
+      val request = FakeRequest().withFormUrlEncodedBody(
+        s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
+        s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> Line2Valid,
+        s"$AddressAndPostcodeId.$AddressLinesId.$Line3Id" -> Line3Valid,
+        s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid,
+        s"$AddressAndPostcodeId.$PostcodeId" -> "SA1 1").
+        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+      val result = enterAddressManually.submit(request)
+      whenReady(result) { r =>
+        r.header.status should equal(BAD_REQUEST)
+      }
+    }
+
     "redirect to Dispose after a valid submission of all fields" in new WithApplication {
       val request = requestWithValidDefaults()
       val result = enterAddressManually.submit(request)

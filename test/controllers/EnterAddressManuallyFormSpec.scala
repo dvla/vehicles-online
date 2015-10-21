@@ -2,6 +2,7 @@ package controllers
 
 import composition.WithApplication
 import helpers.UnitSpec
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressAndPostcodeViewModel.Form.PostcodeId
 import models.EnterAddressManuallyFormModel.Form.AddressAndPostcodeId
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.AddressLinesId
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.BuildingNameOrNumberId
@@ -13,6 +14,7 @@ import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberVali
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
 import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
+import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 
 class EnterAddressManuallyFormSpec extends UnitSpec {
 
@@ -121,18 +123,31 @@ class EnterAddressManuallyFormSpec extends UnitSpec {
       formWithValidDefaults(line3 = "A<br>B").errors should have length 1
       formWithValidDefaults(postTown = "A<br>B").errors should have length 1
     }
+
+    "post code" should {
+      "reject if post code is less than 5 characters" in new WithApplication {
+        formWithValidDefaults(postCode = "SA1 1").errors.flatMap(_.messages) should contain theSameElementsAs
+          List("error.restricted.validPostcode")
+      }
+      "reject if post code is greater than 5 characters" in new WithApplication {
+        formWithValidDefaults(postCode = "SA1 1AAA").errors.flatMap(_.messages) should contain theSameElementsAs
+          List("error.restricted.validPostcode")
+      }
+    }
   }
 
   private def formWithValidDefaults(buildingNameOrNumber: String = BuildingNameOrNumberValid,
                                     line2: String = Line2Valid,
                                     line3: String = Line3Valid,
-                                    postTown: String = PostTownValid) = {
+                                    postTown: String = PostTownValid,
+                                    postCode: String = PostcodeValid) = {
     injector.getInstance(classOf[EnterAddressManually]).form.bind(
       Map(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> buildingNameOrNumber,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> line2,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line3Id" -> line3,
-        s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> postTown
+        s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> postTown,
+        s"$AddressAndPostcodeId.$PostcodeId" -> postCode
       )
     )
   }
