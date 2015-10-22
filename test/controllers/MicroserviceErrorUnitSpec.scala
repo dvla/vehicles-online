@@ -42,8 +42,7 @@ class MicroserviceErrorUnitSpec extends UnitSpec {
 
     "write micro service error referer cookie" in new WithApplication {
       val referer = DisposePage.address
-      val request = FakeRequest().
-        withHeaders(REFERER -> referer)
+      val request = FakeRequest().withHeaders(REFERER -> referer)
       // Set the previous page.
       val result = microServiceError.present(request)
       whenReady(result) { r =>
@@ -55,9 +54,9 @@ class MicroserviceErrorUnitSpec extends UnitSpec {
     "remove the interstitial cookie so we redirect to the page identified in the referer cookie and " +
       "are not redirected elsewhere" in new WithApplication {
       val referer = DisposePage.address
-      val request = FakeRequest().
-        withHeaders(REFERER -> referer).
-        withCookies(CookieFactoryForUnitSpecs.preventGoingToDisposePage())
+      val request = FakeRequest()
+        .withHeaders(REFERER -> referer)
+        .withCookies(CookieFactoryForUnitSpecs.preventGoingToDisposePage())
       // Set the previous page.
       val result = microServiceError.present(request)
       whenReady(result) { r =>
@@ -79,8 +78,8 @@ class MicroserviceErrorUnitSpec extends UnitSpec {
       }
     }
     "redirect to previous page and discard the referer cookie" in new WithApplication {
-      val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.microServiceError(DisposePage.address))
+      val request = FakeRequest()
+        .withCookies(CookieFactoryForUnitSpecs.microServiceError(DisposePage.address))
       val result = microServiceError.back(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(DisposePage.address))

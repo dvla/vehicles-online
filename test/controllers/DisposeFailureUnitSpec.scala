@@ -39,11 +39,11 @@ class DisposeFailureUnitSpec extends UnitSpec {
 
   private lazy val present = {
     val disposeFailure = injector.getInstance(classOf[DisposeFailure])
-    val request = FakeRequest().
-      withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.disposeFormModel()).
-      withCookies(CookieFactoryForUnitSpecs.disposeTransactionId())
+    val request = FakeRequest()
+      .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+      .withCookies(CookieFactoryForUnitSpecs.disposeFormModel())
+      .withCookies(CookieFactoryForUnitSpecs.disposeTransactionId())
     disposeFailure.present(request)
   }
 }

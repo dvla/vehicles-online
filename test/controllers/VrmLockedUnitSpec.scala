@@ -43,9 +43,9 @@ class VrmLockedUnitSpec extends UnitSpec {
   "newDisposal" should {
     "redirect to vehicle lookup page after the new disposal " +
       "button is clicked when the expected data is in the cookies" in new WithApplication {
-      val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      val request = FakeRequest()
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vrmLocked.tryAnother(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
@@ -64,9 +64,9 @@ class VrmLockedUnitSpec extends UnitSpec {
 
   "exit" should {
     "redirect to correct next page after the exit button is clicked" in new WithApplication {
-      val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      val request = FakeRequest()
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vrmLocked.exit(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
@@ -78,8 +78,8 @@ class VrmLockedUnitSpec extends UnitSpec {
 
   private lazy val present = {
     val dateService = new FakeDateServiceImpl
-    val request = FakeRequest().
-      withCookies(CookieFactoryForUnitSpecs.bruteForcePreventionViewModel(
+    val request = FakeRequest()
+      .withCookies(CookieFactoryForUnitSpecs.bruteForcePreventionViewModel(
         dateTimeISOChronology = dateService.dateTimeISOChronology)
       )
     vrmLocked.present(request)

@@ -49,9 +49,9 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
     }
 
     "display populated fields when cookie exists" in new WithApplication {
-      val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-        withCookies(CookieFactoryForUnitSpecs.enterAddressManually())
+      val request = FakeRequest()
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        .withCookies(CookieFactoryForUnitSpecs.enterAddressManually())
       val result = enterAddressManually.present(request)
       val content = contentAsString(result)
       content should include(filledValue(BuildingNameOrNumberValid))
@@ -110,8 +110,8 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> Line2Valid,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line3Id" -> Line3Valid,
-        s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid).
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid)
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
@@ -124,8 +124,8 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
         s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> Line2Valid,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line3Id" -> Line3Valid,
         s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid,
-        s"$AddressAndPostcodeId.$PostcodeId" -> "SA1 1").
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        s"$AddressAndPostcodeId.$PostcodeId" -> "SA1 1")
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
         r.header.status should equal(BAD_REQUEST)
@@ -172,8 +172,8 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid,
-        s"$AddressAndPostcodeId.$PostcodeId" -> PostcodeValid).
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        s"$AddressAndPostcodeId.$PostcodeId" -> PostcodeValid)
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
@@ -282,8 +282,8 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> "",
         s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid,
-        s"$AddressAndPostcodeId.$PostcodeId" -> PostcodeValid).
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        s"$AddressAndPostcodeId.$PostcodeId" -> PostcodeValid)
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = enterAddressManually.submit(request)
       val content = contentAsString(result)
       content should include("Building/number and street must contain between 4 and 30 characters")
@@ -293,8 +293,8 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> "",
-        s"$AddressAndPostcodeId.$PostcodeId" -> PostcodeValid).
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        s"$AddressAndPostcodeId.$PostcodeId" -> PostcodeValid)
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = enterAddressManually.submit(request)
       val content = contentAsString(result)
       content should include("Town or city must contain between 3 and 20 characters")
@@ -338,15 +338,14 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> line2,
       s"$AddressAndPostcodeId.$AddressLinesId.$Line3Id" -> line3,
       s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> postTown,
-      s"$AddressAndPostcodeId.$PostcodeId" -> postCode).
-      withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+      s"$AddressAndPostcodeId.$PostcodeId" -> postCode)
+      .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
 
   private def filledValue(value: String) =
     s"""value="$value""""
 
   private lazy val present = {
-    val request = FakeRequest().
-      withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+    val request = FakeRequest().withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
     enterAddressManually.present(request)
   }
 }

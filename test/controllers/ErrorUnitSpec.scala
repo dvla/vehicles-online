@@ -46,10 +46,10 @@ class ErrorUnitSpec extends UnitSpec {
   private lazy val errorController = injector.getInstance(classOf[controllers.Error])
 
   private lazy val present = {
-    val request = FakeRequest().
-      withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-      withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-      withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+    val request = FakeRequest()
+      .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+      .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
     errorController.present(ErrorPage.exceptionDigest)(request)
   }
 }

@@ -118,8 +118,8 @@ class VehicleLookupFormSpec extends UnitSpec {
 
   private lazy val bruteForceServiceImpl: BruteForcePreventionService = {
     val bruteForcePreventionWebService: BruteForcePreventionWebService = mock[BruteForcePreventionWebService]
-    when(bruteForcePreventionWebService.callBruteForce(anyString(), any[TrackingId])).
-      thenReturn( Future.successful( new FakeResponse(status = OK) ))
+    when(bruteForcePreventionWebService.callBruteForce(anyString(), any[TrackingId]))
+      .thenReturn( Future.successful( new FakeResponse(status = OK) ))
     val healthStatsMock = mock[HealthStats]
     when(healthStatsMock.report(anyString)(any[Future[_]])).thenAnswer(new Answer[Future[_]] {
       override def answer(invocation: InvocationOnMock): Future[_] =
@@ -139,8 +139,8 @@ class VehicleLookupFormSpec extends UnitSpec {
                                                VehicleAndKeeperLookupSuccessResponse]])) = {
     val vehicleAndKeeperLookupWebService = mock[VehicleAndKeeperLookupWebService]
 
-    when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId])).
-      thenReturn(Future.successful {
+    when(vehicleAndKeeperLookupWebService.invoke(any[VehicleAndKeeperLookupRequest], any[TrackingId]))
+      .thenReturn(Future.successful {
         val responseAsJson : Option[JsValue] = fullResponse._2 match {
           case Some(response) => response match {
             case Left(failure) => Some(Json.toJson(failure))
