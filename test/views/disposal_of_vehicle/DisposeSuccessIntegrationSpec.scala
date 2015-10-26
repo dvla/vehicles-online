@@ -33,6 +33,7 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import views.disposal_of_vehicle.DisposeSuccess.NewDisposalId
+import pages.disposal_of_vehicle.DisposePage
 
 final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {
@@ -185,38 +186,19 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       })
     }
 
-    /*
-    TODO Had to comment out because of this error on the build server. Investigate then restore.
-
-      org.openqa.selenium.WebDriverException: Cannot find firefox binary in PATH. Make sure firefox is installed. OS appears to be: LINUX
-[info] Build info: version: '2.42.2', revision: '6a6995d31c7c56c340d6f45a76976d43506cd6cc', time: '2014-06-03 10:52:47'
-[info] Driver info: driver.version: FirefoxDriver
-[info]     at org.openqa.selenium.firefox.internal.Executable.<init>(Executable.java:72)
-[info]     at org.openqa.selenium.firefox.FirefoxBinary.<init>(FirefoxBinary.java:59)
-[info]     at org.openqa.selenium.firefox.FirefoxBinary.<init>(FirefoxBinary.java:55)
-[info]     at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:99)
-[info]     at helpers.webbrowser.WebDriverFactory$.firefoxDriver(WebDriverFactory.scala:75)
-[info]     at helpers.webbrowser.WebDriverFactory$.webDriver(WebDriverFactory.scala:34)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17$$anon$16.<init>(DisposeSuccessIntegrationSpec.scala:180)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.apply$mcV$sp(DisposeSuccessIntegrationSpec.scala:180)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.apply(DisposeSuccessIntegrationSpec.scala:180)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.apply(DisposeSuccessIntegrationSpec.scala:180)
-[info]     ...
-
     "browser back button" should {
-      "display VehicleLookup page when in firefox with javascript enabled" taggedAs UiTag in new WebBrowser(webDriver = WebDriverFactory.webDriver(targetBrowser = "firefox", javascriptEnabled = true)) {
+      "display VehicleLookup page with javascript enabled" taggedAs UiTag in new PhantomJsByDefault {
         go to BeforeYouStartPage
         CookieFactoryForUISpecs.
           dealerDetails().
           vehicleLookupFormModel().
-          vehicleDetailsModel()
+          vehicleAndKeeperDetailsModel()
         DisposePage.happyPath
-
         webDriver.navigate().back()
 
         pageTitle should equal(VehicleLookupPage.title)
       }
-    }*/
+    }
   }
 
   private def cacheSetup()(implicit webDriver: WebDriver) =

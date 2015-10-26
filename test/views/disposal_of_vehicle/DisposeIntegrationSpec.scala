@@ -10,6 +10,7 @@ import models.PrivateDisposeFormModel.Form.EmailOptionId
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
+import WebBrowser.currentUrl
 import WebBrowser.go
 import WebBrowser.pageSource
 import WebBrowser.pageTitle
@@ -238,41 +239,23 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       ErrorPanel.numberOfErrors should equal(1)
     }
 
-    /* TODO Had to comment out because of this error on the build server. Investigate then restore.
-
-      org.openqa.selenium.WebDriverException: Cannot find firefox binary in PATH. Make sure firefox is installed. OS appears to be: LINUX
-[info] Build info: version: '2.42.2', revision: '6a6995d31c7c56c340d6f45a76976d43506cd6cc', time: '2014-06-03 10:52:47'
-[info] Driver info: driver.version: FirefoxDriver
-[info]     at org.openqa.selenium.firefox.internal.Executable.<init>(Executable.java:72)
-[info]     at org.openqa.selenium.firefox.FirefoxBinary.<init>(FirefoxBinary.java:59)
-[info]     at org.openqa.selenium.firefox.FirefoxBinary.<init>(FirefoxBinary.java:55)
-[info]     at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:99)
-[info]     at helpers.webbrowser.WebDriverFactory$.firefoxDriver(WebDriverFactory.scala:75)
-[info]     at helpers.webbrowser.WebDriverFactory$.webDriver(WebDriverFactory.scala:34)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17$$anon$16.<init>(DisposeSuccessIntegrationSpec.scala:180)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.apply$mcV$sp(DisposeSuccessIntegrationSpec.scala:180)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.apply(DisposeSuccessIntegrationSpec.scala:180)
-[info]     at views.disposal_of_vehicle.DisposeSuccessIntegrationSpec$$anonfun$3$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.apply(DisposeSuccessIntegrationSpec.scala:180)
-[info]     ...
-
-    "does not proceed when milage has non-numeric (Html5Validation enabled)" taggedAs UiTag in new WebBrowser(
-        app = fakeAppWithHtml5ValidationEnabledConfig,
-        webDriver = WebDriverFactory.webDriver(targetBrowser = "firefox", javascriptEnabled = true)) {
-      go to BeforeYouStartPage
+    "does not proceed when milage has non-numeric (Html5Validation enabled)" taggedAs UiTag in new WebBrowserForSelenium(
+      app = fakeAppWithHtml5ValidationEnabledConfig) {
+    go to BeforeYouStartPage
       cacheSetup()
       go to DisposePage
-      mileage enter MileageInvalid
-      dateOfDisposalDay select DateOfDisposalDayValid
-      dateOfDisposalMonth select DateOfDisposalMonthValid
-      dateOfDisposalYear select DateOfDisposalYearValid
+      mileage.value = MileageInvalid
+      dateOfDisposalDay.value = DateOfDisposalDayValid
+      dateOfDisposalMonth.value = DateOfDisposalMonthValid
+      dateOfDisposalYear.value = DateOfDisposalYearValid
       click on consent
       click on lossOfRegistrationConsent
 
       click on dispose
 
-      page.url should equal(DisposePage.url)
-      ErrorPanel.hasErrors should equal(false)
-    }*/
+      currentUrl should equal(DisposePage.url)
+      ErrorPanel.numberOfErrors should equal(1)
+    }
 
     "display one validation error message when milage has non-numeric (Html5Validation disabled)" taggedAs UiTag in
       new WebBrowserForSelenium(app = fakeAppWithHtml5ValidationDisabledConfig) {
@@ -337,5 +320,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
   private val fakeAppWithHtml5ValidationDisabledConfig =
     LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
+
+  private val fakeAppWithHtml5ValidationEnabledConfig =
+    LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> true))
 
 }
