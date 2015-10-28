@@ -1,3 +1,14 @@
+======= 1.20 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+US3850 Remove email validation that checks for upper or lower case letters
+US3896 Amend Vehicle Lookup Error Message to mention 'Not latest V5C'
+US3898 Change Manual Address Entry screen to allow for Postcode Amendment
+US3902 Remove inputDayMonthYearTextbox widget
+US3907 Review unit tests that are being ignored
+US3949 Correct those few occurrences that do not use the DVLA common logging code
+
 ======= 1.19 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Oct 14 12:42:22 UTC 2015
