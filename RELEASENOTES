@@ -1,6 +1,6 @@
 ======= 1.20 ========
 TIME OF RELEASE BINARIES CREATION:
-
+Wed Oct 28 10:52:51 UTC 2015
 
 US3850 Remove email validation that checks for upper or lower case letters
 US3896 Amend Vehicle Lookup Error Message to mention 'Not latest V5C'
