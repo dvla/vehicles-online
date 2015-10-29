@@ -143,11 +143,28 @@
         )()
 
         @playbackList(
+            Messages("disposal_disposeconfirmation.disposedto"),
+            {
+                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                playbackItems += (Messages("disposal_disposeconfirmation.trader_name") -> data.dealerName)
+                playbackItems += (Messages("disposal_disposeconfirmation.trader_address") -> data.dealerAddress.mkString("<br/>"))
+            },
+            List("bg-plain")
+        )()
+
+        @playbackList(
+            Messages("disposal_disposeconfirmation.keeperDetails"),
+            {
+                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                playbackItems += (Messages("disposal_disposeconfirmation.keeperDetails.email") -> "")
+            },
+            List("bg-plain")
+        )()
+
+        @playbackList(
             null,
             {
                 val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                playbackItems += (Messages("disposal_disposeconfirmation.disposedto") -> data.dealerName)
-                playbackItems += ("" -> data.dealerAddress.mkString("<br/>"))
                 playbackItems += (Messages("disposal_disposeconfirmation.transactionDate") -> formModel.dateOfDisposal.toString("dd/MM/yyy"))
             },
             List("bg-plain")
