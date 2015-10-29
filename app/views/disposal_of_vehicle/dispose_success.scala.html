@@ -18,16 +18,16 @@
 @import common.views.html.widgets.alertSuccess
 @import common.views.html.widgets.base.csrfTokenHiddenField
 @import common.views.html.widgets.playbackList
+@import common.views.html.widgets.registrationNumber
 
 @main(
-progress = Some(Messages("disposal_progress_6")),
-title = Messages("disposal_disposeconfirmation.title")
+    progress = Some(Messages("disposal_progress_6")),
+    title = Messages("disposal_disposeconfirmation.title")
 ){
 
 <div class="two-col disposal-sucesss">
 
     <div class="second-col">
-
         @alertSuccess(Some(Messages("disposal_disposeconfirmation.disposalComplete"))){
             <p>@Messages("ms.vehiclesService.response.applicationBeingProcessed.p1")</p>
             @alertWarning() {
@@ -46,6 +46,63 @@ title = Messages("disposal_disposeconfirmation.title")
             <li>@Messages("disposal_disposeconfirmation.exkeeper-p3")</li>
             <li>@Messages("disposal_disposeconfirmation.exkeeper-p4")</li>
         </ul>
+
+        <div class="form-steps desktop-only">
+            <div class="step">
+                <button id="printDisposalSuccess"
+                        type="button"
+                        name="action"
+                        value="printDisposalSuccess"
+                        class="button js-only print-button ga-track-click-event-once"
+                        ga-event-category="ct_print"
+                        ga-event-action="print">
+                    @Messages("global.buttonnavprint")
+                </button>
+            </div>
+
+            @{/* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */}
+            @if(!isPrivateKeeper) {
+            <div class="step">
+                @form(action = newDisposeFormTarget) {
+                @csrfTokenHiddenField()
+                <button id="@NewDisposalId"
+                        type="submit"
+                        name="action"
+                        class="button button-new-disposal button-secondary ga-track-click-event-once"
+                        ga-event-category="ct_link"
+                        ga-event-action="sell-another">
+                    @Messages("disposal_disposeconfirmation.newdisposalbutton")
+                </button>
+                }
+            </div>
+            }
+            <div class="step">
+                @form(action = exitDisposeFormTarget) {
+                @csrfTokenHiddenField()
+                @surveyUrl match {
+                case Some(url) => {
+                <button id="@ExitDisposalId"
+                        type="submit"
+                        name="action"
+                        onclick="window.open('@url', '_blank');"
+                        class="button button-secondary ga-track-click-event-once"
+                        ga-event-category="dispose-success"
+                        ga-event-action="exit">
+                    @Messages("disposal_disposeconfirmation.exitbutton")
+                </button>
+                }
+                case None => {
+                <button id="@ExitDisposalId"
+                        type="submit"
+                        name="action"
+                        class="button button-secondary ga-dispose-success-exit">
+                    @Messages("disposal_disposeconfirmation.exitbutton")
+                </button>
+                }
+                }
+                }
+            </div>
+        </div>
     </div>
 
     <div class="first-col">
@@ -58,31 +115,46 @@ title = Messages("disposal_disposeconfirmation.title")
             }
         )()
 
-        <dl class="playback bg-plain related">
-            <dt>@Messages("disposal_disposeconfirmation.registrationNumber_label")</dt>
-            <dd>@Messages("disposal_disposeconfirmation.registrationNumber", data.registrationNumber)</dd>
+        @playbackList(
+            Messages("disposal_playback.vehicledetails"),
+            {
+                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                val flaggedRegNumberLabel: String = "REG_" + Messages("disposal_playback.vehiclereg")
+                playbackItems += (flaggedRegNumberLabel -> data.registrationNumber)
 
-            <dt>@Messages("disposal_disposeconfirmation.vehiclemake")</dt>
-            <dd>@data.vehicleMake</dd>
+                data.vehicleMake match {
+                    case Some(make) => playbackItems += (Messages("disposal_playback.vehiclemake") -> make)
+                    case None => playbackItems
+                }
 
-            <dt>@Messages("disposal_disposeconfirmation.vehiclemodel")</dt>
-            <dd>@data.vehicleModel</dd>
+                data.vehicleModel match {
+                    case Some(model) => playbackItems += (Messages("disposal_playback.vehiclemodel") -> model)
+                    case None => playbackItems
+                }
 
-            <dt>@Messages("disposal_disposeconfirmation.mileage")</dt>
-            @if(formModel.mileage == None) {
-            <dd>@Messages("disposal_disposeconfirmation.mileageNotEntered")</dd>
-            } else {
-            <dd>@{java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get)}</dd>
-            }
-            <dt>@Messages("disposal_disposeconfirmation.disposedto")</dt>
-            <dd> @data.dealerName <br/> @for(addr <- data.dealerAddress) {@addr<br/>}</dd>
+                if(formModel.mileage == None) {
+                    playbackItems += (Messages("disposal_disposeconfirmation.mileage") -> Messages("disposal_disposeconfirmation.mileageNotEntered"))
+                } else {
+                    playbackItems += (Messages("disposal_disposeconfirmation.mileage") -> java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get))
+                }
 
-            <dt>@Messages("disposal_disposeconfirmation.disposaldate")</dt>
-            <dd>@{formModel.dateOfDisposal.toString("dd/MM/yyyy")}</dd>
-        </dl>
+            },
+            List("related")
+        )()
+
+        @playbackList(
+            null,
+            {
+                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                playbackItems += (Messages("disposal_disposeconfirmation.disposedto") -> data.dealerName)
+                playbackItems += ("" -> data.dealerAddress.mkString("<br/>"))
+                playbackItems += (Messages("disposal_disposeconfirmation.transactionDate") -> formModel.dateOfDisposal.toString("dd/MM/yyy"))
+            },
+            List("bg-plain")
+        )()
     </div>
 
-    <div class="form-steps">
+    <div class="form-steps mobile-only">
         <div class="step">
             <button id="printDisposalSuccess"
                     type="button"
