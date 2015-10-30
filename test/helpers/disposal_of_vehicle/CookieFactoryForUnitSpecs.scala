@@ -233,7 +233,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
           FakeDateServiceImpl.DateOfDisposalDayValid.toInt
       ),
       consent = FakeDisposeWebServiceImpl.ConsentValid,
-      lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid
+      lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid,
+      email = None
     )
     createCookie(key, value)
   }

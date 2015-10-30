@@ -1,4 +1,4 @@
-@(data: models.DisposeViewModel,
+@(viewModel: models.DisposeViewModel,
     formModel: models.DisposeFormModelBase,
     disposeDateTime: org.joda.time.DateTime,
     surveyUrl: Option[String],
@@ -110,7 +110,7 @@
             Messages("disposal_disposeconfirmation.transactionDetails"),
             {
                 val playbackItems: LinkedHashMap[String, String] = LinkedHashMap();
-                playbackItems += (Messages("disposal_disposeconfirmation.transactionid_label") -> data.transactionId.getOrElse(""))
+                playbackItems += (Messages("disposal_disposeconfirmation.transactionid_label") -> viewModel.transactionId.getOrElse(""))
                 playbackItems += (Messages("disposal_disposeconfirmation.transactionDate") -> disposeDateTime.toString("dd/MM/yyy"))
             }
         )()
@@ -120,14 +120,14 @@
             {
                 val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
                 val flaggedRegNumberLabel: String = "REG_" + Messages("disposal_playback.vehiclereg")
-                playbackItems += (flaggedRegNumberLabel -> data.registrationNumber)
+                playbackItems += (flaggedRegNumberLabel -> viewModel.registrationNumber)
 
-                data.vehicleMake match {
+                viewModel.vehicleMake match {
                     case Some(make) => playbackItems += (Messages("disposal_playback.vehiclemake") -> make)
                     case None => playbackItems
                 }
 
-                data.vehicleModel match {
+                viewModel.vehicleModel match {
                     case Some(model) => playbackItems += (Messages("disposal_playback.vehiclemodel") -> model)
                     case None => playbackItems
                 }
@@ -146,29 +146,26 @@
             Messages("disposal_disposeconfirmation.disposedto"),
             {
                 val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                playbackItems += (Messages("disposal_disposeconfirmation.trader_name") -> data.dealerName)
-                playbackItems += (Messages("disposal_disposeconfirmation.trader_address") -> data.dealerAddress.mkString("<br/>"))
+                playbackItems += (Messages("disposal_disposeconfirmation.trader_name") -> viewModel.dealerName)
+                playbackItems += (Messages("disposal_disposeconfirmation.trader_address") -> viewModel.dealerAddress.mkString("<br/>"))
+                playbackItems += (Messages("disposal_disposeconfirmation.disposaldate") -> formModel.dateOfDisposal.toString("dd/MM/yyy"))
             },
             List("bg-plain")
         )()
 
-        @playbackList(
-            Messages("disposal_disposeconfirmation.keeperDetails"),
-            {
-                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                playbackItems += (Messages("disposal_disposeconfirmation.keeperDetails.email") -> "")
-            },
-            List("bg-plain")
-        )()
+        @(if(isPrivateKeeper) {
+            playbackList(
+                Messages("disposal_disposeconfirmation.keeperDetails"),
+                {
+                    val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                    playbackItems += ( Messages("disposal_disposeconfirmation.email") -> (formModel.email match {
+                        case Some(email) => "<span class=\"lowercase-text\">" + email + "</span>" ;
+                        case _ => Messages("disposal_disposeconfirmation.emailNotEntered") }) )
+                },
+                List("bg-plain")
+            )()
+        })
 
-        @playbackList(
-            null,
-            {
-                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                playbackItems += (Messages("disposal_disposeconfirmation.transactionDate") -> formModel.dateOfDisposal.toString("dd/MM/yyy"))
-            },
-            List("bg-plain")
-        )()
     </div>
 
     <div class="form-steps mobile-only">

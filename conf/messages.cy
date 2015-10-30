@@ -274,6 +274,8 @@ disposal_disposeconfirmation.noMileageEntered = Dim milltiredd wedi ei roi
 disposal_disposeconfirmation.exitbutton = Gorffen
 disposal_disposeconfirmation.survey = Cymrwch arolwg
 disposal_disposeconfirmation.transactionDetails = Manylion y trafodyn
+disposal_disposeconfirmation.email = E-bost
+disposal_disposeconfirmation.emailNotEntered = HEB EI ROI
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Gwerthu cerbyd i''r fasnach moduron: wedi methu
