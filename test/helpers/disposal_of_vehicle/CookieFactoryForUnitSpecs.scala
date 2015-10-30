@@ -57,8 +57,6 @@ import webserviceclients.fakes.{FakeDateServiceImpl, FakeDisposeWebServiceImpl}
 
 object CookieFactoryForUnitSpecs extends TestComposition {
 
-  // TODO can we make this more fluent by returning "this" at the end of the defs
-
   implicit private val cookieFlags = injector.getInstance(classOf[CookieFlags])
   final val TrackingIdValue = TrackingId("trackingId")
   private val session = new ClearTextClientSideSession(TrackingIdValue)
@@ -76,7 +74,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
 
   def seenCookieMessage(): Cookie = {
     val key = SeenCookieMessageCacheKey
-    val value = "yes" // TODO make a constant
+    val value = "yes"
     createCookie(key, value)
   }
 

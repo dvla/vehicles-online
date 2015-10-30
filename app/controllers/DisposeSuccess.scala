@@ -59,7 +59,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
         surveyUrl(request, isPrivateKeeper = isPrivateKeeper),
         newDisposeFormTarget,
         exitDisposeFormTarget
-      )).discardingCookies(DisposeOnlyCacheKeys) // TODO US320 test for this
+      )).discardingCookies(DisposeOnlyCacheKeys)
     }
     // US320 the user has pressed back button after being on dispose-success and pressing new dispose.
     result getOrElse {

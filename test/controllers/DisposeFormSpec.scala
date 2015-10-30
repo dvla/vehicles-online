@@ -86,19 +86,18 @@ class DisposeFormSpec extends UnitSpec {
       formWithValidDefaults(yearOfDispose = "").errors should have length 1
     }
 
-    // TODO : Fix and reinstate this test
-//    "reject if date is in the future" in new WithApplication {
-//      val dayToday: Int = DateOfDisposalDayValid.toInt
-//      val dayOfDispose = (dayToday + 1).toString
-//
-//      // Attempting to dispose with a date 1 day into the future.
-//      val result = formWithValidDefaults(
-//        dayOfDispose = dayOfDispose)
-//
-//      result.errors should have length 1
-//      result.errors(0).key should equal(DateOfDisposalId)
-//      result.errors(0).message should equal("error.notInFuture")
-//    }
+    "reject if date is in the future" ignore new WithApplication {
+      val dayToday: Int = DateOfDisposalDayValid.toInt
+      val dayOfDispose = (dayToday + 1).toString
+
+      // Attempting to dispose with a date 1 day into the future.
+      val result = formWithValidDefaults(
+        dayOfDispose = dayOfDispose)
+
+      result.errors should have length 1
+      result.errors(0).key should equal(DateOfDisposalId)
+      result.errors(0).message should equal("error.notInFuture")
+    }
 
     "reject if date is more than 2 years in the past" in new WithApplication {
       val dayToday: Int = DateOfDisposalDayValid.toInt
