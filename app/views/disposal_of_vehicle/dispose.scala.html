@@ -85,7 +85,8 @@
                         @valtechDeclareCheck(disposeForm(ConsentId),
                             args = Map(
                                 '_label -> Messages("disposal_dispose.consent"),
-                                'checked -> "checked"
+                                'checked -> "checked",
+                                'autofocus -> true
                             )
                         )
                     </div>
@@ -93,7 +94,8 @@
                     @valtechDeclareCheck(disposeForm(ConsentId),
                         args = Map(
                             '_showConstraints -> false,
-                            '_label -> Messages("disposal_dispose.consent")
+                            '_label -> Messages("disposal_dispose.consent"),
+                            'autofocus -> true
                         )
                     )
                 }
@@ -105,6 +107,7 @@
                    (if(isPrivateKeeper)
                       Map('_label -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent"))
                       ++ Map('tooltipText -> Messages("disposal_dispose.loss_of_registration.privateKeeper.consent.info"))
+                      ++ Map('autofocus -> true)
                    else
                       Map('_label -> Messages("disposal_dispose.loss_of_registration.consent"))
                       ++ Map('tooltipText -> Messages("disposal_dispose.loss_of_registration.consent.info"))

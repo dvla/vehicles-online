@@ -34,7 +34,8 @@
                 args =
                     Map('_label -> Messages("disposal_setuptradedetails.tradernamelabel"),
                     '_showConstraints -> false,
-                    'maxLength -> BusinessName.MaxLength))
+                    'maxLength -> BusinessName.MaxLength,
+                    'autofocus -> true))
 
             @valtechInputText(traderLookupForm(TraderPostcodeId),
                 hintText = Some(Messages("disposal_setuptradedetails.traderpostcode.hint")),
