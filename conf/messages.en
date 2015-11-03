@@ -273,7 +273,7 @@ disposal_disposeconfirmation.mileageNotEntered = NOT ENTERED
 disposal_disposeconfirmation.noMileageEntered = No mileage entered
 disposal_disposeconfirmation.exitbutton = Finish
 disposal_disposeconfirmation.survey = Take a survey
-disposal_disposeconfirmation.transactionDetails = Transaction Details
+disposal_disposeconfirmation.transactionDetails = Transaction details
 disposal_disposeconfirmation.email = Email
 disposal_disposeconfirmation.emailNotEntered = NOT ENTERED
 

@@ -150,7 +150,7 @@
                 playbackItems += (Messages("disposal_disposeconfirmation.trader_address") -> viewModel.dealerAddress.mkString("<br/>"))
                 playbackItems += (Messages("disposal_disposeconfirmation.disposaldate") -> formModel.dateOfDisposal.toString("dd/MM/yyy"))
             },
-            List("bg-plain")
+            List("related", "bg-plain")
         )()
 
         @(if(isPrivateKeeper) {
@@ -162,10 +162,9 @@
                         case Some(email) => "<span class=\"lowercase-text\">" + email + "</span>" ;
                         case _ => Messages("disposal_disposeconfirmation.emailNotEntered") }) )
                 },
-                List("bg-plain")
+                List("related", "bg-plain")
             )()
         })
-
     </div>
 
     <div class="form-steps mobile-only">
