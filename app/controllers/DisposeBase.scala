@@ -14,6 +14,7 @@ import play.api.mvc.{Action, AnyContent, Call, Request, Result}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
+import uk.gov.dvla.vehicles.presentation.common.views.constraints.RegistrationNumber.formatVrm
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import common.LogFormats.anonymize
@@ -214,9 +215,10 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
             else nextPage
 
           if (!o.disposeResponse.registrationNumber.isEmpty)
+            // DE817 - Format the registration number for the user to view
             nextPageWithTransactionId.withCookie(
               DisposeFormRegistrationNumberCacheKey,
-              o.disposeResponse.registrationNumber
+              formatVrm(o.disposeResponse.registrationNumber)
             )
           else nextPageWithTransactionId
         case None => nextPage
