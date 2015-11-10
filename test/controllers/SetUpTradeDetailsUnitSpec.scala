@@ -2,10 +2,11 @@ package controllers
 
 import Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
+import helpers.common.CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
+import models.IdentifierCacheKey
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import play.api.test.FakeRequest
@@ -24,6 +25,20 @@ class SetUpTradeDetailsUnitSpec extends UnitSpec {
     "display the page" in new WithApplication {
       whenReady(present) { r =>
         r.header.status should equal(OK)
+      }
+    }
+
+   "not contain an identifier cookie if default route" in new WithApplication {
+      whenReady(present) { r =>
+        verifyCookieHasBeenDiscarded(IdentifierCacheKey, fetchCookiesFromHeaders(r))
+      }
+    }
+
+    "contain an identifier cookie of type ceg if ceg route" in new WithApplication {
+      val result = setUpTradeDetails.ceg(FakeRequest())
+      whenReady(result) { r =>
+        val cookies = fetchCookiesFromHeaders(r)
+        cookies.find(_.name == IdentifierCacheKey).get.value should equal(setUpTradeDetails.identifier)
       }
     }
 

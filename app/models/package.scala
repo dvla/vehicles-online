@@ -12,6 +12,7 @@ import VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 
 package object models {
   final val SeenCookieMessageCacheKey = "seen_cookie_message" // Same value across all exemplars
+  final val IdentifierCacheKey = s"${CookiePrefix}identifier"
 
   final val DisposeOnlyCacheKeys = Set(
     models.DisposeFormModel.DisposeFormModelCacheKey,
@@ -50,10 +51,12 @@ package object models {
   final val AllCacheKeys = TradeDetailsCacheKeys.++(DisposeCacheKeys)
     .++(Set(models.DisposeFormModel.PreventGoingToDisposePageCacheKey))
     .++(Set(models.DisposeFormModel.DisposeOccurredCacheKey))
-    .++(Set(MicroServiceErrorRefererCacheKey))
+    .+(MicroServiceErrorRefererCacheKey)
+    .+(IdentifierCacheKey)
 
   final val PrivateAllCacheKeys = TradeDetailsCacheKeys.++(PrivateDisposeCacheKeys)
     .++(Set(models.PrivateDisposeFormModel.PreventGoingToDisposePageCacheKey))
     .++(Set(models.PrivateDisposeFormModel.DisposeOccurredCacheKey))
-    .++(Set(MicroServiceErrorRefererCacheKey))
+    .+(MicroServiceErrorRefererCacheKey)
+    .+(IdentifierCacheKey)
 }

@@ -20,6 +20,7 @@ import WebBrowser.telField
 import WebBrowser.RadioButton
 import WebBrowser.radioButton
 import WebBrowser.click
+import WebBrowser.currentUrl
 import WebBrowser.go
 import WebBrowser.find
 import WebBrowser.id
@@ -151,7 +152,20 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       click on back
 
       pageTitle should equal(SetupTradeDetailsPage.title)
+      currentUrl should equal(SetupTradeDetailsPage.url)
     }
+
+    "display previous page with ceg route" taggedAs UiTag in new WebBrowserForSelenium {
+      go to BeforeYouStartPage
+      cacheSetup().withIdentifier("ceg")
+      go to BusinessChooseYourAddressPage
+
+      click on back
+
+      pageTitle should equal(SetupTradeDetailsPage.title)
+      currentUrl should equal(SetupTradeDetailsPage.cegUrl)
+    }
+
   }
 
   "select button" should {

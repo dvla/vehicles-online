@@ -4,6 +4,7 @@ import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
+import WebBrowser.currentUrl
 import WebBrowser.go
 import WebBrowser.find
 import WebBrowser.id

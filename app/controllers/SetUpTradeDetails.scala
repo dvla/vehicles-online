@@ -2,12 +2,13 @@ package controllers
 
 import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
+import models.IdentifierCacheKey
 import play.api.data.Form
 import play.api.data.Forms.{mapping, optional}
-import play.api.mvc.{Result, Request}
+import play.api.mvc.{Action, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
-import common.clientsidesession.CookieImplicits.{RichResult, RichCookies}
+import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import common.controllers.SetUpTradeDetailsBase
 import common.mappings.BusinessName.businessNameMapping
 import common.mappings.Email.email
@@ -30,12 +31,22 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
     )(SetupTradeDetailsFormModel.apply)(SetupTradeDetailsFormModel.unapply)
   )
 
-  override def presentResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result = {
-    logMessage(request.cookies.trackingId(), Info, "Presenting set up trade details view")
-    Ok(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget))
+  private def newSession(result: Result)(implicit request: Request[_]): Result = {
+    result
       .withNewSession
       .discardingCookies(AllCacheKeys)
   }
+
+  override def presentResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result = {
+    request.cookies.getString(IdentifierCacheKey) match {
+      case Some(c) =>
+        Redirect(routes.SetUpTradeDetails.ceg)
+      case None =>
+        logMessage(request.cookies.trackingId(), Info, "Presenting set up trade details view")
+        newSession(Ok(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget)))
+    }
+  }
+
   override def invalidFormResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result =
     BadRequest(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget))
 
@@ -44,9 +55,19 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
     onSuccess
   }
 
-  def reset = play.api.mvc.Action { implicit request =>
+  def reset = Action { implicit request =>
     logMessage(request.cookies.trackingId(), Info, s"Reset trader details")
-    Ok(views.html.disposal_of_vehicle.setup_trade_details(form, submitTarget))
+    // Call presentResult directly as we don't want the form to be populated
+    // before we've had a chance to discard the cookie.
+    presentResult(form)
       .discardingCookies(models.TradeDetailsCacheKeys)
+  }
+
+  val identifier = "ceg"
+  def ceg = Action { implicit request =>
+    logMessage(request.cookies.trackingId(), Info, s"Presenting set up trade details view for identifier ${identifier}")
+    newSession(
+      Ok(views.html.disposal_of_vehicle.setup_trade_details(form.fill(), submitTarget))
+    ).withCookie(IdentifierCacheKey, identifier)
   }
 }

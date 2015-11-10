@@ -186,6 +186,17 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       })
     }
 
+    "remove redundant cookies with ceg identifier" taggedAs UiTag in new PhantomJsByDefault {
+      go to BeforeYouStartPage
+      cacheSetup().withIdentifier("ceg")
+      go to DisposeSuccessPage
+      click on exitDisposal
+      // Verify the cookies identified by the full set of cache keys have been removed
+      AllCacheKeys.foreach(cacheKey => {
+        webDriver.manage().getCookieNamed(cacheKey) should equal(null)
+      })
+    }
+
     "browser back button" should {
       "display VehicleLookup page with javascript enabled" taggedAs UiTag in new PhantomJsByDefault {
         go to BeforeYouStartPage

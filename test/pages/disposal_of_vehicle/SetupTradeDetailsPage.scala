@@ -33,6 +33,7 @@ object SetupTradeDetailsPage extends Page {
   final override val title: String = "Provide trader details"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
+  lazy val cegUrl: String = WebDriverFactory.testUrl + address.substring(1) + "/ceg"
 
   def traderName(implicit driver: WebDriver): TextField = textField(id(TraderNameId))
 

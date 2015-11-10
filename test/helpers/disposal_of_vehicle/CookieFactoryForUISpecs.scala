@@ -75,6 +75,11 @@ object CookieFactoryForUISpecs {
     this
   }
 
+  def withIdentifier(id: String)(implicit webDriver: WebDriver) = {
+    addCookie(models.IdentifierCacheKey, id)
+    this
+  }
+
   def setupTradeDetails(traderPostcode: String = PostcodeValid)(implicit webDriver: WebDriver) = {
     val key = setupTradeDetailsCacheKey
     val value = SetupTradeDetailsFormModel(traderBusinessName = TraderBusinessNameValid,

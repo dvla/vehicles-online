@@ -25,9 +25,11 @@ POST        /before-you-start                                      @controllers.
 
 #page 2 - setup-trade-details
 GET         /setup-trade-details                                   @controllers.SetUpTradeDetails.present
+GET         /setup-trade-details/ceg                               @controllers.SetUpTradeDetails.ceg
 GET         /setup-trade-details/reset                             @controllers.SetUpTradeDetails.reset
 POST        /setup-trade-details                                   @controllers.SetUpTradeDetails.submit
 GET         /private/setup-trade-details                           @controllers.priv.SetUpTradeDetails.present
+GET         /private/setup-trade-details/ceg                       @controllers.priv.SetUpTradeDetails.ceg
 GET         /private/setup-trade-details/reset                     @controllers.priv.SetUpTradeDetails.reset
 POST        /private/setup-trade-details                           @controllers.priv.SetUpTradeDetails.submit
 
