@@ -132,12 +132,13 @@
                     case None => playbackItems
                 }
 
-                if(formModel.mileage == None) {
-                    playbackItems += (Messages("disposal_disposeconfirmation.mileage") -> Messages("disposal_disposeconfirmation.mileageNotEntered"))
-                } else {
-                    playbackItems += (Messages("disposal_disposeconfirmation.mileage") -> java.text.NumberFormat.getIntegerInstance().format(formModel.mileage.get))
-                }
-
+                playbackItems += (
+                    Messages("disposal_disposeconfirmation.mileage") ->
+                    (formModel.mileage match {
+                        case Some(mileage) => java.text.NumberFormat.getIntegerInstance().format(mileage)
+                        case None => Messages("disposal_disposeconfirmation.mileageNotEntered")
+                    })
+                )
             },
             List("related")
         )()
@@ -158,9 +159,13 @@
                 Messages("disposal_disposeconfirmation.keeperDetails"),
                 {
                     val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                    playbackItems += ( Messages("disposal_disposeconfirmation.email") -> (formModel.email match {
-                        case Some(email) => "<span class=\"lowercase-text\">" + email + "</span>" ;
-                        case _ => Messages("disposal_disposeconfirmation.emailNotEntered") }) )
+                    playbackItems += (
+                        Messages("disposal_disposeconfirmation.email") ->
+                        (formModel.email match {
+                            case Some(email) => "<span class=\"lowercase-text\">" + email + "</span>" ;
+                            case _ => Messages("disposal_disposeconfirmation.emailNotEntered")
+                        })
+                    )
                 },
                 List("related", "bg-plain")
             )()

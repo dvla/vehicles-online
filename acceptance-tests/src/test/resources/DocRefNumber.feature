@@ -8,7 +8,7 @@ Feature: Validate document reference entry format - Error Messages
     Given a correctly formatted document reference number "11111111111" has been entered
     When this is submitted along with any other mandatory information
     Then the document reference number "11111111111" is retained
-    And the next step in the dispose transaction "Complete & confirm" is shown
+    And the next step in the dispose transaction "Complete and confirm" is shown
 
   Scenario Outline:
     Given an incorrectly formatted document reference number "<incorrect>" has been entered

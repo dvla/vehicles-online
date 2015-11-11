@@ -33,7 +33,7 @@ import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
 object DisposePage extends Page {
   final val address = s"$applicationContext/complete-and-confirm"
-  final override val title: String = "Complete & confirm"
+  final override val title: String = "Complete and confirm"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 

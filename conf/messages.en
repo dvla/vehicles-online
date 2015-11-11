@@ -202,7 +202,7 @@ documentReferenceNumber = Document reference number
 error.validDocumentReferenceNumber = Document reference number must be an 11-digit number
 
 #page 5 - confirm disposal
-disposal_dispose.title = Complete & confirm
+disposal_dispose.title = Complete and confirm
 disposal_dispose.warning=If the details above do not match the vehicle to be sold, please send the registration certificate V5C with a covering letter to the DVLA, Swansea, SA99 1DZ.
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration

@@ -125,7 +125,7 @@ object Chains {
       .formParam( """documentReferenceNumber""", "${documentReferenceNumber}")
       .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
       .formParam( """action""", """""")
-      .check(regex( """Complete &amp; confirm""").exists)
+      .check(regex( """Complete and confirm""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token"))
       )
 //      .exec(chain_assets_304)

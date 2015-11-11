@@ -35,7 +35,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     click on DisposePage.lossOfRegistrationConsent
   }
 
-  @Given("""^the Trader is on the Complete & Confirm page and javascript is not enabled for the browser$""")
+  @Given("""^the Trader is on the Complete and Confirm page and javascript is not enabled for the browser$""")
   def the_Trader_is_on_the_Complete_Confirm_page_and_javascript_is_not_enabled_for_the_browser() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow

@@ -8,7 +8,7 @@ Feature: Disposal to Trade: Validate VRM format entry
     Given a correctly formatted vehicle reference mark "<vrm>" has been entered
     When this is submitted along with any other mandatory information
     Then the vehicle reference mark "<vrm>" is retained
-    And the next step in the dispose transaction "Complete & confirm" is shown
+    And the next step in the dispose transaction "Complete and confirm" is shown
 
   Examples:
     | vrm     |

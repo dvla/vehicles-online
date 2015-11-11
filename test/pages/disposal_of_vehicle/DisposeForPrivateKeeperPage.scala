@@ -29,7 +29,7 @@ import common.mappings.OptionalToggle.{Invisible, Visible}
 
 object DisposeForPrivateKeeperPage extends Page {
   final val address = s"$applicationContext/private/complete-and-confirm"
-  final override val title: String = "Complete & confirm"
+  final override val title: String = "Complete and confirm"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
