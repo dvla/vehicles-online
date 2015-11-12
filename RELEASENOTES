@@ -1,3 +1,16 @@
+======= 1.21 ========
+TIME OF RELEASE BINARIES CREATION:
+
+DE806   Display email address on summary page
+DE807   Vehicle look up failure page
+DE814   1st line of address validation
+DE817   Summary Screen Playback not putting a space in VRN eg ABC123 instead of ABC 123
+US3912  Amend Summary Screen on all Exemplars to Display VRN in 'Number Plate Styling' and Vehicle Details in Blue Box
+US3939  Cursor needs to Alight in First Mandatory Field in Readiness For Input
+US3941  Capture CEG Identifier to Distinguish Assisted Digital Transactions from Others
+US3955  Amend implementation of feedback link and remove its associated javascript
+US3975  Create and implement Vehicle Detail Playback as common widget in vehicles-presentation-common
+
 ======= 1.20 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Oct 28 10:52:51 UTC 2015
