@@ -58,7 +58,8 @@
         <!-- End Google Analytics -->
     </head>
 
-    <body data-closing-time="@config.closingTimeMinOfDay">
+    <body data-closing-time="@config.closingTimeMinOfDay" class="js-disabled">
+        <script type="text/javascript">document.body.className = document.body.className.replace('js-disabled','js-enabled');</script>
         @serviceClosingWarning(config.openingTimeMinOfDay, config.closingTimeMinOfDay, config.closingWarnPeriodMins)
         <a href="#main" class="visuallyhidden">Skip to main content</a>
 
@@ -137,6 +138,5 @@
         <script src="@controllers.StaticAssets.versioned(config.assetsUrl)("javascripts/lib/respond.min.js")"></script>
         <![endif]-->
 
-        <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
     </body>
 </html>
