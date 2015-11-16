@@ -344,12 +344,6 @@ duplicate_disposal_error.text2=
 duplicate_disposal_error.back.button=Try again
 duplicate_disposal_error.exit.button=Exit
 
-#soap endpoint error page
-soap_endpoint_error.title=We are sorry
-soap_endpoint_error.text=The service is temporarily unavailable. Please try again later or send a completed V5C/3 to DVLA, Swansea, SA99 1BD
-soap_endpoint_error.back.button=Back
-soap_endpoint_error.exit.button=Exit
-
 #keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
 error_suppressedV5C.title = Vehicle is part of a suppressed fleet
 error_suppressedV5C.text1 = DVLA cannot record the sale of this vehicle as it is part of a suppressed fleet.

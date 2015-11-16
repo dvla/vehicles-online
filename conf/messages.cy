@@ -342,12 +342,6 @@ duplicate_disposal_error.text2=
 duplicate_disposal_error.back.button= Yn ôl
 duplicate_disposal_error.exit.button= Allan
 
-#soap endpoint error page
-soap_endpoint_error.title= Mae''n ddrwg gennym
-soap_endpoint_error.text= Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni eto yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe, SA99 1BD
-soap_endpoint_error.back.button= Yn ôl
-soap_endpoint_error.exit.button= Allan
-
 #keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
 error_suppressedV5C.title = Cerbyd yn rhan o fflyd hatal
 error_suppressedV5C.text1 = Ni all DVLA gofnodi gwerthu cerbyd hwn gan ei fod yn rhan o fflyd hatal.
