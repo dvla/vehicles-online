@@ -15,13 +15,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
 import uk.gov.dvla.vehicles.presentation.common.views.constraints.RegistrationNumber.formatVrm
-import common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSessionFactory, TrackingId}
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import common.LogFormats.anonymize
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.{DateService, SEND}
 import common.views.helpers.FormExtensions.RichForm
 import common.webserviceclients.emailservice.EmailService
+import common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.dispose
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
@@ -165,7 +166,11 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     def callMicroService(vehicleLookup: VehicleLookupFormModel,
                          disposeForm: FormModel,
                          traderDetails: TraderDetailsModel) = {
-      val disposeRequest = buildDisposeMicroServiceRequest(vehicleLookup, disposeForm, traderDetails)
+      val disposeRequest = buildDisposeMicroServiceRequest(vehicleLookup, disposeForm, traderDetails,
+        request.cookies.trackingId(),
+        request.cookies.getString(models.IdentifierCacheKey).getOrElse(traderDetails.traderName)
+      )
+
       logMessage(request.cookies.trackingId(), Info, "Calling Dispose micro-service")
 
       logMessage(request.cookies.trackingId(), Debug, "Dispose micro-service request",
@@ -233,12 +238,15 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
 
     def buildDisposeMicroServiceRequest(vehicleLookup: VehicleLookupFormModel,
                                         disposeForm: FormModel,
-                                        traderDetails: TraderDetailsModel): DisposeRequestDto = {
+                                        traderDetails: TraderDetailsModel,
+                                        trackingId: TrackingId,
+                                        identifier: String): DisposeRequestDto = {
       val dateTime = disposeFormModel.dateOfDisposal.toDateTimeAtStartOfDay(DateTimeZone.forID("UTC"))
       val formatter = ISODateTimeFormat.dateTime()
       val isoDateTimeString = formatter.print(dateTime)
 
-      DisposeRequestDto(referenceNumber = vehicleLookup.referenceNumber,
+      DisposeRequestDto(buildWebHeader(trackingId, identifier),
+        referenceNumber = vehicleLookup.referenceNumber,
         registrationNumber = vehicleLookup.registrationNumber,
         traderName = traderDetails.traderName,
         traderAddress = DisposalAddressDto.from(traderDetails.traderAddress),
@@ -249,6 +257,16 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         mileage = disposeFormModel.mileage
       )
     }
+
+    def buildWebHeader(trackingId: TrackingId, identifier: String): VssWebHeaderDto =
+      VssWebHeaderDto(transactionId = trackingId.value,
+        originDateTime = dateService.now.toDateTime,
+        applicationCode = config.applicationCode,
+        serviceTypeCode = config.vssServiceTypeCode,
+        buildEndUser(identifier))
+
+    def buildEndUser(identifier: String): VssWebEndUserDto =
+      VssWebEndUserDto(endUserId = identifier, orgBusUnit = config.orgBusinessUnit)
 
     def nextPage(statusCode: Int,
                  disposeResponse: Option[DisposeResponseDto],

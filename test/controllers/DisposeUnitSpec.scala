@@ -35,6 +35,7 @@ import play.api.test.Helpers.INTERNAL_SERVER_ERROR
 import play.api.test.Helpers.LOCATION
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.SERVICE_UNAVAILABLE
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
@@ -734,6 +735,13 @@ class DisposeUnitSpec extends UnitSpec {
                                      keeperConsent: Boolean = FakeDisposeWebServiceImpl.ConsentValid.toBoolean,
                                      mileage: Option[Int] = Some(MileageValid.toInt)) =
     DisposeRequestDto(
+      VssWebHeaderDto(
+        "trackingId",
+        new org.joda.time.DateTime(transactionTimestamp),
+        config.applicationCode,
+        config.vssServiceTypeCode,
+        VssWebEndUserDto(config.orgBusinessUnit, traderName)
+      ),
       referenceNumber = referenceNumber,
       registrationNumber = registrationNumber,
       traderName = traderName,

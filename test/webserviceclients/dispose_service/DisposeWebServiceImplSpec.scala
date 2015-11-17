@@ -6,6 +6,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClien
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.NoCookieFlags
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import helpers.WireMockFixture
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeWebServiceImpl}
 import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
@@ -23,6 +24,13 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
   implicit val disposalAddressDtoFormat = Json.format[DisposalAddressDto]
   implicit val disposeRequestFormat = Json.format[DisposeRequestDto]
   val request = DisposeRequestDto(
+    VssWebHeaderDto(
+      "trackingId",
+      new org.joda.time.DateTime("2014-03-04T00:00:00.000Z"),
+      "WEBDTT",
+      "WEBDTT",
+      VssWebEndUserDto("DTT", "DTT")
+    ),
     referenceNumber = "ref number",
     registrationNumber = "reg number",
     traderName = "trader test",
