@@ -116,4 +116,4 @@ GET         /healthcheck/debug                                     @uk.gov.dvla.
 
 GET         /version                                               @controllers.Version.version
 
-GET         /cookie-policy                                         @controllers.CookiePolicyController.present
+GET         /cookie-policy                                         @controllers.CookiePolicy.present
