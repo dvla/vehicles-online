@@ -1,6 +1,5 @@
 package controllers.priv
 
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeFormModelBase.Form.ConsentId
@@ -29,6 +28,7 @@ import common.mappings.OptionalToggle
 import common.mappings.Email.{EmailId, EmailVerifyId}
 import common.services.DateService
 import common.services.SEND.EmailConfiguration
+import common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import common.views.models.DayMonthYear
 import common.webserviceclients.emailservice.EmailService
 import common.webserviceclients.emailservice.EmailServiceSendRequest

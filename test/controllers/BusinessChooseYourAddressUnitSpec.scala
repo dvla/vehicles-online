@@ -1,7 +1,6 @@
 package controllers
 
 import Common.PrototypeHtml
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
@@ -19,6 +18,7 @@ import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.traderDetailsCacheKey
 import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.AddressLookupWebService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats

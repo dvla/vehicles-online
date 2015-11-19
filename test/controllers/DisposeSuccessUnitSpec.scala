@@ -2,7 +2,6 @@ package controllers
 
 import Common.PrototypeHtml
 import com.tzavellas.sse.guice.ScalaModule
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
@@ -14,6 +13,7 @@ import play.api.test.Helpers.{LOCATION, OK, contentAsString, defaultAwaitTimeout
 import scala.concurrent.duration.DurationInt
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.services.{DateService, DateServiceImpl}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import utils.helpers.Config
 import webserviceclients.fakes.FakeDateServiceImpl
 

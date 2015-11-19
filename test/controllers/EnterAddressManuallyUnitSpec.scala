@@ -2,7 +2,6 @@ package controllers
 
 import Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
@@ -18,6 +17,7 @@ import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
 import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.traderDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.AddressLinesId
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.BuildingNameOrNumberId

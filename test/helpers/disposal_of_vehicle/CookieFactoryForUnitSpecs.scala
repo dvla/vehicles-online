@@ -15,7 +15,6 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.EnterAddressManuallyFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.SeenCookieMessageCacheKey
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
 import org.joda.time.{LocalDate, DateTime}
@@ -30,6 +29,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
 import common.model.AddressModel
 import common.model.BruteForcePreventionModel
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.SeenCookieMessageCacheKey
 import common.model.SetupTradeDetailsFormModel
 import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.TraderDetailsModel

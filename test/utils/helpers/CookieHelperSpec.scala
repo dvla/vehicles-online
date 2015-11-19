@@ -1,7 +1,6 @@
 package utils.helpers
 
 import composition.TestGlobal
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.WithApplication
 import helpers.UnitSpec
@@ -9,7 +8,9 @@ import models.AllCacheKeys
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import play.api.test.Helpers.LOCATION
 import play.api.test.FakeRequest
+import uk.gov.dvla.vehicles.presentation.common.utils.helpers.CookieHelper
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 
 final class CookieHelperSpec extends UnitSpec {
   "handleApplicationSecretChange" should {
@@ -23,7 +24,7 @@ final class CookieHelperSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.disposeTransactionId()).
         withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber())
 
-      val result = CookieHelper.discardAllCookies(request)
+      val result = CookieHelper.discardAllCookies(controllers.routes.BeforeYouStart.present)(request)
 
       val cookies = fetchCookiesFromHeaders(result)
       cookies.filter(cookie => AllCacheKeys.contains(cookie.name)).foreach { cookie =>
@@ -45,7 +46,7 @@ final class CookieHelperSpec extends UnitSpec {
         withCookies(CookieFactoryForUnitSpecs.disposeTransactionId()).
         withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber())
 
-      val result = CookieHelper. discardAllCookies(request)
+      val result = CookieHelper. discardAllCookies(controllers.routes.BeforeYouStart.present)(request)
 
       result.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
 

@@ -2,7 +2,6 @@ package controllers
 
 import Common.PrototypeHtml
 import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
-import helpers.common.CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
@@ -11,6 +10,8 @@ import pages.disposal_of_vehicle.{DisposePage, VehicleLookupPage}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{LOCATION, REFERER, SERVICE_UNAVAILABLE, contentAsString, defaultAwaitTimeout, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.verifyCookieHasBeenDiscarded
 import utils.helpers.Config
 
 class MicroserviceErrorUnitSpec extends UnitSpec {

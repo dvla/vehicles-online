@@ -11,6 +11,7 @@ import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
 import AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.filters.ClfEntryBuilder
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.utils.helpers.CookieHelper
 
 class ErrorStrategy @Inject()(clfEntryBuilder: ClfEntryBuilder,
                               @Named(AccessLoggerName) accessLogger: LoggerLike,
@@ -18,7 +19,7 @@ class ErrorStrategy @Inject()(clfEntryBuilder: ClfEntryBuilder,
   extends ErrorStrategyBase(clfEntryBuilder, clfEntry => accessLogger.info(clfEntry), accessLogger, dateService) {
 
     protected override def sessionExceptionResult(request: RequestHeader ) =
-      CookieHelper.discardAllCookies(request)
+      CookieHelper.discardAllCookies(routes.BeforeYouStart.present)(request)
 
     protected  override def errorPageResult(exceptionDigest: String) =
       Redirect(routes.Error.present(exceptionDigest))

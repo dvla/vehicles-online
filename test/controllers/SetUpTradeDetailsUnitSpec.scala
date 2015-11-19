@@ -2,7 +2,6 @@ package controllers
 
 import Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
-import helpers.common.CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
@@ -16,6 +15,8 @@ import uk.gov.dvla.vehicles.presentation.common.mappings.BusinessName
 import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
 import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.verifyCookieHasBeenDiscarded
 import utils.helpers.Config
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 

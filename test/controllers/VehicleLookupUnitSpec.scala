@@ -3,7 +3,6 @@ package controllers
 import Common.PrototypeHtml
 import com.tzavellas.sse.guice.ScalaModule
 import helpers.JsonUtils.deserializeJsonToModel
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
@@ -38,6 +37,7 @@ import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSess
 import common.mappings.DocumentReferenceNumber
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
 import common.services.DateServiceImpl
+import common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl

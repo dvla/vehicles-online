@@ -1,7 +1,6 @@
 package controllers
 
 import Common.PrototypeHtml
-import helpers.common.CookieHelper.fetchCookiesFromHeaders
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs.TrackingIdValue
 import helpers.{UnitSpec, WithApplication}
@@ -41,6 +40,7 @@ import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
 import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
