@@ -12,6 +12,8 @@
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
 @import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
+@import scala.collection.mutable.LinkedHashMap
+@import common.views.html.widgets.playbackList
 
 @main(
     progress = Some(Messages("disposal_progress_3")),
@@ -25,12 +27,15 @@
     @form(action = viewModel.submit) {
         @csrfTokenHiddenField()
 
-        <dl class="playback">
-            <dt>@Messages("disposal_businessChooseYourAddress_businessName_label")</dt>
-            <dd>@Messages("disposal_businessChooseYourAddress_businessName", viewModel.traderBusinessName)</dd>
-            <dt>@Messages("disposal_businessChooseYourAddress_postcode_label")</dt>
-            <dd>@viewModel.traderPostcode</dd>
-        </dl>
+        @playbackList(
+            null,
+            {
+                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                playbackItems += Messages("disposal_businessChooseYourAddress_businessName_label") ->
+                    Messages("disposal_businessChooseYourAddress_businessName", viewModel.traderBusinessName)
+                playbackItems += Messages("disposal_businessChooseYourAddress_postcode_label") -> viewModel.traderPostcode
+            }
+        )()
 
         <br/>
 
