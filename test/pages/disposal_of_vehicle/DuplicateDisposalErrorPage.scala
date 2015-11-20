@@ -4,8 +4,7 @@ import org.openqa.selenium.WebDriver
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
-import views.disposal_of_vehicle.MicroserviceError
-import MicroserviceError.{ExitId, TryAgainId}
+import uk.gov.dvla.vehicles.presentation.common.views.widgets.MicroServiceError.{ExitId, TryAgainId}
 import org.scalatest.selenium.WebBrowser.{enter, Checkbox, checkbox, TextField, textField, TelField, telField, RadioButton, radioButton, click, go, find, id, Element, pageSource, pageTitle}
 
 object DuplicateDisposalErrorPage extends Page {

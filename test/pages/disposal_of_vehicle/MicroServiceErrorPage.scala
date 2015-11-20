@@ -21,8 +21,7 @@ import WebBrowser.pageTitle
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
-import views.disposal_of_vehicle.MicroserviceError
-import MicroserviceError.{ExitId, TryAgainId}
+import uk.gov.dvla.vehicles.presentation.common.views.widgets.MicroServiceError.{ExitId, TryAgainId}
 
 object MicroServiceErrorPage extends Page {
   final val address = s"$applicationContext/service-error"

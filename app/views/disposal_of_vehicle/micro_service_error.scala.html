@@ -5,24 +5,11 @@
   config: utils.helpers.Config,
   isPrivateKeeper: Boolean)
 
-@import views.disposal_of_vehicle.MicroserviceError.{ExitId, TryAgainId}
 @import views.html.disposal_of_vehicle.main
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.microServiceError
 
 @main(
     title = Messages("micro_service_error.title")
 ){
-    <h1>@Messages("micro_service_error.title")</h1>
-    
-    <p>@Messages("micro_service_error.text1")</p>
-    <p>@Messages("micro_service_error.text2", trackingId.value)</p>
-
-    <div class="form-steps">
-        <a class="button" id="@TryAgainId" href="@tryAgainTarget">
-            @Messages("micro_service_error.back.button")
-        </a>
-        <br/>
-        <a class="exit" id="@ExitId" href="@exitTarget">
-            @Messages("micro_service_error.exit.button")
-        </a>
-    </div>
+    @microServiceError(tryAgainTarget, exitTarget, trackingId)
 }

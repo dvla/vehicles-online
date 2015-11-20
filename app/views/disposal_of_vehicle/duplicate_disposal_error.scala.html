@@ -6,6 +6,7 @@
   isPrivateKeeper: Boolean)
 
 @import views.html.disposal_of_vehicle.main
+@import uk.gov.dvla.vehicles.presentation.common.views.widgets.MicroServiceError.{ExitId, TryAgainId}
 
 @main(
     title = Messages("duplicate_disposal_error.title")
@@ -16,10 +17,10 @@
 
     <div class="form-steps">
         @{ /* Note the reverse routing syntax for the hyperlink */ }
-        <a class="button" id="tryagain" href="@tryAgainLink">
+        <a class="button" id="@TryAgainId" href="@tryAgainLink">
             @Messages("duplicate_disposal_error.back.button")
         </a>
-        <a class="button-secondary" id="exit" href="@exitLink">
+        <a class="button-secondary" id="@ExitId" href="@exitLink">
             @Messages("duplicate_disposal_error.exit.button")
         </a>
     </div>
