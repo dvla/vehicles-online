@@ -7,9 +7,5 @@ isPrivateKeeper: Boolean)
 @main(
     title = Messages("closed.title")
 ) {
-    <h1>@Messages("closed.title")</h1>
-    <p>@Messages("closed.p1", opening, closing)</p>
-    <div class="form-steps">
-        <a id="exit-button" href="https://www.gov.uk/" class="button">@Messages("closed.exit_button")</a>
-    </div>
+    @uk.gov.dvla.vehicles.presentation.common.views.html.widgets.closed(opening, closing)
 }
