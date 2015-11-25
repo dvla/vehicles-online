@@ -1,5 +1,18 @@
 ======= 1.21 ========
 TIME OF RELEASE BINARIES CREATION:
+
+US3942 	Record CEG Identifier to Distinguish Assisted Digital Transactions from Others
+US3959 	Ensure all widgets in vehicles-presentation-common that use javascript have the javascript behaviour under unit testing
+US3971 	Create and implement Form-Steps as a common widget in vehicles-presentation-common
+US3976 	Create and implement a closed widget in vehicles-presentation-common
+US3977 	Create a CookiePolicy controller in vehicles-presentation-common
+US3978 	Create and implement a microserviceerror widget and controller
+US3979 	Remove SoapEndpointError controllers, messages, routes and views
+US3986 	Consolidate CookieHelpers object
+US3992 	Apply PlaybackList widget to all playbacks in the "second-col"
+
+======= 1.21 ========
+TIME OF RELEASE BINARIES CREATION:
 Thu Nov 12 13:04:05 UTC 2015
 
 DE806   Display email address on summary page
