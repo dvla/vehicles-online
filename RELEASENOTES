@@ -1,5 +1,6 @@
 ======= 1.22.1 ========
 TIME OF RELEASE BINARIES CREATION:
+Fri Nov 27 12:15:36 UTC 2015
 
 Hotfix applied. Acceptance test was failing due to incorrect disposal date test data.
 
