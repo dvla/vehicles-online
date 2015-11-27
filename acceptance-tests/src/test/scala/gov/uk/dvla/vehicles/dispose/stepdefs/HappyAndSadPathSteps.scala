@@ -16,7 +16,7 @@ import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
+import java.util.Calendar
 
 class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue{
 
@@ -113,10 +113,38 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
   def i_can_see_the_details_of_transaction_id_with_failure_screen()  {
     pageSource.contains("AA11AAC-88888888883") shouldEqual true withClue trackingId
   }
+  //TODO add test: check for presence of "Please correct the details below" when invalid disposal date entered
+  //TODO add test: check for lack of presence of "Please correct the details below" when oldest disposal date entered
+
 
   private def enterValidDisposalDate() {
-    DisposePage.dateOfDisposalDay.value = "25"
-    DisposePage.dateOfDisposalMonth.value = "11"
-    DisposePage.dateOfDisposalYear.value = "2013"
+    // todays's date
+    val today = Calendar.getInstance()
+    DisposePage.dateOfDisposalDay.value = today.get(Calendar.DATE).toString
+    DisposePage.dateOfDisposalMonth.value = today.get(Calendar.MONTH).toString
+    DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
+
+  private def enterOldestValidDisposalDate() {
+    DisposePage.dateOfDisposalDay.value = oldestDisposalDate().get(Calendar.DATE).toString
+    DisposePage.dateOfDisposalMonth.value = oldestDisposalDate().get(Calendar.MONTH).toString
+    DisposePage.dateOfDisposalYear.value = oldestDisposalDate().get(Calendar.YEAR).toString
+  }
+
+  private def enterInvalidDisposalDate() {
+    val invlaidDsposalDate = oldestDisposalDate()
+    invlaidDsposalDate.add(Calendar.DATE, -1)
+    DisposePage.dateOfDisposalDay.value = invlaidDsposalDate.get(Calendar.DATE).toString
+    DisposePage.dateOfDisposalMonth.value = invlaidDsposalDate.get(Calendar.MONTH).toString
+    DisposePage.dateOfDisposalYear.value = invlaidDsposalDate.get(Calendar.YEAR).toString
+  }
+
+  //return a date that is two years ago
+  private def oldestDisposalDate() = {
+    val today = Calendar.getInstance()
+    val disposalDay = Calendar.getInstance()
+    disposalDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 2)
+    disposalDay
+  }
+
 }
