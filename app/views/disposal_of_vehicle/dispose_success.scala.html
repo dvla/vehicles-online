@@ -117,13 +117,10 @@
                 Messages("disposal_disposeconfirmation.keeperDetails"),
                 {
                     val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                    playbackItems += (
-                        Messages("disposal_disposeconfirmation.email") ->
-                        (formModel.email match {
-                            case Some(email) => "<span class=\"lowercase-text\">" + email + "</span>" ;
-                            case _ => Messages("disposal_disposeconfirmation.emailNotEntered")
-                        })
-                    )
+                    formModel.email match {
+                        case Some(email) => playbackItems += ("EMAIL_" + Messages("disposal_disposeconfirmation.email") -> email)
+                        case None => playbackItems += (Messages("disposal_disposeconfirmation.email") ->
+                            Messages("disposal_disposeconfirmation.emailNotEntered"))}
                 },
                 List("related", "bg-plain")
             )()
