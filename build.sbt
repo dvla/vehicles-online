@@ -41,7 +41,11 @@ lazy val gatlingTestsProject = Project("gatling-tests", file("gatling-tests"))
 libraryDependencies ++= Seq(
   cache,
   filters,
-  "net.sourceforge.htmlunit" % "htmlunit" % "2.15",
+  "net.sourceforge.htmlunit" % "htmlunit" % "2.15" exclude("commons-collections", "commons-collections"),
+  // Note that commons-collections transitive dependency of htmlunit has been excluded above.
+  // We need to use version 3.2.2 of commons-collections to avoid the following in 3.2.1:
+  // https://commons.apache.org/proper/commons-collections/security-reports.html#Apache_Commons_Collections_Security_Vulnerabilities
+  "commons-collections" % "commons-collections" % "3.2.2" withSources() withJavadoc(),
   "org.seleniumhq.selenium" % "selenium-java" % "2.42.2" % "test" withSources() withJavadoc(),
   "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
   "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
@@ -56,8 +60,8 @@ libraryDependencies ++= Seq(
   "dvla" %% "vehicles-presentation-common" % "2.38-SNAPSHOT" withSources() withJavadoc() exclude("junit", "junit-dep"),
   "dvla" %% "vehicles-presentation-common" % "2.38-SNAPSHOT" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
   "org.webjars" % "requirejs" % "2.1.14-1",
-  "junit" % "junit" % "4.11",
-  "junit" % "junit-dep" % "4.11"
+  "junit" % "junit" % "4.11" % "test",
+  "junit" % "junit-dep" % "4.11" % "test"
 )
 
 pipelineStages := Seq(rjs, digest, gzip)
