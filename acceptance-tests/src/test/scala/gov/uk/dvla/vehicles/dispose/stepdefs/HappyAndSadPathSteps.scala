@@ -120,23 +120,9 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
   private def enterValidDisposalDate() {
     // todays's date
     val today = Calendar.getInstance()
-    DisposePage.dateOfDisposalDay.value = today.get(Calendar.DATE).toString
-    DisposePage.dateOfDisposalMonth.value = today.get(Calendar.MONTH).toString
+    DisposePage.dateOfDisposalDay.value = f"${today.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)}%02d"
     DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
-  }
-
-  private def enterOldestValidDisposalDate() {
-    DisposePage.dateOfDisposalDay.value = oldestDisposalDate().get(Calendar.DATE).toString
-    DisposePage.dateOfDisposalMonth.value = oldestDisposalDate().get(Calendar.MONTH).toString
-    DisposePage.dateOfDisposalYear.value = oldestDisposalDate().get(Calendar.YEAR).toString
-  }
-
-  private def enterInvalidDisposalDate() {
-    val invlaidDsposalDate = oldestDisposalDate()
-    invlaidDsposalDate.add(Calendar.DATE, -1)
-    DisposePage.dateOfDisposalDay.value = invlaidDsposalDate.get(Calendar.DATE).toString
-    DisposePage.dateOfDisposalMonth.value = invlaidDsposalDate.get(Calendar.MONTH).toString
-    DisposePage.dateOfDisposalYear.value = invlaidDsposalDate.get(Calendar.YEAR).toString
   }
 
   //return a date that is two years ago
@@ -146,5 +132,4 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     disposalDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 2)
     disposalDay
   }
-
 }
