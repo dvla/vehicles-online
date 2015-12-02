@@ -1,5 +1,7 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
+import java.util.Calendar
+
 import cucumber.api.java.en.{Given, When, Then}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.WebDriver
@@ -11,12 +13,7 @@ import pages.common.ErrorPanel
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
-import pages.disposal_of_vehicle.DisposePage.consent
-import pages.disposal_of_vehicle.DisposePage.dateOfDisposalDay
-import pages.disposal_of_vehicle.DisposePage.dateOfDisposalMonth
-import pages.disposal_of_vehicle.DisposePage.dateOfDisposalYear
 import pages.disposal_of_vehicle.DisposePage.dispose
-import pages.disposal_of_vehicle.DisposePage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
@@ -35,8 +32,8 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     click on DisposePage.lossOfRegistrationConsent
   }
 
-  @Given("""^the Trader is on the Complete and Confirm page and javascript is not enabled for the browser$""")
-  def the_Trader_is_on_the_Complete_Confirm_page_and_javascript_is_not_enabled_for_the_browser() = {
+  @Given("""^the Trader is on the Complete and Confirm page $""")
+  def the_Trader_is_on_the_Complete_Confirm_page() = {
     go to BeforeYouStartPage
     click on BeforeYouStartPage.startNow
     pageTitle should equal(SetupTradeDetailsPage.title) withClue trackingId
@@ -62,38 +59,27 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     click on DisposePage.lossOfRegistrationConsent
   }
 
-  @Given("""^the motor trader has confirmed the acknowledgement of the current keeper$""")
+  //test clause - keeper consent error will be displayed on submit
+  @Then("""^one error will occur1$""")
+  def one_error_will_occur1() = {
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should contain("consent of the registered keeper") withClue trackingId
+  }
+
+
+  @Given("""^the motor trader has confirmed the consent acknowledgement of the current keeper$""")
   def the_motor_trader_has_confirmed_the_acknowledgement_of_the_current_keeper() = {
     buildDisposeSetup()
     go to DisposePage
     enterValidDisposalDate()
     click on DisposePage.consent
-    click on DisposePage.lossOfRegistrationConsent
   }
 
-  @Given("""^the motor trader has not confirmed the acknowledgement of the current keeper$""")
-  def the_motor_trader_has_not_confirmed_the_acknowledgement_of_the_current_keeper() = {
-    buildDisposeSetup()
-    go to DisposePage
-    enterValidDisposalDate()
-    click on DisposePage.consent
-  }
-
-  @Given("""^the motor trader has entered a valid calendar date which conforms to business rules$""")
-  def the_motor_trader_has_entered_a_valid_calendar_date() = {
-    buildDisposeSetup()
-    go to DisposePage
-    enterValidDisposalDate()
-    click on DisposePage.consent
-    click on DisposePage.lossOfRegistrationConsent
-  }
-
-  @Given("""^the motor trader has entered a valid calendar date which does not conform to business rules$""")
-  def the_motor_trader_has_entered_a_valid_calendar_date_which_does_not_conform_to_the_business_rules() = {
-    buildDisposeSetup()
-    go to DisposePage
-    click on DisposePage.consent
-    click on DisposePage.lossOfRegistrationConsent
+  //test clause - loss of registration consent error will be displayed on submit
+  @Then("""^one error will occur2$""")
+  def one_error_will_occur2() = {
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should contain("confirm that you have made the keeper aware") withClue trackingId
   }
 
   @Given("""^that entered details correspond to a valid clean record that has no markers or error codes$""")
@@ -109,6 +95,17 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     click on DisposePage.lossOfRegistrationConsent
   }
 
+  //test case to ensure that page has no markers or error codes i.e. can dispose
+  @When("""^they attempt to dispose of the vehicle2$""")
+  def they_attempt_to_dispose_of_the_vehicle2() = {
+    click on DisposePage.dispose
+  }
+
+  @Then("""^dispose success$""")
+  def dispose_success() = {
+    pageTitle should equal(DisposeSuccessPage.title) withClue trackingId
+  }
+
   @Given("""^that entered details correspond to a valid record which has markers or error codes$""")
   def that_entered_details_correspond_to_a_valid_record_which_has_markers_or_error_codes() = {
     go to BeforeYouStartPage
@@ -117,9 +114,6 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     VehicleLookupPage.vehicleRegistrationNumber.value = "AB12AWR"
     VehicleLookupPage.documentReferenceNumber.value = "11111111113"
     click on VehicleLookupPage.findVehicleDetails
-    enterValidDisposalDate()
-    click on DisposePage.consent
-    click on DisposePage.lossOfRegistrationConsent
   }
 
   @When("""^they attempt to dispose of the vehicle$""")
@@ -127,47 +121,62 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     click on DisposePage.dispose
   }
 
-  @When("""^the user manually selects a date using the  Date of Sale date drop downs$""")
-  def the_user_manually_selects_a_date_using_the_Date_of_Sale_date_drop_downs() = {
-    enterValidDisposalDate()
+  @Then("""^three errors will occur$""")
+  def three_errors_will_occur() = {
+    ErrorPanel.numberOfErrors should equal(3) withClue trackingId
   }
 
-  @When("""^the Trader tries to select "Confirm Sale" without setting the Date of Sale$""")
-  def the_Trader_tries_to_select_Confirm_Sale_without_setting_the_Date_of_Sale() = {
+  @When("""^they attempt to dispose of the vehicle and consent is incomplete$""")
+  def they_attempt_to_dispose_of_the_vehicle_and_consent_is_incomplete() = {
     click on DisposePage.consent
+    click on DisposePage.dispose
+  }
+
+  @Then("""^two errors will occur$""")
+  def two_errors_will_occur() = {
+    ErrorPanel.numberOfErrors should equal(2) withClue trackingId
+  }
+
+  @When("""^they give full consent and attempt to dispose of vehicle without disposal date$""")
+  def they_give_full_consent_and_attempt_to_dispose_of_vehicle_without_disposal_date() = {
     click on DisposePage.lossOfRegistrationConsent
-    click on dispose
+    click on DisposePage.dispose
   }
 
-  @When("""^the user checks the 'Use today's date' checkbox for Date of Sale$""")
-  def the_user_checks_the_Use_todays_date_checkbox_for_Date_of_Sale() = {
-    click on DisposePage.useTodaysDate
+  @Then("""^one error will occur$""")
+  def one_error_will_occur() = {
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should contain("Must be a valid date") withClue trackingId
   }
 
-  @Then("""^the date dropdown is still unset$""")
-  def the_date_dropdown_is_still_unset() = {
-    dateOfDisposalDay.value should equal("") withClue trackingId
-    dateOfDisposalMonth.value should equal("") withClue trackingId
-    dateOfDisposalYear.value should equal("") withClue trackingId
+  @When("""^the user enters an invalid disposal date$""")
+  def the_user_enters_an_invalid_disposal_date() = {
+    enterInvalidDisposalDate()
+    click on DisposePage.dispose
   }
 
-  @Then("""^the user can select "Confirm sale" without error on the date of sale field$""")
-  def the_user_can_select_Confirm_sale_without_error_on_the_date_of_sale_field() = {
-    click on consent
-    click on lossOfRegistrationConsent
+  @Then("""^an error will occur stating "Must be between today and two years ago2"$""")
+  def an_error_will_occur_stating_Must_be_between_today_and_two_years_ago2() = {
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+  }
+
+  @When("""^the user enters a valid disposal date$""")
+  def the_user_enters_a_valid_disposal_date() = {
+    enterOldestValidDisposalDate()
+  }
+
+  @Then("""^the sell to trade success page is displayed$""")
+  def the_sell_to_trade_success_page_is_displayed() = {
     click on dispose
     pageTitle should equal(DisposeSuccessPage.title) withClue trackingId
   }
 
-  @Then("""^an error will occur stating "Must be between today and two years ago"$""")
-  def an_error_will_occur_stating_Must_be_between_today_and_two_years_ago() = {
-    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
-  }
-
   private def enterValidDisposalDate() {
-    DisposePage.dateOfDisposalDay.value = "25"
-    DisposePage.dateOfDisposalMonth.value = "11"
-    DisposePage.dateOfDisposalYear.value = "2013"
+    // todays's date
+    val today = Calendar.getInstance()
+    DisposePage.dateOfDisposalDay.value = f"${today.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
 
   private def buildDisposeSetup() {
@@ -182,4 +191,27 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
       vehicleAndKeeperDetailsModel().
       vehicleLookupFormModel()
   }
+
+  //return a date that is two years ago
+  private def oldestDisposalDate() = {
+    val today = Calendar.getInstance()
+    val disposalDay = Calendar.getInstance()
+    disposalDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 2)
+    disposalDay
+  }
+
+  private def enterOldestValidDisposalDate() {
+    DisposePage.dateOfDisposalDay.value = f"${oldestDisposalDate().get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${oldestDisposalDate().get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalYear.value = oldestDisposalDate().get(Calendar.YEAR).toString
+  }
+
+  private def enterInvalidDisposalDate() {
+    val invlaidDsposalDate = oldestDisposalDate()
+    invlaidDsposalDate.add(Calendar.DATE, -1)
+    DisposePage.dateOfDisposalDay.value = f"${invlaidDsposalDate.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${invlaidDsposalDate.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalYear.value = invlaidDsposalDate.get(Calendar.YEAR).toString
+  }
+
 }

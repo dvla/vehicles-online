@@ -113,8 +113,6 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
   def i_can_see_the_details_of_transaction_id_with_failure_screen()  {
     pageSource.contains("AA11AAC-88888888883") shouldEqual true withClue trackingId
   }
-  //TODO add test: check for presence of "Please correct the details below" when invalid disposal date entered
-  //TODO add test: check for lack of presence of "Please correct the details below" when oldest disposal date entered
 
 
   private def enterValidDisposalDate() {
@@ -125,11 +123,4 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
 
-  //return a date that is two years ago
-  private def oldestDisposalDate() = {
-    val today = Calendar.getInstance()
-    val disposalDay = Calendar.getInstance()
-    disposalDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 2)
-    disposalDay
-  }
 }
