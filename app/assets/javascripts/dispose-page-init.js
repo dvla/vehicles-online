@@ -1,5 +1,5 @@
 // Define the dependency to page-init in common
-define(['jquery', 'jquery-migrate', "page-init"], function($, jqueryMigrate, pageInit) {
+define(['jquery', "page-init"], function($, pageInit) {
 
     var addGaEvents = function() {
         var gaTodaysDateClickedClass = "ga-use-todays-date-clicked"
