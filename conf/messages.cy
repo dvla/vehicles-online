@@ -136,6 +136,7 @@ disposal_businessChooseYourAddress_postcode_label = Côd Post
 disposal_businessChooseYourAddress_businessAddress_label = Cyfeiriad y masnachwr
 disposal_businessChooseYourAddress_addressSelect = Dewiswch eich cyfeiriad
 disposal_businessChooseYourAddress_addressSelect_label = Dewiswch eich cyfeiriad
+disposal_businessChooseYourAddress_addressSelect_label.private = Dewiswch eich cyfeiriad
 disposal_businessChooseYourAddress.backbutton = Yn ôl
 disposal_businessChooseYourAddress.submitbutton = Nesaf
 disposal_businessChooseYourAddress.manualAddressEntry = Nid yw fy nghyfeiriad i ar y rhestr

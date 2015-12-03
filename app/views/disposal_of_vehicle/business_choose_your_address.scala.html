@@ -46,7 +46,10 @@
             @valtechSelect(viewModel.businessChooseYourAddressForm(AddressSelectId),
                 options = viewModel.dropDownOptions.toSeq,
                 args = Map(
-                    '_label -> Messages("disposal_businessChooseYourAddress_addressSelect_label"),
+                    '_label -> Messages(
+                      if (isPrivateKeeper) "disposal_businessChooseYourAddress_addressSelect_label.private"
+                      else "disposal_businessChooseYourAddress_addressSelect_label"
+                    ),
                     'autofocus -> true
                 )
             )

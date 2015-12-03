@@ -136,6 +136,7 @@ disposal_businessChooseYourAddress_postcode_label = Postcode
 disposal_businessChooseYourAddress_businessAddress_label = Trader address
 disposal_businessChooseYourAddress_addressSelect = Choose your address
 disposal_businessChooseYourAddress_addressSelect_label = Choose your address
+disposal_businessChooseYourAddress_addressSelect_label.private = Choose trader address
 disposal_businessChooseYourAddress.backbutton = Back
 disposal_businessChooseYourAddress.submitbutton = Next
 disposal_businessChooseYourAddress.manualAddressEntry = Address is not in the list
