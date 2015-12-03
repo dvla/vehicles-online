@@ -167,6 +167,7 @@ addressAndPostcode.addressLines.postTown = Tref neu ddinas
 addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
 error.address.characterInvalid = Rhaid iddo gynnwys rhwng cymeriadau dilys gan y AZ, 0-9, cysylltnod, collnod, stopio a lle llawn yn dilyn.
 error.postTown.characterInvalid = Mae''r dref neu ddinas yn cynnwys nodau annilys
+error.threeAlphas = Must have at least 3 alpha characters
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post

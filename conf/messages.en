@@ -170,6 +170,7 @@ addressAndPostcode.addressLines = Address
 addressAndPostcode.postcode = Postcode
 
 error.postTown.characterInvalid = Town or city contains invalid characters
+error.threeAlphas = Must have at least 3 alpha characters
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Error confirming post code

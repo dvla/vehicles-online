@@ -90,6 +90,10 @@ class EnterAddressManuallyFormSpec extends UnitSpec {
       formWithValidDefaults(buildingNameOrNumber = "The*House").errors should have length 1
     }
 
+    "reject if buildingNameOrNumber doesn't contain at least three alpha characters" in new WithApplication {
+      formWithValidDefaults(buildingNameOrNumber = "1-12").errors should have length 1
+    }
+
     "reject if line2 is more than max length" in new WithApplication {
       formWithValidDefaults(line2 = "a" * (LineMaxLength + 1),
         line3 = "", postTown = PostTownValid).errors should have length 1
@@ -152,7 +156,7 @@ class EnterAddressManuallyFormSpec extends UnitSpec {
     )
   }
 
-  val buildingNameOrNumberHypthens = "1-12"
+  val buildingNameOrNumberHypthens = "1-12ABC"
   val line2Hypthens = "address line - 2"
   val line3Hypthens = "address line - 3"
   val postTownHypthens = "address-line"
