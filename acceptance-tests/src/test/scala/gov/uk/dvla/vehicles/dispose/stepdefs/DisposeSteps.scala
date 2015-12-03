@@ -149,15 +149,52 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     ErrorPanel.text should contain("Must be a valid date") withClue trackingId
   }
 
-  @When("""^the user enters an invalid disposal date$""")
-  def the_user_enters_an_invalid_disposal_date() = {
-    enterInvalidDisposalDate()
+  @When("""^the user enters an invalid disposal date that is too old$""")
+  def the_user_enters_an_invalid_disposal_date_that_is_too_old() = {
+    enterInvalidDisposalDateTooOld()
     click on DisposePage.dispose
   }
 
   @Then("""^an error will occur stating "Must be between today and two years ago2"$""")
   def an_error_will_occur_stating_Must_be_between_today_and_two_years_ago2() = {
     ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should contain("Must be a valid date") withClue trackingId
+  }
+
+  @When("""^the user enters an invalid disposal date bad date format$""")
+  def the_user_enters_an_invalid_disposal_date_bad_date_format() = {
+    enterInvalidDisposalDateFormat1()
+    click on DisposePage.dispose
+  }
+
+  @Then("""^an error will occur stating "Must be between today and two years ago3"$""")
+  def an_error_will_occur_stating_Must_be_between_today_and_two_years_ago3() = {
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should contain("Must be a valid date") withClue trackingId
+  }
+
+  @When("""^the user enters an invalid disposal date bad month format$""")
+  def the_user_enters_an_invalid_disposal_date_bad_month_format() = {
+    enterInvalidDisposalDateFormat2()
+    click on DisposePage.dispose
+  }
+
+  @Then("""^an error will occur stating "Must be between today and two years ago4"$""")
+  def an_error_will_occur_stating_Must_be_between_today_and_two_years_ago4() = {
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should contain("Must be a valid date") withClue trackingId
+  }
+
+  @When("""^the user enters an invalid disposal date in future$""")
+  def the_user_enters_an_invalid_disposal_date_in_future() = {
+    enterInvalidDisposalDateFuture()
+    click on DisposePage.dispose
+  }
+
+  @Then("""^an error will occur stating "Must be between today and two years ago5"$""")
+  def an_error_will_occur_stating_Must_be_between_today_and_two_years_ago5() = {
+    ErrorPanel.numberOfErrors should equal(1) withClue trackingId
+    ErrorPanel.text should contain("Must be a valid date") withClue trackingId
   }
 
   @When("""^the user enters a valid disposal date$""")
@@ -196,7 +233,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
   private def oldestDisposalDate() = {
     val today = Calendar.getInstance()
     val disposalDay = Calendar.getInstance()
-    disposalDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 2)
+    disposalDay.add(Calendar.YEAR, -2)
     disposalDay
   }
 
@@ -206,12 +243,39 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     DisposePage.dateOfDisposalYear.value = oldestDisposalDate().get(Calendar.YEAR).toString
   }
 
-  private def enterInvalidDisposalDate() {
+  private def enterInvalidDisposalDateTooOld() {
     val invlaidDsposalDate = oldestDisposalDate()
     invlaidDsposalDate.add(Calendar.DATE, -1)
     DisposePage.dateOfDisposalDay.value = f"${invlaidDsposalDate.get(Calendar.DATE)}%02d"
     DisposePage.dateOfDisposalMonth.value = f"${invlaidDsposalDate.get(Calendar.MONTH)}%02d"
     DisposePage.dateOfDisposalYear.value = invlaidDsposalDate.get(Calendar.YEAR).toString
+  }
+
+  private def enterInvalidDisposalDateFuture() {
+    val today = Calendar.getInstance()
+    val disposalDate = Calendar.getInstance()
+    disposalDate.add(Calendar.DATE, 1)
+    DisposePage.dateOfDisposalDay.value = f"${disposalDate.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${disposalDate.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalYear.value = disposalDate.get(Calendar.YEAR).toString
+  }
+
+  // enter single digit date/month
+   private def enterInvalidDisposalDateFormat1() {
+    // todays's date
+    val today = Calendar.getInstance()
+    DisposePage.dateOfDisposalDay.value = "1" // single digit, fixed
+    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
+  }
+
+  // enter single digit date/month
+   private def enterInvalidDisposalDateFormat2() {
+    // todays's date
+    val today = Calendar.getInstance()
+    DisposePage.dateOfDisposalDay.value = f"${today.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = "1" // single digit, fixed
+    DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
 
 }
