@@ -39,7 +39,6 @@ lazy val gatlingTestsProject = Project("gatling-tests", file("gatling-tests"))
   .enablePlugins(GatlingPlugin)
 
 libraryDependencies ++= Seq(
-  cache,
   filters,
   "net.sourceforge.htmlunit" % "htmlunit" % "2.15" exclude("commons-collections", "commons-collections"),
   // Note that commons-collections transitive dependency of htmlunit has been excluded above.
