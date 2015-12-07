@@ -131,12 +131,23 @@
         @pleaseWait()
 
         <div id="global-app-error" class="app-error hidden"></div>
-
-        <script data-main="@controllers.StaticAssets.versioned(config.assetsUrl)("javascripts/main.js")" src="@controllers.StaticAssets.versioned(config.assetsUrl)("lib/requirejs/require.js")"></script>
-
-        <!--[if (lt IE 9) & (!IEMobile)]>
-        <script src="@controllers.StaticAssets.versioned(config.assetsUrl)("javascripts/lib/respond.min.js")"></script>
-        <![endif]-->
+        <script type="text/javascript" src="@controllers.StaticAssets.versioned(config.assetsUrl)("lib/jquery/jquery.min.js")"></script>
+        <script type="text/javascript" src="@controllers.StaticAssets.versioned(config.assetsUrl)("lib/vehicles-presentation-common/javascripts/common.js")"></script>
+        <script type="text/javascript">
+            var gaTodaysDateClickedClass = "ga-use-todays-date-clicked"
+            $('#todays_date').on('click', function() {
+                if (!$(this).hasClass(gaTodaysDateClickedClass)) {
+                    _gaq.push(['_trackEvent', 'ct_link', 'use-todays-date', 'click', 1]);
+                    $(this).addClass(gaTodaysDateClickedClass);
+                }
+            });
+        </script>
+        <script type="text/javascript">
+            if (typeof $ !== "function" || $('html').hasClass('js-ready') === false) {
+                // Either Jquery or common are not available so revert to the no-js view
+                document.body.className = document.body.className.replace('js-enabled','js-disabled');
+            }
+        </script>
 
     </body>
 </html>
