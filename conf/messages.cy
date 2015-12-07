@@ -70,11 +70,12 @@ datePlaceholder.October=Hydref
 datePlaceholder.November=Tachwedd
 datePlaceholder.December=Rhagfyr
 
-error.email.confirm.required = Cadarnhewch y cyfeiriad e-bost
-error.email.not.match = Nid oedd y cyfeiriadau e-bost yn cyd-fynd
-email.verify.label = Cadarnhau cyfeiriad e-bost
-option_email = Opsiynau e-bost
-mandatory-alternative.not-selected = Dywedwch wrthym a ydych yn gofyn am e-bost cadarnhau
+error.email.confirm.required = Cadarnhewch y cyfeiriad ebost
+error.email.not.match = Nid oedd y cyfeiriadau ebost yn cyd-fynd
+email.verify.label = Cadarnhau cyfeiriad ebost
+option_email = Opsiynau ebost
+email = Ebost
+mandatory-alternative.not-selected = Dywedwch wrthym a ydych yn gofyn am ebost cadarnhau
 
 select_default = Dewiswch
 error.invalid = Gwerth annilys
@@ -235,10 +236,10 @@ disposal_dispose.loss_of_registration.privateKeeper.consent.info =
 disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig â''r cerbyd hwn
 lossOfRegistrationConsent = Caniatâd
 mileage = Milltiredd
-disposal_businesskeeperdetails.traderemailoption = Ydych chi eisiau cadarnhad e-bost y gwerthiant?
+disposal_businesskeeperdetails.traderemailoption = Ydych chi eisiau cadarnhad ebost y gwerthiant?
 disposal_businesskeeperdetails.traderemailoption.yes = Ydy
 disposal_businesskeeperdetails.traderemailoption.no = Na
-disposal_businesskeeperdetails.email = Eich cyfeiriad e-bost
+disposal_businesskeeperdetails.email = Eich cyfeiriad ebost
 
 #page 6 - summary
 disposal_disposeconfirmation.title = Crynodeb
@@ -276,7 +277,7 @@ disposal_disposeconfirmation.noMileageEntered = Dim milltiredd wedi ei roi
 disposal_disposeconfirmation.exitbutton = Gorffen
 disposal_disposeconfirmation.survey = Cymrwch arolwg
 disposal_disposeconfirmation.transactionDetails = Manylion y trafodyn
-disposal_disposeconfirmation.email = E-bost
+disposal_disposeconfirmation.email = Ebost
 disposal_disposeconfirmation.emailNotEntered = HEB EI ROI
 
 #page 7 - dispose failure
@@ -385,7 +386,7 @@ mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 # feedback
 common_feedback.title = Rhoi Adborth
 common_feedback.message = Peidiwch â chynnwys unrhyw wybodaeth bersonol neu ariannol.
-common_feedback.warning = Mae'r dudalen hon ar gyfer adborth yn unig ac ni allwn gynnig ateb personol i'ch e-bost
+common_feedback.warning = Mae'r dudalen hon ar gyfer adborth yn unig ac ni allwn gynnig ateb personol i'ch ebost
 common_feedback.label = Beth aeth o''i le, os unrhyw beth? Beth aeth yn dda? Sut y gallem wella''r gwasanaeth hwn?
 common_feedback.charactersRemaining = cymeriadau sy''n weddill
 common_feedback.placeholder = (Terfyn yn 500 llythyren)
@@ -393,12 +394,12 @@ common_feedback.submit_button = Cyflwyno adborth
 common_feedback.thankyou = Diolch i chi am eich adborth
 common_feedback.subject = Gwerthu i''r fasnach - Adborth
 common_feedback.name = Enw
-common_feedback.email = E-bost
-common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a''ch cyfeiriad e-bost rhag ofn y bydd angen i ni gysylltu â chi
+common_feedback.email = Ebost
+common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a''ch cyfeiriad ebost rhag ofn y bydd angen i ni gysylltu â chi
 error.email = Must be a valid email address
 error.feedback = Ni all fod yn fwy na 500 o adborth cymeriadau
 error.feedbackName = Ni all Enw fod yn fwy na 60 o gymeriadau
-feedbackEmail = E-bost
+feedbackEmail = Ebost
 feedbackName = Enw
 feedback = Ffurflen Adborth
 feedback_return = ◄ Dychwelyd i''ch cais

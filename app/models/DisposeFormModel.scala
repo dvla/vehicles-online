@@ -83,6 +83,7 @@ object PrivateDisposeFormModel extends DisposeFormModelObjectBase {
     final val EmailId = "email"
     final val EmailOptionId = "option_email"
 
+
     def mapping(implicit dateService: DateService): Mapping[PrivateDisposeFormModel] =
       play.api.data.Forms.mapping(
         DisposeFormModelBase.Form.MileageId -> mileage,

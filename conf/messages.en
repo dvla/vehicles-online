@@ -74,6 +74,7 @@ error.email.confirm.required = Please confirm the email address
 error.email.not.match = The email addresses did not match
 email.verify.label = Confirm email address
 option_email = Email Options
+email = Email
 mandatory-alternative.not-selected = Please tell us whether you require a confirmation email
 
 select_default = Please select
