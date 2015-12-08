@@ -5,10 +5,12 @@ import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichResult, RichCookies}
+import common.services.DateService
 import utils.helpers.Config
 
 class DuplicateDisposalError @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                         config: Config) extends BusinessController {
+                                         config: Config,
+                                         dateService: DateService) extends BusinessController {
 
   protected val tryAgainLink = controllers.routes.VehicleLookup.present()
   protected val exitLink = controllers.routes.BeforeYouStart.present()
