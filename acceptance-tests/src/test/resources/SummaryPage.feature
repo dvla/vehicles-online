@@ -9,7 +9,7 @@ Feature: Disposal to Trade - transaction failure codes and messages
     Given details are entered that correspond to a vehicle that has a valid clean record and has no markers or error codes
     When this is submitted along with any other mandatory information
     Then the next step in the dispose transaction "Summary" is shown
-    And a message is displayed "A letter will be sent to the name and address on the V5C within 4 weeks."
+    And a message is displayed "a letter will be sent to the name and address on the V5C within 4 weeks."
 
 # TODO: reimplement this test once it is moved to run against the sandbox. It will not succeed until it runs against a server that
 # eventually calls into legacy stubs so we get the right code back for a vehicle that has marker on it
