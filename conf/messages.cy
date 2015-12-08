@@ -100,15 +100,15 @@ disposal_beforeyoustart.description = Os yw cerbyd wedi cael ei werthu i''r fasn
 disposal_beforeyoustart.tradeWarn = Rhaid i''r gwasanaeth hwn ond gael ei ddefnyddio gan aelod o''r fasnach foduron sy''n gweithredu ar ran gwerthwr.
 
 disposal_beforeyoustart.youWillNeedTitle = I ddefnyddio''r gwasanaeth hwn, bydd angen arnoch
-disposal_beforeyoustart.youWillNeedListItem1 = Rhif cyfeirnod 11 digid y ddogfen tystysgrif cofrestru ddiweddaraf (V5CW)
-disposal_beforeyoustart.youWillNeedListItem2 = Cydsyniad gwerthwr y cerbyd i weithredu ar eu rhan
+disposal_beforeyoustart.youWillNeedListItem1 = rhif cyfeirnod 11 digid y ddogfen tystysgrif cofrestru ddiweddaraf (V5CW)
+disposal_beforeyoustart.youWillNeedListItem2 = cydsyniad gwerthwr y cerbyd i weithredu ar eu rhan
 
 disposal_beforeyoustart.recordUpdateWarn = Sylwer: mae''r gwasanaeth hwn yn diweddaru ein cofnodion ar unwaith
 
 disposal_beforeyoustart.finishedTitle= Unwaith y byddwch wedi gorffen
-disposal_beforeyoustart.finishedListItem1 = Bydd y ceidwad cofrestredig yn cael ei ddileu o''n cofnodion a byddwn yn anfon cadarnhad iddo drwy''r post
-disposal_beforeyoustart.finishedListItem2 = Byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy''n ddyledus i''r cyfeiriad ar y V5CW a chanslo unrhyw ddebyd uniongyrchol
-disposal_beforeyoustart.finishedListItem3.1 = Y slip gwaredu melyn V5C/3W gwreiddiol
+disposal_beforeyoustart.finishedListItem1 = bydd y ceidwad cofrestredig yn cael ei ddileu o''n cofnodion a byddwn yn anfon cadarnhad iddo drwy''r post
+disposal_beforeyoustart.finishedListItem2 = byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy''n ddyledus i''r cyfeiriad ar y V5CW a chanslo unrhyw ddebyd uniongyrchol
+disposal_beforeyoustart.finishedListItem3.1 = y slip gwaredu melyn V5C/3W gwreiddiol
 disposal_beforeyoustart.finishedListItem3.2 = ni ddylai
 disposal_beforeyoustart.finishedListItem3.3 = cael eu hanfon at DVLA
 
@@ -254,12 +254,12 @@ disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
 disposal_disposeconfirmation.keeperDetails.email = Contact email address
-disposal_disposeconfirmation.exkeeper-p1 = Bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
-disposal_disposeconfirmation.exprivatekeeper-p1 = Bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
-disposal_disposeconfirmation.exkeeper-p2 = Bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
-disposal_disposeconfirmation.exprivatekeeper-p2 = Os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu DVLA Ymholiadau Cwsmeriaid ar 0300 790 6802 fel y gallech ddal i fod yn atebol am y cerbyd hwn.
-disposal_disposeconfirmation.exkeeper-p3 = Dyfynnwch y rhif trafodyn ID uchod os bydd angen cysylltu â DVLA
-disposal_disposeconfirmation.exkeeper-p4 = Argraffwch y dudalen hon a rhowch hi i''r cwsmer.
+disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
+disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
+disposal_disposeconfirmation.exkeeper-p2 = bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
+disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu DVLA Ymholiadau Cwsmeriaid ar 0300 790 6802 fel y gallech ddal i fod yn atebol am y cerbyd hwn.
+disposal_disposeconfirmation.exkeeper-p3 = dyfynnwch y rhif trafodyn ID uchod os bydd angen cysylltu â DVLA
+disposal_disposeconfirmation.exkeeper-p4 = argraffwch y dudalen hon a rhowch hi i''r cwsmer.
 disposal_disposeconfirmation.sendbutton = Anfonwch
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = ID y trafodyn

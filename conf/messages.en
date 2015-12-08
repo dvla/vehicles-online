@@ -100,15 +100,15 @@ disposal_beforeyoustart.description = If a vehicle has been sold to the motor tr
 disposal_beforeyoustart.tradeWarn = This service must only be used by a member of the motor trade acting on behalf of a seller.
 
 disposal_beforeyoustart.youWillNeedTitle = To use this service you will need
-disposal_beforeyoustart.youWillNeedListItem1 = The 11 digit document reference number from the latest registration certificate (V5C)
-disposal_beforeyoustart.youWillNeedListItem2 = The consent of the seller of the vehicle to act on their behalf
+disposal_beforeyoustart.youWillNeedListItem1 = the 11 digit document reference number from the latest registration certificate (V5C)
+disposal_beforeyoustart.youWillNeedListItem2 = the consent of the seller of the vehicle to act on their behalf
 
 disposal_beforeyoustart.recordUpdateWarn = Please note: this service updates our records immediately
 
 disposal_beforeyoustart.finishedTitle=Once you''ve finished
-disposal_beforeyoustart.finishedListItem1 = The registered keeper will be removed from our records and we will send them confirmation by post
-disposal_beforeyoustart.finishedListItem2 = We will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit
-disposal_beforeyoustart.finishedListItem3.1 = The original V5C/3 yellow disposal slip
+disposal_beforeyoustart.finishedListItem1 = the registered keeper will be removed from our records and we will send them confirmation by post
+disposal_beforeyoustart.finishedListItem2 = we will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit
+disposal_beforeyoustart.finishedListItem3.1 = the original V5C/3 yellow disposal slip
 disposal_beforeyoustart.finishedListItem3.2 = must not
 disposal_beforeyoustart.finishedListItem3.3 = be sent to DVLA
 
@@ -257,12 +257,12 @@ disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
 disposal_disposeconfirmation.keeperDetails.email = Contact email address
-disposal_disposeconfirmation.exkeeper-p1 = A letter will be sent to the name and address on the V5C within 4 weeks.
-disposal_disposeconfirmation.exprivatekeeper-p1 = A letter will be sent to you at the address on the V5C within 4 weeks.
-disposal_disposeconfirmation.exkeeper-p2 = If they do not receive a letter in this time they must contact DVLA Customer Enquiries as they could still be liable for this vehicle.
-disposal_disposeconfirmation.exprivatekeeper-p2 = If you do not receive a letter in this time then you must contact DVLA Customer Enquiries on 0300 790 6802 as you could still be liable for this vehicle.
-disposal_disposeconfirmation.exkeeper-p3 = Since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled.
-disposal_disposeconfirmation.exkeeper-p4 = You may want to take a print of this summary for your records.
+disposal_disposeconfirmation.exkeeper-p1 = a letter will be sent to the name and address on the V5C within 4 weeks.
+disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C within 4 weeks.
+disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in this time they must contact DVLA Customer Enquiries as they could still be liable for this vehicle.
+disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA Customer Enquiries on 0300 790 6802 as you could still be liable for this vehicle.
+disposal_disposeconfirmation.exkeeper-p3 = since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled.
+disposal_disposeconfirmation.exkeeper-p4 = you may want to take a print of this summary for your records.
 disposal_disposeconfirmation.sendbutton = Send
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = Transaction ID
