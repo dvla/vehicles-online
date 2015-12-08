@@ -171,8 +171,6 @@ addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 addressAndPostcode.addressLines = Address
 addressAndPostcode.postcode = Postcode
 
-error.postTown.characterInvalid = Town or city contains invalid characters
-error.threeAlphas = Must have at least 3 alpha characters
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Error confirming post code
@@ -305,12 +303,15 @@ vehicle_and_keeper_lookup_failure.p2 = If you are sure that these details have b
 vehicle_and_keeper_lookup_failure.p3 = Only a limited number of attempts can be made to retrieve vehicle details for each vehicle registration number entered.
 
 error.validBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .). The following characters cannot be used at the start of trader name  (&,-,(), /, ‘ and , or .)
-error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters
+
+# common to both addressPicker widget and addressAndPostcode widget
 error.address.buildingNameOrNumber.invalid = Building/number and street must contain between 4 and 30 characters
-error.address.postTown = Town or city must contain between 3 and 20 characters.
-error.address.postcode.invalid = Must be between five and eight characters and in a valid format, eg. AB1 2Ba or AB12BA
 error.address.characterInvalid = The first character of the address must be alphanumeric. Other characters must be valid (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .)
-# valid address characters are similar to error.validBusinessName
+#error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters
+error.address.postTown = Town or city must contain between 3 and 20 characters.
+error.address.postTown.characterInvalid = Town or city contains invalid characters
+error.address.threeAlphas = Must have at least 3 alpha characters
+
 
 # progress messages
 disposal_progress_1 = Step 1 of 6

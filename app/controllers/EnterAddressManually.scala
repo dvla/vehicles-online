@@ -36,7 +36,7 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
             EnterAddressManuallyFormModel(
               AddressAndPostcodeViewModel(
                 None,
-                AddressLinesViewModel("", None, None, None, ""),
+                AddressLinesViewModel("", None, None, ""),
                 setupTradeDetails.traderPostcode
               )
             )
@@ -90,6 +90,6 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
       "error.address.postTown")
     ).replaceError(
       "addressAndPostcode.postcode",
-      FormError("addressAndPostcode.postcode", "error.address.postcode.invalid")
+      FormError("addressAndPostcode.postcode", "error.restricted.validPostcode")
     ).distinctErrors
 }

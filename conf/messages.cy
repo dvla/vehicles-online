@@ -167,9 +167,6 @@ addressAndPostcode.addressLines.line2 = Enw stryd
 addressAndPostcode.addressLines.line3 = Ardal
 addressAndPostcode.addressLines.postTown = Tref neu ddinas
 addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
-error.address.characterInvalid = Rhaid iddo gynnwys rhwng cymeriadau dilys gan y AZ, 0-9, cysylltnod, collnod, stopio a lle llawn yn dilyn.
-error.postTown.characterInvalid = Mae''r dref neu ddinas yn cynnwys nodau annilys
-error.threeAlphas = Must have at least 3 alpha characters
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
@@ -302,13 +299,18 @@ vehicle_and_keeper_lookup_failure.p2 = Am bob rhif cofrestru cerbyd, gellir ond 
 vehicle_and_keeper_lookup_failure.p3 =
 
 addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
-error.address.maxLengthOfLinesConcatenated = Ni all cyfeiriad gynnwys mwy na 120 o nodau
 addressAndPostcode.addressLines = Cyfeiriad
 addressAndPostcode.postcode = Côd post
 error.validBusinessName = Rhaid bod rhwng 2 a 58 o nodau o hyd a dim ond nodau dilys (a-z, A-Z, 0-9, &, -,(), /, ‘ a , neu .)
+
+# common to both addressPicker widget and addressAndPostcode widget
 error.address.buildingNameOrNumber.invalid = Rhaid i adeilad/ rhif a stryd gynnwys rhwng 4 a 30 o nodau
+error.address.characterInvalid = Rhaid iddo gynnwys rhwng cymeriadau dilys gan y AZ, 0-9, cysylltnod, collnod, stopio a lle llawn yn dilyn.
+#error.address.maxLengthOfLinesConcatenated = Ni all cyfeiriad gynnwys mwy na 120 o nodau
 error.address.postTown = Rhaid Tref neu ddinas yn cynnwys rhwng 3 a 20 llythyren.
-error.address.postcode.invalid = Rhaid bod rhwng 5 ac 8 nod o hyd ac mewn fformat dilys,  ee. AB1 2BA neu AB12BA
+error.address.postTown.characterInvalid = Tref bost yn cynnwys nodau annilys
+error.address.threeAlphas =
+
 
 # progress messages
 disposal_progress_1 = Step 1 of 6
