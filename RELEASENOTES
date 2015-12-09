@@ -1,3 +1,19 @@
+======= 1.23 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+US3973 	Enhance playbackList widget to handle lower case email
+US3984 	Consolidate VM and PR address validation
+US3987 	Remove dependencies on jquery-migrate
+US4018 	Ensure consistent use of the word 'email' across all VMPR services
+US4033 	All Bullet point entries to be followed by lower case letters (not capitals)
+US4038 	Change 'Choose Your Address' to 'Choose Trader Address'
+US4048 	Improve acceptance tests - dispose date
+US4051 	Xmas Opening Times Link for CEG
+US4052 	Address picker add three alphas constraint
+US4058 	Correct test failures caused by short date length
+US4059 	Change the version of Apache Commons Collections to the one that has fixed security vulnerabilities or exclude it altogether
+
 ======= 1.22.1 ========
 TIME OF RELEASE BINARIES CREATION:
 Fri Nov 27 12:15:36 UTC 2015
