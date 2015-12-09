@@ -3,16 +3,20 @@
   trackingId: uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId)(implicit lang: Lang,
   token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
   config: utils.helpers.Config,
-  isPrivateKeeper: Boolean)
+  isPrivateKeeper: Boolean,
+  dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService)
 
 @import views.html.disposal_of_vehicle.main
-@import uk.gov.dvla.vehicles.presentation.common.views.widgets.MicroServiceError.{ExitId, TryAgainId}
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.widgets.MicroServiceError.{ExitId, TryAgainId}
+@import common.views.html.widgets.xmasOpeningTimes
 
 @main(
     title = Messages("duplicate_disposal_error.title")
 ){
     <h1>@Messages("duplicate_disposal_error.title")</h1>
     <p>@Messages("duplicate_disposal_error.text1")</p>
+    @xmasOpeningTimes()
     <p>@Messages("duplicate_disposal_error.text2", trackingId.value)</p>
 
     <div class="form-steps">

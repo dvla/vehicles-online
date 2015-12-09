@@ -2,10 +2,14 @@ package controllers
 
 import controllers.Common.PrototypeHtml
 import helpers.{UnitSpec, WithApplication}
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import org.mockito.Mockito.when
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{OK, contentAsString, defaultAwaitTimeout, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import utils.helpers.Config
 
 class DuplicateDisposalErrorUnitSpec extends UnitSpec {
@@ -30,8 +34,14 @@ class DuplicateDisposalErrorUnitSpec extends UnitSpec {
       when(config.isPrototypeBannerVisible).thenReturn(false) // Stub this config value.
       when(config.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
       when(config.assetsUrl).thenReturn(None) // Stub this config value.
+      implicit val dateService = new DateService {
+          override def today = DayMonthYear(24, 12, 2015)
+          val formatter = DateTimeFormat.forPattern("dd/MM/yyyy")
+          override def now = formatter.parseDateTime("24/12/2015").toInstant
+          override def dateTimeISOChronology: String = new DateTime(
+            24, 12, 2015, 0, 0).toString
+        }
       val duplicateDisposalErrorPrototypeNotVisible = new DuplicateDisposalError()
-
       val result = duplicateDisposalErrorPrototypeNotVisible.present(request)
       contentAsString(result) should not include PrototypeHtml
     }

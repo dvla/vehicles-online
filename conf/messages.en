@@ -74,6 +74,7 @@ error.email.confirm.required = Please confirm the email address
 error.email.not.match = The email addresses did not match
 email.verify.label = Confirm email address
 option_email = Email Options
+email = Email
 mandatory-alternative.not-selected = Please tell us whether you require a confirmation email
 
 select_default = Please select
@@ -99,15 +100,15 @@ disposal_beforeyoustart.description = If a vehicle has been sold to the motor tr
 disposal_beforeyoustart.tradeWarn = This service must only be used by a member of the motor trade acting on behalf of a seller.
 
 disposal_beforeyoustart.youWillNeedTitle = To use this service you will need
-disposal_beforeyoustart.youWillNeedListItem1 = The 11 digit document reference number from the latest registration certificate (V5C)
-disposal_beforeyoustart.youWillNeedListItem2 = The consent of the seller of the vehicle to act on their behalf
+disposal_beforeyoustart.youWillNeedListItem1 = the 11 digit document reference number from the latest registration certificate (V5C)
+disposal_beforeyoustart.youWillNeedListItem2 = the consent of the seller of the vehicle to act on their behalf
 
 disposal_beforeyoustart.recordUpdateWarn = Please note: this service updates our records immediately
 
 disposal_beforeyoustart.finishedTitle=Once you''ve finished
-disposal_beforeyoustart.finishedListItem1 = The registered keeper will be removed from our records and we will send them confirmation by post
-disposal_beforeyoustart.finishedListItem2 = We will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit
-disposal_beforeyoustart.finishedListItem3.1 = The original V5C/3 yellow disposal slip
+disposal_beforeyoustart.finishedListItem1 = the registered keeper will be removed from our records and we will send them confirmation by post
+disposal_beforeyoustart.finishedListItem2 = we will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit
+disposal_beforeyoustart.finishedListItem3.1 = the original V5C/3 yellow disposal slip
 disposal_beforeyoustart.finishedListItem3.2 = must not
 disposal_beforeyoustart.finishedListItem3.3 = be sent to DVLA
 
@@ -170,8 +171,6 @@ addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 addressAndPostcode.addressLines = Address
 addressAndPostcode.postcode = Postcode
 
-error.postTown.characterInvalid = Town or city contains invalid characters
-error.threeAlphas = Must have at least 3 alpha characters
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Error confirming post code
@@ -256,12 +255,12 @@ disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
 disposal_disposeconfirmation.keeperDetails.email = Contact email address
-disposal_disposeconfirmation.exkeeper-p1 = A letter will be sent to the name and address on the V5C within 4 weeks.
-disposal_disposeconfirmation.exprivatekeeper-p1 = A letter will be sent to you at the address on the V5C within 4 weeks.
-disposal_disposeconfirmation.exkeeper-p2 = If they do not receive a letter in this time they must contact DVLA Customer Enquiries as they could still be liable for this vehicle.
-disposal_disposeconfirmation.exprivatekeeper-p2 = If you do not receive a letter in this time then you must contact DVLA Customer Enquiries on 0300 790 6802 as you could still be liable for this vehicle.
-disposal_disposeconfirmation.exkeeper-p3 = Since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled.
-disposal_disposeconfirmation.exkeeper-p4 = You may want to take a print of this summary for your records.
+disposal_disposeconfirmation.exkeeper-p1 = a letter will be sent to the name and address on the V5C within 4 weeks.
+disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C within 4 weeks.
+disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in this time they must contact DVLA Customer Enquiries as they could still be liable for this vehicle.
+disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA Customer Enquiries on 0300 790 6802 as you could still be liable for this vehicle.
+disposal_disposeconfirmation.exkeeper-p3 = since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled.
+disposal_disposeconfirmation.exkeeper-p4 = you may want to take a print of this summary for your records.
 disposal_disposeconfirmation.sendbutton = Send
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = Transaction ID
@@ -304,12 +303,15 @@ vehicle_and_keeper_lookup_failure.p2 = If you are sure that these details have b
 vehicle_and_keeper_lookup_failure.p3 = Only a limited number of attempts can be made to retrieve vehicle details for each vehicle registration number entered.
 
 error.validBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .). The following characters cannot be used at the start of trader name  (&,-,(), /, ‘ and , or .)
-error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters
+
+# common to both addressPicker widget and addressAndPostcode widget
 error.address.buildingNameOrNumber.invalid = Building/number and street must contain between 4 and 30 characters
-error.address.postTown = Town or city must contain between 3 and 20 characters.
-error.address.postcode.invalid = Must be between five and eight characters and in a valid format, eg. AB1 2Ba or AB12BA
 error.address.characterInvalid = The first character of the address must be alphanumeric. Other characters must be valid (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .)
-# valid address characters are similar to error.validBusinessName
+#error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters
+error.address.postTown = Town or city must contain between 3 and 20 characters.
+error.address.postTown.characterInvalid = Town or city contains invalid characters
+error.address.threeAlphas = Must have at least 3 alpha characters
+
 
 # progress messages
 disposal_progress_1 = Step 1 of 6

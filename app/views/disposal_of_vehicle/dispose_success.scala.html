@@ -7,7 +7,8 @@
     )(implicit lang: Lang,
     token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
     config: utils.helpers.Config,
-    isPrivateKeeper: Boolean)
+    isPrivateKeeper: Boolean,
+    dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService)
 
 @import scala.collection.mutable.LinkedHashMap
 @import uk.gov.dvla.vehicles.presentation.common
@@ -17,6 +18,7 @@
 @import common.views.html.widgets.formSteps
 @import common.views.html.widgets.playbackList
 @import common.views.html.widgets.registrationNumber
+@import common.views.html.widgets.xmasOpeningTimes
 @import views.disposal_of_vehicle.DisposeSuccess.{ExitDisposalId, NewDisposalId}
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
@@ -39,7 +41,9 @@
         <ul>
             @if(isPrivateKeeper) {
                 <li>@Messages("disposal_disposeconfirmation.exprivatekeeper-p1")</li>
-                <li>@Messages("disposal_disposeconfirmation.exprivatekeeper-p2")</li>
+                <li>@Messages("disposal_disposeconfirmation.exprivatekeeper-p2")
+                    @xmasOpeningTimes()
+                </li>
             } else {
                 <li>@Messages("disposal_disposeconfirmation.exkeeper-p1")</li>
                 <li>@Messages("disposal_disposeconfirmation.exkeeper-p2")</li>
