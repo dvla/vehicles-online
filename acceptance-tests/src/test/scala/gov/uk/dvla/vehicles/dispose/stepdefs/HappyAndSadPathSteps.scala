@@ -119,7 +119,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers 
     // todays's date
     val today = Calendar.getInstance()
     DisposePage.dateOfDisposalDay.value = f"${today.get(Calendar.DATE)}%02d"
-    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)+1}%02d"
     DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
 
