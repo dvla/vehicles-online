@@ -231,7 +231,6 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
 
   //return a date that is two years ago
   private def oldestDisposalDate() = {
-    val today = Calendar.getInstance()
     val disposalDay = Calendar.getInstance()
     disposalDay.add(Calendar.YEAR, -2)
     disposalDay
@@ -252,7 +251,6 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
   }
 
   private def enterInvalidDisposalDateFuture() {
-    val today = Calendar.getInstance()
     val disposalDate = Calendar.getInstance()
     disposalDate.add(Calendar.DATE, 1)
     DisposePage.dateOfDisposalDay.value = f"${disposalDate.get(Calendar.DATE)}%02d"
