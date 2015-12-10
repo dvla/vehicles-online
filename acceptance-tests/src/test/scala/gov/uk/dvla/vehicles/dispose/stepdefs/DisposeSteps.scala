@@ -231,15 +231,15 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
 
   //return a date that is two years ago
   private def oldestDisposalDate() = {
-    val today = Calendar.getInstance()
     val disposalDay = Calendar.getInstance()
     disposalDay.add(Calendar.YEAR, -2)
     disposalDay
   }
 
   private def enterOldestValidDisposalDate() {
+    // Note: Calendar month is zero based
     DisposePage.dateOfDisposalDay.value = f"${oldestDisposalDate().get(Calendar.DATE)}%02d"
-    DisposePage.dateOfDisposalMonth.value = f"${oldestDisposalDate().get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${oldestDisposalDate().get(Calendar.MONTH)+1}%02d"
     DisposePage.dateOfDisposalYear.value = oldestDisposalDate().get(Calendar.YEAR).toString
   }
 
@@ -247,16 +247,15 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     val invlaidDsposalDate = oldestDisposalDate()
     invlaidDsposalDate.add(Calendar.DATE, -1)
     DisposePage.dateOfDisposalDay.value = f"${invlaidDsposalDate.get(Calendar.DATE)}%02d"
-    DisposePage.dateOfDisposalMonth.value = f"${invlaidDsposalDate.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${invlaidDsposalDate.get(Calendar.MONTH)+1}%02d"
     DisposePage.dateOfDisposalYear.value = invlaidDsposalDate.get(Calendar.YEAR).toString
   }
 
   private def enterInvalidDisposalDateFuture() {
-    val today = Calendar.getInstance()
     val disposalDate = Calendar.getInstance()
     disposalDate.add(Calendar.DATE, 1)
     DisposePage.dateOfDisposalDay.value = f"${disposalDate.get(Calendar.DATE)}%02d"
-    DisposePage.dateOfDisposalMonth.value = f"${disposalDate.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${disposalDate.get(Calendar.MONTH)+1}%02d"
     DisposePage.dateOfDisposalYear.value = disposalDate.get(Calendar.YEAR).toString
   }
 
@@ -265,7 +264,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with Wit
     // todays's date
     val today = Calendar.getInstance()
     DisposePage.dateOfDisposalDay.value = "1" // single digit, fixed
-    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)+1}%02d"
     DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
 
