@@ -117,7 +117,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.vehicleRegistrationNumber())
         .withCookies(CookieFactoryForUnitSpecs.disposeFormTimestamp())
       val result = disposeSuccess.present(request)
-      contentAsString(result) should include("NOT ENTERED")
+      contentAsString(result) should include("Not entered")
     }
 
     "display prototype message when config set to true" in new WithApplication {

@@ -84,7 +84,7 @@ error.invalid = Gwerth annilys
 disposal_beforeyoustart.title = Gwerthu cerbyd i''r fasnach foduron
 disposal_beforeyoustart.p1 = Cyn i chi gychwyn:
 disposal_beforeyoustart.listitem1 = Ni ellir gwneud unrhyw newidiadau i''r V5CW a rhaid bod yr enw a''r cyfeiriad yn gywir.
-disposal_beforeyoustart.listitem1linktext = Gwasanaeth Ymholiadau Cerbydau (VES)
+disposal_beforeyoustart.listitem1linktext = Gwasanaeth ymholiadau cerbydau (VES)
 
 disposal_beforeyoustart.listitem2 = Rhaid cadw neu drosglwyddo rhifau cofrestru personol cyn defnyddio''r gwasanaeth hwn
 disposal_beforeyoustart.listitem2.link = Gwneud cais i gadw rhif cofrestru cerbyd (V317W).
@@ -160,7 +160,7 @@ address.buildingNameOrNumber.hint = e.e. 1 STRYD FAWR
 address.line2.label=
 address.line3.label=
 address.postTown.label= Tref neu ddinas
-address.postcode.label = Côd Post
+address.postcode.label = Côd post
 address.postcode.label.prompt = e.e. SA99 1BD
 address.postcode.validation = Rhowch gôd post dilys
 addressAndPostcode.addressLines.line2 = Enw stryd
@@ -170,7 +170,7 @@ addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
-disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion â llaw
+disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. rhowch i mewn eto neu rhowch eich manylion â llaw
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
 disposal_uprnnotfound.setuptradedetailsbutton = Rhowch gyfeiriad i mewn â llaw
 
@@ -183,7 +183,7 @@ disposal_vehiclelookup.warning.p1 = Peidiwch â chael gwared o gerbyd sydd â rh
 disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo rhifau cofrestru personol cyn gwaredu''r cerbyd trwy ei fasnachu.
 disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen V5CW?
 disposal_vehiclelookup.img.hint = Ble i ddod o hyd hyn
-disposal_vehiclelookup.v5c = Tystysgrif Cofrestru Cerbyd (V5C)
+disposal_vehiclelookup.v5c = Tystysgrif cofrestru cerbyd (V5C)
 disposal_vehiclelookup.img.alt = Rhif cyfeirnod y ddogfen V5CW
 disposal_vehiclelookup.refnumlabel = Rhif cyfeirnod y ddogfen V5CW ddiweddaraf
 disposal_vehiclelookup.vrninputlabel = Rhif cofrestru''r cerbyd
@@ -275,7 +275,7 @@ disposal_disposeconfirmation.exitbutton = Gorffen
 disposal_disposeconfirmation.survey = Cymrwch arolwg
 disposal_disposeconfirmation.transactionDetails = Manylion y trafodyn
 disposal_disposeconfirmation.email = Ebost
-disposal_disposeconfirmation.emailNotEntered = HEB EI ROI
+disposal_disposeconfirmation.emailNotEntered = Heb ei roi
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Gwerthu cerbyd i''r fasnach moduron: wedi methu
@@ -342,7 +342,7 @@ micro_service_error.exit.button= Allan
 
 #duplicate-disposal error page
 duplicate_disposal_error.title= Mae''n ddrwg gennym
-duplicate_disposal_error.text1= Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch Ymholiadau Cwsmeriaid DVLA ar 0300 790 6802
+duplicate_disposal_error.text1= Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch ymholiadau cwsmeriaid DVLA ar 0300 790 6802
 duplicate_disposal_error.text2=
 duplicate_disposal_error.back.button= Yn ôl
 duplicate_disposal_error.exit.button= Allan
@@ -351,7 +351,7 @@ duplicate_disposal_error.exit.button= Allan
 error_suppressedV5C.title = Cerbyd yn rhan o fflyd hatal
 error_suppressedV5C.text1 = Ni all DVLA gofnodi gwerthu cerbyd hwn gan ei fod yn rhan o fflyd hatal.
 error_suppressedV5C.text2 = Before a sale of this vehicle can be updated, you will need to request a vehicle registration certificate (V5C) from the DVLA. This can be done using the
-error_suppressedV5C.text3 = View Vehicle Record service.
+error_suppressedV5C.text3 = view vehicle record service.
 error_suppressedV5C.link = https://www.gov.uk/dvla-fleet-vehicle-info
 error_suppressedV5C.button1 = Gwerthu cerbyd arall
 error_suppressedV5C.button2 = Gorffen
@@ -394,7 +394,7 @@ common_feedback.charactersRemaining = cymeriadau sy''n weddill
 common_feedback.placeholder = (Terfyn yn 500 llythyren)
 common_feedback.submit_button = Cyflwyno adborth
 common_feedback.thankyou = Diolch i chi am eich adborth
-common_feedback.subject = Gwerthu i''r fasnach - Adborth
+common_feedback.subject = Gwerthu i''r fasnach - adborth
 common_feedback.name = Enw
 common_feedback.email = Ebost
 common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a''ch cyfeiriad ebost rhag ofn y bydd angen i ni gysylltu â chi
@@ -403,6 +403,6 @@ error.feedback = Ni all fod yn fwy na 500 o adborth cymeriadau
 error.feedbackName = Ni all Enw fod yn fwy na 60 o gymeriadau
 feedbackEmail = Ebost
 feedbackName = Enw
-feedback = Ffurflen Adborth
+feedback = Ffurflen adborth
 feedback_return = ◄ Dychwelyd i''ch cais
 feedback_close = Caewch y dudalen hon i ddychwelyd i''ch cais

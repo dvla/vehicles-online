@@ -400,10 +400,10 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       s"""
           |${startLine}Trader Name:  ${disposeRequest.traderName}$endLine
           |${startLine}Trader Address:  ${disposeRequest.traderAddress.line.mkString(addressSep + addressPad)}$endLine
-          |$addressPad${disposeRequest.traderAddress.postTown.getOrElse("NOT ENTERED")}$endLine
+          |$addressPad${disposeRequest.traderAddress.postTown.getOrElse("Not entered")}$endLine
           |$addressPad${disposeRequest.traderAddress.postCode}$endLine
           |${startLine}Document Reference Number: ${disposeRequest.referenceNumber}$endLine
-          |${startLine}Mileage: ${disposeRequest.mileage.getOrElse("NOT ENTERED")}$endLine
+          |${startLine}Mileage: ${disposeRequest.mileage.getOrElse("Not entered")}$endLine
           |${startLine}Date of Sale:  ${DateTime.parse(disposeRequest.dateOfDisposal).toString("dd/MM/yy")}$endLine
           |${startLine}Transaction ID:  $transactionId$endLine
           |${startLine}Date/Time of Transaction:  $dateTime$endLine
