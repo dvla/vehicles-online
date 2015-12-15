@@ -29,7 +29,7 @@ global-please-wait-close = Cau''r neges hon
 footer.builtbyintro = Adeiladwyd gan
 footer.builtby = Asiantaeth Trwyddedu Gyrwyr a Cherbydau
 footer.text1 = Mae''r holl gynnwys ar gael ar delerau''r
-footer.link = Drwydded Llywodraeth Agored v2.0
+footer.link = drwydded llywodraeth agored v2.0
 footer.text2 = , ac eithrio lle nodir yn wahanol
 
 #prototype
@@ -90,7 +90,7 @@ disposal_beforeyoustart.listitem2 = Rhaid cadw neu drosglwyddo rhifau cofrestru 
 disposal_beforeyoustart.listitem2.link = Gwneud cais i gadw rhif cofrestru cerbyd (V317W).
 
 disposal_beforeyoustart.listitem3 = Dim ond cerbydau a gwerthwyd i''r fasnach moduron gellir defnyddio''r gwasanaeth hwn i hysbysu
-disposal_beforeyoustart.listitem4 = Mae''r gwasanaeth hwn ar gael ar hyn o bryd o ddydd Llun - ddydd Gwener 8.00yb i 6 yh.
+disposal_beforeyoustart.listitem4 = Mae''r gwasanaeth hwn ar gael ar hyn o bryd o ddydd llun - ddydd Gwener 8.00yb i 6 yh.
 disposal_beforeyoustart.button = Dechreuwch nawr
 
 disposal_beforeyoustart.usefulLinks = Dolenni defnyddiol
@@ -121,19 +121,19 @@ disposal_setuptradedetails.name = Gwerthu cerbyd i''r fasnach foduron
 disposal_setuptradedetails.p1 = Gosod y manylion masnach
 disposal_setuptradedetails.tradernamelabel = Enw''r masnachwr
 disposal_setuptradedetails.tradername.hint = Enw''r cwmni y mae''r cerbyd yn cael ei werthu i
-disposal_setuptradedetails.traderpostcodelabel = Côd Post
+disposal_setuptradedetails.traderpostcodelabel = Côd post
 disposal_setuptradedetails.traderpostcodelabel.validation = Rhaid ei fod rhwng 5 ac 8 nod ac mewn fformat dilys, ee. PR2 8AE neu PR28AE
 disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA
 disposal_setuptradedetails.button = Chwiliwch am y cyfeiriad
 traderName = Enw''r masnachwr
-traderPostcode = Côd Post
+traderPostcode = Côd post
 
 #page 3
 disposal_businessChooseYourAddress_title = Dewiswch gyfeiriad y masnachwr
 disposal_businessChooseYourAddress_legend = Gosodwch y manylion masnach
 disposal_businessChooseYourAddress_businessName_label = Enw''r masnachwr
 disposal_businessChooseYourAddress_businessName = {0}
-disposal_businessChooseYourAddress_postcode_label = Côd Post
+disposal_businessChooseYourAddress_postcode_label = Côd post
 disposal_businessChooseYourAddress_businessAddress_label = Cyfeiriad y masnachwr
 disposal_businessChooseYourAddress_addressSelect = Dewiswch eich cyfeiriad
 disposal_businessChooseYourAddress_addressSelect_label = Dewiswch eich cyfeiriad
@@ -170,7 +170,7 @@ addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
 
 #page 3 - uprn not found
 disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
-disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. rhowch i mewn eto neu rhowch eich manylion â llaw
+disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion â llaw
 disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
 disposal_uprnnotfound.setuptradedetailsbutton = Rhowch gyfeiriad i mewn â llaw
 
@@ -254,7 +254,7 @@ disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
-disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu DVLA Ymholiadau Cwsmeriaid ar 0300 790 6802 fel y gallech ddal i fod yn atebol am y cerbyd hwn.
+disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu DVLA ymholiadau cwsmeriaid ar 0300 790 6802 fel y gallech ddal i fod yn atebol am y cerbyd hwn.
 disposal_disposeconfirmation.exkeeper-p3 = dyfynnwch y rhif trafodyn ID uchod os bydd angen cysylltu â DVLA
 disposal_disposeconfirmation.exkeeper-p4 = argraffwch y dudalen hon a rhowch hi i''r cwsmer.
 disposal_disposeconfirmation.sendbutton = Anfonwch
@@ -269,7 +269,7 @@ disposal_disposeconfirmation.backbutton = Yn ôl
 disposal_disposeconfirmation.newdisposalbutton = Gwerthu cerbyd arall
 disposal_disposeconfirmation.disposaldate = Dyddiad y gwerthiant
 disposal_disposeconfirmation.mileage = Milltiredd cerbydau
-disposal_disposeconfirmation.mileageNotEntered = HEB EI ROI
+disposal_disposeconfirmation.mileageNotEntered = Heb ei roi
 disposal_disposeconfirmation.noMileageEntered = Dim milltiredd wedi ei roi
 disposal_disposeconfirmation.exitbutton = Gorffen
 disposal_disposeconfirmation.survey = Cymrwch arolwg
@@ -321,7 +321,7 @@ disposal_progress_5 = Step 5 of 6
 disposal_progress_6 = Step 6 of 6
 
 # closed
-closed.title = Nid yw’r Gwasanaeth ar gael
+closed.title = Nid yw’r gwasanaeth ar gael
 closed.p1 = Mae’r gwasanaeth ar gael o ddydd Llun i ddydd Sadwrn yn unig {0} to {1}
 closed.exit_button = Gadael
 
@@ -358,7 +358,7 @@ error_suppressedV5C.button2 = Gorffen
 
 #vrm locked
 vrm_locked.title= Rhif cofrestru wedi''i gloi
-vrm_locked.text1= Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerbyd. Mae''r system bellach yn cloi''r Rhif cofrestru cerbyd hwn am 10 munud. Gellir prosesu cerbydau eraill yn ystod yr amser hwn drwy ddewis ''Gwerthu cerbyd arall'' isod
+vrm_locked.text1= Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerbyd. Mae''r system bellach yn cloi''r rhif cofrestru cerbyd hwn am 10 munud. Gellir prosesu cerbydau eraill yn ystod yr amser hwn drwy ddewis ''Gwerthu cerbyd arall'' isod
 vrm_locked.text2= Wedi''i gloi ar
 vrm_locked.text3.1= Os ydych yn siŵr bod y manylion yn gywir yna anfonwch eich V5C/3 wedi''u cwblhau i
 vrm_locked.text3.2= DVLA, Abertawe, SA99 1BD
@@ -386,7 +386,7 @@ language.en.button = English
 mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 
 # feedback
-common_feedback.title = Rhoi Adborth
+common_feedback.title = Rhoi adborth
 common_feedback.message = Peidiwch â chynnwys unrhyw wybodaeth bersonol neu ariannol.
 common_feedback.warning = Mae'r dudalen hon ar gyfer adborth yn unig ac ni allwn gynnig ateb personol i'ch ebost
 common_feedback.label = Beth aeth o''i le, os unrhyw beth? Beth aeth yn dda? Sut y gallem wella''r gwasanaeth hwn?

@@ -29,7 +29,7 @@ global-please-wait-close = Close this message
 footer.builtbyintro = Built by
 footer.builtby = Driver & Vehicle Licensing Agency
 footer.text1 = All content is available under the
-footer.link = Open government licence v2.0
+footer.link = open government licence v2.0
 footer.text2 = , except where otherwise stated
 
 #prototype
@@ -258,7 +258,7 @@ disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 =a letter will be sent to the name and address on the V5C within 4 weeks.
 disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C within 4 weeks.
 disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in this time they must contact DVLA Customer Enquiries as they could still be liable for this vehicle.
-disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA Customer Enquiries on 0300 790 6802 as you could still be liable for this vehicle.
+disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA customer enquiries on 0300 790 6802 as you could still be liable for this vehicle.
 disposal_disposeconfirmation.exkeeper-p3 = since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled.
 disposal_disposeconfirmation.exkeeper-p4 = you may want to take a print of this summary for your records.
 disposal_disposeconfirmation.sendbutton = Send
@@ -387,7 +387,7 @@ language.en.button = YAGNI
 mandatory = Fields not labelled (optional) are mandatory
 
 # feedback
-common_feedback.title = Give eeedback
+common_feedback.title = Give feedback
 common_feedback.message = Please don''t include any personal or financial information.
 common_feedback.warning = This page is for feedback only and we are unable to offer a personal reply to your email
 common_feedback.label = What went wrong, if anything? What went well? How could we improve this service?
