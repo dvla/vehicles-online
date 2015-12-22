@@ -1,5 +1,6 @@
 package webserviceclients.dispose_service
 
+import org.joda.time.LocalDate
 import play.api.libs.json.Json
 import helpers.{WithApplication, UnitSpec}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
@@ -23,10 +24,12 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
 
   implicit val disposalAddressDtoFormat = Json.format[DisposalAddressDto]
   implicit val disposeRequestFormat = Json.format[DisposeRequestDto]
+  private val saleDate = LocalDate.now.minusYears(2)
+
   val request = DisposeRequestDto(
     VssWebHeaderDto(
       "trackingId",
-      new org.joda.time.DateTime("2014-03-04T00:00:00.000Z"),
+      saleDate.toDateTimeAtStartOfDay,
       "WEBDTT",
       "WEBDTT",
       VssWebEndUserDto("DTT", "DTT")
