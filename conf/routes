@@ -111,7 +111,6 @@ POST        /private/feedback                                      @controllers.
 GET         /with-language/:chosenLanguage                         @uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.withLanguage(chosenLanguage: String)
 
 GET         /healthcheck                                           @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.respond
-
 GET         /healthcheck/debug                                     @uk.gov.dvla.vehicles.presentation.common.controllers.HealthCheck.debug
 
 GET         /version                                               @controllers.Version.version
