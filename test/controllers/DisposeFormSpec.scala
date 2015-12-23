@@ -100,26 +100,24 @@ class DisposeFormSpec extends UnitSpec {
     }
 
     "reject if date is more than 2 years in the past" in new WithApplication {
-      val dayToday: Int = DateOfDisposalDayValid.toInt
-      val yearToday: Int = DateOfDisposalYearValid.toInt
-      val dayOfDispose = (dayToday - 1).toString
-      val yearOfDispose = (yearToday - 2).toString
+      val invalidDod = LocalDate.now.minusYears(2).minusDays(1)
 
       // Attempting to dispose with a date 2 years and 1 day into the past.
       val result = formWithValidDefaults(
-        dayOfDispose = dayOfDispose,
-        yearOfDispose = yearOfDispose)
+        dayOfDispose = invalidDod.toString("dd"),
+        monthOfDispose = invalidDod.toString("MM"),
+        yearOfDispose = invalidDod.toString("YYYY"))
 
       result.errors should have length 1
       result.errors.head.key should equal(DateOfDisposalId)
       result.errors.head.message should equal("error.date.notBefore")
     }
 
-    "reject if date is too far in the past" in new WithApplication {
-      val yearOfDispose = "1"
+    "reject if date is invalid (incorrect year format)" in new WithApplication {
+      val yearOfDispose = "1" // should be YYYY format
       val dateServiceStubbed = dateServiceStub(yearToday = 1)
 
-      // Attempting to dispose with a date 2 years and 1 day into the past.
+      // Attempting to dispose with an invalid date
       val result = formWithValidDefaults(yearOfDispose = yearOfDispose,
         disposeController = dispose(dateServiceStubbed))
 
@@ -128,9 +126,9 @@ class DisposeFormSpec extends UnitSpec {
       result.errors.head.message should equal("error.date.invalid")
     }
 
-    "reject if date entered is an invalid date" in new WithApplication {
+    "reject if date entered is an invalid Gregorian date" in new WithApplication {
       val day = "31"
-      val month = "2"
+      val month = "02"
       val year = DateOfDisposalYearValid
 
       // Attempting to dispose with an invalid date.

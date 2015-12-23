@@ -1,6 +1,7 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Given, When, Then}
+import org.joda.time.LocalDate
 import org.scalatest.Matchers
 import org.scalatest.selenium.WebBrowser.pageTitle
 import org.scalatest.selenium.WebBrowser.pageSource
@@ -109,9 +110,10 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with With
 
   private def selectTodaysDate() = {
     click on DisposePage.dateOfDisposalDay
-    DisposePage.dateOfDisposalDay.value = "25"
-    DisposePage.dateOfDisposalMonth.value = "11"
-    DisposePage.dateOfDisposalYear.value = "2014"
+    val dod = LocalDate.now.minusYears(1)
+    DisposePage.dateOfDisposalDay.value = dod.toString("dd")
+    DisposePage.dateOfDisposalMonth.value = dod.toString("MM")
+    DisposePage.dateOfDisposalYear.value = dod.toString("YYYY")
   }
 
   @Given("""^details are entered that correspond to a vehicle that has a valid record but does have markers or error codes$""")

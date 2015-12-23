@@ -26,11 +26,14 @@ final class FakeDateServiceImpl extends DateService {
 }
 
 object FakeDateServiceImpl {
-  final val DateOfDisposalDayValid = "25"
-  final val DateOfDisposalMonthValid = "11"
-  final val DateOfDisposalYearValid = "2014"
-  private final val dateTime = DateTime.now
-  final val TodayDay = dateTime.toString("dd")
-  final val TodayMonth = dateTime.toString("MM")
-  final val TodayYear = dateTime.getYear.toString
+  private final val today = DateTime.now
+  private final val dod = today.minusYears(1)
+
+  final val DateOfDisposalDayValid = dod.toString("dd")
+  final val DateOfDisposalMonthValid = dod.toString("MM")
+  final val DateOfDisposalYearValid = dod.toString("YYYY")
+
+  final val TodayDay = today.toString("dd")
+  final val TodayMonth = today.toString("MM")
+  final val TodayYear = today.toString("YYYY")
 }

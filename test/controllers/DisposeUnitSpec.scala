@@ -13,7 +13,7 @@ import models.DisposeFormModelBase.Form.DateOfDisposalId
 import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
 import models.DisposeFormModelBase.Form.MileageId
 import models.PrivateDisposeFormModel.Form.EmailOptionId
-import org.joda.time.Instant
+import org.joda.time.{LocalDate, Instant}
 import org.mockito.ArgumentCaptor
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}
@@ -113,9 +113,10 @@ class DisposeUnitSpec extends UnitSpec {
       checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "consent", isChecked = true)
       checkboxHasAttributes(contentWithCarriageReturnsAndSpacesRemoved, "lossOfRegistrationConsent", isChecked = true)
 
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.day", "25"))
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.month", "11"))
-      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.year", "2014"))
+      private final val dod = LocalDate.now.minusYears(1)
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.day", dod.toString("dd")))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.month", dod.toString("MM")))
+      contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.year", dod.toString("YYYY")))
     }
 
     "display empty fields when cookie does not exist" in new WithApplication {
