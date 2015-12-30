@@ -7,7 +7,6 @@ import WebBrowser.click
 import WebBrowser.go
 import WebBrowser.pageSource
 import WebBrowser.pageTitle
-import org.scalatest.Matchers
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposeFailurePage
@@ -15,10 +14,10 @@ import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebBrowserDriver
 import java.util.Calendar
 
-class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue{
+class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicles.dispose.helpers.AcceptanceTestHelper{
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 

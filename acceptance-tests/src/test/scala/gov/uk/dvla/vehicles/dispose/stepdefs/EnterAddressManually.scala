@@ -7,12 +7,11 @@ import WebBrowser.click
 import WebBrowser.go
 import WebBrowser.pageSource
 import WebBrowser.pageTitle
-import org.scalatest.Matchers
 import pages.disposal_of_vehicle.EnterAddressManuallyPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebBrowserDriver
 
-class EnterAddressManually(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue{
+class EnterAddressManually(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicles.dispose.helpers.AcceptanceTestHelper{
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 

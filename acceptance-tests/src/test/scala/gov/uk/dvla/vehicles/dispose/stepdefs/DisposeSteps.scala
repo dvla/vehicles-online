@@ -5,7 +5,6 @@ import java.util.Calendar
 import cucumber.api.java.en.{Given, When, Then}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.WebDriver
-import org.scalatest.Matchers
 import org.scalatest.selenium.WebBrowser.pageTitle
 import org.scalatest.selenium.WebBrowser.click
 import org.scalatest.selenium.WebBrowser.go
@@ -17,9 +16,9 @@ import pages.disposal_of_vehicle.DisposePage.dispose
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebBrowserDriver
 
-class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue {
+class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicles.dispose.helpers.AcceptanceTestHelper {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 

@@ -1,20 +1,19 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Then, When, Given}
-import cucumber.api.scala.{EN, ScalaDsl}
 import org.openqa.selenium.WebDriver
-import org.scalatest.Matchers
 import org.scalatest.selenium.WebBrowser.pageTitle
 import org.scalatest.selenium.WebBrowser.click
 import org.scalatest.selenium.WebBrowser.go
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
+import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
 
-class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN with Matchers with WithClue {
+class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicles.dispose.helpers.AcceptanceTestHelper {
 
   implicit val webDriver = webBrowserDriver.asInstanceOf[WebDriver]
 
@@ -53,10 +52,23 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends ScalaDsl with EN
 
   @Then("^I should be taken to complete and confirm page and fill the required details and click on confirm sale button$")
   def i_should_be_taken_to_complete_and_confirm_page_and_fill_the_required_details_and_click_on_confirm_sale_button() {
+    import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
+    import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
+    import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
+    import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
+
     pageTitle shouldEqual DisposePage.title withClue trackingId
+    DisposePage.mileage.value = MileageValid
+    DisposePage.dateOfDisposalDay.value = DateOfDisposalDayValid
+    DisposePage.dateOfDisposalMonth.value = DateOfDisposalMonthValid
+    DisposePage.dateOfDisposalYear.value = DateOfDisposalYearValid
+    click on DisposePage.consent
+    click on DisposePage.lossOfRegistrationConsent
+    click on DisposePage.dispose
   }
 
   @Then("^I am on the summary page$")
   def i_am_on_the_summary_page()  {
+    pageTitle shouldEqual DisposeSuccessPage.title withClue trackingId
   }
 }

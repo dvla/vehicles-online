@@ -2,7 +2,6 @@ package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Given, When, Then}
 import org.joda.time.LocalDate
-import org.scalatest.Matchers
 import org.scalatest.selenium.WebBrowser.pageTitle
 import org.scalatest.selenium.WebBrowser.pageSource
 import org.scalatest.selenium.WebBrowser.click
@@ -20,10 +19,10 @@ import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClearTextClientSideSessionFactory
 import common.clientsidesession.NoCookieFlags
-import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{WithClue, WebBrowserDriver}
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebBrowserDriver
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.RandomVrmGenerator
 
-class CommonSteps(webBrowserDriver: WebBrowserDriver) extends Matchers with WithClue {
+class CommonSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicles.dispose.helpers.AcceptanceTestHelper {
 
   implicit val cookieFlags = new NoCookieFlags()
   implicit lazy val clientSideSessionFactory = new ClearTextClientSideSessionFactory()
