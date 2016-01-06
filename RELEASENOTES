@@ -1,6 +1,6 @@
 ======= 1.24 ========
 TIME OF RELEASE BINARIES CREATION:
-Wed 
+Wed Jan 06 16:52:50 UTC 2016 
 
 US2400 Override spanScaleFactor to scale test timeouts
 US4008 Remove localize Javascript function in vrm-locked
