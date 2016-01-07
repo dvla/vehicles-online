@@ -34,7 +34,6 @@ import play.api.test.Helpers.INTERNAL_SERVER_ERROR
 import play.api.test.Helpers.LOCATION
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.SERVICE_UNAVAILABLE
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
@@ -43,6 +42,7 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendRequest
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendResponse
@@ -266,7 +266,8 @@ class DisposeUnitSpec extends UnitSpec {
       when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId]))
         .thenReturn(Future(EmailServiceSendResponse()))
 
-      val dispose = new Dispose(mockWebServiceThrows, emailServiceMock, dateServiceStubbed())
+      val healthStatsMock = mock[HealthStats]
+      val dispose = new Dispose(mockWebServiceThrows, emailServiceMock, dateServiceStubbed(), healthStatsMock)
       val result = dispose.submit(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
@@ -372,8 +373,8 @@ class DisposeUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
       val mockDisposeService = mock[DisposeService]
-      when(mockDisposeService.invoke(any(classOf[DisposeRequestDto]), any[TrackingId])).
-        thenReturn(Future[(Int, Option[DisposeResponseDto])] {
+      when(mockDisposeService.invoke(any(classOf[DisposeRequestDto]), any[TrackingId]))
+        .thenReturn(Future[(Int, Option[DisposeResponseDto])] {
         (200, None)
       })
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
@@ -385,7 +386,8 @@ class DisposeUnitSpec extends UnitSpec {
       when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId]))
         .thenReturn(Future(EmailServiceSendResponse()))
 
-      val dispose = new Dispose(mockDisposeService, emailServiceMock, dateServiceStubbed())
+      val healthStatsMock = mock[HealthStats]
+      val dispose = new Dispose(mockDisposeService, emailServiceMock, dateServiceStubbed(), healthStatsMock)
       val result = dispose.submit(request)
       whenReady(result) { r =>
         val trackingIdCaptor = ArgumentCaptor.forClass(classOf[TrackingId])
@@ -693,10 +695,11 @@ class DisposeUnitSpec extends UnitSpec {
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
 
     val emailServiceMock: EmailService = mock[EmailService]
-    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId])).
-      thenReturn(Future(EmailServiceSendResponse()))
+    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId]))
+      .thenReturn(Future(EmailServiceSendResponse()))
+    val healthStatsMock = mock[HealthStats]
 
-    new Dispose(disposeService, emailServiceMock, dateServiceStubbed())
+    new Dispose(disposeService, emailServiceMock, dateServiceStubbed(), healthStatsMock)
   }
 
   private def checkboxHasAttributes(content: String, widgetName: String, isChecked: Boolean) = {

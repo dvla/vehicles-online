@@ -1,16 +1,15 @@
 package webserviceclients.dispose_service
 
+import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
+import helpers.{UnitSpec, WireMockFixture, WithApplication}
 import org.joda.time.LocalDate
 import play.api.libs.json.Json
-import helpers.{WithApplication, UnitSpec}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.NoCookieFlags
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
-import helpers.WireMockFixture
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeWebServiceImpl}
-import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
 
 class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
 
@@ -56,10 +55,9 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
       whenReady(resultFuture, timeout) { result =>
         wireMock.verifyThat(1, postRequestedFor(
           urlEqualTo(s"/vehicles/dispose/v1")
-        ).withHeader(HttpHeaders.TrackingId, equalTo(trackingId.value)).
-          withRequestBody(equalTo(Json.toJson(request).toString())))
+        ).withHeader(HttpHeaders.TrackingId, equalTo(trackingId.value))
+          .withRequestBody(equalTo(Json.toJson(request).toString())))
       }
     }
   }
 }
-

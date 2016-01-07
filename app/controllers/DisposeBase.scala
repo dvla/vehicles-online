@@ -14,21 +14,22 @@ import play.api.mvc.{Action, AnyContent, Call, Request, Result}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.views.constraints.RegistrationNumber.formatVrm
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{ClientSideSessionFactory, TrackingId}
+import common.clientsidesession.{ClientSideSessionFactory, TrackingId}
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import common.LogFormats.anonymize
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.{DateService, SEND}
+import common.views.constraints.RegistrationNumber.formatVrm
 import common.views.helpers.FormExtensions.RichForm
-import common.webserviceclients.emailservice.EmailService
 import common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
+import common.webserviceclients.emailservice.EmailService
+import common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.dispose
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeResponseDto, DisposeService}
 
 abstract class DisposeBase[FormModel <: DisposeFormModelBase]
-  (webService: DisposeService, emailService: EmailService, dateService: DateService)
+  (webService: DisposeService, emailService: EmailService, dateService: DateService, healthStats: HealthStats)
   (implicit clientSideSessionFactory: ClientSideSessionFactory, config: Config) extends BusinessController {
 
   def onDisposeSuccessAction(transactionId: String, model: FormModel)(implicit request: Request[_])
@@ -354,15 +355,6 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
   def createAndSendEmailRequiringFurtherAction(transactionId: String,
                                                disposeRequest: DisposeRequestDto)(implicit request: Request[_]) = {
 
-    import SEND.Contents // Keep this local so that we don't pollute rest of the class with unnecessary imports.
-
-    implicit val emailConfiguration = config.emailConfiguration
-    implicit val implicitEmailService = implicitly[EmailService](emailService)
-
-    val email = config.emailConfiguration.feedbackEmail.email
-
-    val dateTime = DateTime.parse(disposeRequest.transactionTimestamp).toString("dd/MM/yy HH:mm")
-
     val htmlTemplateStart = (title: String) =>
       s"""
          |<!DOCTYPE html>
@@ -381,6 +373,8 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       """.stripMargin
 
     val message1Title = s"Disposal Failure (1 of 2) $transactionId"
+
+    val dateTime = DateTime.parse(disposeRequest.transactionTimestamp).toString("dd/MM/yy HH:mm")
 
     val message1Template = (start: (String) => String, end: String, startLine: String, endLine: String) =>
       start(message1Title) +
@@ -419,6 +413,13 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       "</li>",
       "<li style='padding-left: 8.5em'>"
     )
+
+    import SEND.Contents // Keep this local so that we don't pollute rest of the class with unnecessary imports.
+    val email = config.emailConfiguration.feedbackEmail.email
+    implicit val emailConfiguration = config.emailConfiguration
+    implicit val implicitEmailService = implicitly[EmailService](emailService)
+    implicit val implicitDateService = implicitly[DateService](dateService)
+    implicit val implicitHealthStats = implicitly[HealthStats](healthStats)
 
     SEND
       .email(Contents(message1Html, message1))

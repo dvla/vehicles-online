@@ -57,11 +57,11 @@ class DisposeUnitSpec extends UnitSpec {
 
   "present" should {
     "display the page" in new WithApplication {
-      val request = FakeRequest().
-        withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
-      val result = disposeController(disposeWebService = disposeWebService()).present(request)
+      val request = FakeRequest()
+        .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+        .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+      val result = disposeController(disposeWebService = disposeWebServiceMock()).present(request)
       whenReady(result) { r =>
         r.header.status should equal(OK)
       }
@@ -71,14 +71,14 @@ class DisposeUnitSpec extends UnitSpec {
   "submit" should {
     "redirect to dispose success for private keeper, with confirmation email, when " +
       "a success message is returned by the fake microservice" in new WithApplication {
-      val request = buildCorrectlyPopulatedRequest.
-        withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      val request = buildCorrectlyPopulatedRequest
+        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
+        .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
 
       val emailService = emailServiceMock
       val result = disposeController(
-        disposeWebService = disposeWebService(),
+        disposeWebService = disposeWebServiceMock(),
         emailService = emailService
       ).submit(request)
 
@@ -90,14 +90,14 @@ class DisposeUnitSpec extends UnitSpec {
 
     "redirect to dispose success for private keeper, with no confirmation email, when " +
       "a success message is returned by the fake microservice" in new WithApplication {
-      val request = buildCorrectlyPopulatedRequestNoEmail.
-        withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      val request = buildCorrectlyPopulatedRequestNoEmail
+        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
+        .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
 
       val emailService = emailServiceMock
       val result = disposeController(
-        disposeWebService = disposeWebService(),
+        disposeWebService = disposeWebServiceMock(),
         emailService = emailService
       ).submit(request)
 
@@ -108,11 +108,11 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "write cookies when a success message is returned by the fake microservice" in new WithApplication {
-      val request = buildCorrectlyPopulatedRequest.
-        withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel()).
-        withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel()).
-        withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-      val result = disposeController(disposeWebService = disposeWebService()).submit(request)
+      val request = buildCorrectlyPopulatedRequest
+        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
+        .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+      val result = disposeController(disposeWebService = disposeWebServiceMock()).submit(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
         val found = cookies.find(_.name == DisposeFormTimestampIdCacheKey)
@@ -170,12 +170,12 @@ class DisposeUnitSpec extends UnitSpec {
     )
   }
 
-  private def disposeWebService(disposeServiceStatus: Int = OK,
+  private def disposeWebServiceMock(disposeServiceStatus: Int = OK,
                                 disposeServiceResponse: Option[DisposeResponseDto] = Some(disposeResponseSuccess)
                                  ): DisposeWebService = {
     val disposeWebService = mock[DisposeWebService]
-    when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[TrackingId])).
-      thenReturn(Future.successful {
+    when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[TrackingId]))
+      .thenReturn(Future.successful {
       val fakeJson = disposeServiceResponse map (Json.toJson(_))
       // Any call to a webservice will always return this successful response.
       new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson)
@@ -189,8 +189,8 @@ class DisposeUnitSpec extends UnitSpec {
 
   private def emailServiceMock: EmailService = {
     val emailServiceMock: EmailService = mock[EmailService]
-    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId])).
-      thenReturn(Future(EmailServiceSendResponse()))
+    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId]))
+      .thenReturn(Future(EmailServiceSendResponse()))
     emailServiceMock
   }
 
@@ -222,6 +222,6 @@ class DisposeUnitSpec extends UnitSpec {
                                (implicit config: Config = config): Dispose = {
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
 
-    new Dispose(disposeService, emailService, dateServiceStubbed())
+    new Dispose(disposeService, emailService, dateServiceStubbed(), healthStatsMock)
   }
 }

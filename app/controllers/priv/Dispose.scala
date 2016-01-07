@@ -9,18 +9,22 @@ import play.api.mvc.{Result, Request}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.RichCookies
+import common.clientsidesession.CookieImplicits.RichForm
+import common.clientsidesession.CookieImplicits.RichResult
 import common.model.VehicleAndKeeperDetailsModel
 import common.services.DateService
 import common.webserviceclients.emailservice.EmailService
+import common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
 import webserviceclients.dispose.DisposeService
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichResult
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichForm
 
-class Dispose @Inject()(webService: DisposeService, emailService: EmailService, dateService: DateService)
+class Dispose @Inject()(webService: DisposeService,
+                        emailService: EmailService,
+                        dateService: DateService,
+                        healthStats: HealthStats)
                        (implicit clientSideSessionFactory: ClientSideSessionFactory,
                         config: Config) extends
-  controllers.DisposeBase[PrivateDisposeFormModel](webService, emailService, dateService) with PrivateKeeperController {
+  controllers.DisposeBase[PrivateDisposeFormModel](webService, emailService, dateService, healthStats) with PrivateKeeperController {
 
   def form = Form(
     models.PrivateDisposeFormModel.Form.mapping(dateService)
@@ -72,6 +76,8 @@ class Dispose @Inject()(webService: DisposeService, emailService: EmailService, 
 
         implicit val emailConfiguration = config.emailConfiguration
         implicit val implicitEmailService = implicitly[EmailService](emailService)
+        implicit val implicitDateService = implicitly[DateService](dateService)
+        implicit val implicitHealthStats = implicitly[HealthStats](healthStats)
 
         val vehicleDetails = request.cookies.getModel[VehicleAndKeeperDetailsModel]
 
@@ -79,13 +85,13 @@ class Dispose @Inject()(webService: DisposeService, emailService: EmailService, 
 
         val template = EmailMessageBuilder.buildWith(vehicleDetails, transactionId, config.imagesPath)
 
-        logMessage(request.cookies.trackingId(), Info, s"Email sent")
+        logMessage(request.cookies.trackingId(), Info, s"Sending email message via SEND service...")
 
         // This sends the email.
-        SEND email template withSubject s"$registrationNumber Confirmation of new vehicle keeper" to
-          emailAddr send request.cookies.trackingId
+        val subject = s"$registrationNumber Confirmation of new vehicle keeper"
+        SEND email template withSubject subject to emailAddr send request.cookies.trackingId
 
-      case None => logMessage(request.cookies.trackingId(), Warn, s"tried to send an email with no keeper details")
+      case None => logMessage(request.cookies.trackingId(), Warn, s"Tried to send an email with no keeper details")
     }
   }
 }

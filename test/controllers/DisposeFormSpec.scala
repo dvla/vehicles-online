@@ -95,8 +95,8 @@ class DisposeFormSpec extends UnitSpec {
         yearOfDispose = tomorrow.getYear.toString)
 
       result.errors should have length 1
-      result.errors(0).key should equal(DateOfDisposalId)
-      result.errors(0).message should equal("error.date.inTheFuture")
+      result.errors.head.key should equal(DateOfDisposalId)
+      result.errors.head.message should equal("error.date.inTheFuture")
     }
 
     "reject if date is more than 2 years in the past" in new WithApplication {
@@ -184,11 +184,11 @@ class DisposeFormSpec extends UnitSpec {
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
 
     val emailServiceMock: EmailService = mock[EmailService]
-    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId])).
-      thenReturn(Future(EmailServiceSendResponse()))
+    when(emailServiceMock.invoke(any[EmailServiceSendRequest](), any[TrackingId]))
+      .thenReturn(Future(EmailServiceSendResponse()))
 
     implicit val config: Config = mock[Config]
-    new Dispose(disposeServiceImpl, emailServiceMock, dateService)
+    new Dispose(disposeServiceImpl, emailServiceMock, dateService, healthStatsMock)
   }
 
   private def formWithValidDefaults(mileage: String = MileageValid,

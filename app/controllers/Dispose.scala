@@ -9,12 +9,16 @@ import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichForm, RichResult}
 import common.services.DateService
 import common.webserviceclients.emailservice.EmailService
+import common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
 import webserviceclients.dispose.DisposeService
 
-class Dispose @Inject()(webService: DisposeService, emailService: EmailService, dateService: DateService)
+class Dispose @Inject()(webService: DisposeService,
+                        emailService: EmailService,
+                        dateService: DateService,
+                        healthStats: HealthStats)
                        (implicit clientSideSessionFactory: ClientSideSessionFactory, config: Config)
-  extends controllers.DisposeBase[DisposeFormModel](webService, emailService, dateService) with BusinessController {
+  extends controllers.DisposeBase[DisposeFormModel](webService, emailService, dateService, healthStats) with BusinessController {
 
   def form = Form(
     DisposeFormModel.Form.mapping(dateService)
