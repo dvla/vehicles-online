@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.UiSpec
-import helpers.common.ProgressBar
 import helpers.tags.UiTag
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.enter
@@ -31,10 +30,6 @@ final class OnHandlerNotFoundIntegrationSpec extends UiSpec with TestHarness {
       pageTitle should equal(OnHandlerNotFoundPage.title)
     }
 
-    "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to OnHandlerNotFoundPage
-      pageSource should not contain ProgressBar.div
-    }
   }
 
   "exit" should {

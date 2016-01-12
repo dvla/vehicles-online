@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.{TestGlobal, TestHarness}
-import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -34,7 +33,6 @@ import pages.disposal_of_vehicle.DisposePage.useTodaysDate
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import ProgressBar.progressStep
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
@@ -54,24 +52,6 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to DisposePage
 
       pageTitle should equal(title)
-    }
-
-    "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to BeforeYouStartPage
-      cacheSetup()
-
-      go to DisposePage
-
-      pageSource.contains(progressStep(5)) should equal(true)
-    }
-
-    "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
-      go to BeforeYouStartPage
-      cacheSetup()
-
-      go to DisposePage
-
-      pageSource.contains(progressStep(5)) should equal(false)
     }
 
     "redirect when no vehicleDetailsModel is cached" taggedAs UiTag in new WebBrowserForSelenium {

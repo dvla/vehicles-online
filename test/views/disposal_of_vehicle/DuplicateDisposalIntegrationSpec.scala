@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -37,11 +36,7 @@ final class DuplicateDisposalIntegrationSpec extends UiSpec with TestHarness {
       pageTitle should equal(DuplicateDisposalErrorPage.title)
     }
 
-    "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue  {
-      go to DuplicateDisposalErrorPage
-      pageSource should not contain ProgressBar.div
-    }
-  }
+   }
 
   "tryAgain button" should {
     "redirect to vehiclelookup" taggedAs UiTag in new WebBrowserForSelenium {

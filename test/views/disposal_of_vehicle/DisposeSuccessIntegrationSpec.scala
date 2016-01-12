@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 
 import composition.TestHarness
-import helpers.common.ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -42,20 +41,6 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
       cacheSetup()
       go to DisposeSuccessPage
       pageTitle should equal(DisposeSuccessPage.title)
-    }
-
-    "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to DisposeSuccessPage
-      pageSource.contains(progressStep(6)) should equal(true)
-    }
-
-    "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to DisposeSuccessPage
-      pageSource.contains(progressStep(6)) should equal(false)
     }
 
     "redirect when no details are cached" taggedAs UiTag in new WebBrowserForSelenium {

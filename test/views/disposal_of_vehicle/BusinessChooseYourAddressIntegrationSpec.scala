@@ -1,8 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.common.ProgressBar
-import ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -46,22 +44,6 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       cacheSetup()
       go to BusinessChooseYourAddressPage
       pageTitle should equal(BusinessChooseYourAddressPage.title)
-    }
-
-    "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to BusinessChooseYourAddressPage
-
-      pageSource.contains(progressStep(3)) should equal(true)
-    }
-
-    "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to BusinessChooseYourAddressPage
-
-      pageSource.contains(progressStep(3)) should equal(false)
     }
 
     "redirect when no traderBusinessName is cached" taggedAs UiTag in new WebBrowserForSelenium {

@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.{TestGlobal, TestHarness}
-import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -35,7 +34,6 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import pages.disposal_of_vehicle.VehicleLookupPage.{happyPath, tryLockedVrm, back, exit}
 import pages.disposal_of_vehicle.VrmLockedPage
-import ProgressBar.progressStep
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import uk.gov.dvla.vehicles.presentation.common.views.widgetdriver.Wait
@@ -53,23 +51,6 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       pageTitle should equal(VehicleLookupPage.title)
     }
 
-    "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to BeforeYouStartPage
-      cacheSetup()
-
-      go to VehicleLookupPage
-
-      pageSource.contains(progressStep(4)) should equal(true)
-    }
-
-    "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
-      go to BeforeYouStartPage
-      cacheSetup()
-
-      go to VehicleLookupPage
-
-      pageSource.contains(progressStep(4)) should equal(false)
-    }
 
     "Redirect when no traderBusinessName is cached" taggedAs UiTag in new WebBrowserForSelenium {
       go to VehicleLookupPage

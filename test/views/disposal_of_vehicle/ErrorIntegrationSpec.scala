@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.UiSpec
-import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import models.AllCacheKeys
@@ -35,13 +34,6 @@ final class ErrorIntegrationSpec extends UiSpec with TestHarness {
       cacheSetup()
       go to ErrorPage
       pageTitle should equal(ErrorPage.title)
-    }
-
-    "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue  {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to ErrorPage
-      pageSource should not contain ProgressBar.div
     }
 
     "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {
