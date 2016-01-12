@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.UiSpec
-import helpers.common.ProgressBar.progressStep
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import org.openqa.selenium.{By, WebElement}
@@ -35,18 +34,6 @@ final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
     "display the page" taggedAs UiTag in new WebBrowserForSelenium {
       go to SetupTradeDetailsPage
       pageTitle should equal(SetupTradeDetailsPage.title)
-    }
-
-    "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to SetupTradeDetailsPage
-
-      pageSource.contains(progressStep(2)) should equal(true)
-    }
-
-    "display the progress of the page when progress bar is set to false" taggedAs UiTag in new ProgressBarFalse {
-      go to SetupTradeDetailsPage
-
-      pageSource.contains(progressStep(2)) should equal(false)
     }
 
     "contain the hidden csrfToken field" taggedAs UiTag in new WebBrowserForSelenium {

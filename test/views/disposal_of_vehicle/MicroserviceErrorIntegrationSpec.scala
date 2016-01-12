@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.UiSpec
-import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import org.openqa.selenium.WebDriver
@@ -33,10 +32,6 @@ final class MicroserviceErrorIntegrationSpec extends UiSpec with TestHarness {
       pageTitle should equal(MicroServiceErrorPage.title)
     }
 
-    "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to MicroServiceErrorPage
-      pageSource should not contain ProgressBar.div
-    }
   }
 
   "tryAgain button" should {

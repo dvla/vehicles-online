@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.UiSpec
-import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import org.openqa.selenium.WebDriver
@@ -38,11 +37,6 @@ final class DisposeFailureIntegrationSpec extends UiSpec with TestHarness {
     "redirect to setuptrade details if cache is empty on page load" taggedAs UiTag in new WebBrowserForSelenium {
       go to DisposeFailurePage
       pageTitle should equal(SetupTradeDetailsPage.title)
-    }
-
-    "not display any progress indicator when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to DisposeFailurePage
-      pageSource should not contain ProgressBar.div
     }
   }
 

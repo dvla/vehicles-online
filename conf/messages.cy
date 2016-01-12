@@ -311,15 +311,6 @@ error.address.postTown = Rhaid Tref neu ddinas yn cynnwys rhwng 3 a 20 llythyren
 error.address.postTown.characterInvalid = Tref bost yn cynnwys nodau annilys
 error.address.threeAlphas =
 
-
-# progress messages
-disposal_progress_1 = Step 1 of 6
-disposal_progress_2 = Step 2 of 6
-disposal_progress_3 = Step 3 of 6
-disposal_progress_4 = Step 4 of 6
-disposal_progress_5 = Step 5 of 6
-disposal_progress_6 = Step 6 of 6
-
 # closed
 closed.title = Nid yw’r gwasanaeth ar gael
 closed.p1 = Mae’r gwasanaeth ar gael o ddydd Llun i ddydd Sadwrn yn unig {0} to {1}

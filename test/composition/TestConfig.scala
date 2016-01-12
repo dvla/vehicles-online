@@ -56,9 +56,6 @@ class TestConfig extends Config {
   // Google analytics
   def googleAnalyticsTrackingId: Option[String] = None
 
-  // Progress step indicator
-  def isProgressBarEnabled: Boolean = getOptionalProperty[Boolean]("progressBar.enabled").getOrElse(true)
-
   def isHtml5ValidationEnabled: Boolean =
     getOptionalProperty[Boolean]("html5Validation.enabled").getOrElse(false)
 

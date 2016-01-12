@@ -1,5 +1,4 @@
-@(progress: Option[String] = None,
-    title: String,
+@(title: String,
     currentForm: Option[Form[_]] = None,
     backButton: Option[Call] = None,
     showLanguageSwitch: Boolean = false,
@@ -10,7 +9,7 @@
 
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.views.html.widgets.errorsSummary
-@import views.html.common.{progressBar, protoType}
+@import views.html.common.{protoType}
 @import views.html.common.govMainDefault
 
 @govMainDefault(title, showLanguageSwitch) {
@@ -22,9 +21,7 @@
 
         <div class="section-content">
         
-            @progressBar(progress)
-
-            @backButton.map { back =>
+              @backButton.map { back =>
                 <a class="back" id="back" href="@back">
                 @Messages("disposal_dispose.backbutton")
                 </a>

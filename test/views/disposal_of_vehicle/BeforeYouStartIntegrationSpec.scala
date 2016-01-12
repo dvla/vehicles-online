@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.common.ProgressBar
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -27,7 +26,6 @@ import WebBrowser.pageTitle
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage.startNow
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage}
-import ProgressBar.progressStep
 import models.AllCacheKeys
 
 final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
@@ -35,16 +33,6 @@ final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
     "display the page" taggedAs UiTag in new WebBrowserForSelenium{
       go to BeforeYouStartPage
       pageTitle should equal(BeforeYouStartPage.title)
-    }
-
-    "display the progress of the page when progressBar is set to true" taggedAs UiTag in new ProgressBarTrue {
-      go to BeforeYouStartPage
-      pageSource.contains(progressStep(1)) should equal(true)
-    }
-
-    "not display the progress of the page when progressBar is set to false" taggedAs UiTag in new ProgressBarFalse {
-      go to BeforeYouStartPage
-      pageSource.contains(progressStep(1)) should equal(false)
     }
 
     "remove redundant cookies (needed for when a user exits the service and comes back)" taggedAs UiTag in

@@ -312,15 +312,6 @@ error.address.postTown = Town or city must contain between 3 and 20 characters.
 error.address.postTown.characterInvalid = Town or city contains invalid characters
 error.address.threeAlphas = Must have at least 3 alpha characters
 
-
-# progress messages
-disposal_progress_1 = Step 1 of 6
-disposal_progress_2 = Step 2 of 6
-disposal_progress_3 = Step 3 of 6
-disposal_progress_4 = Step 4 of 6
-disposal_progress_5 = Step 5 of 6
-disposal_progress_6 = Step 6 of 6
-
 # closed
 closed.title = Service unavailable
 closed.p1 = This service is only available Monday to Saturday {0} to {1}.

@@ -17,7 +17,6 @@
 @import views.html.helper.form
 
 @main(
-    progress = Some(Messages("disposal_progress_4")),
     title = Messages("disposal_vehiclelookup.title"),
     currentForm = Some(viewModel.form),
     backButton = Some(viewModel.back)
@@ -58,7 +57,7 @@
                         @valtechInputText(viewModel.form(DocumentReferenceNumberId), args =
                             Map('_label -> Messages("disposal_vehiclelookup.refnumlabel"),
                             '_showConstraints -> false,
-                            'tooltipImgSrc -> controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3.png"),
+                            'tooltipImgSrc -> controllers.StaticAssets.versioned(config.assetsUrl)("images/V5CX3-11-Digit-Doc-Ref-Num.jpg"),
                             'tooltipHeading -> Messages("disposal_vehiclelookup.v5c"),
                             'typeTel -> true,
                             'maxLength -> DocumentReferenceNumber.MaxLength, // Must be set independently of the pattern as the pattern is only checked when the user submits.
