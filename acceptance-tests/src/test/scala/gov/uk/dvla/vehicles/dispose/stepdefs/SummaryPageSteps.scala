@@ -22,8 +22,8 @@ class SummaryPageSteps (webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.
   @Given("""^details are entered that correspond to a vehicle that has a valid record but does have markers or error codes$""")
   def details_are_entered_that_correspond_to_a_vehicle_that_has_a_valid_record_but_does_have_markers_or_error_codes() = {
     commonSteps.goToVehicleLookupPage()
-    VehicleLookupPage.vehicleRegistrationNumber.value = "AA11 AAC"
-    VehicleLookupPage.documentReferenceNumber.value = "88888888883"
+    VehicleLookupPage.vehicleRegistrationNumber.value = "AA11AAC" // transaction failure, error code U0020
+    VehicleLookupPage.documentReferenceNumber.value = "88888888883" // transaction failure, error code U0020
     click on VehicleLookupPage.findVehicleDetails
     pageTitle should equal(DisposePage.title) withClue trackingId
     DisposePage.mileage.value = "10000"
