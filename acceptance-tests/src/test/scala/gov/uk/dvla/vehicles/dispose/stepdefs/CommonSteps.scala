@@ -72,42 +72,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicl
     pageTitle should equal(DisposeSuccessPage.title) withClue trackingId
   }
 
-  @Given("""^a correctly formatted document reference number "(.*)" has been entered$""")
-  def a_correctly_formatted_document_reference_number_has_been_entered(docRefNo:String) = {
-    goToVehicleLookupPage()
-    // override doc ref no with test value
-    VehicleLookupPage.vehicleRegistrationNumber.value = RandomVrmGenerator.uniqueVrm
-    VehicleLookupPage.documentReferenceNumber.value = docRefNo
-  }
-
-  @Given("""^an incorrectly formatted document reference number "(.*)" has been entered$""")
-  def an_incorrectly_formatted_document_reference_number_has_been_entered(docRefNo:String) = {
-    a_correctly_formatted_document_reference_number_has_been_entered(docRefNo)
-  }
-
-  @Given("""^a correctly formatted vehicle reference mark "(.*)" has been entered$""")
-  def a_correctly_formatted_vehicle_reference_mark_has_been_entered(refMark:String) = {
-    goToVehicleLookupPage()
-    // override doc ref no with test value
-    VehicleLookupPage.vehicleRegistrationNumber.value = refMark
-    VehicleLookupPage.documentReferenceNumber.value = "11111111111"
-  }
-
-  @Given("""^an incorrectly formatted vehicle reference mark "(.*)" has been entered$""")
-  def an_incorrectly_formatted_vehicle_reference_mark_has_been_entered(refMark:String) = {
-    a_correctly_formatted_vehicle_reference_mark_has_been_entered(refMark:String)
-  }
-
-  @Given("""^details are entered that correspond to a vehicle that has a valid clean record and has no markers or error codes$""")
-  def details_are_entered_that_correspond_to_a_vehicle_that_has_a_valid_clean_record_and_has_no_markers_or_error_codes() = {
-    goToDisposePage()
-    DisposePage.mileage.value = "10000"
-    selectTodaysDate()
-    click on DisposePage.consent
-    click on DisposePage.lossOfRegistrationConsent
-  }
-
-  private def selectTodaysDate() = {
+  def selectTodaysDate() = {
     click on DisposePage.dateOfDisposalDay
     val dod = LocalDate.now.minusYears(1)
     DisposePage.dateOfDisposalDay.value = dod.toString("dd")
@@ -115,44 +80,9 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicl
     DisposePage.dateOfDisposalYear.value = dod.toString("YYYY")
   }
 
-  @Given("""^details are entered that correspond to a vehicle that has a valid record but does have markers or error codes$""")
-  def details_are_entered_that_correspond_to_a_vehicle_that_has_a_valid_record_but_does_have_markers_or_error_codes() = {
-    goToVehicleLookupPage()
-    VehicleLookupPage.vehicleRegistrationNumber.value = "AA11 AAC"
-    VehicleLookupPage.documentReferenceNumber.value = "88888888883"
-    click on VehicleLookupPage.findVehicleDetails
-    pageTitle should equal(DisposePage.title) withClue trackingId
-    DisposePage.mileage.value = "10000"
-    selectTodaysDate()
-    click on DisposePage.consent
-    click on DisposePage.lossOfRegistrationConsent
-  }
-
   @When("""^this is submitted along with any other mandatory information$""")
   def this_is_submitted_along_with_any_other_mandatory_information() = {
     submit()
-  }
-
-  @Then("""^the document reference number "(.*)" is retained$""")
-  def the_document_reference_number_is_retained(docRefNo:String) = {
-    /*def unquoteString(quotedString: String): String = {
-      val stringWithoutEnclosingQuotes = quotedString.drop(1).dropRight(1)
-      stringWithoutEnclosingQuotes.replace("\\\"", "\"")
-    }
-
-    val webDriverCookies = webDriver.manage().getCookies.toSet
-    val playCookies = webDriverCookies.map(c => Cookie(c.getName, unquoteString(c.getValue)))
-
-    playCookies.getModel[VehicleLookupFormModel] match {
-      case Some(VehicleLookupFormModel(referenceNumber, _)) =>
-        referenceNumber should equal(docRefNo)
-      case None =>
-        assert(false, "No valid cookie exists for this model")
-    }*/
-  }
-
-  @Then("""^the vehicle reference mark "(.*)" is retained$""")
-  def the_vehicle_reference_mark_is_retained(refMark:String) = {
   }
 
   @Then("""^the next step in the dispose transaction "(.*)" is shown$""")
