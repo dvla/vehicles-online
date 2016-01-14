@@ -98,8 +98,8 @@ ScalastylePlugin.Settings
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-// Scoverage
-//coverageExcludedPackages := "<empty>;Reverse.*"
+// Scoverage - avoid play! framework generated classes
+coverageExcludedPackages := "<empty>;Reverse.*"
 
 coverageMinimum := 70
 
