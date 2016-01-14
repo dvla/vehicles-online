@@ -15,6 +15,9 @@ resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/reposi
 
 resolvers += "Maven 2" at "http://repo2.maven.org/maven2"
 
+// NOTE: this additional repo for scoverage is not required since we append to sbt's pre-defined resolvers, that include Resolver.jcenterRepo
+//resolvers += Resolver.url("scoverage-bintray", url("https://dl.bintray.com/sksamuel/sbt-plugins/"))(Resolver.ivyStylePatterns)
+
 addSbtPlugin("dvla" % "build-details-generator" % "1.3.2-SNAPSHOT")
 
 addSbtPlugin("dvla" % "microservices-sandbox" % "1.3.9-SNAPSHOT")
@@ -41,10 +44,8 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")
 
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 
-// Plugin for publishing scoverage results to coveralls
-addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.98.2")
-
-addSbtPlugin("com.sksamuel.scoverage" %% "sbt-coveralls" % "0.0.5")
+// Plugin for gathering app coverage data under test
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.3.5")
 
 addSbtPlugin("io.gatling" % "gatling-sbt" % "2.1.0")
 

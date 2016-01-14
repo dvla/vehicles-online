@@ -1,4 +1,3 @@
-import de.johoop.jacoco4sbt.JacocoPlugin._
 import org.scalastyle.sbt.ScalastylePlugin
 import uk.gov.dvla.vehicles.sandbox
 import sandbox.ProjectDefinitions.{osAddressLookup, vehicleAndKeeperLookup, vehiclesDisposeFulfil, legacyStubs, gatlingTests}
@@ -87,10 +86,6 @@ concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4), Tags.limit(Tags
 
 sbt.Keys.fork in Test := false
 
-jacoco.settings
-
-parallelExecution in jacoco.Config := false
-
 parallelExecution in Test in acceptanceTestsProject := true
 
 // Using node to do the javascript optimisation cuts the time down dramatically
@@ -103,11 +98,15 @@ ScalastylePlugin.Settings
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-ScoverageSbtPlugin.instrumentSettings
+// Scoverage
+//coverageExcludedPackages := "<empty>;Reverse.*"
 
-ScoverageSbtPlugin.ScoverageKeys.excludedPackages in ScoverageSbtPlugin.scoverage := "<empty>;Reverse.*"
+coverageMinimum := 70
 
-CoverallsPlugin.coverallsSettings
+coverageFailOnMinimum := false
+
+// highlighting will work as of scala 2.10.4 so no need to disable - see https://github.com/scala/scala/pull/3799
+//coverageHighlighting := false
 
 resolvers ++= projectResolvers
 
