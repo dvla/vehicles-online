@@ -4,7 +4,7 @@ set -o errexit
 
 export SBT_OPTS="-Dspecs2.color=false -Dsbt.log.format=true -Dsbt.log.noformat=true \
  -Xms1024M -Xmx3500M -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+UseParNewGC \
- -XX:PermSize=512M -XX:MaxPermSize=1024M -Dtest.port=9002 -DtimeoutInMillisSoap=30000 -Dspray.can.server.request-timeout=30s \
+ -XX:PermSize=512M -XX:MaxPermSize=1024M -Dtest.port=9012 -DtimeoutInMillisSoap=30000 -Dspray.can.server.request-timeout=30s \
 -DdisposeVehicle.requestTimeout=30000 -Dws.timeout.request=30000 -DspanScaleFactor=5.0 $SBT_OPTS"
 
 sbt -Dsbt.log.noformat=true clean coverage test accept coverageReport
