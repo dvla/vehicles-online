@@ -325,7 +325,7 @@ class DisposeUnitSpec extends UnitSpec {
         )
       val result = disposeFailure.submit(request)
 
-      whenReady(result, timeout) { r =>
+      whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
       }
     }

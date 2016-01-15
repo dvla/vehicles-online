@@ -232,7 +232,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator().submit(request)
 
-      whenReady(result, timeout) { r =>
+      whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(DisposePage.address))
         val cookies = fetchCookiesFromHeaders(r)
         val cookieName = VehicleLookupFormModelCacheKey
