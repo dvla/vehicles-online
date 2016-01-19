@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source jenkins_job_opts
-
+source ./jenkins_job_opts
+echo "SBT options $SBT_OPTS"
 sbt -Dsbt.log.noformat=true clean coverage test accept coverageReport
