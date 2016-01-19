@@ -96,8 +96,6 @@ sources in doc in Compile := List()
 
 ScalastylePlugin.Settings
 
-coverageEnabled in Test := true
-
 net.virtualvoid.sbt.graph.Plugin.graphSettings
 
 // Scoverage - avoid play! framework generated classes
