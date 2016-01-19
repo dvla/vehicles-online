@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source jenkins_job_opts
+source ./rpm-build/jenkins_job_opts
 
 sbt -Dsbt.log.noformat=true clean test accept dist publish
 
