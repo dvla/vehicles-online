@@ -1,3 +1,17 @@
+======= 1.25 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+US2404  Mixin trait eventually with testComposition and IntegrationPatience on any file that contains selenium code
+US3790  Code coverage for all the code
+US4012  Remove redundant views/common object progressBar
+US4141  Review Complete and Confirm page feature
+US4142  Review acceptance test code: Dispose Steps not referenced
+US4143  Review SummaryPage feature
+US4144  Remove tests concerning date widget from exemplars
+US4152  Replace Doc Ref Number image with correct version of V5C3
+US4161  When the SEND email service gets an error when trying to call the email web service it must inform the HealthStats service
+
 ======= 1.24 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Jan 06 16:52:50 UTC 2016 
