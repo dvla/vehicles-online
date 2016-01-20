@@ -1,6 +1,6 @@
 ======= 1.25 ========
 TIME OF RELEASE BINARIES CREATION:
-
+Wed Jan 20 11:12:26 UTC 2016
 
 US2404  Mixin trait eventually with testComposition and IntegrationPatience on any file that contains selenium code
 US3790  Code coverage for all the code
@@ -14,8 +14,7 @@ US4161  When the SEND email service gets an error when trying to call the email 
 
 ======= 1.24 ========
 TIME OF RELEASE BINARIES CREATION:
-Wed Jan 06 16:52:50 UTC 2016 
-
+Wed Jan 06 16:52:50 UTC 2016
 
 US2400 Override spanScaleFactor to scale test timeouts
 US4008 Remove localize Javascript function in vrm-locked
