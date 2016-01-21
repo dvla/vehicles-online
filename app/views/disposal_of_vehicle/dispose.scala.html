@@ -74,8 +74,6 @@
                         playbackItems += (Messages("disposal_vehiclelookup.traderaddresslabel") -> data.dealerAddress.mkString("<br/>"))
                     }
                 )()
-
-                @alertWarning() { <p>@Messages("disposal_dispose.warning")</p> }
             </div>
 
             <div class="disposal-form second-col">
@@ -138,21 +136,21 @@
                 )
 
                 @if(isPrivateKeeper){
-                    <div class="disposal-form second-col">
-                        @optionalToggle(
-                            disposeForm(EmailOptionId),
-                            Messages("disposal_businesskeeperdetails.traderemailoption"),
-                            Messages("disposal_businesskeeperdetails.traderemailoption.yes"),
-                            Messages("disposal_businesskeeperdetails.traderemailoption.no"),
-                            email(
-                                disposeForm(EmailId),
-                                labelText = Messages("disposal_businesskeeperdetails.email"),
-                                hintText = None,
-                                args = Map('maxLength -> EmailMaxLength)
-                                       )
-                            )
-                    </div>
+                      @optionalToggle(
+                          disposeForm(EmailOptionId),
+                          Messages("disposal_businesskeeperdetails.traderemailoption"),
+                          Messages("disposal_businesskeeperdetails.traderemailoption.yes"),
+                          Messages("disposal_businesskeeperdetails.traderemailoption.no"),
+                          email(
+                              disposeForm(EmailId),
+                              labelText = Messages("disposal_businesskeeperdetails.email"),
+                              hintText = None,
+                              args = Map('maxLength -> EmailMaxLength)
+                                     )
+                          )
                 }
+
+                @alertWarning() { <p>@Messages("disposal_dispose.warning")</p> }
 
                 @{
                     /* Note primary button moved to first button as per https://www.gov.uk/service-manual/user-centered-design/resources/forms.html#buttons */
