@@ -8,6 +8,8 @@ before_install:
 scala:
   - 2.10.4
 
+sbt_args: -DspanScaleFactor=5.0
+
 jdk:
   - oraclejdk7
 
