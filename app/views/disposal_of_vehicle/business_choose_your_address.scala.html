@@ -49,7 +49,10 @@
                       if (isPrivateKeeper) "disposal_businessChooseYourAddress_addressSelect_label.private"
                       else "disposal_businessChooseYourAddress_addressSelect_label"
                     ),
-                    'autofocus -> true
+                    'autofocus -> true,
+                    'class -> "ga-track-value ga-track-region",
+                    Symbol("data-ga-category") -> "field_value",
+                    Symbol("data-ga-action") -> "address_region"
                 )
             )
         }
