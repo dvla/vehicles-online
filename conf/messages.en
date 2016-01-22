@@ -204,7 +204,7 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 
 #page 5 - confirm disposal
 disposal_dispose.title = Complete and confirm
-disposal_dispose.warning=If the vehicle details shown are incorrect please abandon this transaction and send the V5C with a covering letter to DVLA, Swansea, SA99 1DZ.
+disposal_dispose.warning=If the vehicle details shown are incorrect please abandon this transaction and send the V5C with a covering letter to DVLA, Swansea, SA99 1BA.
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration
 disposal_dispose.vehiclemake = Make
