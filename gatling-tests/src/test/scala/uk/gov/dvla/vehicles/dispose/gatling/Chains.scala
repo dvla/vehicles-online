@@ -134,6 +134,7 @@ object Chains {
       .post("/complete-and-confirm")
       .headers(headers_x_www_form_urlencoded)
       .formParam( """mileage""", "${mileage}")
+      .formParam("option_email", "invisible")
       .formParam( """consent""", "${consent}")
       .formParam( """lossOfRegistrationConsent""", "${lossOfRegistrationConsent}")
       .formParam( """dateOfDisposal.day""", "${day}")
