@@ -17,6 +17,7 @@ class SummaryPageSteps (webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.
     commonSteps.selectTodaysDate()
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
+    click on DisposePage.emailInvisible
   }
 
   @Given("""^details are entered that correspond to a vehicle that has a valid record but does have markers or error codes$""")
@@ -30,6 +31,7 @@ class SummaryPageSteps (webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.
     commonSteps.selectTodaysDate()
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
+    click on DisposePage.emailInvisible
   }
 
 

@@ -19,6 +19,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehic
   @Given("""^the Trader is on the Complete and Confirm page$""")
   def the_Trader_is_on_the_Complete_Confirm_page() = {
     commonSteps.goToDisposePage()
+    click on DisposePage.emailInvisible
   }
 
   @When("""^they attempt to dispose of the vehicle$""")
@@ -45,6 +46,7 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehic
   @When("""^they give full consent and attempt to dispose of vehicle without disposal date$""")
   def they_give_full_consent_and_attempt_to_dispose_of_vehicle_without_disposal_date() = {
     click on DisposePage.lossOfRegistrationConsent
+    click on DisposePage.emailInvisible
     click on DisposePage.dispose
   }
 

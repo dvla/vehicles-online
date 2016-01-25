@@ -250,7 +250,7 @@ disposal_disposeconfirmation.disposedto = Gwerthwyd i
 disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
-disposal_disposeconfirmation.keeperDetails.email = Contact email address
+#disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
@@ -276,6 +276,7 @@ disposal_disposeconfirmation.survey = Cymrwch arolwg
 disposal_disposeconfirmation.transactionDetails = Manylion y trafodyn
 disposal_disposeconfirmation.email = Ebost
 disposal_disposeconfirmation.emailNotEntered = Heb ei roi
+disposal_disposeconfirmation.selleremailoption = Does the seller of this vehicle want email confirmation of the sale?
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Gwerthu cerbyd i''r fasnach moduron: wedi methu

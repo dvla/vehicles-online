@@ -12,21 +12,42 @@ import uk.gov.dvla.vehicles.presentation.common.model.VehicleAndKeeperDetailsMod
 object EmailMessageBuilder {
   import uk.gov.dvla.vehicles.presentation.common.services.SEND.Contents
 
+  final val contentPart1Private = s"Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must not be sent to DVLA."
+  final val contentPart1TradeApp = s"DVLA have been notified electronically that you have sold/transferred this vehicle into the motor trade and are no longer the keeper."
+  final val contentPart1PrivateHtml = s"<p>Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must <strong>not</strong> be sent to DVLA.</p>"
+  final val contentPart1TradeAppHtml = s"<p>DVLA have been notified electronically that you have sold/transferred this vehicle into the motor trade and are no longer the keeper.</p>"
+  final val contentPart2Private = "The"
+  final val contentPart2TradeApp = s"The acknowledgement letter and"
+  final val contentPart3Private = s"Your"
+  final val contentPart3TradeApp = s"The"
+
   def buildWith(vehicleDetailsOpt: Option[VehicleAndKeeperDetailsModel],  transactionId: String,
-                imagesPath: String, transactionTimestamp: DateTime = new DateTime): Contents = {
+                imagesPath: String, transactionTimestamp: DateTime, isPrivate: Boolean = true): Contents = {
 
     val transactionTimestampStr = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(transactionTimestamp.toDate)
 
     val registrationNumber = vehicleDetailsOpt.map(_.registrationNumber).getOrElse("No registration number")
 
+    var contentPart1 = contentPart1Private
+    var contentPart1Html = contentPart1PrivateHtml
+    var contentPart2 = contentPart2Private
+    var contentPart3 = contentPart3Private
+
+    if (!isPrivate) {
+      contentPart1 = contentPart1TradeApp
+      contentPart1Html = contentPart1TradeAppHtml
+      contentPart2 = contentPart2TradeApp
+      contentPart3 = contentPart3TradeApp
+    }
+
     Contents(
-      buildHtml(registrationNumber, transactionId, imagesPath, transactionTimestampStr),
-      buildText(registrationNumber, transactionId, transactionTimestampStr)
+      buildHtml(registrationNumber, transactionId, imagesPath, transactionTimestampStr, contentPart1Html, contentPart2, contentPart3),
+      buildText(registrationNumber, transactionId, transactionTimestampStr, contentPart1, contentPart2, contentPart3)
     )
   }
 
   private def buildHtml(registrationNumber: String,  transactionId: String, imagesPath: String,
-                        transactionTimestamp: String): String =
+                        transactionTimestamp: String, contentPart1: String, contentPart2: String, contentPart3: String): String =
     s"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
        |<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
        |<head>
@@ -78,9 +99,9 @@ object EmailMessageBuilder {
        |
        |                            <p><strong style="text-decoration: underline">This is an automated email - Please do not reply as emails received at this address cannot be responded to.</strong></p>
        |
-       |                            <p>Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must <strong>not</strong> be sent to DVLA.</p>
+       |                            $contentPart1
        |
-       |                            <p>Your application details are:</p>
+       |                            <p>$contentPart3 application details are:</p>
        |
        |                            <p>
        |                                Vehicle Registration Number: <strong>$registrationNumber</strong> <br />
@@ -91,7 +112,7 @@ object EmailMessageBuilder {
        |
        |                            <p>You should receive a postal acknowledgement letter within 4 weeks.</p>
        |
-       |                            <p>DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. The refund will be sent to the address on the V5C log book, which was used.</p>
+       |                            <p>DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C log book, which was used.</p>
        |
        |                            <p>You may still receive a V11 tax reminder as these are pre-printed up to 6 weeks in advance. If you do receive a V11 for this vehicle after notifying the sale, please ignore it.</p>
        |
@@ -123,22 +144,21 @@ object EmailMessageBuilder {
       """.stripMargin
 
   private def buildText(registrationNumber: String,transactionId: String,
-                        transactionTimestamp: String): String =
+                        transactionTimestamp: String, contentPart1: String, contentPart2: String, contentPart3: String): String =
 
     s"""
         |THIS IS AN AUTOMATED EMAIL - Please do not reply as emails received at this address cannot be responded to.
         |
+        |$contentPart1
         |
-        |Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must not be sent to DVLA.
-        |
-        |Your application details are:
+        |$contentPart3 application details are:
         |Vehicle Registration Number: $registrationNumber
         |Transaction ID: $transactionId
         |Application Made On: $transactionTimestamp
         |
         |You should receive a postal acknowledgement letter within 4 weeks.
         |
-        |DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. The refund will be sent to the address on the V5C log book, which was used.
+        |DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C log book, which was used.
         |
         |You may still receive a V11 tax reminder as these are pre-printed up to 6 weeks in advance. If you do receive a V11 for this vehicle after notifying the sale, please ignore it.
         |

@@ -5,18 +5,17 @@ import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
 import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
-import models.PrivateDisposeFormModel.Form.EmailOptionId
+import models.DisposeFormModelBase.Form.EmailOptionId
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
 import WebBrowser.currentUrl
 import WebBrowser.go
-import WebBrowser.pageSource
 import WebBrowser.pageTitle
-import org.scalatest.concurrent.Eventually.{eventually, PatienceConfig, scaled}
 import org.scalatest.time.{Seconds, Span}
 import pages.common.ErrorPanel
 import pages.disposal_of_vehicle.BeforeYouStartPage
+//import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage._
 import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.DisposePage.back
 import pages.disposal_of_vehicle.DisposePage.consent
@@ -30,6 +29,8 @@ import pages.disposal_of_vehicle.DisposePage.mileage
 import pages.disposal_of_vehicle.DisposePage.sadPath
 import pages.disposal_of_vehicle.DisposePage.title
 import pages.disposal_of_vehicle.DisposePage.useTodaysDate
+import pages.disposal_of_vehicle.DisposePage.emailInvisible
+import pages.disposal_of_vehicle.DisposePage.emailVisible
 import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
@@ -98,6 +99,16 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       go to DisposePage
       webDriver.findElements(By.id(EmailOptionId)).isEmpty should be (true)
     }
+
+    "display optional email for trade" taggedAs UiTag in new WebBrowserForSelenium {
+      go to BeforeYouStartPage
+      cacheSetup()
+
+      go to DisposePage
+      emailInvisible.isDisplayed should be (true)
+      emailVisible.isDisplayed should be (true)
+    }
+
   }
 
   "dispose button" should {
@@ -145,6 +156,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       dispose.underlying.getAttribute("class") should not include "disabled"
 
+      click on DisposePage.emailInvisible
+
       click on dispose
 
       // We want to wait for the javascript to execute and redirect to the next page. For build servers we may need to
@@ -173,6 +186,8 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       click on consent
       click on lossOfRegistrationConsent
+      click on DisposePage.emailInvisible
+
       click on dispose
 
       ErrorPanel.numberOfErrors should equal(1)
@@ -187,6 +202,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       click on consent
       click on lossOfRegistrationConsent
+      click on DisposePage.emailInvisible
       click on dispose
 
       ErrorPanel.numberOfErrors should equal(1)
@@ -201,6 +217,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       click on consent
       click on lossOfRegistrationConsent
+      click on DisposePage.emailInvisible
       click on dispose
 
       ErrorPanel.numberOfErrors should equal(1)
@@ -214,6 +231,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
       click on consent
       click on lossOfRegistrationConsent
+      click on DisposePage.emailInvisible
       click on dispose
 
       ErrorPanel.numberOfErrors should equal(1)
@@ -230,6 +248,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       dateOfDisposalYear.value = DateOfDisposalYearValid
       click on consent
       click on lossOfRegistrationConsent
+      click on DisposePage.emailInvisible
 
       click on dispose
 
@@ -248,6 +267,7 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
       dateOfDisposalYear.value = DateOfDisposalYearValid
       click on consent
       click on lossOfRegistrationConsent
+      click on DisposePage.emailInvisible
 
       click on dispose
 

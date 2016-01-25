@@ -9,7 +9,7 @@ import models.DisposeFormModelBase.Form.MileageId
 import models.PrivateDisposeFormModel.DisposeFormTimestampIdCacheKey
 import models.PrivateDisposeFormModel.DisposeFormTransactionIdCacheKey
 import models.PrivateDisposeFormModel.PrivateDisposeFormModelCacheKey
-import models.PrivateDisposeFormModel.Form.EmailOptionId
+import models.DisposeFormModelBase.Form.EmailOptionId
 import org.joda.time.Instant
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}

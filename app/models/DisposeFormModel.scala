@@ -3,7 +3,6 @@ package models
 import mappings.Consent.consent
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import org.joda.time.LocalDate
-import play.api.data.Forms.{optional, text}
 import play.api.data.Mapping
 import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CacheKey
@@ -16,7 +15,7 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 trait DisposeFormModelBase {
   val mileage: Option[Int]
   val dateOfDisposal: LocalDate
-  val email: Option[String]  // only applicable for private dispose
+  val email: Option[String]
   val consent: String
   val lossOfRegistrationConsent: String
 }
@@ -32,6 +31,7 @@ object DisposeFormModelBase {
     final val BackId = "back"
     final val SubmitId = "submit"
     final val EmailId = "email"
+    final val EmailOptionId = "option_email"
   }
 }
 
@@ -67,7 +67,7 @@ object DisposeFormModel extends DisposeFormModelObjectBase {
         DisposeFormModelBase.Form.MileageId -> mileage,
         DisposeFormModelBase.Form.DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
           verifying(notBefore(new LocalDate().minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
-        DisposeFormModelBase.Form.EmailId -> optional(text),
+        DisposeFormModelBase.Form.EmailOptionId -> OptionalToggle.optional(emailConfirm.withPrefix(DisposeFormModelBase.Form.EmailId)),
         DisposeFormModelBase.Form.ConsentId -> consent,
         DisposeFormModelBase.Form.LossOfRegistrationConsentId -> consent
       )(DisposeFormModel.apply)(DisposeFormModel.unapply)
@@ -80,16 +80,13 @@ object PrivateDisposeFormModel extends DisposeFormModelObjectBase {
   implicit val Key = CacheKey[PrivateDisposeFormModel](value = PrivateDisposeFormModelCacheKey)
 
   object Form {
-    final val EmailId = "email"
-    final val EmailOptionId = "option_email"
-
 
     def mapping(implicit dateService: DateService): Mapping[PrivateDisposeFormModel] =
       play.api.data.Forms.mapping(
         DisposeFormModelBase.Form.MileageId -> mileage,
         DisposeFormModelBase.Form.DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
           verifying(notBefore(new LocalDate().minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
-        EmailOptionId -> OptionalToggle.optional(emailConfirm.withPrefix(EmailId)),
+        DisposeFormModelBase.Form.EmailOptionId -> OptionalToggle.optional(emailConfirm.withPrefix(DisposeFormModelBase.Form.EmailId)),
         DisposeFormModelBase.Form.ConsentId -> consent,
         DisposeFormModelBase.Form.LossOfRegistrationConsentId -> consent
       )(PrivateDisposeFormModel.apply)(PrivateDisposeFormModel.unapply)

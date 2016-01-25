@@ -6,7 +6,7 @@ import models.DisposeFormModelBase.Form.ConsentId
 import models.DisposeFormModelBase.Form.DateOfDisposalId
 import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
 import models.DisposeFormModelBase.Form.MileageId
-import models.PrivateDisposeFormModel.Form.EmailOptionId
+import models.DisposeFormModelBase.Form.EmailOptionId
 import org.joda.time.{Instant, LocalDate}
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}

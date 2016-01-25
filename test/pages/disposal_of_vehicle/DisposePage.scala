@@ -7,7 +7,7 @@ import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
 import models.DisposeFormModelBase.Form.MileageId
 import models.DisposeFormModelBase.Form.SubmitId
 import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
-import models.PrivateDisposeFormModel.Form.EmailOptionId
+import models.DisposeFormModelBase.Form.EmailOptionId
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.Checkbox
@@ -25,7 +25,7 @@ import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common
 import common.helpers.webbrowser.Page
 import common.helpers.webbrowser.WebDriverFactory
-import common.mappings.OptionalToggle.Invisible
+import common.mappings.OptionalToggle.{Invisible, Visible}
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
@@ -49,6 +49,8 @@ object DisposePage extends Page {
 
   def emailInvisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Invisible"))
 
+  def emailVisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Visible"))
+
   def lossOfRegistrationConsent(implicit driver: WebDriver): Element = find(id(LossOfRegistrationConsentId)).get
 
   def useTodaysDate(implicit driver: WebDriver): Element = find(id(TodaysDateOfDisposal)).get
@@ -65,6 +67,8 @@ object DisposePage extends Page {
     dateOfDisposalYear.value = DateOfDisposalYearValid
     click on consent
     click on lossOfRegistrationConsent
+    click on DisposePage.emailInvisible
+
     click on dispose
   }
 
@@ -73,6 +77,7 @@ object DisposePage extends Page {
     dateOfDisposalDay.value = ""
     dateOfDisposalMonth.value = ""
     dateOfDisposalYear.value = ""
+    click on DisposePage.emailInvisible
     click on dispose
   }
 }

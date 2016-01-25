@@ -64,6 +64,7 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehi
     DisposePage.dateOfDisposalYear.value = DateOfDisposalYearValid
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
+    click on DisposePage.emailInvisible
     click on DisposePage.dispose
   }
 

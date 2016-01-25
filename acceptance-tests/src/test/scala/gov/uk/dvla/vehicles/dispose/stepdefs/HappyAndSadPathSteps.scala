@@ -38,6 +38,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dv
     pageTitle shouldEqual DisposePage.title withClue trackingId
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
+    click on DisposePage.emailInvisible
     enterValidDisposalDate()
   }
 
@@ -100,6 +101,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dv
     pageTitle shouldEqual DisposePage.title withClue trackingId
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
+    click on DisposePage.emailInvisible
     enterValidDisposalDate()
   }
 

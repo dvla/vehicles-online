@@ -6,8 +6,8 @@ import models.DisposeFormModelBase.Form.DateOfDisposalId
 import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
 import models.DisposeFormModelBase.Form.MileageId
 import models.DisposeFormModelBase.Form.SubmitId
-import models.PrivateDisposeFormModel.Form.EmailOptionId
-import models.PrivateDisposeFormModel.Form.EmailId
+import models.DisposeFormModelBase.Form.EmailOptionId
+import models.DisposeFormModelBase.Form.EmailId
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.Checkbox

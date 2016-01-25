@@ -254,7 +254,7 @@ disposal_disposeconfirmation.disposedto = Trader details
 disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
-disposal_disposeconfirmation.keeperDetails.email = Contact email address
+#disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 =a letter will be sent to the name and address on the V5C within 4 weeks.
 disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C within 4 weeks.
 disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in this time they must contact DVLA customer enquiries as they could still be liable for this vehicle.
@@ -280,6 +280,7 @@ disposal_disposeconfirmation.survey = Take a survey
 disposal_disposeconfirmation.transactionDetails = Transaction details
 disposal_disposeconfirmation.email = Email
 disposal_disposeconfirmation.emailNotEntered = Not entered
+disposal_disposeconfirmation.selleremailoption = Does the seller of this vehicle want email confirmation of the sale?
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Buying a vehicle into trade: failure

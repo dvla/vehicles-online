@@ -15,8 +15,8 @@
 @import models.DisposeFormModelBase.Form.MileageId
 @import models.DisposeFormModelBase.Form.SubmitId
 @import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
-@import models.PrivateDisposeFormModel.Form.EmailOptionId
-@import models.PrivateDisposeFormModel.Form.EmailId
+@import models.DisposeFormModelBase.Form.EmailOptionId
+@import models.DisposeFormModelBase.Form.EmailId
 @import scala.collection.mutable.LinkedHashMap
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.mappings.Email.EmailMaxLength
@@ -135,20 +135,20 @@
                    (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil)
                 )
 
-                @if(isPrivateKeeper){
-                      @optionalToggle(
-                          disposeForm(EmailOptionId),
-                          Messages("disposal_businesskeeperdetails.traderemailoption"),
-                          Messages("disposal_businesskeeperdetails.traderemailoption.yes"),
-                          Messages("disposal_businesskeeperdetails.traderemailoption.no"),
-                          email(
-                              disposeForm(EmailId),
-                              labelText = Messages("disposal_businesskeeperdetails.email"),
-                              hintText = None,
-                              args = Map('maxLength -> EmailMaxLength)
-                                     )
-                          )
-                }
+                @optionalToggle(
+                  disposeForm(EmailOptionId),
+                  if(isPrivateKeeper)
+                    Messages("disposal_businesskeeperdetails.traderemailoption")
+                  else Messages("disposal_disposeconfirmation.selleremailoption"),
+                  Messages("disposal_businesskeeperdetails.traderemailoption.yes"),
+                  Messages("disposal_businesskeeperdetails.traderemailoption.no"),
+                  email(
+                      disposeForm(EmailId),
+                      labelText = Messages("disposal_businesskeeperdetails.email"),
+                      hintText = None,
+                      args = Map('maxLength -> EmailMaxLength)
+                  )
+                )
 
                 @alertWarning() { <p>@Messages("disposal_dispose.warning")</p> }
 

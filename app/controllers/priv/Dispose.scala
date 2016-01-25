@@ -1,20 +1,14 @@
 package controllers.priv
 
 import com.google.inject.Inject
-import email.EmailMessageBuilder
-import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.PrivateDisposeFormModel
 import play.api.data.Form
-import play.api.mvc.{Result, Request}
-import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.ClientSideSessionFactory
-import common.clientsidesession.CookieImplicits.RichCookies
-import common.clientsidesession.CookieImplicits.RichForm
-import common.clientsidesession.CookieImplicits.RichResult
-import common.model.VehicleAndKeeperDetailsModel
-import common.services.DateService
-import common.webserviceclients.emailservice.EmailService
-import common.webserviceclients.healthstats.HealthStats
+import play.api.mvc.{Request, Result}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichForm, RichResult}
+import uk.gov.dvla.vehicles.presentation.common.services.DateService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
 import webserviceclients.dispose.DisposeService
 
@@ -27,7 +21,7 @@ class Dispose @Inject()(webService: DisposeService,
   controllers.DisposeBase[PrivateDisposeFormModel](webService, emailService, dateService, healthStats) with PrivateKeeperController {
 
   def form = Form(
-    models.PrivateDisposeFormModel.Form.mapping(dateService)
+    PrivateDisposeFormModel.Form.mapping(dateService)
   )
 
   override def fill(form: Form[PrivateDisposeFormModel])
@@ -42,7 +36,7 @@ class Dispose @Inject()(webService: DisposeService,
 
   override def onDisposeSuccessAction(transactionId: String, model: PrivateDisposeFormModel)
                                      (implicit request: Request[_]) =
-    createAndSendEmail(transactionId, model.email)
+    createAndSendEmail(true, transactionId, model.email)
 
   override protected val formTarget = routes.Dispose.submit()
   override protected val backLink = routes.VehicleLookup.present()
@@ -64,34 +58,4 @@ class Dispose @Inject()(webService: DisposeService,
   override protected val PreventGoingToDisposePageCacheKey =
     models.PrivateDisposeFormModel.PreventGoingToDisposePageCacheKey
 
-  /**
-   * Calling this method on a successful submission, will send an email if we have the new keeper details.
-   */
-  def createAndSendEmail(transactionId: String, email: Option[String])(implicit request: Request[_]) = {
-    email match {
-      case Some(emailAddr) =>
-        import scala.language.postfixOps
-
-        import common.services.SEND
-
-        implicit val emailConfiguration = config.emailConfiguration
-        implicit val implicitEmailService = implicitly[EmailService](emailService)
-        implicit val implicitDateService = implicitly[DateService](dateService)
-        implicit val implicitHealthStats = implicitly[HealthStats](healthStats)
-
-        val vehicleDetails = request.cookies.getModel[VehicleAndKeeperDetailsModel]
-
-        val registrationNumber = vehicleDetails.map(_.registrationNumber).getOrElse("")
-
-        val template = EmailMessageBuilder.buildWith(vehicleDetails, transactionId, config.imagesPath)
-
-        logMessage(request.cookies.trackingId(), Info, s"Sending email message via SEND service...")
-
-        // This sends the email.
-        val subject = s"$registrationNumber Confirmation of new vehicle keeper"
-        SEND email template withSubject subject to emailAddr send request.cookies.trackingId
-
-      case None => logMessage(request.cookies.trackingId(), Warn, s"Tried to send an email with no keeper details")
-    }
-  }
 }

@@ -1,5 +1,6 @@
 package controllers
 
+import email.EmailMessageBuilder
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModelBase
 import models.DisposeFormModelBase.Form.ConsentId
@@ -432,5 +433,39 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
       .withSubject(message2Title)
       .to(email)
       .send(request.cookies.trackingId)
+  }
+
+    /**
+   * Calling this method on a successful submission, will send an email
+   */
+  def createAndSendEmail(isPrivate: Boolean, transactionId: String, email: Option[String])(implicit request: Request[_]) = {
+    email match {
+      case Some(emailAddr) =>
+        import scala.language.postfixOps
+
+        import common.services.SEND
+
+        implicit val emailConfiguration = config.emailConfiguration
+        implicit val implicitEmailService = implicitly[EmailService](emailService)
+        implicit val implicitDateService = implicitly[DateService](dateService)
+        implicit val implicitHealthStats = implicitly[HealthStats](healthStats)
+
+        val vehicleDetails = request.cookies.getModel[VehicleAndKeeperDetailsModel]
+
+        val registrationNumber = vehicleDetails.map(_.registrationNumber).getOrElse("")
+
+        val template = EmailMessageBuilder.buildWith(vehicleDetails, transactionId, config.imagesPath, new DateTime, isPrivate)
+
+        logMessage(request.cookies.trackingId(), Info, s"Sending email message via SEND service...")
+
+        // This sends the email.
+        var subjectDetail = s"Confirmation of new vehicle keeper"
+        if (!isPrivate)
+          subjectDetail = s"Confirmation of selling to motor trade"
+        val subject = s"$registrationNumber " + subjectDetail
+        SEND email template withSubject subject to emailAddr send request.cookies.trackingId
+
+      case None => logMessage(request.cookies.trackingId(), Warn, s"Tried to send an email with no email address")
+    }
   }
 }
