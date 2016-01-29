@@ -7,6 +7,7 @@ import play.api.mvc.Call
 case class BusinessChooseYourAddressViewModel(businessChooseYourAddressForm: Form[models.BusinessChooseYourAddressFormModel],
                                               traderBusinessName: String,
                                               traderPostcode: String,
+                                              traderEmail: Option[String],
                                               dropDownOptions: Seq[(String, String)],
                                               submit: Call,
                                               manualAddressEntry: Call,

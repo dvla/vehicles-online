@@ -96,12 +96,9 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
                               transactionId: Option[String],
                               registrationNumber: String): DisposeViewModel =
     DisposeViewModel(
-      vehicleMake = vehicleDetails.make,
-      vehicleModel = vehicleDetails.model,
-      dealerName = traderDetails.traderName,
-      dealerAddress = traderDetails.traderAddress.address,
-      transactionId = transactionId,
-      registrationNumber = registrationNumber
+      vehicleDetails,
+      traderDetails,
+      transactionId
     )
 }
 

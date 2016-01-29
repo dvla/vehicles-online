@@ -27,6 +27,9 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dv
     pageTitle shouldEqual SetupTradeDetailsPage.title withClue trackingId
     SetupTradeDetailsPage.traderName.value = "trader1"
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
+    click on SetupTradeDetailsPage.emailVisible
+    SetupTradeDetailsPage.traderEmail.value = "C@GMAIL.COM"
+    SetupTradeDetailsPage.traderConfirmEmail.value = "C@GMAIL.COM"
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
     BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine
@@ -90,6 +93,7 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dv
     pageTitle shouldEqual SetupTradeDetailsPage.title withClue trackingId
     SetupTradeDetailsPage.traderName.value = "traer1"
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
+    click on SetupTradeDetailsPage.emailInvisible
     click on SetupTradeDetailsPage.lookup
     pageTitle shouldEqual BusinessChooseYourAddressPage.title withClue trackingId
     BusinessChooseYourAddressPage.chooseAddress.value = BusinessChooseYourAddressPage.selectedAddressLine

@@ -12,10 +12,16 @@
 @import uk.gov.dvla.vehicles.presentation.common
 @import common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
 @import common.mappings.BusinessName
+@import common.mappings.Email.EmailMaxLength
 @import common.mappings.Postcode
+@import common.model.SetupTradeDetailsFormModel.Form.TraderEmailId
+@import common.model.SetupTradeDetailsFormModel.Form.TraderEmailOptionId
 @import common.views.helpers.BaseTemplate.fieldConstructor
 @import common.views.html.widgets.base.valtechInputText
 @import common.views.html.widgets.base.csrfTokenHiddenField
+@import common.views.html.widgets.email
+@import common.views.html.widgets.optionalToggle
+
 
 @main(
     title = Messages("disposal_setuptradedetails.title"),
@@ -42,6 +48,22 @@
                     Map('_label -> Messages("disposal_setuptradedetails.traderpostcodelabel"),
                     '_showConstraints -> false,
                     'maxLength -> Postcode.MaxLength))
+        </div>
+        @if(!isPrivateKeeper) {
+            @optionalToggle(
+              traderLookupForm(TraderEmailOptionId),
+              Messages("disposal_businesskeeperdetails.traderemailoption"),
+              Messages("disposal_businesskeeperdetails.traderemailoption.yes"),
+              Messages("disposal_businesskeeperdetails.traderemailoption.no"),
+              email(
+                  traderLookupForm(TraderEmailId),
+                  labelText = Messages("disposal_businesskeeperdetails.traderemaillabel"),
+                  hintText = None,
+                  args = Map('maxLength -> EmailMaxLength)
+              )
+            )
+        }
+
 
             <div class="form-steps">
                 <button id="@SubmitId" type="submit" name="action" class="button">

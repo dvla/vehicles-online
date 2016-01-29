@@ -14,6 +14,7 @@ import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
 import models.DisposeFormModelBase.Form.MileageId
 import models.DisposeFormModelBase.Form.EmailOptionId
 import models.DisposeFormModelBase.Form.EmailId
+import play.api.mvc.AnyContentAsFormUrlEncoded
 import uk.gov.dvla.vehicles.presentation.common.mappings.Email.{EmailId => EmailEnterId, _}
 import org.joda.time.{LocalDate, Instant}
 import org.mockito.ArgumentCaptor
@@ -71,6 +72,7 @@ import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseFailureW
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseSuccess
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUnableToProcessApplication
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseUndefinedError
+import webserviceclients.fakes.FakeDisposeWebServiceImpl.disposeResponseFurtherActionRequired
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.{FakeDisposeWebServiceImpl, FakeResponse}
@@ -640,6 +642,43 @@ class DisposeUnitSpec extends UnitSpec {
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
       }
     }
+
+    "send two internal emails when further action required" in new WithApplication {
+      verifyEmail(buildCorrectlyPopulatedRequestNoEmail,
+        disposeResponse = disposeResponseFurtherActionRequired,
+        traderEmail = None,
+        expected = times(2)
+      )
+    }
+
+    "not send any confirmation of sale email" in new WithApplication {
+      verifyEmail(req = buildCorrectlyPopulatedRequestNoEmail,
+        traderEmail = None,
+        expected = never()
+      )
+    }
+
+    "send confirmation of sale email to trader" in new WithApplication {
+       verifyEmail(req = buildCorrectlyPopulatedRequestNoEmail,
+         traderEmail = Some(EmailValid),
+         expected = times(1)
+       )
+    }
+
+    "send confirmation email to seller" in new WithApplication {
+       verifyEmail(req = buildCorrectlyPopulatedRequestWithEmail,
+         traderEmail = None,
+         expected = times(1)
+       )
+    }
+
+    "send confirmation email to trader and seller" in new WithApplication {
+       verifyEmail(req = buildCorrectlyPopulatedRequestWithEmail,
+         traderEmail = Some(EmailValid),
+         expected = times(2)
+       )
+    }
+
   }
 
   private val dateValid: String = DayMonthYear(
@@ -826,4 +865,36 @@ class DisposeUnitSpec extends UnitSpec {
       keeperConsent = keeperConsent,
       mileage = mileage
     )
+
+    private def verifyEmail(req: FakeRequest[AnyContentAsFormUrlEncoded],
+                            disposeResponse: DisposeResponseDto = disposeResponseSuccess,
+                            traderEmail: Option[String],
+                            expected: org.mockito.verification.VerificationMode) {
+
+      val request = req
+      .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(traderEmail = traderEmail))
+      .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
+      .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
+
+    val disposeWebServiceMock =  disposeWebService()
+    when(disposeWebServiceMock.callDisposeService(any[DisposeRequestDto], any[TrackingId]))
+      .thenReturn(Future.successful {
+        val responseAsJson = Json.toJson(disposeResponse)
+        new FakeResponse(status = OK, fakeJson = Some(responseAsJson))
+        })
+
+    val emailServiceMock = emailServiceMocked
+
+    val disposeSuccess = disposeController(
+      disposeWebService = disposeWebServiceMock,
+      emailServiceMock
+    )
+
+    val result = disposeSuccess.submit(request)
+    whenReady(result) { r =>
+      r.header.headers.get(LOCATION) should equal(Some(DisposeSuccessPage.address))
+      verify(emailServiceMock, expected).invoke(any[EmailServiceSendRequest], any[TrackingId])
+    }
+  }
+
 }

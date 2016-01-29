@@ -127,6 +127,8 @@ disposal_setuptradedetails.traderpostcode.hint = eg. AB1 2BA or AB12BA
 disposal_setuptradedetails.button = Find address
 traderName = Trader name
 traderPostcode = Postcode
+traderEmail = Trader email address
+traderEmailOption = Email confirmation
 
 #page 3
 disposal_businessChooseYourAddress_title = Select trader address
@@ -240,7 +242,7 @@ mileage = Mileage
 disposal_businesskeeperdetails.traderemailoption = Do you want an email confirmation of the sale?
 disposal_businesskeeperdetails.traderemailoption.yes = Yes
 disposal_businesskeeperdetails.traderemailoption.no = No
-disposal_businesskeeperdetails.email = Your email address
+disposal_businesskeeperdetails.traderemaillabel = Your email address
 
 #page 6 - summary
 disposal_disposeconfirmation.title = Summary
@@ -254,7 +256,7 @@ disposal_disposeconfirmation.disposedto = Trader details
 disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
-#disposal_disposeconfirmation.keeperDetails.email = Contact email address
+disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 =a letter will be sent to the name and address on the V5C within 4 weeks.
 disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C within 4 weeks.
 disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in this time they must contact DVLA customer enquiries as they could still be liable for this vehicle.

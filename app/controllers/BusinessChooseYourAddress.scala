@@ -43,6 +43,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
               form.fill(),
               setupTradeDetailsModel.traderBusinessName,
               setupTradeDetailsModel.traderPostcode,
+              setupTradeDetailsModel.traderEmail,
               addresses,
               submitCall, manualAddressEntryCall, backCall
             )
@@ -64,6 +65,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                     formWithReplacedErrors(invalidForm),
                     setupTradeDetails.traderBusinessName,
                     setupTradeDetails.traderPostcode,
+                    setupTradeDetails.traderEmail,
                     addresses,
                     submitCall, manualAddressEntryCall, backCall
                   )
@@ -109,13 +111,16 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
         val lookedUpAddress = model.uprnSelected
         val addressModel = AddressModel(uprn = None, address = lookedUpAddress.split(",") map (line => line.trim))
-        nextPage(model, setupBusinessDetailsForm.traderBusinessName, addressModel)
+        nextPage(model, setupBusinessDetailsForm.traderBusinessName, addressModel, setupBusinessDetailsForm.traderEmail)
     }
   }
 
-  private def nextPage(model: BusinessChooseYourAddressFormModel, traderName: String, addressModel: AddressModel)
+  private def nextPage(model: BusinessChooseYourAddressFormModel,
+                       traderName: String,
+                       addressModel: AddressModel,
+                       traderEmail: Option[String])
                       (implicit request: Request[_], session: ClientSideSession): Result = {
-    val traderDetailsModel = TraderDetailsModel(traderName = traderName, traderAddress = addressModel)
+    val traderDetailsModel = TraderDetailsModel(traderName = traderName, traderAddress = addressModel, traderEmail = traderEmail)
     /* The redirect is done as the final step within the map so that:
      1) we are not blocking threads
      2) the browser does not change page before the future has completed and written to the cache. */

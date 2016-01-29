@@ -1,4 +1,4 @@
-@(data: models.DisposeViewModel,
+@(viewModel: models.DisposeViewModel,
         disposeForm: Form[_],
         dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService,
         submitCall: Call,
@@ -29,6 +29,7 @@
 @import common.views.html.widgets.alertWarning
 @import common.views.html.widgets.email
 @import common.views.html.widgets.optionalToggle
+@import common.views.html.widgets.vehicleDetailPlayback
 @import common.views.html.widgets.playbackList
 @import views.html.disposal_of_vehicle.main
 @import views.html.helper.form
@@ -47,31 +48,23 @@
         <div class="two-col clearfix">
 
             <div class="disposal-info first-col">
-                @playbackList(
-                    Messages("disposal_playback.vehicledetails"),
-                    {
-                        val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                        val flaggedRegNumberLabel: String = "REG_" + Messages("disposal_playback.vehiclereg")
-                        playbackItems += (flaggedRegNumberLabel -> data.registrationNumber)
-
-                        data.vehicleMake match {
-                            case Some(make) => playbackItems += (Messages("disposal_playback.vehiclemake") -> make)
-                            case None => playbackItems
-                        }
-
-                        data.vehicleModel match {
-                            case Some(model) => playbackItems += (Messages("disposal_playback.vehiclemodel") -> model)
-                            case None => playbackItems
-                        }
-                    }
+                @vehicleDetailPlayback(
+                    vehicleDetails = viewModel.vehicleDetails,
+                    cssClasses = List("related")
                 )()
 
                 @playbackList(
                     Messages("disposal_vehiclelookup.p2"),
                     {
                         val playbackItems: LinkedHashMap[String, String] = LinkedHashMap();
-                        playbackItems += (Messages("disposal_vehiclelookup.tradernamelabel") -> data.dealerName)
-                        playbackItems += (Messages("disposal_vehiclelookup.traderaddresslabel") -> data.dealerAddress.mkString("<br/>"))
+                        playbackItems += (Messages("disposal_vehiclelookup.tradernamelabel") -> viewModel.traderDetails.traderName)
+                        playbackItems += (Messages("disposal_vehiclelookup.traderaddresslabel") -> viewModel.traderDetails.traderAddress.address.mkString("<br/>"))
+                        if(!isPrivateKeeper)
+                            viewModel.traderDetails.traderEmail match {
+                                case Some(email) => playbackItems += ("EMAIL_" + Messages("disposal_disposeconfirmation.email") -> email)
+                                case None => playbackItems += (Messages("disposal_disposeconfirmation.email") ->
+                                    Messages("disposal_disposeconfirmation.emailNotEntered"))}
+                        playbackItems
                     }
                 )()
             </div>
@@ -144,7 +137,7 @@
                   Messages("disposal_businesskeeperdetails.traderemailoption.no"),
                   email(
                       disposeForm(EmailId),
-                      labelText = Messages("disposal_businesskeeperdetails.email"),
+                      labelText = Messages("disposal_businesskeeperdetails.traderemaillabel"),
                       hintText = None,
                       args = Map('maxLength -> EmailMaxLength)
                   )

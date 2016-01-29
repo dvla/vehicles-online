@@ -32,6 +32,7 @@ class DemoTestSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehi
     pageTitle shouldEqual SetupTradeDetailsPage.title withClue trackingId
     SetupTradeDetailsPage.traderName.value = "sudotrader"
     SetupTradeDetailsPage.traderPostcode.value = "qq99qq"
+    click on SetupTradeDetailsPage.emailInvisible
     click on SetupTradeDetailsPage.lookup
   }
 

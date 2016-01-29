@@ -17,7 +17,7 @@
 @import common.views.html.widgets.base.csrfTokenHiddenField
 @import common.views.html.widgets.formSteps
 @import common.views.html.widgets.playbackList
-@import common.views.html.widgets.registrationNumber
+@import common.views.html.widgets.vehicleDetailPlayback
 @import common.views.html.widgets.xmasOpeningTimes
 @import views.disposal_of_vehicle.DisposeSuccess.{ExitDisposalId, NewDisposalId}
 @import views.html.disposal_of_vehicle.main
@@ -76,24 +76,11 @@
             }
         )()
 
-        @playbackList(
-            Messages("disposal_playback.vehicledetails"),
+        @vehicleDetailPlayback(
+            viewModel.vehicleDetails,
             {
-                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                val flaggedRegNumberLabel: String = "REG_" + Messages("disposal_playback.vehiclereg")
-                playbackItems += (flaggedRegNumberLabel -> viewModel.registrationNumber)
-
-                viewModel.vehicleMake match {
-                    case Some(make) => playbackItems += (Messages("disposal_playback.vehiclemake") -> make)
-                    case None => playbackItems
-                }
-
-                viewModel.vehicleModel match {
-                    case Some(model) => playbackItems += (Messages("disposal_playback.vehiclemodel") -> model)
-                    case None => playbackItems
-                }
-
-                playbackItems += (
+                val additionalPlaybackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                additionalPlaybackItems += (
                     Messages("disposal_disposeconfirmation.mileage") ->
                     (formModel.mileage match {
                         case Some(mileage) => java.text.NumberFormat.getIntegerInstance().format(mileage)
@@ -108,26 +95,30 @@
             Messages("disposal_disposeconfirmation.disposedto"),
             {
                 val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                playbackItems += (Messages("disposal_disposeconfirmation.trader_name") -> viewModel.dealerName)
-                playbackItems += (Messages("disposal_disposeconfirmation.trader_address") -> viewModel.dealerAddress.mkString("<br/>"))
+                playbackItems += (Messages("disposal_disposeconfirmation.trader_name") -> viewModel.traderDetails.traderName)
+                playbackItems += (Messages("disposal_disposeconfirmation.trader_address") -> viewModel.traderDetails.traderAddress.address.mkString("<br/>"))
                 playbackItems += (Messages("disposal_disposeconfirmation.disposaldate") -> formModel.dateOfDisposal.toString("dd/MM/yyy"))
+                if(!isPrivateKeeper)
+                    viewModel.traderDetails.traderEmail match {
+                        case Some(email) => playbackItems += ("EMAIL_" + Messages("disposal_disposeconfirmation.email") -> email)
+                        case None => playbackItems += (Messages("disposal_disposeconfirmation.email") ->
+                            Messages("disposal_disposeconfirmation.emailNotEntered"))}
+                playbackItems
             },
             List("related", "bg-plain")
         )()
 
-        @(if(isPrivateKeeper) {
-            playbackList(
-                Messages("disposal_disposeconfirmation.keeperDetails"),
-                {
-                    val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
-                    formModel.email match {
-                        case Some(email) => playbackItems += ("EMAIL_" + Messages("disposal_disposeconfirmation.email") -> email)
-                        case None => playbackItems += (Messages("disposal_disposeconfirmation.email") ->
-                            Messages("disposal_disposeconfirmation.emailNotEntered"))}
-                },
-                List("related", "bg-plain")
-            )()
-        })
+        @playbackList(
+            Messages("disposal_disposeconfirmation.keeperDetails"),
+            {
+                val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+                formModel.email match {
+                    case Some(email) => playbackItems += ("EMAIL_" + Messages("disposal_disposeconfirmation.keeperDetails.email") -> email)
+                    case None => playbackItems += (Messages("disposal_disposeconfirmation.keeperDetails.email") ->
+                        Messages("disposal_disposeconfirmation.emailNotEntered"))}
+            },
+            List("related", "bg-plain")
+        )()
     </div>
 
     @formSteps(

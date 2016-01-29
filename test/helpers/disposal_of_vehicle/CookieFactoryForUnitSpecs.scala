@@ -78,10 +78,15 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     createCookie(key, value)
   }
 
-  def setupTradeDetails(traderPostcode: String = PostcodeValid): Cookie = {
+  def setupTradeDetails(traderBusinessName: String = TraderBusinessNameValid,
+                        traderPostcode: String = PostcodeValid,
+                        traderEmail: Option[String] = None): Cookie = {
     val key = setupTradeDetailsCacheKey
-    val value = SetupTradeDetailsFormModel(traderBusinessName = TraderBusinessNameValid,
-      traderPostcode = traderPostcode, traderEmail = None)
+    val value = SetupTradeDetailsFormModel(
+      traderBusinessName,
+      traderPostcode,
+      traderEmail
+      )
     createCookie(key, value)
   }
 
@@ -112,14 +117,16 @@ object CookieFactoryForUnitSpecs extends TestComposition {
                          line2: String = Line2Valid,
                          line3: String = Line3Valid,
                          postTown: String = PostTownValid,
-                         traderPostcode: String = PostcodeValid): Cookie = {
+                         traderPostcode: String = PostcodeValid,
+                         traderEmail: Option[String] = None): Cookie = {
     val key = traderDetailsCacheKey
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(
         uprn = uprn,
         address = Seq(buildingNameOrNumber, line2, line3, postTown, traderPostcode)
-      )
+      ),
+      traderEmail = traderEmail
     )
     createCookie(key, value)
   }
@@ -221,7 +228,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
   def vehicleLookupResponseCode(responseCode: String = "disposal_vehiclelookupfailure"): Cookie =
     createCookie(VehicleLookupResponseCodeCacheKey, responseCode)
 
-  def disposeFormModel(mileage: Option[Int] = None): Cookie = {
+  def disposeFormModel(mileage: Option[Int] = None,
+                        sellerEmail: Option[String] = None): Cookie = {
     val key = DisposeFormModelCacheKey
     val value = DisposeFormModel(
       mileage = mileage,
@@ -232,7 +240,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
       ),
       consent = FakeDisposeWebServiceImpl.ConsentValid,
       lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid,
-      email = None
+      email = sellerEmail
     )
     createCookie(key, value)
   }

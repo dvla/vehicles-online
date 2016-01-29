@@ -1,8 +1,7 @@
 package models
 
-final case class DisposeViewModel(vehicleMake: Option[String],
-                                  vehicleModel: Option[String],
-                                  dealerName: String,
-                                  dealerAddress: Seq[String],
-                                  transactionId: Option[String] = None,
-                                  registrationNumber: String)
+import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
+
+final case class DisposeViewModel(vehicleDetails: VehicleAndKeeperDetailsModel,
+                                  traderDetails: TraderDetailsModel,
+                                  transactionId: Option[String] = None)

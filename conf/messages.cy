@@ -127,6 +127,8 @@ disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA
 disposal_setuptradedetails.button = Chwiliwch am y cyfeiriad
 traderName = Enw''r masnachwr
 traderPostcode = Côd post
+traderEmail = Trader email address
+traderEmailOption = Email confirmation
 
 #page 3
 disposal_businessChooseYourAddress_title = Dewiswch gyfeiriad y masnachwr
@@ -236,7 +238,7 @@ mileage = Milltiredd
 disposal_businesskeeperdetails.traderemailoption = Ydych chi eisiau cadarnhad ebost y gwerthiant?
 disposal_businesskeeperdetails.traderemailoption.yes = Ydy
 disposal_businesskeeperdetails.traderemailoption.no = Na
-disposal_businesskeeperdetails.email = Eich cyfeiriad ebost
+disposal_businesskeeperdetails.traderemaillabel = Eich cyfeiriad ebost
 
 #page 6 - summary
 disposal_disposeconfirmation.title = Crynodeb
@@ -250,7 +252,7 @@ disposal_disposeconfirmation.disposedto = Gwerthwyd i
 disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
-#disposal_disposeconfirmation.keeperDetails.email = Contact email address
+disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.

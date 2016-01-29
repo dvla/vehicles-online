@@ -39,6 +39,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicl
     goToSetupTradeDetailsPage()
     SetupTradeDetailsPage.traderName.value = "Big Motors Limited"
     SetupTradeDetailsPage.traderPostcode.value = "AA99 1AA"
+    click on SetupTradeDetailsPage.emailInvisible
     click on SetupTradeDetailsPage.lookup
     pageTitle should equal(BusinessChooseYourAddressPage.title) withClue trackingId
     click on BusinessChooseYourAddressPage.manualAddress

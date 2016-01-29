@@ -31,6 +31,12 @@
                     val playbackItems: LinkedHashMap[String, String] = LinkedHashMap();
                     playbackItems += (Messages("disposal_vehiclelookup.tradernamelabel") -> viewModel.traderName)
                     playbackItems += (Messages("disposal_vehiclelookup.traderaddresslabel") -> viewModel.address.mkString("<br/>"))
+                    if(!isPrivateKeeper)
+                        viewModel.traderEmail match {
+                            case Some(email) => playbackItems += ("EMAIL_" + Messages("disposal_disposeconfirmation.email") -> email)
+                            case None => playbackItems += (Messages("disposal_disposeconfirmation.email") ->
+                                Messages("disposal_disposeconfirmation.emailNotEntered"))}
+                    playbackItems
                 }
             )()
 

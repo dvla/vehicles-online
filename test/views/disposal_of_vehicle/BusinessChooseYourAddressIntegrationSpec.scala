@@ -27,6 +27,7 @@ import WebBrowser.pageSource
 import WebBrowser.pageTitle
 import pages.common.ErrorPanel
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
+import pages.common.Feedback._
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage.{back, happyPath, manualAddress, sadPath}
@@ -44,6 +45,13 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       cacheSetup()
       go to BusinessChooseYourAddressPage
       pageTitle should equal(BusinessChooseYourAddressPage.title)
+    }
+
+    "contain feedback email facility with appropriate subject" taggedAs UiTag in new WebBrowserForSelenium {
+      go to BeforeYouStartPage
+      cacheSetup()
+      go to BusinessChooseYourAddressPage
+      pageSource.contains(FeedbackLink) should equal(true)
     }
 
     "redirect when no traderBusinessName is cached" taggedAs UiTag in new WebBrowserForSelenium {

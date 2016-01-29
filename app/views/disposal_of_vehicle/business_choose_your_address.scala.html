@@ -33,6 +33,12 @@
                 playbackItems += Messages("disposal_businessChooseYourAddress_businessName_label") ->
                     Messages("disposal_businessChooseYourAddress_businessName", viewModel.traderBusinessName)
                 playbackItems += Messages("disposal_businessChooseYourAddress_postcode_label") -> viewModel.traderPostcode
+                if(!isPrivateKeeper)
+                    viewModel.traderEmail match {
+                        case Some(email) => playbackItems += ("EMAIL_" + Messages("disposal_disposeconfirmation.email") -> email)
+                        case None => playbackItems += (Messages("disposal_disposeconfirmation.email") ->
+                            Messages("disposal_disposeconfirmation.emailNotEntered") )}
+                playbackItems
             }
         )()
 

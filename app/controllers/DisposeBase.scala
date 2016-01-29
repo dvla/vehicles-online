@@ -33,7 +33,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
   (webService: DisposeService, emailService: EmailService, dateService: DateService, healthStats: HealthStats)
   (implicit clientSideSessionFactory: ClientSideSessionFactory, config: Config) extends BusinessController {
 
-  def onDisposeSuccessAction(transactionId: String, model: FormModel)(implicit request: Request[_])
+  def onDisposeSuccessAction(transactionId: String, model: FormModel, traderEmail: Option[String])(implicit request: Request[_])
   def form: Form[FormModel]
   def fill(form: Form[FormModel])
           (implicit request: Request[_], clientSideSessionFactory: ClientSideSessionFactory): Form[FormModel]
@@ -155,11 +155,8 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
   private def createViewModel(traderDetails: TraderDetailsModel,
                               vehicleDetails: VehicleAndKeeperDetailsModel): DisposeViewModel =
     DisposeViewModel(
-      registrationNumber = vehicleDetails.registrationNumber,
-      vehicleMake = vehicleDetails.make,
-      vehicleModel = vehicleDetails.model,
-      dealerName = traderDetails.traderName,
-      dealerAddress = traderDetails.traderAddress.address
+        vehicleDetails,
+        traderDetails
     )
 
   private def doDisposeAction(webService: DisposeService, disposeFormModel: FormModel)
@@ -193,7 +190,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
 
       webService.invoke(disposeRequest, request.cookies.trackingId()).map {
         case (httpResponseCode, response) =>
-          Some(Redirect(nextPage(httpResponseCode, response, disposeRequest)))
+          Some(Redirect(nextPage(httpResponseCode, response, disposeRequest, traderDetails.traderEmail)))
             .map(withModelCookie(_, disposeFormModel))
             .map(storeResponseInCache(response, _))
             .map(transactionTimestamp)
@@ -272,7 +269,8 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
 
     def nextPage(statusCode: Int,
                  disposeResponse: Option[DisposeResponseDto],
-                 disposeRequest: DisposeRequestDto): Call =
+                 disposeRequest: DisposeRequestDto,
+                 traderEmail: Option[String]): Call =
       statusCode match {
         case OK =>
           logMessage(request.cookies.trackingId(), Debug,
@@ -289,7 +287,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
             }
           }
           // OK should always contain a disposeResponse
-          onDisposeSuccessAction(disposeResponse.get.disposeResponse.transactionId, disposeFormModel)
+          onDisposeSuccessAction(disposeResponse.get.disposeResponse.transactionId, disposeFormModel, traderEmail)
           onDisposeSuccess
         case INTERNAL_SERVER_ERROR =>
           val call = for {
@@ -438,7 +436,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     /**
    * Calling this method on a successful submission, will send an email
    */
-  def createAndSendEmail(isPrivate: Boolean, transactionId: String, email: Option[String])(implicit request: Request[_]) = {
+  protected def createAndSendEmail(toTrader: Boolean, isPrivate: Boolean, transactionId: String, email: Option[String])(implicit request: Request[_]) = {
     email match {
       case Some(emailAddr) =>
         import scala.language.postfixOps
@@ -454,7 +452,12 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
 
         val registrationNumber = vehicleDetails.map(_.registrationNumber).getOrElse("")
 
-        val template = EmailMessageBuilder.buildWith(vehicleDetails, transactionId, config.imagesPath, new DateTime, isPrivate)
+        val template = EmailMessageBuilder.buildWith(vehicleDetails,
+          transactionId,
+          config.imagesPath,
+          new DateTime,
+          isPrivate,
+          toTrader)
 
         logMessage(request.cookies.trackingId(), Info, s"Sending email message via SEND service...")
 

@@ -113,6 +113,13 @@ object FakeDisposeWebServiceImpl {
       )
     )
 
+  val disposeResponseFurtherActionRequired = DisposeResponseDto(
+    Some(MicroserviceResponse("X0001", "ms.vehiclesService.response.furtherActionRequired")),
+    DisposeResponse(transactionId = TransactionIdValid.value,
+      registrationNumber = "",
+      auditId = "")
+  )
+
   final val ConsentValid = "true"
   final val MileageValid = "20000"
   final val MileageInvalid = "INVALID"

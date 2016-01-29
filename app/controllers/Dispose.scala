@@ -1,7 +1,7 @@
 package controllers
 
 import com.google.inject.Inject
-import models.{DisposeFormModelBase, DisposeFormModel}
+import models.DisposeFormModel
 import play.api.data.Form
 import play.api.mvc.{Request, Result}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -33,7 +33,9 @@ class Dispose @Inject()(webService: DisposeService,
                      clientSideSessionFactory: ClientSideSessionFactory) =
     result.withCookie(model)
 
-  override def onDisposeSuccessAction(transactionId: String, model: DisposeFormModel)(implicit request: Request[_]) =
-    createAndSendEmail(false, transactionId, model.email)
+  override def onDisposeSuccessAction(transactionId: String, model: DisposeFormModel, traderEmail: Option[String])(implicit request: Request[_]) = {
+    createAndSendEmail(false, false, transactionId, model.email) // email seller
+    createAndSendEmail(true, false, transactionId, traderEmail) // email trader
+  }
 
 }

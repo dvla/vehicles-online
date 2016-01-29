@@ -4,17 +4,12 @@ import com.google.inject.Inject
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.IdentifierCacheKey
 import play.api.data.Form
-import play.api.data.Forms.{mapping, optional}
 import play.api.mvc.{Action, Request, Result}
 import uk.gov.dvla.vehicles.presentation.common
-import common.clientsidesession.ClientSideSessionFactory
-import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
-import common.controllers.SetUpTradeDetailsBase
-import common.mappings.BusinessName.businessNameMapping
-import common.mappings.Email.email
-import common.mappings.Postcode.postcode
-import common.model.SetupTradeDetailsFormModel
-import common.model.SetupTradeDetailsFormModel.Form.{TraderEmailId, TraderNameId, TraderPostcodeId}
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
+import uk.gov.dvla.vehicles.presentation.common.controllers.SetUpTradeDetailsBase
+import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
 import utils.helpers.Config
 
 class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -22,14 +17,6 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
 
   protected val submitTarget = controllers.routes.SetUpTradeDetails.submit()
   protected val onSuccess = Redirect(routes.BusinessChooseYourAddress.present())
-
-  override val form = Form(
-    mapping(
-      TraderNameId -> businessNameMapping,
-      TraderPostcodeId -> postcode,
-      TraderEmailId -> optional(email)
-    )(SetupTradeDetailsFormModel.apply)(SetupTradeDetailsFormModel.unapply)
-  )
 
   private def newSession(result: Result)(implicit request: Request[_]): Result = {
     result

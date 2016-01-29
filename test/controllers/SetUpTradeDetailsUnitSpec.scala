@@ -1,6 +1,6 @@
 package controllers
 
-import Common.PrototypeHtml
+import controllers.Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, WithApplication}
@@ -8,15 +8,16 @@ import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.IdentifierCacheKey
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
+import pages.disposal_of_vehicle.SetupTradeDetailsPage.TraderEmailValid
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.mappings.BusinessName
+import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
+import uk.gov.dvla.vehicles.presentation.common.mappings.{BusinessName, OptionalToggle}
 import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form.{TraderNameId, TraderPostcodeId}
+import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form._
 import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.verifyCookieHasBeenDiscarded
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
 import utils.helpers.Config
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 
@@ -134,10 +135,18 @@ class SetUpTradeDetailsUnitSpec extends UnitSpec {
   }
 
   private def buildCorrectlyPopulatedRequest(dealerName: String = TraderBusinessNameValid,
-                                             dealerPostcode: String = PostcodeValid) = {
-    FakeRequest().withFormUrlEncodedBody(
+                                             dealerPostcode: String = PostcodeValid,
+                                             dealerEmail: Option[String] = Some(TraderEmailValid)) = {
+    FakeRequest().withFormUrlEncodedBody(Seq(
       TraderNameId -> dealerName,
-      TraderPostcodeId -> dealerPostcode)
+      TraderPostcodeId -> dealerPostcode
+    ) ++ dealerEmail.fold(Seq(TraderEmailOptionId -> OptionalToggle.Invisible)) { email =>
+      Seq(
+        TraderEmailOptionId -> OptionalToggle.Visible,
+        s"$TraderEmailId.$EmailId" -> email,
+        s"$TraderEmailId.$EmailVerifyId" -> email
+      )
+    }:_*)
   }
 
   private lazy val setUpTradeDetails = {
