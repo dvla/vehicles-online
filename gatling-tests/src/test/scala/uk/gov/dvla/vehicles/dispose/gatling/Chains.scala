@@ -99,6 +99,7 @@ object Chains {
       .headers(headers_x_www_form_urlencoded)
       .formParam( """traderName""", "${traderName}")
       .formParam( """traderPostcode""", "${traderPostcode}")
+      .formParam("traderEmailOption", "invisible")
       .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
       .formParam( """action""", """""")
       .check(regex( """Select trader address""").exists)
