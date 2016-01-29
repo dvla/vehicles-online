@@ -39,7 +39,7 @@ class EndToEndHappyPathIntegrationSpec extends UiSpec with TestHarness {
 
       info("Enter valid trader details and find the trader address")
 
-      SetupTradeDetailsPage.happyPath()
+      SetupTradeDetailsPage.happyPath(traderBusinessEmail = None)
       pageSource.contains(FakeAddressLookupService.PostcodeValid) should equal(true)
       pageTitle should equal(BusinessChooseYourAddressPage.title)
 
