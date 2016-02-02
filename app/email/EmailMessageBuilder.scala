@@ -131,9 +131,9 @@ object EmailMessageBuilder {
        |                            <p>$contentPart3 application details are:</p>
        |
        |                            <p>
-       |                                Vehicle Registration Number: <strong>$registrationNumber</strong> <br />
+       |                                Vehicle registration number: <strong>$registrationNumber</strong> <br />
        |                                Transaction ID: <strong>$transactionId</strong> <br />
-       |                                Application Made On: <strong>$transactionTimestamp</strong>
+       |                                Application made on: <strong>$transactionTimestamp</strong>
        |
        |                            </p>
        |
@@ -178,9 +178,9 @@ object EmailMessageBuilder {
         |$contentPart1
         |
         |$contentPart3 application details are:
-        |Vehicle Registration Number: $registrationNumber
+        |Vehicle registration number: $registrationNumber
         |Transaction ID: $transactionId
-        |Application Made On: $transactionTimestamp
+        |Application made on: $transactionTimestamp
         |
         |$contentPart4 should receive a postal acknowledgement letter within 4 weeks.
         |
