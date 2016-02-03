@@ -1,3 +1,12 @@
+======= 1.26 ========
+TIME OF RELEASE BINARIES CREATION:
+
+US4180  Add Trader email capture Functionality to 'Provide trader details page'
+US4181  Add Seller Email Capture Functionality to Complete and Confirm Page
+US4183  Amend and Relocate 'Warning Message' on All VM Services to Better Inform the User
+US4187  Google Analytics - Identify, Collate and Report on Northern Ireland Address Use by Service and Customer Type
+US4195  Change the postcode shown where we playback vehicle details to SA99 1BA
+
 ======= 1.25 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Jan 20 11:12:26 UTC 2016
