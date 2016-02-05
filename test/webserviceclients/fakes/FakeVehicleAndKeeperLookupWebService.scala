@@ -1,7 +1,7 @@
 package webserviceclients.fakes
 
 import org.joda.time.DateTime
-import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK, SERVICE_UNAVAILABLE}
+import play.api.http.Status.{NOT_FOUND, OK, SERVICE_UNAVAILABLE}
 import play.api.libs.json.{JsValue, Json}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -112,15 +112,15 @@ object FakeVehicleAndKeeperLookupWebService {
 
   val vehicleDetailsResponseVRMNotFound: (Int, Option[Either[VehicleAndKeeperLookupFailureResponse,
                                                       VehicleAndKeeperLookupSuccessResponse]]) =
-    (INTERNAL_SERVER_ERROR, Some(Left(VehicleAndKeeperLookupFailureResponse(VrmNotFound))))
+    (NOT_FOUND, Some(Left(VehicleAndKeeperLookupFailureResponse(VrmNotFound))))
 
   val vehicleDetailsResponseDocRefNumberNotLatest: (Int, Option[Either[VehicleAndKeeperLookupFailureResponse,
                                                                 VehicleAndKeeperLookupSuccessResponse]]) =
-    (INTERNAL_SERVER_ERROR, Some(Left(VehicleAndKeeperLookupFailureResponse(DocumentRecordMismatch))))
+    (NOT_FOUND, Some(Left(VehicleAndKeeperLookupFailureResponse(DocumentRecordMismatch))))
 
   val vehicleDetailsResponseUnhandledException: (Int, Option[Either[VehicleAndKeeperLookupFailureResponse,
                                                              VehicleAndKeeperLookupSuccessResponse]]) =
-    (INTERNAL_SERVER_ERROR, Some(Left(VehicleAndKeeperLookupFailureResponse(UnhandledException))))
+    (NOT_FOUND, Some(Left(VehicleAndKeeperLookupFailureResponse(UnhandledException))))
 
   val vehicleDetailsServerDown: (Int, Option[Either[VehicleAndKeeperLookupFailureResponse,
                                                     VehicleAndKeeperLookupSuccessResponse]]) =
