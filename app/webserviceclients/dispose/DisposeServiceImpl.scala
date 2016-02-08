@@ -1,7 +1,7 @@
 package webserviceclients.dispose
 
 import javax.inject.Inject
-import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK}
+import play.api.http.Status.{FORBIDDEN, OK}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
@@ -31,13 +31,8 @@ final class DisposeServiceImpl @Inject()(config: DisposeConfig,
     ws.callDisposeService(cmd, trackingId).map { resp =>
       logMessage(trackingId, Debug, s"Http response code from dispose vehicle micro-service was: ${resp.status}")
 
-      if (resp.status == OK) {
+      if (resp.status == OK || resp.status == FORBIDDEN) {
         healthStats.success(new HealthStatsSuccess(ServiceName, dateService.now))
-        (resp.status, resp.json.asOpt[DisposeResponseDto])
-      } else if (resp.status == INTERNAL_SERVER_ERROR) {
-        healthStats.failure(
-          new HealthStatsFailure(ServiceName, dateService.now, new Exception(s"Response code is ${resp.status}"))
-        )
         (resp.status, resp.json.asOpt[DisposeResponseDto])
       } else {
         healthStats.failure(

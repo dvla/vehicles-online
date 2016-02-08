@@ -33,9 +33,9 @@ class Dispose @Inject()(webService: DisposeService,
                      clientSideSessionFactory: ClientSideSessionFactory) =
     result.withCookie(model)
 
-  override def onDisposeSuccessAction(transactionId: String, model: DisposeFormModel, traderEmail: Option[String])(implicit request: Request[_]) = {
-    createAndSendEmail(false, false, transactionId, model.email) // email seller
-    createAndSendEmail(true, false, transactionId, traderEmail) // email trader
+  override def onDisposeSuccessAction(transactionId: String, model: DisposeFormModel, traderEmail: Option[String])
+                                     (implicit request: Request[_]) = {
+    createAndSendEmail(toTrader = false, isPrivate = false, transactionId, model.email) // email seller
+    createAndSendEmail(toTrader = true, isPrivate = false, transactionId, traderEmail) // email trader
   }
-
 }

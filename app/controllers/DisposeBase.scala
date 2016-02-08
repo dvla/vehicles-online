@@ -289,7 +289,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
           // OK should always contain a disposeResponse
           onDisposeSuccessAction(disposeResponse.get.disposeResponse.transactionId, disposeFormModel, traderEmail)
           onDisposeSuccess
-        case INTERNAL_SERVER_ERROR =>
+        case FORBIDDEN =>
           val call = for {
             dr <- disposeResponse
             r <- dr.response

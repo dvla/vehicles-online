@@ -36,7 +36,7 @@ class Dispose @Inject()(webService: DisposeService,
 
   override def onDisposeSuccessAction(transactionId: String, model: PrivateDisposeFormModel, traderEmail: Option[String])
                                      (implicit request: Request[_]) =
-    createAndSendEmail(false, true, transactionId, model.email)
+    createAndSendEmail(toTrader = false, isPrivate = true, transactionId, model.email)
 
   override protected val formTarget = routes.Dispose.submit()
   override protected val backLink = routes.VehicleLookup.present()

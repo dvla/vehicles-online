@@ -33,7 +33,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.BAD_REQUEST
 import play.api.test.Helpers.contentAsString
 import play.api.test.Helpers.defaultAwaitTimeout
-import play.api.test.Helpers.INTERNAL_SERVER_ERROR
+import play.api.test.Helpers.FORBIDDEN
 import play.api.test.Helpers.LOCATION
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.SERVICE_UNAVAILABLE
@@ -47,7 +47,10 @@ import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCo
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.DayMonthYear
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.{From, EmailService, EmailServiceSendRequest, EmailServiceSendResponse}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailService
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendRequest
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.EmailServiceSendResponse
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.From
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
 import webserviceclients.dispose.DisposalAddressDto
@@ -200,12 +203,12 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to micro-service error page when an unexpected error occurs" in new WithApplication {
+    "redirect to micro-service error page when the ms indicates vss returned an error response for the attempted disposal" in new WithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeFailure = disposeController(disposeWebService =
-        disposeWebService(disposeServiceStatus = INTERNAL_SERVER_ERROR, disposeServiceResponse = None))
+        disposeWebService(disposeServiceStatus = FORBIDDEN, disposeServiceResponse = None))
       val result = disposeFailure.submit(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
@@ -218,7 +221,7 @@ class DisposeUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeFailure = disposeController(
         disposeWebService = disposeWebService(
-          disposeServiceStatus = INTERNAL_SERVER_ERROR,
+          disposeServiceStatus = FORBIDDEN,
           disposeServiceResponse = Some(disposeResponseFailureWithDuplicateDisposal)
         )
       )
@@ -333,7 +336,7 @@ class DisposeUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeFailure = disposeController(disposeWebService =
         disposeWebService(
-          disposeServiceStatus = INTERNAL_SERVER_ERROR,
+          disposeServiceStatus = FORBIDDEN,
           disposeServiceResponse = Some(disposeResponseUnableToProcessApplication))
         )
       val result = disposeFailure.submit(request)
@@ -348,7 +351,7 @@ class DisposeUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val disposeFailure = disposeController(disposeWebService =
         disposeWebService(
-          disposeServiceStatus = INTERNAL_SERVER_ERROR,
+          disposeServiceStatus = FORBIDDEN,
           disposeServiceResponse = Some(disposeResponseUndefinedError))
         )
       val result = disposeFailure.submit(request)
@@ -817,7 +820,6 @@ class DisposeUnitSpec extends UnitSpec {
     }
   }
 
-
   private def buildDateControl(name: String, value: String): String = {
     s"""name="$name"value="$value""""
   }
@@ -896,5 +898,4 @@ class DisposeUnitSpec extends UnitSpec {
       verify(emailServiceMock, expected).invoke(any[EmailServiceSendRequest], any[TrackingId])
     }
   }
-
 }
