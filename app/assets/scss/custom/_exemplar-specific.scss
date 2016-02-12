@@ -9,6 +9,10 @@
         .playback.bg-plain {
             padding: 1em;
             margin-bottom: 0;
+            .info-notice {
+                    border: none;
+                    padding: 0;
+            }
         }
     }
     .hint-margin {
