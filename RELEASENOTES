@@ -1,3 +1,10 @@
+======= 1.27 ========
+TIME OF RELEASE BINARIES CREATION:
+
+DE843   Print output spans too many pages
+US4216  vehicle-and-keeper-lookup is incorrectly using INTERNAL_SERVER_ERROR for business rules errors
+US4218  vehicles-dispose-fulfil is incorrectly using INTERNAL_SERVER_ERROR for business rules errors
+
 ======= 1.26 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Feb 03 12:07:45 UTC 2016
