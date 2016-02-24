@@ -381,23 +381,4 @@ language.en.button = YAGNI
 mandatory = Fields not labelled (optional) are mandatory
 
 # feedback
-common_feedback.title = Give feedback
-common_feedback.message = Please don''t include any personal or financial information.
-common_feedback.warning = This page is for feedback only and we are unable to offer a personal reply to your email
-common_feedback.label = What went wrong, if anything? What went well? How could we improve this service?
-common_feedback.charactersRemaining = characters remaining
-common_feedback.placeholder = (Limit is 500 characters)
-common_feedback.submit_button = Submit feedback
-common_feedback.thankyou = Thank you for your feedback
 common_feedback.subject = Sell to the trade - feedback
-common_feedback.name = Name
-common_feedback.email = Email
-common_feedback.feedbackTitle = Please leave your name and email address in case we need to contact you
-error.feedback = Feedback cannot exceed 500 characters
-error.feedbackName = Name cannot be more than 60 characters
-error.email = Must be a valid email address
-feedbackEmail = Email
-feedbackName = Name
-feedback = Feedback form
-feedback_return = ◄ Return to your application
-feedback_close = Please close this page to return to your application

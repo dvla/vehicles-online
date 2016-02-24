@@ -380,23 +380,4 @@ language.en.button = English
 mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 
 # feedback
-common_feedback.title = Rhoi adborth
-common_feedback.message = Peidiwch â chynnwys unrhyw wybodaeth bersonol neu ariannol.
-common_feedback.warning = Mae'r dudalen hon ar gyfer adborth yn unig ac ni allwn gynnig ateb personol i'ch ebost
-common_feedback.label = Beth aeth o''i le, os unrhyw beth? Beth aeth yn dda? Sut y gallem wella''r gwasanaeth hwn?
-common_feedback.charactersRemaining = cymeriadau sy''n weddill
-common_feedback.placeholder = (Terfyn yn 500 llythyren)
-common_feedback.submit_button = Cyflwyno adborth
-common_feedback.thankyou = Diolch i chi am eich adborth
 common_feedback.subject = Gwerthu i''r fasnach - adborth
-common_feedback.name = Enw
-common_feedback.email = Ebost
-common_feedback.feedbackTitle = Os gwelwch yn dda gadewch eich enw a''ch cyfeiriad ebost rhag ofn y bydd angen i ni gysylltu â chi
-error.email = Must be a valid email address
-error.feedback = Ni all fod yn fwy na 500 o adborth cymeriadau
-error.feedbackName = Ni all Enw fod yn fwy na 60 o gymeriadau
-feedbackEmail = Ebost
-feedbackName = Enw
-feedback = Ffurflen adborth
-feedback_return = ◄ Dychwelyd i''ch cais
-feedback_close = Caewch y dudalen hon i ddychwelyd i''ch cais
