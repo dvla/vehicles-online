@@ -117,7 +117,11 @@ object Chains {
   val vehicleLookup = csv("data/vehicle-lookup.csv").circular
   val dispose = csv("data/dispose.csv").circular
 
-  val chain_dispose_vehicle =
+  val chain_dispose_vehicle = {
+    import java.util.Calendar
+    val calendar = Calendar.getInstance
+    calendar.add(Calendar.YEAR, -1)
+    val year = calendar.get(Calendar.YEAR).toString
     feed(vehicleLookup)
       .exec(http(s"POST /vehicle-lookup")
       .post(s"/vehicle-lookup")
@@ -140,7 +144,7 @@ object Chains {
       .formParam( """lossOfRegistrationConsent""", "${lossOfRegistrationConsent}")
       .formParam( """dateOfDisposal.day""", "${day}")
       .formParam( """dateOfDisposal.month""", "${month}")
-      .formParam( """dateOfDisposal.year""", "${year}")
+      .formParam( """dateOfDisposal.year""", year)
       .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
       .formParam( """action""", """""")
       .check(regex( """Summary""").exists)
@@ -157,6 +161,7 @@ object Chains {
       .get(s"/assets/versioned/lib/vehicles-presentation-common/images/icon-tick-green.gif")
       .headers(headers_accept_png)
       )
+  }
 
   val chain_new_dispose =
     exec(http("POST /vehicle-lookup")

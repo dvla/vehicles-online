@@ -14,7 +14,7 @@ object Scenarios {
       .exec(chain_exit_service)
 
   val dispose_start_to_finish_exit_on_fail =
-    scenario("Single vehicle disposal from start to finish")
+    scenario("Single vehicle disposal from start to finish exit on fail")
       .exec(exitBlockOnFail(chain_setup_trader_details))
       .exec(exitBlockOnFail(chain_dispose_vehicle))
       .exec(exitBlockOnFail(chain_exit_service))
