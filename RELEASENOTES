@@ -1,3 +1,10 @@
+======= 1.28 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+DE845 	Feedback - error message wording
+US4206 	Change gatling tests to only log failures
+
 ======= 1.27 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Feb 17 12:23:09 UTC 2016
