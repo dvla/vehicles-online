@@ -9,7 +9,7 @@ import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.Form.{DocumentReferenceNumberId, VehicleRegistrationNumberId}
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
 import org.joda.time.Instant
 import org.mockito.ArgumentCaptor
 import org.mockito.invocation.InvocationOnMock
@@ -31,11 +31,12 @@ import play.api.test.Helpers.{BAD_REQUEST, contentAsString, defaultAwaitTimeout,
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.TrackingId
+import common.clientsidesession.ClearTextClientSideSessionFactory
+import common.clientsidesession.ClientSideSessionFactory
 import common.mappings.DocumentReferenceNumber
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.MicroserviceResponseModel.MsResponseCacheKey
 import common.services.DateServiceImpl
 import common.testhelpers.CookieHelper.fetchCookiesFromHeaders
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
@@ -43,7 +44,7 @@ import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.healthstats.HealthStats
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeeperlookup
+import common.webserviceclients.vehicleandkeeperlookup
 import vehicleandkeeperlookup.VehicleAndKeeperLookupSuccessResponse
 import vehicleandkeeperlookup.VehicleAndKeeperLookupFailureResponse
 import vehicleandkeeperlookup.VehicleAndKeeperLookupRequest
@@ -412,7 +413,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
         cookies.map(_.name) should contain allOf(
-          bruteForcePreventionViewModelCacheKey, VehicleLookupResponseCodeCacheKey, VehicleLookupFormModelCacheKey)
+          bruteForcePreventionViewModelCacheKey, MsResponseCacheKey, VehicleLookupFormModelCacheKey)
       }
     }
 
@@ -422,7 +423,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
         cookies.map(_.name) should contain allOf(
-          bruteForcePreventionViewModelCacheKey, VehicleLookupResponseCodeCacheKey, VehicleLookupFormModelCacheKey)
+          bruteForcePreventionViewModelCacheKey, MsResponseCacheKey, VehicleLookupFormModelCacheKey)
       }
     }
 

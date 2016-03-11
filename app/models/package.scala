@@ -2,9 +2,10 @@ import controllers.MicroServiceError.MicroServiceErrorRefererCacheKey
 import models.BusinessChooseYourAddressFormModel.BusinessChooseYourAddressCacheKey
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
 import uk.gov.dvla.vehicles.presentation.common
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.MicroserviceResponseModel.MsResponseCacheKey
 import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.TraderDetailsModel.traderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
@@ -31,7 +32,7 @@ package object models {
   final val VehicleCacheKeys = Set(
     bruteForcePreventionViewModelCacheKey,
     vehicleAndKeeperLookupDetailsCacheKey,
-    VehicleLookupResponseCodeCacheKey,
+    MsResponseCacheKey,
     VehicleLookupFormModelCacheKey
   )
 

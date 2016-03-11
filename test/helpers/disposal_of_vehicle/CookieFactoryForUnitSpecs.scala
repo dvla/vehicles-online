@@ -16,19 +16,21 @@ import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.EnterAddressManuallyFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.VehicleLookupFormModel
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
 import org.joda.time.{LocalDate, DateTime}
 import pages.disposal_of_vehicle.VehicleLookupPage
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Cookie
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSession
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieFlags
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
+import common.clientsidesession.ClearTextClientSideSession
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieFlags
+import common.clientsidesession.TrackingId
 import common.model.AddressModel
 import common.model.BruteForcePreventionModel
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.MicroserviceResponseModel
+import common.model.MicroserviceResponseModel.MsResponseCacheKey
 import common.model.SeenCookieMessageCacheKey
 import common.model.SetupTradeDetailsFormModel
 import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
@@ -37,6 +39,7 @@ import common.model.TraderDetailsModel.traderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
 import common.model.VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
 import common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
+import common.webserviceclients.common.MicroserviceResponse
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
@@ -225,8 +228,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
   }
 
 
-  def vehicleLookupResponseCode(responseCode: String = "disposal_vehiclelookupfailure"): Cookie =
-    createCookie(VehicleLookupResponseCodeCacheKey, responseCode)
+  def vehicleLookupResponse(responseMessage: String = "disposal_vehiclelookupfailure"): Cookie =
+    createCookie(MsResponseCacheKey, MicroserviceResponseModel(MicroserviceResponse("", responseMessage)))
 
   def disposeFormModel(mileage: Option[Int] = None,
                         sellerEmail: Option[String] = None): Cookie = {

@@ -6,7 +6,6 @@ import models.DisposeFormModel.DisposeOccurredCacheKey
 import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.{EnterAddressManuallyFormModel, VehicleLookupViewModel, AllCacheKeys, VehicleLookupFormModel}
-import models.VehicleLookupFormModel.VehicleLookupResponseCodeCacheKey
 import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, Request, Result}
 import scala.concurrent.Future
@@ -15,6 +14,7 @@ import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import common.controllers.VehicleLookupBase
 import common.model.{BruteForcePreventionModel, TraderDetailsModel, VehicleAndKeeperDetailsModel}
+import common.model.MicroserviceResponseModel.MsResponseCacheKey
 import common.services.DateService
 import common.views.helpers.FormExtensions.formBinding
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
@@ -32,7 +32,7 @@ class VehicleLookup @Inject()(implicit bruteForceService: BruteForcePreventionSe
   extends VehicleLookupBase[VehicleLookupFormModel] with BusinessController {
 
   override val form = Form(VehicleLookupFormModel.Form.Mapping)
-  override val responseCodeCacheKey: String = VehicleLookupResponseCodeCacheKey
+  override val responseCodeCacheKey: String = MsResponseCacheKey
 
   protected val submitTarget = controllers.routes.VehicleLookup.submit()
   protected val backTarget = controllers.routes.VehicleLookup.back()

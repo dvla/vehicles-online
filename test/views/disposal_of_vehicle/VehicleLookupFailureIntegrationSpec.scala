@@ -57,7 +57,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         dealerDetails().
         bruteForcePreventionViewModel(attempts = 1, maxAttempts = MaxAttempts).
         vehicleLookupFormModel().
-        vehicleLookupResponseCode(responseCode = VrmNotFound)
+        vehicleLookupResponse(responseMessage = VrmNotFound)
 
       go to VehicleLookupFailurePage
       pageSource should include("Only a limited number of attempts can be made to retrieve vehicle details " +
@@ -73,7 +73,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         dealerDetails().
         bruteForcePreventionViewModel(attempts = 2, maxAttempts = MaxAttempts).
         vehicleLookupFormModel().
-        vehicleLookupResponseCode(responseCode = VrmNotFound)
+        vehicleLookupResponse(responseMessage = VrmNotFound)
 
       go to VehicleLookupFailurePage
       pageSource should include("Only a limited number of attempts can be made to retrieve vehicle details "
@@ -87,7 +87,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         dealerDetails().
         bruteForcePreventionViewModel().
         vehicleLookupFormModel().
-        vehicleLookupResponseCode(responseCode = DocumentReferenceMismatch)
+        vehicleLookupResponse(responseMessage = DocumentReferenceMismatch)
 
       go to VehicleLookupFailurePage
       pageSource should include("Only a limited number of attempts can be made to retrieve vehicle details for "
@@ -121,5 +121,5 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
       dealerDetails().
       bruteForcePreventionViewModel().
       vehicleLookupFormModel().
-      vehicleLookupResponseCode()
+      vehicleLookupResponse()
 }

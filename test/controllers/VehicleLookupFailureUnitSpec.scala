@@ -23,7 +23,7 @@ class VehicleLookupFailureUnitSpec extends UnitSpec {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.bruteForcePreventionViewModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
-        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponseCode())
+        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponse())
       val result = vehicleLookupFailure.present(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
@@ -34,7 +34,7 @@ class VehicleLookupFailureUnitSpec extends UnitSpec {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
-        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponseCode())
+        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponse())
       val result = vehicleLookupFailure.present(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
@@ -45,7 +45,7 @@ class VehicleLookupFailureUnitSpec extends UnitSpec {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.bruteForcePreventionViewModel())
-        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponseCode())
+        .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponse())
       val result = vehicleLookupFailure.present(request)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
@@ -97,7 +97,7 @@ class VehicleLookupFailureUnitSpec extends UnitSpec {
       .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       .withCookies(CookieFactoryForUnitSpecs.bruteForcePreventionViewModel())
       .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
-      .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponseCode())
+      .withCookies(CookieFactoryForUnitSpecs.vehicleLookupResponse())
     vehicleLookupFailure.present(request)
   }
 }

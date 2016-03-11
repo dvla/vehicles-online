@@ -14,7 +14,6 @@ object VehicleLookupFormModel {
   implicit val JsonFormat = Json.format[VehicleLookupFormModel]
   final val VehicleLookupFormModelCacheKey = s"${CookiePrefix}vehicleLookupFormModel"
   implicit val Key = CacheKey[VehicleLookupFormModel](VehicleLookupFormModelCacheKey)
-  final val VehicleLookupResponseCodeCacheKey = s"${CookiePrefix}vehicleLookupResponseCode"
 
     object Form {
     final val DocumentReferenceNumberId = "documentReferenceNumber"

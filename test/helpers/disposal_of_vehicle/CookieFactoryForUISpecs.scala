@@ -17,7 +17,7 @@ import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.PrivateDisposeFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import models.VehicleLookupFormModel
-import models.VehicleLookupFormModel.{VehicleLookupFormModelCacheKey, VehicleLookupResponseCodeCacheKey}
+import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
 import play.api.Play
 import play.api.Play.current
 import play.api.libs.json.{Json, Writes}
@@ -25,15 +25,18 @@ import uk.gov.dvla.vehicles.presentation.common
 import common.model.AddressModel
 import common.model.BruteForcePreventionModel
 import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCacheKey
+import common.model.MicroserviceResponseModel
+import common.model.MicroserviceResponseModel.MsResponseCacheKey
 import common.model.SetupTradeDetailsFormModel
 import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
 import common.model.TraderDetailsModel
 import common.model.TraderDetailsModel.traderDetailsCacheKey
 import common.model.VehicleAndKeeperDetailsModel
 import common.model.VehicleAndKeeperDetailsModel.vehicleAndKeeperLookupDetailsCacheKey
+import common.clientsidesession.TrackingId
 import common.controllers.AlternateLanguages.{CyId, EnId}
 import common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
+import common.webserviceclients.common.MicroserviceResponse
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
@@ -170,10 +173,10 @@ object CookieFactoryForUISpecs {
     this
   }
 
-  def vehicleLookupResponseCode(responseCode: String = "disposal_vehiclelookupfailure")
-                               (implicit webDriver: WebDriver) = {
-    val key = VehicleLookupResponseCodeCacheKey
-    val value = responseCode
+  def vehicleLookupResponse(responseMessage: String = "disposal_vehiclelookupfailure")
+                           (implicit webDriver: WebDriver) = {
+    val key = MsResponseCacheKey
+    val value = MicroserviceResponseModel(MicroserviceResponse("", responseMessage))
     addCookie(key, value)
     this
   }
