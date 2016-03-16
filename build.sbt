@@ -55,8 +55,8 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
   "org.apache.httpcomponents" % "httpclient" % "4.3.4" withSources() withJavadoc(),
-  "dvla" %% "vehicles-presentation-common" % "2.44-SNAPSHOT" withSources() withJavadoc() exclude("junit", "junit-dep"),
-  "dvla" %% "vehicles-presentation-common" % "2.44-SNAPSHOT" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.44" withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.44" % "test" classifier "tests"  withSources() withJavadoc() exclude("junit", "junit-dep"),
   "org.webjars" % "requirejs" % "2.1.14-1",
   "junit" % "junit" % "4.11" % "test",
   "junit" % "junit-dep" % "4.11" % "test"
@@ -116,10 +116,10 @@ webJarCdns := Map()
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
 // ====================== Sandbox Settings ==========================
-lazy val osAddressLookupProject = osAddressLookup("0.28-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.22-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.17-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val emailServiceProject = emailService("0.18-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
+lazy val osAddressLookupProject = osAddressLookup("0.27").disablePlugins(PlayScala, SbtWeb)
+lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.21").disablePlugins(PlayScala, SbtWeb)
+lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.16").disablePlugins(PlayScala, SbtWeb)
+lazy val emailServiceProject = emailService("0.17").disablePlugins(PlayScala, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
 
 SandboxSettings.portOffset := 17000
