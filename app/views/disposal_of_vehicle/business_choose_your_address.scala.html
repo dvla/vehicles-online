@@ -66,8 +66,8 @@
         @if(viewModel.dropDownOptions.nonEmpty) {
             <a id="@EnterAddressManuallyButtonId"
                class="ga-track-click-event-once"
-               ga-event-category="ct_link"
-               ga-event-action="manual-address-entry"
+               data-ga-event-category="ct_link"
+               data-ga-event-action="manual-address-entry"
                href="@viewModel.manualAddressEntry">
                 @Messages("disposal_businessChooseYourAddress.manualAddressEntry")
             </a>
@@ -76,8 +76,8 @@
             @if(viewModel.dropDownOptions.isEmpty) {
                 <a id="@EnterAddressManuallyButtonId"
                    class="button ga-track-click-event-once"
-                   ga-event-category="ct_link"
-                   ga-event-action="manual-address-entry"
+                   data-ga-event-category="ct_link"
+                   data-ga-event-action="manual-address-entry"
                    href="@viewModel.manualAddressEntry">
                     @Messages("disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton")
                 </a>
