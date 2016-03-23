@@ -22,6 +22,7 @@ GET         /assets/versioned/*file                                controllers.A
 GET         /                                                      @controllers.ApplicationRoot.index
 GET         /before-you-start                                      @controllers.BeforeYouStart.present
 POST        /before-you-start                                      @controllers.BeforeYouStart.submit
+POST        /test-csrf                                             @controllers.BeforeYouStart.testCsrf
 
 #page 2 - setup-trade-details
 GET         /setup-trade-details                                   @controllers.SetUpTradeDetails.present

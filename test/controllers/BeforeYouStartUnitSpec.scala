@@ -4,6 +4,7 @@ import Common.PrototypeHtml
 import helpers.{UnitSpec, WithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
+import play.api.libs.json.{JsString, Json}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, LOCATION, OK, status}
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
@@ -41,6 +42,20 @@ class BeforeYouStartUnitSpec extends UnitSpec {
       val result = beforeYouStart.submit(FakeRequest())
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
+      }
+    }
+  }
+
+  "calling test csrf" should {
+    // Note that this will work because it is not going through the csrf filter
+    // If you try calling the same method via curl with csrf.protection on it will return a 403 forbidden
+    "process the json and return the contained message text when not going through the csrf filter" in new WithApplication() {
+      val json = Json.obj("text" -> JsString("hello"))
+      val req = FakeRequest().withJsonBody(json)
+      val result = beforeYouStart.testCsrf()(req)
+      whenReady(result) { r =>
+        status(result) should equal(OK)
+        contentAsString(result) should equal("""You said "hello"""")
       }
     }
   }

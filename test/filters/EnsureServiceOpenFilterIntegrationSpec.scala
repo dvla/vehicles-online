@@ -9,14 +9,13 @@ import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
 import scala.concurrent.Future
 import scala.language.existentials
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import utils.helpers.Config
 
 class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures with TestComposition {
   // The filter chain will return null if we redirect to the closed page.
   "Return a null next filter request if trying to access the service out of hours" in new WebBrowserForSelenium{
     setUpOutOfHours {
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
+      case SetUp(filter, request, nextFilter) =>
         val filterResult: Future[Result] = filter.apply(nextFilter)(request)
         whenReady(filterResult) { result =>
           nextFilter.passedRequest should be(null)
@@ -26,10 +25,10 @@ class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness wit
 
   "Return a valid next filter request if trying to access the service within acceptable hours" in new WebBrowserForSelenium{
     setUpInHours {
-      case SetUp(filter, request, sessionFactory, nextFilter) =>
+      case SetUp(filter, request, nextFilter) =>
         val filterResult: Future[Result] = filter.apply(nextFilter)(request)
         whenReady(filterResult) { result =>
-        nextFilter.passedRequest.toString() should equal("GET /")
+          nextFilter.passedRequest.toString() should equal("GET /")
         }
     }
   }
@@ -44,23 +43,20 @@ class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness wit
 
   private case class SetUp(filter: ServiceOpenFilter,
                            request: FakeRequest[_],
-                           sessionFactory:ClientSideSessionFactory,
                            nextFilter: MockFilter)
 
-  private def setUpInHours(test: SetUp => Any) {
+  private def setUpInHours(test: SetUp => Any): Unit = {
     setUpOpeningHours(test, 0, 1439)
   }
 
-  private def setUpOutOfHours(test: SetUp => Any) = {
+  private def setUpOutOfHours(test: SetUp => Any): Unit = {
     setUpOpeningHours(test, 1, 1)
   }
 
-  private def setUpOpeningHours(test: SetUp => Any, opening: Int = 0, closing: Int = 1439) {
-    val sessionFactory = org.scalatest.mock.MockitoSugar.mock[ClientSideSessionFactory]
+  private def setUpOpeningHours(test: SetUp => Any, opening: Int = 0, closing: Int = 1439): Unit = {
 
     val injector = testInjector(new ScalaModule {
       override def configure(): Unit = {
-        bind[ClientSideSessionFactory].toInstance(sessionFactory)
         val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
         when(mockConfig.openingTimeMinOfDay).thenReturn(opening)
         when(mockConfig.closingTimeMinOfDay).thenReturn(closing)
@@ -70,10 +66,10 @@ class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness wit
       }
     })
 
+    // Call the function and pass it a new instance of the SetUp case class, which is in its signature
     test(SetUp(
       filter = injector.getInstance(classOf[ServiceOpenFilter]),
       request = FakeRequest(),
-      sessionFactory = sessionFactory,
       nextFilter = new MockFilter()
     ))
   }
