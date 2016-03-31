@@ -15,8 +15,7 @@ import models.DisposeFormModelBase.Form.MileageId
 import models.DisposeFormModelBase.Form.EmailOptionId
 import models.DisposeFormModelBase.Form.EmailId
 import play.api.mvc.AnyContentAsFormUrlEncoded
-import uk.gov.dvla.vehicles.presentation.common.mappings.Email.{EmailId => EmailEnterId, _}
-import org.joda.time.{LocalDate, Instant}
+import org.joda.time.{DateTime, DateTimeZone, Instant, LocalDate}
 import org.mockito.ArgumentCaptor
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}
@@ -41,6 +40,7 @@ import uk.gov.dvla.vehicles.presentation.common.services.SEND.EmailConfiguration
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.{TrackingId, ClientSideSessionFactory}
+import uk.gov.dvla.vehicles.presentation.common.mappings.Email.{EmailId => EmailEnterId, EmailVerifyId}
 import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle
 import uk.gov.dvla.vehicles.presentation.common.services.DateService
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
@@ -435,11 +435,11 @@ class DisposeUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(
-        buildingNameOrNumber = "a" * (LineMaxLength + 1),
-        line2 = "b" * (LineMaxLength + 1),
-        line3 = "c" * (LineMaxLength + 1),
-        postTown = "d" * (LineMaxLength + 1)
-      ))
+          buildingNameOrNumber = "a" * (LineMaxLength + 1),
+          line2 = "b" * (LineMaxLength + 1),
+          line3 = "c" * (LineMaxLength + 1),
+          postTown = "d" * (LineMaxLength + 1)
+        ))
         .withCookies(CookieFactoryForUnitSpecs.trackingIdModel())
 
       val result = controller.submit(request)
@@ -681,8 +681,16 @@ class DisposeUnitSpec extends UnitSpec {
          expected = times(2)
        )
     }
-
   }
+
+  private val dateValidUTC: String = new DateTime(
+    DateOfDisposalYearValid.toInt,
+    DateOfDisposalMonthValid.toInt,
+    DateOfDisposalDayValid.toInt,
+    0,
+    0,
+    DateTimeZone.UTC
+  ).toString
 
   private val dateValid: String = DayMonthYear(
     DateOfDisposalDayValid.toInt,
@@ -696,20 +704,18 @@ class DisposeUnitSpec extends UnitSpec {
                                  month: Int = DateOfDisposalMonthValid.toInt,
                                  year: Int = DateOfDisposalYearValid.toInt) = {
     val dateService = mock[DateService]
-    when(dateService.today).thenReturn(new DayMonthYear(day = day,
-      month = month,
-      year = year))
 
-    val instant = new DayMonthYear(day = day,
-      month = month,
-      year = year).toDateTime.get.getMillis
+    val instant = new DayMonthYear(day, month, year)
 
-    when(dateService.now).thenReturn(new Instant(instant))
+    when(dateService.today).thenReturn(instant)
+
+    when(dateService.now).thenReturn(new Instant(instant.toDateTime.get.getMillis))
+
     dateService
   }
 
   private val buildCorrectlyPopulatedRequestNoEmail = {
-    import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear._
+    import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
     FakeRequest().withFormUrlEncodedBody(
       MileageId -> MileageValid,
       s"$DateOfDisposalId.$DayId" -> DateOfDisposalDayValid,
@@ -722,7 +728,7 @@ class DisposeUnitSpec extends UnitSpec {
   }
 
   private val buildCorrectlyPopulatedRequestWithEmail = {
-    import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear._
+    import uk.gov.dvla.vehicles.presentation.common.mappings.DayMonthYear.{DayId, MonthId, YearId}
     FakeRequest().withFormUrlEncodedBody(
       MileageId -> MileageValid,
       s"$DateOfDisposalId.$DayId" -> DateOfDisposalDayValid,
@@ -745,14 +751,14 @@ class DisposeUnitSpec extends UnitSpec {
 
   private def disposeWebService(disposeServiceStatus: Int = OK,
                                 disposeServiceResponse: Option[DisposeResponseDto] = Some(disposeResponseSuccess)
-                                 ): DisposeWebService = {
+                               ): DisposeWebService = {
     val disposeWebService = mock[DisposeWebService]
     when(disposeWebService.callDisposeService(any[DisposeRequestDto], any[TrackingId]))
       .thenReturn(Future.successful {
-      val fakeJson = disposeServiceResponse map (Json.toJson(_))
-      // Any call to a webservice will always return this successful response.
-      new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson)
-    })
+        val fakeJson = disposeServiceResponse map (Json.toJson(_))
+        // Any call to a webservice will always return this successful response.
+        new FakeResponse(status = disposeServiceStatus, fakeJson = fakeJson)
+      })
     disposeWebService
   }
 
@@ -774,7 +780,7 @@ class DisposeUnitSpec extends UnitSpec {
       feedbackEmail = From(email = "", name = ""),
       whiteList = None
     )
-    when(config.emailConfiguration). thenReturn(emailConfiguration)
+    when(config.emailConfiguration).thenReturn(emailConfiguration)
 
     config
   }
@@ -790,7 +796,7 @@ class DisposeUnitSpec extends UnitSpec {
 
   private def disposeController(disposeWebService: DisposeWebService,
                                 disposeService: DisposeService,
-                                emailSvc: EmailService = emailServiceMocked )
+                                emailSvc: EmailService = emailServiceMocked)
                                (implicit config: Config = config): Dispose = {
     implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
 
@@ -839,11 +845,12 @@ class DisposeUnitSpec extends UnitSpec {
                                      postTown: Option[String] = Some(PostTownValid),
                                      postCode: String = PostcodeValid,
                                      uprn: Option[Long] = None,
-                                     dateOfDisposal: String = dateValid,
+                                     dateOfDisposal: String = dateValidUTC,
                                      transactionTimestamp: String = dateValid,
                                      prConsent: Boolean = FakeDisposeWebServiceImpl.ConsentValid.toBoolean,
                                      keeperConsent: Boolean = FakeDisposeWebServiceImpl.ConsentValid.toBoolean,
                                      mileage: Option[Int] = Some(MileageValid.toInt)) =
+
     DisposeRequestDto(
       VssWebHeaderDto(
         "trackingId",
@@ -868,12 +875,12 @@ class DisposeUnitSpec extends UnitSpec {
       mileage = mileage
     )
 
-    private def verifyEmail(req: FakeRequest[AnyContentAsFormUrlEncoded],
-                            disposeResponse: DisposeResponseDto = disposeResponseSuccess,
-                            traderEmail: Option[String],
-                            expected: org.mockito.verification.VerificationMode) {
+  private def verifyEmail(req: FakeRequest[AnyContentAsFormUrlEncoded],
+                          disposeResponse: DisposeResponseDto = disposeResponseSuccess,
+                          traderEmail: Option[String],
+                          expected: org.mockito.verification.VerificationMode) {
 
-      val request = req
+    val request = req
       .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(traderEmail = traderEmail))
       .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
       .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())

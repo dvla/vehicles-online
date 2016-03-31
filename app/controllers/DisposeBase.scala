@@ -240,7 +240,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
                                         traderDetails: TraderDetailsModel,
                                         trackingId: TrackingId,
                                         identifier: String): DisposeRequestDto = {
-      val dateTime = disposeFormModel.dateOfDisposal.toDateTimeAtStartOfDay(DateTimeZone.forID("UTC"))
+      val dateTime = disposeFormModel.dateOfDisposal.toDateTimeAtStartOfDay(DateTimeZone.UTC)
       val formatter = ISODateTimeFormat.dateTime()
       val isoDateTimeString = formatter.print(dateTime)
 
@@ -250,7 +250,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         traderName = traderDetails.traderName,
         traderAddress = DisposalAddressDto.from(traderDetails.traderAddress),
         dateOfDisposal = isoDateTimeString,
-        transactionTimestamp = ISODateTimeFormat.dateTime().print(dateService.now.toDateTime),
+        transactionTimestamp = formatter.print(dateService.now.toDateTime),
         prConsent = disposeFormModel.lossOfRegistrationConsent.toBoolean,
         keeperConsent = disposeFormModel.consent.toBoolean,
         mileage = disposeFormModel.mileage

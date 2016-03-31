@@ -41,7 +41,7 @@ final class VrmLockedUiSpec extends UiSpec with TestHarness {
 
       val localTime: WebElement = webDriver.findElement(By.id("localTimeOfVrmLock"))
       localTime.isDisplayed should equal(true)
-      localTime.getText.contains("UTC") should equal (true)
+      localTime.getText should include regex "^(\\d|0\\d|1\\d|2[0-3]):[0-5]\\d".r
     }
 
     "contain time of locking when JavaScript is disabled" taggedAs UiTag in new WebBrowserWithJsDisabled {
@@ -51,7 +51,7 @@ final class VrmLockedUiSpec extends UiSpec with TestHarness {
 
       val localTime: WebElement = webDriver.findElement(By.id("localTimeOfVrmLock"))
       localTime.isDisplayed should equal(true)
-      localTime.getText.contains("UTC") should equal (true)
+      localTime.getText should include regex "^(\\d|0\\d|1\\d|2[0-3]):[0-5]\\d".r
     }
   }
 

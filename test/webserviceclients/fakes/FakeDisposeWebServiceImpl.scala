@@ -63,7 +63,7 @@ object FakeDisposeWebServiceImpl {
     // We should always get back a transaction id even for failure scenarios.
     // Only exception is if the soap endpoint is down
     DisposeResponseDto(
-      Some(MicroserviceResponse("US9802", "ms.vehiclesService.response.unableToProcessApplication")),
+      Some(MicroserviceResponse("", "ms.vehiclesService.response.unableToProcessApplication")),
       DisposeResponse(
         transactionId = TransactionIdValid.value,
         registrationNumber = "",
@@ -75,7 +75,7 @@ object FakeDisposeWebServiceImpl {
     // We should always get back a transaction id even for failure scenarios.
     // Only exception is if the soap endpoint is down
     DisposeResponseDto(
-      Some(MicroserviceResponse("US9302", "ms.vehiclesService.response.duplicateDisposalToTrade")),
+      Some(MicroserviceResponse("", "ms.vehiclesService.response.duplicateDisposalToTrade")),
       DisposeResponse(
         transactionId = TransactionIdValid.value,
         registrationNumber = "",
@@ -95,7 +95,7 @@ object FakeDisposeWebServiceImpl {
 
   val disposeResponseUnableToProcessApplication =
     DisposeResponseDto(
-      Some(MicroserviceResponse("U0010", "ms.vehiclesService.response.unableToProcessApplication")),
+      Some(MicroserviceResponse("", "ms.vehiclesService.response.unableToProcessApplication")),
       DisposeResponse(
         transactionId = "", // No transactionId because the soap endpoint is down
         registrationNumber = "",
@@ -114,7 +114,7 @@ object FakeDisposeWebServiceImpl {
     )
 
   val disposeResponseFurtherActionRequired = DisposeResponseDto(
-    Some(MicroserviceResponse("X0001", "ms.vehiclesService.response.furtherActionRequired")),
+    Some(MicroserviceResponse("", "ms.vehiclesService.response.furtherActionRequired")),
     DisposeResponse(transactionId = TransactionIdValid.value,
       registrationNumber = "",
       auditId = "")
