@@ -1,3 +1,11 @@
+======= 1.30 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+DE848 	Some Google analytic events no longer being tracked
+US4269 	Create Terms & Conditions page
+US4298 	CSRF extra logging, code tidy up and new tests
+
 ======= 1.29 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Mar 16 11:59:07 UTC 2016
