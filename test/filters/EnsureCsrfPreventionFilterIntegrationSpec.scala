@@ -3,12 +3,17 @@ package filters
 import com.tzavellas.sse.guice.ScalaModule
 import composition.{TestComposition, TestHarness}
 import helpers.UiSpec
-import org.mockito.Mockito.{never, times, verify}
-import org.mockito.Matchers.any
-import play.api.libs.iteratee.Done
+import org.apache.commons.codec.binary.Base64
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.iteratee.Iteratee
 import play.api.libs.json.{JsString, Json}
-import play.api.mvc.{EssentialAction, Results, RequestHeader}
-import play.api.test.FakeRequest
+import play.api.mvc.{EssentialAction, RequestHeader, Result, Results}
+import play.api.test.{FakeRequest, Helpers}
+import play.api.test.Helpers.await
+import play.api.test.Helpers.defaultAwaitTimeout
+import play.api.test.Helpers.writeableOf_AnyContentAsEmpty
+import play.api.test.Helpers.writeableOf_AnyContentAsFormUrlEncoded
+import play.api.test.Helpers.writeableOf_AnyContentAsJson
 import scala.language.existentials
 import uk.gov.dvla.vehicles.presentation.common.filters.{CsrfPreventionAction, CsrfPreventionFilter}
 import utils.helpers.Config
@@ -17,59 +22,75 @@ class EnsureCsrfPreventionFilterIntegrationSpec extends UiSpec with TestHarness 
 
   "GET request should result in the next filter being called" in new WebBrowserForSelenium {
     setUpTest {
-      case SetUp(filter, request, next) =>
-        val fakeRequest = FakeRequest("GET", "/")
-        filter.apply(next).apply(fakeRequest)
-        verify(next, times(1)).apply(any[RequestHeader])
-      }
+      case SetUp(filter, next) =>
+        val fakeRequest = FakeRequest("GET", "/before-you-start")
+        val result = await(Helpers.call(filter.apply(next), fakeRequest))
+        result should equal(Results.Ok)
+    }
   }
 
   "POST json request should result in the next filter not being called and a 403 forbidden generated" in new WebBrowserForSelenium {
     setUpTest {
-      case SetUp(filter, request, next) =>
+      case SetUp(filter, next) =>
         val json = Json.obj("foo" -> JsString("bar"))
-        val fakeRequest = FakeRequest("POST", "/").withJsonBody(json)
-        val result = filter.apply(next).apply(fakeRequest)
-        verify(next, never).apply(any[RequestHeader])
-        result should equal(Done(Results.Forbidden))
+        val fakeRequest = FakeRequest("POST", "/setup-trade-details").withJsonBody(json)
+        val result = await(Helpers.call(filter.apply(next), fakeRequest))
+        result should equal(Results.Forbidden)
     }
   }
 
   "POST request not form url encoded should result in the next filter not being called and a 403 forbidden generated" in new WebBrowserForSelenium {
     setUpTest {
-      case SetUp(filter, request, next) =>
-        val fakeRequest = FakeRequest("POST", "/")
-        val result = filter.apply(next).apply(fakeRequest)
-        verify(next, never).apply(any[RequestHeader])
-        result should equal(Done(Results.Forbidden))
+      case SetUp(filter, next) =>
+        val fakeRequest = FakeRequest("POST", "/vehicle-lookup")
+        val result = await(Helpers.call(filter.apply(next), fakeRequest))
+        result should equal(Results.Forbidden)
     }
   }
+
 
   "POST request with form url encoded body and no csrf token should result in the next filter not being called" in new WebBrowserForSelenium {
     setUpTest {
-      case SetUp(filter, request, next) =>
-        val fakeRequest = FakeRequest("POST", "/")
+      case SetUp(filter, next) =>
+        val fakeRequest = FakeRequest("POST", "/complete-and-confirm")
           .withFormUrlEncodedBody()
           .withHeaders(play.api.http.HeaderNames.CONTENT_TYPE -> "application/x-www-form-urlencoded")
-        filter.apply(next).apply(fakeRequest)
-        verify(next, never).apply(any[RequestHeader])
+        val result = await(Helpers.call(filter.apply(next), fakeRequest))
+        result should equal(Results.Forbidden)
     }
   }
 
-  // TODO: Cannot get this one to work - the checkBody code looks like it does not find any form body. Will come back to this
-  "POST request with form url encoded body and csrf token should result in the next filter being called" ignore new WebBrowserForSelenium {
+  "POST request with form url encoded body and csrf token should result in the next filter being called" in new WebBrowserForSelenium {
     setUpTest {
-      case SetUp(filter, request, next) =>
-        val fakeRequest = FakeRequest("POST", "/")
-          .withFormUrlEncodedBody((CsrfPreventionAction.TokenName, "TEST-CSRF-TOKEN")) // The body contains the csrf token
-          .withHeaders(play.api.http.HeaderNames.CONTENT_TYPE -> "application/x-www-form-urlencoded") // Set the content type to form url encoded
-        filter.apply(next).apply(fakeRequest)
-        verify(next, times(1)).apply(any[RequestHeader])
+      case SetUp(filter, next) =>
+        val fakeRequest = FakeRequest("POST", "/confirm")
+          .withFormUrlEncodedBody((CsrfPreventionAction.TokenName, validCsrfToken)) // The body contains the csrf token
+          .withHeaders(play.api.http.HeaderNames.CONTENT_TYPE -> "application/x-www-form-urlencoded")
+
+        val result = await(Helpers.call(filter.apply(next), fakeRequest))
+        result should equal(Results.Ok)
     }
   }
+
+  "POST request with token in url and csrf token should result in the next filter being called" in new WebBrowserForSelenium {
+    setUpTest {
+      case SetUp(filter, next) =>
+        val base64Encoded = Base64.encodeBase64String(validCsrfToken.getBytes)
+        val uriEncoded = play.utils.UriEncoding.encodePathSegment(base64Encoded, "UTF-8")
+        val fakeRequest = FakeRequest("POST", s"/confirm/${uriEncoded}")
+          .withFormUrlEncodedBody(("TEST", "TESTCONTENT"))
+          .withCookies(play.api.mvc.Cookie(play.api.http.HeaderNames.REFERER, "INVALID"))
+
+        val result = await(Helpers.call(filter.apply(next), fakeRequest))
+        result should equal(Results.Ok)
+    }
+  }
+
+  private val validCsrfToken = "2ec506394e2810ff32d9eeadd3f8c78339f3b4e7" +
+    "-1459753683001" +
+    "-zwYpnaSiqxJbWY9Hxuw6L/DldKAqB/IUAHFp9F5cIKbpesOkgI5HxcinpaA9S8p09d1wewKNTFoA59SBqHsO4Q=="
 
   private case class SetUp(filter: CsrfPreventionFilter,
-                           request: FakeRequest[_],
                            next: EssentialAction)
 
   private def setUpTest(test: SetUp => Any): Unit = {
@@ -84,8 +105,13 @@ class EnsureCsrfPreventionFilterIntegrationSpec extends UiSpec with TestHarness 
     // Call the function and pass it a new instance of the SetUp case class, which is in its signature
     test(SetUp(
       filter = injector.getInstance(classOf[CsrfPreventionFilter]),
-      request = FakeRequest(),
-      next = mock[EssentialAction]
+      next = EssentialAction(nextAction)
     ))
+  }
+
+  private def nextAction: (RequestHeader) => Iteratee[Array[Byte], Result] = { requestHeader =>
+    Iteratee.fold[Array[Byte], Result](Results.NotFound) {
+      (length, bytes) => Results.Ok
+    }
   }
 }
