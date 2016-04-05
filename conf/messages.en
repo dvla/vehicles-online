@@ -25,13 +25,6 @@ global-please-wait-p1 = We are currently receiving a large volume of application
 global-please-wait-p2 = This page will update automatically, please do not close your browser.
 global-please-wait-close = Close this message
 
-#footer
-footer.builtbyintro = Built by
-footer.builtby = Driver & Vehicle Licensing Agency
-footer.text1 = All content is available under the
-footer.link = open government licence v2.0
-footer.text2 = , except where otherwise stated
-
 #prototype
 prototype.banner = This is a new service -
 prototype.link =  your feedback

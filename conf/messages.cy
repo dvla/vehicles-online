@@ -25,13 +25,6 @@ global-please-wait-p1 = Hyn o bryd rydym yn derbyn nifer fawr o geisiadau sydd w
 global-please-wait-p2 = Bydd y dudalen hon yn diweddaru yn awtomatig, peidiwch cau eich porwr.
 global-please-wait-close = Cau''r neges hon
 
-#footer
-footer.builtbyintro = Adeiladwyd gan
-footer.builtby = Asiantaeth Trwyddedu Gyrwyr a Cherbydau
-footer.text1 = Mae''r holl gynnwys ar gael ar delerau''r
-footer.link = drwydded llywodraeth agored v2.0
-footer.text2 = , ac eithrio lle nodir yn wahanol
-
 #prototype
 prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
 prototype.link =  dysgwch fwy
