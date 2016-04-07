@@ -293,6 +293,7 @@ vehicle_and_keeper_lookup_failure.p0 =
 vehicle_and_keeper_lookup_failure.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
 vehicle_and_keeper_lookup_failure.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
 vehicle_and_keeper_lookup_failure.p3 =
+vehicle_and_keeper_lookup_failure.p4 =
 
 addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
 addressAndPostcode.addressLines = Cyfeiriad

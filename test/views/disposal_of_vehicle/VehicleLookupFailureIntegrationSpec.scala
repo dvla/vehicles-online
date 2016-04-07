@@ -20,6 +20,7 @@ import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWe
 class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
   private final val VrmNotFound = "vehicle_and_keeper_lookup_vrm_not_found"
   private final val DocumentReferenceMismatch = "vehicle_and_keeper_lookup_document_reference_mismatch"
+  val expectedString = "You will only have a limited number of attempts to enter the vehicle details for this vehicle."
 
   "go to page" should {
 
@@ -60,9 +61,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         vehicleLookupResponse(responseMessage = VrmNotFound)
 
       go to VehicleLookupFailurePage
-      pageSource should include("Only a limited number of attempts can be made to retrieve vehicle details " +
-        "for each vehicle registration number entered."
-      )
+      pageSource should include(expectedString)
     }
 
     "display messages that show that the number of brute force attempts does not impact which messages are " +
@@ -76,8 +75,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         vehicleLookupResponse(responseMessage = VrmNotFound)
 
       go to VehicleLookupFailurePage
-      pageSource should include("Only a limited number of attempts can be made to retrieve vehicle details "
-        + "for each vehicle registration number entered.")
+      pageSource should include(expectedString)
     }
 
     "display appropriate messages for document reference mismatch" taggedAs UiTag in new WebBrowserForSelenium {
@@ -90,8 +88,7 @@ class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {
         vehicleLookupResponse(responseMessage = DocumentReferenceMismatch)
 
       go to VehicleLookupFailurePage
-      pageSource should include("Only a limited number of attempts can be made to retrieve vehicle details for "
-        + "each vehicle registration number entered.")
+      pageSource should include(expectedString)
     }
 
   }
