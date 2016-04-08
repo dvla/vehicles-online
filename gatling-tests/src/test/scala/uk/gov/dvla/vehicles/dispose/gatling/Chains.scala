@@ -10,9 +10,6 @@ object Chains {
     exec(http("screen.min.css")
       .get(s"/assets/versioned/screen.min.css")
     )
-      /*.exec(http("fonts.min.css")
-        .get("""/assets/versioned/fonts.min.css""")
-      )*/
       .exec(http("print.min.css")
       .get(s"/assets/versioned/print.min.css")
       )
@@ -36,21 +33,12 @@ object Chains {
       .headers(Map(
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:08:06 GMT""",
       """If-None-Match""" -> """59f34576dba4629e6e960e1d514fe573775e9999"""))
-      //.check(status.is(304))
     )
-      /*.exec(http("fonts.min.css")
-        .get("""/assets/versioned/fonts.min.css""")
-        .headers(Map(
-          """If-Modified-Since""" -> """Fri, 30 May 2014 13:08:32 GMT""",
-          """If-None-Match""" -> """0702d8d00d43562d6fa1a4e87ac82609dc70ffc9"""))
-        .check(status.is(304))
-      )*/
       .exec(http("print.min.css")
       .get(s"/assets/versioned/print.min.css")
       .headers(Map(
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:08:08 GMT""",
       """If-None-Match""" -> """b2b112249c52769ac41acd83e388f550e4c39c6f"""))
-        //.check(status.is(304))
       )
       .exec(http("require.js")
       .get(s"/assets/versioned/javascripts/require.js")
@@ -58,7 +46,6 @@ object Chains {
       """Accept""" -> """*/*""",
       """If-Modified-Since""" -> """Tue, 06 Aug 2013 09:49:32 GMT""",
       """If-None-Match""" -> """858bab5a8e8f73a1d706221ed772a4f740e168d5"""))
-        //.check(status.is(304))
       )
       .exec(
         http("govuk-crest.png")
@@ -67,7 +54,6 @@ object Chains {
           """Accept""" -> """image/png,image/*;q=0.8,*/*;q=0.5""",
           """If-Modified-Since""" -> """Thu, 22 May 2014 14:25:18 GMT""",
           """If-None-Match""" -> """0464ba08d53d88645ca77f9907c082c8c10d563b"""))
-        //.check(status.is(304))
       )
       .exec(http("custom.js")
       .get(s"/assets/versioned/javascripts/main.js")
@@ -75,7 +61,6 @@ object Chains {
       """Accept""" -> """*/*""",
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:10:42 GMT""",
       """If-None-Match""" -> """5f859f72e7cc426915cf32f2643ee5fc494b04a8"""))
-        //.check(status.is(304))
       )
 
   val setupTradeDetails = csv("data/setup-trade-details.csv").circular
@@ -86,13 +71,11 @@ object Chains {
       .headers(headers_accept_html)
       .check(regex( """Buying a vehicle into trade""").exists)
     )
-//      .exec(chain_assets_200)
       .exec(http(s"GET /setup-trade-details")
       .get(s"/setup-trade-details")
       .headers(headers_accept_html)
       .check(regex( """Provide trader details""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token")))
-//      .exec(chain_assets_304)
       .feed(setupTradeDetails)
       .exec(http("POST /setup-trade-details")
       .post("/setup-trade-details")
@@ -104,7 +87,6 @@ object Chains {
       .formParam( """action""", """""")
       .check(regex( """Select trader address""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token")))
-//      .exec(chain_assets_304)
       .exec(http("POST /business-choose-your-address")
       .post("/business-choose-your-address")
       .headers(headers_x_www_form_urlencoded)
@@ -113,7 +95,6 @@ object Chains {
       .formParam( """action""", """""")
       .check(regex( """Enter vehicle details""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token")))
-//      .exec(chain_assets_304)
   val vehicleLookup = csv("data/vehicle-lookup.csv").circular
   val dispose = csv("data/dispose.csv").circular
 
@@ -133,7 +114,6 @@ object Chains {
       .check(regex( """Complete and confirm""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token"))
       )
-//      .exec(chain_assets_304)
       .feed(dispose)
       .exec(http("POST /complete-and-confirm")
       .post("/complete-and-confirm")
@@ -150,13 +130,6 @@ object Chains {
       .check(regex( """Summary""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token"))
       )
-      /*
-      .exec(http("GET /sell-to-the-trade-success")
-        .get("/sell-to-the-trade-success")
-        .headers(headers_accept_html)
-        .check(regex("""Sell a vehicle into the motor trade: summary""").exists)
-      )*/
-//      .exec(chain_assets_304)
       .exec(http("icon-tick-green.gif")
       .get(s"/assets/versioned/lib/vehicles-presentation-common/images/icon-tick-green.gif")
       .headers(headers_accept_png)
@@ -181,5 +154,4 @@ object Chains {
       .formParam( """action""", """""")
       .check(regex( """Buying a vehicle into trade""").exists)
     )
-//      .exec(chain_assets_304)
 }
