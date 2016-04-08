@@ -43,12 +43,6 @@ final class FakeVehicleAndKeeperLookupWebService extends VehicleAndKeeperLookupW
         case _ => (vehicleDetailsResponseSuccess._1, Json.toJson(vehicleDetailsResponseSuccess._2.get.right.get))
       }
     }
-    /*
-    val responseAsJson = Json.toJson(response)
-    val fake = new java.io.FileWriter("/home/omarh/fakeresponse.txt")
-    fake.write(responseAsJson.toString())
-    fake.close()
-    */
     // Any call to a webservice will always return this successful response.
     new FakeResponse(status = responseStatus, fakeJson = Some(responseAsJson))
   }
