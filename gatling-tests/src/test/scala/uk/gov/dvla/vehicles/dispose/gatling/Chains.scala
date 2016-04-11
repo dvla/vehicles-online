@@ -137,14 +137,14 @@ object Chains {
   }
 
   val chain_new_dispose =
-    exec(http("POST /vehicle-lookup")
-      .post("/vehicle-lookup")
+    exec (http("POST /sell-to-the-trade-success/new-disposal")
+      .post("/sell-to-the-trade-success/new-disposal")
       .headers(headers_accept_html)
       .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
       .formParam( """action""", """""")
-      .check(regex( """Find vehicle details""").exists)
+      .check(regex( """Enter vehicle details""").exists)
+      .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token"))
     )
-      .exec(chain_assets_304)
 
   val chain_exit_service =
     exec(http("POST /sell-to-the-trade-success/exit")
