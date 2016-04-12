@@ -1,0 +1,15 @@
+@()(implicit lang: Lang,
+    config: utils.helpers.Config,
+    isPrivateKeeper: Boolean)
+
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.privacyPolicy
+
+@main(
+    title = Messages("privacy-title")
+) {
+    <div class="two-col clearfix">
+        <div class="second-col">
+            @privacyPolicy(routes.CookiePolicy.present())
+        </div>
+    </div>
+}
