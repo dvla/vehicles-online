@@ -1,3 +1,13 @@
+======= 1.31 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+VMPRCI-2861 	Privacy Policy page
+VMPRCI-3961 	Review commented out / ignored / pending unit tests and main source code
+VMPRCI-4227 	Add Webchat question/text box to beta feedback survey
+VMPRCI-4258 	Update content of vehicle lookup failure page
+VMPRCI-4292 	Upgrade VMPR services to OGL v3.0
+
 ======= 1.30 ========
 TIME OF RELEASE BINARIES CREATION:
 Fri Apr 01 10:57:04 UTC 2016
