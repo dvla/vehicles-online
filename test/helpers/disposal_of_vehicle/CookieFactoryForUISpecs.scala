@@ -115,7 +115,11 @@ object CookieFactoryForUISpecs {
 
   def dealerDetails(address: AddressModel = addressWithoutUprn)(implicit webDriver: WebDriver) = {
     val key = traderDetailsCacheKey
-    val value = TraderDetailsModel(traderName = TraderBusinessNameValid, traderAddress = address)
+    val value = TraderDetailsModel(
+      traderName = TraderBusinessNameValid,
+      traderAddress = address,
+      traderEmail = None
+    )
     addCookie(key, value)
     this
   }

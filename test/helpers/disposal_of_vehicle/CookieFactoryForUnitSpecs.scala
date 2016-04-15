@@ -144,7 +144,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
       traderAddress = AddressModel(
         uprn = uprn,
         address = Seq(buildingNameOrNumber, postTown, traderPostcode)
-      )
+      ),
+      traderEmail = None
     )
     createCookie(key, value)
   }
@@ -160,7 +161,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
       traderAddress = AddressModel(
         uprn = uprn,
         address = Seq(buildingNameOrNumber, line2, postTown, traderPostcode)
-      )
+      ),
+      traderEmail = None
     )
     createCookie(key, value)
   }
@@ -172,7 +174,8 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(uprn = uprn, address = Seq(postTown, traderPostcode)
-      )
+      ),
+      traderEmail = None
     )
     createCookie(key, value)
   }

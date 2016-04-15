@@ -64,7 +64,8 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
             val traderAddress = VmAddressModel.from(validForm.addressAndPostcodeModel)
             val traderDetailsModel = TraderDetailsModel(
               traderName = setupTradeDetails.traderBusinessName,
-              traderAddress = traderAddress
+              traderAddress = traderAddress,
+              traderEmail = setupTradeDetails.traderEmail
             )
             logMessage(request.cookies.trackingId(), Debug,
               s"Address found, redirecting to $onSubmitSuccess ")
