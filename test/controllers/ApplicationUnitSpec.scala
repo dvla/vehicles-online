@@ -37,20 +37,6 @@ class ApplicationUnitSpec extends UnitSpec {
     }
   }
 
-  // This Application allows us to safely apply an application context and ensure that the changes are reverted
-  // once the test has finished executing. This is because the default Router object contains global shared state
-  class WithApplicationContext(context: String) extends play.api.test.WithApplication (
-    app = LightFakeApplication( TestGlobal, Map("application.context" -> context))
-  ){
-    override def around[T: AsResult](t: => T): Result =
-    {
-      Helpers.running(app) {
-        try AsResult.effectively(t)
-        finally app.routes.foreach(_.setPrefix("/"))
-      }
-    }
-  }
-
   private def configWithStartUrl(startUrl: String): Config = {
     val config = mock[Config]
     when(config.startUrl).thenReturn(startUrl)
