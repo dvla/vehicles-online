@@ -9,7 +9,7 @@ Feature: Disposal to Trade - transaction failure codes and messages
     Given details are entered that correspond to a vehicle that has a valid clean record and has no markers or error codes
     When this is submitted along with any other mandatory information
     Then the next step in the dispose transaction "Summary" is shown
-    And a message is displayed "a letter will be sent to the name and address on the V5C within 4 weeks."
+    And a message is displayed "a letter will be sent to the name and address on the V5C registration certificate (logbook) within 4 weeks."
 
   Scenario:
     Given details are entered that correspond to a vehicle that has a valid record but does have markers or error codes

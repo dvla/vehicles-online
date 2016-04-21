@@ -44,7 +44,7 @@ widget.optional = (optional)
 
 #customer validation messages
 error.restricted.validNumberOnly = This field only accepts numbers
-error.restricted.validVrnOnly = Must be as shown on the latest V5C
+error.restricted.validVrnOnly = Must be as shown on the latest V5C registration certificate (logbook)
 error.restricted.validPostcode = Must be between five and eight characters and in a valid format, eg. AB1 2BA or AB12BA
 
 datePlaceholder.day=Day
@@ -76,7 +76,7 @@ error.invalid = Invalid value
 #page 1 - Before You Start
 disposal_beforeyoustart.title = Buying a vehicle into trade
 disposal_beforeyoustart.p1 = Before you start:
-disposal_beforeyoustart.listitem1 = No changes can be made to the V5C and the name and address must be correct
+disposal_beforeyoustart.listitem1 = No changes can be made to the V5C registration certificate (logbook) and the name and address must be correct
 disposal_beforeyoustart.listitem1linktext = Vehicle enquiry service (VES)
 
 disposal_beforeyoustart.listitem2 = Any personalised registration numbers must be retained or transferred before using this service
@@ -93,14 +93,14 @@ disposal_beforeyoustart.description = If a vehicle has been sold to the motor tr
 disposal_beforeyoustart.tradeWarn = This service must only be used by a member of the motor trade acting on behalf of a seller.
 
 disposal_beforeyoustart.youWillNeedTitle = To use this service you will need
-disposal_beforeyoustart.youWillNeedListItem1 = the 11 digit document reference number from the latest registration certificate (V5C)
+disposal_beforeyoustart.youWillNeedListItem1 = the 11 digit document reference number from the latest V5C registration certificate (logbook)
 disposal_beforeyoustart.youWillNeedListItem2 = the consent of the seller of the vehicle to act on their behalf
 
 disposal_beforeyoustart.recordUpdateWarn = Please note: this service updates our records immediately
 
 disposal_beforeyoustart.finishedTitle=Once you''ve finished
 disposal_beforeyoustart.finishedListItem1 = the registered keeper will be removed from our records and we will send them confirmation by post
-disposal_beforeyoustart.finishedListItem2 = we will issue an automatic refund of any tax due to the address on the V5C and cancel any direct debit
+disposal_beforeyoustart.finishedListItem2 = we will issue an automatic refund of any tax due to the address on the V5C registration certificate (logbook) and cancel any direct debit
 disposal_beforeyoustart.finishedListItem3.1 = the original V5C/3 yellow disposal slip
 disposal_beforeyoustart.finishedListItem3.2 = must not
 disposal_beforeyoustart.finishedListItem3.3 = be sent to DVLA
@@ -180,11 +180,11 @@ disposal_vehiclelookup.p1 = Vehicle being sold
 disposal_vehiclelookup.p2 = Trader details
 disposal_vehiclelookup.warning.p1 = Do not dispose of a vehicle with a personal registration unless the current keeper understands that the registration will be disposed of along with the vehicle.
 disposal_vehiclelookup.warning.p2 = Retain or transfer personal registrations before disposing to the trade.
-disposal_vehiclelookup.img.h2 = Help finding your V5C document reference number?
+disposal_vehiclelookup.img.h2 = Help finding your V5C registration certificate (logbook) document reference number?
 disposal_vehiclelookup.img.hint = Where to find this?
-disposal_vehiclelookup.v5c = Vehicle registration certificate (V5C)
-disposal_vehiclelookup.img.alt = V5C document reference number
-disposal_vehiclelookup.refnumlabel = Latest V5C document reference number
+disposal_vehiclelookup.v5c = V5C registration certificate (logbook)
+disposal_vehiclelookup.img.alt = V5C registration certificate (logbook) document reference number
+disposal_vehiclelookup.refnumlabel = Latest V5C registration certificate (logbook) document reference number
 disposal_vehiclelookup.vrninputlabel = Vehicle registration number
 disposal_vehiclelookup.backbutton = Back
 disposal_vehiclelookup.button = Next
@@ -199,7 +199,7 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 
 #page 5 - confirm disposal
 disposal_dispose.title = Complete and confirm
-disposal_dispose.warning=If the vehicle details shown are incorrect please abandon this transaction and send the V5C with a covering letter to DVLA, Swansea, SA99 1BA.
+disposal_dispose.warning=If the vehicle details shown are incorrect please abandon this transaction and send the V5C registration certificate (logbook) with a covering letter to DVLA, Swansea, SA99 1BA.
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration
 disposal_dispose.vehiclemake = Make
@@ -245,11 +245,11 @@ disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
 disposal_disposeconfirmation.keeperDetails.email = Contact email address
-disposal_disposeconfirmation.exkeeper-p1 =a letter will be sent to the name and address on the V5C within 4 weeks.
-disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C within 4 weeks.
+disposal_disposeconfirmation.exkeeper-p1 =a letter will be sent to the name and address on the V5C registration certificate (logbook) within 4 weeks.
+disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C registration certificate (logbook) within 4 weeks.
 disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in this time they must contact DVLA customer enquiries as they could still be liable for this vehicle.
 disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA customer enquiries on 0300 790 6802 as you could still be liable for this vehicle.
-disposal_disposeconfirmation.exkeeper-p3 = since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C. This should take 4-6 weeks. Any direct debits will also be cancelled.
+disposal_disposeconfirmation.exkeeper-p3 = since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C registration certificate (logbook). This should take 4-6 weeks. Any direct debits will also be cancelled.
 disposal_disposeconfirmation.exkeeper-p4 = you may want to take a print of this summary for your records.
 disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = Transaction ID
@@ -283,8 +283,8 @@ disposal_vehiclelookupfailure.button = Try again
 disposal_vehiclelookupfailure.button2 = Exit
 vehicle_and_keeper_lookup_failure.p0 = The vehicle registration number and/or the V5C/3 document reference number you entered is either incorrect or does not come from the latest V5C issued for this vehicle.
 vehicle_and_keeper_lookup_failure.p1 = Please check that the vehicle registration number and V5C/3 document reference number are correct and select the ‘Try again’ button below.
-vehicle_and_keeper_lookup_failure.p2 = If you are sure that the details have been entered correctly then you may be using an old V5C and it’s likely that we have issued you with a new one since.
-vehicle_and_keeper_lookup_failure.p3 = If you do not have the latest issued V5C, you will need to send your completed V5C/3 to DVLA, Swansea, SA99 1BD.
+vehicle_and_keeper_lookup_failure.p2 = If you are sure that the details have been entered correctly then you may be using an old V5C registration certificate (logbook) and it’s likely that we have issued you with a new one since.
+vehicle_and_keeper_lookup_failure.p3 = If you do not have the latest issued V5C registration certificate (logbook), you will need to send your completed V5C/3 to DVLA, Swansea, SA99 1BD.
 vehicle_and_keeper_lookup_failure.p4 = You will only have a limited number of attempts to enter the vehicle details for this vehicle.
 
 error.validBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .). The following characters cannot be used at the start of trader name  (&,-,(), /, ‘ and , or .)
@@ -327,7 +327,7 @@ duplicate_disposal_error.exit.button=Exit
 #keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
 error_suppressedV5C.title = Vehicle is part of a suppressed fleet
 error_suppressedV5C.text1 = DVLA cannot record the sale of this vehicle as it is part of a suppressed fleet.
-error_suppressedV5C.text2 = Before a sale of this vehicle can be updated, you will need to request a vehicle registration certificate (V5C) from the DVLA. This can be done using the
+error_suppressedV5C.text2 = Before a sale of this vehicle can be updated, you will need to request a V5C registration certificate (logbook) from the DVLA. This can be done using the
 error_suppressedV5C.text3 = view vehicle record service.
 error_suppressedV5C.link = https://www.gov.uk/dvla-fleet-vehicle-info
 error_suppressedV5C.button1 = Sell another vehicle

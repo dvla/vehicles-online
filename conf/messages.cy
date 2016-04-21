@@ -44,7 +44,7 @@ widget.optional = (opsiynol)
 
 #customer validation messages
 error.restricted.validNumberOnly = Dim ond rhifau a dderbynnir gan y maes hwn
-error.restricted.validVrnOnly = Rhaid bod yn union fel a ddangosir ar y V5CW diweddaraf
+error.restricted.validVrnOnly = Rhaid bod yn union fel a ddangosir ar y tystysgrif cofrestru ddiweddaraf (V5CW) diweddaraf
 error.restricted.validPostcode = Rhaid bod rhwng pump ac wyth nod o hyd ac mewn fformat dilys ee. AB1 2BA neu AB12BA
 
 datePlaceholder.day=Dydd
@@ -76,7 +76,7 @@ error.invalid = Gwerth annilys
 #page 1 - Before You Start
 disposal_beforeyoustart.title = Gwerthu cerbyd i''r fasnach foduron
 disposal_beforeyoustart.p1 = Cyn i chi gychwyn:
-disposal_beforeyoustart.listitem1 = Ni ellir gwneud unrhyw newidiadau i''r V5CW a rhaid bod yr enw a''r cyfeiriad yn gywir.
+disposal_beforeyoustart.listitem1 = Ni ellir gwneud unrhyw newidiadau i''r tystysgrif cofrestru ddiweddaraf (V5CW) a rhaid bod yr enw a''r cyfeiriad yn gywir.
 disposal_beforeyoustart.listitem1linktext = Gwasanaeth ymholiadau cerbydau (VES)
 
 disposal_beforeyoustart.listitem2 = Rhaid cadw neu drosglwyddo rhifau cofrestru personol cyn defnyddio''r gwasanaeth hwn
@@ -100,13 +100,13 @@ disposal_beforeyoustart.recordUpdateWarn = Sylwer: mae''r gwasanaeth hwn yn diwe
 
 disposal_beforeyoustart.finishedTitle= Unwaith y byddwch wedi gorffen
 disposal_beforeyoustart.finishedListItem1 = bydd y ceidwad cofrestredig yn cael ei ddileu o''n cofnodion a byddwn yn anfon cadarnhad iddo drwy''r post
-disposal_beforeyoustart.finishedListItem2 = byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy''n ddyledus i''r cyfeiriad ar y V5CW a chanslo unrhyw ddebyd uniongyrchol
+disposal_beforeyoustart.finishedListItem2 = byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy''n ddyledus i''r cyfeiriad ar y tystysgrif cofrestru ddiweddaraf (V5CW) a chanslo unrhyw ddebyd uniongyrchol
 disposal_beforeyoustart.finishedListItem3.1 = y slip gwaredu melyn V5C/3W gwreiddiol
 disposal_beforeyoustart.finishedListItem3.2 = ni ddylai
 disposal_beforeyoustart.finishedListItem3.3 = cael eu hanfon at DVLA
 
 disposal_beforeyoustart.otherWaysTitle = Ffyrdd eraill o wneud cais
-disposal_beforeyoustart.otherWays.p1 = Os nad ydych yn defnyddio''r gwasanaeth ar-lein, mae''n rhaid i chi neu''r gwerthwr gwblhau''r V5C / 3 a''i phostio i DVLA, Abertawe, SA99 1BD
+disposal_beforeyoustart.otherWays.p1 = Os nad ydych yn defnyddio''r gwasanaeth ar-lein, mae''n rhaid i chi neu''r gwerthwr gwblhau''r V5C/3W a''i phostio i DVLA, Abertawe, SA99 1BD
 
 #page 2 - set-up trade details
 disposal_setuptradedetails.title = Rhowch fanylion y masnachwr
@@ -176,11 +176,11 @@ disposal_vehiclelookup.p1 = Y cerbyd a werthir
 disposal_vehiclelookup.p2 = Manylion masnachwr
 disposal_vehiclelookup.warning.p1 = Peidiwch â chael gwared o gerbyd sydd â rhif cofrestru personol oni bai bod y ceidwad presennol yn deall y ceir gwared â''r rhif cofrestru hefyd ynghyd â''r cerbyd.
 disposal_vehiclelookup.warning.p2 = Cadw neu drosglwyddo rhifau cofrestru personol cyn gwaredu''r cerbyd trwy ei fasnachu.
-disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen V5CW?
+disposal_vehiclelookup.img.h2 = Angen help i ddod o hyd i rif cyfeirnod y ddogfen tystysgrif cofrestru (V5CW)?
 disposal_vehiclelookup.img.hint = Ble i ddod o hyd hyn
-disposal_vehiclelookup.v5c = Tystysgrif cofrestru cerbyd (V5C)
-disposal_vehiclelookup.img.alt = Rhif cyfeirnod y ddogfen V5CW
-disposal_vehiclelookup.refnumlabel = Rhif cyfeirnod y ddogfen V5CW ddiweddaraf
+disposal_vehiclelookup.v5c = Tystysgrif cofrestru V5CW (llyfr log) cerbyd
+disposal_vehiclelookup.img.alt = Rhif cyfeirnod y ddogfen tystysgrif cofrestru (V5CW)
+disposal_vehiclelookup.refnumlabel = Rhif cyfeirnod y ddogfen tystysgrif cofrestru ddiweddaraf (V5CW) ddiweddaraf
 disposal_vehiclelookup.vrninputlabel = Rhif cofrestru''r cerbyd
 disposal_vehiclelookup.backbutton = Yn ôl
 disposal_vehiclelookup.button = Nesaf
@@ -195,7 +195,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os yw''r manylion uchod yn cyd-fynd â''r cerbyd i gael ei werthu, anfonwch y dystysgrif gofrestru V5C gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1BA.
+disposal_dispose.warning= Os yw''r manylion uchod yn cyd-fynd â''r cerbyd i gael ei werthu, anfonwch y dystysgrif gofrestru V5CW (llyfr log) gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1BA.
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
@@ -241,8 +241,8 @@ disposal_disposeconfirmation.trader_name = Trader name
 disposal_disposeconfirmation.trader_address = Trader address
 disposal_disposeconfirmation.keeperDetails = Keeper details
 disposal_disposeconfirmation.keeperDetails.email = Contact email address
-disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y V5C o fewn 4 wythnos.
-disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y V5C o fewn 4 wythnos.
+disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y tystysgrif cofrestru V5CW (llyfr log) o fewn 4 wythnos.
+disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y tystysgrif cofrestru V5CW (llyfr log) o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
 disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu DVLA ymholiadau cwsmeriaid ar 0300 790 6802 fel y gallech ddal i fod yn atebol am y cerbyd hwn.
 disposal_disposeconfirmation.exkeeper-p3 = dyfynnwch y rhif trafodyn ID uchod os bydd angen cysylltu â DVLA
@@ -278,7 +278,7 @@ disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch
 disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
 disposal_vehiclelookupfailure.button2 = Allan
 vehicle_and_keeper_lookup_failure.p0 =
-vehicle_and_keeper_lookup_failure.p1 = Mae rhif cyfeirnod y ddogfen V5CW a roddwyd naill ai yn annilys neu ddim oddi ar y V5CW ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
+vehicle_and_keeper_lookup_failure.p1 = Mae rhif cyfeirnod y ddogfen tystysgrif cofrestru (V5CW) a roddwyd naill ai yn annilys neu ddim oddi ar y tystysgrif cofrestru (V5CW) ddiweddaraf a gyhoeddwyd ar gyfer y cerbyd hwn.
 vehicle_and_keeper_lookup_failure.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
 vehicle_and_keeper_lookup_failure.p3 =
 vehicle_and_keeper_lookup_failure.p4 =
@@ -303,7 +303,7 @@ closed.exit_button = Gadael
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
-ms.vehiclesService.response.applicationBeingProcessed.p2 = Dinistriwch y V5C / 3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA
+ms.vehiclesService.response.applicationBeingProcessed.p2 = Dinistriwch y V5C/3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA
 
 ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
@@ -326,7 +326,7 @@ duplicate_disposal_error.exit.button= Allan
 #keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
 error_suppressedV5C.title = Cerbyd yn rhan o fflyd hatal
 error_suppressedV5C.text1 = Ni all DVLA gofnodi gwerthu cerbyd hwn gan ei fod yn rhan o fflyd hatal.
-error_suppressedV5C.text2 = Before a sale of this vehicle can be updated, you will need to request a vehicle registration certificate (V5C) from the DVLA. This can be done using the
+error_suppressedV5C.text2 = Before a sale of this vehicle can be updated, you will need to request a tystysgrif cofrestru V5CW (llyfr log) from the DVLA. This can be done using the
 error_suppressedV5C.text3 = view vehicle record service.
 error_suppressedV5C.link = https://www.gov.uk/dvla-fleet-vehicle-info
 error_suppressedV5C.button1 = Gwerthu cerbyd arall

@@ -139,7 +139,7 @@ object EmailMessageBuilder {
        |
        |                            <p>$contentPart4 should receive a postal acknowledgement letter within 4 weeks.</p>
        |
-       |                            <p>DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C log book, which was used.</p>
+       |                            <p>DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C registration certificate (logbook), which was used.</p>
        |
        |                            $contentPart5
        |
@@ -184,7 +184,7 @@ object EmailMessageBuilder {
         |
         |$contentPart4 should receive a postal acknowledgement letter within 4 weeks.
         |
-        |DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C log book, which was used.
+        |DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C registration certificate (logbook), which was used.
         |
         |$contentPart5
         |
