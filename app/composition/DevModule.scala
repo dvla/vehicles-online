@@ -30,7 +30,7 @@ import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupSer
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebServiceImpl
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.{AddressLookupServiceImpl => OrdnanceSurveyServiceImpl, WebServiceImpl => OrdnanceSurveyWebServiceImpl, AddressLookupWithOrgnameServiceImpl}
+import common.webserviceclients.addresslookup.ordnanceservey.{WebServiceImpl => OrdnanceSurveyWebServiceImpl, AddressLookupWithOrgnameServiceImpl}
 import common.webserviceclients.emailservice.{EmailService, EmailServiceImpl}
 import common.webserviceclients.emailservice.{EmailServiceWebService, EmailServiceWebServiceImpl}
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}

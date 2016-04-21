@@ -6,16 +6,15 @@ import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
-import common.LogFormats.DVLALogger
 import utils.helpers.Config
 
 class BeforeYouStart @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
-                                 config: Config) extends BusinessController with DVLALogger {
+                                 config: Config) extends BusinessController {
 
   def present = Action { implicit request =>
-    Ok(views.html.disposal_of_vehicle.before_you_start()).
-      withNewSession.
-      discardingCookies(AllCacheKeys)
+    Ok(views.html.disposal_of_vehicle.before_you_start())
+      .withNewSession
+      .discardingCookies(AllCacheKeys)
   }
 
   def submit = Action { implicit request =>

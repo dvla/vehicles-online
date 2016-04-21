@@ -14,15 +14,13 @@ class Error @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFact
   protected def formTarget(exceptionDigest: String): Call = controllers.routes.Error.submit(exceptionDigest)
 
   def present(exceptionDigest: String) = Action { implicit request =>
-    logMessage(request.cookies.trackingId(), Error, "Displaying generic error page - " +
-      exceptionDigest)
+    logMessage(request.cookies.trackingId(), Error, s"Displaying generic error page for digest - $exceptionDigest")
     Ok(views.html.disposal_of_vehicle.error(formTarget(exceptionDigest)))
   }
 
-  // TODO is there a submit button that calls this? If it is unused then delete.
   def submit(exceptionDigest: String) = Action { implicit request =>
-    logMessage(request.cookies.trackingId(), Error, "Submit called - now removing full set of cookies and " +
-      "redirecting to Start page")
-    CookieHelper.discardAllCookies(routes.BeforeYouStart.present)
+    val msg = "Submit called on Error controller - now removing full set of cookies and redirecting to Start page"
+    logMessage(request.cookies.trackingId(), Error, msg)
+    CookieHelper.discardAllCookies(routes.BeforeYouStart.present())
   }
 }
