@@ -47,7 +47,7 @@
      The top ancestor is root; thus all loggers will log to the application log and graylog. -->
     <root level="TRACE">
         <appender-ref ref="FILE"/>
-        <appender-ref ref="SYSLOG"/>
+        <!--<appender-ref ref="SYSLOG"/>-->
     </root>
 
 </configuration>
