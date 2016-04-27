@@ -18,9 +18,9 @@ resolvers += "Maven 2" at "http://repo2.maven.org/maven2"
 // NOTE: this additional repo for scoverage is not required since we append to sbt's pre-defined resolvers, that include Resolver.jcenterRepo
 //resolvers += Resolver.url("scoverage-bintray", url("https://dl.bintray.com/sksamuel/sbt-plugins/"))(Resolver.ivyStylePatterns)
 
-addSbtPlugin("dvla" % "build-details-generator" % "1.3.1")
+addSbtPlugin("dvla" % "build-details-generator" % "1.3.2-SNAPSHOT")
 
-addSbtPlugin("dvla" % "microservices-sandbox" % "1.3.8")
+addSbtPlugin("dvla" % "microservices-sandbox" % "1.3.9-SNAPSHOT")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.9")
 
