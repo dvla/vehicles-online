@@ -1,6 +1,6 @@
 package views.disposal_of_vehicle
 
-import composition.{TestGlobal, TestHarness}
+import composition.{TestGlobalWithFilters, TestHarness}
 import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
@@ -64,5 +64,5 @@ final class MainUiSpec extends UiSpec with TestHarness {
     }
   }
 
-  private val fakeAppWithPrototypeFalse = LightFakeApplication(TestGlobal,Map("prototype.disclaimer" -> "false"))
+  private val fakeAppWithPrototypeFalse = LightFakeApplication(TestGlobalWithFilters,Map("prototype.disclaimer" -> "false"))
 }

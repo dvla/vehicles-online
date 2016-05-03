@@ -4,7 +4,7 @@ import Common.PrototypeHtml
 import com.tzavellas.sse.guice.ScalaModule
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.{UnitSpec, WithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.VehicleLookupFormModel
@@ -85,18 +85,18 @@ class VehicleLookupUnitSpec extends UnitSpec {
   })
 
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       present.futureValue.header.status should equal(play.api.http.Status.OK)
     }
 
-    "redirect to setupTradeDetails page when user has not set up a trader for disposal" in new WithApplication {
+    "redirect to setupTradeDetails page when user has not set up a trader for disposal" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator().present(request)
 
       result.futureValue.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
     }
 
-    "display populated fields when cookie exists" in new WithApplication {
+    "display populated fields when cookie exists" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
@@ -106,7 +106,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       content should include(RegistrationNumberValid)
     }
 
-    "not display exit anchor when DisposeOccurredCacheKey cookie is missing" in new WithApplication {
+    "not display exit anchor when DisposeOccurredCacheKey cookie is missing" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().present(request)
@@ -114,7 +114,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       content should not include ExitAnchorHtml
     }
 
-    "display exit anchor when DisposeOccurredCacheKey cookie is present" in new WithApplication {
+    "display exit anchor when DisposeOccurredCacheKey cookie is present" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
@@ -123,7 +123,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       content should include(ExitAnchorHtml)
     }
 
-    "display reset trade details anchor" in new WithApplication {
+    "display reset trade details anchor" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
@@ -132,7 +132,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       content should include(s"""a id="$ResetTraderDetailsId""")
     }
 
-    "display data captured in previous pages" in new WithApplication {
+    "display data captured in previous pages" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().present(request)
@@ -146,7 +146,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       content should include(webserviceclients.fakes.FakeAddressLookupService.PostcodeValid)
     }
 
-    "display empty fields when cookie does not exist" in new WithApplication {
+    "display empty fields when cookie does not exist" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().present(request)
@@ -155,18 +155,18 @@ class VehicleLookupUnitSpec extends UnitSpec {
       content should not include RegistrationNumberValid
     }
 
-    "display prototype message when config set to true" in new WithApplication {
+    "display prototype message when config set to true" in new TestWithApplication {
       contentAsString(present) should include(PrototypeHtml)
     }
 
-    "not display prototype message when config set to false" in new WithApplication {
+    "not display prototype message when config set to false" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator(isPrototypeBannerVisible = false).present(request)
       contentAsString(result) should not include PrototypeHtml
     }
 
-    "offer the survey on first successful dispose" in new WithApplication {
+    "offer the survey on first successful dispose" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
@@ -176,7 +176,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       contentAsString(vehiclesLookup.present(request)) should include(config.surveyUrl)
     }
 
-    "not offer the survey for one just after the initial survey offering" in new WithApplication {
+    "not offer the survey for one just after the initial survey offering" in new TestWithApplication {
       implicit val config = mockSurveyConfig()
       val aMomentAgo = (Instant.now.getMillis - 100).toString
 
@@ -189,7 +189,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       contentAsString(vehiclesLookup.present(request)) should not include config.surveyUrl
     }
 
-    "offer the survey one week after the first offering" in new WithApplication {
+    "offer the survey one week after the first offering" in new TestWithApplication {
       implicit val config = mockSurveyConfig()
 
       val moreThen7daysAgo =
@@ -203,7 +203,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       contentAsString(vehiclesLookup.present(request)) should include(config.surveyUrl)
     }
 
-    "not offer the survey one week after the first offering" in new WithApplication {
+    "not offer the survey one week after the first offering" in new TestWithApplication {
       implicit val config = mockSurveyConfig()
 
       val lessThen7daysАgo =
@@ -217,7 +217,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       contentAsString(vehiclesLookup.present(request)) should not include config.surveyUrl
     }
 
-    "not offer the survey if the survey url is not set in the config" in new WithApplication {
+    "not offer the survey if the survey url is not set in the config" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeOccurred)
@@ -229,7 +229,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
 
   "submit" should {
     "redirect to Dispose after a valid submit and true message returned from the fake microservice" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator().submit(request)
 
@@ -247,7 +247,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "submit removes spaces from registrationNumber" in new WithApplication {
+    "submit removes spaces from registrationNumber" in new TestWithApplication {
       // DE7 Spaces should be stripped
       val request = buildCorrectlyPopulatedRequest(registrationNumber = RegistrationNumberWithSpaceValid)
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -259,41 +259,41 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "redirect to MicroServiceError after a submit and no response code and no vehicledetailsdto returned from " +
-      "the fake microservice" in new WithApplication {
+      "the fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseNotFoundResponseCode).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
     }
 
     "redirect to VehicleLookupFailure after a submit and vrm not found by the fake microservice" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseVRMNotFound).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
     "redirect to VehicleLookupFailure after a submit and document reference number mismatch returned by the " +
-      "fake microservice" in new WithApplication {
+      "fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseDocRefNumberNotLatest).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
     "redirect to VehicleLookupFailure after a submit and vss error returned by the fake microservice" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsServerDown).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
     }
 
     "redirect to VehicleLookupFailure after a submit and unhandled exception returned by the fake microservice" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsResponseUnhandledException).submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
-    "return a bad request if dealer details are in cache and no details are entered" in new WithApplication {
+    "return a bad request if dealer details are in cache and no details are entered" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(referenceNumber = "", registrationNumber = "")
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -301,14 +301,14 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "redirect to setupTradeDetails page if dealer details are not in cache and no details are entered" in new
-        WithApplication {
+        TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(referenceNumber = "", registrationNumber = "")
       val result = vehicleLookupResponseGenerator().submit(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(SetupTradeDetailsPage.address))
     }
 
     "replace max length error message for document reference number with standard error message (US43)" in new
-        WithApplication {
+        TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(referenceNumber = "1" * (DocumentReferenceNumber.MaxLength + 1))
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -321,7 +321,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "replace required and min length error messages for document reference number with " +
-      "standard error message (US43)" in new WithApplication {
+      "standard error message (US43)" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(referenceNumber = "")
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -334,7 +334,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "replace max length error message for vehicle registration number with standard error message (US43)" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = "PJ05YYYX")
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -343,7 +343,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "replace required and min length error messages for vehicle registration number with standard " +
-      "error message (US43)" in new WithApplication {
+      "error message (US43)" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = "")
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().submit(request)
@@ -354,14 +354,14 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "redirect to EnterAddressManually when back button is pressed and the user has manually entered an address" in
-      new WithApplication {
+      new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.enterAddressManually())
       val result = vehicleLookupResponseGenerator().back(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(EnterAddressManuallyPage.address))
     }
 
-    "redirect to BusinessChooseYourAddress when back button is pressed and there is a uprn" in new WithApplication {
+    "redirect to BusinessChooseYourAddress when back button is pressed and there is a uprn" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(uprn = Some(traderUprnValid)))
       val result = vehicleLookupResponseGenerator().back(request)
@@ -369,7 +369,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "redirect to BusinessChooseYourAddress when back is called and the user has completed the vehicle lookup form" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(uprn = Some(traderUprnValid)))
         .withCookies(CookieFactoryForUnitSpecs.businessChooseYourAddressUseUprn())
@@ -377,7 +377,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(BusinessChooseYourAddressPage.address))
     }
 
-    "redirect to MicroserviceError when microservice throws" in new WithApplication {
+    "redirect to MicroserviceError when microservice throws" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupError.submit(request)
 
@@ -387,7 +387,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "redirect to MicroServiceError after a submit if response status is Ok and no response payload" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsNoResponse).submit(request)
 
@@ -396,7 +396,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(MicroServiceErrorPage.address))
     }
 
-    "write cookie when vss error returned by the microservice" in new WithApplication {
+    "write cookie when vss error returned by the microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(vehicleDetailsServerDown).submit(request)
 
@@ -406,7 +406,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "write cookie when document reference number mismatch returned by microservice" in new WithApplication {
+    "write cookie when document reference number mismatch returned by microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(fullResponse = vehicleDetailsResponseDocRefNumberNotLatest)
         .submit(request)
@@ -417,7 +417,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "write cookie when vrm not found by the fake microservice" in new WithApplication {
+    "write cookie when vrm not found by the fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(fullResponse = vehicleDetailsResponseVRMNotFound).submit(request)
       whenReady(result) { r =>
@@ -427,7 +427,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to vrm locked when valid submit and brute force prevention returns not permitted" in new WithApplication {
+    "redirect to vrm locked when valid submit and brute force prevention returns not permitted" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = VrmLocked)
       val result = vehicleLookupResponseGenerator(
         vehicleDetailsResponseDocRefNumberNotLatest,
@@ -437,7 +437,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "redirect to VehicleLookupFailure and display 1st attempt message when document reference number " +
-     "not found and security service returns 1st attempt" in new WithApplication {
+     "not found and security service returns 1st attempt" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = RegistrationNumberValid)
       val result = vehicleLookupResponseGenerator(
         vehicleDetailsResponseDocRefNumberNotLatest,
@@ -448,7 +448,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
     }
 
     "redirect to VehicleLookupFailure and display 2nd attempt message when document reference number " +
-      "not found and security service returns 2nd attempt" in new WithApplication {
+      "not found and security service returns 2nd attempt" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest(registrationNumber = VrmAttempt2)
       val result = vehicleLookupResponseGenerator(
         vehicleDetailsResponseDocRefNumberNotLatest,
@@ -458,7 +458,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(VehicleLookupFailurePage.address))
     }
 
-    "redirect to DuplicateDisposalError if the keeper end date is present for that vehicle" in new WithApplication {
+    "redirect to DuplicateDisposalError if the keeper end date is present for that vehicle" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
       val result = vehicleLookupResponseGenerator(
         vehicleDetailsDisposedVehicleResponseSuccess,
@@ -468,7 +468,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       result.futureValue.header.headers.get(LOCATION) should equal(Some(DuplicateDisposalErrorPage.address))
     }
 
-    "Send a request and a trackingId" in new WithApplication {
+    "Send a request and a trackingId" in new TestWithApplication {
       val trackingId = TrackingId("default_test_tracking_id")
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel()).
@@ -488,7 +488,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "Send the request and no trackingId if session is not present" in new WithApplication {
+    "Send the request and no trackingId if session is not present" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
 
@@ -506,7 +506,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "call the vehicle lookup micro service and brute force service after a valid request" in new WithApplication {
+    "call the vehicle lookup micro service and brute force service after a valid request" in new TestWithApplication {
       val (bruteForceService, bruteForceWebServiceMock) = bruteForceServiceAndWebServiceMock(permitted = true)
       val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(
         bruteForceService = bruteForceService
@@ -520,7 +520,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "not call the vehicle lookup micro service after a invalid request" in new WithApplication {
+    "not call the vehicle lookup micro service after a invalid request" in new TestWithApplication {
       val (bruteForceService, bruteForceWebServiceMock) = bruteForceServiceAndWebServiceMock(permitted = true)
       val (vehicleLookupController, vehicleLookupMicroServiceMock) = vehicleLookupControllerAndMocks(
         bruteForceService = bruteForceService
@@ -537,7 +537,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
   }
 
   "exit" should {
-    "redirect to end page from configuration" in new WithApplication {
+    "redirect to end page from configuration" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().exit(request)
@@ -546,7 +546,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
       }
     }
 
-    "set the surveyRequestTriggerDate to the current date" in new WithApplication {
+    "set the surveyRequestTriggerDate to the current date" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.preventGoingToDisposePage(""))

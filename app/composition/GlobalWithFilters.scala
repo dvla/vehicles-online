@@ -31,7 +31,7 @@ import utils.helpers.Config
  * To override and stipulate a particular "conf" e.g.
  * play -Dconfig.file=conf/application.test.conf run
  */
-trait GlobalLike extends WithFilters with GlobalSettings with Composition {
+trait GlobalWithFilters extends WithFilters with GlobalSettings with Composition {
   /**
    * Controllers must be resolved through the application context. There is a special method of GlobalSettings
    * that we can override to resolve a given controller. This resolution is required by the Play router.

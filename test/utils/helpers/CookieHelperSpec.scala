@@ -1,8 +1,8 @@
 package utils.helpers
 
-import composition.TestGlobal
+import composition.TestGlobalWithFilters
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.WithApplication
+import helpers.TestWithApplication
 import helpers.UnitSpec
 import models.AllCacheKeys
 import pages.disposal_of_vehicle.BeforeYouStartPage
@@ -14,7 +14,7 @@ import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCo
 
 final class CookieHelperSpec extends UnitSpec {
   "handleApplicationSecretChange" should {
-    "discard all cookies except SeenCookieMessageKey" in new WithApplication(app = appWithCryptpConfig) {
+    "discard all cookies except SeenCookieMessageKey" in new TestWithApplication(appWithCryptpConfig) {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.seenCookieMessage()).
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
@@ -36,7 +36,7 @@ final class CookieHelperSpec extends UnitSpec {
       }
     }
 
-    "redirect to BeforeYouStart page" in new WithApplication(app = appWithCryptpConfig) {
+    "redirect to BeforeYouStart page" in new TestWithApplication(appWithCryptpConfig) {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.seenCookieMessage()).
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
@@ -54,6 +54,6 @@ final class CookieHelperSpec extends UnitSpec {
   }
 
   private val appWithCryptpConfig =
-    LightFakeApplication(TestGlobal,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
+    LightFakeApplication(TestGlobalWithFilters,Map("application.secret256Bit" -> "MnPSvGpiEF5OJRG3xLAnsfmdMTLr6wpmJmZLv2RB9Vo="))
 
 }

@@ -1,7 +1,7 @@
 package controllers.priv
 
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.{UnitSpec, WithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import models.DisposeFormModelBase.Form.ConsentId
 import models.DisposeFormModelBase.Form.DateOfDisposalId
 import models.DisposeFormModelBase.Form.LossOfRegistrationConsentId
@@ -56,7 +56,7 @@ class DisposeUnitSpec extends UnitSpec {
   })
 
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -70,7 +70,7 @@ class DisposeUnitSpec extends UnitSpec {
 
   "submit" should {
     "redirect to dispose success for private keeper, with confirmation email, when " +
-      "a success message is returned by the fake microservice" in new WithApplication {
+      "a success message is returned by the fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -89,7 +89,7 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "redirect to dispose success for private keeper, with no confirmation email, when " +
-      "a success message is returned by the fake microservice" in new WithApplication {
+      "a success message is returned by the fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -107,7 +107,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "write cookies when a success message is returned by the fake microservice" in new WithApplication {
+    "write cookies when a success message is returned by the fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())

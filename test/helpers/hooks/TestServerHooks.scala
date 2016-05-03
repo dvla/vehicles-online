@@ -1,6 +1,6 @@
 package helpers.hooks
 
-import composition.TestGlobal
+import composition.TestGlobalWithFilters
 import play.api.test.{FakeApplication, TestServer}
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
@@ -21,5 +21,5 @@ final class TestServerHooks {
 
 object TestServerHooks {
   private final val port: Int = 9002
-  private lazy val fakeAppWithTestGlobal: FakeApplication = LightFakeApplication(TestGlobal)
+  private lazy val fakeAppWithTestGlobal: FakeApplication = LightFakeApplication(TestGlobalWithFilters)
 }

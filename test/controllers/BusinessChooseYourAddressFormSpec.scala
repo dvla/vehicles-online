@@ -1,6 +1,6 @@
 package controllers
 
-import composition.WithApplication
+import helpers.TestWithApplication
 import helpers.UnitSpec
 import models.BusinessChooseYourAddressFormModel.Form.AddressSelectId
 import org.mockito.invocation.InvocationOnMock
@@ -22,13 +22,13 @@ import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 
 class BusinessChooseYourAddressFormSpec extends UnitSpec {
   "form" should {
-    "accept when all fields contain valid responses" in new WithApplication {
+    "accept when all fields contain valid responses" in new TestWithApplication {
       formWithValidDefaults().get.uprnSelected should equal(traderUprnValid.toString)
     }
   }
 
   "addressSelect" should {
-    "reject if empty" in new WithApplication {
+    "reject if empty" in new TestWithApplication {
       val errors = formWithValidDefaults(addressSelected = "").errors
       errors.length should equal(1)
       errors.head.key should equal(AddressSelectId)

@@ -3,7 +3,7 @@ package controllers
 import Common.PrototypeHtml
 import helpers.JsonUtils.deserializeJsonToModel
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.{UnitSpec, WithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.EnterAddressManuallyFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
@@ -34,13 +34,13 @@ import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 
 class EnterAddressManuallyUnitSpec extends UnitSpec {
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       whenReady(present) { r =>
         r.header.status should equal(OK)
       }
     }
 
-    "redirect to SetupTraderDetails page when present with no dealer name cached" in new WithApplication {
+    "redirect to SetupTraderDetails page when present with no dealer name cached" in new TestWithApplication {
       val request = FakeRequest()
       val result = enterAddressManually.present(request)
       whenReady(result) { r =>
@@ -48,7 +48,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "display populated fields when cookie exists" in new WithApplication {
+    "display populated fields when cookie exists" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.enterAddressManually())
@@ -60,7 +60,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       content should include(filledValue(PostTownValid))
     }
 
-    "display empty fields when cookie does not exist" in new WithApplication {
+    "display empty fields when cookie does not exist" in new TestWithApplication {
       val content = contentAsString(present)
       content should not include filledValue(BuildingNameOrNumberValid)
       content should not include filledValue(Line2Valid)
@@ -68,11 +68,11 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       content should not include filledValue(PostTownValid)
     }
 
-    "display prototype message when config set to true" in new WithApplication {
+    "display prototype message when config set to true" in new TestWithApplication {
       contentAsString(present) should include(PrototypeHtml)
     }
 
-    "not display prototype message when config set to false" in new WithApplication {
+    "not display prototype message when config set to false" in new TestWithApplication {
       val request = FakeRequest()
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
@@ -85,7 +85,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
   }
 
   "submit" should {
-    "return bad request when no data is entered" in new WithApplication {
+    "return bad request when no data is entered" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
 
@@ -95,7 +95,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "return bad request a valid postcode is entered without an address" in new WithApplication {
+    "return bad request a valid postcode is entered without an address" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$PostcodeId" -> PostcodeValid).
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
@@ -105,7 +105,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "return bad request if no postcode is entered" in new WithApplication {
+    "return bad request if no postcode is entered" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> Line2Valid,
@@ -118,7 +118,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "return bad request if an invalid postcode is entered" in new WithApplication {
+    "return bad request if an invalid postcode is entered" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> Line2Valid,
@@ -132,7 +132,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to Dispose after a valid submission of all fields" in new WithApplication {
+    "redirect to Dispose after a valid submission of all fields" in new TestWithApplication {
       val request = requestWithValidDefaults()
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
@@ -168,7 +168,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to Dispose after a valid submission of mandatory fields" in new WithApplication {
+    "redirect to Dispose after a valid submission of mandatory fields" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid,
@@ -180,7 +180,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "submit removes commas and full stops from the end of each address line" in new WithApplication {
+    "submit removes commas and full stops from the end of each address line" in new TestWithApplication {
       val result = enterAddressManually.submit(requestWithValidDefaults(
         buildingName = "my house,",
         line2 = "my street.",
@@ -196,7 +196,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       )
     }
 
-    "submit removes multiple commas and full stops from the end of each address line" in new WithApplication {
+    "submit removes multiple commas and full stops from the end of each address line" in new TestWithApplication {
       val result = enterAddressManually.submit(requestWithValidDefaults(
         buildingName = "my house,.,..,,",
         line2 = "my street...,,.,",
@@ -212,7 +212,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       )
     }
 
-    "submit does not remove multiple commas and full stops from the middle of address lines" in new WithApplication {
+    "submit does not remove multiple commas and full stops from the middle of address lines" in new TestWithApplication {
       val result = enterAddressManually.submit(requestWithValidDefaults(
         buildingName = "my house 1.1",
         line2 = "st. something street",
@@ -228,7 +228,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       )
     }
 
-    "submit removes commas, but still applies the min length rule" in new WithApplication {
+    "submit removes commas, but still applies the min length rule" in new TestWithApplication {
       FormExtensions.trimNonWhiteListedChars("""[A-Za-z0-9\-]""")(",, m...,,,,   ") should equal("m")
       val result = enterAddressManually.submit(requestWithValidDefaults(
         buildingName = "m      "  // This should be a min length of 4 chars
@@ -238,7 +238,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "submit does not accept an address containing only full stops" in new WithApplication {
+    "submit does not accept an address containing only full stops" in new TestWithApplication {
       val result = enterAddressManually.submit(requestWithValidDefaults(
         buildingName = "...")
       )
@@ -248,7 +248,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetupTraderDetails page when valid submit with no dealer name cached" in new WithApplication {
+    "redirect to SetupTraderDetails page when valid submit with no dealer name cached" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$Line2Id" -> Line2Valid,
@@ -261,7 +261,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetupTradeDetails page when bad submit with no dealer name cached" in new WithApplication {
+    "redirect to SetupTradeDetails page when bad submit with no dealer name cached" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody()
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
@@ -269,7 +269,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "write cookie after a valid submission of all fields" in new WithApplication {
+    "write cookie after a valid submission of all fields" in new TestWithApplication {
       val request = requestWithValidDefaults()
       val result = enterAddressManually.submit(request)
       whenReady(result) { r =>
@@ -278,7 +278,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       }
     }
 
-    "collapse error messages for buildingNameOrNumber" in new WithApplication {
+    "collapse error messages for buildingNameOrNumber" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> "",
         s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> PostTownValid,
@@ -289,7 +289,7 @@ class EnterAddressManuallyUnitSpec extends UnitSpec {
       content should include("Building/number and street must contain between 4 and 30 characters")
     }
 
-    "collapse error messages for post town" in new WithApplication {
+    "collapse error messages for post town" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody(
         s"$AddressAndPostcodeId.$AddressLinesId.$BuildingNameOrNumberId" -> BuildingNameOrNumberValid,
         s"$AddressAndPostcodeId.$AddressLinesId.$PostTownId" -> "",

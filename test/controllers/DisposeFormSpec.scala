@@ -1,6 +1,6 @@
 package controllers
 
-import composition.WithApplication
+import helpers.TestWithApplication
 import helpers.UnitSpec
 import models.DisposeFormModelBase.Form.ConsentId
 import models.DisposeFormModelBase.Form.DateOfDisposalId
@@ -35,7 +35,7 @@ import webserviceclients.fakes.FakeResponse
 
 class DisposeFormSpec extends UnitSpec {
   "form" should {
-    "accept when all fields contain valid responses" in new WithApplication {
+    "accept when all fields contain valid responses" in new TestWithApplication {
       val model = formWithValidDefaults().get
 
       model.mileage.get should equal(MileageValid.toInt)
@@ -48,7 +48,7 @@ class DisposeFormSpec extends UnitSpec {
       model.lossOfRegistrationConsent should equal(ConsentValid)
     }
 
-    "accept when all mandatory fields contain valid responses" in new WithApplication {
+    "accept when all mandatory fields contain valid responses" in new TestWithApplication {
       val model = formWithValidDefaults(
         mileage = "",
         dayOfDispose = DateOfDisposalDayValid,
@@ -65,22 +65,22 @@ class DisposeFormSpec extends UnitSpec {
   }
 
   "mileage" should {
-    "reject if mileage is more than maximum" in new WithApplication {
+    "reject if mileage is more than maximum" in new TestWithApplication {
       formWithValidDefaults(mileage = (Mileage.Max + 1).toString).errors should have length 1
     }
-    "reject if mileage is not numeric" in new WithApplication {
+    "reject if mileage is not numeric" in new TestWithApplication {
       formWithValidDefaults(mileage = "Boom").errors should have length 1
     }
   }
 
   "consent" should {
-    "reject if consent is not ticked" in new WithApplication {
+    "reject if consent is not ticked" in new TestWithApplication {
       formWithValidDefaults(consent = "").errors should have length 1
     }
   }
 
   "lossOfRegistrationConsent" should {
-    "reject if loss of registration consent is not ticked" in new WithApplication {
+    "reject if loss of registration consent is not ticked" in new TestWithApplication {
       formWithValidDefaults(lossOfRegistrationConsent = "").errors should have length 1
     }
   }

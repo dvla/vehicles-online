@@ -1,7 +1,7 @@
 package controllers
 
 import helpers.UnitSpec
-import helpers.WithApplication
+import helpers.TestWithApplication
 import pages.disposal_of_vehicle.CookiePolicyPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers.OK
@@ -12,7 +12,7 @@ import play.api.test.Helpers.status
 class CookiePolicyUnitSpec extends UnitSpec {
 
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       val result = cookiePolicy.present(FakeRequest())
       status(result) should equal(OK)
       contentAsString(result) should include(CookiePolicyPage.title)

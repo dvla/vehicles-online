@@ -3,35 +3,17 @@ package views.disposal_of_vehicle
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Injector}
 import com.tzavellas.sse.guice.ScalaModule
-import composition.{GlobalLike, TestComposition, TestHarness}
+import composition.{GlobalWithFilters, TestComposition, TestHarness}
 import helpers.UiSpec
 import org.apache.http.client.methods.{HttpGet, HttpPost}
 import org.apache.http.impl.client.HttpClients
 import org.scalatest.mock.MockitoSugar
-import org.scalatest.selenium.WebBrowser
-import WebBrowser.enter
-import WebBrowser.Checkbox
-import WebBrowser.checkbox
-import WebBrowser.TextField
-import WebBrowser.textField
-import WebBrowser.TelField
-import WebBrowser.telField
-import WebBrowser.RadioButton
-import WebBrowser.radioButton
-import WebBrowser.click
-import WebBrowser.go
-import WebBrowser.find
-import WebBrowser.id
-import WebBrowser.Element
-import WebBrowser.pageSource
-import WebBrowser.pageTitle
-import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage}
+import org.scalatest.selenium.WebBrowser.go
 import pages.ApplicationContext.applicationContext
+import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage}
 import play.api.LoggerLike
-import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter
-import AccessLoggingFilter.AccessLoggerName
-import uk.gov.dvla.vehicles.presentation.common.helpers
-import helpers.webbrowser.{WebDriverFactory}
+import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter.AccessLoggerName
+import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebDriverFactory
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 
 class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoSugar {
@@ -96,7 +78,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
     }
   }
 
-  private class TestGlobalWithMockLogger(mockLogger: MockLogger) extends GlobalLike with TestComposition {
+  private class TestGlobalWithMockLogger(mockLogger: MockLogger) extends GlobalWithFilters with TestComposition {
 
     override lazy val injector: Injector = Guice.createInjector(testModule(new ScalaModule {
       override def configure(): Unit = {

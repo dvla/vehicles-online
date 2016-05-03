@@ -3,7 +3,7 @@ package controllers
 import Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs.TrackingIdValue
-import helpers.{UnitSpec, WithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import models.DisposeFormModel.DisposeFormModelCacheKey
 import models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey
 import models.DisposeFormModel.DisposeFormTimestampIdCacheKey
@@ -90,7 +90,7 @@ class DisposeUnitSpec extends UnitSpec {
   })
 
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -101,7 +101,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to setupTradeDetails page when present and previous pages have not been visited" in new WithApplication {
+    "redirect to setupTradeDetails page when present and previous pages have not been visited" in new TestWithApplication {
       val request = FakeRequest()
       val result = disposeController(disposeWebService = disposeWebService()).present(request)
       whenReady(result) { r =>
@@ -109,7 +109,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "display populated fields when cookie exists" in new WithApplication {
+    "display populated fields when cookie exists" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -127,7 +127,7 @@ class DisposeUnitSpec extends UnitSpec {
       contentWithCarriageReturnsAndSpacesRemoved should include(buildDateControl("dateOfDisposal.year", dod.toString("YYYY")))
     }
 
-    "display empty fields when cookie does not exist" in new WithApplication {
+    "display empty fields when cookie does not exist" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -140,7 +140,7 @@ class DisposeUnitSpec extends UnitSpec {
       content should not include "selected" // No drop downs should be selected
     }
 
-    "display prototype message when config set to true" in new WithApplication {
+    "display prototype message when config set to true" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -149,7 +149,7 @@ class DisposeUnitSpec extends UnitSpec {
       contentAsString(result) should include(PrototypeHtml)
     }
 
-    "not display prototype message when config set to false" in new WithApplication {
+    "not display prototype message when config set to false" in new TestWithApplication {
       implicit val config = mock[Config]
       when(config.isPrototypeBannerVisible).thenReturn(false)
       when(config.googleAnalyticsTrackingId).thenReturn(None)
@@ -167,7 +167,7 @@ class DisposeUnitSpec extends UnitSpec {
   }
 
   "submit" should {
-    "redirect to dispose success when a success message is returned by the fake microservice" in new WithApplication {
+    "redirect to dispose success when a success message is returned by the fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -185,7 +185,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to dispose success when a success message is returned by the fake microservice with seller confirm email" in new WithApplication {
+    "redirect to dispose success when a success message is returned by the fake microservice with seller confirm email" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestWithEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -203,7 +203,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to micro-service error page when the ms indicates vss returned an error response for the attempted disposal" in new WithApplication {
+    "redirect to micro-service error page when the ms indicates vss returned an error response for the attempted disposal" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -215,7 +215,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to duplicate-disposal error page when an duplicate disposal error occurs" in new WithApplication {
+    "redirect to duplicate-disposal error page when an duplicate disposal error occurs" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -232,7 +232,7 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "redirect to setupTradeDetails page after the dispose button is clicked and no vehicleLookupFormModel is cached" in
-      new WithApplication {
+      new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail.withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = disposeController(disposeWebService = disposeWebService()).submit(request)
       whenReady(result) { r =>
@@ -240,7 +240,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "return a bad request and not call the dispose service when no details are entered" in new WithApplication {
+    "return a bad request and not call the dispose service when no details are entered" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -254,7 +254,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "calls DisposeService invoke with the expected DisposeRequest" in new WithApplication {
+    "calls DisposeService invoke with the expected DisposeRequest" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -271,7 +271,7 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "redirect to setupTradeDetails page when form submitted with errors and previous pages have not been visited" in
-      new WithApplication {
+      new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody()
       val result = disposeController(disposeWebService = disposeWebService()).submit(request)
       whenReady(result) { r =>
@@ -279,7 +279,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to micro-service error page when calling webservice throws exception" in new WithApplication {
+    "redirect to micro-service error page when calling webservice throws exception" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -305,7 +305,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to micro-service error page when service is unavailable" in new WithApplication {
+    "redirect to micro-service error page when service is unavailable" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -317,7 +317,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to dispose success when applicationBeingProcessed" in new WithApplication {
+    "redirect to dispose success when applicationBeingProcessed" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -330,7 +330,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to dispose failure page when unableToProcessApplication" in new WithApplication {
+    "redirect to dispose failure page when unableToProcessApplication" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -345,7 +345,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to error page when undefined error is returned" in new WithApplication {
+    "redirect to error page when undefined error is returned" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -361,7 +361,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "write cookies when a success message is returned by the fake microservice" in new WithApplication {
+    "write cookies when a success message is returned by the fake microservice" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -379,7 +379,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "write cookies when applicationBeingProcessed" in new WithApplication {
+    "write cookies when applicationBeingProcessed" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -397,7 +397,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "send a request and a trackingId" in new WithApplication {
+    "send a request and a trackingId" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -427,7 +427,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "truncate address lines 1,2,3 and 4 up to max characters" in new WithApplication {
+    "truncate address lines 1,2,3 and 4 up to max characters" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -450,7 +450,7 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate post town up to max characters" in new WithApplication {
+    "truncate post town up to max characters" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -468,7 +468,7 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "remove spaces from postcode on submit" in new WithApplication {
+    "remove spaces from postcode on submit" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -486,7 +486,7 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate building name or number and place remainder on line 2 when line 2 is empty" in new WithApplication {
+    "truncate building name or number and place remainder on line 2 when line 2 is empty" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -503,7 +503,7 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "truncate address line 2 and place remainder on line 3 when line 3 is empty" in new WithApplication {
+    "truncate address line 2 and place remainder on line 3 when line 3 is empty" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -521,7 +521,7 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "truncate building name or number and place remainder on line 2 when line 3 is empty. " +
-      "Line 2 is over max length, should be placed on line 3 and truncated" in new WithApplication {
+      "Line 2 is over max length, should be placed on line 3 and truncated" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -543,7 +543,7 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "truncate building name or number when over 30 characters. Move line 2 to line 3 and remainder of " +
-      "building name or number to line 2 when line 3 is empty" in new WithApplication {
+      "building name or number to line 2 when line 3 is empty" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -561,7 +561,7 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "truncate building name or number, create line 2 and move remainder to line2 when only " +
-      "building name or number, town and postcode returned" in new WithApplication {
+      "building name or number, town and postcode returned" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -579,7 +579,7 @@ class DisposeUnitSpec extends UnitSpec {
     }
 
     "truncate address line 2, create line 3 and move remainder to line3 when only " +
-      "building name or number, line2, town and postcode returned" in new WithApplication {
+      "building name or number, line2, town and postcode returned" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -598,7 +598,7 @@ class DisposeUnitSpec extends UnitSpec {
 
     "truncate building name or number, create line 3, move line 2 to line 3 remainder of " +
       "building name or number to line 2 when building name or number, line2, " +
-      "town and postcode returned" in new WithApplication {
+      "town and postcode returned" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -616,7 +616,7 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "create dummy building name or number when only town and postcode returned" in new WithApplication {
+    "create dummy building name or number when only town and postcode returned" in new TestWithApplication {
       val disposeService = disposeServiceMock()
       val controller = disposeController(disposeWebService = disposeWebService(), disposeService = disposeService)
 
@@ -633,7 +633,7 @@ class DisposeUnitSpec extends UnitSpec {
       verify(disposeService, times(1)).invoke(cmd = disposeRequest, trackingId = TrackingIdValue)
     }
 
-    "redirect to vehicle lookup when a dispose success cookie exists" in new WithApplication {
+    "redirect to vehicle lookup when a dispose success cookie exists" in new TestWithApplication {
       val request = buildCorrectlyPopulatedRequestNoEmail
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -646,7 +646,7 @@ class DisposeUnitSpec extends UnitSpec {
       }
     }
 
-    "send two internal emails when further action required" in new WithApplication {
+    "send two internal emails when further action required" in new TestWithApplication {
       verifyEmail(buildCorrectlyPopulatedRequestNoEmail,
         disposeResponse = disposeResponseFurtherActionRequired,
         traderEmail = None,
@@ -654,28 +654,28 @@ class DisposeUnitSpec extends UnitSpec {
       )
     }
 
-    "not send any confirmation of sale email" in new WithApplication {
+    "not send any confirmation of sale email" in new TestWithApplication {
       verifyEmail(req = buildCorrectlyPopulatedRequestNoEmail,
         traderEmail = None,
         expected = never()
       )
     }
 
-    "send confirmation of sale email to trader" in new WithApplication {
+    "send confirmation of sale email to trader" in new TestWithApplication {
        verifyEmail(req = buildCorrectlyPopulatedRequestNoEmail,
          traderEmail = Some(EmailValid),
          expected = times(1)
        )
     }
 
-    "send confirmation email to seller" in new WithApplication {
+    "send confirmation email to seller" in new TestWithApplication {
        verifyEmail(req = buildCorrectlyPopulatedRequestWithEmail,
          traderEmail = None,
          expected = times(1)
        )
     }
 
-    "send confirmation email to trader and seller" in new WithApplication {
+    "send confirmation email to trader and seller" in new TestWithApplication {
        verifyEmail(req = buildCorrectlyPopulatedRequestWithEmail,
          traderEmail = Some(EmailValid),
          expected = times(2)

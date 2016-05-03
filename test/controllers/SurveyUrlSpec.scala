@@ -1,7 +1,7 @@
 package controllers
 
 import com.tzavellas.sse.guice.ScalaModule
-import helpers.{WithApplication, UnitSpec}
+import helpers.{TestWithApplication, UnitSpec}
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import org.joda.time.Instant
 import org.mockito.Mockito.when
@@ -13,21 +13,21 @@ class SurveyUrlSpec extends UnitSpec {
   private val privateKeeperSurveyUrlString = "http://privateKeeperSurveyUrl"
 
   "when trader" should {
-    "get the business survey url if configured so and for the first time" in new WithApplication {
+    "get the business survey url if configured so and for the first time" in new TestWithApplication {
       val (surveyUrl, request) =
         setUp(surveyUrlString, privateKeeperSurveyUrlString, 10000, None)
 
       surveyUrl(request, isPrivateKeeper = false) should equal(Some(surveyUrlString))
     }
 
-    "Not get the survey url if within the timeout " in new WithApplication {
+    "Not get the survey url if within the timeout " in new TestWithApplication {
       val (surveyUrl, request) =
         setUp(surveyUrlString, privateKeeperSurveyUrlString, 10000, Some(Instant.now.getMillis - 100))
 
       surveyUrl(request, isPrivateKeeper = false) should equal(None)
     }
 
-    "Get the survey url after timeout expire" in new WithApplication {
+    "Get the survey url after timeout expire" in new TestWithApplication {
       val (surveyUrl, request) =
         setUp(surveyUrlString, privateKeeperSurveyUrlString, 100, Some(Instant.now.getMillis - 1000))
 
@@ -36,21 +36,21 @@ class SurveyUrlSpec extends UnitSpec {
   }
 
   "when private keeper" should {
-    "get the business survey url if configured so and for the first time" in new WithApplication {
+    "get the business survey url if configured so and for the first time" in new TestWithApplication {
       val (surveyUrl, request) =
         setUp(surveyUrlString, privateKeeperSurveyUrlString, 10000, None)
 
       surveyUrl(request, isPrivateKeeper = true) should equal(Some(privateKeeperSurveyUrlString))
     }
 
-    "Not get the survey url if within the timeout " in new WithApplication {
+    "Not get the survey url if within the timeout " in new TestWithApplication {
       val (surveyUrl, request) =
         setUp(surveyUrlString, privateKeeperSurveyUrlString, 10000, Some(Instant.now.getMillis - 100))
 
       surveyUrl(request, isPrivateKeeper = true) should equal(None)
     }
 
-    "Get the survey url after timeout expire" in new WithApplication {
+    "Get the survey url after timeout expire" in new TestWithApplication {
       val (surveyUrl, request) =
         setUp(surveyUrlString, privateKeeperSurveyUrlString, 100, Some(Instant.now.getMillis - 1000))
 

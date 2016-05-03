@@ -3,7 +3,7 @@ package controllers
 import Common.PrototypeHtml
 import com.tzavellas.sse.guice.ScalaModule
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.{UnitSpec, WithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import models.DisposeFormModel.{PreventGoingToDisposePageCacheKey, SurveyRequestTriggerDateCacheKey}
 import org.joda.time.Instant
 import org.mockito.Mockito.when
@@ -22,13 +22,13 @@ class DisposeSuccessUnitSpec extends UnitSpec {
   val testDuration = 7.days.toMillis
 
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       whenReady(present) { r =>
         r.header.status should equal(OK)
       }
     }
 
-    "redirect to SetUpTradeDetails on present when cache is empty" in new WithApplication {
+    "redirect to SetUpTradeDetails on present when cache is empty" in new TestWithApplication {
       val request = FakeRequest()
       val result = disposeSuccess.present(request)
       whenReady(result) { r =>
@@ -36,7 +36,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on present when only DealerDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on present when only DealerDetails are cached" in new TestWithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -46,7 +46,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on present when only VehicleDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on present when only VehicleDetails are cached" in new TestWithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails()).
         withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
@@ -56,7 +56,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on present when only DisposeDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on present when only DisposeDetails are cached" in new TestWithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
       val result = disposeSuccess.present(request)
@@ -66,7 +66,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "redirect to SetUpTradeDetails on present when only VehicleDetails and DisposeDetails are cached" in
-      new WithApplication {
+      new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeFormModel())
@@ -77,7 +77,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "redirect to SetUpTradeDetails on present when only VehicleDetails and DealerDetails are cached" in
-      new WithApplication {
+      new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeSuccess.present(request)
@@ -87,7 +87,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "redirect to SetUpTradeDetails on present when only DisposeDetails " +
-      "and DealerDetails are cached" in new WithApplication {
+      "and DealerDetails are cached" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = disposeSuccess.present(request)
@@ -96,7 +96,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "display the page with correctly formatted mileage on present" in new WithApplication {
+    "display the page with correctly formatted mileage on present" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeFormModel(mileage = Some(123456)))
@@ -108,7 +108,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       contentAsString(result) should include("123,456")
     }
 
-    "display the page with mileage not entered message on present" in new WithApplication {
+    "display the page with mileage not entered message on present" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeFormModel())
@@ -120,11 +120,11 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       contentAsString(result) should include("Not entered")
     }
 
-    "display prototype message when config set to true" in new WithApplication {
+    "display prototype message when config set to true" in new TestWithApplication {
       contentAsString(present) should include(PrototypeHtml)
     }
 
-    "not display prototype message when config set to false" in new WithApplication {
+    "not display prototype message when config set to false" in new TestWithApplication {
       val request = FakeRequest()
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
@@ -138,7 +138,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       contentAsString(result) should not include PrototypeHtml
     }
 
-    "offer the survey on first successful dispose" in new WithApplication {
+    "offer the survey on first successful dispose" in new TestWithApplication {
       implicit val config = mockSurveyConfig()
 
       val disposeSuccess = disposeWithMockConfig(config)
@@ -146,7 +146,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       contentAsString(disposeSuccess.present(requestFullyPopulated)) should include(config.surveyUrl)
     }
 
-    "not offer the survey for one just after the initial survey offering" in new WithApplication {
+    "not offer the survey for one just after the initial survey offering" in new TestWithApplication {
       implicit val config = mockSurveyConfig()
 
       val aMomentAgo = (Instant.now.getMillis - 100).toString
@@ -157,7 +157,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       )) should not include config.surveyUrl
     }
 
-    "offer the survey one week after the first offering" in new WithApplication {
+    "offer the survey one week after the first offering" in new TestWithApplication {
       implicit val config = mockSurveyConfig()
 
       val moreThen7daysAgo = (Instant.now.getMillis
@@ -171,7 +171,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       )) should include(config.surveyUrl)
     }
 
-    "not offer the survey one week after the first offering" in new WithApplication {
+    "not offer the survey one week after the first offering" in new TestWithApplication {
       implicit val config = mockSurveyConfig()
 
       val lessThen7daysАgo = (Instant.now.getMillis
@@ -185,7 +185,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       )) should not include config.surveyUrl
     }
 
-    "not offer the survey if the survey url is not set in the config" in new WithApplication {
+    "not offer the survey if the survey url is not set in the config" in new TestWithApplication {
       implicit val config: Config = mockSurveyConfig("")
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val surveyUrl = new SurveyUrl()(clientSideSessionFactory, config, new FakeDateServiceImpl)
@@ -203,14 +203,14 @@ class DisposeSuccessUnitSpec extends UnitSpec {
   }
 
   "newDisposal" should {
-    "redirect to correct next page after the new disposal button is clicked" in new WithApplication {
+    "redirect to correct next page after the new disposal button is clicked" in new TestWithApplication {
       val result = disposeSuccess.newDisposal(requestFullyPopulated)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(VehicleLookupPage.address))
       }
     }
 
-    "redirect to SetUpTradeDetails on submit when cache is empty" in new WithApplication {
+    "redirect to SetUpTradeDetails on submit when cache is empty" in new TestWithApplication {
       val request = FakeRequest()
       val result = disposeSuccess.newDisposal(request)
       whenReady(result) { r =>
@@ -218,7 +218,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on submit when only DealerDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on submit when only DealerDetails are cached" in new TestWithApplication {
       val request = FakeRequest().
         withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = disposeSuccess.newDisposal(request)
@@ -227,7 +227,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on submit when only VehicleDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on submit when only VehicleDetails are cached" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeSuccess.newDisposal(request)
@@ -236,7 +236,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "redirect to SetUpTradeDetails on submit when only DisposeDetails are cached" in new WithApplication {
+    "redirect to SetUpTradeDetails on submit when only DisposeDetails are cached" in new TestWithApplication {
       val request = FakeRequest()
       val result = disposeSuccess.newDisposal(request)
       whenReady(result) { r =>
@@ -245,7 +245,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "redirect to SetUpTradeDetails on submit when only VehicleDetails and DisposeDetails are cached" in
-      new WithApplication {
+      new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.disposeFormModel())
@@ -256,7 +256,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "redirect to SetUpTradeDetails on submit when only VehicleDetails and DealerDetails are cached" in
-      new WithApplication {
+      new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val result = disposeSuccess.newDisposal(request)
@@ -266,7 +266,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
     }
 
     "redirect to SetUpTradeDetails on submit when only DisposeDetails and DealerDetails are cached" in
-      new WithApplication {
+      new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -276,7 +276,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "write interstitial cookie with BeforeYouStart url" in new WithApplication {
+    "write interstitial cookie with BeforeYouStart url" in new TestWithApplication {
       val result = disposeSuccess.newDisposal(requestFullyPopulated)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
@@ -286,14 +286,14 @@ class DisposeSuccessUnitSpec extends UnitSpec {
   }
 
   "exit" should {
-    "redirect to BeforeYouStartPage" in new WithApplication {
+    "redirect to BeforeYouStartPage" in new TestWithApplication {
       val result = disposeSuccess.exit(requestFullyPopulated)
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
       }
     }
 
-    "write interstitial cookie with BeforeYouStart url" in new WithApplication {
+    "write interstitial cookie with BeforeYouStart url" in new TestWithApplication {
       val result = disposeSuccess.exit(requestFullyPopulated)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
@@ -301,7 +301,7 @@ class DisposeSuccessUnitSpec extends UnitSpec {
       }
     }
 
-    "set the surveyRequestTriggerDate to the current date" in new WithApplication {
+    "set the surveyRequestTriggerDate to the current date" in new TestWithApplication {
       val result = disposeWithMockConfig(mockSurveyConfig("http://www.google.com")).exit(requestFullyPopulated)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)

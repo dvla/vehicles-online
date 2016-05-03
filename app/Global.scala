@@ -1,3 +1,3 @@
-import composition.GlobalLike
+import composition.GlobalWithFilters
 
-object Global extends GlobalLike
+object Global extends GlobalWithFilters

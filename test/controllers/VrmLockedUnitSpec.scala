@@ -2,7 +2,7 @@ package controllers
 
 import Common.PrototypeHtml
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.{UnitSpec, WithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import org.mockito.Mockito.when
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage}
 import play.api.test.FakeRequest
@@ -14,17 +14,17 @@ import webserviceclients.fakes.FakeDateServiceImpl
 class VrmLockedUnitSpec extends UnitSpec {
 
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       whenReady(present) { r =>
         r.header.status should equal(play.api.http.Status.OK)
       }
     }
 
-    "display prototype message when config set to true" in new WithApplication {
+    "display prototype message when config set to true" in new TestWithApplication {
       contentAsString(present) should include(PrototypeHtml)
     }
 
-    "not display prototype message when config set to false" in new WithApplication {
+    "not display prototype message when config set to false" in new TestWithApplication {
       val request = FakeRequest()
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
@@ -38,7 +38,7 @@ class VrmLockedUnitSpec extends UnitSpec {
 
   "newDisposal" should {
     "redirect to vehicle lookup page after the new disposal " +
-      "button is clicked when the expected data is in the cookies" in new WithApplication {
+      "button is clicked when the expected data is in the cookies" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
@@ -49,7 +49,7 @@ class VrmLockedUnitSpec extends UnitSpec {
     }
 
     "redirect to setup trade details page after the new disposal button " +
-      "is clicked when the expected data is not in the cookies" in new WithApplication {
+      "is clicked when the expected data is not in the cookies" in new TestWithApplication {
       val request = FakeRequest()
       val result = vrmLocked.tryAnother(request)
       whenReady(result) { r =>
@@ -59,7 +59,7 @@ class VrmLockedUnitSpec extends UnitSpec {
   }
 
   "exit" should {
-    "redirect to correct next page after the exit button is clicked" in new WithApplication {
+    "redirect to correct next page after the exit button is clicked" in new TestWithApplication {
       val request = FakeRequest()
         .withCookies(CookieFactoryForUnitSpecs.setupTradeDetails())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())

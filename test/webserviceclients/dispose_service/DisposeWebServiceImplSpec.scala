@@ -1,7 +1,7 @@
 package webserviceclients.dispose_service
 
 import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
-import helpers.{UnitSpec, WireMockFixture, WithApplication}
+import helpers.{UnitSpec, WireMockFixture, TestWithApplication}
 import org.joda.time.LocalDate
 import play.api.libs.json.Json
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
@@ -50,9 +50,9 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
   )
 
   "callDisposeService" should {
-    "send the serialised json request" in new WithApplication {
+    "send the serialised json request" in new TestWithApplication {
       val resultFuture = disposeService.callDisposeService(request, trackingId)
-      whenReady(resultFuture) { result =>
+      whenReady(resultFuture, timeout) { result =>
         wireMock.verifyThat(1, postRequestedFor(
           urlEqualTo(s"/vehicles/dispose/v1")
         ).withHeader(HttpHeaders.TrackingId, equalTo(trackingId.value))

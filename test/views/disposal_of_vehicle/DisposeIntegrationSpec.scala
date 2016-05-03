@@ -1,6 +1,6 @@
 package views.disposal_of_vehicle
 
-import composition.{TestGlobal, TestHarness}
+import composition.{TestGlobalWithFilters, TestHarness}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import helpers.tags.UiTag
 import helpers.UiSpec
@@ -319,9 +319,9 @@ final class DisposeIntegrationSpec extends UiSpec with TestHarness {
 
 
   private val fakeAppWithHtml5ValidationDisabledConfig =
-    LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> false))
+    LightFakeApplication(TestGlobalWithFilters, Map("html5Validation.enabled" -> false))
 
   private val fakeAppWithHtml5ValidationEnabledConfig =
-    LightFakeApplication(TestGlobal, Map("html5Validation.enabled" -> true))
+    LightFakeApplication(TestGlobalWithFilters, Map("html5Validation.enabled" -> true))
 
 }

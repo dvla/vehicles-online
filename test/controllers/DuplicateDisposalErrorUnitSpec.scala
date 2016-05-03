@@ -1,7 +1,7 @@
 package controllers
 
 import controllers.Common.PrototypeHtml
-import helpers.{UnitSpec, WithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import org.mockito.Mockito.when
@@ -15,15 +15,15 @@ import utils.helpers.Config
 class DuplicateDisposalErrorUnitSpec extends UnitSpec {
 
   "present" should {
-    "display the page" in new WithApplication {
+    "display the page" in new TestWithApplication {
       status(present) should equal(OK)
     }
 
-    "display prototype message when config set to true" in new WithApplication {
+    "display prototype message when config set to true" in new TestWithApplication {
       contentAsString(present) should include(PrototypeHtml)
     }
 
-    "not display prototype message when config set to false" in new WithApplication {
+    "not display prototype message when config set to false" in new TestWithApplication {
       val request = FakeRequest()
       implicit val clientSideSessionFactory = injector.getInstance(classOf[ClientSideSessionFactory])
       implicit val config: Config = mock[Config]
