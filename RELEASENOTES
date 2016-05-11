@@ -1,3 +1,9 @@
+======= 1.33 ========
+TIME OF RELEASE BINARIES CREATION:
+
+VMPRCI-4351 	Add messages file test to identify missing values
+VMPRCI-4347 	Refactor WithApplication
+
 ======= 1.32 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Apr 27 08:35:49 UTC 2016
