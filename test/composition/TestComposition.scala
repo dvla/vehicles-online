@@ -47,13 +47,7 @@ private class TestModule() extends ScalaModule with MockitoSugar {
     bind[DisposeConfig].to[FakeDisposeConfig].asEagerSingleton()
     bind[utils.helpers.Config].toInstance(new TestConfig)
 
-    val applicationConf = System.getProperty("config.file", s"application.dev.conf")
-    implicit val config = Configuration(ConfigFactory.load(applicationConf))
-
-    getOptionalProperty[String]("addressLookupService.type").getOrElse("ordnanceSurvey") match {
-      case "ordnanceSurvey" => ordnanceSurveyAddressLookup()
-      case _ => gdsAddressLookup()
-    }
+    ordnanceSurveyAddressLookup()
     bind[VehicleAndKeeperLookupWebService].to[FakeVehicleAndKeeperLookupWebService].asEagerSingleton()
 
     bind[DisposeWebService].to[FakeDisposeWebServiceImpl].asEagerSingleton()
