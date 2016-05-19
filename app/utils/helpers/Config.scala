@@ -48,9 +48,6 @@ trait Config extends VehicleLookupConfig with CommonConfig {
   def bruteForcePreventionServiceNameHeader: String
   def bruteForcePreventionMaxAttemptsHeader: Int
 
-//  // Prototype message in html
-//  def isPrototypeBannerVisible: Boolean
-
   // Prototype survey URL
   def surveyUrl: String
   def privateKeeperSurveyUrl: String
