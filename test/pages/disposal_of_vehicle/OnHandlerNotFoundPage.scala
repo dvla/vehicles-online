@@ -8,8 +8,6 @@ import WebBrowser.Element
 import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
-import views.disposal_of_vehicle.OnHandlerNotFound
-import OnHandlerNotFound.ExitId
 
 object OnHandlerNotFoundPage extends Page {
   final val address = s"$applicationContext/nosuchpage/"
@@ -17,5 +15,5 @@ object OnHandlerNotFoundPage extends Page {
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
-  def exit(implicit driver: WebDriver): Element = find(id(ExitId)).get
+  def exit(implicit driver: WebDriver): Element = find(id("exit")).get
 }

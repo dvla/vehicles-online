@@ -1,10 +1,9 @@
-@(title: String, showLanguageSwitch: Boolean)(content: Html)(implicit lang: Lang,
-        config: utils.helpers.Config, isPrivateKeeper: Boolean = false)
+@(title: String, showLanguageSwitch: Boolean, isPrivateKeeper: Boolean = false)(content: Html)(implicit lang: Lang,
+        config: utils.helpers.Config)
 
 @import views.html.common.alternateLanguages
 @import play.api.Play
 @import play.api.Play.current
-@import views.common.ProtoType.FeedbackId
 @import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.serviceClosingWarning
 @import uk.gov.dvla.vehicles.presentation.common.services.DateServiceImpl
 @import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.pleaseWait

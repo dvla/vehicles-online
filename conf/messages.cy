@@ -25,12 +25,6 @@ global-please-wait-p1 = Hyn o bryd rydym yn derbyn nifer fawr o geisiadau sydd w
 global-please-wait-p2 = Bydd y dudalen hon yn diweddaru yn awtomatig, peidiwch cau eich porwr.
 global-please-wait-close = Cau''r neges hon
 
-#prototype
-prototype.banner = Mae''r gwasanaeth hwn yn cael ei ddatblygu -
-prototype.link =  dysgwch fwy
-prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
-prototype.bannerPart2 = bydd yn ein helpu i wella
-
 #vehicle details playback
 disposal_playback.vehicledetails = manylion y cerbyd
 disposal_playback.vehiclereg = Rhif cofrestru
@@ -361,5 +355,3 @@ language.en.button = English
 
 mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 
-# feedback
-common_feedback.subject = Gwerthu i''r fasnach - adborth

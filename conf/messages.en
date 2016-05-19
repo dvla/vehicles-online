@@ -25,12 +25,6 @@ global-please-wait-p1 = We are currently receiving a large volume of application
 global-please-wait-p2 = This page will update automatically, please do not close your browser.
 global-please-wait-close = Close this message
 
-#prototype
-prototype.banner = This is a new service -
-prototype.link =  your feedback
-prototype.link.source = mailto:vm.feedback@digital.dvla.gov.uk?Subject=Sell to the Trade feedback
-prototype.bannerPart2 = will help us to improve it
-
 #vehicle details playback
 disposal_playback.vehicledetails = Vehicle details
 disposal_playback.vehiclereg = Registration number
@@ -362,5 +356,3 @@ language.en.button = YAGNI
 
 mandatory = Fields not labelled (optional) are mandatory
 
-# feedback
-common_feedback.subject = Sell to the trade - feedback

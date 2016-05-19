@@ -8,26 +8,14 @@ import models.EnterAddressManuallyFormModel
 import EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
 import org.openqa.selenium.{By, WebElement, WebDriver}
 import org.scalatest.selenium.WebBrowser
-import WebBrowser.enter
-import WebBrowser.Checkbox
-import WebBrowser.checkbox
-import WebBrowser.TextField
-import WebBrowser.textField
-import WebBrowser.TelField
-import WebBrowser.telField
-import WebBrowser.RadioButton
-import WebBrowser.radioButton
 import WebBrowser.click
 import WebBrowser.currentUrl
 import WebBrowser.go
-import WebBrowser.find
-import WebBrowser.id
-import WebBrowser.Element
 import WebBrowser.pageSource
 import WebBrowser.pageTitle
 import pages.common.ErrorPanel
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
-import pages.common.Feedback._
+import pages.common.Feedback.FeedbackLink
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage.{back, happyPath, manualAddress, sadPath}

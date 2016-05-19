@@ -3,12 +3,13 @@ package utils.helpers
 import uk.gov.dvla.vehicles.presentation.common
 import common.controllers.VehicleLookupConfig
 import common.services.SEND.EmailConfiguration
+import common.utils.helpers.CommonConfig
 import common.webserviceclients.addresslookup.ordnanceservey.OrdnanceSurveyConfig
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.GDSAddressLookupConfig
 import webserviceclients.dispose.DisposeConfig
 
-trait Config extends VehicleLookupConfig {
+trait Config extends VehicleLookupConfig with CommonConfig {
 
   def assetsUrl: Option[String]
 
@@ -47,8 +48,8 @@ trait Config extends VehicleLookupConfig {
   def bruteForcePreventionServiceNameHeader: String
   def bruteForcePreventionMaxAttemptsHeader: Int
 
-  // Prototype message in html
-  def isPrototypeBannerVisible: Boolean
+//  // Prototype message in html
+//  def isPrototypeBannerVisible: Boolean
 
   // Prototype survey URL
   def surveyUrl: String

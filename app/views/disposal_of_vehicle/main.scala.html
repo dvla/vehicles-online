@@ -7,16 +7,14 @@
     isPrivateKeeper: Boolean
     )
 
-@import uk.gov.dvla.vehicles.presentation.common
-@import common.views.html.widgets.errorsSummary
-@import views.html.common.{protoType}
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.errorsSummary
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.prototype
 @import views.html.common.govMainDefault
 
-@govMainDefault(title, showLanguageSwitch) {
+@govMainDefault(title, showLanguageSwitch, isPrivateKeeper) {
     <div class="app vehicles-online">
-
         @if(showBanner) {
-            @protoType()
+            @prototype(controllers.routes.FeedbackController.present())
         }
 
         <div class="section-content">

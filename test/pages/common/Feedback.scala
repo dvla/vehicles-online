@@ -5,10 +5,10 @@ import org.scalatest.selenium.WebBrowser
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.Element
-import views.common.ProtoType.FeedbackId
+import uk.gov.dvla.vehicles.presentation.common.views.widgets.Prototype.FeedbackId
 
 object Feedback {
   def mailto(implicit driver: WebDriver): Element = find(id(FeedbackId)).get
 
-  final val FeedbackLink = s"""<a id="${views.common.ProtoType.FeedbackId}" href="${controllers.routes.FeedbackController.present()}" target="_blank">"""
+  final val FeedbackLink = s"""<a id="${FeedbackId}" href="${controllers.routes.FeedbackController.present()}" target="_blank">"""
 }

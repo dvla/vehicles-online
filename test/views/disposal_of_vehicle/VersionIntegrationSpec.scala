@@ -3,22 +3,8 @@ package views.disposal_of_vehicle
 import composition.TestHarness
 import helpers.{WireMockFixture, UiSpec}
 import org.scalatest.selenium.WebBrowser
-import WebBrowser.enter
-import WebBrowser.Checkbox
-import WebBrowser.checkbox
-import WebBrowser.TextField
-import WebBrowser.textField
-import WebBrowser.TelField
-import WebBrowser.telField
-import WebBrowser.RadioButton
-import WebBrowser.radioButton
-import WebBrowser.click
 import WebBrowser.go
-import WebBrowser.find
-import WebBrowser.id
-import WebBrowser.Element
 import WebBrowser.pageSource
-import WebBrowser.pageTitle
 import pages.ApplicationContext.applicationContext
 import scala.io.Source.fromInputStream
 import uk.gov.dvla.vehicles.presentation.common.helpers
