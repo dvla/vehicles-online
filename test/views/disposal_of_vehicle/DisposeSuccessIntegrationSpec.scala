@@ -140,14 +140,6 @@ final class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {
   }
 
   "exit button" should {
-    "display before you start page" taggedAs UiTag in new WebBrowserForSelenium {
-      go to BeforeYouStartPage
-      cacheSetup()
-      go to DisposeSuccessPage
-      click on exitDisposal
-      pageTitle should equal(BeforeYouStartPage.title)
-    }
-
     "remove redundant cookies" taggedAs UiTag in new PhantomJsByDefault {
       go to BeforeYouStartPage
       cacheSetup()

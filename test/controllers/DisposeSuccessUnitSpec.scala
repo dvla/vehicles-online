@@ -286,10 +286,10 @@ class DisposeSuccessUnitSpec extends UnitSpec {
   }
 
   "exit" should {
-    "redirect to BeforeYouStartPage" in new TestWithApplication {
+    "redirect to gov.uk" in new TestWithApplication {
       val result = disposeSuccess.exit(requestFullyPopulated)
       whenReady(result) { r =>
-        r.header.headers.get(LOCATION) should equal(Some(BeforeYouStartPage.address))
+        r.header.headers.get(LOCATION) should equal(Some("https://www.gov.uk"))
       }
     }
 

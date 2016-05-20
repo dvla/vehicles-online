@@ -22,7 +22,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   protected val exitDisposeFormTarget = controllers.routes.DisposeSuccess.exit()
   protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
   protected val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
-  protected val onNewDispose = Redirect(routes.BeforeYouStart.present())
+  protected val onNewDispose = Redirect("https://www.gov.uk")
 
   protected val DisposeFormTransactionIdCacheKey = models.DisposeFormModel.DisposeFormTransactionIdCacheKey
   protected val DisposeFormRegistrationNumberCacheKey = models.DisposeFormModel.DisposeFormRegistrationNumberCacheKey

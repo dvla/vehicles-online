@@ -145,13 +145,4 @@ object Chains {
       .check(regex( """Enter vehicle details""").exists)
       .check(regex( """<input type="hidden" name="csrf_prevention_token" value="(.*)"/>""").saveAs("csrf_prevention_token"))
     )
-
-  val chain_exit_service =
-    exec(http("POST /sell-to-the-trade-success/exit")
-      .post("/sell-to-the-trade-success/exit")
-      .headers(headers_accept_html)
-      .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
-      .formParam( """action""", """""")
-      .check(regex( """Buying a vehicle into trade""").exists)
-    )
 }
