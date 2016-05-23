@@ -17,7 +17,6 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   override protected val exitDisposeFormTarget = routes.DisposeSuccess.exit()
   override protected val onMissingPresentCookies = Redirect(routes.VehicleLookup.present())
   override protected val onMissingNewDisposeCookies = Redirect(routes.SetUpTradeDetails.present())
-  override protected val onNewDispose = Redirect(controllers.routes.BeforeYouStart.present())
 
   override protected val DisposeFormTransactionIdCacheKey = models.DisposeFormModel.DisposeFormTransactionIdCacheKey
   override protected val DisposeFormRegistrationNumberCacheKey =
