@@ -303,13 +303,6 @@ ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Afl
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Treforys, Abertawe, SA6 7JL
 
-#micro-service error page
-micro_service_error.title= Mae''n ddrwg gennym
-micro_service_error.text1= Nid yw''r gwasanaeth ar gael dros dro.
-micro_service_error.text2=
-micro_service_error.back.button= Yn ôl
-micro_service_error.exit.button= Allan
-
 #duplicate-disposal error page
 duplicate_disposal_error.title= Mae''n ddrwg gennym
 duplicate_disposal_error.text1= Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch ymholiadau cwsmeriaid DVLA ar 0300 790 6802

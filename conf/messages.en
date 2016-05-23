@@ -304,13 +304,6 @@ ms.vehiclesService.response.unableToProcessApplication-title = Transaction unsuc
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Morriston, Swansea, SA6 7JL
 
-#micro-service error page
-micro_service_error.title=We are sorry
-micro_service_error.text1=The service is temporarily unavailable.
-micro_service_error.text2=
-micro_service_error.back.button=Try again
-micro_service_error.exit.button=Exit
-
 #duplicate-disposal error page
 duplicate_disposal_error.title=We are sorry
 duplicate_disposal_error.text1=This vehicle has already been notified as sold. If you think this is an error then please call DVLA customer enquiries on 0300 123 1350 (please enter code 544 when prompted).

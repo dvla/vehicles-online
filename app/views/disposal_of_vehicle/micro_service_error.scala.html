@@ -1,6 +1,7 @@
-@(tryAgainTarget: play.api.mvc.Call,
-  exitTarget: play.api.mvc.Call,
-  trackingId: uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId)(implicit lang: Lang,
+@(opening: String,
+  closing: String,
+  tryAgainTarget: play.api.mvc.Call,
+  exitTarget: play.api.mvc.Call)(implicit lang: Lang,
   token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
   config: utils.helpers.Config,
   isPrivateKeeper: Boolean)
@@ -11,5 +12,5 @@
 @main(
     title = Messages("micro_service_error.title")
 ){
-    @microServiceError(tryAgainTarget, exitTarget, trackingId)
+    @microServiceError(opening, closing, tryAgainTarget, exitTarget)
 }
