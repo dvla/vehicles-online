@@ -1,3 +1,13 @@
+======= 1.34 ========
+TIME OF RELEASE BINARIES CREATION:
+
+VMPRCI-4362   Re-direct customers from GDS customer satisfaction survey to GOV.UK homepage
+VMPRCI-4367   Refactor GlobalWithFilter into vehicles-presentation-common
+VMPRCI-4379   Update the service unavailable holding page to include business hours
+VMPRCI-4369   Prototype border inconsistency
+VMPRCI-4377   PR page title style inconsistent with VM
+VMPRCI-4337   Some message properties are missing a value in the welsh messages file
+
 ======= 1.33 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed May 11 13:04:18 UTC 2016
