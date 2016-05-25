@@ -1,5 +1,6 @@
 ======= 1.34 ========
 TIME OF RELEASE BINARIES CREATION:
+Wed May 25 12:54:53 UTC 2016
 
 VMPRCI-4362   Re-direct customers from GDS customer satisfaction survey to GOV.UK homepage
 VMPRCI-4367   Refactor GlobalWithFilter into vehicles-presentation-common
