@@ -8,7 +8,7 @@ organization := organisationString
 
 organizationName := organisationNameString
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.11.8"
 
 scalacOptions := scalaOptionsSeq
 
@@ -18,7 +18,7 @@ credentials += sbtCredentials
 
 resolvers ++= projectResolvers
 
-lazy val gatlingVersion = "2.1.1"
+lazy val gatlingVersion = "2.1.7"
 
 libraryDependencies ++= Seq(
   "io.gatling" % "gatling-app" % gatlingVersion withSources() withJavadoc(),

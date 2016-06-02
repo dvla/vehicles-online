@@ -39,21 +39,20 @@ libraryDependencies ++= Seq(
   // We need to use version 3.2.2 of commons-collections to avoid the following in 3.2.1:
   // https://commons.apache.org/proper/commons-collections/security-reports.html#Apache_Commons_Collections_Security_Vulnerabilities
   "commons-collections" % "commons-collections" % "3.2.2" withSources() withJavadoc(),
-  "commons-codec" % "commons-codec" % "1.9" withSources() withJavadoc(),
-  "com.google.inject" % "guice" % "4.0-beta4" withSources() withJavadoc(),
-  "com.google.guava" % "guava" % "15.0" withSources() withJavadoc(), // See: http://stackoverflow.com/questions/16614794/illegalstateexception-impossible-to-get-artifacts-when-data-has-not-been-loaded
+  "commons-codec" % "commons-codec" % "1.10" withSources() withJavadoc(),
+  "com.google.inject" % "guice" % "4.0" withSources() withJavadoc(),
+  "com.google.guava" % "guava" % "19.0" withSources() withJavadoc(), // See: http://stackoverflow.com/questions/16614794/illegalstateexception-impossible-to-get-artifacts-when-data-has-not-been-loaded
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "org.webjars" % "requirejs" % "2.1.14-1",
   // test
   "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
-  "com.github.tomakehurst" % "wiremock" % "1.46" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
+  "com.github.tomakehurst" % "wiremock" % "1.58" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "junit" % "junit" % "4.11" % "test",
   "junit" % "junit-dep" % "4.11" % "test",
-  "net.sourceforge.htmlunit" % "htmlunit" % "2.15" % "test" exclude("commons-collections", "commons-collections"),
-  "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
-  "org.scalatest" %% "scalatest" % "2.2.1" % "test" withSources() withJavadoc(),
-  "org.seleniumhq.selenium" % "selenium-java" % "2.42.2" % "test" withSources() withJavadoc(),
-  "org.slf4j" % "log4j-over-slf4j" % "1.7.7" % "test" withSources() withJavadoc(),
+  "net.sourceforge.htmlunit" % "htmlunit" % "2.13" % "test" exclude("commons-collections", "commons-collections"),
+  "org.mockito" % "mockito-all" % "1.10.19" % "test" withSources() withJavadoc(),
+  "org.scalatest" %% "scalatest" % "2.2.6" % "test" withSources() withJavadoc(),
+  "org.slf4j" % "log4j-over-slf4j" % "1.7.21" % "test" withSources() withJavadoc(),
   // VMPR
   "dvla" %% "vehicles-presentation-common" % "2.50-SNAPSHOT" withSources() withJavadoc() exclude("junit", "junit-dep"),
   "dvla" %% "vehicles-presentation-common" % "2.50-SNAPSHOT" % "test" classifier "tests" withSources() withJavadoc() exclude("junit", "junit-dep")
@@ -94,8 +93,6 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 sources in doc in Compile := List()
 
 ScalastylePlugin.Settings
-
-net.virtualvoid.sbt.graph.Plugin.graphSettings
 
 credentials += Credentials(Path.userHome / ".sbt/.credentials")
 
