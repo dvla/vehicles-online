@@ -1,5 +1,2 @@
-require(['config'], function() {
-    require(['dispose-page-init'], function(pageInit) {
-        pageInit.init()
-    });
-});
+// This file is left intentionally blank.
+// It is only required for r.js (RequireJs optimiser) to run successfully.

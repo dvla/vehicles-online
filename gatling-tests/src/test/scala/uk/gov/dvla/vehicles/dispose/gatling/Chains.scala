@@ -18,12 +18,8 @@ object Chains {
           .get(s"/assets/versioned/lib/vehicles-presentation-common/images/govuk-crest.png")
           .headers(Map( """Accept""" -> """image/png,image/*;q=0.8,*/*;q=0.5"""))
       )
-      .exec(http("require.js")
-      .get(s"/assets/versioned/javascripts/require.js")
-      .headers(Map( """Accept""" -> """*/*"""))
-      )
       .exec(http("custom.js")
-      .get(s"/assets/versioned/javascripts/main.js")
+      .get(s"/assets/versioned/javascripts/custom.js")
       .headers(Map( """Accept""" -> """*/*"""))
       )
 
@@ -40,13 +36,6 @@ object Chains {
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:08:08 GMT""",
       """If-None-Match""" -> """b2b112249c52769ac41acd83e388f550e4c39c6f"""))
       )
-      .exec(http("require.js")
-      .get(s"/assets/versioned/javascripts/require.js")
-      .headers(Map(
-      """Accept""" -> """*/*""",
-      """If-Modified-Since""" -> """Tue, 06 Aug 2013 09:49:32 GMT""",
-      """If-None-Match""" -> """858bab5a8e8f73a1d706221ed772a4f740e168d5"""))
-      )
       .exec(
         http("govuk-crest.png")
           .get(s"/assets/versioned/lib/vehicles-presentation-common/images/govuk-crest.png")
@@ -56,7 +45,7 @@ object Chains {
           """If-None-Match""" -> """0464ba08d53d88645ca77f9907c082c8c10d563b"""))
       )
       .exec(http("custom.js")
-      .get(s"/assets/versioned/javascripts/main.js")
+      .get(s"/assets/versioned/javascripts/custom.js")
       .headers(Map(
       """Accept""" -> """*/*""",
       """If-Modified-Since""" -> """Thu, 05 Jun 2014 21:10:42 GMT""",
