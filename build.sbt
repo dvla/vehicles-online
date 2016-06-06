@@ -43,8 +43,9 @@ libraryDependencies ++= Seq(
   "com.google.inject" % "guice" % "4.0" withSources() withJavadoc(),
   "com.google.guava" % "guava" % "19.0" withSources() withJavadoc(), // See: http://stackoverflow.com/questions/16614794/illegalstateexception-impossible-to-get-artifacts-when-data-has-not-been-loaded
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
-  "org.webjars" % "requirejs" % "2.1.14-1",
+  "org.webjars" % "requirejs" % "2.1.22",
   // test
+  // The combination of selenium 2.43.0 and phantomjsdriver 1.2.0 works in the Travis build when open sourcing
   "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
   "com.github.tomakehurst" % "wiremock" % "1.58" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "junit" % "junit" % "4.11" % "test",
@@ -77,12 +78,13 @@ testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "helpers.t
 
 javaOptions in Test += System.getProperty("waitSeconds")
 
+// use this to get a full stack trace when test failures occur
 //testOptions in Test := Seq(Tests.Filter(s => (s.endsWith("IntegrationSpec") || s.endsWith("UiSpec"))))
 
 concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4), Tags.limit(Tags.Network, 10), Tags.limit(Tags.Test, 4))
 
 //parallelExecution in Test := true
-parallelExecution in Test in acceptanceTestsProject := true
+//parallelExecution in Test in acceptanceTestsProject := true
 
 sbt.Keys.fork in Test := false
 
@@ -110,7 +112,7 @@ resolvers ++= projectResolvers
 
 webJarCdns := Map()
 
-// Uncomment before releasing to bithub in order to make Travis work
+// Uncomment before releasing to github in order to make Travis work
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
 // ====================== Sandbox Settings ==========================
@@ -130,9 +132,9 @@ SandboxSettings.osAddressLookupProject := osAddressLookupProject
 
 SandboxSettings.vehicleAndKeeperLookupProject := vehicleAndKeeperLookupProject
 
-SandboxSettings.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
-
 SandboxSettings.emailServiceProject := emailServiceProject
+
+SandboxSettings.vehiclesDisposeFulfilProject := vehiclesDisposeFulfilProject
 
 SandboxSettings.legacyStubsProject := legacyStubsProject
 
