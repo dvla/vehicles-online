@@ -43,7 +43,7 @@ libraryDependencies ++= Seq(
   "com.google.inject" % "guice" % "4.0" withSources() withJavadoc(),
   "com.google.guava" % "guava" % "19.0" withSources() withJavadoc(), // See: http://stackoverflow.com/questions/16614794/illegalstateexception-impossible-to-get-artifacts-when-data-has-not-been-loaded
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
-  "org.webjars" % "requirejs" % "2.1.22",
+  "org.webjars" % "requirejs" % "2.2.0",
   // test
   // The combination of selenium 2.43.0 and phantomjsdriver 1.2.0 works in the Travis build when open sourcing
   "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
