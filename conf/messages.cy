@@ -348,3 +348,6 @@ language.en.button = English
 
 mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 
+# feedback
+common_feedback.subject = Gwerthu i''r fasnach - adborth
+

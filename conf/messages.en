@@ -349,3 +349,6 @@ language.en.button = YAGNI
 
 mandatory = Fields not labelled (optional) are mandatory
 
+# feedback
+common_feedback.subject = Sell to the trade - feedback
+
