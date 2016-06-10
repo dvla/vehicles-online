@@ -57,6 +57,7 @@ datePlaceholder.October=October
 datePlaceholder.November=November
 datePlaceholder.December=December
 
+error.email = Must be a valid email address
 error.email.confirm.required = Please confirm the email address
 error.email.not.match = The email addresses did not match
 email.verify.label = Confirm email address

@@ -7,28 +7,66 @@
     isPrivateKeeper: Boolean
     )
 
+@import uk.gov.dvla.vehicles.presentation.common.controllers.AlternateLanguages.{CyId, EnId}
+@import uk.gov.dvla.vehicles.presentation.common.controllers.routes.AlternateLanguages
+
+@import uk.gov.dvla.vehicles.presentation.common.views.html.layouts.footer
+@import uk.gov.dvla.vehicles.presentation.common.views.html.layouts.govTemplate
+@import uk.gov.dvla.vehicles.presentation.common.views.html.layouts.head
+@import uk.gov.dvla.vehicles.presentation.common.views.html.layouts.header
+
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.alternateLanguages
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.pleaseWait
+@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.serviceClosingWarning
 @import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.errorsSummary
 @import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.prototype
-@import views.html.common.govMainDefault
 
-@govMainDefault(title, showLanguageSwitch, isPrivateKeeper) {
+@mainContent = {
     <div class="app vehicles-online">
         @if(showBanner) {
             @prototype(controllers.routes.FeedbackController.present())
         }
 
         <div class="section-content">
-        
-              @backButton.map { back =>
-                <a class="back" id="back" href="@back">
-                @Messages("disposal_dispose.backbutton")
-                </a>
+            @backButton.map { back =>
+                <div class="back-navigation">
+                    <a class="back" id="back" href="@back">@Messages("disposal_dispose.backbutton")</a>
+                </div>
             }
 
             @errorsSummary(currentForm)
 
             @content
-
         </div>
     </div>
+}
+
+
+@footerLinks = {
+    <li><a href="@routes.CookiePolicy.present()">@Messages("footer.cookies")</a></li>
+    @if(showLanguageSwitch) {
+        <li>@alternateLanguages(
+            AlternateLanguages.withLanguage(chosenLanguage = CyId),
+            AlternateLanguages.withLanguage(chosenLanguage = EnId))</li>
+    }
+    <li><a href="@routes.TermsAndConditions.present()">@Messages("footer.tandc")</a></li>
+    <li><a href="@routes.PrivacyPolicy.present()">@Messages("footer.privacy")</a></li>
+    <li>@{Messages("footer.builtbyintro")}&nbsp;<a href="https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency" target="_blank">@{Messages("footer.builtby")}</a></li>
+}
+
+@defining(controllers.StaticAssets.versioned(config.assetsUrl) _) { assetsPrefix =>
+
+@govTemplate(
+    head = head(title, assetsPrefix, config.googleAnalyticsTrackingId),
+    bodyAttributes = Seq(Symbol("data-closing-time") -> config.closingTimeMinOfDay),
+    serviceClosingWarning = Some(serviceClosingWarning(config.openingTimeMinOfDay,
+                                                config.closingTimeMinOfDay,
+                                                config.closingWarnPeriodMins)),
+    header = header(bannerMessageKey = if(isPrivateKeeper){"main.banner.private"}else{"main.banner"},
+                    assetsPrefix = assetsPrefix,
+                    cookiePolicyLink = routes.CookiePolicy.present),
+    content = mainContent,
+    footer = footer(assetsPrefix, Some(footerLinks))
+)
+
 }

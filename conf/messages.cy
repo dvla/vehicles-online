@@ -57,6 +57,7 @@ datePlaceholder.October=Hydref
 datePlaceholder.November=Tachwedd
 datePlaceholder.December=Rhagfyr
 
+error.email = Must be a valid email address
 error.email.confirm.required = Cadarnhewch y cyfeiriad ebost
 error.email.not.match = Nid oedd y cyfeiriadau ebost yn cyd-fynd
 email.verify.label = Cadarnhau cyfeiriad ebost

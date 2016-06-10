@@ -1,18 +1,14 @@
 @(request: RequestHeader)(implicit lang: Lang, config: utils.helpers.Config)
 
-@import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.prototype
-@import views.html.common.govMainDefault
+@import views.html.disposal_of_vehicle.main
 
-@govMainDefault(Messages("onHandlerNotFound.title"), false) {
-    <div class="app vehicles-online">
-        @prototype(controllers.routes.FeedbackController.present())
+@main(
+    title = Messages("onHandlerNotFound.title"),
+    showLanguageSwitch = false) {
 
-        <div class="section-content">
-            <h1>@Messages("onHandlerNotFound.header")</h1>
-            <p>@Messages("onHandlerNotFound.body")</p>
-            <div class="step">
-                <a id="exit" href="@controllers.routes.BeforeYouStart.present()" class="button">@Messages("onHandlerNotFound.start.button")</a>
-            </div>
-        </div>
+    <h1>@Messages("onHandlerNotFound.header")</h1>
+    <p>@Messages("onHandlerNotFound.body")</p>
+    <div class="step">
+        <a id="exit" href="@controllers.routes.BeforeYouStart.present()" class="button">@Messages("onHandlerNotFound.start.button")</a>
     </div>
-}
+}(lang = implicitly, config = implicitly, isPrivateKeeper = false)
