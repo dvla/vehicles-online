@@ -18,7 +18,7 @@ class DuplicateDisposalError @Inject()()(implicit clientSideSessionFactory: Clie
   def present = Action { implicit request =>
     val trackingId = request.cookies.trackingId()
     logMessage(trackingId, Info, "Presenting duplicate disposal view")
-    Ok(views.html.disposal_of_vehicle.duplicate_disposal_error(tryAgainLink, exitLink, trackingId))
+    Ok(views.html.disposal_of_vehicle.duplicate_disposal_error(tryAgainLink, exitLink))
       .discardingCookies(DisposeCacheKeys)
   }
 }

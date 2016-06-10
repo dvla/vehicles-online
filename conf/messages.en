@@ -41,22 +41,6 @@ error.restricted.validNumberOnly = This field only accepts numbers
 error.restricted.validVrnOnly = Must be as shown on the latest V5C registration certificate (logbook)
 error.restricted.validPostcode = Must be between five and eight characters and in a valid format, eg. AB1 2BA or AB12BA
 
-datePlaceholder.day=Day
-datePlaceholder.month=Month
-datePlaceholder.year=Year
-datePlaceholder.January=January
-datePlaceholder.February=February
-datePlaceholder.March=March
-datePlaceholder.April=April
-datePlaceholder.May=May
-datePlaceholder.June=June
-datePlaceholder.July=July
-datePlaceholder.August=August
-datePlaceholder.September=September
-datePlaceholder.October=October
-datePlaceholder.November=November
-datePlaceholder.December=December
-
 error.email = Must be a valid email address
 error.email.confirm.required = Please confirm the email address
 error.email.not.match = The email addresses did not match
@@ -93,7 +77,7 @@ disposal_beforeyoustart.youWillNeedListItem2 = the consent of the seller of the 
 
 disposal_beforeyoustart.recordUpdateWarn = Please note: this service updates our records immediately
 
-disposal_beforeyoustart.finishedTitle=Once you''ve finished
+disposal_beforeyoustart.finishedTitle = Once you''ve finished
 disposal_beforeyoustart.finishedListItem1 = the registered keeper will be removed from our records and we will send them confirmation by post
 disposal_beforeyoustart.finishedListItem2 = we will issue an automatic refund of any tax due to the address on the V5C registration certificate (logbook) and cancel any direct debit
 disposal_beforeyoustart.finishedListItem3.1 = the original V5C/3 yellow disposal slip
@@ -144,11 +128,8 @@ disposal_enteraddressmanually.backbutton = Back
 disposal_enteraddressmanually.addresswarning = If your address is missing from this postcode package or is showing incorrect details then please select this link to
 disposal_enteraddressmanually.addresswarninglinktext = inform the Royal Mail.
 address.lines.label = Building/number and street
-address.buildingNameOrNumber.label =
 address.buildingNameOrNumber.hint = e.g. 1 HIGH STREET
-address.line2.label=
-address.line3.label=
-address.postTown.label= Town or city
+address.postTown.label = Town or city
 address.postcode.label = Postcode
 address.postcode.label.prompt = e.g. SA99 1BD
 address.postcode.validation = Enter a valid postcode
@@ -161,12 +142,6 @@ addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 addressAndPostcode.addressLines = Address
 addressAndPostcode.postcode = Postcode
 
-
-#page 3 - uprn not found
-disposal_uprnnotfound.title = Error confirming post code
-disposal_uprnnotfound.p1 = An error has occurred validating your postcode. Please re-enter or enter your details manually
-disposal_uprnnotfound.manualaddressbutton = Set-up trade details
-disposal_uprnnotfound.setuptradedetailsbutton = Manually enter address
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Enter vehicle details
@@ -194,7 +169,7 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 
 #page 5 - confirm disposal
 disposal_dispose.title = Complete and confirm
-disposal_dispose.warning=If the vehicle details shown are incorrect please abandon this transaction and send the V5C registration certificate (logbook) with a covering letter to DVLA, Swansea, SA99 1BA.
+disposal_dispose.warning = If the vehicle details shown are incorrect please abandon this transaction and send the V5C registration certificate (logbook) with a covering letter to DVLA, Swansea, SA99 1BA.
 disposal_dispose.vehicledetails = Vehicle being sold
 disposal_dispose.vehiclereg = Registration
 disposal_dispose.vehiclemake = Make
@@ -306,11 +281,10 @@ ms.vehiclesService.response.unableToProcessApplication = We are unable to proces
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Morriston, Swansea, SA6 7JL
 
 #duplicate-disposal error page
-duplicate_disposal_error.title=We are sorry
-duplicate_disposal_error.text1=This vehicle has already been notified as sold. If you think this is an error then please call DVLA customer enquiries on 0300 123 1350 (please enter code 544 when prompted).
-duplicate_disposal_error.text2=
-duplicate_disposal_error.back.button=Try again
-duplicate_disposal_error.exit.button=Exit
+duplicate_disposal_error.title = We are sorry
+duplicate_disposal_error.text1 = This vehicle has already been notified as sold. If you think this is an error then please call DVLA customer enquiries on 0300 123 1350 (please enter code 544 when prompted).
+duplicate_disposal_error.back.button = Try again
+duplicate_disposal_error.exit.button = Exit
 
 #keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
 error_suppressedV5C.title = Vehicle is part of a suppressed fleet
@@ -322,28 +296,28 @@ error_suppressedV5C.button1 = Sell another vehicle
 error_suppressedV5C.button2 = Finish
 
 #vrm locked
-vrm_locked.title=Registration number is locked
-vrm_locked.text1=There have been repeated unsuccessful attempts to access the vehicle details. The system has now locked this vehicle registration number for 10 minutes. Other vehicles can be processed during this time by selecting ''Sell another vehicle'' below.
-vrm_locked.text2=Locked at
-vrm_locked.text3.1=If you are sure that the details entered are correct then please send your completed V5C/3 to
-vrm_locked.text3.2=DVLA, Swansea SA99 1BD
-vrm_locked.newdisposalbutton=Notify another purchase
-vrm_locked.exit.button=Exit
+vrm_locked.title = Registration number is locked
+vrm_locked.text1 = There have been repeated unsuccessful attempts to access the vehicle details. The system has now locked this vehicle registration number for 10 minutes. Other vehicles can be processed during this time by selecting ''Sell another vehicle'' below.
+vrm_locked.text2 = Locked at
+vrm_locked.text3.1 = If you are sure that the details entered are correct then please send your completed V5C/3 to
+vrm_locked.text3.2 = DVLA, Swansea SA99 1BD
+vrm_locked.newdisposalbutton = Notify another purchase
+vrm_locked.exit.button = Exit
 
 # 404 onHandlerNotFound
-onHandlerNotFound.title=This page cannot be found
-onHandlerNotFound.header=This page cannot be found
-onHandlerNotFound.body=We are unable to find the page you have requested, this event has been logged for investigation.
-onHandlerNotFound.noJavascript=If you wish to try again select the back button on your browser, if not select "Exit" to leave the service.
-onHandlerNotFound.start.button=Start
+onHandlerNotFound.title = This page cannot be found
+onHandlerNotFound.header = This page cannot be found
+onHandlerNotFound.body = We are unable to find the page you have requested, this event has been logged for investigation.
+onHandlerNotFound.noJavascript = If you wish to try again select the back button on your browser, if not select "Exit" to leave the service.
+onHandlerNotFound.start.button = Start
 
 # 400 onHandlerBadRequest
-onHandlerBadRequest.title=Invalid HTTP request
-onHandlerBadRequest.header=Invalid HTTP request
-onHandlerBadRequest.start.button=Start
+onHandlerBadRequest.title = Invalid HTTP request
+onHandlerBadRequest.header = Invalid HTTP request
+onHandlerBadRequest.start.button = Start
 
-error.title=An unrecoverable error has occurred
-error.button=Start again
+error.title = An unrecoverable error has occurred
+error.button = Start again
 
 language.cy.button = Cymraeg
 language.en.button = YAGNI

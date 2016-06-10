@@ -41,22 +41,6 @@ error.restricted.validNumberOnly = Dim ond rhifau a dderbynnir gan y maes hwn
 error.restricted.validVrnOnly = Rhaid bod yn union fel a ddangosir ar y tystysgrif cofrestru ddiweddaraf (V5CW) diweddaraf
 error.restricted.validPostcode = Rhaid bod rhwng pump ac wyth nod o hyd ac mewn fformat dilys ee. AB1 2BA neu AB12BA
 
-datePlaceholder.day=Dydd
-datePlaceholder.month=Mis
-datePlaceholder.year=Blwyddyn
-datePlaceholder.January=Ionawr
-datePlaceholder.February=Chwefror
-datePlaceholder.March=Mawrth
-datePlaceholder.April=Ebrill
-datePlaceholder.May=Mai
-datePlaceholder.June=Mehefin
-datePlaceholder.July=Gorffennaf
-datePlaceholder.August=Awst
-datePlaceholder.September=Medi
-datePlaceholder.October=Hydref
-datePlaceholder.November=Tachwedd
-datePlaceholder.December=Rhagfyr
-
 error.email = Must be a valid email address
 error.email.confirm.required = Cadarnhewch y cyfeiriad ebost
 error.email.not.match = Nid oedd y cyfeiriadau ebost yn cyd-fynd
@@ -93,7 +77,7 @@ disposal_beforeyoustart.youWillNeedListItem2 = cydsyniad gwerthwr y cerbyd i wei
 
 disposal_beforeyoustart.recordUpdateWarn = Sylwer: mae''r gwasanaeth hwn yn diweddaru ein cofnodion ar unwaith
 
-disposal_beforeyoustart.finishedTitle= Unwaith y byddwch wedi gorffen
+disposal_beforeyoustart.finishedTitle = Unwaith y byddwch wedi gorffen
 disposal_beforeyoustart.finishedListItem1 = bydd y ceidwad cofrestredig yn cael ei ddileu o''n cofnodion a byddwn yn anfon cadarnhad iddo drwy''r post
 disposal_beforeyoustart.finishedListItem2 = byddwn yn cyhoeddi ad-daliad awtomatig am unrhyw dreth sy''n ddyledus i''r cyfeiriad ar y tystysgrif cofrestru ddiweddaraf (V5CW) a chanslo unrhyw ddebyd uniongyrchol
 disposal_beforeyoustart.finishedListItem3.1 = y slip gwaredu melyn V5C/3W gwreiddiol
@@ -145,11 +129,8 @@ disposal_enteraddressmanually.addresswarning = Os nad yw’ch cyfeiriad yn y pec
 disposal_enteraddressmanually.addresswarninglinktext = rhoi gwybod i’r Bost Brenhinol
 addressAndPostcode_addressLines = Cyfeiriad
 address.lines.label = Adeilad/rhif a stryd
-address.buildingNameOrNumber.label =
 address.buildingNameOrNumber.hint = e.e. 1 STRYD FAWR
-address.line2.label=
-address.line3.label=
-address.postTown.label= Tref neu ddinas
+address.postTown.label = Tref neu ddinas
 address.postcode.label = Côd post
 address.postcode.label.prompt = e.e. SA99 1BD
 address.postcode.validation = Rhowch gôd post dilys
@@ -157,12 +138,6 @@ addressAndPostcode.addressLines.line2 = Enw stryd
 addressAndPostcode.addressLines.line3 = Ardal
 addressAndPostcode.addressLines.postTown = Tref neu ddinas
 addressAndPostcode.addressLines.postTown.hint = e.e. ABERTAWE
-
-#page 3 - uprn not found
-disposal_uprnnotfound.title = Camgymeriad wrth gadarnhau côd post
-disposal_uprnnotfound.p1 = Mae camgymeriad wedi digwydd wrth ddilysu eich côd post. Rhowch i mewn eto neu rhowch eich manylion â llaw
-disposal_uprnnotfound.manualaddressbutton = Gosodwch y manylion masnach
-disposal_uprnnotfound.setuptradedetailsbutton = Rhowch gyfeiriad i mewn â llaw
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Rhowch fanylion y cerbyd
@@ -190,7 +165,7 @@ error.validDocumentReferenceNumber = Rhaid i rif cyfeirnod y ddogfen fod yn rif 
 
 #page 5 - confirm disposal
 disposal_dispose.title = Cwblhewch a chadarnhau
-disposal_dispose.warning= Os yw''r manylion uchod yn cyd-fynd â''r cerbyd i gael ei werthu, anfonwch y dystysgrif gofrestru V5CW (llyfr log) gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1BA.
+disposal_dispose.warning = Os yw''r manylion uchod yn cyd-fynd â''r cerbyd i gael ei werthu, anfonwch y dystysgrif gofrestru V5CW (llyfr log) gyda llythyr eglurhaol at y DVLA, Abertawe, SA99 1BA.
 disposal_dispose.vehicledetails = Y cerbyd a werthir
 disposal_dispose.vehiclereg = Rhif cofrestru
 disposal_dispose.vehiclemake = Gwneuthuriad
@@ -305,11 +280,10 @@ ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r tra
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Treforys, Abertawe, SA6 7JL
 
 #duplicate-disposal error page
-duplicate_disposal_error.title= Mae''n ddrwg gennym
-duplicate_disposal_error.text1= Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch ymholiadau cwsmeriaid DVLA ar 0300 790 6802
-duplicate_disposal_error.text2=
-duplicate_disposal_error.back.button= Yn ôl
-duplicate_disposal_error.exit.button= Allan
+duplicate_disposal_error.title = Mae''n ddrwg gennym
+duplicate_disposal_error.text1 = Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch ymholiadau cwsmeriaid DVLA ar 0300 790 6802
+duplicate_disposal_error.back.button = Yn ôl
+duplicate_disposal_error.exit.button = Allan
 
 #keeper still on record (no previous disposal has been done to the vehicle so the keeper is still on record)
 error_suppressedV5C.title = Cerbyd yn rhan o fflyd hatal
@@ -321,28 +295,28 @@ error_suppressedV5C.button1 = Gwerthu cerbyd arall
 error_suppressedV5C.button2 = Gorffen
 
 #vrm locked
-vrm_locked.title= Rhif cofrestru wedi''i gloi
-vrm_locked.text1= Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerbyd. Mae''r system bellach yn cloi''r rhif cofrestru cerbyd hwn am 10 munud. Gellir prosesu cerbydau eraill yn ystod yr amser hwn drwy ddewis ''Gwerthu cerbyd arall'' isod
-vrm_locked.text2= Wedi''i gloi ar
-vrm_locked.text3.1= Os ydych yn siŵr bod y manylion yn gywir yna anfonwch eich V5C/3 wedi''u cwblhau i
-vrm_locked.text3.2= DVLA, Abertawe, SA99 1BD
-vrm_locked.newdisposalbutton= Gwerthu cerbyd arall
-vrm_locked.exit.button= Allan
+vrm_locked.title = Rhif cofrestru wedi''i gloi
+vrm_locked.text1 = Bu sawl ymgais aflwyddiannus i gael gafael ar fanylion y cerbyd. Mae''r system bellach yn cloi''r rhif cofrestru cerbyd hwn am 10 munud. Gellir prosesu cerbydau eraill yn ystod yr amser hwn drwy ddewis ''Gwerthu cerbyd arall'' isod
+vrm_locked.text2 = Wedi''i gloi ar
+vrm_locked.text3.1 = Os ydych yn siŵr bod y manylion yn gywir yna anfonwch eich V5C/3 wedi''u cwblhau i
+vrm_locked.text3.2 = DVLA, Abertawe, SA99 1BD
+vrm_locked.newdisposalbutton = Gwerthu cerbyd arall
+vrm_locked.exit.button = Allan
 
 # 404 onHandlerNotFound
-onHandlerNotFound.title= Ni ellir dod o hyd i''r dudalen hon
-onHandlerNotFound.header= Ni ellir dod o hyd i''r dudalen hon
-onHandlerNotFound.body= Ni allwn ddod o hyd i''r dudalen y gwnaethoch gais amdani, mae''r digwyddiad hwn wedi ei logio ar gyfer archwiliad.
-onHandlerNotFound.noJavascript= Os ydych am wneud cais eto dewiswch y botwm mynd yn ôl ar eich porwr, fel arall dewiswch ''Allan'' i adael y gwasanaeth.
-onHandlerNotFound.start.button= Dechreuwch
+onHandlerNotFound.title = Ni ellir dod o hyd i''r dudalen hon
+onHandlerNotFound.header = Ni ellir dod o hyd i''r dudalen hon
+onHandlerNotFound.body = Ni allwn ddod o hyd i''r dudalen y gwnaethoch gais amdani, mae''r digwyddiad hwn wedi ei logio ar gyfer archwiliad.
+onHandlerNotFound.noJavascript = Os ydych am wneud cais eto dewiswch y botwm mynd yn ôl ar eich porwr, fel arall dewiswch ''Allan'' i adael y gwasanaeth.
+onHandlerNotFound.start.button = Dechreuwch
 
 # 400 onHandlerBadRequest
-onHandlerBadRequest.title= Cais HTTP annilys
-onHandlerBadRequest.header= Cais HTTP annilys
-onHandlerBadRequest.start.button= Dechreuwch
+onHandlerBadRequest.title = Cais HTTP annilys
+onHandlerBadRequest.header = Cais HTTP annilys
+onHandlerBadRequest.start.button = Dechreuwch
 
-error.title= Mae camgymeriad na ellir ei adfer wedi digwydd
-error.button= Dechreuwch eto
+error.title = Mae camgymeriad na ellir ei adfer wedi digwydd
+error.button = Dechreuwch eto
 
 language.cy.button = YAGNI
 language.en.button = English

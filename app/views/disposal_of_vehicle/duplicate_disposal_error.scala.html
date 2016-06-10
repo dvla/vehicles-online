@@ -1,6 +1,5 @@
 @(tryAgainLink: Call,
-  exitLink: Call,
-  trackingId: uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId)(implicit lang: Lang,
+  exitLink: Call)(implicit lang: Lang,
   token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
   config: utils.helpers.Config,
   isPrivateKeeper: Boolean,
@@ -17,7 +16,6 @@
     <h1>@Messages("duplicate_disposal_error.title")</h1>
     <p>@Messages("duplicate_disposal_error.text1")</p>
     @xmasOpeningTimes()
-    <p>@Messages("duplicate_disposal_error.text2", trackingId.value)</p>
 
     <div class="form-steps">
         @{ /* Note the reverse routing syntax for the hyperlink */ }
