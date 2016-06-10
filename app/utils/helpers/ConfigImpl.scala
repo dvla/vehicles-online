@@ -20,15 +20,11 @@ final class ConfigImpl extends Config {
 
   override def assetsUrl: Option[String] = getOptionalProperty[String]("assets.url")
 
-//  override val vehiclesLookup = new VehicleLookupConfig
   override val ordnanceSurvey = new OrdnanceSurveyConfig
   override val gdsAddressLookup = new GDSAddressLookupConfig
   override val dispose = new DisposeConfig
-  override val bruteForcePrevention = new BruteForcePreventionConfig
 
   // Micro-service config
-//  override val vehicleLookupMicroServiceBaseUrl = vehiclesLookup.baseUrl
-
   override val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
   override val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
 
@@ -40,26 +36,12 @@ final class ConfigImpl extends Config {
   override val disposeMsRequestTimeout = dispose.requestTimeout
 
   // Web headers
-  override val applicationCode: String =
-    getOptionalProperty[String]("webHeader.applicationCode").getOrElse(NotFound)
-  override val vssServiceTypeCode: String =
-    getOptionalProperty[String]("webHeader.vssServiceTypeCode").getOrElse(NotFound)
-  override val dmsServiceTypeCode: String =
-    getOptionalProperty[String]("webHeader.dmsServiceTypeCode").getOrElse(NotFound)
-  override val channelCode: String =
-    getOptionalProperty[String]("webHeader.channelCode").getOrElse(NotFound)
-  override val contactId: Long =
-    getOptionalProperty[Long]("webHeader.contactId").getOrElse(NotFoundLong)
-  override val orgBusinessUnit: String =
-    getOptionalProperty[String]("webHeader.orgBusinessUnit").getOrElse(NotFound)
-
-  // Brute force prevention config
-  override val bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader
-  override val bruteForcePreventionMicroServiceBaseUrl = bruteForcePrevention.baseUrl
-  override val bruteForcePreventionTimeoutMillis = bruteForcePrevention.requestTimeoutMillis
-  override val isBruteForcePreventionEnabled: Boolean = bruteForcePrevention.isEnabled
-  override val bruteForcePreventionServiceNameHeader: String = bruteForcePrevention.nameHeader
-  override val bruteForcePreventionMaxAttemptsHeader: Int = bruteForcePrevention.maxAttemptsHeader
+  override val applicationCode: String = getProperty[String]("webHeader.applicationCode")
+  override val vssServiceTypeCode: String = getProperty[String]("webHeader.vssServiceTypeCode")
+  override val dmsServiceTypeCode: String = getProperty[String]("webHeader.dmsServiceTypeCode")
+  override val orgBusinessUnit: String = getProperty[String]("webHeader.orgBusinessUnit")
+  override val channelCode: String = getProperty[String]("webHeader.channelCode")
+  override val contactId: Long = getProperty[Long]("webHeader.contactId")
 
   // Prototype message in html
   override val isPrototypeBannerVisible: Boolean = getProperty[Boolean]("prototype.disclaimer")
@@ -80,19 +62,30 @@ final class ConfigImpl extends Config {
   // Opening and closing times
   override val openingTimeMinOfDay: Int = getProperty[Int]("openingTimeMinOfDay")
   override val closingTimeMinOfDay: Int = getProperty[Int]("closingTimeMinOfDay")
-
-  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(15)
+  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(ConfigImpl.DEFAULT_CLOSING_WARN_PERIOD)
 
   override val emailServiceMicroServiceUrlBase: String =
-    getOptionalProperty[String]("emailServiceMicroServiceUrlBase").getOrElse(NotFound)
+    getOptionalProperty[String]("emailServiceMicroServiceUrlBase").getOrElse(ConfigImpl.DEFAULT_BASE_URL)
   override val emailServiceMsRequestTimeout: Int =
-    getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(10000)
+    getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(ConfigImpl.DEFAULT_EMAIL_REQUEST_TIMEOUT)
 
   override val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    From(getProperty[String]("email.senderAddress"), "DO-NOT-REPLY"),
-    From(getProperty[String]("email.feedbackAddress"), "Feedback"),
+    From(getProperty[String]("email.senderAddress"), ConfigImpl.EMAIL_FROM_NAME),
+    From(getProperty[String]("email.feedbackAddress"), ConfigImpl.EMAILFEEDBACK_FROM_NAME),
     getStringListProperty("email.whitelist")
   )
 
   override val imagesPath: String = getProperty[String]("email.image.path")
+}
+
+object ConfigImpl {
+    final val DEFAULT_BASE_URL = "NOT FOUND"
+
+    final val EMAIL_FROM_NAME = "DO-NOT-REPLY"
+    final val EMAILFEEDBACK_FROM_NAME = "Feedback"
+
+    //defaults
+    final val DEFAULT_ENCRYPTEDCOOKIES = true
+    final val DEFAULT_CLOSING_WARN_PERIOD = 15
+    final val DEFAULT_EMAIL_REQUEST_TIMEOUT = 10000
 }

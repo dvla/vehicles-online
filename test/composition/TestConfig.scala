@@ -4,78 +4,99 @@ import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{booleanProp, g
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.EmailConfiguration
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.FakeOrdnanceSurveyConfig
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.brute_force_prevention.FakeBruteForcePreventionConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.From
 import utils.helpers.Config
 import webserviceclients.dispose_service.FakeDisposeConfig
 
-class TestConfig extends Config {
+final class TestConfig extends Config {
 
   override def assetsUrl: Option[String] = None
 
-  override lazy val ordnanceSurvey = new FakeOrdnanceSurveyConfig
-  override lazy val gdsAddressLookup = new FakeGDSAddressLookupConfig
-  override lazy val dispose = new FakeDisposeConfig
-  override lazy val bruteForcePrevention = new FakeBruteForcePreventionConfig
+  override val ordnanceSurvey = new FakeOrdnanceSurveyConfig
+  override val gdsAddressLookup = new FakeGDSAddressLookupConfig
+  override val dispose = new FakeDisposeConfig
 
   // Micro-service config
-  def ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
-  def ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
+  override val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
+  override val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
 
-  def gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
-  def gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
-  def gdsAddressLookupAuthorisation = gdsAddressLookup.authorisation
+  override val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
+  override val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
+  override val gdsAddressLookupAuthorisation = gdsAddressLookup.authorisation
 
-  def disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
-  def disposeMsRequestTimeout = dispose.requestTimeout
+  override val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
+  override val disposeMsRequestTimeout = dispose.requestTimeout
 
   // Web headers
-  def applicationCode = "WEBDTT"
-  def vssServiceTypeCode = "WEBDTT"
-  def dmsServiceTypeCode = "E"
-  def channelCode = "WEBDTT"
-  def contactId = 1
-  def orgBusinessUnit = "WEBDTT"
+  override val applicationCode = TestConfig.WEB_APPLICATION_CODE
+  override val vssServiceTypeCode = TestConfig.WEB_VSSSERVICETYPE_CODE
+  override val dmsServiceTypeCode = TestConfig.WEB_DMSSERVICETYPE_CODE
+  override val channelCode = TestConfig.WEB_CHANNEL_CODE
+  override val contactId = TestConfig.WEB_CONTACT_ID
+  override val orgBusinessUnit = TestConfig.WEB_ORG_BU
 
-  //Brute force prevention config
-  def bruteForcePreventionExpiryHeader = bruteForcePrevention.expiryHeader
-  def bruteForcePreventionMicroServiceBaseUrl = bruteForcePrevention.baseUrl
-  def bruteForcePreventionTimeoutMillis = bruteForcePrevention.requestTimeoutMillis
-  def isBruteForcePreventionEnabled: Boolean = bruteForcePrevention.isEnabled
-  def bruteForcePreventionServiceNameHeader: String = bruteForcePrevention.nameHeader
-  def bruteForcePreventionMaxAttemptsHeader: Int = bruteForcePrevention.maxAttemptsHeader
-
-  // Prototype message in html
-  def isPrototypeBannerVisible: Boolean = getOptionalProperty[Boolean]("prototype.disclaimer").getOrElse(true)
+  // Prototype message in html - declared as def because overriden in test MainUiSpec
+  def isPrototypeBannerVisible: Boolean = getOptionalProperty[Boolean]("prototype.disclaimer").getOrElse(TestConfig.DEFAULT_PB_VISIBLE)
 
   // Prototype survey URL
-  def surveyUrl: String = "" // could be optional
-  def privateKeeperSurveyUrl = ""
-  def prototypeSurveyPrepositionInterval: Long = 1000000000000L
+  override val surveyUrl = ""
+  override val privateKeeperSurveyUrl = ""
+  override val prototypeSurveyPrepositionInterval: Long = TestConfig.VERY_LONG_SURVEY_INTERVAL
 
   // Google analytics
-  def googleAnalyticsTrackingId: Option[String] = None
+  override val googleAnalyticsTrackingId: Option[String] = None
 
-  def isHtml5ValidationEnabled: Boolean =
-    getOptionalProperty[Boolean]("html5Validation.enabled").getOrElse(false)
+  override val isHtml5ValidationEnabled: Boolean =
+    getOptionalProperty[Boolean]("html5Validation.enabled").getOrElse(TestConfig.DEFAULT_HTML_VALIDATION)
 
-  def startUrl: String = "/sell-to-the-trade/before-you-start"
-  def endUrl: String = "/sell-to-the-trade/before-you-start"
+  override val startUrl: String = TestConfig.START_URL
 
   // Opening and closing times
-  def openingTimeMinOfDay: Int = getOptionalProperty[Int]("openingTimeMinOfDay").getOrElse(0)
-  def closingTimeMinOfDay: Int = getOptionalProperty[Int]("closingTimeMinOfDay").getOrElse(1440)
+  override val openingTimeMinOfDay: Int = getOptionalProperty[Int]("openingTimeMinOfDay").getOrElse(TestConfig.DEFAULT_OPENING_TIME)
+  override val closingTimeMinOfDay: Int = getOptionalProperty[Int]("closingTimeMinOfDay").getOrElse(TestConfig.DEFAULT_CLOSING_TIME)
+  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(TestConfig.DEFAULT_CLOSING_WARN_PERIOD)
 
-  def closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(0)
+  override val emailServiceMicroServiceUrlBase: String = TestConfig.DEFAULT_BASE_URL
+  override val emailServiceMsRequestTimeout: Int = TestConfig.DEFAULT_EMAIL_REQUEST_TIMEOUT
 
-  def emailServiceMicroServiceUrlBase: String = NotFound
-  def emailServiceMsRequestTimeout: Int = 10000
-
-  def emailConfiguration: EmailConfiguration = EmailConfiguration(
-    from = From("", "DO-NOT-REPLY"),
-    feedbackEmail = From("", "Feedback"),
+  override val emailConfiguration: EmailConfiguration = EmailConfiguration(
+    from = From(TestConfig.EMAIL_FROM_EMAIL, TestConfig.EMAIL_FROM_NAME),
+    feedbackEmail = From(TestConfig.EMAILFEEDBACK_FROM_EMAIL, TestConfig.EMAILFEEDBACK_FROM_NAME),
     whiteList = None
   )
 
-  def imagesPath: String = ""
+
+  override val imagesPath: String = TestConfig.IMAGES_PATH
+}
+
+// placeholder for defaults and fixed test data
+object TestConfig {
+  final val EMAIL_FROM_NAME = "Someone"
+  final val EMAILFEEDBACK_FROM_NAME = "Nobody"
+  final val EMAIL_FROM_EMAIL = ""
+  final val EMAILFEEDBACK_FROM_EMAIL = ""
+
+  final val WEB_APPLICATION_CODE = "WEBDTT"
+  final val WEB_VSSSERVICETYPE_CODE = "WEBDTT"
+  final val WEB_DMSSERVICETYPE_CODE = "E"
+  final val WEB_CHANNEL_CODE = "WEBDTT"
+  final val WEB_CONTACT_ID = 1L
+  final val WEB_ORG_BU = "WEBDTT"
+  final val VERY_LONG_SURVEY_INTERVAL = 1000000000000L // in millis (approx 11574 days!)
+
+  final val START_URL = "/sell-to-the-trade/before-you-start"
+  final val IMAGES_PATH = ""
+
+  final val DEFAULT_HTML_VALIDATION = false
+  final val DEFAULT_PB_VISIBLE = true
+  final val DEFAULT_OPENING_TIME = 0
+  final val DEFAULT_CLOSING_TIME = 1440
+  final val DEFAULT_CLOSING_WARN_PERIOD = 0
+
+  final val DEFAULT_APPLICATION_CONTEXT = ""
+
+  final val DEFAULT_EMAIL_REQUEST_TIMEOUT = 10000
+
+  final val DEFAULT_BASE_URL = "NOT FOUND"
+
 }

@@ -5,7 +5,6 @@ import common.controllers.VehicleLookupConfig
 import common.services.SEND.EmailConfiguration
 import common.utils.helpers.CommonConfig
 import common.webserviceclients.addresslookup.ordnanceservey.OrdnanceSurveyConfig
-import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.GDSAddressLookupConfig
 import webserviceclients.dispose.DisposeConfig
 
@@ -13,13 +12,9 @@ trait Config extends VehicleLookupConfig with CommonConfig {
 
   def assetsUrl: Option[String]
 
-  final val NotFound = "NOT FOUND"
-  final val NotFoundLong = 9
-
   def ordnanceSurvey: OrdnanceSurveyConfig
   def gdsAddressLookup: GDSAddressLookupConfig
   def dispose: DisposeConfig
-  def bruteForcePrevention: BruteForcePreventionConfig
 
   // Micro-service config
   def ordnanceSurveyMicroServiceUrl: String
@@ -41,14 +36,9 @@ trait Config extends VehicleLookupConfig with CommonConfig {
   def contactId: Long
 
   // Brute force prevention config
-  def bruteForcePreventionExpiryHeader: String
-  def bruteForcePreventionMicroServiceBaseUrl: String
-  def bruteForcePreventionTimeoutMillis: Int
-  def isBruteForcePreventionEnabled: Boolean
-  def bruteForcePreventionServiceNameHeader: String
-  def bruteForcePreventionMaxAttemptsHeader: Int
 
   // Prototype survey URL
+  // TODO surveyUrl is optional is all other exemplars
   def surveyUrl: String
   def privateKeeperSurveyUrl: String
   def prototypeSurveyPrepositionInterval: Long
@@ -56,7 +46,7 @@ trait Config extends VehicleLookupConfig with CommonConfig {
   // Google analytics
   def googleAnalyticsTrackingId: Option[String]
 
-   def isHtml5ValidationEnabled: Boolean
+  def isHtml5ValidationEnabled: Boolean
 
   def startUrl: String
 
