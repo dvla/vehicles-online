@@ -164,9 +164,10 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     } yield {
       r.message match {
         case "ms.vehiclesService.response.furtherActionRequired" =>
-          val msg = s"Response code ${r.code} returned, which indicates an email needs to be sent. The request = "
-          logMessage(request.cookies.trackingId(), Error, r.code, disposeRequestForLogging(disposeRequest))
-          createAndSendEmailRequiringFurtherAction(dr.disposeResponse.transactionId, disposeRequest)
+          val msg = s"Response code ${r.code} returned, which indicates a disposal failure " +
+            "and emails need to be sent to the service feedback email address."
+          logMessage(request.cookies.trackingId(), Error, msg, disposeRequestForLogging(disposeRequest))
+          createAndSendEmailsRequiringFurtherAction(dr.disposeResponse.transactionId, disposeRequest)
         case _ =>
       }
     }
@@ -344,7 +345,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     )
   }
 
-  private def createAndSendEmailRequiringFurtherAction(transactionId: String,
+  private def createAndSendEmailsRequiringFurtherAction(transactionId: String,
                                                disposeRequest: DisposeRequestDto)(implicit request: Request[_]) = {
 
     import SEND.Contents // Keep this local so that we don't pollute rest of the class with unnecessary imports.
@@ -368,7 +369,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
   }
 
   /**
-   * Calling this method on a successful submission, will send an email
+   * Calling this method on a successful submission, will send an email. Called by sub-classes.
    */
   protected def createAndSendEmail(toTrader: Boolean, isPrivate: Boolean, transactionId: String, email: Option[String])
                                   (implicit request: Request[_]) = {
