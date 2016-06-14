@@ -298,6 +298,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
 
       logMessage(request.cookies.trackingId(), Debug, "Calling dispose micro-service with request: ",
         disposeRequestForLogging(disposeRequest))
+
       webService.invoke(disposeRequest, request.cookies.trackingId()).map {
         case (httpResponseCode, response) =>
           Some(Redirect(nextPage(httpResponseCode, response, disposeRequest, traderDetails.traderEmail, disposeFormModel)))
@@ -338,7 +339,6 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         disposeRequest.traderAddress.line.map(addr => anonymize(addr)) ++
         Seq(anonymize(disposeRequest.traderAddress.postTown),
           anonymize(disposeRequest.traderAddress.postCode),
-          anonymize(disposeRequest.traderAddress.uprn),
           anonymize(disposeRequest.traderName),
           disposeRequest.transactionTimestamp
         )

@@ -10,7 +10,6 @@ import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
 import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
-import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.KeeperUprnValid
 
 final class AddressViewModelSpec extends UnitSpec {
   "from" should {
@@ -27,7 +26,6 @@ final class AddressViewModelSpec extends UnitSpec {
 
       val result = VmAddressModel.from(addressAndPostcodeModel)
 
-      result.uprn should equal(None)
       result.address should equal(Seq(
         BuildingNameOrNumberValid.toUpperCase,
         Line2Valid.toUpperCase,
@@ -40,14 +38,12 @@ final class AddressViewModelSpec extends UnitSpec {
   "format" should {
     "serialize to json" in {
       AddressModel(
-        uprn = Some(KeeperUprnValid),
         address = Seq(BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid))
     }
 
     "deserialize from json" in {
       val fromJson =  Json.fromJson[AddressModel](asJson)
       val expected = AddressModel(
-        uprn = Some(KeeperUprnValid),
         address = Seq(BuildingNameOrNumberValid, Line2Valid, Line3Valid, PostTownValid, PostcodeValid))
 
       fromJson.asOpt should equal(Some(expected))

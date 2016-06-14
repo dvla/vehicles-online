@@ -44,7 +44,6 @@ import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
 import webserviceclients.fakes.FakeAddressLookupService.addressWithoutUprn
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
@@ -55,6 +54,8 @@ import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleMakeV
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.VehicleModelValid
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
 import webserviceclients.fakes.FakeDisposeWebServiceImpl
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.selectedAddress
+
 
 object CookieFactoryForUISpecs {
   private def addCookie[A](key: String, value: A)(implicit tjs: Writes[A], webDriver: WebDriver): Unit = {
@@ -91,9 +92,9 @@ object CookieFactoryForUISpecs {
     this
   }
 
-  def businessChooseYourAddress(uprn: Long = traderUprnValid)(implicit webDriver: WebDriver) = {
+  def businessChooseYourAddress(addressSelected: String = selectedAddress)(implicit webDriver: WebDriver) = {
     val key = BusinessChooseYourAddressCacheKey
-    val value = BusinessChooseYourAddressFormModel(uprnSelected = uprn.toString)
+    val value = BusinessChooseYourAddressFormModel(addressSelected)
     addCookie(key, value)
     this
   }

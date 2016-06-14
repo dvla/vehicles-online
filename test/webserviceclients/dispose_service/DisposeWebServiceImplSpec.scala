@@ -39,8 +39,7 @@ class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {
     traderAddress = DisposalAddressDto(
       line = Seq("line1", "line2"),
       postTown = Some("town"),
-      postCode = "W193NE",
-      uprn = Some(3123L)
+      postCode = "W193NE"
     ),
     dateOfDisposal = "",
     transactionTimestamp = "",

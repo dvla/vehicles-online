@@ -108,8 +108,8 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                                                session: ClientSideSession
                                               ): Future[Result] = {
     fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
-        val lookedUpAddress = model.uprnSelected
-        val addressModel = AddressModel(uprn = None, address = lookedUpAddress.split(",") map (line => line.trim))
+        val lookedUpAddress = model.addressSelected
+        val addressModel = AddressModel(address = lookedUpAddress.split(",") map (line => line.trim))
         nextPage(model, setupBusinessDetailsForm.traderBusinessName, addressModel, setupBusinessDetailsForm.traderEmail)
     }
   }

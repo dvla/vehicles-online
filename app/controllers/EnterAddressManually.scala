@@ -35,7 +35,6 @@ class EnterAddressManually @Inject()()(implicit clientSideSessionFactory: Client
           case None => form.fill(
             EnterAddressManuallyFormModel(
               AddressAndPostcodeViewModel(
-                None,
                 AddressLinesViewModel("", None, None, ""),
                 setupTradeDetails.traderPostcode
               )
