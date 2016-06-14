@@ -16,7 +16,7 @@ import views.disposal_of_vehicle.BusinessChooseYourAddress
 import BusinessChooseYourAddress.BackId
 import BusinessChooseYourAddress.EnterAddressManuallyButtonId
 import BusinessChooseYourAddress.SelectId
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.selectedAddressLine
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.selectedAddress
 
 object BusinessChooseYourAddressPage extends Page {
   final val address: String = s"$applicationContext/business-choose-your-address"

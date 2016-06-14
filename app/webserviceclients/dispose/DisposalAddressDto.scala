@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 import uk.gov.dvla.vehicles.presentation.common.model.AddressModel
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 
-case class DisposalAddressDto(line: Seq[String], postTown: Option[String], postCode: String, uprn: Option[Long])
+case class DisposalAddressDto(line: Seq[String], postTown: Option[String], postCode: String)
 
 object DisposalAddressDto {
   import play.api.libs.json.Json
@@ -20,7 +20,6 @@ object DisposalAddressDto {
     val addressMandatoryLines =
       if (addressViewModel.address.size == 2)
         AddressModel(
-          addressViewModel.uprn,
           Seq(BuildingNameOrNumberHolder) ++ addressViewModel.address
         )
       else addressViewModel
@@ -38,7 +37,7 @@ object DisposalAddressDto {
   private def buildStandardDisposalAddressDto(addressViewModel: AddressModel): DisposalAddressDto = {
     val postcode = addressViewModel.address.last.replace(" ","")
     val postTown = Some(addressViewModel.address.takeRight(2).head)
-    DisposalAddressDto(addressViewModel.address.dropRight(2), postTown , postcode, addressViewModel.uprn)
+    DisposalAddressDto(addressViewModel.address.dropRight(2), postTown , postcode)
   }
 
   private def rebuildDisposalAddressDto(addressViewModel: AddressModel): DisposalAddressDto = {
@@ -58,7 +57,7 @@ object DisposalAddressDto {
     val legacyAddressLines = trimLines(amendedAddressLines.dropRight(1), Nil)
 
     val postcode = addressViewModel.address.last.replaceAll(" ","")
-    DisposalAddressDto(legacyAddressLines.dropRight(1), Some(legacyAddressLines.last), postcode, addressViewModel.uprn)
+    DisposalAddressDto(legacyAddressLines.dropRight(1), Some(legacyAddressLines.last), postcode)
   }
 
   private def assignEmptyLines(address: Seq[String]) : Seq[String] = {

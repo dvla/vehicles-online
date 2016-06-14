@@ -844,7 +844,6 @@ class DisposeUnitSpec extends UnitSpec {
                                      line: Seq[String] = Seq(BuildingNameOrNumberValid, Line2Valid, Line3Valid),
                                      postTown: Option[String] = Some(PostTownValid),
                                      postCode: String = PostcodeValid,
-                                     uprn: Option[Long] = None,
                                      dateOfDisposal: String = dateValidUTC,
                                      transactionTimestamp: String = dateValid,
                                      prConsent: Boolean = FakeDisposeWebServiceImpl.ConsentValid.toBoolean,
@@ -865,8 +864,7 @@ class DisposeUnitSpec extends UnitSpec {
       traderAddress = DisposalAddressDto(
         line = line,
         postTown = postTown,
-        postCode = postCode,
-        uprn = uprn
+        postCode = postCode
       ),
       dateOfDisposal = dateOfDisposal,
       transactionTimestamp = transactionTimestamp,

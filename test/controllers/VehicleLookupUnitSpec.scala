@@ -57,7 +57,7 @@ import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
 import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.selectedAddress
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.ReferenceNumberValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberValid
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.RegistrationNumberWithSpaceValid
@@ -363,7 +363,7 @@ class VehicleLookupUnitSpec extends UnitSpec {
 
     "redirect to BusinessChooseYourAddress when back button is pressed and there is a uprn" in new TestWithApplication {
       val request = FakeRequest().withFormUrlEncodedBody()
-        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(uprn = Some(traderUprnValid)))
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
       val result = vehicleLookupResponseGenerator().back(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(BusinessChooseYourAddressPage.address))
     }
@@ -371,8 +371,8 @@ class VehicleLookupUnitSpec extends UnitSpec {
     "redirect to BusinessChooseYourAddress when back is called and the user has completed the vehicle lookup form" in
       new TestWithApplication {
       val request = buildCorrectlyPopulatedRequest()
-        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel(uprn = Some(traderUprnValid)))
-        .withCookies(CookieFactoryForUnitSpecs.businessChooseYourAddressUseUprn())
+        .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
+        .withCookies(CookieFactoryForUnitSpecs.businessChooseYourAddressUseAddress())
       val result = vehicleLookupResponseGenerator().back(request)
       result.futureValue.header.headers.get(LOCATION) should equal(Some(BusinessChooseYourAddressPage.address))
     }

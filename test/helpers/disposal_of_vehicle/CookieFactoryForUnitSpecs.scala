@@ -47,7 +47,7 @@ import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
 import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 import webserviceclients.fakes.FakeAddressLookupService.TraderBusinessNameValid
-import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.traderUprnValid
+import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.selectedAddress
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
@@ -93,9 +93,9 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     createCookie(key, value)
   }
 
-  def businessChooseYourAddressUseUprn(uprnSelected: String = traderUprnValid.toString): Cookie = {
+  def businessChooseYourAddressUseAddress(addressSelected: String = selectedAddress): Cookie = {
     val key = BusinessChooseYourAddressCacheKey
-    val value = BusinessChooseYourAddressFormModel(uprnSelected = uprnSelected)
+    val value = BusinessChooseYourAddressFormModel(addressSelected = addressSelected)
     createCookie(key, value)
   }
 
@@ -115,8 +115,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     createCookie(key, value)
   }
 
-  def traderDetailsModel(uprn: Option[Long] = None,
-                         buildingNameOrNumber: String = BuildingNameOrNumberValid,
+  def traderDetailsModel(buildingNameOrNumber: String = BuildingNameOrNumberValid,
                          line2: String = Line2Valid,
                          line3: String = Line3Valid,
                          postTown: String = PostTownValid,
@@ -126,7 +125,6 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(
-        uprn = uprn,
         address = Seq(buildingNameOrNumber, line2, line3, postTown, traderPostcode)
       ),
       traderEmail = traderEmail
@@ -142,7 +140,6 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(
-        uprn = uprn,
         address = Seq(buildingNameOrNumber, postTown, traderPostcode)
       ),
       traderEmail = None
@@ -159,7 +156,6 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
       traderAddress = AddressModel(
-        uprn = uprn,
         address = Seq(buildingNameOrNumber, line2, postTown, traderPostcode)
       ),
       traderEmail = None
@@ -173,7 +169,7 @@ object CookieFactoryForUnitSpecs extends TestComposition {
     val key = traderDetailsCacheKey
     val value = TraderDetailsModel(
       traderName = TraderBusinessNameValid,
-      traderAddress = AddressModel(uprn = uprn, address = Seq(postTown, traderPostcode)
+      traderAddress = AddressModel(address = Seq(postTown, traderPostcode)
       ),
       traderEmail = None
     )

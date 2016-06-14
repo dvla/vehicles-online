@@ -182,7 +182,6 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
           disposeRequest.traderAddress.line.map(addr => anonymize(addr)) ++
           Seq(anonymize(disposeRequest.traderAddress.postTown),
             anonymize(disposeRequest.traderAddress.postCode),
-            anonymize(disposeRequest.traderAddress.uprn),
             anonymize(disposeRequest.traderName),
             disposeRequest.transactionTimestamp
           ))
@@ -344,7 +343,6 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         disposeRequest.traderAddress.line.map(addr => anonymize(addr)) ++
         Seq(anonymize(disposeRequest.traderAddress.postTown),
           anonymize(disposeRequest.traderAddress.postCode),
-          anonymize(disposeRequest.traderAddress.uprn),
           anonymize(disposeRequest.traderName),
           disposeRequest.transactionTimestamp
         ))

@@ -2,18 +2,15 @@ package composition
 
 import com.google.inject.util.Modules
 import com.google.inject.{Guice, Injector, Module}
-import com.typesafe.config.ConfigFactory
 import com.tzavellas.sse.guice.ScalaModule
 import org.scalatest.mock.MockitoSugar
-import play.api.{Configuration, Logger}
+import play.api.Logger
 import uk.gov.dvla.vehicles.presentation.common
-import common.ConfigProperties.{getOptionalProperty, stringProp}
 import common.clientsidesession.ClearTextClientSideSessionFactory
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.NoCookieFlags
 import common.clientsidesession.CookieFlags
 import common.services.DateService
-import common.webserviceclients.addresslookup.gds.AddressLookupServiceImpl
 import common.webserviceclients.addresslookup.{AddressLookupWebService, AddressLookupService}
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionWebService
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
@@ -65,17 +62,7 @@ private class TestModule() extends ScalaModule with MockitoSugar {
       .to[uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl]
 
     val fakeWebServiceImpl = new FakeAddressLookupWebServiceImpl(
-      responseOfPostcodeWebService = FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddress,
-      responseOfUprnWebService = FakeAddressLookupWebServiceImpl.responseValidForUprnToAddress
-    )
-    bind[AddressLookupWebService].toInstance(fakeWebServiceImpl)
-  }
-
-  private def gdsAddressLookup() = {
-    bind[AddressLookupService].to[AddressLookupServiceImpl]
-    val fakeWebServiceImpl = new FakeAddressLookupWebServiceImpl(
-      responseOfPostcodeWebService = FakeAddressLookupWebServiceImpl.responseValidForGdsAddressLookup,
-      responseOfUprnWebService = FakeAddressLookupWebServiceImpl.responseValidForGdsAddressLookup
+      responseOfPostcodeWebService = FakeAddressLookupWebServiceImpl.responseValidForPostcodeToAddress
     )
     bind[AddressLookupWebService].toInstance(fakeWebServiceImpl)
   }

@@ -24,7 +24,7 @@ import pages.disposal_of_vehicle.VrmLockedPage
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
 import uk.gov.dvla.vehicles.presentation.common.views.widgetdriver.Wait
-import webserviceclients.fakes.FakeAddressLookupService.addressWithUprn
+import webserviceclients.fakes.FakeAddressLookupService.addressWithoutUprn
 
 final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
 
@@ -198,7 +198,7 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         setupTradeDetails().
-        dealerDetails(addressWithUprn)
+        dealerDetails(addressWithoutUprn)
       go to VehicleLookupPage
 
       click on back
@@ -211,7 +211,7 @@ final class VehicleLookupIntegrationSpec extends UiSpec with TestHarness {
       go to BeforeYouStartPage
       CookieFactoryForUISpecs.
         setupTradeDetails().
-        dealerDetails(addressWithUprn).
+        dealerDetails(addressWithoutUprn).
         enterAddressManually()
       go to VehicleLookupPage
 
