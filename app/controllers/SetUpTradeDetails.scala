@@ -5,7 +5,6 @@ import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.IdentifierCacheKey
 import play.api.data.Form
 import play.api.mvc.{Action, Request, Result}
-import uk.gov.dvla.vehicles.presentation.common
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
 import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.{RichCookies, RichForm, RichResult}
 import uk.gov.dvla.vehicles.presentation.common.controllers.SetUpTradeDetailsBase
@@ -27,7 +26,7 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
   override def presentResult(model: Form[SetupTradeDetailsFormModel])(implicit request: Request[_]): Result = {
     request.cookies.getString(IdentifierCacheKey) match {
       case Some(c) =>
-        Redirect(routes.SetUpTradeDetails.ceg)
+        Redirect(routes.SetUpTradeDetails.ceg())
       case None =>
         logMessage(request.cookies.trackingId(), Info, "Presenting set up trade details view")
         newSession(Ok(views.html.disposal_of_vehicle.setup_trade_details(model, submitTarget)))
@@ -52,7 +51,7 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
 
   val identifier = "CEG"
   def ceg = Action { implicit request =>
-    logMessage(request.cookies.trackingId(), Info, s"Presenting set up trade details view for identifier ${identifier}")
+    logMessage(request.cookies.trackingId(), Info, s"Presenting set up trade details view for identifier $identifier")
     newSession(
       Ok(views.html.disposal_of_vehicle.setup_trade_details(form.fill(), submitTarget))
     ).withCookie(IdentifierCacheKey, identifier)

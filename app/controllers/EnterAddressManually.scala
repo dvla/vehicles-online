@@ -10,7 +10,7 @@ import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
 import common.model.{VmAddressModel, TraderDetailsModel, SetupTradeDetailsFormModel}
 import common.views.helpers.FormExtensions.formBinding
-import uk.gov.dvla.vehicles.presentation.common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
+import common.views.models.{AddressAndPostcodeViewModel, AddressLinesViewModel}
 import utils.helpers.Config
 import views.html.disposal_of_vehicle.enter_address_manually
 

@@ -11,12 +11,13 @@ import common.ConfigProperties.longProp
 import common.ConfigProperties.stringProp
 import common.services.SEND.EmailConfiguration
 import common.webserviceclients.addresslookup.ordnanceservey.OrdnanceSurveyConfig
-import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.config.GDSAddressLookupConfig
 import common.webserviceclients.emailservice.From
 import webserviceclients.dispose.DisposeConfig
 
 final class ConfigImpl extends Config {
+
+  import ConfigImpl._
 
   override def assetsUrl: Option[String] = getOptionalProperty[String]("assets.url")
 
@@ -62,16 +63,17 @@ final class ConfigImpl extends Config {
   // Opening and closing times
   override val openingTimeMinOfDay: Int = getProperty[Int]("openingTimeMinOfDay")
   override val closingTimeMinOfDay: Int = getProperty[Int]("closingTimeMinOfDay")
-  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(ConfigImpl.DEFAULT_CLOSING_WARN_PERIOD)
+  override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins")
+    .getOrElse(DEFAULT_CLOSING_WARN_PERIOD)
 
   override val emailServiceMicroServiceUrlBase: String =
-    getOptionalProperty[String]("emailServiceMicroServiceUrlBase").getOrElse(ConfigImpl.DEFAULT_BASE_URL)
+    getOptionalProperty[String]("emailServiceMicroServiceUrlBase").getOrElse(DEFAULT_BASE_URL)
   override val emailServiceMsRequestTimeout: Int =
-    getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(ConfigImpl.DEFAULT_EMAIL_REQUEST_TIMEOUT)
+    getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(DEFAULT_EMAIL_REQUEST_TIMEOUT)
 
   override val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    From(getProperty[String]("email.senderAddress"), ConfigImpl.EMAIL_FROM_NAME),
-    From(getProperty[String]("email.feedbackAddress"), ConfigImpl.EMAILFEEDBACK_FROM_NAME),
+    From(getProperty[String]("email.senderAddress"), EMAIL_FROM_NAME),
+    From(getProperty[String]("email.feedbackAddress"), EMAILFEEDBACK_FROM_NAME),
     getStringListProperty("email.whitelist")
   )
 
@@ -79,13 +81,12 @@ final class ConfigImpl extends Config {
 }
 
 object ConfigImpl {
-    final val DEFAULT_BASE_URL = "NOT FOUND"
+  final val EMAIL_FROM_NAME = "DO-NOT-REPLY"
+  final val EMAILFEEDBACK_FROM_NAME = "Feedback"
 
-    final val EMAIL_FROM_NAME = "DO-NOT-REPLY"
-    final val EMAILFEEDBACK_FROM_NAME = "Feedback"
-
-    //defaults
-    final val DEFAULT_ENCRYPTEDCOOKIES = true
-    final val DEFAULT_CLOSING_WARN_PERIOD = 15
-    final val DEFAULT_EMAIL_REQUEST_TIMEOUT = 10000
+  //defaults
+  final val DEFAULT_BASE_URL = "NOT FOUND"
+  final val DEFAULT_CLOSING_WARN_PERIOD = 15
+  final val DEFAULT_ENCRYPTEDCOOKIES = true
+  final val DEFAULT_EMAIL_REQUEST_TIMEOUT = 10000
 }

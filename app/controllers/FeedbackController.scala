@@ -1,17 +1,13 @@
 package controllers
 
 import com.google.inject.Inject
-import play.api.data.{FormError, Form}
 import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, Call}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.RichCookies
 import common.controllers.FeedbackBase
-import common.model.FeedbackForm
-import common.model.FeedbackForm.Form.{feedback, nameMapping, emailMapping}
 import common.services.DateService
-import common.views.helpers.FormExtensions.formBinding
 import common.webserviceclients.emailservice.EmailService
 import common.webserviceclients.healthstats.HealthStats
 import utils.helpers.Config
