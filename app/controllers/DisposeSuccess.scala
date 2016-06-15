@@ -8,9 +8,9 @@ import play.api.mvc.{Action, Request}
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
 import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
+import common.LogFormats.DVLALogger
 import common.model.{TraderDetailsModel, VehicleAndKeeperDetailsModel}
 import common.services.DateService
-import uk.gov.dvla.vehicles.presentation.common.LogFormats.DVLALogger
 import utils.helpers.Config
 
 class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,
@@ -95,11 +95,7 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
                               vehicleDetails: VehicleAndKeeperDetailsModel,
                               transactionId: Option[String],
                               registrationNumber: String): DisposeViewModel =
-    DisposeViewModel(
-      vehicleDetails,
-      traderDetails,
-      transactionId
-    )
+    DisposeViewModel(vehicleDetails, traderDetails, transactionId)
 }
 
 class SurveyUrl @Inject()(implicit clientSideSessionFactory: ClientSideSessionFactory,

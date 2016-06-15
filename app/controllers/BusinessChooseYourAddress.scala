@@ -103,11 +103,10 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId)
 
   private def lookupAddressByPostcodeThenIndex(model: BusinessChooseYourAddressFormModel,
-                                               setupBusinessDetailsForm: SetupTradeDetailsFormModel
-                                                )
+                                               setupBusinessDetailsForm: SetupTradeDetailsFormModel)
                                               (implicit request: Request[_],
                                                session: ClientSideSession
-                                                ): Future[Result] = {
+                                              ): Future[Result] = {
     fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
         val lookedUpAddress = model.addressSelected
         val addressModel = AddressModel(address = lookedUpAddress.split(",") map (line => line.trim))

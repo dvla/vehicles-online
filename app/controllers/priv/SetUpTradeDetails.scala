@@ -1,17 +1,17 @@
 package controllers.priv
 
 import com.google.inject.Inject
+import play.api.data.Form
+import play.api.data.Forms.{mapping, optional}
 import uk.gov.dvla.vehicles.presentation.common
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.CookieImplicits.RichResult
-import utils.helpers.Config
+import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieImplicits.RichResult
 import common.mappings.BusinessName.businessNameMapping
 import common.mappings.Email.email
 import common.mappings.Postcode.postcode
 import common.model.SetupTradeDetailsFormModel
 import common.model.SetupTradeDetailsFormModel.Form.{TraderEmailId, TraderNameId, TraderPostcodeId}
-import play.api.data.Form
-import play.api.data.Forms.{mapping, optional}
+import utils.helpers.Config
 
 class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSideSessionFactory,
                                     config: Config)
@@ -25,12 +25,11 @@ class SetUpTradeDetails @Inject()()(implicit clientSideSessionFactory: ClientSid
       .discardingCookies(models.TradeDetailsCacheKeys)
   }
 
-    override val form = Form(
+  override val form = Form(
     mapping(
       TraderNameId -> businessNameMapping,
       TraderPostcodeId -> postcode,
       TraderEmailId -> optional(email)
     )(SetupTradeDetailsFormModel.apply)(SetupTradeDetailsFormModel.unapply)
   )
-
 }
