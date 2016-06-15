@@ -2,26 +2,7 @@
 
 #{$htmlNamespace} {
 
-    .disposal-sucesss {
-        .playback.bg-plain {
-            padding: 1em;
-            margin-bottom: 0;
-            .info-notice {
-                    border: none;
-                    padding: 0;
-            }
-        }
-    }
-    .hint-margin {
-        .form-item {
-            margin-bottom: 10px;
-        }
-        .panel-indent {
-            margin-top: 0;
-        }
-    }
     #dateOfDisposal {
         clear: both;
     }
-
 } // end $htmlNamespace
