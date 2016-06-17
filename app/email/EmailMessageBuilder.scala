@@ -2,37 +2,15 @@ package email
 
 import java.text.SimpleDateFormat
 import org.joda.time.DateTime
+import play.api.i18n.Messages
 import uk.gov.dvla.vehicles.presentation.common.model.VehicleAndKeeperDetailsModel
 
 /**
  * The email message builder class will create the contents of the message. override the buildHtml and buildText
  * with new html and text templates respectively.
- *
  */
 object EmailMessageBuilder {
   import uk.gov.dvla.vehicles.presentation.common.services.SEND.Contents
-
-  final val contentPart1Private = s"Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must not be sent to DVLA."
-  final val contentPart1TradeApp = s"DVLA have been notified electronically that you have sold/transferred this vehicle into the motor trade and are no longer the keeper."
-  final val contentPart1TradeAppToTrade = s"Thank you for using DVLA’s online service to confirm you have taken this vehicle into the motor trade. Please destroy the original V5C/3 (yellow slip). This must not be sent to DVLA."
-  final val contentPart1PrivateHtml = s"<p>Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle. Please destroy the original V5C/3 (yellow slip). This must <strong>not</strong> be sent to DVLA.</p>"
-  final val contentPart1TradeAppHtml = s"<p>DVLA have been notified electronically that you have sold/transferred this vehicle into the motor trade and are no longer the keeper.</p>"
-  final val contentPart1TradeAppToTradeHtml = s"<p>Thank you for using DVLA’s online service to confirm you have taken this vehicle into the motor trade. Please destroy the original V5C/3 (yellow slip). This must <strong>not</strong> be sent to DVLA.</p>"
-  final val contentPart2Private = "The"
-  final val contentPart2TradeApp = s"The acknowledgement letter and"
-  final val contentPart3Private = s"Your"
-  final val contentPart3TradeApp = s"The"
-
-  final val contentPart4Private = s"You"
-  final val contentPart4TradeToTrade = s"The registered keeper (seller)"
-  final val contentPart5PrivatePlain = s"""You may still receive a V11 tax reminder as these are pre-printed up to 6 weeks
-                          | in advance. If you do receive a V11 for this vehicle after notifying the sale, please ignore it.
-                          |
-                          |If another payment is taken before your Direct Debit is cancelled, you’ll be automatically refunded within 10 days."""
-  final val contentPart5PrivateHtml = s"""<p>You may still receive a V11 tax reminder as these are pre-printed up to 6 weeks
-                          | in advance. If you do receive a V11 for this vehicle after notifying the sale, please ignore it.</p>
-                          |
-                          |<p>If another payment is taken before your Direct Debit is cancelled, you’ll be automatically refunded within 10 days.</p>"""
 
   def buildWith(vehicleDetailsOpt: Option[VehicleAndKeeperDetailsModel],  transactionId: String,
                 imagesPath: String, transactionTimestamp: DateTime, isPrivate: Boolean = true, toTrader: Boolean = false): Contents = {
@@ -42,45 +20,80 @@ object EmailMessageBuilder {
     val registrationNumber = vehicleDetailsOpt.map(_.registrationNumber).getOrElse("No registration number")
 
     // private confirmation email by default
-    var contentPart1 = contentPart1Private
-    var contentPart1Html = contentPart1PrivateHtml
-    var contentPart2 = contentPart2Private
-    var contentPart3 = contentPart3Private
-    var contentPart4 = contentPart4Private
-    var contentPart5Plain = contentPart5PrivatePlain
-    var contentPart5Html = contentPart5PrivateHtml
+    var contentPart1 = Messages("email.contentPart1.private")
+    var contentPart1LastSentence = Messages("email.contentPart1LastSentence")
+    var contentPart1LastSentenceHtml = Messages("email.contentPart1LastSentence.Html")
+    var contentPart2 = Messages("email.txndetails.p1.private")
+    var contentPart3 = Messages("email.contentPart3.private")
+    var contentPart4Part2 = Messages("email.contentPart4.private")
+
+    var contentPart5 = Messages("email.contentPart5")
+    var contentPart5P2 = Messages("email.contentPart5.p2")
 
     // amend to suit trade application email(s)
     if (!isPrivate) {
       if (!toTrader) {
-        contentPart1 = contentPart1TradeApp
-        contentPart1Html = contentPart1TradeAppHtml
+        contentPart1 = Messages("email.contentPart1.trade")
+        contentPart1LastSentence = ""
+        contentPart1LastSentenceHtml = ""
       } else {
-        contentPart1 = contentPart1TradeAppToTrade
-        contentPart1Html = contentPart1TradeAppToTradeHtml
-        contentPart4 = contentPart4TradeToTrade
+        contentPart1 = Messages("email.contentPart1.tradeAppToTrader")
+
+        contentPart3 = Messages("email.contentPart3.trade")
       }
-      contentPart2 = contentPart2TradeApp
-      contentPart3 = contentPart3TradeApp
-      contentPart5Plain = ""
-      contentPart5Html = ""
+      contentPart2 = Messages("email.txndetails.p1.trade")
+      contentPart4Part2 = Messages("email.contentPart4.trade")
+      contentPart5 = ""
+      contentPart5P2 = ""
     }
 
+    val contentPart4 = Messages("email.contentPart4.p1")
+      .concat(" " + contentPart4Part2)
+      .concat(" " + Messages("email.contentPart4.p3"))
+
+    val linesPlain = Array(
+      contentPart1,
+      contentPart2,
+      contentPart3,
+      contentPart4,
+      contentPart5,
+      contentPart5P2)
+
+    var subject = Messages("email.subject.private")
+    if (!isPrivate) subject = Messages("email.subject.trade")
+
+    val title = registrationNumber + " " + subject
+
     Contents(
-      buildHtml(registrationNumber, transactionId, imagesPath, transactionTimestampStr, contentPart1Html, contentPart2, contentPart3, contentPart4, contentPart5Html),
-      buildText(registrationNumber, transactionId, transactionTimestampStr, contentPart1, contentPart2, contentPart3, contentPart4, contentPart5Plain)
+      buildHtml(title,
+        imagesPath,
+        registrationNumber,
+        transactionId,
+        transactionTimestampStr,
+        contentPart1LastSentenceHtml,
+        linesPlain),
+      buildText(
+        registrationNumber,
+        transactionId,
+        transactionTimestampStr,
+        contentPart1LastSentence,
+        linesPlain)
     )
   }
 
-  private def buildHtml(registrationNumber: String,  transactionId: String, imagesPath: String,
-                        transactionTimestamp: String, contentPart1: String, contentPart2: String, contentPart3: String,
-                         contentPart4: String, contentPart5: String): String =
+  private def buildHtml(title: String,
+                        imagesPath: String,
+                        regNumber: String,
+                        transactionId: String,
+                        transactionTimestamp: String,
+                        line1LastSentence: String,
+                        lines: Array[String]): String =
     s"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
        |<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
        |<head>
        |    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
        |    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-       |    <title>$registrationNumber Confirmation of new vehicle keeper</title>
+       |    <title>$title</title>
        |</head>
        |
        |<body style="width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; margin: 0; padding: 0;">
@@ -124,32 +137,31 @@ object EmailMessageBuilder {
        |                    <tr>
        |                        <td style="border-collapse: collapse;">
        |
-       |                            <p><strong style="text-decoration: underline">This is an automated email - Please do not reply as emails received at this address cannot be responded to.</strong></p>
+       |                            <p><strong style="text-decoration: underline">${Messages("email.template.line1")}</strong></p>
        |
-       |                            $contentPart1
+       |                            <p>${lines(0)} ${line1LastSentence}</p>
        |
-       |                            <p>$contentPart3 application details are:</p>
+       |                            <p>${lines(1)}</p>
        |
-       |                            <p>
-       |                                Vehicle registration number: <strong>$registrationNumber</strong> <br />
-       |                                Transaction ID: <strong>$transactionId</strong> <br />
-       |                                Application made on: <strong>$transactionTimestamp</strong>
+       |                            <p>${Messages("email.txndetails.p2")} <strong>${regNumber}</strong>
+       |                            <br>${Messages("email.txndetails.p3")} <strong>${transactionId}</strong>
+       |                            <br>${Messages("email.txndetails.p4")} <strong>${transactionTimestamp}</strong></p>
        |
-       |                            </p>
+       |                            <p>${lines(2)}</p>
        |
-       |                            <p>$contentPart4 should receive a postal acknowledgement letter within 4 weeks.</p>
+       |                            <p>${lines(3)}</p>
        |
-       |                            <p>DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C registration certificate (logbook), which was used.</p>
+       |                            <p>${lines(4)}</p>
        |
-       |                            $contentPart5
+       |                            <p>${lines(5)}</p>
        |
-       |                            <p>For more information on driving and transport go to <a href="http://www.gov.uk/browse/driving" target="_blank">www.gov.uk/browse/driving</a>.</p>
+       |                            <p>${Messages("email.template.line2Html")}</p>
        |
-       |                            <p>You may wish to save or print this email confirmation for your records.</p>
+       |                            <p>${Messages("email.template.line3")}</p>
        |
-       |                            <p>Yours sincerely <br />
-       |                            Rohan Gye<br />
-       |                            Vehicles Service Manager
+       |                            <p>${Messages("email.signature.p1")}<br>
+       |                            ${Messages("email.signature.p2")}<br>
+       |                            ${Messages("email.signature.p3")}
        |                            </p>
        |
        |                            <img src="$imagesPath/dvla_logo.png" width="320" alt="DVLA logo" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" />
@@ -168,35 +180,35 @@ object EmailMessageBuilder {
        |
       """.stripMargin
 
-  private def buildText(registrationNumber: String,transactionId: String,
-                        transactionTimestamp: String, contentPart1: String, contentPart2: String, contentPart3: String,
-                         contentPart4: String, contentPart5: String): String =
-
+    private def buildText(regNumber: String,
+                          transactionId: String,
+                          transactionTimestamp: String,
+                          line1LastSentence: String,
+                          lines: Array[String]): String =
     s"""
-        |THIS IS AN AUTOMATED EMAIL - Please do not reply as emails received at this address cannot be responded to.
+        |${Messages("email.template.line1")}
         |
-        |$contentPart1
+        |${lines(0)} ${line1LastSentence}
         |
-        |$contentPart3 application details are:
-        |Vehicle registration number: $registrationNumber
-        |Transaction ID: $transactionId
-        |Application made on: $transactionTimestamp
+        |${lines(1)}
+        |${Messages("email.txndetails.p2")}${regNumber}
+        |${Messages("email.txndetails.p3")}${transactionId}
+        |${Messages("email.txndetails.p4")}${transactionTimestamp}
         |
-        |$contentPart4 should receive a postal acknowledgement letter within 4 weeks.
+        |${lines(2)}
         |
-        |DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits. $contentPart2 refund will be sent to the address on the V5C registration certificate (logbook), which was used.
+        |${lines(3)}
         |
-        |$contentPart5
+        |${lines(4)}
         |
-        |For more information on driving and transport go to http://www.gov.uk/browse/driving
+        |${lines(5)}
         |
-        |You may wish to save or print this email confirmation for your records.
+        |${Messages("email.template.line2")}
         |
-        | Yours sincerely
-        | Rohan Gye
-        | Vehicles Service Manager
-                                                                                                                                                                                                     |       |                            </p>
+        |${Messages("email.template.line3")}
         |
-        |Thank You
+        |${Messages("email.signature.p1")}
+        |${Messages("email.signature.p2")}
+        |${Messages("email.signature.p3")}
       """.stripMargin
 }

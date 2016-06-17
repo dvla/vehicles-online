@@ -326,3 +326,39 @@ mandatory = Mae meysydd heb eu labelu (dewisol) yn orfodol
 # feedback
 common_feedback.subject = Gwerthu i''r fasnach - adborth
 
+# email
+email.contentPart1.private = Thank you for using DVLA’s online service to confirm you are no longer the registered keeper of this vehicle.
+email.contentPart1LastSentence = Please destroy the original V5C/3 (yellow slip). This must not be sent to DVLA.
+email.contentPart1LastSentence.Html = Please destroy the original V5C/3 (yellow slip). This must <strong>not</strong> be sent to DVLA.
+email.contentPart1.trade = DVLA have been notified electronically that you have sold/transferred this vehicle into the motor trade and are no longer the keeper.
+email.contentPart1.tradeAppToTrader = Thank you for using DVLA’s online service to confirm you have taken this vehicle into the motor trade.
+
+email.txndetails.p1.private = Your application details are:
+email.txndetails.p1.trade = The application details are:
+email.txndetails.p2 = Vehicle registration number:
+email.txndetails.p3 = Transaction ID:
+email.txndetails.p4 = Application made on:
+
+email.contentPart3.private = You should receive a postal acknowledgement letter within 4 weeks.
+email.contentPart3.trade = The registered keeper (seller) should receive a postal acknowledgement letter within 4 weeks.
+
+email.contentPart4.private = The
+email.contentPart4.trade = The acknowledgement letter and
+email.contentPart4.p1 = DVLA will automatically issue a refund for any full remaining months for vehicle tax and cancel any direct debits.
+email.contentPart4.p3 = refund will be sent to the address on the V5C registration certificate (logbook), which was used.
+
+email.contentPart5 = You may still receive a V11 tax reminder as these are pre-printed up to 6 weeks in advance. If you do receive a V11 for this vehicle after notifying the sale, please ignore it.
+email.contentPart5.p2 = If another payment is taken before your Direct Debit is cancelled, you’ll be automatically refunded within 10 days.
+
+email.signature.p1 = Yours sincerely
+email.signature.p2 = Rohan Gye
+email.signature.p3 = Vehicles Service Manager
+email.signature.p4 = Thank You
+
+email.template.line1 = THIS IS AN AUTOMATED EMAIL - Please do not reply as emails received at this address cannot be responded to.
+email.template.line2 = For more information on driving and transport go to www.gov.uk/browse/driving
+email.template.line2Html = For more information on driving and transport go to <a href="http://www.gov.uk/browse/driving" target="_blank">www.gov.uk/browse/driving</a>.
+email.template.line3 = You may wish to save or print this email confirmation for your records.
+
+email.subject.private = Confirmation of new vehicle keeper
+email.subject.trade = Confirmation of selling to motor trade
