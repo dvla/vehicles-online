@@ -1,8 +1,6 @@
 import Common._
 import com.typesafe.sbt.rjs.Import.RjsKeys.webJarCdns
 import io.gatling.sbt.GatlingPlugin
-import io.gatling.sbt.GatlingPlugin.Gatling
-import org.scalastyle.sbt.ScalastylePlugin
 import uk.gov.dvla.vehicles.sandbox.ProjectDefinitions.{emailService, legacyStubs, osAddressLookup, vehicleAndKeeperLookup, vehiclesDisposeFulfil}
 import uk.gov.dvla.vehicles.sandbox.{Sandbox, SandboxSettings, Tasks}
 
@@ -93,8 +91,6 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
 // Disable documentation generation to save time for the CI build process
 sources in doc in Compile := List()
-
-ScalastylePlugin.Settings
 
 credentials += Credentials(Path.userHome / ".sbt/.credentials")
 
