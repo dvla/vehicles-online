@@ -11,8 +11,7 @@ import uk.gov.dvla.vehicles.presentation.common.services.DateService
 
 class ErrorStrategy @Inject()(clfEntryBuilder: ClfEntryBuilder,
                               @Named(AccessLoggerName) accessLogger: LoggerLike,
-                              dateService: DateService,
-                              exceptionDigest: String)
+                              dateService: DateService)
   extends ErrorStrategyBase(clfEntryBuilder, clfEntry => accessLogger.info(clfEntry), accessLogger, dateService,
-    routes.BeforeYouStart.present, routes.Error.present(exceptionDigest))
+      routes.BeforeYouStart.present, routes.Error.present _)
 
