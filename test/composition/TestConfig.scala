@@ -1,6 +1,6 @@
 package composition
 
-import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{booleanProp, getOptionalProperty, intProp}
+import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{booleanProp, getIntListProperty, getOptionalProperty, intProp}
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.EmailConfiguration
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.FakeOrdnanceSurveyConfig
@@ -55,6 +55,7 @@ final class TestConfig extends Config {
   override val openingTimeMinOfDay: Int = getOptionalProperty[Int]("openingTimeMinOfDay").getOrElse(TestConfig.DEFAULT_OPENING_TIME)
   override val closingTimeMinOfDay: Int = getOptionalProperty[Int]("closingTimeMinOfDay").getOrElse(TestConfig.DEFAULT_CLOSING_TIME)
   override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins").getOrElse(TestConfig.DEFAULT_CLOSING_WARN_PERIOD)
+  override val closedDays: List[Int] = getIntListProperty("closedDays").getOrElse(List())
 
   override val emailServiceMicroServiceUrlBase: String = TestConfig.DEFAULT_BASE_URL
   override val emailServiceMsRequestTimeout: Int = TestConfig.DEFAULT_EMAIL_REQUEST_TIMEOUT

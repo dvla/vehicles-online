@@ -60,6 +60,7 @@ class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness wit
         val mockConfig = org.scalatest.mock.MockitoSugar.mock[Config]
         when(mockConfig.openingTimeMinOfDay).thenReturn(opening)
         when(mockConfig.closingTimeMinOfDay).thenReturn(closing)
+        when(mockConfig.closedDays).thenReturn(List[Int]())
         when(mockConfig.googleAnalyticsTrackingId).thenReturn(None) // Stub this config value.
         when(mockConfig.assetsUrl).thenReturn(None) // Stub this config value.
         bind[Config].toInstance(mockConfig)

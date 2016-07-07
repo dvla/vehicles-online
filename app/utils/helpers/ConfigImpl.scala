@@ -4,6 +4,7 @@ import uk.gov.dvla.vehicles.presentation.common
 import common.ConfigProperties.booleanProp
 import common.ConfigProperties.getProperty
 import common.ConfigProperties.getDurationProperty
+import common.ConfigProperties.getIntListProperty
 import common.ConfigProperties.getOptionalProperty
 import common.ConfigProperties.getStringListProperty
 import common.ConfigProperties.intProp
@@ -78,6 +79,8 @@ final class ConfigImpl extends Config {
   )
 
   override val imagesPath: String = getProperty[String]("email.image.path")
+
+  override val closedDays: List[Int] = getIntListProperty("closedDays").getOrElse(List())
 }
 
 object ConfigImpl {

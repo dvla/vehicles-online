@@ -59,4 +59,6 @@ trait Config extends VehicleLookupConfig with CommonConfig {
   def emailServiceMsRequestTimeout: Int
   def emailConfiguration: EmailConfiguration
   def imagesPath: String
+
+  val closedDays: List[Int]
 }
