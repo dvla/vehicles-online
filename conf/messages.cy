@@ -268,8 +268,9 @@ error.address.threeAlphas = Mae’n rhaid cael o leiaf 3 nodyn alffa
 
 # closed
 closed.title = Nid yw’r gwasanaeth ar gael
-closed.p1 = Mae’r gwasanaeth ar gael o ddydd Llun i ddydd Sadwrn yn unig {0} to {1}
+closed.p1 = Mae’r gwasanaeth ar gael o ddydd Llun i ddydd {2} yn unig {0} to {1}
 closed.exit_button = Gadael
+closed.lastDayOpen = Sadwrn
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.

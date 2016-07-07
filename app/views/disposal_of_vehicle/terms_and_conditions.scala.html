@@ -1,4 +1,5 @@
-@()(implicit lang: Lang, config: utils.helpers.Config, isPrivateKeeper: Boolean)
+@(opening: String,
+  closing: String)(implicit lang: Lang, config: utils.helpers.Config, isPrivateKeeper: Boolean)
 
 @import uk.gov.dvla.vehicles.presentation.common.views.html.widgets.termsAndConditions
 
@@ -7,7 +8,7 @@
 ) {
     <div class="two-col clearfix">
         <div class="second-col">
-            @termsAndConditions(routes.CookiePolicy.present())
+            @termsAndConditions(routes.CookiePolicy.present(), opening, closing, Messages("closed.lastDayOpen"))
         </div>
     </div>
 }
