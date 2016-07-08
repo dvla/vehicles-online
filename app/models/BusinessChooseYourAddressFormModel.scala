@@ -1,6 +1,6 @@
 package models
 
-import mappings.DropDown
+import uk.gov.dvla.vehicles.presentation.common.mappings.DropDown
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import play.api.data.Forms.mapping
 import play.api.libs.json.Json
