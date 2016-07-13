@@ -2,6 +2,9 @@
 main.banner = Buying a vehicle into trade
 main.banner.private = Sold a vehicle to the motor trade
 
+# dispose_failure
+global.buttonnavprint = Print
+
 # VPC - OptionsToggle
 mandatory-alternative.not-selected = Please tell us whether you require a confirmation email
 

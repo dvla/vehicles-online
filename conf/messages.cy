@@ -2,6 +2,9 @@
 main.banner = Gwerthu cerbyd i''r fasnach foduron
 main.banner.private = Wedi gwerthu cerbyd i’r masnach moduro
 
+# dispose_failure
+global.buttonnavprint = Argraffwch
+
 # VPC - OptionsToggle
 mandatory-alternative.not-selected = Dywedwch wrthym a ydych yn gofyn am ebost cadarnhau
 
