@@ -2,121 +2,53 @@
 main.banner = Buying a vehicle into trade
 main.banner.private = Sold a vehicle to the motor trade
 
-#global
-global.cookiemessage = GOV.UK uses cookies to make the site simpler.
-global.cookiefindoutmore = Find out more about cookies
-
-global.browserprompt = For a safer, faster, better experience online you should upgrade your browser.
-global.browserfindoutmore = Find out more about browsers
-global.browserclosetitle = Dismiss this message
-global.browserclosemessage = Close
-
-global.buttonnavback = Back
-global.buttonnavcancel = Cancel
-global.buttonnavupdate = Update
-global.buttonnavprint = Print
-
-global.serviceCloseWarning = This service is available from {0} to {1}, you have
-global.serviceCloseWarning.p2 = to complete this service.
-global.serviceClosed = Service now closed. Service is available {0} to {1}
-
-global-please-wait-header = Please wait
-global-please-wait-p1 = We are currently receiving a large volume of applications which has led to our service performance being slower than usual.
-global-please-wait-p2 = This page will update automatically, please do not close your browser.
-global-please-wait-close = Close this message
-
-#vehicle details playback
-disposal_playback.vehicledetails = Vehicle details
-disposal_playback.vehiclereg = Registration number
-disposal_playback.vehiclemake = Make
-disposal_playback.vehiclemodel = Model
-
-#widget messages
-errorsummary.title = Please correct the details below
-errorsummary.p1 = Please fix the following:
-widget.optional = (optional)
-
-#customer validation messages
-error.restricted.validNumberOnly = This field only accepts numbers
-error.restricted.validVrnOnly = Must be as shown on the latest V5C registration certificate (logbook)
-error.restricted.validPostcode = Must be between five and eight characters and in a valid format, eg. AB1 2BA or AB12BA
-
-error.email = Must be a valid email address
-error.email.confirm.required = Please confirm the email address
-error.email.not.match = The email addresses did not match
-email.verify.label = Confirm email address
-option_email = Email options
-email = Email
+# VPC - OptionsToggle
 mandatory-alternative.not-selected = Please tell us whether you require a confirmation email
-
-select_default = Please select
-error.invalid = Invalid value
 
 #page 1 - Before You Start
 disposal_beforeyoustart.title = Buying a vehicle into trade
 disposal_beforeyoustart.p1 = Before you start:
 disposal_beforeyoustart.listitem1 = No changes can be made to the V5C registration certificate (logbook) and the name and address must be correct
-disposal_beforeyoustart.listitem1linktext = Vehicle enquiry service (VES)
-
 disposal_beforeyoustart.listitem2 = Any personalised registration numbers must be retained or transferred before using this service
-disposal_beforeyoustart.listitem2.link = Apply to retain a vehicle registration number (V317).
-
 disposal_beforeyoustart.listitem3 = Only the sale of a vehicle into the motor trade can be notified using this service
 disposal_beforeyoustart.listitem4 = This service is currently available Mon – Sat, 8am – 6pm
 disposal_beforeyoustart.button = Start now
-
-disposal_beforeyoustart.usefulLinks = Useful links
 disposal_beforeyoustart.Link1name = Take a personalised registration off a vehicle
 disposal_beforeyoustart.Link2name = Vehicle tax refund
 disposal_beforeyoustart.description = If a vehicle has been sold to the motor trade, the motor trader buying the vehicle can now tell DVLA online on behalf of the seller.
 disposal_beforeyoustart.tradeWarn = This service must only be used by a member of the motor trade acting on behalf of a seller.
-
 disposal_beforeyoustart.youWillNeedTitle = To use this service you will need
 disposal_beforeyoustart.youWillNeedListItem1 = the 11 digit document reference number from the latest V5C registration certificate (logbook)
 disposal_beforeyoustart.youWillNeedListItem2 = the consent of the seller of the vehicle to act on their behalf
-
 disposal_beforeyoustart.recordUpdateWarn = Please note: this service updates our records immediately
-
 disposal_beforeyoustart.finishedTitle = Once you''ve finished
 disposal_beforeyoustart.finishedListItem1 = the registered keeper will be removed from our records and we will send them confirmation by post
 disposal_beforeyoustart.finishedListItem2 = we will issue an automatic refund of any tax due to the address on the V5C registration certificate (logbook) and cancel any direct debit
 disposal_beforeyoustart.finishedListItem3.1 = the original V5C/3 yellow disposal slip
 disposal_beforeyoustart.finishedListItem3.2 = must not
 disposal_beforeyoustart.finishedListItem3.3 = be sent to DVLA
-
 disposal_beforeyoustart.otherWaysTitle = Other ways to apply
 disposal_beforeyoustart.otherWays.p1 = If you do not use the online service, you or the seller must complete the V5C/3 and post it to DVLA, Swansea, SA99 1BD
 
 #page 2 - set-up trade details
 disposal_setuptradedetails.title = Provide trader details
-disposal_setuptradedetails.name = Sell a vehicle into the motor trade
-disposal_setuptradedetails.p1 = Set-up trade details
 disposal_setuptradedetails.tradernamelabel = Trader name
 disposal_setuptradedetails.tradername.hint = Name of the company that the vehicle is being sold to
 disposal_setuptradedetails.traderpostcodelabel = Postcode
-disposal_setuptradedetails.traderpostcodelabel.validation = Must be between 5 and 8 characters and in a valid format, eg. PR2 8AE or PR28AE
 disposal_setuptradedetails.traderpostcode.hint = eg. AB1 2BA or AB12BA
 disposal_setuptradedetails.button = Find address
-traderName = Trader name
-traderPostcode = Postcode
-traderEmail = Trader email address
-traderEmailOption = Email confirmation
 
 #page 3
 disposal_businessChooseYourAddress_title = Select trader address
-disposal_businessChooseYourAddress_legend = Set up trade details
 disposal_businessChooseYourAddress_businessName_label = Trader name
 disposal_businessChooseYourAddress_businessName = {0}
 disposal_businessChooseYourAddress_postcode_label = Postcode
-disposal_businessChooseYourAddress_businessAddress_label = Trader address
 disposal_businessChooseYourAddress_addressSelect = Choose your address
 disposal_businessChooseYourAddress_addressSelect_label = Choose your address
 disposal_businessChooseYourAddress_addressSelect_label.private = Choose trader address
-disposal_businessChooseYourAddress.backbutton = Back
 disposal_businessChooseYourAddress.submitbutton = Next
 disposal_businessChooseYourAddress.manualAddressEntry = Address is not in the list
 disposal_businessChooseYourAddress.manualAddressEntry.enterManuallyButton = Enter address
-error.dropDownInvalid = Please select a value from the drop down list.
 disposal_businessChooseYourAddress_noaddressesfound.h2.1 = No addresses found for that postcode.
 disposal_businessChooseYourAddress_noaddressesfound.h2.2 = Please either ''Enter address'' or click ''Back'' to try again.
 disposal_businessChooseYourAddress.address.required = Select an address from the drop down or enter it manually
@@ -124,45 +56,26 @@ disposal_businessChooseYourAddress.address.required = Select an address from the
 #page 3 - manual address entry
 disposal_enteraddressmanually.title = Enter address
 disposal_enteraddressmanually.submitbutton = Next
-disposal_enteraddressmanually.backbutton = Back
 disposal_enteraddressmanually.addresswarning = If your address is missing from this postcode package or is showing incorrect details then please select this link to
 disposal_enteraddressmanually.addresswarninglinktext = inform the Royal Mail.
-address.lines.label = Building/number and street
-address.buildingNameOrNumber.hint = e.g. 1 HIGH STREET
-address.postTown.label = Town or city
-address.postcode.label = Postcode
-address.postcode.label.prompt = e.g. SA99 1BD
-address.postcode.validation = Enter a valid postcode
-addressAndPostcode_addressLines = Address
-addressAndPostcode.addressLines.line2 = Street name
-addressAndPostcode.addressLines.line3 = Area
-addressAndPostcode.addressLines.postTown = Town or city
-addressAndPostcode.addressLines.postTown.hint = e.g. SWANSEA
+
+# EnterAddressManually form errors
 addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 addressAndPostcode.addressLines = Address
-addressAndPostcode.postcode = Postcode
 
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Enter vehicle details
-disposal_vehiclelookup.name = Sell a vehicle into the motor trade
-disposal_vehiclelookup.p1 = Vehicle being sold
 disposal_vehiclelookup.p2 = Trader details
-disposal_vehiclelookup.warning.p1 = Do not dispose of a vehicle with a personal registration unless the current keeper understands that the registration will be disposed of along with the vehicle.
-disposal_vehiclelookup.warning.p2 = Retain or transfer personal registrations before disposing to the trade.
-disposal_vehiclelookup.img.h2 = Help finding your V5C registration certificate (logbook) document reference number?
-disposal_vehiclelookup.img.hint = Where to find this?
 disposal_vehiclelookup.v5c = V5C registration certificate (logbook)
-disposal_vehiclelookup.img.alt = V5C registration certificate (logbook) document reference number
 disposal_vehiclelookup.refnumlabel = Latest V5C registration certificate (logbook) document reference number
 disposal_vehiclelookup.vrninputlabel = Vehicle registration number
-disposal_vehiclelookup.backbutton = Back
 disposal_vehiclelookup.button = Next
-disposal_vehiclelookup.button2 = Edit
 disposal_vehiclelookup.exitbutton = Finish
 disposal_vehiclelookup.tradernamelabel = Trader name
 disposal_vehiclelookup.traderaddresslabel = Trader address
 disposal_vehiclelookup.traderresetdetails = Change these trader details?
+
 vehicleRegistrationNumber = Vehicle registration number
 documentReferenceNumber = Document reference number
 error.validDocumentReferenceNumber = Document reference number must be an 11-digit number
@@ -170,36 +83,22 @@ error.validDocumentReferenceNumber = Document reference number must be an 11-dig
 #page 5 - confirm disposal
 disposal_dispose.title = Complete and confirm
 disposal_dispose.warning = If the vehicle details shown are incorrect please abandon this transaction and send the V5C registration certificate (logbook) with a covering letter to DVLA, Swansea, SA99 1BA.
-disposal_dispose.vehicledetails = Vehicle being sold
-disposal_dispose.vehiclereg = Registration
-disposal_dispose.vehiclemake = Make
-disposal_dispose.vehiclemodel = Model
-disposal_dispose.vehiclekeeper = Keeper
-disposal_dispose.disposevehicleto = Trader details
 disposal_dispose.mileage.label = Vehicle mileage
 disposal_dispose.mileage.validation = You must enter a valid mileage between 0 and 999999
-dateOfDisposal = Date of sale
 disposal_dispose.dateofdisposal.label = Date of sale
 disposal_dispose.dateofdisposal.hint =  For example, 01 01 2015
 disposal_dispose.backbutton = Back
 disposal_dispose.submitbutton = Confirm sale
 disposal_dispose.consent = I have the consent of the current keeper to notify the sale of this vehicle
 disposal_dispose.consent.notgiven = You must have the consent of the registered keeper to notify the sale of this vehicle
-dateOfDisposal_day = Day of sale
-dateOfDisposal_month = Month of sale
-dateOfDisposal_year = Year of sale
-dateOfBirth.day = Day
-dateOfBirth.month = Month
-dateOfBirth.year = Year
-use_todays_date.label = Use today''s date
-error.dateOfDisposal =  Must be a valid date DD MM YYYY, not be in the future and no more than 2 years in the past
-disposal_dispose.consent.mandatory = You must have the consent of the registered keeper to notify the sale of this vehicle
-consent = Consent
 disposal_dispose.loss_of_registration.consent = I confirm that the current keeper understands that the rights to this registration number will be lost on the sale of this vehicle
 disposal_dispose.loss_of_registration.consent.info = If the current keeper has a personalised or private registration number on this vehicle that they want to keep, they must transfer or retain it before notifying the sale. If you notify the sale without doing this, they will lose the rights to the registration number.
 disposal_dispose.loss_of_registration.privateKeeper.consent = I understand that I will lose the rights to this registration number when I confirm the sale
 disposal_dispose.loss_of_registration.privateKeeper.consent.info = If you have a personalised or private registration number on this vehicle that you want to keep, you must transfer or retain it before notifying the sale. If you notify the sale without doing this, you will lose the rights to the registration number.
 disposal_dispose.loss_of_registration.consent.notgiven = You must confirm that you have made the keeper aware that they will lose the registration number associated with this vehicle
+dateOfDisposal = Date of sale
+error.dateOfDisposal =  Must be a valid date DD MM YYYY, not be in the future and no more than 2 years in the past
+consent = Consent
 lossOfRegistrationConsent = Consent
 mileage = Mileage
 disposal_businesskeeperdetails.traderemailoption = Do you want an email confirmation of the sale?
@@ -221,12 +120,9 @@ disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in th
 disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA customer enquiries on 0300 790 6802 as you could still be liable for this vehicle.
 disposal_disposeconfirmation.exkeeper-p3 = since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C registration certificate (logbook). This should take 4-6 weeks. Any direct debits will also be cancelled.
 disposal_disposeconfirmation.exkeeper-p4 = you may want to take a print of this summary for your records.
-disposal_disposeconfirmation.transactionid = {0}
 disposal_disposeconfirmation.transactionid_label = Transaction ID
 disposal_disposeconfirmation.transactionDate = Date of transaction
 disposal_disposeconfirmation.whatNext = What happens next?
-disposal_disposeconfirmation.registrationNumber = {0}
-disposal_disposeconfirmation.registrationNumber_label = Vehicle details
 disposal_disposeconfirmation.disposaldate = Date of sale
 disposal_disposeconfirmation.mileage = Vehicle mileage
 disposal_disposeconfirmation.mileageNotEntered = Not entered
@@ -237,15 +133,11 @@ disposal_disposeconfirmation.selleremailoption = Does the seller of this vehicle
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Buying a vehicle into trade: failure
-disposal_disposefailure.name = Failure
-disposal_disposefailure.p1 = It has not been possible to complete your transaction. Please call 0300 790 6802
 disposal_disposefailure.button = Sell another vehicle
 disposal_disposefailure.button2 = Finish
-disposal_disposefailure.button3 = Print
-disposal_disposefailure.transactiontext = Your transaction ID is:
 disposal_disposefailure.transactionid = {0}
 
-#vehicle lookup failure
+#page 8 - vehicle lookup failure
 disposal_vehiclelookupfailure.title = Unable to find a vehicle record
 disposal_vehiclelookupfailure.name = Failure
 disposal_vehiclelookupfailure.p1 = The service is temporarily unavailable. Please try again later or send a completed V5C/3 to DVLA, Swansea, SA99 1BD
@@ -257,17 +149,7 @@ vehicle_and_keeper_lookup_failure.p2 = If you are sure that the details have bee
 vehicle_and_keeper_lookup_failure.p3 = If you do not have the latest issued V5C registration certificate (logbook), you will need to send your completed V5C/3 to DVLA, Swansea, SA99 1BD.
 vehicle_and_keeper_lookup_failure.p4 = You will only have a limited number of attempts to enter the vehicle details for this vehicle.
 
-error.validBusinessName = Must be between 2 and 58 characters and only contain valid characters (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .). The following characters cannot be used at the start of trader name  (&,-,(), /, ‘ and , or .)
-
-# common to both addressPicker widget and addressAndPostcode widget
-error.address.buildingNameOrNumber.invalid = Building/number and street must contain between 4 and 30 characters
-error.address.characterInvalid = The first character of the address must be alphanumeric. Other characters must be valid (a-z, A-Z, 0-9, &, -,(), /, ‘ and , or .)
-#error.address.maxLengthOfLinesConcatenated = Address can have no more than 120 characters
-error.address.postTown = Town or city must contain between 3 and 20 characters.
-error.address.postTown.characterInvalid = Town or city contains invalid characters
-error.address.threeAlphas = Must have at least 3 alpha characters
-
-# closed
+# closed widget
 closed.title = Service unavailable
 closed.p1 = This service is only available Monday to {2} {0} to {1}.
 closed.exit_button = Exit
@@ -319,9 +201,6 @@ onHandlerBadRequest.start.button = Start
 
 error.title = An unrecoverable error has occurred
 error.button = Start again
-
-language.cy.button = Cymraeg
-language.en.button = YAGNI
 
 mandatory = Fields not labelled (optional) are mandatory
 
