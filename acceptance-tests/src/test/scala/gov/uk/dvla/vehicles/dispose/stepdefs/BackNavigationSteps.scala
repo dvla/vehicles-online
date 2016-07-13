@@ -1,6 +1,7 @@
 package gov.uk.dvla.vehicles.dispose.stepdefs
 
 import cucumber.api.java.en.{Given, When, Then}
+import java.util.Calendar
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser.pageTitle
 import org.scalatest.selenium.WebBrowser.click
@@ -33,7 +34,12 @@ class BackNavigationSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvl
     VehicleLookupPage.documentReferenceNumber.value = "11111111111"
     click on VehicleLookupPage.findVehicleDetails
     pageTitle shouldEqual DisposePage.title withClue trackingId
-    click on DisposePage.useTodaysDate
+
+    val today = Calendar.getInstance()
+    DisposePage.dateOfDisposalDay.value = f"${today.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${today.get(Calendar.MONTH)+1}%02d"
+    DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
+
     click on DisposePage.consent
     click on DisposePage.lossOfRegistrationConsent
   }

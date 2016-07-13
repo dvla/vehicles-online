@@ -43,12 +43,12 @@ libraryDependencies ++= Seq(
   "com.tzavellas" % "sse-guice" % "0.7.1" withSources() withJavadoc(), // Scala DSL for Guice
   "org.webjars" % "requirejs" % "2.2.0",
   // test
-  // The combination of selenium 2.43.0 and phantomjsdriver 1.2.0 works in the Travis build when open sourcing
-  "com.github.detro" % "phantomjsdriver" % "1.2.0" % "test" withSources() withJavadoc(),
+  "org.seleniumhq.selenium" % "selenium-java" % "2.52.0" % "test",
+  "com.codeborne" % "phantomjsdriver" % "1.2.1" % "test" withSources() withJavadoc(),
+  "net.sourceforge.htmlunit" % "htmlunit" % "2.19" % "test" exclude("commons-collections", "commons-collections"),
   "com.github.tomakehurst" % "wiremock" % "1.58" % "test" withSources() withJavadoc() exclude("log4j", "log4j"),
   "junit" % "junit" % "4.11" % "test",
   "junit" % "junit-dep" % "4.11" % "test",
-  "net.sourceforge.htmlunit" % "htmlunit" % "2.13" % "test" exclude("commons-collections", "commons-collections"),
   "org.mockito" % "mockito-all" % "1.10.19" % "test" withSources() withJavadoc(),
   "org.scalatest" %% "scalatest" % "2.2.6" % "test" withSources() withJavadoc(),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.21" % "test" withSources() withJavadoc(),
