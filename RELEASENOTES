@@ -1,3 +1,12 @@
+======= 1.37 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+VMPRCI-4421 	Remove / clean up unused entries in messages files
+VMPRCI-4402 	Upgrade exemplar tests to use latest htmlunit version
+VMPRCI-4432 	Update/split ms error page and T&C content to reflect VM open on Sunday
+VMPRCI-4431 	VM service available Sunday with normal opening hours
+
 ======= 1.36 ========
 TIME OF RELEASE BINARIES CREATION:
 Fri Jul 01 10:00:52 UTC 2016
