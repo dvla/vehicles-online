@@ -1,6 +1,6 @@
 ======= 1.37 ========
 TIME OF RELEASE BINARIES CREATION:
-
+Fri Jul 15 11:39:44 UTC 2016
 
 VMPRCI-4421 	Remove / clean up unused entries in messages files
 VMPRCI-4402 	Upgrade exemplar tests to use latest htmlunit version
