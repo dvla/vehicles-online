@@ -90,8 +90,11 @@ object Chains {
   val chain_dispose_vehicle = {
     import java.util.Calendar
     val calendar = Calendar.getInstance
-    calendar.add(Calendar.YEAR, -1)
+    calendar.add(Calendar.MONTH, -9)
+    val day = f"${calendar.get(Calendar.DATE)}%02d"
+    val month = f"${calendar.get(Calendar.MONTH)+1}%02d"
     val year = calendar.get(Calendar.YEAR).toString
+
     feed(vehicleLookup)
       .exec(http(s"POST /vehicle-lookup")
       .post(s"/vehicle-lookup")
@@ -111,8 +114,8 @@ object Chains {
       .formParam("option_email", "invisible")
       .formParam( """consent""", "${consent}")
       .formParam( """lossOfRegistrationConsent""", "${lossOfRegistrationConsent}")
-      .formParam( """dateOfDisposal.day""", "${day}")
-      .formParam( """dateOfDisposal.month""", "${month}")
+      .formParam( """dateOfDisposal.day""", day)
+      .formParam( """dateOfDisposal.month""", month)
       .formParam( """dateOfDisposal.year""", year)
       .formParam( """csrf_prevention_token""", "${csrf_prevention_token}")
       .formParam( """action""", """""")

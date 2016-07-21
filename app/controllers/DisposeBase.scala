@@ -9,7 +9,7 @@ import models.DisposeFormModelBase.Form.MileageId
 import models.DisposeViewModel
 import models.VehicleLookupFormModel
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{DateTime, DateTimeZone}
+import org.joda.time.{DateTime, DateTimeZone, LocalDate}
 import play.api.data.{Form, FormError}
 import play.api.mvc.{Action, AnyContent, Call, Request, Result}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -41,7 +41,8 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
                     (implicit request: Request[_], clientSideSessionFactory: ClientSideSessionFactory): Result
 
   // Default to trader routing
-  protected val formTarget = routes.Dispose.submit()
+  protected val formTargetNoDateCheck = routes.Dispose.submitNoDateCheck()
+  protected val formTarget = routes.Dispose.submitWithDateCheck()
   protected val backLink = routes.VehicleLookup.present()
   protected val vehicleDetailsMissing = Redirect(routes.VehicleLookup.present())
   protected val onVehicleAlreadyDisposed = Redirect(routes.VehicleLookup.present())
@@ -86,29 +87,42 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     }
   }
 
-  def submit = Action.async { implicit request =>
-    form.bindFromRequest.fold(
-      invalidForm => Future.successful {
-        val result = for {
-          traderDetails <- request.cookies.getModel[TraderDetailsModel]
-          vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
-        } yield {
-          val disposeViewModel = DisposeViewModel(vehicleDetails, traderDetails)
-          BadRequest(dispose(
-            disposeViewModel,
-            formWithReplacedErrors(invalidForm),
-            dateService,
-            formTarget,
-            backLink
-          ))
-        }
+  def submitWithDateCheck = submitBase({
+    dateOfSale => !dateOfSale.isBefore(dateService.now.toDateTime.toLocalDate.minusMonths(12))
+  })
 
-        result getOrElse {
-          logMessage(request.cookies.trackingId(), Error,
-            "Could not find expected data in cache on dispose submit - now redirecting...")
-          Redirect(routes.SetUpTradeDetails.present())
-        }
-      },
+  def submitNoDateCheck = submitBase(_ => true)
+
+  private def processInvalidForm(form: Form[FormModel], formTarget: Call, showDateOfSaleWarning: Boolean)(implicit request: Request[AnyContent]) = Future.successful {
+    val result = for {
+      traderDetails <- request.cookies.getModel[TraderDetailsModel]
+      vehicleDetails <- request.cookies.getModel[VehicleAndKeeperDetailsModel]
+    } yield {
+      BadRequest(dispose(
+        DisposeViewModel(vehicleDetails, traderDetails, showDateOfSaleWarning = showDateOfSaleWarning),
+        formWithReplacedErrors(form),
+        dateService,
+        formTarget,
+        backLink
+      ))
+    }
+
+    result getOrElse {
+      logMessage(request.cookies.trackingId(), Error,
+        "Could not find expected data in cache on dispose submit - now redirecting...")
+      Redirect(routes.SetUpTradeDetails.present())
+    }
+  }
+
+  private def submitBase(validDate: LocalDate => Boolean) = Action.async { implicit request =>
+    form.bindFromRequest.fold(
+      invalidForm =>
+        processInvalidForm(
+          invalidForm,
+          formTarget,
+          showDateOfSaleWarning = false
+        )
+      ,
       validForm => {
         request.cookies.getString(PreventGoingToDisposePageCacheKey) match {
           case Some(_) =>
@@ -116,8 +130,16 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
               s"Vehicle is already disposed, redirecting to $onVehicleAlreadyDisposed")
             Future.successful(onVehicleAlreadyDisposed)
           case None =>
-            // US320 prevent user using the browser back button and resubmitting.
-            doDisposeAction(webService, validForm)
+            if (validDate(validForm.dateOfDisposal)) {
+              // US320 prevent user using the browser back button and resubmitting.
+              doDisposeAction(webService, validForm)
+            } else {
+              processInvalidForm(
+                form.fill(validForm),
+                formTargetNoDateCheck,
+                showDateOfSaleWarning = true
+              )
+            }
         }
       }
     )
@@ -245,7 +267,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     }
 
   private def transactionTimestamp(nextPage: Result)(implicit request: Request[AnyContent]) = {
-    val transactionTimestamp = dateService.today.toDateTime.get
+    val transactionTimestamp = dateService.now.toDateTime
     val formatter = ISODateTimeFormat.dateTime()
     val isoDateTimeString = formatter.print(transactionTimestamp)
     nextPage.withCookie(DisposeFormTimestampIdCacheKey, isoDateTimeString)
@@ -390,7 +412,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         val template = EmailMessageBuilder.buildWith(vehicleDetails,
           transactionId,
           config.imagesPath,
-          new DateTime,
+          dateService.now.toDateTime,
           isPrivate,
           toTrader)
 

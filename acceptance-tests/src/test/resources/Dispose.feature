@@ -17,3 +17,10 @@ Feature: Validate vehicle disposal date
     Then a single error message "Must be a valid date" is displayed
     When the user enters a valid disposal date
     Then the sell to trade success page is displayed
+
+  Scenario: Date of disposal - Over 12 months in the past
+    Given the Trader is on the Complete and Confirm page
+    When the user enters a date of sale over 12 months in the past and submits the form
+    Then the user will remain on the complete and confirm page and a warning will be displayed
+    When the user confirms the date
+    Then the sell to trade success page is displayed

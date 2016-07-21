@@ -38,7 +38,8 @@ class Dispose @Inject()(webService: DisposeService,
                                      (implicit request: Request[_]) =
     createAndSendEmail(toTrader = false, isPrivate = true, transactionId, model.email)
 
-  override protected val formTarget = routes.Dispose.submit()
+  override protected val formTargetNoDateCheck = routes.Dispose.submitNoDateCheck()
+  override protected val formTarget = routes.Dispose.submitWithDateCheck()
   override protected val backLink = routes.VehicleLookup.present()
   override protected val vehicleDetailsMissing = Redirect(routes.VehicleLookup.present())
   override protected val onVehicleAlreadyDisposed = Redirect(routes.VehicleLookup.present())

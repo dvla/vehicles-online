@@ -106,6 +106,7 @@ disposal_dispose.loss_of_registration.privateKeeper.consent.info = If you have a
 disposal_dispose.loss_of_registration.consent.notgiven = You must confirm that you have made the keeper aware that they will lose the registration number associated with this vehicle
 dateOfDisposal = Date of sale
 error.dateOfDisposal =  Must be a valid date DD MM YYYY, not be in the future and no more than 2 years in the past
+disposal_dispose.dateofdisposal.warning = The date you have entered is over 12 months ago, please check the date to make sure it is correct.
 consent = Consent
 lossOfRegistrationConsent = Consent
 mileage = Mileage

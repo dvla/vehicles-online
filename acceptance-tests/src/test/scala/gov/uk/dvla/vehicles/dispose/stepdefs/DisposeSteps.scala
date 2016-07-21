@@ -4,9 +4,8 @@ import java.util.Calendar
 
 import cucumber.api.java.en.{Given, Then, When}
 import org.openqa.selenium.WebDriver
-import org.scalatest.selenium.WebBrowser.{click, pageTitle}
+import org.scalatest.selenium.WebBrowser.{click, pageSource, pageTitle}
 import pages.common.ErrorPanel
-import pages.disposal_of_vehicle.DisposePage.dispose
 import pages.disposal_of_vehicle.{DisposePage, DisposeSuccessPage}
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebBrowserDriver
 
@@ -76,13 +75,42 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehic
 
   @When("""^the user enters a valid disposal date$""")
   def the_user_enters_a_valid_disposal_date() = {
-    enterOldestValidDisposalDate()
+    enterValidDisposalDate()
+    click on DisposePage.dispose
   }
 
   @Then("""^the sell to trade success page is displayed$""")
   def the_sell_to_trade_success_page_is_displayed() = {
-    click on dispose
     pageTitle should equal(DisposeSuccessPage.title) withClue trackingId
+  }
+
+  @When("""^the user enters a date of sale over 12 months in the past and submits the form$""")
+  def the_user_enters_a_date_of_sale_over_twelve_months_in_the_past_and_submits_the_form() = {
+    click on DisposePage.consent
+    click on DisposePage.lossOfRegistrationConsent
+    enterDisposalDateWarning()
+    click on DisposePage.emailInvisible
+    click on DisposePage.dispose
+  }
+
+  @When("""^the user confirms the date$""")
+  def the_user_confirms_the_date() = {
+    click on DisposePage.dispose
+  }
+
+  @Then("""^the user will remain on the complete and confirm page and a warning will be displayed$""")
+  def the_user_will_remain_on_the_complete_and_confirm_page_and_a_warning_will_be_displayed() = {
+    pageTitle should equal(DisposePage.title)
+    pageSource should include("<div class=\"popup-modal\">")
+    pageSource should include("The date you have entered is over 12 months ago")
+  }
+
+  private def enterDisposalDateWarning() {
+    val invalidDisposalDate = Calendar.getInstance()
+    invalidDisposalDate.add(Calendar.MONTH, -13)
+    DisposePage.dateOfDisposalDay.value = f"${invalidDisposalDate.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${invalidDisposalDate.get(Calendar.MONTH)+1}%02d"
+    DisposePage.dateOfDisposalYear.value = invalidDisposalDate.get(Calendar.YEAR).toString
   }
 
   private def enterValidDisposalDate() {
@@ -93,6 +121,12 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehic
     DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
 
+  private def disposalDateNoWarning() = {
+    val disposalDay = Calendar.getInstance()
+    disposalDay.add(Calendar.YEAR, -1)
+    disposalDay
+  }
+
   //return a date that is two years ago
   private def oldestDisposalDate() = {
     val disposalDay = Calendar.getInstance()
@@ -100,19 +134,12 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehic
     disposalDay
   }
 
-  private def enterOldestValidDisposalDate() {
-    // Note: Calendar month is zero based
-    DisposePage.dateOfDisposalDay.value = f"${oldestDisposalDate().get(Calendar.DATE)}%02d"
-    DisposePage.dateOfDisposalMonth.value = f"${oldestDisposalDate().get(Calendar.MONTH)+1}%02d"
-    DisposePage.dateOfDisposalYear.value = oldestDisposalDate().get(Calendar.YEAR).toString
-  }
-
   private def enterInvalidDisposalDateTooOld() {
-    val invlaidDsposalDate = oldestDisposalDate()
-    invlaidDsposalDate.add(Calendar.DATE, -1)
-    DisposePage.dateOfDisposalDay.value = f"${invlaidDsposalDate.get(Calendar.DATE)}%02d"
-    DisposePage.dateOfDisposalMonth.value = f"${invlaidDsposalDate.get(Calendar.MONTH)+1}%02d"
-    DisposePage.dateOfDisposalYear.value = invlaidDsposalDate.get(Calendar.YEAR).toString
+    val invalidDisposalDate = oldestDisposalDate()
+    invalidDisposalDate.add(Calendar.DATE, -1)
+    DisposePage.dateOfDisposalDay.value = f"${invalidDisposalDate.get(Calendar.DATE)}%02d"
+    DisposePage.dateOfDisposalMonth.value = f"${invalidDisposalDate.get(Calendar.MONTH)+1}%02d"
+    DisposePage.dateOfDisposalYear.value = invalidDisposalDate.get(Calendar.YEAR).toString
   }
 
   private def enterInvalidDisposalDateFuture() {
@@ -140,5 +167,4 @@ class DisposeSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehic
     DisposePage.dateOfDisposalMonth.value = "1" // single digit, fixed
     DisposePage.dateOfDisposalYear.value = today.get(Calendar.YEAR).toString
   }
-
 }

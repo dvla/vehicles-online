@@ -56,9 +56,11 @@ GET         /private/vehicle-lookup/exit                           @controllers.
 GET         /private/vehicle-lookup-back                           @controllers.priv.VehicleLookup.back
 
 GET         /complete-and-confirm                                  @controllers.Dispose.present
-POST        /complete-and-confirm                                  @controllers.Dispose.submit
+POST        /complete-and-confirm                                  @controllers.Dispose.submitWithDateCheck
+POST        /complete-and-confirm/no-date-check                    @controllers.Dispose.submitNoDateCheck
 GET         /private/complete-and-confirm                          @controllers.priv.Dispose.present
-POST        /private/complete-and-confirm                          @controllers.priv.Dispose.submit
+POST        /private/complete-and-confirm                          @controllers.priv.Dispose.submitWithDateCheck
+POST        /private/complete-and-confirm/no-date-check            @controllers.priv.Dispose.submitNoDateCheck
 
 GET         /sell-to-the-trade-success                             @controllers.DisposeSuccess.present
 POST        /sell-to-the-trade-success/new-disposal                @controllers.DisposeSuccess.newDisposal

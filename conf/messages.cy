@@ -105,6 +105,7 @@ disposal_dispose.loss_of_registration.privateKeeper.consent.info = Os oes gennyc
 disposal_dispose.loss_of_registration.consent.notgiven = Rhaid i chi gadarnhau eich bod wedi hysbysu''r ceidwad y bydd yn colli''r rhif cofrestru cysylltiedig â''r cerbyd hwn
 dateOfDisposal = Dyddiad y gwerthiant
 error.dateOfDisposal = Rhaid iddo fod yn ddyddiad dilys, ddim yn y dyfodol nac yn bellach yn ôl na dwy flynedd
+disposal_dispose.dateofdisposal.warning = Mae’r dyddiad yr ydych wedi’i rhoi dros 12 mis yn ôl, a wnewch chi wirio’r dyddiad a sicrhau ei fod yn gywir os gwelwch yn dda.
 consent = Caniatâd
 lossOfRegistrationConsent = Caniatâd
 mileage = Milltiredd

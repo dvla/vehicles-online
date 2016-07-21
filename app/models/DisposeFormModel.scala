@@ -66,7 +66,7 @@ object DisposeFormModel extends DisposeFormModelObjectBase {
       play.api.data.Forms.mapping(
         DisposeFormModelBase.Form.MileageId -> mileage,
         DisposeFormModelBase.Form.DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
-          verifying(notBefore(new LocalDate().minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
+          verifying(notBefore(dateService.now.toDateTime.toLocalDate.minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
         DisposeFormModelBase.Form.EmailOptionId -> OptionalToggle.optional(emailConfirm.withPrefix(DisposeFormModelBase.Form.EmailId)),
         DisposeFormModelBase.Form.ConsentId -> consent,
         DisposeFormModelBase.Form.LossOfRegistrationConsentId -> consent
@@ -84,8 +84,9 @@ object PrivateDisposeFormModel extends DisposeFormModelObjectBase {
     def mapping(implicit dateService: DateService): Mapping[PrivateDisposeFormModel] =
       play.api.data.Forms.mapping(
         DisposeFormModelBase.Form.MileageId -> mileage,
-        DisposeFormModelBase.Form.DateOfDisposalId -> dateMapping.verifying(notInTheFuture()).
-          verifying(notBefore(new LocalDate().minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
+        DisposeFormModelBase.Form.DateOfDisposalId -> dateMapping
+          .verifying(notInTheFuture())
+          .verifying(notBefore(new LocalDate().minusYears(DisposeFormModelBase.Form.DateOfDisposalYearsIntoThePast))),
         DisposeFormModelBase.Form.EmailOptionId -> OptionalToggle.optional(emailConfirm.withPrefix(DisposeFormModelBase.Form.EmailId)),
         DisposeFormModelBase.Form.ConsentId -> consent,
         DisposeFormModelBase.Form.LossOfRegistrationConsentId -> consent

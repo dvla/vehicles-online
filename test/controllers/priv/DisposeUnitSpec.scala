@@ -80,7 +80,7 @@ class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(
         disposeWebService = disposeWebServiceMock(),
         emailService = emailService
-      ).submit(request)
+      ).submitWithDateCheck(request)
 
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(DisposeSuccessForPrivateKeeperPage.address))
@@ -99,7 +99,7 @@ class DisposeUnitSpec extends UnitSpec {
       val result = disposeController(
         disposeWebService = disposeWebServiceMock(),
         emailService = emailService
-      ).submit(request)
+      ).submitWithDateCheck(request)
 
       whenReady(result) { r =>
         r.header.headers.get(LOCATION) should equal(Some(DisposeSuccessForPrivateKeeperPage.address))
@@ -112,7 +112,7 @@ class DisposeUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.vehicleLookupFormModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
-      val result = disposeController(disposeWebService = disposeWebServiceMock()).submit(request)
+      val result = disposeController(disposeWebService = disposeWebServiceMock()).submitWithDateCheck(request)
       whenReady(result) { r =>
         val cookies = fetchCookiesFromHeaders(r)
         val found = cookies.find(_.name == DisposeFormTimestampIdCacheKey)

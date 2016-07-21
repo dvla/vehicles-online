@@ -4,4 +4,5 @@ import uk.gov.dvla.vehicles.presentation.common.model.{TraderDetailsModel, Vehic
 
 final case class DisposeViewModel(vehicleDetails: VehicleAndKeeperDetailsModel,
                                   traderDetails: TraderDetailsModel,
-                                  transactionId: Option[String] = None)
+                                  transactionId: Option[String] = None,
+                                  showDateOfSaleWarning: Boolean = false)
