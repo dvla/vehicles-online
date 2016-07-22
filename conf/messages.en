@@ -40,6 +40,11 @@ disposal_setuptradedetails.tradername.hint = Name of the company that the vehicl
 disposal_setuptradedetails.traderpostcodelabel = Postcode
 disposal_setuptradedetails.traderpostcode.hint = eg. AB1 2BA or AB12BA
 disposal_setuptradedetails.button = Find address
+traderName = Trader name
+traderPostcode = Postcode
+traderEmail = Trader email address
+traderEmailOption = Email confirmation
+
 
 #page 3
 disposal_businessChooseYourAddress_title = Select trader address

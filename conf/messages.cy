@@ -40,6 +40,10 @@ disposal_setuptradedetails.tradername.hint = Enw''r cwmni y mae''r cerbyd yn cae
 disposal_setuptradedetails.traderpostcodelabel = Côd post
 disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA
 disposal_setuptradedetails.button = Chwiliwch am y cyfeiriad
+traderName = Enw''r masnachwr
+traderPostcode = Côd post
+traderEmail = Trader email address
+traderEmailOption = Email confirmati
 
 #page 3
 disposal_businessChooseYourAddress_title = Dewiswch gyfeiriad y masnachwr

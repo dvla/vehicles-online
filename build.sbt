@@ -53,8 +53,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.6" % "test" withSources() withJavadoc(),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.21" % "test" withSources() withJavadoc(),
   // VMPR
-  "dvla" %% "vehicles-presentation-common" % "2.52" withSources() withJavadoc() exclude("junit", "junit-dep"),
-  "dvla" %% "vehicles-presentation-common" % "2.52" % "test" classifier "tests" withSources() withJavadoc() exclude("junit", "junit-dep")
+  "dvla" %% "vehicles-presentation-common" % "2.52.1" withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.52.1" % "test" classifier "tests" withSources() withJavadoc() exclude("junit", "junit-dep")
 )
 
 pipelineStages := Seq(rjs, digest, gzip)
