@@ -158,9 +158,9 @@ vehicle_and_keeper_lookup_failure.p4 = Bydd gennych nifer cyfyngedig o gynigion 
 
 # closed widget
 closed.title = Nid yw’r gwasanaeth ar gael
-closed.p1 = Mae’r gwasanaeth ar gael o ddydd Llun i ddydd {2} yn unig {0} to {1}
+closed.p1 = Mae’r gwasanaeth ar gael o Ddydd Llun i {2} yn unig {0} to {1}.
 closed.exit_button = Gadael
-closed.lastDayOpen = Sul
+closed.lastDayOpen = Dydd Sadwrn
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
