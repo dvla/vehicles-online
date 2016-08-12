@@ -125,7 +125,7 @@ disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at enw a chyfeiriad ar y tystysgrif cofrestru V5CW (llyfr log) o fewn 4 wythnos.
 disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch yn y cyfeiriad ar y tystysgrif cofrestru V5CW (llyfr log) o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = bydd DVLA yn rhoi ad-daliad yn awtomatig am unrhyw fisoedd llawn yn weddill o dreth cerbyd  a chanslo unrhyw ddebydau uniongyrchol. Anfonir yr ad-daliad i''r cyfeiriad ar y V5CW.
-disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu DVLA ymholiadau cwsmeriaid ar 0300 790 6802 fel y gallech ddal i fod yn atebol am y cerbyd hwn.
+disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu DVLA ymholiadau cwsmeriaid ar 0300 790 6802 fel y gallech ddal i fod yn atebol am y cerbyd hwn. This telephone number is open Monday to Friday: 08.00 - 19.00 and Saturday: 08.00 - 14.00.
 disposal_disposeconfirmation.exkeeper-p3 = dyfynnwch y rhif trafodyn ID uchod os bydd angen cysylltu â DVLA
 disposal_disposeconfirmation.exkeeper-p4 = argraffwch y dudalen hon a rhowch hi i''r cwsmer.
 disposal_disposeconfirmation.transactionid_label = ID y trafodyn
@@ -167,7 +167,7 @@ ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview 
 
 #duplicate-disposal error page
 duplicate_disposal_error.title = Mae''n ddrwg gennym
-duplicate_disposal_error.text1 = Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch ymholiadau cwsmeriaid DVLA ar 0300 790 6802
+duplicate_disposal_error.text1 = Mae''r cerbyd hwn eisoes wedi ei hysbysu fel gwerthwyd. Os credwch bod camgymeriad yna galwch ymholiadau cwsmeriaid DVLA ar 0300 790 6802. This telephone number is open Monday to Friday: 08.00 - 19.00 and Saturday: 08.00 - 14.00.
 duplicate_disposal_error.back.button = Yn ôl
 duplicate_disposal_error.exit.button = Allan
 
