@@ -147,8 +147,8 @@ disposal_disposefailure.transactionid = {0}
 
 #page 8 - vehicle lookup failure
 disposal_vehiclelookupfailure.title = Chwiliad yn aflwyddiannus
-disposal_vehiclelookupfailure.name = Wedi methu
-disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe SA99 1BD
+#disposal_vehiclelookupfailure.name = Wedi methu
+#disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe SA99 1BD
 disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
 disposal_vehiclelookupfailure.button2 = Allan
 vehicle_and_keeper_lookup_failure.p0 = Mae’r rhif cofrestru cerbyd a/neu rif cyfeirnod dogfen V5C/3 yr ydych wedi’u rhoi naill ai’n anghywir neu ddim o’r V5CW diweddaraf a gyhoeddwyd am y cerbyd hwn.
@@ -156,12 +156,6 @@ vehicle_and_keeper_lookup_failure.p1 = Mae rhif cyfeirnod y ddogfen tystysgrif c
 vehicle_and_keeper_lookup_failure.p2 = Am bob rhif cofrestru cerbyd, gellir ond gwneud nifer cyfyngedig o ymdrechion i adalw manylion y cerbyd.
 vehicle_and_keeper_lookup_failure.p3 = Os nad oes gennych y dystysgrif gofrestru V5CW (llyfr log) a gyhoeddwyd diwethaf, bydd angen i chi anfon eich V5C/3 wedi’i chwblhau i’r DVLA, Abertawe, SA99 1BD
 vehicle_and_keeper_lookup_failure.p4 = Bydd gennych nifer cyfyngedig o gynigion i roi manylion y cerbyd ar gyfer y cerbyd hwn.
-
-# closed widget
-closed.title = Nid yw’r gwasanaeth ar gael
-closed.p1 = Mae’r gwasanaeth ar gael o ddydd Llun i ddydd {2} yn unig {0} to {1}.
-closed.exit_button = Gadael
-closed.lastDayOpen = Sadwrn
 
 # micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
