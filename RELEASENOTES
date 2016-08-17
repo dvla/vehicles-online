@@ -1,3 +1,10 @@
+======= 1.39 ========
+TIME OF RELEASE BINARIES CREATION:
+
+VMPRCI-4483 	Extend VM opening hours to Monday-Sunday 7am-7pm
+VMPRCI-4486 	Amend error pages messaging & Ts&Cs to show extended VMPR opening hours (Mon-Sun 7-7)
+VMPRCI-4490 	Update the web apps so they all report version information on all dependent micro services
+
 ======= 1.38 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Aug 03 11:00:55 UTC 2016
