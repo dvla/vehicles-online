@@ -12,20 +12,20 @@ final class TestConfig extends Config {
 
   override def assetsUrl: Option[String] = None
 
-  override val ordnanceSurvey = new FakeOrdnanceSurveyConfig
-  override val gdsAddressLookup = new FakeGDSAddressLookupConfig
-  override val dispose = new FakeDisposeConfig
+  override val ordnanceSurveyConfig = new FakeOrdnanceSurveyConfig
+  override val gdsAddressLookupConfig = new FakeGDSAddressLookupConfig
+  override val disposeConfig = new FakeDisposeConfig
 
   // Micro-service config
-  override val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
-  override val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
+  override val ordnanceSurveyMicroServiceUrl = ordnanceSurveyConfig.baseUrl
+  override val ordnanceSurveyRequestTimeout = ordnanceSurveyConfig.requestTimeout
 
-  override val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
-  override val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
-  override val gdsAddressLookupAuthorisation = gdsAddressLookup.authorisation
+  override val gdsAddressLookupBaseUrl = gdsAddressLookupConfig.baseUrl
+  override val gdsAddressLookupRequestTimeout = gdsAddressLookupConfig.requestTimeout
+  override val gdsAddressLookupAuthorisation = gdsAddressLookupConfig.authorisation
 
-  override val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
-  override val disposeMsRequestTimeout = dispose.requestTimeout
+  override val disposeVehicleMicroServiceBaseUrl = disposeConfig.baseUrl
+  override val disposeMsRequestTimeout = disposeConfig.requestTimeout
 
   // Web headers
   override val applicationCode = TestConfig.WEB_APPLICATION_CODE

@@ -22,20 +22,20 @@ final class ConfigImpl extends Config {
 
   override def assetsUrl: Option[String] = getOptionalProperty[String]("assets.url")
 
-  override val ordnanceSurvey = new OrdnanceSurveyConfig
-  override val gdsAddressLookup = new GDSAddressLookupConfig
-  override val dispose = new DisposeConfig
+  override val ordnanceSurveyConfig = new OrdnanceSurveyConfig
+  override val gdsAddressLookupConfig = new GDSAddressLookupConfig // TODO: remove this as I don't think it is used
+  override val disposeConfig = new DisposeConfig
 
   // Micro-service config
-  override val ordnanceSurveyMicroServiceUrl = ordnanceSurvey.baseUrl
-  override val ordnanceSurveyRequestTimeout = ordnanceSurvey.requestTimeout
+  override val ordnanceSurveyMicroServiceUrl = ordnanceSurveyConfig.baseUrl
+  override val ordnanceSurveyRequestTimeout = ordnanceSurveyConfig.requestTimeout
 
-  override val gdsAddressLookupBaseUrl = gdsAddressLookup.baseUrl
-  override val gdsAddressLookupRequestTimeout = gdsAddressLookup.requestTimeout
-  override val gdsAddressLookupAuthorisation = gdsAddressLookup.authorisation
+  override val gdsAddressLookupBaseUrl = gdsAddressLookupConfig.baseUrl
+  override val gdsAddressLookupRequestTimeout = gdsAddressLookupConfig.requestTimeout
+  override val gdsAddressLookupAuthorisation = gdsAddressLookupConfig.authorisation
 
-  override val disposeVehicleMicroServiceBaseUrl = dispose.baseUrl
-  override val disposeMsRequestTimeout = dispose.requestTimeout
+  override val disposeVehicleMicroServiceBaseUrl = disposeConfig.baseUrl
+  override val disposeMsRequestTimeout = disposeConfig.requestTimeout
 
   // Web headers
   override val applicationCode: String = getProperty[String]("webHeader.applicationCode")
@@ -56,7 +56,6 @@ final class ConfigImpl extends Config {
   // Google analytics
   override val googleAnalyticsTrackingId: Option[String] = getOptionalProperty[String]("googleAnalytics.id.dispose")
 
-
   override val isHtml5ValidationEnabled: Boolean = getProperty[Boolean]("html5Validation.enabled")
 
   override val startUrl: String = getProperty[String]("start.page")
@@ -66,9 +65,9 @@ final class ConfigImpl extends Config {
   override val closingTimeMinOfDay: Int = getProperty[Int]("closingTimeMinOfDay")
   override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins")
     .getOrElse(DEFAULT_CLOSING_WARN_PERIOD)
+  override val closedDays: List[Int] = getIntListProperty("closedDays").getOrElse(List())
 
-  override val emailServiceMicroServiceUrlBase: String =
-    getOptionalProperty[String]("emailServiceMicroServiceUrlBase").getOrElse(DEFAULT_BASE_URL)
+  override val emailServiceMicroServiceUrlBase: String = getProperty[String]("emailServiceMicroServiceUrlBase")
   override val emailServiceMsRequestTimeout: Int =
     getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(DEFAULT_EMAIL_REQUEST_TIMEOUT)
 
@@ -79,8 +78,6 @@ final class ConfigImpl extends Config {
   )
 
   override val imagesPath: String = getProperty[String]("email.image.path")
-
-  override val closedDays: List[Int] = getIntListProperty("closedDays").getOrElse(List())
 }
 
 object ConfigImpl {

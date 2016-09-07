@@ -160,7 +160,7 @@ class DisposeUnitSpec extends UnitSpec {
         .withCookies(CookieFactoryForUnitSpecs.traderDetailsModel())
         .withCookies(CookieFactoryForUnitSpecs.vehicleAndKeeperDetailsModel())
       val webService: DisposeWebService = disposeWebService()
-      val disposeService = new DisposeServiceImpl(config.dispose, webService, healthStatsMock, dateServiceStubbed())
+      val disposeService = new DisposeServiceImpl(config.disposeConfig, webService, healthStatsMock, dateServiceStubbed())
       val result = disposeController(disposeWebService = webService, disposeService = disposeService).present(request)
       contentAsString(result) should not include PrototypeHtml
     }
@@ -812,7 +812,7 @@ class DisposeUnitSpec extends UnitSpec {
   }
 
   private def disposeController(disposeWebService: DisposeWebService): Dispose = {
-    val disposeService = new DisposeServiceImpl(config.dispose,
+    val disposeService = new DisposeServiceImpl(config.disposeConfig,
       disposeWebService,
       healthStatsMock,
       dateServiceStubbed()
@@ -833,7 +833,7 @@ class DisposeUnitSpec extends UnitSpec {
 
   private def disposeController(disposeWebService: DisposeWebService,
                                 emailSvc: EmailService): Dispose = {
-    val disposeService = new DisposeServiceImpl(config.dispose,
+    val disposeService = new DisposeServiceImpl(config.disposeConfig,
       disposeWebService,
       healthStatsMock,
       dateServiceStubbed()

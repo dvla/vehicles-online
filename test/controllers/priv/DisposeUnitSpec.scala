@@ -184,7 +184,7 @@ class DisposeUnitSpec extends UnitSpec {
   }
 
   private def disposeServiceMock(disposeWebService: DisposeWebService): DisposeService =
-    new DisposeServiceImpl(config.dispose, disposeWebService, healthStatsMock, dateServiceStubbed()
+    new DisposeServiceImpl(config.disposeConfig, disposeWebService, healthStatsMock, dateServiceStubbed()
   )
 
   private def emailServiceMock: EmailService = {

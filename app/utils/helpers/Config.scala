@@ -12,9 +12,9 @@ trait Config extends VehicleLookupConfig with CommonConfig {
 
   def assetsUrl: Option[String]
 
-  def ordnanceSurvey: OrdnanceSurveyConfig
-  def gdsAddressLookup: GDSAddressLookupConfig
-  def dispose: DisposeConfig
+  def ordnanceSurveyConfig: OrdnanceSurveyConfig
+  def gdsAddressLookupConfig: GDSAddressLookupConfig
+  def disposeConfig: DisposeConfig
 
   // Micro-service config
   def ordnanceSurveyMicroServiceUrl: String
@@ -35,10 +35,8 @@ trait Config extends VehicleLookupConfig with CommonConfig {
   def channelCode: String
   def contactId: Long
 
-  // Brute force prevention config
-
   // Prototype survey URL
-  // TODO surveyUrl is optional is all other exemplars
+  // TODO surveyUrl is optional in all other exemplars
   def surveyUrl: String
   def privateKeeperSurveyUrl: String
   def prototypeSurveyPrepositionInterval: Long
@@ -54,11 +52,10 @@ trait Config extends VehicleLookupConfig with CommonConfig {
   def openingTimeMinOfDay: Int
   def closingTimeMinOfDay: Int
   def closingWarnPeriodMins: Int
+  def closedDays: List[Int]
 
   def emailServiceMicroServiceUrlBase: String
   def emailServiceMsRequestTimeout: Int
   def emailConfiguration: EmailConfiguration
   def imagesPath: String
-
-  val closedDays: List[Int]
 }
