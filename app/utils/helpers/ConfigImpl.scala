@@ -64,16 +64,16 @@ final class ConfigImpl extends Config {
   override val openingTimeMinOfDay: Int = getProperty[Int]("openingTimeMinOfDay")
   override val closingTimeMinOfDay: Int = getProperty[Int]("closingTimeMinOfDay")
   override val closingWarnPeriodMins: Int = getOptionalProperty[Int]("closingWarnPeriodMins")
-    .getOrElse(DEFAULT_CLOSING_WARN_PERIOD)
+    .getOrElse(DefaultClosingWarnPeriodMins)
   override val closedDays: List[Int] = getIntListProperty("closedDays").getOrElse(List())
 
   override val emailServiceMicroServiceUrlBase: String = getProperty[String]("emailServiceMicroServiceUrlBase")
   override val emailServiceMsRequestTimeout: Int =
-    getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(DEFAULT_EMAIL_REQUEST_TIMEOUT)
+    getOptionalProperty[Int]("emailService.ms.requesttimeout").getOrElse(DefaultEmailRequestTimeoutMillis)
 
   override val emailConfiguration: EmailConfiguration = EmailConfiguration(
-    From(getProperty[String]("email.senderAddress"), EMAIL_FROM_NAME),
-    From(getProperty[String]("email.feedbackAddress"), EMAILFEEDBACK_FROM_NAME),
+    From(getProperty[String]("email.senderAddress"), EmailFromName),
+    From(getProperty[String]("email.feedbackAddress"), EmailFeedbackFromName),
     getStringListProperty("email.whitelist")
   )
 
@@ -81,12 +81,10 @@ final class ConfigImpl extends Config {
 }
 
 object ConfigImpl {
-  final val EMAIL_FROM_NAME = "DO-NOT-REPLY"
-  final val EMAILFEEDBACK_FROM_NAME = "Feedback"
+  final val EmailFromName = "DO-NOT-REPLY"
+  final val EmailFeedbackFromName = "Feedback"
 
-  //defaults
-  final val DEFAULT_BASE_URL = "NOT FOUND"
-  final val DEFAULT_CLOSING_WARN_PERIOD = 15
-  final val DEFAULT_ENCRYPTEDCOOKIES = true
-  final val DEFAULT_EMAIL_REQUEST_TIMEOUT = 10000
+  final val DefaultClosingWarnPeriodMins = 15
+  final val DefaultEncryptCookies = true
+  final val DefaultEmailRequestTimeoutMillis = 10000
 }
