@@ -72,7 +72,7 @@ final class EnterAddressManuallyIntegrationSpec extends UiSpec with TestHarness 
 
       sadPath
 
-      ErrorPanel.numberOfErrors should equal(2)
+      ErrorPanel.numberOfErrors should equal(3)
     }
   }
 

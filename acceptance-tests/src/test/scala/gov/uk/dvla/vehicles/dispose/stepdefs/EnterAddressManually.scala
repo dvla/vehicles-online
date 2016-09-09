@@ -20,15 +20,11 @@ class EnterAddressManually(webBrowserDriver: WebBrowserDriver) extends gov.uk.dv
     (new CommonSteps(webBrowserDriver)).goToEnterAddressManuallyPage()
   }
 
-  @When("^the user changes the postcode to \"(.*?)\"$")
-  def the_user_changes_the_postcode_to(postCode: String) {
+  @When("^the user has selected the submit control with the postcode \"(.*?)\"$")
+  def the_user_has_selected_the_submit_control(postcode: String) {
     EnterAddressManuallyPage.addressBuildingNameOrNumber.value = "1 Long Road"
     EnterAddressManuallyPage.addressPostTown.value = "Swansea"
-    EnterAddressManuallyPage.addressPostCode.value = postCode
-  }
-
-  @When("^the user has selected the submit control$")
-  def the_user_has_selected_the_submit_control() {
+    EnterAddressManuallyPage.addressPostcode.value = postcode
     click on EnterAddressManuallyPage.next
   }
 
