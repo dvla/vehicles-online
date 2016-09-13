@@ -46,3 +46,9 @@ addSbtPlugin("io.gatling" % "gatling-sbt" % "2.1.7")
 
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
 
+// Resolver required to pick up DVLA sbt plugins that are published to bintray using ivy format
+resolvers += Resolver.url(
+  "dvla-sbt-plugin-releases",
+   url("https://dl.bintray.com/dvla/sbt-plugin-releases"))(
+       Resolver.ivyStylePatterns)
+
