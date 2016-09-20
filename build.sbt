@@ -122,7 +122,7 @@ SandboxSettings.portOffset := 17000
 
 SandboxSettings.applicationContext := "sell-to-the-trade"
 
-SandboxSettings.webAppSecrets := "ui/dev/vehiclesOnline.conf.enc"
+SandboxSettings.webAppSecrets := "vehicles-online/conf/vehiclesOnline.conf"
 
 SandboxSettings.osAddressLookupProject := osAddressLookupProject
 
