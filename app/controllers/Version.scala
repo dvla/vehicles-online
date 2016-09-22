@@ -9,12 +9,13 @@ import uk.gov.dvla.vehicles.presentation.common.webserviceclients.vehicleandkeep
 import webserviceclients.dispose.DisposeConfig
 
 class Version @Inject()(//vehicleAndKeeperLookupConfig: VehicleAndKeeperLookupConfig,
-                        osAddressLookupConfig: OrdnanceSurveyConfig,
-                        vehiclesDisposeConfig: DisposeConfig)//,
-//                        emailConfig: EmailServiceConfig)
+//                        osAddressLookupConfig: OrdnanceSurveyConfig,
+//                        vehiclesDisposeConfig: DisposeConfig,
+//                        emailConfig: EmailServiceConfig
+                       )
   extends controllers.Version(
 //    emailConfig.emailServiceMicroServiceBaseUrl + Suffix,
-    osAddressLookupConfig.baseUrl + Suffix,
+//    osAddressLookupConfig.baseUrl + Suffix,
 //    vehicleAndKeeperLookupConfig.vehicleAndKeeperLookupMicroServiceBaseUrl + Suffix,
-    vehiclesDisposeConfig.baseUrl + Suffix
+//    vehiclesDisposeConfig.baseUrl + Suffix
   )
