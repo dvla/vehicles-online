@@ -51,6 +51,7 @@ class CommonSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dvla.vehicl
     pageTitle should equal(EnterAddressManuallyPage.title) withClue trackingId
     EnterAddressManuallyPage.addressBuildingNameOrNumber.value = "1 Long Road"
     EnterAddressManuallyPage.addressPostTown.value = "Swansea"
+    EnterAddressManuallyPage.addressPostcode.value = "SA1 1AA"
     click on EnterAddressManuallyPage.next
     pageTitle should equal(VehicleLookupPage.title) withClue trackingId
   }

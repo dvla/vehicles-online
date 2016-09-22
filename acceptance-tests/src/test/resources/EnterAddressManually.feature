@@ -1,9 +1,8 @@
  @working
   Feature:Manual Adress entry for keeper
 
-    Scenario: Changing the post code
+    Scenario: Manual address entry
       Given the user is on the manual address page
-      When the user changes the postcode to "SA1 1AA"
-      And the user has selected the submit control
+      When the user has selected the submit control with the postcode "SA1 1AA"
       Then the user is taken to the vehicle lookup page
       And the page will contain text "SA1 1AA"

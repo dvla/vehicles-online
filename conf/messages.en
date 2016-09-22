@@ -6,7 +6,7 @@ main.banner.private = Sold a vehicle to the motor trade
 global.buttonnavprint = Print
 
 # VPC - OptionsToggle
-mandatory-alternative.not-selected = Please tell us whether you require a confirmation email
+mandatory-alternative.not-selected = Please tell us whether you require confirmation email
 
 #page 1 - Before You Start
 disposal_beforeyoustart.title = Buying a vehicle into trade
@@ -44,7 +44,6 @@ traderName = Trader name
 traderPostcode = Postcode
 traderEmail = Trader email address
 traderEmailOption = Email confirmation
-
 
 #page 3
 disposal_businessChooseYourAddress_title = Select trader address
