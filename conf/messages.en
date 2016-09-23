@@ -1,4 +1,4 @@
-#main
+#main / VPC header
 main.banner = Buying a vehicle into trade
 main.banner.private = Sold a vehicle to the motor trade
 
@@ -40,10 +40,6 @@ disposal_setuptradedetails.tradername.hint = Name of the company that the vehicl
 disposal_setuptradedetails.traderpostcodelabel = Postcode
 disposal_setuptradedetails.traderpostcode.hint = eg. AB1 2BA or AB12BA
 disposal_setuptradedetails.button = Find address
-traderName = Trader name
-traderPostcode = Postcode
-traderEmail = Trader email address
-traderEmailOption = Email confirmation
 
 #page 3
 disposal_businessChooseYourAddress_title = Select trader address
@@ -69,7 +65,6 @@ disposal_enteraddressmanually.addresswarninglinktext = inform the Royal Mail.
 # EnterAddressManually form errors
 addressAndPostcode.addressLines.buildingNameOrNumber = Building name or number
 addressAndPostcode.addressLines = Address
-
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Enter vehicle details
@@ -147,8 +142,6 @@ disposal_disposefailure.transactionid = {0}
 
 #page 8 - vehicle lookup failure
 disposal_vehiclelookupfailure.title = Unable to find a vehicle record
-#disposal_vehiclelookupfailure.name = Failure
-#disposal_vehiclelookupfailure.p1 = The service is temporarily unavailable. Please try again later or send a completed V5C/3 to DVLA, Swansea, SA99 1BD
 disposal_vehiclelookupfailure.button = Try again
 disposal_vehiclelookupfailure.button2 = Exit
 vehicle_and_keeper_lookup_failure.p0 = The vehicle registration number and/or the V5C/3 document reference number you entered is either incorrect or does not come from the latest V5C issued for this vehicle.
@@ -157,10 +150,9 @@ vehicle_and_keeper_lookup_failure.p2 = If you are sure that the details have bee
 vehicle_and_keeper_lookup_failure.p3 = If you do not have the latest issued V5C registration certificate (logbook), you will need to send your completed V5C/3 to DVLA, Swansea, SA99 1BD.
 vehicle_and_keeper_lookup_failure.p4 = You will only have a limited number of attempts to enter the vehicle details for this vehicle.
 
-# micro-service response codes
+# dispose_success page micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = The application is being processed.
 ms.vehiclesService.response.applicationBeingProcessed.p2 = Please destroy the original V5C/3 (yellow slip). This must not be sent to DVLA.
-
 ms.vehiclesService.response.unableToProcessApplication-title = Transaction unsuccessful
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Morriston, Swansea, SA6 7JL
@@ -193,13 +185,7 @@ vrm_locked.exit.button = Exit
 onHandlerNotFound.title = This page cannot be found
 onHandlerNotFound.header = This page cannot be found
 onHandlerNotFound.body = We are unable to find the page you have requested, this event has been logged for investigation.
-onHandlerNotFound.noJavascript = If you wish to try again select the back button on your browser, if not select "Exit" to leave the service.
 onHandlerNotFound.start.button = Start
-
-# 400 onHandlerBadRequest
-onHandlerBadRequest.title = Invalid HTTP request
-onHandlerBadRequest.header = Invalid HTTP request
-onHandlerBadRequest.start.button = Start
 
 error.title = An unrecoverable error has occurred
 error.button = Start again
@@ -236,7 +222,6 @@ email.contentPart5.p2 = If another payment is taken before your Direct Debit is 
 email.signature.p1 = Yours sincerely
 email.signature.p2 = Rohan Gye
 email.signature.p3 = Vehicles Service Manager
-email.signature.p4 = Thank You
 
 email.template.line1 = THIS IS AN AUTOMATED EMAIL - Please do not reply as emails received at this address cannot be responded to.
 email.template.line2 = For more information on driving and transport go to www.gov.uk/browse/driving

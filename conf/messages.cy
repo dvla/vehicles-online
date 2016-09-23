@@ -1,4 +1,4 @@
-#main
+#main / VPC header
 main.banner = Gwerthu cerbyd i''r fasnach foduron
 main.banner.private = Wedi gwerthu cerbyd i’r masnach moduro
 
@@ -40,10 +40,6 @@ disposal_setuptradedetails.tradername.hint = Enw''r cwmni y mae''r cerbyd yn cae
 disposal_setuptradedetails.traderpostcodelabel = Côd post
 disposal_setuptradedetails.traderpostcode.hint = ee. AB1 2BA neu AB12BA
 disposal_setuptradedetails.button = Chwiliwch am y cyfeiriad
-traderName = Enw''r masnachwr
-traderPostcode = Côd post
-traderEmail = Trader email address
-traderEmailOption = Email confirmati
 
 #page 3
 disposal_businessChooseYourAddress_title = Dewiswch gyfeiriad y masnachwr
@@ -69,7 +65,6 @@ disposal_enteraddressmanually.addresswarninglinktext = rhoi gwybod i’r Bost Br
 # EnterAddressManually form errors
 addressAndPostcode.addressLines.buildingNameOrNumber = Enw neu rif adeilad
 addressAndPostcode.addressLines = Cyfeiriad
-
 
 #page 4 - vehicle Lookup
 disposal_vehiclelookup.title = Rhowch fanylion y cerbyd
@@ -147,8 +142,6 @@ disposal_disposefailure.transactionid = {0}
 
 #page 8 - vehicle lookup failure
 disposal_vehiclelookupfailure.title = Chwiliad yn aflwyddiannus
-#disposal_vehiclelookupfailure.name = Wedi methu
-#disposal_vehiclelookupfailure.p1 = Nid yw''r gwasanaeth ar gael dros dro. Rhowch gynnig arni yn nes ymlaen neu anfonwch V5CW/3 at DVLA, Abertawe SA99 1BD
 disposal_vehiclelookupfailure.button = Rhowch gynnig arni eto
 disposal_vehiclelookupfailure.button2 = Allan
 vehicle_and_keeper_lookup_failure.p0 = Mae’r rhif cofrestru cerbyd a/neu rif cyfeirnod dogfen V5C/3 yr ydych wedi’u rhoi naill ai’n anghywir neu ddim o’r V5CW diweddaraf a gyhoeddwyd am y cerbyd hwn.
@@ -157,10 +150,9 @@ vehicle_and_keeper_lookup_failure.p2 = Am bob rhif cofrestru cerbyd, gellir ond 
 vehicle_and_keeper_lookup_failure.p3 = Os nad oes gennych y dystysgrif gofrestru V5CW (llyfr log) a gyhoeddwyd diwethaf, bydd angen i chi anfon eich V5C/3 wedi’i chwblhau i’r DVLA, Abertawe, SA99 1BD
 vehicle_and_keeper_lookup_failure.p4 = Bydd gennych nifer cyfyngedig o gynigion i roi manylion y cerbyd ar gyfer y cerbyd hwn.
 
-# micro-service response codes
+# dispose_success page micro-service response codes
 ms.vehiclesService.response.applicationBeingProcessed.p1 = Mae''r cais yn cael ei brosesu.
 ms.vehiclesService.response.applicationBeingProcessed.p2 = Dinistriwch y V5C/3 (slip gwaredu) gwreiddiol. Ni ddylai hyn gael ei hanfon at DVLA
-
 ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Treforys, Abertawe, SA6 7JL
@@ -193,13 +185,7 @@ vrm_locked.exit.button = Allan
 onHandlerNotFound.title = Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.header = Ni ellir dod o hyd i''r dudalen hon
 onHandlerNotFound.body = Ni allwn ddod o hyd i''r dudalen y gwnaethoch gais amdani, mae''r digwyddiad hwn wedi ei logio ar gyfer archwiliad.
-onHandlerNotFound.noJavascript = Os ydych am wneud cais eto dewiswch y botwm mynd yn ôl ar eich porwr, fel arall dewiswch ''Allan'' i adael y gwasanaeth.
 onHandlerNotFound.start.button = Dechreuwch
-
-# 400 onHandlerBadRequest
-onHandlerBadRequest.title = Cais HTTP annilys
-onHandlerBadRequest.header = Cais HTTP annilys
-onHandlerBadRequest.start.button = Dechreuwch
 
 error.title = Mae camgymeriad na ellir ei adfer wedi digwydd
 error.button = Dechreuwch eto
@@ -236,7 +222,6 @@ email.contentPart5.p2 = If another payment is taken before your Direct Debit is 
 email.signature.p1 = Yours sincerely
 email.signature.p2 = Rohan Gye
 email.signature.p3 = Vehicles Service Manager
-email.signature.p4 = Thank You
 
 email.template.line1 = THIS IS AN AUTOMATED EMAIL - Please do not reply as emails received at this address cannot be responded to.
 email.template.line2 = For more information on driving and transport go to www.gov.uk/browse/driving
