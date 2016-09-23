@@ -9,7 +9,6 @@ global.buttonnavprint = Argraffwch
 mandatory-alternative.not-selected = Dywedwch wrthym a ydych yn gofyn am ebost cadarnhau
 
 #page 1 - Before You Start
-disposal_beforeyoustart.title = Gwerthu cerbyd i''r fasnach foduron
 disposal_beforeyoustart.p1 = Cyn i chi gychwyn:
 disposal_beforeyoustart.listitem1 = Ni ellir gwneud unrhyw newidiadau i''r tystysgrif cofrestru ddiweddaraf (V5CW) a rhaid bod yr enw a''r cyfeiriad yn gywir.
 disposal_beforeyoustart.listitem2 = Rhaid cadw neu drosglwyddo rhifau cofrestru personol cyn defnyddio''r gwasanaeth hwn

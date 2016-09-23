@@ -9,7 +9,6 @@ global.buttonnavprint = Print
 mandatory-alternative.not-selected = Please tell us whether you require confirmation email
 
 #page 1 - Before You Start
-disposal_beforeyoustart.title = Buying a vehicle into trade
 disposal_beforeyoustart.p1 = Before you start:
 disposal_beforeyoustart.listitem1 = No changes can be made to the V5C registration certificate (logbook) and the name and address must be correct
 disposal_beforeyoustart.listitem2 = Any personalised registration numbers must be retained or transferred before using this service
