@@ -8,7 +8,7 @@ organization := organisationString
 
 organizationName := organisationNameString
 
-scalaVersion := "2.11.8"
+scalaVersion := scalaVersionString
 
 scalacOptions := scalaOptionsSeq
 

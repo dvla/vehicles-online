@@ -3,7 +3,7 @@ import sbt._
 
 object Common {
   val versionString = "1.41-SNAPSHOT"
-  val scalaVersionString = "2.10.6"
+  val scalaVersionString = "2.11.8"
   val organisationString = "dvla"
   val organisationNameString = "Driver & Vehicle Licensing Agency"
   val nexus = "http://rep002-01.skyscape.preview-dvla.co.uk:8081/nexus/content/repositories"

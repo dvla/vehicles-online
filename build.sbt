@@ -101,9 +101,6 @@ coverageMinimum := 70
 
 coverageFailOnMinimum := false
 
-// highlighting will work as of scala 2.10.4 so no need to disable - see https://github.com/scala/scala/pull/3799
-//coverageHighlighting := false
-
 resolvers ++= projectResolvers
 
 webJarCdns := Map()

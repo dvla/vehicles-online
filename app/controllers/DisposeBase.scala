@@ -382,12 +382,12 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
     SEND.email(Contents(emailHelper.message1Html, emailHelper.message1))
       .withSubject(emailHelper.message1Title)
       .to(emailAddress)
-      .send(request.cookies.trackingId)
+      .send(request.cookies.trackingId())
 
     SEND.email(Contents(emailHelper.message2Html, emailHelper.message2))
       .withSubject(emailHelper.message2Title)
       .to(emailAddress)
-      .send(request.cookies.trackingId)
+      .send(request.cookies.trackingId())
   }
 
   /**
@@ -423,7 +423,7 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         if (!isPrivate)
           subjectDetail = s"Confirmation of selling to motor trade"
         val subject = s"$registrationNumber " + subjectDetail
-        SEND email template withSubject subject to emailAddr send request.cookies.trackingId
+        SEND email template withSubject subject to emailAddr send request.cookies.trackingId()
 
       case None => logMessage(request.cookies.trackingId(), Warn, s"Tried to send an email with no email address")
     }

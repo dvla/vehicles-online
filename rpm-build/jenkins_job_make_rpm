@@ -21,11 +21,10 @@ RPM_TARGETDIR="$WORKSPACE/target/" #grab the jenkins WORKSPACE working dir
 UPSTART_FILES_DIR="rpm-build/upstart/"
 LOGROTATE_FILES_DIR="rpm-build/logrotate.d/"
 
-
 # Get the version of the binary from sbt and strip color information so we are just left with a version
 VERSION=`sbt version | tail -1 | awk {'print $2'} | sed -E "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"`
 echo VERSION = $VERSION
-ZIP_FILENAME=vehicles-online-${VERSION}.zip
+ZIP_FILENAME=${RPM_NAME}-${VERSION}.zip
 
 echo "*********************************"
 echo "*"
@@ -42,7 +41,7 @@ mkdir -p workdir/etc/init workdir/etc/logrotate.d
 # copy objects to workdir directory
 cd workdir/$RPM_PREFIX/
 unzip $WORKSPACE/target/universal/$ZIP_FILENAME
-mv vehicles-online-$VERSION vehicles-online
+mv ${RPM_NAME}-$VERSION ${RPM_NAME}
 cd -
 
 # add a git log file
@@ -53,7 +52,6 @@ cp -r $UPSTART_FILES_DIR/* workdir/etc/init
 
 # add the logrotate files
 cp -r $LOGROTATE_FILES_DIR/* workdir/etc/logrotate.d
-
 
 # package the thine
 test -e $RPM_TARGETDIR || mkdir $RPM_TARGETDIR
