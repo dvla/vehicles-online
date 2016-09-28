@@ -1,6 +1,6 @@
 ======= 1.41 ========
 TIME OF RELEASE BINARIES CREATION:
-
+Wed Sep 28 11:44:59 UTC 2016
 
 VMPRCI-4494 	Consolidate service title values in message files
 VMPRCI-4513 	Change all the web apps so the micro service base urls are mandatory instead of optional
