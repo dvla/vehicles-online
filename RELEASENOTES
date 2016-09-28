@@ -1,3 +1,12 @@
+======= 1.41 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+VMPRCI-4494 	Consolidate service title values in message files
+VMPRCI-4513 	Change all the web apps so the micro service base urls are mandatory instead of optional
+VMPRCI-4449 	Refactor message entries (part 2)
+VMPRCI-3071 	Upgrade all apps to Scala version 2.11.x
+
 ======= 1.40 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Sep 14 12:50:07 UTC 2016
