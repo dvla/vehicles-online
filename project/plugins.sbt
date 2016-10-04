@@ -40,7 +40,7 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.8.2")
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.8.0")
 
 // Plugin for gathering app coverage data under test
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.3.5")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.4.0")
 
 addSbtPlugin("io.gatling" % "gatling-sbt" % "2.1.7")
 
