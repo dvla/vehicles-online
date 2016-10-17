@@ -55,14 +55,9 @@
             exitDisposeFormTarget,
             ExitDisposalId,
             surveyUrl,
-            cssClasses = List("desktop-only"),
-            {
-                val args: Map[Symbol, Any] = Map()
-                isPrivateKeeper match {
-                    case true => args.empty
-                    case false => Map('target -> newDisposeFormTarget, 'buttonId -> NewDisposalId)
-                }
-            }
+	    cssClasses = List("desktop-only"),
+	    Map('target -> newDisposeFormTarget, 'buttonId -> NewDisposalId) ++
+		(if (isPrivateKeeper) Map('buttonText -> Messages("formSteps.private.notifyAnotherSale")) else Map.empty)
         )
     </div>
 
@@ -126,13 +121,8 @@
         ExitDisposalId,
         surveyUrl  ,
         cssClasses = List("mobile-only"),
-        {
-            val args: Map[Symbol, Any] = Map()
-            isPrivateKeeper match {
-                case true => args.empty
-                case false => Map('target -> newDisposeFormTarget, 'buttonId -> NewDisposalId)
-            }
-        }
+	Map('target -> newDisposeFormTarget, 'buttonId -> NewDisposalId) ++
+	    (if (isPrivateKeeper) Map('buttonText -> Messages("formSteps.private.notifyAnotherSale")) else Map.empty)
     )
 </div>
 }

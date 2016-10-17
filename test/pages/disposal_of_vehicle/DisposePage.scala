@@ -31,11 +31,8 @@ import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
-object DisposePage extends Page {
-  final val address = s"$applicationContext/complete-and-confirm"
-  final override val title: String = "Complete and confirm"
-
-  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
+trait DisposePageBase extends Page {
+  def address: String
 
   def mileage(implicit driver: WebDriver): TelField = telField(id(MileageId))
 
@@ -44,8 +41,6 @@ object DisposePage extends Page {
   def dateOfDisposalMonth(implicit driver: WebDriver): TelField = telField(id(s"${DateOfDisposalId}_month"))
 
   def dateOfDisposalYear(implicit driver: WebDriver): TelField = telField(id(s"${DateOfDisposalId}_year"))
-
-  def consent(implicit driver: WebDriver): Checkbox = checkbox(id(ConsentId))
 
   def emailInvisible(implicit driver: WebDriver): RadioButton = radioButton(id(s"${EmailOptionId}_$Invisible"))
 
@@ -58,6 +53,15 @@ object DisposePage extends Page {
   def back(implicit driver: WebDriver): Element = find(id(BackId)).get
 
   def dispose(implicit driver: WebDriver): Element = find(id(SubmitId)).get
+}
+
+object DisposePage extends DisposePageBase {
+  final val address = s"$applicationContext/complete-and-confirm"
+  final override val title: String = "Complete and confirm"
+
+  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
+
+  def consent(implicit driver: WebDriver): Checkbox = checkbox(id(ConsentId))
 
   def happyPath(implicit driver: WebDriver) = {
     go to DisposePage

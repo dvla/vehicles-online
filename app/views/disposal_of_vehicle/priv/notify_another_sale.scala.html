@@ -1,0 +1,59 @@
+@(notifyAnotherSaleForm: Form[models.priv.NotifyAnotherSaleFormModel],
+  traderDetails: uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel,
+  submitNewDisposalTarget: Call)(implicit lang: Lang,
+        token: uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.CsrfPreventionToken,
+        config: utils.helpers.Config,
+        dateService: uk.gov.dvla.vehicles.presentation.common.services.DateService,
+        isPrivateKeeper: Boolean)
+
+@import views.disposal_of_vehicle.priv.NotifyAnotherSale.NextId
+@import views.html.disposal_of_vehicle.main
+@import views.html.helper.form
+@import models.priv.NotifyAnotherSaleFormModel.Form.NotifyAnotherSaleId
+@import scala.collection.mutable.LinkedHashMap
+@import uk.gov.dvla.vehicles.presentation.common
+@import common.views.helpers.BaseTemplate.fieldConstructor
+@import common.views.html.widgets.base.csrfTokenHiddenField
+@import common.views.html.widgets.listRadioGroup
+@import common.views.html.widgets.playbackList
+@import views.html.helper.inputRadioGroup
+
+@main(
+    title = Messages("private_notify_another_sale.title"),
+    currentForm = Some(notifyAnotherSaleForm),
+    backButton = None
+) {
+    <h1>@Messages("private_notify_another_sale.title")</h1>
+    @form(action = submitNewDisposalTarget) {
+      @playbackList(
+          "",
+          {
+            val playbackItems: LinkedHashMap[String, String] = LinkedHashMap()
+            playbackItems += (Messages("private_notify_another_sale.traderName") -> traderDetails.traderName)
+            playbackItems += (Messages("private_notify_another_sale.traderAddress") -> traderDetails.traderAddress.address.mkString("<br/>"))
+          }
+      )()
+
+      @listRadioGroup(
+          field = notifyAnotherSaleForm(NotifyAnotherSaleId),
+          args = Map(
+            'items -> Seq(
+                "same_trader" -> Messages("private_notify_another_sale.yes"),
+                "new_trader" -> Messages("private_notify_another_sale.no")),
+            'listAlignment -> "horizontal",
+            '_label -> "",
+            'class -> "ga-track-value",
+            Symbol("data-ga-action") -> "notify_another_sale"
+          )
+      )
+
+        @csrfTokenHiddenField()
+        <div class="form-steps">
+            <button id="@NextId"
+                    type="submit"
+                    name="action"
+                    class="button ga-track-click-event-once"
+                    data-ga-event-action="ConfirmId">@Messages("private_notify_another_sale.button")</button>
+        </div>
+    }
+}

@@ -132,6 +132,7 @@ disposal_disposeconfirmation.transactionDetails = Transaction details
 disposal_disposeconfirmation.email = Email
 disposal_disposeconfirmation.emailNotEntered = Not entered
 disposal_disposeconfirmation.selleremailoption = Does the seller of this vehicle want email confirmation of the sale?
+formSteps.private.notifyAnotherSale = Notify another sale
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Buying a vehicle into trade: failure
@@ -155,6 +156,15 @@ ms.vehiclesService.response.applicationBeingProcessed.p2 = Please destroy the or
 ms.vehiclesService.response.unableToProcessApplication-title = Transaction unsuccessful
 ms.vehiclesService.response.unableToProcessApplication = We are unable to process the transaction at this time. Please send the V5C/3 to the following address;
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Morriston, Swansea, SA6 7JL
+
+# private notify another sale
+private_notify_another_sale.title = Have you sold the vehicle to the same motor trader?
+private_notify_another_sale.traderName = Trader name
+private_notify_another_sale.traderAddress = Trader address
+private_notify_another_sale.button = Next
+private_notify_another_sale.yes = Yes
+private_notify_another_sale.no = No
+notifyAnotherSale = Notify another sale
 
 #duplicate-disposal error page
 duplicate_disposal_error.title = We are sorry

@@ -2,8 +2,12 @@ package controllers.priv
 
 import controllers.SurveyUrl
 import com.google.inject.Inject
+import models.DisposeCacheKeyPrefix.CookiePrefix
+import play.api.mvc.Action
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.ClientSideSessionFactory
+import common.clientsidesession.CookieImplicits.{RichCookies, RichResult}
+import common.model.TraderDetailsModel
 import common.services.DateService
 import utils.helpers.Config
 
@@ -25,4 +29,10 @@ class DisposeSuccess @Inject()(implicit clientSideSessionFactory: ClientSideSess
   override protected val PreventGoingToDisposePageCacheKey = models.DisposeFormModel.PreventGoingToDisposePageCacheKey
   override protected val SurveyRequestTriggerDateCacheKey = models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
   override protected val DisposeOccurredCacheKey = models.DisposeFormModel.DisposeOccurredCacheKey
+
+  override def newDisposal = Action { implicit request =>
+    request.cookies.getModel[TraderDetailsModel].map { traderDetails =>
+      Redirect(routes.NotifyAnotherSale.present())
+    } getOrElse onMissingNewDisposeCookies
+  }
 }

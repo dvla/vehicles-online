@@ -18,10 +18,12 @@ import BusinessChooseYourAddress.EnterAddressManuallyButtonId
 import BusinessChooseYourAddress.SelectId
 import webserviceclients.fakes.FakeAddressLookupWebServiceImpl.selectedAddress
 
-object BusinessChooseYourAddressPage extends Page {
-  final val address: String = s"$applicationContext/business-choose-your-address"
-  final override val title = "Select trader address"
+trait BusinessChooseYourAddressPageBase extends Page {
+  def address: String
+
+  final val title = "Select trader address"
   final val titleCy = "Dewiswch eich cyfeiriad masnach"
+
   val addressLine = "presentationProperty stub, 123, property stub, street stub, town stub, area stub, QQ99QQ"
   final val selectedAddressLine = "Not real street 1, Not real street2, Not real town, QQ9 9QQ"
 
@@ -34,6 +36,10 @@ object BusinessChooseYourAddressPage extends Page {
   def manualAddress(implicit driver: WebDriver) = find(id(EnterAddressManuallyButtonId)).get
 
   def select(implicit driver: WebDriver) = find(id(SelectId)).get
+}
+
+object BusinessChooseYourAddressPage extends BusinessChooseYourAddressPageBase {
+  final val address: String = s"$applicationContext/business-choose-your-address"
 
   def happyPath(implicit driver: WebDriver) = {
     go to BusinessChooseYourAddressPage

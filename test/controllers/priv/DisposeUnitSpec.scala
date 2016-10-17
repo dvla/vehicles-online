@@ -15,7 +15,7 @@ import org.mockito.invocation.InvocationOnMock
 import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.{never, times, verify, when}
 import org.mockito.stubbing.Answer
-import pages.disposal_of_vehicle.DisposeSuccessForPrivateKeeperPage
+import pages.disposal_of_vehicle.priv.DisposeSuccessForPrivateKeeperPage
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers.LOCATION

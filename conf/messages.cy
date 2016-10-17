@@ -132,6 +132,7 @@ disposal_disposeconfirmation.transactionDetails = Manylion y trafodyn
 disposal_disposeconfirmation.email = Ebost
 disposal_disposeconfirmation.emailNotEntered = Heb ei roi
 disposal_disposeconfirmation.selleremailoption = Does the seller of this vehicle want email confirmation of the sale?
+formSteps.private.notifyAnotherSale = Rhoi gwybod am werthiant arall
 
 #page 7 - dispose failure
 disposal_disposefailure.title = Gwerthu cerbyd i''r fasnach moduron: wedi methu
@@ -155,6 +156,15 @@ ms.vehiclesService.response.applicationBeingProcessed.p2 = Dinistriwch y V5C/3 (
 ms.vehiclesService.response.unableToProcessApplication-title = Y Trafodyn yn Aflwyddiannus
 ms.vehiclesService.response.unableToProcessApplication = Ni allwn brosesu''r trafodyn y tro hwn. Anfonwch y V5CW/3 i''r cyfeiriad canlynol;
 ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview Road, Treforys, Abertawe, SA6 7JL
+
+# private notify another sale
+private_notify_another_sale.title = A ydych wedi gwerthu’r cerbyd i’r un masnachwr moduron?
+private_notify_another_sale.traderName = Enw''r masnachwr
+private_notify_another_sale.traderAddress = Cyfeiriad y masnachwr
+private_notify_another_sale.button = Nesaf
+private_notify_another_sale.yes = Ydy
+private_notify_another_sale.no = Na
+notifyAnotherSale = Rhoi gwybod am werthiant arall
 
 #duplicate-disposal error page
 duplicate_disposal_error.title = Mae''n ddrwg gennym

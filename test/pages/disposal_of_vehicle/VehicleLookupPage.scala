@@ -19,8 +19,9 @@ import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, ResetTraderDetai
 import webserviceclients.fakes.FakeVehicleAndKeeperLookupWebService.{ReferenceNumberValid, RegistrationNumberValid}
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.VrmLocked
 
-object VehicleLookupPage extends Page {
-  final val address = s"$applicationContext/vehicle-lookup"
+trait VehicleLookupPageBase extends Page {
+  def address: String
+
   final override val title: String = "Enter vehicle details"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
@@ -36,6 +37,10 @@ object VehicleLookupPage extends Page {
   def exit(implicit driver: WebDriver): Element = find(id(ExitId)).get
 
   def findVehicleDetails(implicit driver: WebDriver): Element = find(id(SubmitId)).get
+}
+
+object VehicleLookupPage extends VehicleLookupPageBase {
+  final val address = s"$applicationContext/vehicle-lookup"
 
   def happyPath(referenceNumber: String = ReferenceNumberValid, registrationNumber: String = RegistrationNumberValid)
                (implicit driver: WebDriver) = {

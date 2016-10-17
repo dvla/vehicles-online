@@ -119,7 +119,6 @@ class HappyAndSadPathSteps(webBrowserDriver: WebBrowserDriver) extends gov.uk.dv
     pageSource.contains("AA11AAC-88888888883") shouldEqual true withClue trackingId
   }
 
-
   private def enterValidDisposalDate() {
     // todays's date
     val today = Calendar.getInstance()

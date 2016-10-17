@@ -13,15 +13,19 @@ import helpers.webbrowser.{Page, WebDriverFactory}
 import views.disposal_of_vehicle.DisposeSuccess
 import DisposeSuccess.{ExitDisposalId, NewDisposalId}
 
-object DisposeSuccessPage extends Page {
-  final val address = s"$applicationContext/sell-to-the-trade-success"
-  final override val title: String = "Summary"
+trait DisposeSuccessPageBase extends Page {
+  def address: String
 
-  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
+  final val title: String = "Summary"
+  lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
   def newDisposal(implicit driver: WebDriver): Element = find(id(NewDisposalId)).get
 
   def exitDisposal(implicit driver: WebDriver): Element = find(id(ExitDisposalId)).get
+}
+
+object DisposeSuccessPage extends DisposeSuccessPageBase {
+  final val address = s"$applicationContext/sell-to-the-trade-success"
 
   def happyPath(implicit driver: WebDriver) = {
     go to DisposeSuccessPage

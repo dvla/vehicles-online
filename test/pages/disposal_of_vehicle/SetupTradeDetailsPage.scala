@@ -10,23 +10,29 @@ import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
 import views.disposal_of_vehicle.SetupTradeDetails.SubmitId
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeWithoutAddresses, TraderBusinessNameValid}
 
-object SetupTradeDetailsPage extends Page {
-  final val address = s"$applicationContext/setup-trade-details"
-  final override val title: String = "Provide trader details"
-  final val TraderEmailValid = "example@example.co.uk"
+trait SetupTradeDetailsPageBase extends Page {
+  def address: String
 
-  override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
+  final val title: String = "Provide trader details"
+
+  lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
   lazy val cegUrl: String = WebDriverFactory.testUrl + address.substring(1) + "/ceg"
 
   def traderName(implicit driver: WebDriver): TextField = textField(id(TraderNameId))
 
   def traderPostcode(implicit driver: WebDriver): TextField = textField(id(TraderPostcodeId))
 
+  def lookup(implicit driver: WebDriver): Element = find(id(SubmitId)).get
+}
+
+object SetupTradeDetailsPage extends SetupTradeDetailsPageBase {
+  final val address = s"$applicationContext/setup-trade-details"
+
+  final val TraderEmailValid = "example@example.co.uk"
+
   def traderEmail(implicit driver: WebDriver): EmailField = emailField(id(s"${TraderEmailId}_$EmailId"))
 
   def traderConfirmEmail(implicit driver: WebDriver): EmailField = emailField(id(s"${TraderEmailId}_$EmailVerifyId"))
-
-  def lookup(implicit driver: WebDriver): Element = find(id(SubmitId)).get
 
   def emailVisible(implicit driver: WebDriver): RadioButton =
     radioButton(id(s"${TraderEmailOptionId}_$Visible"))

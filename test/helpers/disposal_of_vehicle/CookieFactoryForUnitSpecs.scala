@@ -15,6 +15,8 @@ import models.DisposeFormModel.PreventGoingToDisposePageCacheKey
 import models.DisposeFormModel.SurveyRequestTriggerDateCacheKey
 import models.EnterAddressManuallyFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
+import models.PrivateDisposeFormModel
+import models.PrivateDisposeFormModel.PrivateDisposeFormModelCacheKey
 import models.VehicleLookupFormModel
 import models.VehicleLookupFormModel.VehicleLookupFormModelCacheKey
 import org.joda.time.{LocalDate, DateTime}
@@ -234,6 +236,23 @@ object CookieFactoryForUnitSpecs extends TestComposition {
                         sellerEmail: Option[String] = None): Cookie = {
     val key = DisposeFormModelCacheKey
     val value = DisposeFormModel(
+      mileage = mileage,
+      dateOfDisposal = new LocalDate(
+        FakeDateServiceImpl.DateOfDisposalYearValid.toInt,
+          FakeDateServiceImpl.DateOfDisposalMonthValid.toInt,
+          FakeDateServiceImpl.DateOfDisposalDayValid.toInt
+      ),
+      consent = FakeDisposeWebServiceImpl.ConsentValid,
+      lossOfRegistrationConsent = FakeDisposeWebServiceImpl.ConsentValid,
+      email = sellerEmail
+    )
+    createCookie(key, value)
+  }
+
+  def privateDisposeFormModel(mileage: Option[Int] = None,
+                        sellerEmail: Option[String] = None): Cookie = {
+    val key = PrivateDisposeFormModelCacheKey
+    val value = PrivateDisposeFormModel(
       mileage = mileage,
       dateOfDisposal = new LocalDate(
         FakeDateServiceImpl.DateOfDisposalYearValid.toInt,

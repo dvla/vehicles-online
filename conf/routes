@@ -69,6 +69,9 @@ GET         /private/sell-to-the-trade-success                     @controllers.
 POST        /private/sell-to-the-trade-success/new-disposal        @controllers.priv.DisposeSuccess.newDisposal
 POST        /private/sell-to-the-trade-success/exit                @controllers.priv.DisposeSuccess.exit
 
+GET         /private/notify-another-sale                           @controllers.priv.NotifyAnotherSale.present
+POST        /private/notify-another-sale                           @controllers.priv.NotifyAnotherSale.submit
+
 GET         /sell-to-the-trade-failure                             @controllers.DisposeFailure.present
 GET         /private/sell-to-the-trade-failure                     @controllers.priv.DisposeFailure.present
 

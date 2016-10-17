@@ -11,15 +11,17 @@ import WebBrowser.go
 import WebBrowser.currentUrl
 import WebBrowser.pageTitle
 import pages.common.ErrorPanel
-import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposeForPrivateKeeperPage, DisposeSuccessForPrivateKeeperPage}
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.dispose
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.dateOfDisposalDay
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.dateOfDisposalMonth
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.dateOfDisposalYear
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.emailInvisible
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.emailVisible
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.lossOfRegistrationConsent
-import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage.title
+import pages.disposal_of_vehicle.BeforeYouStartPage
+import pages.disposal_of_vehicle.priv.{DisposeForPrivateKeeperPage, DisposeSuccessForPrivateKeeperPage}
+import pages.disposal_of_vehicle.DisposePage.consent
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.dispose
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.dateOfDisposalDay
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.dateOfDisposalMonth
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.dateOfDisposalYear
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.emailInvisible
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.emailVisible
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.lossOfRegistrationConsent
+import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.title
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
@@ -43,7 +45,7 @@ class DisposeIntegrationSpec extends UiSpec with TestHarness {
       cacheSetup()
 
       go to DisposeForPrivateKeeperPage
-      DisposeForPrivateKeeperPage.consent.isDisplayed should be (false)
+      consent.isDisplayed should be (false)
     }
 
     "not display use today's date" taggedAs UiTag in new WebBrowserWithJs {
@@ -77,7 +79,7 @@ class DisposeIntegrationSpec extends UiSpec with TestHarness {
       dateOfDisposalMonth.value = DateOfDisposalMonthValid
       dateOfDisposalYear.value = DateOfDisposalYearValid
 
-      click on DisposeForPrivateKeeperPage.emailInvisible
+      click on emailInvisible
 
       click on dispose
 
