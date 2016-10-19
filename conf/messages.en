@@ -199,8 +199,6 @@ onHandlerNotFound.start.button = Start
 error.title = An unrecoverable error has occurred
 error.button = Start again
 
-mandatory = Fields not labelled (optional) are mandatory
-
 # feedback
 common_feedback.subject = Sell to the trade - feedback
 
