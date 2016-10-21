@@ -47,7 +47,8 @@
         <div class="site-overlay"></div>
     }
 
-    @form(action = submitCall) {
+    @form(action = submitCall,
+          (if(!config.isHtml5ValidationEnabled) Seq('novalidate -> "novalidate") else Nil): _*) {
         @csrfTokenHiddenField()
 
         <div class="two-col clearfix">
@@ -150,11 +151,13 @@
                           Symbol("ga-action") -> "mileage",
                           'typeTel -> true,
                           'optionalFieldKey -> true,
-                          'maxLength -> Mileage.MaxLength, // Must be set independently of the pattern as the pattern is only checked when the user submits.
-                          'validityMessage -> Messages("disposal_dispose.mileage.validation")
+                          'maxLength -> Mileage.MaxLength // Must be set independently of the pattern as the pattern is only checked when the user submits.
                         ) ++
-                   (if(config.isHtml5ValidationEnabled) Map('pattern -> Mileage.Pattern) else Nil),
-                   viewModel.showDateOfSaleWarning)
+                        (if(config.isHtml5ValidationEnabled)
+                           Map('pattern -> Mileage.Pattern,
+                               'validityMessage -> Messages("disposal_dispose.mileage.validation"))
+                         else Nil),
+                         viewModel.showDateOfSaleWarning)
                 )
 
                 @optionalToggle(
@@ -168,7 +171,10 @@
                       disposeForm(EmailId),
                       labelText = Messages("disposal_businesskeeperdetails.traderemaillabel"),
                       hintText = None,
-                      args = modify(Map('maxLength -> EmailMaxLength), viewModel.showDateOfSaleWarning)
+                      args = modify(Map('maxLength -> EmailMaxLength), viewModel.showDateOfSaleWarning) ++
+                             (if(config.isHtml5ValidationEnabled)
+                                Map('validityMessage -> Messages("error.email"))
+                              else Nil)
                   )
                 )
 

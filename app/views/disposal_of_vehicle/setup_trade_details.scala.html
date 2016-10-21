@@ -29,8 +29,9 @@
     showLanguageSwitch = true
 ) {
     <h1>@Messages("disposal_setuptradedetails.title")</h1>
-     
-    @form(action = submitTarget) {
+
+    @form(action = submitTarget,
+          (if(!config.isHtml5ValidationEnabled) Seq('novalidate -> "novalidate") else Nil): _*) {
         @csrfTokenHiddenField()
 
         <div class="uppercase-input">
@@ -59,7 +60,10 @@
                   traderLookupForm(TraderEmailId),
                   labelText = Messages("disposal_businesskeeperdetails.traderemaillabel"),
                   hintText = None,
-                  args = Map('maxLength -> EmailMaxLength)
+                  args = Map('maxLength -> EmailMaxLength) ++
+                         (if(config.isHtml5ValidationEnabled)
+                             Map('validityMessage -> Messages("error.email"))
+                          else Nil)
               )
             )
         }

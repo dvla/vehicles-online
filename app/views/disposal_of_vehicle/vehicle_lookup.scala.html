@@ -50,7 +50,8 @@
         <div id="trader-details" class="second-col uppercase-input">
             <div class="form-steps">
                 <div class="step uppercase-input">
-                    @form(action = viewModel.submit) {
+                    @form(action = viewModel.submit,
+                          (if(!config.isHtml5ValidationEnabled) Seq('novalidate -> "novalidate") else Nil): _*) {
                         @csrfTokenHiddenField()
 
                         @valtechInputText(viewModel.form(VehicleRegistrationNumberId), args =
@@ -67,9 +68,11 @@
                             'tooltipHeading -> Messages("disposal_vehiclelookup.v5c"),
                             'typeTel -> true,
                             'maxLength -> DocumentReferenceNumber.MaxLength, // Must be set independently of the pattern as the pattern is only checked when the user submits.
-                            'validityMessage -> Messages("error.validDocumentReferenceNumber"),
-                            'title -> Messages("")) ++ // [SKW] for accessibility Tony removed have 'title text as the screen reader reads it twice, the knock-on effect is that our custom validation messages aren't displayed so the user has no idea what is wrong.
-                            (if(config.isHtml5ValidationEnabled) Map('pattern -> DocumentReferenceNumber.Pattern) else Nil)
+                            'title -> Messages("")) ++
+                            (if(config.isHtml5ValidationEnabled)
+                                Map('pattern -> DocumentReferenceNumber.Pattern,
+                                    'validityMessage -> Messages("error.validDocumentReferenceNumber"))
+                             else Nil)
                         )
 
 
