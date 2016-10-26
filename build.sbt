@@ -53,8 +53,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.6" % "test" withSources() withJavadoc(),
   "org.slf4j" % "log4j-over-slf4j" % "1.7.21" % "test" withSources() withJavadoc(),
   // VMPR
-  "dvla" %% "vehicles-presentation-common" % "2.57-SNAPSHOT" withSources() withJavadoc() exclude("junit", "junit-dep"),
-  "dvla" %% "vehicles-presentation-common" % "2.57-SNAPSHOT" % "test" classifier "tests" withSources() withJavadoc() exclude("junit", "junit-dep")
+  "dvla" %% "vehicles-presentation-common" % "2.57" withSources() withJavadoc() exclude("junit", "junit-dep"),
+  "dvla" %% "vehicles-presentation-common" % "2.57" % "test" classifier "tests" withSources() withJavadoc() exclude("junit", "junit-dep")
 )
 
 pipelineStages := Seq(rjs, digest, gzip)
@@ -109,11 +109,11 @@ webJarCdns := Map()
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
 // ====================== Sandbox Settings ==========================
-lazy val emailServiceProject = emailService("0.22-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
+lazy val emailServiceProject = emailService("0.21").disablePlugins(PlayScala, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val osAddressLookupProject = osAddressLookup("0.31-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.27-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.21-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
+lazy val osAddressLookupProject = osAddressLookup("0.30").disablePlugins(PlayScala, SbtWeb)
+lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.26").disablePlugins(PlayScala, SbtWeb)
+lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.20").disablePlugins(PlayScala, SbtWeb)
 
 SandboxSettings.portOffset := 17000
 

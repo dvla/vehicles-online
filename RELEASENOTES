@@ -1,3 +1,12 @@
+======= 1.42 ========
+TIME OF RELEASE BINARIES CREATION:
+
+
+VMPRCI-4525 	Error message holding on new keeper's page
+VMPRCI-4531 	Add acceptance tests where they are missing that exercise the version functionality
+VMPRCI-4532 	Fix coverage reporting jobs
+VMPRCI-4534 	Private route - add Notify another sale button
+
 ======= 1.41 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Sep 28 11:44:59 UTC 2016
