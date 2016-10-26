@@ -1,6 +1,6 @@
 ======= 1.42 ========
 TIME OF RELEASE BINARIES CREATION:
-
+Wed Oct 26 10:31:43 UTC 2016
 
 VMPRCI-4525 	Error message holding on new keeper's page
 VMPRCI-4531 	Add acceptance tests where they are missing that exercise the version functionality
