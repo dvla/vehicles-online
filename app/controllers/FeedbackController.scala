@@ -31,10 +31,13 @@ class FeedbackController @Inject()(val emailService: EmailService,
 
   def submit: Action[AnyContent] = Action { implicit request =>
     form.bindFromRequest.fold (
-      invalidForm => BadRequest(views.html.disposal_of_vehicle.feedback(formWithReplacedErrors(invalidForm))),
+      invalidForm => BadRequest(views.html.disposal_of_vehicle.feedback(invalidForm)),
         validForm => {
-          val trackingId = request.cookies.trackingId
-          sendFeedback(validForm, Messages("common_feedback.subject"), trackingId)
+          sendFeedback(
+            validForm,
+            s"${validForm.rating} - ${Messages("common_feedback.subject")}",
+            request.cookies.trackingId()
+          )
           Ok(views.html.disposal_of_vehicle.feedbackSuccess())
         }
     )
