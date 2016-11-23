@@ -109,11 +109,11 @@ webJarCdns := Map()
 //resolvers ++= "Dvla Bintray Public" at "http://dl.bintray.com/dvla/maven/"
 
 // ====================== Sandbox Settings ==========================
-lazy val emailServiceProject = emailService("0.21").disablePlugins(PlayScala, SbtWeb)
+lazy val emailServiceProject = emailService("0.22-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
 lazy val legacyStubsProject = legacyStubs("1.0-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
-lazy val osAddressLookupProject = osAddressLookup("0.31").disablePlugins(PlayScala, SbtWeb)
-lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.26").disablePlugins(PlayScala, SbtWeb)
-lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.20").disablePlugins(PlayScala, SbtWeb)
+lazy val osAddressLookupProject = osAddressLookup("0.32-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
+lazy val vehicleAndKeeperLookupProject = vehicleAndKeeperLookup("0.27-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
+lazy val vehiclesDisposeFulfilProject = vehiclesDisposeFulfil("0.21-SNAPSHOT").disablePlugins(PlayScala, SbtWeb)
 
 SandboxSettings.portOffset := 17000
 
