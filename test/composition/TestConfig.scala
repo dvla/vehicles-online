@@ -2,7 +2,6 @@ package composition
 
 import uk.gov.dvla.vehicles.presentation.common.ConfigProperties.{booleanProp, getIntListProperty, getOptionalProperty, intProp}
 import uk.gov.dvla.vehicles.presentation.common.services.SEND.EmailConfiguration
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.gds.FakeGDSAddressLookupConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.address_lookup.ordnance_survey.FakeOrdnanceSurveyConfig
 import uk.gov.dvla.vehicles.presentation.common.webserviceclients.emailservice.From
 import utils.helpers.Config
@@ -13,16 +12,11 @@ final class TestConfig extends Config {
   override def assetsUrl: Option[String] = None
 
   override val ordnanceSurveyConfig = new FakeOrdnanceSurveyConfig
-  override val gdsAddressLookupConfig = new FakeGDSAddressLookupConfig
   override val disposeConfig = new FakeDisposeConfig
 
   // Micro-service config
   override val ordnanceSurveyMicroServiceUrl = ordnanceSurveyConfig.baseUrl
   override val ordnanceSurveyRequestTimeout = ordnanceSurveyConfig.requestTimeout
-
-  override val gdsAddressLookupBaseUrl = gdsAddressLookupConfig.baseUrl
-  override val gdsAddressLookupRequestTimeout = gdsAddressLookupConfig.requestTimeout
-  override val gdsAddressLookupAuthorisation = gdsAddressLookupConfig.authorisation
 
   override val disposeVehicleMicroServiceBaseUrl = disposeConfig.baseUrl
   override val disposeMsRequestTimeout = disposeConfig.requestTimeout

@@ -7,10 +7,6 @@ import play.api.libs.ws.WSResponse
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.TrackingId
 import common.webserviceclients.addresslookup.AddressLookupWebService
-import common.webserviceclients.addresslookup.gds.domain.Address
-import common.webserviceclients.addresslookup.gds.domain.Details
-import common.webserviceclients.addresslookup.gds.domain.Location
-import common.webserviceclients.addresslookup.gds.domain.Presentation
 import common.webserviceclients.addresslookup.ordnanceservey.PostcodeToAddressResponseDto
 import common.webserviceclients.addresslookup.ordnanceservey.AddressResponseDto
 import scala.concurrent.Future

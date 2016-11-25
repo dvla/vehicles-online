@@ -15,13 +15,14 @@ import common.clientsidesession.CookieFlagsFromConfig
 import common.clientsidesession.CookieNameHashGenerator
 import common.clientsidesession.EncryptedClientSideSessionFactory
 import common.clientsidesession.Sha1HashGenerator
-import common.ConfigProperties.{getProperty, getOptionalProperty, stringProp, booleanProp}
+import common.ConfigProperties.{booleanProp, getOptionalProperty}
 import common.filters.AccessLoggingFilter.AccessLoggerName
 import common.filters.{AccessLoggingConfig, DefaultAccessLoggingConfig}
-import common.filters.{DateTimeZoneServiceImpl, DateTimeZoneService}
+import common.filters.{DateTimeZoneService, DateTimeZoneServiceImpl}
 import common.services.DateService
 import common.services.DateServiceImpl
-import common.webserviceclients.addresslookup.gds.{AddressLookupServiceImpl, WebServiceImpl}
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.AddressLookupServiceImpl
+import uk.gov.dvla.vehicles.presentation.common.webserviceclients.addresslookup.ordnanceservey.WebServiceImpl
 import common.webserviceclients.addresslookup.{AddressLookupService, AddressLookupWebService}
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl
@@ -31,7 +32,6 @@ import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupSer
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupServiceImpl
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebService
 import common.webserviceclients.vehicleandkeeperlookup.VehicleAndKeeperLookupWebServiceImpl
-import common.webserviceclients.addresslookup.ordnanceservey.{WebServiceImpl => OrdnanceSurveyWebServiceImpl, AddressLookupWithOrgnameServiceImpl}
 import common.webserviceclients.emailservice.{EmailService, EmailServiceImpl}
 import common.webserviceclients.emailservice.{EmailServiceWebService, EmailServiceWebServiceImpl}
 import webserviceclients.dispose.{DisposeWebServiceImpl, DisposeWebService, DisposeServiceImpl, DisposeService}
@@ -51,18 +51,8 @@ class DevModule extends ScalaModule {
 
     bind[Config].to[utils.helpers.ConfigImpl].asEagerSingleton()
 
-    getProperty[String]("addressLookupService.type") match {
-      case "ordnanceSurvey" =>
-        bind[AddressLookupService]
-          .to[AddressLookupWithOrgnameServiceImpl]
-          .asEagerSingleton()
-        bind[AddressLookupWebService]
-          .to[OrdnanceSurveyWebServiceImpl]
-          .asEagerSingleton()
-      case _ =>
-        bind[AddressLookupService].to[AddressLookupServiceImpl].asEagerSingleton()
-        bind[AddressLookupWebService].to[WebServiceImpl].asEagerSingleton()
-    }
+    bind[AddressLookupService].to[AddressLookupServiceImpl].asEagerSingleton()
+    bind[AddressLookupWebService].to[WebServiceImpl].asEagerSingleton()
     bind[VehicleAndKeeperLookupWebService].to[VehicleAndKeeperLookupWebServiceImpl].asEagerSingleton()
     bind[VehicleAndKeeperLookupService].to[VehicleAndKeeperLookupServiceImpl].asEagerSingleton()
     bind[DisposeWebService].to[DisposeWebServiceImpl].asEagerSingleton()

@@ -5,7 +5,6 @@ import common.controllers.VehicleLookupConfig
 import common.services.SEND.EmailConfiguration
 import common.utils.helpers.CommonConfig
 import common.webserviceclients.addresslookup.ordnanceservey.OrdnanceSurveyConfig
-import common.webserviceclients.config.GDSAddressLookupConfig
 import webserviceclients.dispose.DisposeConfig
 
 trait Config extends VehicleLookupConfig with CommonConfig {
@@ -13,16 +12,11 @@ trait Config extends VehicleLookupConfig with CommonConfig {
   def assetsUrl: Option[String]
 
   def ordnanceSurveyConfig: OrdnanceSurveyConfig
-  def gdsAddressLookupConfig: GDSAddressLookupConfig
   def disposeConfig: DisposeConfig
 
   // Micro-service config
   def ordnanceSurveyMicroServiceUrl: String
   def ordnanceSurveyRequestTimeout: Int
-
-  def gdsAddressLookupBaseUrl: String
-  def gdsAddressLookupRequestTimeout: Int
-  def gdsAddressLookupAuthorisation: String
 
   def disposeVehicleMicroServiceBaseUrl: String
   def disposeMsRequestTimeout: Int

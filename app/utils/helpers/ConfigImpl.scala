@@ -12,7 +12,6 @@ import common.ConfigProperties.longProp
 import common.ConfigProperties.stringProp
 import common.services.SEND.EmailConfiguration
 import common.webserviceclients.addresslookup.ordnanceservey.OrdnanceSurveyConfig
-import common.webserviceclients.config.GDSAddressLookupConfig
 import common.webserviceclients.emailservice.From
 import webserviceclients.dispose.DisposeConfig
 
@@ -23,16 +22,11 @@ final class ConfigImpl extends Config {
   override def assetsUrl: Option[String] = getOptionalProperty[String]("assets.url")
 
   override val ordnanceSurveyConfig = new OrdnanceSurveyConfig
-  override val gdsAddressLookupConfig = new GDSAddressLookupConfig // TODO: remove this as I don't think it is used
   override val disposeConfig = new DisposeConfig
 
   // Micro-service config
   override val ordnanceSurveyMicroServiceUrl = ordnanceSurveyConfig.baseUrl
   override val ordnanceSurveyRequestTimeout = ordnanceSurveyConfig.requestTimeout
-
-  override val gdsAddressLookupBaseUrl = gdsAddressLookupConfig.baseUrl
-  override val gdsAddressLookupRequestTimeout = gdsAddressLookupConfig.requestTimeout
-  override val gdsAddressLookupAuthorisation = gdsAddressLookupConfig.authorisation
 
   override val disposeVehicleMicroServiceBaseUrl = disposeConfig.baseUrl
   override val disposeMsRequestTimeout = disposeConfig.requestTimeout
