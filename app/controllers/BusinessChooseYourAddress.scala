@@ -36,7 +36,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
     request.cookies.getModel[SetupTradeDetailsFormModel] match {
       case Some(setupTradeDetailsModel) =>
         val session = clientSideSessionFactory.getSession(request.cookies)
-        fetchAddresses(setupTradeDetailsModel, showBusinessName = Some(true))(session, request2lang).map { addresses =>
+        fetchAddresses(setupTradeDetailsModel)(session, request2lang).map { addresses =>
           logMessage(request.cookies.trackingId(), Info, "Presenting business choose your address view")
           Ok(views.html.disposal_of_vehicle.business_choose_your_address(
             BusinessChooseYourAddressViewModel(
@@ -59,7 +59,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
         request.cookies.getModel[SetupTradeDetailsFormModel] match {
           case Some(setupTradeDetails) =>
             implicit val session = clientSideSessionFactory.getSession(request.cookies)
-            fetchAddresses(setupTradeDetails, showBusinessName = Some(true)).map { addresses =>
+            fetchAddresses(setupTradeDetails).map { addresses =>
                 BadRequest(business_choose_your_address(
                   BusinessChooseYourAddressViewModel(
                     formWithReplacedErrors(invalidForm),
@@ -98,7 +98,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
       )
     ).distinctErrors
 
-  private def fetchAddresses(model: SetupTradeDetailsFormModel, showBusinessName: Option[Boolean])
+  private def fetchAddresses(model: SetupTradeDetailsFormModel)
                             (implicit session: ClientSideSession, lang: Lang) =
     addressLookupService.fetchAddressesForPostcode(model.traderPostcode, session.trackingId)
 
@@ -107,7 +107,7 @@ class BusinessChooseYourAddress @Inject()(addressLookupService: AddressLookupSer
                                               (implicit request: Request[_],
                                                session: ClientSideSession
                                               ): Future[Result] = {
-    fetchAddresses(setupBusinessDetailsForm, showBusinessName = Some(false))(session, request2lang).map { addresses =>
+    fetchAddresses(setupBusinessDetailsForm)(session, request2lang).map { addresses =>
         val lookedUpAddress = model.addressSelected
         val addressModel = AddressModel(address = lookedUpAddress.split(",") map (line => line.trim))
         nextPage(model, setupBusinessDetailsForm.traderBusinessName, addressModel, setupBusinessDetailsForm.traderEmail)
