@@ -87,16 +87,6 @@ final class BusinessChooseYourAddressIntegrationSpec extends UiSpec with TestHar
       csrf.getAttribute("name") should equal(uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction.TokenName)
       csrf.getAttribute("value").size > 0 should equal(true)
     }
-
-    "not display any links to change language" taggedAs UiTag in new WebBrowserForSelenium {
-      go to BeforeYouStartPage
-      cacheSetup()
-      CookieFactoryForUISpecs.withLanguageEn()
-      go to BusinessChooseYourAddressPage
-
-      isCymraegDisplayed should equal(false)
-      isEnglishDisplayed should equal(false)
-    }
   }
 
   "manualAddress button that is displayed when addresses have been found" should {

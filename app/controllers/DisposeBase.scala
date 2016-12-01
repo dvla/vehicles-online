@@ -11,6 +11,7 @@ import models.VehicleLookupFormModel
 import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.{DateTime, DateTimeZone, LocalDate}
 import play.api.data.{Form, FormError}
+import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, Call, Request, Result}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -419,10 +420,9 @@ abstract class DisposeBase[FormModel <: DisposeFormModelBase]
         logMessage(request.cookies.trackingId(), Info, s"Sending email message via SEND service...")
 
         // This sends the email.
-        var subjectDetail = s"Confirmation of new vehicle keeper"
-        if (!isPrivate)
-          subjectDetail = s"Confirmation of selling to motor trade"
-        val subject = s"$registrationNumber " + subjectDetail
+        val subjectDetail = if (isPrivate) Messages("email.subject.private")
+                            else Messages("email.subject.trade")
+        val subject = s"$registrationNumber $subjectDetail"
         SEND email template withSubject subject to emailAddr send request.cookies.trackingId()
 
       case None => logMessage(request.cookies.trackingId(), Warn, s"Tried to send an email with no email address")

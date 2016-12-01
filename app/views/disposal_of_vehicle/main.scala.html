@@ -1,7 +1,7 @@
 @(title: String,
     currentForm: Option[Form[_]] = None,
     backButton: Option[Call] = None,
-    showLanguageSwitch: Boolean = false,
+    showLanguageSwitch: Boolean = true,
     showBanner: Boolean = true)(content: Html)(implicit lang: Lang,
     config: utils.helpers.Config,
     isPrivateKeeper: Boolean

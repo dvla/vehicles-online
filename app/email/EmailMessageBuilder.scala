@@ -2,7 +2,7 @@ package email
 
 import java.text.SimpleDateFormat
 import org.joda.time.DateTime
-import play.api.i18n.Messages
+import play.api.i18n.{Lang, Messages}
 import uk.gov.dvla.vehicles.presentation.common.model.VehicleAndKeeperDetailsModel
 
 /**
@@ -13,7 +13,7 @@ object EmailMessageBuilder {
   import uk.gov.dvla.vehicles.presentation.common.services.SEND.Contents
 
   def buildWith(vehicleDetailsOpt: Option[VehicleAndKeeperDetailsModel],  transactionId: String,
-                imagesPath: String, transactionTimestamp: DateTime, isPrivate: Boolean = true, toTrader: Boolean = false): Contents = {
+                imagesPath: String, transactionTimestamp: DateTime, isPrivate: Boolean = true, toTrader: Boolean = false)(implicit lang: Lang): Contents = {
 
     val transactionTimestampStr = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(transactionTimestamp.toDate)
 
@@ -87,7 +87,7 @@ object EmailMessageBuilder {
                         transactionId: String,
                         transactionTimestamp: String,
                         line1LastSentence: String,
-                        lines: Array[String]): String =
+                        lines: Array[String])(implicit lang: Lang): String =
     s"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
        |<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
        |<head>
@@ -184,7 +184,7 @@ object EmailMessageBuilder {
                           transactionId: String,
                           transactionTimestamp: String,
                           line1LastSentence: String,
-                          lines: Array[String]): String =
+                          lines: Array[String])(implicit lang: Lang): String =
     s"""
         |${Messages("email.template.line1")}
         |

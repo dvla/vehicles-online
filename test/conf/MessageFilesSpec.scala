@@ -7,34 +7,32 @@ import uk.gov.dvla.vehicles.presentation.common.testhelpers.MessageFilesSpecHelp
 
 class MessageFilesSpec extends UnitSpec {
 
-  val englishKeys = messagesFilesHelper.extractMessageKeys(ENGLISH_FILE)
-  val welshKeys = messagesFilesHelper.extractMessageKeys(WELSH_FILE)
-  val mapEnglish = messagesFilesHelper.extractMessageMap(ENGLISH_FILE)
-  val mapWelsh = messagesFilesHelper.extractMessageMap(WELSH_FILE)
+  val englishMessages = messagesFilesHelper.parse(ENGLISH_FILE).right.get
+  val welshMessages = messagesFilesHelper.parse(WELSH_FILE).right.get
 
   "Message files" should {
     "have a corresponding Welsh key for each English key" in {
-      val englishKeysWithNoWelshEquivalent = englishKeys.filterNot(enKey => welshKeys.contains(enKey))
-      println(s"English keys that are missing in the Welsh message file: $englishKeysWithNoWelshEquivalent")
-      englishKeysWithNoWelshEquivalent should equal(List.empty)
+      val englishMessagesWithNoWelshEquivalent = englishMessages.filterNot { case (k, _) => welshMessages.contains(k) }
+      println(s"English keys that are missing in the Welsh message file: $englishMessagesWithNoWelshEquivalent")
+      englishMessagesWithNoWelshEquivalent should equal(Map.empty)
     }
 
     "have a corresponding English key for each Welsh key" in {
-      val welshKeysWithNoEnglishEquivalent = welshKeys.filterNot(cyKey => englishKeys.contains(cyKey))
-      println(s"Welsh keys that are missing in the English message file: $welshKeysWithNoEnglishEquivalent")
-      welshKeysWithNoEnglishEquivalent should equal(List.empty)
+      val welshMessagesWithNoEnglishEquivalent = welshMessages.filterNot { case (k, _) => englishMessages.contains(k) }
+      println(s"Welsh keys that are missing in the English message file: $welshMessagesWithNoEnglishEquivalent")
+      welshMessagesWithNoEnglishEquivalent should equal(Map.empty)
     }
 
     "have an English value and a corresponding non-blank Welsh value" in {
-      messagesFilesHelper.getBlankNonBlankValuesCount(mapEnglish, mapWelsh) should equal(0)
+      messagesFilesHelper.getNonBlankValuesCount(englishMessages, welshMessages) should equal(0)
     }
 
     "have a Welsh value and a corresponding non-blank English value" in {
-      messagesFilesHelper.getBlankNonBlankValuesCount(mapWelsh, mapEnglish) should equal(0)
+      messagesFilesHelper.getNonBlankValuesCount(welshMessages, englishMessages) should equal(0)
     }
 
     "have no blank Welsh and English values" in {
-      messagesFilesHelper.getBlankBlankValuesCount(mapWelsh, mapEnglish) should equal(0)
+      messagesFilesHelper.getBlankValuesCount(welshMessages, englishMessages) should equal(0)
     }
   }
 }

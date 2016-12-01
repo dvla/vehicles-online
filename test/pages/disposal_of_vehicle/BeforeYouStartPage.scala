@@ -10,7 +10,7 @@ import views.disposal_of_vehicle.BeforeYouStart.NextId
 object  BeforeYouStartPage extends Page {
   final val address = s"$applicationContext/before-you-start"
   final override val title: String = "Buying a vehicle into trade"
-  final val titleCy: String = "Gwerthu cerbyd i'r fasnach foduron"
+  final val titleCy: String = "Gwerthu cerbyd i’r fasnach foduron"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)
 
