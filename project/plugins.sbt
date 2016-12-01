@@ -19,7 +19,7 @@ addSbtPlugin("dvla" % "build-details-generator" % "1.3.2-SNAPSHOT")
 
 addSbtPlugin("dvla" % "microservices-sandbox" % "2.0.2-SNAPSHOT")
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.9")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.10")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-rjs" % "1.0.7")
 
