@@ -1,3 +1,10 @@
+======= 1.43 ========
+TIME OF RELEASE BINARIES CREATION:
+
+VMPRCI-3812 	Welsh Translation Revision for all VM & PR services
+VMPRCI-4559 	OS Organisation name details appear twice on address picker entry
+VMPRCI-4560 	Update play framework version to 2.3.10
+
 ======= 1.42 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Oct 26 10:31:43 UTC 2016
