@@ -119,7 +119,7 @@ disposal_disposeconfirmation.keeperDetails.email = Contact email address
 disposal_disposeconfirmation.exkeeper-p1 =a letter will be sent to the name and address on the V5C registration certificate (logbook) within 4 weeks.
 disposal_disposeconfirmation.exprivatekeeper-p1 = a letter will be sent to you at the address on the V5C registration certificate (logbook) within 4 weeks.
 disposal_disposeconfirmation.exkeeper-p2 = if they do not receive a letter in this time they must contact DVLA customer enquiries as they could still be liable for this vehicle.
-disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA customer enquiries on 0300 790 6802 as you could still be liable for this vehicle. This telephone number is open Monday to Friday: 08:00 - 18:00 and Saturday: 08:00 - 14:00.
+disposal_disposeconfirmation.exprivatekeeper-p2 = if you do not receive a letter in this time then you must contact DVLA customer enquiries on 0300 790 6802 as you could still be liable for this vehicle. This telephone number is open Monday to Friday: 8am - 6pm and Saturday: 8am - 2pm.
 disposal_disposeconfirmation.exkeeper-p3 = since 1 October 2014 vehicle tax can no longer be transferred as part of a sale. This vehicle is not taxed and an automatic refund for any full remaining months of the previous tax will be sent to the address on the V5C registration certificate (logbook). This should take 4-6 weeks. Any direct debits will also be cancelled.
 disposal_disposeconfirmation.exkeeper-p4 = you may want to take a print of this summary for your records.
 disposal_disposeconfirmation.transactionid_label = Transaction ID
@@ -168,7 +168,7 @@ notifyAnotherSale = Notify another sale
 
 #duplicate-disposal error page
 duplicate_disposal_error.title = We are sorry
-duplicate_disposal_error.text1 = This vehicle has already been notified as sold. If you think this is an error then please call DVLA customer enquiries on 0300 123 1350 (please enter code 544 when prompted). This telephone number is open Monday to Friday: 08:00 - 18:00 and Saturday: 08:00 - 14:00.
+duplicate_disposal_error.text1 = This vehicle has already been notified as sold. If you think this is an error then please call DVLA customer enquiries on 0300 123 1350 (please enter code 544 when prompted). This telephone number is open Monday to Friday: 8am - 6pm and Saturday: 8am - 2pm.
 duplicate_disposal_error.back.button = Try again
 duplicate_disposal_error.exit.button = Exit
 
