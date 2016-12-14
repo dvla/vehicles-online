@@ -7,24 +7,22 @@ import play.api.libs.ws.WSResponse
 import uk.gov.dvla.vehicles.presentation.common
 import common.clientsidesession.TrackingId
 import common.webserviceclients.addresslookup.AddressLookupWebService
-import common.webserviceclients.addresslookup.ordnanceservey.PostcodeToAddressResponseDto
-import common.webserviceclients.addresslookup.ordnanceservey.AddressResponseDto
-import scala.concurrent.Future
+import common.webserviceclients.addresslookup.ordnanceservey.AddressDto
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, PostcodeWithoutAddresses}
+
+import scala.concurrent.Future
 
 final class FakeAddressLookupWebServiceImpl(responseOfPostcodeWebService: Future[WSResponse])
   extends AddressLookupWebService {
 
-  override def callPostcodeWebService(postcode: String,
-                                      trackingId: TrackingId)
-                                     (implicit lang: Lang): Future[WSResponse] =
+  override def callAddresses(postcode: String,
+                             trackingId: TrackingId)
+                            (implicit lang: Lang): Future[WSResponse] =
     if (postcode == PostcodeWithoutAddresses.toUpperCase) Future.successful {
       FakeResponse(status = OK, fakeJson = None)
     }
     else responseOfPostcodeWebService
 
-  override def callAddresses(postcode: String, trackingId: TrackingId)
-                            (implicit lang: Lang): Future[WSResponse] = ???
 }
 
 object FakeAddressLookupWebServiceImpl {
@@ -34,18 +32,37 @@ object FakeAddressLookupWebServiceImpl {
     Seq(houseName, houseNumber, "property stub", "street stub", "town stub", "area stub", PostcodeValid)
   }
 
-  def postcodeToAddressResponseValid: PostcodeToAddressResponseDto = {
-    val results = Seq(
-      AddressResponseDto(addressSeq("presentationProperty stub", "123").mkString(", "), None),
-      AddressResponseDto(addressSeq("presentationProperty stub", "456").mkString(", "), None),
-      AddressResponseDto(addressSeq("presentationProperty stub", "789").mkString(", "), None)
-    )
+def addressesResponseValid: Seq[AddressDto] = {
+  val result = Seq(
+    AddressDto(addressSeq("presentationProperty stub", "123").mkString(", "),
+      None,
+      s"123",
+      None,
+      None,
+      s"town stub",
+      PostcodeValid
+    ),
+    AddressDto(addressSeq("presentationProperty stub", "456").mkString(", "),
+      None,
+      s"123",
+      None,
+      None,
+      s"town stub",
+      PostcodeValid),
+    AddressDto(addressSeq("presentationProperty stub", "789").mkString(", "),
+      None,
+      s"123",
+      None,
+      None,
+      s"town stub",
+      PostcodeValid)
+  )
 
-    PostcodeToAddressResponseDto(addresses = results)
-  }
+  result
+}
 
   def responseValidForPostcodeToAddress: Future[WSResponse] = {
-    val inputAsJson = Json.toJson(postcodeToAddressResponseValid)
+    val inputAsJson = Json.toJson(addressesResponseValid)
 
     Future.successful {
       FakeResponse(status = OK, fakeJson = Some(inputAsJson))
@@ -53,7 +70,7 @@ object FakeAddressLookupWebServiceImpl {
   }
 
   def responseValidForPostcodeToAddressNotFound: Future[WSResponse] = {
-    val inputAsJson = Json.toJson(PostcodeToAddressResponseDto(addresses = Seq.empty))
+    val inputAsJson = Json.toJson(Seq.empty[AddressDto])
 
     Future.successful {
       FakeResponse(status = OK, fakeJson = Some(inputAsJson))
