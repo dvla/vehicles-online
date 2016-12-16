@@ -77,7 +77,7 @@ object EmailMessageBuilder {
         transactionId,
         transactionTimestampStr,
         contentPart1LastSentence,
-        linesPlain)
+        linesPlain, isPrivate)
     )
   }
 
@@ -177,20 +177,20 @@ object EmailMessageBuilder {
        |</body>
        |
        |</html>
-       |
-      """.stripMargin
+       |""".stripMargin
 
-    private def buildText(regNumber: String,
-                          transactionId: String,
-                          transactionTimestamp: String,
-                          line1LastSentence: String,
-                          lines: Array[String])(implicit lang: Lang): String =
+  private def buildText(regNumber: String,
+                        transactionId: String,
+                        transactionTimestamp: String,
+                        line1LastSentence: String,
+                        lines: Array[String], isPrivate: Boolean)(implicit lang: Lang): String =
     s"""
         |${Messages("email.template.line1")}
         |
         |${lines(0)} ${line1LastSentence}
         |
         |${lines(1)}
+        |
         |${Messages("email.txndetails.p2")}${regNumber}
         |${Messages("email.txndetails.p3")}${transactionId}
         |${Messages("email.txndetails.p4")}${transactionTimestamp}
@@ -198,17 +198,17 @@ object EmailMessageBuilder {
         |${lines(2)}
         |
         |${lines(3)}
-        |
-        |${lines(4)}
-        |
-        |${lines(5)}
-        |
+        |${if (isPrivate) s"""
+                             |
+                             |${lines(4)}
+                             |
+                             |${lines(5)}
+                             |""".stripMargin else ""}
         |${Messages("email.template.line2")}
         |
         |${Messages("email.template.line3")}
         |
         |${Messages("email.signature.p1")}
         |${Messages("email.signature.p2")}
-        |${Messages("email.signature.p3")}
-      """.stripMargin
+        |${Messages("email.signature.p3")}""".stripMargin
 }
