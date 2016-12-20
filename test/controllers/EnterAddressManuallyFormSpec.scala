@@ -10,6 +10,7 @@ import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewMod
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line3Id
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.LineMaxLength
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.PostTownId
+import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.TownMaxLength
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid
 import webserviceclients.fakes.FakeAddressLookupService.Line2Valid
 import webserviceclients.fakes.FakeAddressLookupService.Line3Valid
@@ -117,7 +118,7 @@ class EnterAddressManuallyFormSpec extends UnitSpec {
         buildingNameOrNumber = "a" * LineMaxLength + 1,
         line2 = "b" * LineMaxLength,
         line3 = "c" * LineMaxLength,
-        postTown = "d" * LineMaxLength
+        postTown = "d" * TownMaxLength
       ).errors should have length 1
     }
 
