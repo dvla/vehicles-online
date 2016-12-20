@@ -118,7 +118,7 @@ disposal_disposeconfirmation.keeperDetails.email = Cyfeiriad ebost y cyswllt
 disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at yr enw a’r cyfeiriad  sydd ar y dystysgrif gofrestru V5CW (llyfr log) o fewn 4 wythnos.
 disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch i’r cyfeiriad sydd ar y dystysgrif gofrestru V5CW (llyfr log) o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = os nad ydynt yn derbyn llythyr yn yr amser hwn mae’n rhaid iddynt gysylltu ag ymholiadau cwsmeriaid DVLA oherwydd mae’n bosib yr ydynt yn parhau’n atebol am y cerbyd hwn.
-disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu ag ymholiadau cwsmeriaid DVLA ar 0300 790 6802 oherwydd mae’n bosib yr ydych yn parhau’n atebol am y cerbyd hwn. Mae’r llinell ffôn hwn ar agor Ddydd Llun i Ddydd Gwener:  8am to 6pm a dydd Sadwrn: 8am i 2pm.
+disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu ag ymholiadau cwsmeriaid DVLA ar 0300 790 6802 oherwydd mae’n bosib yr ydych yn parhau’n atebol am y cerbyd hwn. Mae’r llinell ffôn hwn ar agor Ddydd Llun i Ddydd Gwener:  8am - 6pm a dydd Sadwrn: 8am - 2pm.
 disposal_disposeconfirmation.exkeeper-p3 = Ers 1 Hydref 2014, ni all treth cerbyd gael ei drosglwyddo fel rhan o’r gwerthiant. Nid yw’r cerbyd hwn wedi’i drethu a bydd ad-daliad awtomatig am unrhyw fisoedd llawn sy’n weddill o’r dreth flaenorol yn cael ei anfon i’r cyfeiriad ar y dystysgrif gofrestru V5CW (llyfr log). Dylai hwn gymryd 4-6 wythnos. Bydd unrhyw ddebyd uniongyrchol yn cael ei ganslo hefyd.
 disposal_disposeconfirmation.exkeeper-p4 = mae’n bosib y byddwch am argraffu’r grynodeb hwn are gyfer eich cofnodion.
 disposal_disposeconfirmation.transactionid_label = Dynodiad y trafodyn
@@ -167,7 +167,7 @@ ms.vehiclesService.response.unableToProcessApplication-address = DVLA, Longview 
 
 #duplicate-disposal error page
 duplicate_disposal_error.title = Mae’n ddrwg gennym
-duplicate_disposal_error.text1 = Mae’r cerbyd hwn eisoes wedi cael ei hysbysu fel y gwerthwyd. Os ydych yn credu bod hwn yn gamgymeriad ffoniwch ymholiadau cwsmeriaid DVLA ar 0300 123 1350 (rhowch god 544 pan ofynnwyd). Mae’r rhif ffôn hwn ar agor o Ddydd Llun i Ddydd Gwener: 8am i 6pm a Dydd Sadwrn: 8am i 2pm.
+duplicate_disposal_error.text1 = Mae’r cerbyd hwn eisoes wedi cael ei hysbysu fel y gwerthwyd. Os ydych yn credu bod hwn yn gamgymeriad ffoniwch ymholiadau cwsmeriaid DVLA ar 0300 123 1350 (rhowch god 544 pan ofynnwyd). Mae’r rhif ffôn hwn ar agor o Ddydd Llun i Ddydd Gwener: 8am - 6pm a Dydd Sadwrn: 8am - 2pm.
 duplicate_disposal_error.back.button = Ceisio eto
 duplicate_disposal_error.exit.button = Gadael
 
