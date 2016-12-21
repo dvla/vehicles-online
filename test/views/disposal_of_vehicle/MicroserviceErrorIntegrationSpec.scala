@@ -9,6 +9,7 @@ import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
 import WebBrowser.go
 import WebBrowser.pageTitle
+import pages.common.AlternateLanguages.{cymraeg, english}
 import pages.disposal_of_vehicle.MicroServiceErrorPage.{exit, tryAgain}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, MicroServiceErrorPage, SetupTradeDetailsPage, VehicleLookupPage}
 
@@ -34,6 +35,16 @@ final class MicroserviceErrorIntegrationSpec extends UiSpec with TestHarness {
       go to MicroServiceErrorPage
       click on tryAgain
       pageTitle should equal(SetupTradeDetailsPage.title)
+    }
+
+    "not be its own referer" taggedAs UiTag in new WebBrowserForSelenium {
+      go to BeforeYouStartPage
+      cacheSetup()
+      go to MicroServiceErrorPage
+      click on cymraeg
+      click on english
+      click on tryAgain
+      pageTitle should equal(VehicleLookupPage.title)
     }
   }
 
