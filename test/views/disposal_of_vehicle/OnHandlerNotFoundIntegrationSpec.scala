@@ -2,13 +2,13 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.UiSpec
-import helpers.tags.UiTag
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
 import WebBrowser.go
 import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.OnHandlerNotFoundPage.exit
 import pages.disposal_of_vehicle.{BeforeYouStartPage, OnHandlerNotFoundPage}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
 
 final class OnHandlerNotFoundIntegrationSpec extends UiSpec with TestHarness {
   "go to not found page" should {

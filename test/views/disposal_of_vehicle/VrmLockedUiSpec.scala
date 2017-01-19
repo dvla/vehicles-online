@@ -3,7 +3,7 @@ package views.disposal_of_vehicle
 import composition.TestHarness
 import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.tags.UiTag
+import models.{AllCacheKeys, DisposeCacheKeys}
 import org.openqa.selenium.{By, WebDriver, WebElement}
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
@@ -13,7 +13,7 @@ import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.VrmLockedPage.{exit, newDisposal}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage, VehicleLookupPage, VrmLockedPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import models.{DisposeCacheKeys, AllCacheKeys}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
 
 final class VrmLockedUiSpec extends UiSpec with TestHarness {
   "go to page" should {

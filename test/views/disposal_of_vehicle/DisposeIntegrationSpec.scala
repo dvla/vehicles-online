@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.{TestGlobalWithFilters, TestHarness}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.tags.UiTag
 import helpers.UiSpec
 import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
 import models.DisposeFormModelBase.Form.EmailOptionId
@@ -15,7 +14,6 @@ import WebBrowser.pageTitle
 import org.scalatest.time.{Seconds, Span}
 import pages.common.ErrorPanel
 import pages.disposal_of_vehicle.BeforeYouStartPage
-//import pages.disposal_of_vehicle.DisposeForPrivateKeeperPage._
 import pages.disposal_of_vehicle.DisposePage
 import pages.disposal_of_vehicle.DisposePage.back
 import pages.disposal_of_vehicle.DisposePage.consent
@@ -36,6 +34,7 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid

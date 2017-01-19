@@ -3,13 +3,13 @@ package views.disposal_of_vehicle
 import composition.{TestGlobalWithFilters, TestHarness}
 import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.tags.UiTag
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.go
 import WebBrowser.pageSource
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
 
 final class MainUiSpec extends UiSpec with TestHarness {
   "go to page" should {

@@ -3,7 +3,6 @@ package views.disposal_of_vehicle
 import composition.TestHarness
 import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.tags.UiTag
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
@@ -11,6 +10,7 @@ import WebBrowser.go
 import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.DisposeFailurePage.{setuptradedetails, vehiclelookup}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, DisposeFailurePage, SetupTradeDetailsPage, VehicleLookupPage}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
 
 final class DisposeFailureIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

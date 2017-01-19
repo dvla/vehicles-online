@@ -3,7 +3,6 @@ package views.disposal_of_vehicle
 import composition.TestHarness
 import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.tags.UiTag
 import org.openqa.selenium.{By, WebElement}
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.go
@@ -14,6 +13,7 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage.happyPath
 import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage, SetupTradeDetailsPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
 
 final class SetUpTradeDetailsIntegrationSpec extends UiSpec with TestHarness {
   "got to page" should {
