@@ -1,9 +1,8 @@
 package controllers
 
 import Common.PrototypeHtml
-import helpers.JsonUtils.deserializeJsonToModel
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
-import helpers.{UnitSpec, TestWithApplication}
+import helpers.{TestWithApplication, UnitSpec}
 import models.DisposeCacheKeyPrefix.CookiePrefix
 import models.EnterAddressManuallyFormModel
 import models.EnterAddressManuallyFormModel.EnterAddressManuallyCacheKey
@@ -14,16 +13,18 @@ import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
 import scala.concurrent.Future
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel
-import uk.gov.dvla.vehicles.presentation.common.model.TraderDetailsModel.traderDetailsCacheKey
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.fetchCookiesFromHeaders
-import uk.gov.dvla.vehicles.presentation.common.views.helpers.FormExtensions
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.AddressLinesId
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.BuildingNameOrNumberId
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line2Id
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.Line3Id
-import uk.gov.dvla.vehicles.presentation.common.views.models.AddressLinesViewModel.Form.PostTownId
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.model.TraderDetailsModel
+import common.model.TraderDetailsModel.traderDetailsCacheKey
+import common.testhelpers.CookieHelper.fetchCookiesFromHeaders
+import common.testhelpers.JsonUtils.deserializeJsonToModel
+import common.views.helpers.FormExtensions
+import common.views.models.AddressLinesViewModel.Form.AddressLinesId
+import common.views.models.AddressLinesViewModel.Form.BuildingNameOrNumberId
+import common.views.models.AddressLinesViewModel.Form.Line2Id
+import common.views.models.AddressLinesViewModel.Form.Line3Id
+import common.views.models.AddressLinesViewModel.Form.PostTownId
 import utils.helpers.Config
 import views.disposal_of_vehicle.EnterAddressManually.PostcodeId
 import webserviceclients.fakes.FakeAddressLookupService.BuildingNameOrNumberValid

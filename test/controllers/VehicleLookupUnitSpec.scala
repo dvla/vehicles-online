@@ -2,7 +2,6 @@ package controllers
 
 import Common.PrototypeHtml
 import com.tzavellas.sse.guice.ScalaModule
-import helpers.JsonUtils.deserializeJsonToModel
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, TestWithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
@@ -39,6 +38,7 @@ import common.model.BruteForcePreventionModel.bruteForcePreventionViewModelCache
 import common.model.MicroserviceResponseModel.MsResponseCacheKey
 import common.services.DateServiceImpl
 import common.testhelpers.CookieHelper.fetchCookiesFromHeaders
+import common.testhelpers.JsonUtils.deserializeJsonToModel
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionConfig
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionService
 import common.webserviceclients.bruteforceprevention.BruteForcePreventionServiceImpl

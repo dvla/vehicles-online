@@ -1,7 +1,6 @@
 package controllers
 
 import controllers.Common.PrototypeHtml
-import helpers.JsonUtils.deserializeJsonToModel
 import helpers.disposal_of_vehicle.CookieFactoryForUnitSpecs
 import helpers.{UnitSpec, TestWithApplication}
 import models.DisposeCacheKeyPrefix.CookiePrefix
@@ -11,13 +10,15 @@ import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage.TraderEmailValid
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{BAD_REQUEST, LOCATION, OK, contentAsString, defaultAwaitTimeout}
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
-import uk.gov.dvla.vehicles.presentation.common.mappings.{BusinessName, OptionalToggle}
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.Form._
-import uk.gov.dvla.vehicles.presentation.common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClientSideSessionFactory
+import common.mappings.Email.{EmailId, EmailVerifyId}
+import common.mappings.{BusinessName, OptionalToggle}
+import common.model.SetupTradeDetailsFormModel
+import common.model.SetupTradeDetailsFormModel.Form.{TraderEmailId, TraderEmailOptionId, TraderNameId, TraderPostcodeId}
+import common.model.SetupTradeDetailsFormModel.setupTradeDetailsCacheKey
+import common.testhelpers.CookieHelper.{fetchCookiesFromHeaders, verifyCookieHasBeenDiscarded}
+import common.testhelpers.JsonUtils.deserializeJsonToModel
 import utils.helpers.Config
 import webserviceclients.fakes.FakeAddressLookupService.{PostcodeValid, TraderBusinessNameValid}
 
