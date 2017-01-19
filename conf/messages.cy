@@ -7,6 +7,7 @@ global.buttonnavprint = Argraffu
 
 # VPC - OptionsToggle
 mandatory-alternative.not-selected = A ydych am gael cadarnhâd ebost?
+
 #page 1 - Before You Start
 disposal_beforeyoustart.p1 = Cyn i chi ddechrau:
 disposal_beforeyoustart.listitem1 = Ni ellir gwneud unrhyw newidiadau i’r dystysgrif gofrestru ddiweddaraf (V5CW) a rhaid bod yr enw a’r cyfeiriad yn gywir.
@@ -86,7 +87,7 @@ disposal_dispose.warning = Os yw’r manylion cerbyd a ddangosir yn anghywir, a 
 disposal_dispose.mileage.label = Milltiredd y cerbyd
 disposal_dispose.mileage.validation = Mae’n rhaid i chi roi milltiredd dilys rhwng 0 a 999999
 disposal_dispose.dateofdisposal.label = Dyddiad y gwerthiant
-disposal_dispose.dateofdisposal.hint =  Er enghraifft, 10 01 2015
+disposal_dispose.dateofdisposal.hint =  Er enghraifft, 01 01 2015
 disposal_dispose.backbutton = Nôl
 disposal_dispose.submitbutton = Cadarnhau’r gwerthiant
 disposal_dispose.consent = Mae gennyf ganiatad y ceidwad cofrestredig i roi gwybod am werthiant y cerbyd hwn
@@ -119,7 +120,7 @@ disposal_disposeconfirmation.exkeeper-p1 = bydd llythyr yn cael ei anfon at yr e
 disposal_disposeconfirmation.exprivatekeeper-p1 = bydd llythyr yn cael ei anfon atoch i’r cyfeiriad sydd ar y dystysgrif gofrestru V5CW (llyfr log) o fewn 4 wythnos.
 disposal_disposeconfirmation.exkeeper-p2 = os nad ydynt yn derbyn llythyr yn yr amser hwn mae’n rhaid iddynt gysylltu ag ymholiadau cwsmeriaid DVLA oherwydd mae’n bosib yr ydynt yn parhau’n atebol am y cerbyd hwn.
 disposal_disposeconfirmation.exprivatekeeper-p2 = os na fyddwch yn cael llythyr yn y cyfnod hwn, yna rhaid i chi gysylltu ag ymholiadau cwsmeriaid DVLA ar 0300 790 6802 oherwydd mae’n bosib yr ydych yn parhau’n atebol am y cerbyd hwn. Mae’r llinell ffôn hwn ar agor Ddydd Llun i Ddydd Gwener:  8am - 6pm a dydd Sadwrn: 8am - 2pm.
-disposal_disposeconfirmation.exkeeper-p3 = Ers 1 Hydref 2014, ni all treth cerbyd gael ei drosglwyddo fel rhan o’r gwerthiant. Nid yw’r cerbyd hwn wedi’i drethu a bydd ad-daliad awtomatig am unrhyw fisoedd llawn sy’n weddill o’r dreth flaenorol yn cael ei anfon i’r cyfeiriad ar y dystysgrif gofrestru V5CW (llyfr log). Dylai hwn gymryd 4-6 wythnos. Bydd unrhyw ddebyd uniongyrchol yn cael ei ganslo hefyd.
+disposal_disposeconfirmation.exkeeper-p3 = ers 1 Hydref 2014, ni all treth cerbyd gael ei drosglwyddo fel rhan o’r gwerthiant. Nid yw’r cerbyd hwn wedi’i drethu a bydd ad-daliad awtomatig am unrhyw fisoedd llawn sy’n weddill o’r dreth flaenorol yn cael ei anfon i’r cyfeiriad ar y dystysgrif gofrestru V5CW (llyfr log). Dylai hwn gymryd 4-6 wythnos. Bydd unrhyw ddebyd uniongyrchol yn cael ei ganslo hefyd.
 disposal_disposeconfirmation.exkeeper-p4 = mae’n bosib y byddwch am argraffu’r grynodeb hwn are gyfer eich cofnodion.
 disposal_disposeconfirmation.transactionid_label = Dynodiad y trafodyn
 disposal_disposeconfirmation.transactionDate = Dyddiad y trafodyn
@@ -144,7 +145,7 @@ private_notify_another_sale.title = A ydych wedi gwerthu’r cerbyd i’r un mas
 private_notify_another_sale.traderName = Enw''r masnachwr
 private_notify_another_sale.traderAddress = Cyfeiriad y masnachwr
 private_notify_another_sale.button = Nesaf
-private_notify_another_sale.yes = Ydy
+private_notify_another_sale.yes = Ydw
 private_notify_another_sale.no = Na
 notifyAnotherSale = Rhoi gwybod am werthiant arall
 
