@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
 import WebBrowser.go
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common
 import common.helpers.webbrowser.Page
 import common.helpers.webbrowser.WebDriverFactory
@@ -14,7 +13,7 @@ import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid
 import webserviceclients.fakes.FakeDisposeWebServiceImpl.MileageValid
 
 object DisposeForPrivateKeeperPage extends pages.disposal_of_vehicle.DisposePageBase {
-  final val address = s"$applicationContext/private/complete-and-confirm"
+  final val address = pages.disposal_of_vehicle.buildAppUrl("private/complete-and-confirm")
   final override val title: String = "Complete and confirm"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)

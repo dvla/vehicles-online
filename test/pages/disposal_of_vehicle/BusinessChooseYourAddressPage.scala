@@ -9,7 +9,6 @@ import WebBrowser.go
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.singleSel
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
 import views.disposal_of_vehicle.BusinessChooseYourAddress
@@ -39,7 +38,7 @@ trait BusinessChooseYourAddressPageBase extends Page {
 }
 
 object BusinessChooseYourAddressPage extends BusinessChooseYourAddressPageBase {
-  final val address: String = s"$applicationContext/business-choose-your-address"
+  final val address: String = buildAppUrl("business-choose-your-address")
 
   def happyPath(implicit driver: WebDriver) = {
     go to BusinessChooseYourAddressPage

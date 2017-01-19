@@ -5,12 +5,11 @@ import org.scalatest.selenium.WebBrowser
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.Element
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
 
 object OnHandlerNotFoundPage extends Page {
-  final val address = s"$applicationContext/nosuchpage/"
+  final val address = buildAppUrl("nosuchpage/")
   final override val title: String = "This page cannot be found"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)

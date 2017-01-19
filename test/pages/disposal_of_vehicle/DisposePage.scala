@@ -21,7 +21,6 @@ import WebBrowser.go
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.Element
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common
 import common.helpers.webbrowser.Page
 import common.helpers.webbrowser.WebDriverFactory
@@ -56,7 +55,7 @@ trait DisposePageBase extends Page {
 }
 
 object DisposePage extends DisposePageBase {
-  final val address = s"$applicationContext/complete-and-confirm"
+  final val address = buildAppUrl("complete-and-confirm")
   final override val title: String = "Complete and confirm"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)

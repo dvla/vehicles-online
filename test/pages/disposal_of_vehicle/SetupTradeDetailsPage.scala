@@ -2,7 +2,6 @@ package pages.disposal_of_vehicle
 
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser._
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.{Page, WebDriverFactory}
 import uk.gov.dvla.vehicles.presentation.common.mappings.Email._
 import uk.gov.dvla.vehicles.presentation.common.mappings.OptionalToggle._
@@ -26,7 +25,7 @@ trait SetupTradeDetailsPageBase extends Page {
 }
 
 object SetupTradeDetailsPage extends SetupTradeDetailsPageBase {
-  final val address = s"$applicationContext/setup-trade-details"
+  final val address = buildAppUrl("setup-trade-details")
 
   final val TraderEmailValid = "example@example.co.uk"
 

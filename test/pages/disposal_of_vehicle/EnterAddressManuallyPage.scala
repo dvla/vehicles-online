@@ -10,7 +10,6 @@ import WebBrowser.go
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.Element
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
 import uk.gov.dvla.vehicles.presentation.common.views.models.AddressAndPostcodeViewModel.Form.PostcodeId
@@ -25,7 +24,7 @@ import webserviceclients.fakes.FakeAddressLookupService.PostTownValid
 import webserviceclients.fakes.FakeAddressLookupService.PostcodeValid
 
 object EnterAddressManuallyPage extends Page {
-  final val address = s"$applicationContext/enter-address-manually"
+  final val address = buildAppUrl("enter-address-manually")
   final override val title: String = "Enter address"
   
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)

@@ -7,7 +7,6 @@ import WebBrowser.go
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.Element
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
 import views.disposal_of_vehicle.DisposeSuccess
@@ -25,7 +24,7 @@ trait DisposeSuccessPageBase extends Page {
 }
 
 object DisposeSuccessPage extends DisposeSuccessPageBase {
-  final val address = s"$applicationContext/sell-to-the-trade-success"
+  final val address = buildAppUrl("sell-to-the-trade-success")
 
   def happyPath(implicit driver: WebDriver) = {
     go to DisposeSuccessPage

@@ -12,7 +12,6 @@ import WebBrowser.go
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.Element
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
 import views.disposal_of_vehicle.VehicleLookup.{BackId, ExitId, ResetTraderDetailsId, SubmitId}
@@ -40,7 +39,7 @@ trait VehicleLookupPageBase extends Page {
 }
 
 object VehicleLookupPage extends VehicleLookupPageBase {
-  final val address = s"$applicationContext/vehicle-lookup"
+  final val address = buildAppUrl("vehicle-lookup")
 
   def happyPath(referenceNumber: String = ReferenceNumberValid, registrationNumber: String = RegistrationNumberValid)
                (implicit driver: WebDriver) = {

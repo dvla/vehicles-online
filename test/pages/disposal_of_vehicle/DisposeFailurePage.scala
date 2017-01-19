@@ -5,14 +5,13 @@ import org.scalatest.selenium.WebBrowser
 import WebBrowser.find
 import WebBrowser.id
 import WebBrowser.Element
-import pages.ApplicationContext.applicationContext
 import uk.gov.dvla.vehicles.presentation.common.helpers
 import helpers.webbrowser.{Page, WebDriverFactory}
 import views.disposal_of_vehicle.DisposeFailure
 import DisposeFailure.{SetupTradeDetailsId, VehicleLookupId}
 
 object DisposeFailurePage extends Page {
-  final val address = s"$applicationContext/sell-to-the-trade-failure"
+  final val address = buildAppUrl("sell-to-the-trade-failure")
   final override val title: String = "Buying a vehicle into trade: failure"
 
   override lazy val url: String = WebDriverFactory.testUrl + address.substring(1)

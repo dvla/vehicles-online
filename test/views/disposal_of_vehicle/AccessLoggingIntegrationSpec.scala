@@ -9,8 +9,7 @@ import org.apache.http.client.methods.{HttpGet, HttpPost}
 import org.apache.http.impl.client.HttpClients
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.selenium.WebBrowser.go
-import pages.ApplicationContext.applicationContext
-import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage}
+import pages.disposal_of_vehicle.{BeforeYouStartPage, BusinessChooseYourAddressPage, HealthCheckPage}
 import play.api.LoggerLike
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebDriverFactory
@@ -23,7 +22,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
       go to BeforeYouStartPage
 
       val infoLogs = mockLoggerTest1.captureLogInfos(1)
-      infoLogs.get(0) should include( s"""] "GET $applicationContext/before-you-start HTTP/1.1" 200""")
+      infoLogs.get(0) should include( s"""] "GET ${BeforeYouStartPage.address} HTTP/1.1" 200""")
     }
 
     "Log access that are completed because of Exception" in new WebBrowserForSelenium(testApp2) {
@@ -33,8 +32,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
       httpResponse.close()
 
       val infoLogs = mockLoggerTest2.captureLogInfos(1)
-      infoLogs.get(0) should include( s"""] "POST $applicationContext/business-choose-your-address HTTP/1.1" 403""")
-      //infoLogs.get(1) should include( s"""] "GET $applicationContext/error/""")
+      infoLogs.get(0) should include( s"""] "POST ${BusinessChooseYourAddressPage.address} HTTP/1.1" 403""")
     }
 
     "Log access to unknown urls" in new WebBrowserForSelenium(testApp3) {
@@ -46,12 +44,11 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
       val infoLogs = mockLoggerTest3.captureLogInfos(1)
 
       infoLogs.get(0) should include( """] "POST /some/unknown/url HTTP/1.1" 403""")
-      //infoLogs.get(1) should include( s"""] "GET $applicationContext/error/""")
     }
 
     "not log any access for the healthcheck url" in new WebBrowserForSelenium(testApp4) {
       val httpClient = HttpClients.createDefault()
-      val post = new HttpGet(WebDriverFactory.testUrl + s"$applicationContext/healthcheck")
+      val post = new HttpGet(HealthCheckPage.url)
       val httpResponse = httpClient.execute(post)
       httpResponse.close()
 
@@ -60,7 +57,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
 
     "not log any access for the healthcheck url with parameters" in new WebBrowserForSelenium(testApp5) {
       val httpClient = HttpClients.createDefault()
-      val post = new HttpGet(WebDriverFactory.testUrl + s"$applicationContext/healthcheck?param1=a&b=c")
+      val post = new HttpGet(WebDriverFactory.testUrl + s"${HealthCheckPage.address}?param1=a&b=c")
       val httpResponse = httpClient.execute(post)
       httpResponse.close()
 
@@ -70,7 +67,7 @@ class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoS
     "log any access for the healthcheck url that has extra in the path or parameters" in
       new WebBrowserForSelenium(testApp6) {
       val httpClient = HttpClients.createDefault()
-      val post = new HttpGet(WebDriverFactory.testUrl + "/healthcheck/some/extra")
+      val post = new HttpGet(WebDriverFactory.testUrl + s"${HealthCheckPage.address}/some/extra")
       val httpResponse = httpClient.execute(post)
       httpResponse.close()
 
