@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.UiSpec
 import models.AllCacheKeys
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser.{click, go, pageTitle, pageSource}
@@ -13,7 +12,7 @@ import WebBrowser.pageTitle
 import pages.common.AlternateLanguages.{isCymraegDisplayed, isEnglishDisplayed}
 import pages.disposal_of_vehicle.BeforeYouStartPage.startNow
 import pages.disposal_of_vehicle.{BeforeYouStartPage, SetupTradeDetailsPage}
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 
 final class BeforeYouStartIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

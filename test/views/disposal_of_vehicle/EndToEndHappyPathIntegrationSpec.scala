@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.UiSpec
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.BusinessChooseYourAddressPage
 import pages.disposal_of_vehicle.DisposePage
@@ -9,7 +8,7 @@ import pages.disposal_of_vehicle.DisposeSuccessPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import org.scalatest.selenium.WebBrowser
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 import WebBrowser.click
 import WebBrowser.go
 import WebBrowser.pageSource

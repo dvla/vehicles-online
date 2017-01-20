@@ -4,7 +4,6 @@ import com.google.inject.name.Names
 import com.google.inject.{Guice, Injector}
 import com.tzavellas.sse.guice.ScalaModule
 import composition.{GlobalWithFilters, TestComposition, TestHarness}
-import helpers.UiSpec
 import org.apache.http.client.methods.{HttpGet, HttpPost}
 import org.apache.http.impl.client.HttpClients
 import org.scalatest.mock.MockitoSugar
@@ -14,6 +13,7 @@ import play.api.LoggerLike
 import uk.gov.dvla.vehicles.presentation.common.filters.AccessLoggingFilter.AccessLoggerName
 import uk.gov.dvla.vehicles.presentation.common.helpers.webbrowser.WebDriverFactory
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiSpec
 
 class AccessLoggingIntegrationSpec extends UiSpec with TestHarness with MockitoSugar {
 

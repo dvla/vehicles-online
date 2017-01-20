@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.TestHarness
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.UiSpec
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
@@ -14,7 +13,7 @@ import pages.disposal_of_vehicle.DuplicateDisposalErrorPage.{exit, tryAgain}
 import pages.disposal_of_vehicle.MicroServiceErrorPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 
 final class DuplicateDisposalIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

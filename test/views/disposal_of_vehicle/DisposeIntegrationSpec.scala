@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.{TestGlobalWithFilters, TestHarness}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.UiSpec
 import models.DisposeFormModelBase.Form.TodaysDateOfDisposal
 import models.DisposeFormModelBase.Form.EmailOptionId
 import org.openqa.selenium.{By, WebDriver}
@@ -34,7 +33,7 @@ import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid

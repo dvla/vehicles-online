@@ -2,7 +2,6 @@ package filters
 
 import com.tzavellas.sse.guice.ScalaModule
 import composition.{TestComposition, TestHarness}
-import helpers.UiSpec
 import org.apache.commons.codec.binary.Base64
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.iteratee.Iteratee
@@ -16,6 +15,7 @@ import play.api.test.Helpers.writeableOf_AnyContentAsFormUrlEncoded
 import play.api.test.Helpers.writeableOf_AnyContentAsJson
 import scala.language.existentials
 import uk.gov.dvla.vehicles.presentation.common.filters.{CsrfPreventionAction, CsrfPreventionFilter}
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiSpec
 import utils.helpers.Config
 
 class EnsureCsrfPreventionFilterIntegrationSpec extends UiSpec with TestHarness with TestComposition {

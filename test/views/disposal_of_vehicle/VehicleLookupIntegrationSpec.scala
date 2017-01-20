@@ -2,7 +2,6 @@ package views.disposal_of_vehicle
 
 import composition.{TestGlobalWithFilters, TestHarness}
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.UiSpec
 import models.AllCacheKeys
 import org.openqa.selenium.{By, WebElement, WebDriver}
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
@@ -22,7 +21,7 @@ import pages.disposal_of_vehicle.VehicleLookupPage.{happyPath, tryLockedVrm, bac
 import pages.disposal_of_vehicle.VrmLockedPage
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
 import uk.gov.dvla.vehicles.presentation.common.testhelpers.LightFakeApplication
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 import uk.gov.dvla.vehicles.presentation.common.views.widgetdriver.Wait
 import webserviceclients.fakes.FakeAddressLookupService.addressWithoutUprn
 

@@ -2,7 +2,6 @@ package views.disposal_of_vehicle.priv
 
 import composition.TestHarness
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
-import helpers.UiSpec
 import org.openqa.selenium.{By, WebDriver}
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.click
@@ -21,7 +20,7 @@ import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.emailInvisible
 import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.emailVisible
 import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.lossOfRegistrationConsent
 import pages.disposal_of_vehicle.priv.DisposeForPrivateKeeperPage.title
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalDayValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalMonthValid
 import webserviceclients.fakes.FakeDateServiceImpl.DateOfDisposalYearValid

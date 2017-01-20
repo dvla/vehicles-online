@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
@@ -14,7 +13,7 @@ import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.SetupTradeDetailsPage
 import pages.disposal_of_vehicle.VehicleLookupPage
 import pages.disposal_of_vehicle.VehicleLookupFailurePage
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 import webserviceclients.fakes.brute_force_protection.FakeBruteForcePreventionWebServiceImpl.MaxAttempts
 
 class VehicleLookupFailureIntegrationSpec extends UiSpec with TestHarness {

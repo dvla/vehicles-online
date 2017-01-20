@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.{By, WebDriver, WebElement}
 import org.scalatest.selenium.WebBrowser
@@ -12,7 +11,7 @@ import pages.common.ErrorPanel
 import pages.disposal_of_vehicle.EnterAddressManuallyPage.{happyPath, happyPathMandatoryFieldsOnly, sadPath}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, EnterAddressManuallyPage, VehicleLookupPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 
 final class EnterAddressManuallyIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle.priv
 
 import composition.TestHarness
-import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
@@ -10,7 +9,7 @@ import WebBrowser.pageSource
 import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.BeforeYouStartPage
 import pages.disposal_of_vehicle.priv.DisposeSuccessForPrivateKeeperPage
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 import views.disposal_of_vehicle.DisposeSuccess
 
 class DisposeSuccessIntegrationSpec extends UiSpec with TestHarness {

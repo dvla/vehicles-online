@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser
@@ -11,7 +10,7 @@ import WebBrowser.pageTitle
 import pages.common.AlternateLanguages.{cymraeg, english}
 import pages.disposal_of_vehicle.MicroServiceErrorPage.{exit, tryAgain}
 import pages.disposal_of_vehicle.{BeforeYouStartPage, MicroServiceErrorPage, SetupTradeDetailsPage, VehicleLookupPage}
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 
 final class MicroserviceErrorIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

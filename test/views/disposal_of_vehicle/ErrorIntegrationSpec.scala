@@ -1,7 +1,6 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.UiSpec
 import helpers.disposal_of_vehicle.CookieFactoryForUISpecs
 import models.AllCacheKeys
 import org.openqa.selenium.{By, WebDriver, WebElement}
@@ -12,7 +11,7 @@ import WebBrowser.pageTitle
 import pages.disposal_of_vehicle.ErrorPage.startAgain
 import pages.disposal_of_vehicle.{BeforeYouStartPage, ErrorPage}
 import uk.gov.dvla.vehicles.presentation.common.filters.CsrfPreventionAction
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiTag
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, UiTag}
 
 final class ErrorIntegrationSpec extends UiSpec with TestHarness {
   "go to page" should {

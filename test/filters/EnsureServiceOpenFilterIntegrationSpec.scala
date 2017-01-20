@@ -2,13 +2,13 @@ package filters
 
 import com.tzavellas.sse.guice.ScalaModule
 import composition.{TestComposition, TestHarness}
-import helpers.UiSpec
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
 import play.api.mvc.{RequestHeader, Result, Results}
 import play.api.test.FakeRequest
 import scala.concurrent.Future
 import scala.language.existentials
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiSpec
 import utils.helpers.Config
 
 class EnsureServiceOpenFilterIntegrationSpec extends UiSpec with TestHarness with ScalaFutures with TestComposition {
