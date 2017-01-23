@@ -1,14 +1,16 @@
 package webserviceclients.dispose_service
 
 import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, postRequestedFor, urlEqualTo}
-import helpers.{UnitSpec, WireMockFixture, TestWithApplication}
+import helpers.{UnitSpec, TestWithApplication}
 import org.joda.time.LocalDate
 import play.api.libs.json.Json
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.ClearTextClientSideSessionFactory
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.NoCookieFlags
-import uk.gov.dvla.vehicles.presentation.common.clientsidesession.TrackingId
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
-import uk.gov.dvla.vehicles.presentation.common.webserviceclients.HttpHeaders
+import uk.gov.dvla.vehicles.presentation.common
+import common.clientsidesession.ClearTextClientSideSessionFactory
+import common.clientsidesession.NoCookieFlags
+import common.clientsidesession.TrackingId
+import common.testhelpers.WireMockFixture
+import common.webserviceclients.common.{VssWebEndUserDto, VssWebHeaderDto}
+import common.webserviceclients.HttpHeaders
 import webserviceclients.dispose.{DisposalAddressDto, DisposeRequestDto, DisposeWebServiceImpl}
 
 class DisposeWebServiceImplSpec extends UnitSpec with WireMockFixture {

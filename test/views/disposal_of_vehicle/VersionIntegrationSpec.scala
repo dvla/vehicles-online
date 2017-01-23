@@ -1,13 +1,12 @@
 package views.disposal_of_vehicle
 
 import composition.TestHarness
-import helpers.WireMockFixture
 import org.scalatest.selenium.WebBrowser
 import WebBrowser.go
 import WebBrowser.pageSource
 import pages.disposal_of_vehicle.VersionPage
 import scala.io.Source.fromInputStream
-import uk.gov.dvla.vehicles.presentation.common.testhelpers.UiSpec
+import uk.gov.dvla.vehicles.presentation.common.testhelpers.{UiSpec, WireMockFixture}
 
 class VersionIntegrationSpec extends UiSpec with TestHarness with WireMockFixture {
   "Version endpoint" should {
