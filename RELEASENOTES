@@ -1,5 +1,6 @@
-======= 1.44 ========
+======= 1.45 ========
 TIME OF RELEASE BINARIES CREATION:
+Wed Jan 25 12:01:35 UTC 2017
 
 VMPRCI-4487 	Changed '7am to 7pm' worded times to '7am - 7pm'
 VMPRCI-4543 	Test helpers clean up
@@ -9,13 +10,20 @@ VMPRCI-4579 	Post town allows too many characters
 VMPRCI-4588 	Further revisions to welsh translation
 VMPRCI-4589 	Language Link / Try Again (microservice) error
 
-======= 1.43 ========
+======= 1.44 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Dec 07 12:38:58 UTC 2016
 
 VMPRCI-3812 	Welsh Translation Revision for all VM & PR services
 VMPRCI-4559 	OS Organisation name details appear twice on address picker entry
 VMPRCI-4560 	Update play framework version to 2.3.10
+
+======= 1.43 ========
+TIME OF RELEASE BINARIES CREATION:
+Wed Nov 23 11:16:49 UTC 2016
+
+VMPRCI-4553 	Changes to VM & PR Beta feedback survey and embed rating into DODI e-mail header
+VMPRCI-4554 	Change CEG opening hours on error messages so in line with CEG opening times
 
 ======= 1.42 ========
 TIME OF RELEASE BINARIES CREATION:
