@@ -1,3 +1,14 @@
+======= 1.44 ========
+TIME OF RELEASE BINARIES CREATION:
+
+VMPRCI-4487 	Changed '7am to 7pm' worded times to '7am - 7pm'
+VMPRCI-4543 	Test helpers clean up
+VMPRCI-4545 	Plain text emails
+VMPRCI-4562 	Consolidate VM and PR web app postcode address lookup calls
+VMPRCI-4579 	Post town allows too many characters
+VMPRCI-4588 	Further revisions to welsh translation
+VMPRCI-4589 	Language Link / Try Again (microservice) error
+
 ======= 1.43 ========
 TIME OF RELEASE BINARIES CREATION:
 Wed Dec 07 12:38:58 UTC 2016
